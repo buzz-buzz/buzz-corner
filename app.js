@@ -7,7 +7,9 @@ const serveStatic = require('koa-static');
 const config = require('./config');
 const membership = require('./membership');
 const send = require('koa-send');
+const userAgent = require('koa-useragent');
 
+app.use(userAgent);
 app.use(bodyParser());
 
 router
@@ -30,6 +32,13 @@ router
             ;
         }
         ctx.body = await request(ctx.request.body);
+    })
+    .get('/wechat-login', async ctx => {
+        if (!/MicroMessenger/i.test(ctx.userAgent.source)) {
+            return ctx.body = '请在微信中打开此链接。';
+        }
+
+        ctx.body = 'ok';
     })
 ;
 

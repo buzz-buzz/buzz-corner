@@ -9,6 +9,6 @@ import WechatLogin from "./WechatLogin";
 
 ReactDOM.render(<Router history={browserHistory}>
     <Route path="/" component={App}/>
-    <Route path="/wechat-login" component={WechatLogin}/>
+    {/*<Route path="/wechat-login" component={WechatLogin}/>*/}
 </Router>, document.getElementById('root'));
 registerServiceWorker();
