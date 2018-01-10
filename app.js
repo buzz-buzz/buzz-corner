@@ -34,6 +34,8 @@ router
         ctx.body = await request(ctx.request.body);
     })
     .get('/wechat-login', async ctx => {
+
+
         if (!/MicroMessenger/i.test(ctx.userAgent.source)) {
             return ctx.body = '请在微信中打开此链接。';
         }
