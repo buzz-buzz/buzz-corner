@@ -26,6 +26,7 @@
     "prd-server": "set NODE_ENV=production&&node app.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   }
 }
