@@ -8,6 +8,7 @@ const config = require('./config');
 const membership = require('./membership');
 const send = require('koa-send');
 const userAgent = require('koa-useragent');
+const WechatOAuth = require('./wechat-oauth');
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -34,13 +35,20 @@ router
         ctx.body = await request(ctx.request.body);
     })
     .get('/wechat-login', async ctx => {
-
-
         if (!/MicroMessenger/i.test(ctx.userAgent.source)) {
             return ctx.body = '请在微信中打开此链接。';
         }
 
         ctx.body = 'ok';
+    })
+    .get('/wechat-oauth-link', async ctx => {
+        let response = await WechatOAuth.getOAuthLink('test');
+
+        if (response.isSuccess) {
+            ctx.body = response.result;
+        } else {
+            ctx.throw(500);
+        }
     })
 ;
 
@@ -66,4 +74,6 @@ app
     .use(router.allowedMethods());
 
 let port = process.env.PORT || 16111;
-app.listen(port);
+let server = app.listen(port);
+
+module.exports = server;
