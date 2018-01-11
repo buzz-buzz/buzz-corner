@@ -14,6 +14,8 @@ class App extends Component {
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
                 <a className="ui green button" href="/wechat-login">微信登录</a>
+                <br/>
+                <a className="ui green button" href="/profile" style={{margin: '1em 0'}}>profile setup</a>
             </div>
         );
     }
