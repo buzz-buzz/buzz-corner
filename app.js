@@ -39,15 +39,13 @@ router
             return ctx.body = '请在微信中打开此链接。';
         }
 
-        ctx.body = 'ok';
+        ctx.redirect(await WechatOAuth.getOAuthLink('http://localhost:16111/wechat-login'));
     })
     .get('/wechat-oauth-link', async ctx => {
-        let response = await WechatOAuth.getOAuthLink('test');
-
-        if (response.isSuccess) {
-            ctx.body = response.result;
-        } else {
-            ctx.throw(500);
+        try {
+            ctx.body = await WechatOAuth.getOAuthLink('test');
+        } catch (ex) {
+            ctx.throw(500, ex);
         }
     })
 ;

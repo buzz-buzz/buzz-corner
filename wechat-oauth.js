@@ -1,8 +1,9 @@
 const request = require("request-promise-native");
+const config = require('./config');
 
 module.exports = {
     getOAuthLink: async function (fromUrl) {
-        return await request.post(`http://10.20.32.61:10101/wechat/oauth/logon`,
+        let response = await request.post(`${config.endPoints.thirdParty}/wechat/oauth/logon`,
             {
                 json: {
                     app_id: 'buzz',
@@ -10,5 +11,11 @@ module.exports = {
                 }
             }
         );
+
+        if (response.isSuccess) {
+            return response.result;
+        } else {
+            throw new Error(response);
+        }
     }
 };

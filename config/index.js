@@ -13,7 +13,8 @@ let config = {
             interview: 'http://10.20.32.61:12789',
             video: 'http://uat.bridgeplus.cn',
             masr: 'http://10.20.32.61:12444',
-            hongda: 'http://10.20.32.51:10126'
+            hongda: 'http://10.20.32.51:10126',
+            thirdParty: 'http://10.20.32.61:10101'
         },
 
         logger: {
@@ -31,7 +32,8 @@ let config = {
             interview: 'http://10.20.32.61:12789',
             video: 'http://uat.bridgeplus.cn',
             masr: 'http://10.20.32.61:12444',
-            hongda: 'http://10.20.32.51:10126'
+            hongda: 'http://10.20.32.51:10126',
+            thirdParty: 'http://10.20.32.61:10101'
         },
 
         logger: {
@@ -50,7 +52,8 @@ let config = {
             interview: 'http://service2.bridgeplus.cn:12789',
             video: 'https://interview.bridgeplus.cn',
             masr: 'http://114.55.233.38:12444',
-            hongda: 'http://114.55.233.38:10126'
+            hongda: 'http://114.55.233.38:10126',
+            thirdParty: 'http://service.bridgeplus.cn:10101'
         },
 
         logger: {
@@ -61,4 +64,4 @@ let config = {
 
 config.production = config.prd;
 
-module.exports = config[process.env.NODE_ENV];
+module.exports = config[process.env.NODE_ENV || 'development'] || config.development;
