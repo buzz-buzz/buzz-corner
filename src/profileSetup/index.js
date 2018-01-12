@@ -52,7 +52,8 @@ export default class profileSetup extends Component {
                 day: '',
                 month: '',
                 year: ''
-            }
+            },
+            msg: ''
         }
     }
 
@@ -89,22 +90,45 @@ export default class profileSetup extends Component {
     };
 
     submit(){
-        let newInterests = [];
+        let newInterests = [], msg = '';
         for (var i in this.state.profile.interests) {
             if(this.state.profile.interests[i]){
                 newInterests.push(i);
             }
         }
 
+        if(!this.state.profile.city){
+            msg = 'Please tell me your city!'
+        }
+
+        //data check if could save to db
+        if(this.state.birthday.day && this.state.birthday.month && this.state.birthday.year){
+            this.state.profile.birthday = this.state.birthday.year + '' +  (this.state.birthday.month > 9 ? this.state.birthday.month : '0' + this.state.birthday.month)  + (this.state.birthday.day > 9 ? this.state.birthday.day : '0' + this.state.birthday.day);
+        }else{
+            msg = 'Please tell me your birthday!';
+        }
+
+        if(!this.state.profile.gender){
+            msg = 'Please tell me your gender!'
+        }
+
+        if(!this.state.profile.name){
+            msg = 'Please tell me your name!'
+        }
+
         this.state.profile.interestsSubmit = newInterests;
 
-        this.setState({modal: true, profile: this.state.profile});
+        if(!msg){
+            msg = JSON.stringify(this.state.profile);
+        }
+
+        this.setState({modal: true, profile: this.state.profile, msg: msg});
     }
 
     render() {
         return (
             <Container fluid>
-                <h1>Setup your profile</h1>
+                <h1 style={{margin: '14px 0', textAlign: 'center'}} >Setup your profile</h1>
                 <Form>
                     <h4>Name</h4>
                     <Form.Group widths='equal'>
@@ -113,7 +137,7 @@ export default class profileSetup extends Component {
                                         name,
                                         value
                                     })}
-                                    name='name' />
+                                    name='name' error={!this.state.profile.name} />
                     </Form.Group>
                     <h4>Gender</h4>
                     <Form.Select options={genderOptions} placeholder='Gender' value={this.state.profile.gender}
@@ -121,7 +145,7 @@ export default class profileSetup extends Component {
                                      name,
                                      value
                                  })}
-                                 name='gender' />
+                                 name='gender' error={!this.state.profile.gender}/>
                     <h4>Birthday</h4>
                     <Form.Group widths='equal'>
                         <Form.Select options={dayOptions} placeholder='Day' value={this.state.birthday.day}
@@ -129,19 +153,19 @@ export default class profileSetup extends Component {
                                          name,
                                          value
                                      })}
-                                     name='day' />
+                                     name='day' error={!this.state.birthday.day}/>
                         <Form.Select options={monthOptions} placeholder='Month'  value={this.state.birthday.month}
                                      onChange={(e, {name, value}) => this.handleBirthChange(e, {
                                          name,
                                          value
                                      })}
-                                     name='month'/>
+                                     name='month' error={!this.state.birthday.month} />
                         <Form.Select options={yearOptions} placeholder='Year'  value={this.state.birthday.year}
                                      onChange={(e, {name, value}) => this.handleBirthChange(e, {
                                          name,
                                          value
                                      })}
-                                     name='year'/>
+                                     name='year'  error={!this.state.birthday.year} />
                     </Form.Group>
                     <h4>Where do you live?</h4>
                     <Form.Group widths='equal'>
@@ -150,7 +174,7 @@ export default class profileSetup extends Component {
                                         name,
                                         value
                                     })}
-                                    name='city' />
+                                    name='city'  error={!this.state.profile.city} />
                     </Form.Group>
                     <h4>Interests</h4>
                     <Form.Group widths='equal'>
@@ -180,7 +204,7 @@ export default class profileSetup extends Component {
                 <Modal open={this.state.modal}  closeIcon onClose={() => this.closeModal()}>
                     <Header icon='archive' content='你填写的个人信息为' />
                     <Modal.Content>
-                        <p>{JSON.stringify(this.state.profile)}</p>
+                        <p>{this.state.msg}</p>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={() => this.closeModal()}>
