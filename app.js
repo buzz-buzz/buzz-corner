@@ -9,6 +9,7 @@ const membership = require('./membership');
 const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const WechatOAuth = require('./wechat-oauth');
+const fs = require('fs');
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -18,7 +19,8 @@ router
         ctx.body = {
             'everything': ' is ok',
             node_env: process.env.NODE_ENV,
-            port: process.env.PORT
+            port: process.env.PORT,
+            version: JSON.parse(fs.readFileSync('package.json', 'utf-8')).version
         };
     })
     .get('/config', async ctx => {
@@ -39,7 +41,14 @@ router
             return ctx.body = '请在微信中打开此链接。';
         }
 
-        ctx.redirect(await WechatOAuth.getOAuthLink('http://localhost:16111/wechat-login'));
+        ctx.redirect(await WechatOAuth.getOAuthLink(`${config.endPoints.buzzCorner}/wechat-login`));
+    })
+    .get('/wechat/oauth/callback', async ctx => {
+        if (ctx.query.is_registed) {
+            ctx.body = `你已注册过，现在可以使用 ${ctx.query.token} 登录`;
+        } else {
+            ctx.body = ctx.query;
+        }
     })
     .get('/wechat-oauth-link', async ctx => {
         try {

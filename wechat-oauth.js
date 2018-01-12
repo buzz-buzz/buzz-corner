@@ -7,7 +7,7 @@ module.exports = {
             {
                 json: {
                     app_id: 'buzz',
-                    returnUrl: 'http://localhost:16111/wechat/oauth/callback?from=' + fromUrl
+                    returnUrl: `${config.endPoints.buzzCorner}/wechat/oauth/callback?from=${fromUrl}`
                 }
             }
         );

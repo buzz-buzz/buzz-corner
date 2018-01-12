@@ -14,7 +14,8 @@ let config = {
             video: 'http://uat.bridgeplus.cn',
             masr: 'http://10.20.32.61:12444',
             hongda: 'http://10.20.32.51:10126',
-            thirdParty: 'http://10.20.32.61:10101'
+            thirdParty: 'http://10.20.32.61:10101',
+            buzzCorner: 'http://localhost:16111'
         },
 
         logger: {
@@ -33,7 +34,8 @@ let config = {
             video: 'http://uat.bridgeplus.cn',
             masr: 'http://10.20.32.61:12444',
             hongda: 'http://10.20.32.51:10126',
-            thirdParty: 'http://10.20.32.61:10101'
+            thirdParty: 'http://10.20.32.61:10101',
+            buzzCorner: 'http://10.20.32.51:16111'
         },
 
         logger: {
@@ -53,7 +55,8 @@ let config = {
             video: 'https://interview.bridgeplus.cn',
             masr: 'http://114.55.233.38:12444',
             hongda: 'http://114.55.233.38:10126',
-            thirdParty: 'http://service.bridgeplus.cn:10101'
+            thirdParty: 'http://service.bridgeplus.cn:10101',
+            buzzCorner: 'http://corner.buzzbuzzenglish.com'
         },
 
         logger: {
