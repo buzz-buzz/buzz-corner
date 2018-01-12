@@ -13,9 +13,9 @@ let sessionCookieOption = {
     httpOnly: true
 };
 
-if (process.env.NODE_ENV === 'prd') {
-    sessionCookieOption.domain = config.rootDomain;
-}
+// if (process.env.NODE_ENV === 'prd') {
+//     sessionCookieOption.domain = config.rootDomain;
+// }
 
 let o = {
     setToken: function (token) {
