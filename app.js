@@ -36,7 +36,7 @@ router
         }
         ctx.body = await request(ctx.request.body);
     })
-    .get('/wechat-login', async ctx => {
+    .get('/wechat-login', membership.setHcdUserIfSignedIn, async ctx => {
         if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
             ctx.body = `你已经成功登录，member_id 是：${ctx.state.hcd_user.member_id}`;
             return;
