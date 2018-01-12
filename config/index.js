@@ -59,7 +59,7 @@ let config = {
             hongda: 'http://114.55.233.38:10126',
             thirdParty: 'http://service.bridgeplus.cn:10101',
             buzzCorner: 'http://corner.buzzbuzzenglish.com',
-            sso: 'http://10.20.32.61:10086'
+            sso: 'http://service.bridgeplus.cn:10086'
         },
 
         logger: {
