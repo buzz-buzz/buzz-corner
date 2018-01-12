@@ -37,6 +37,11 @@ router
         ctx.body = await request(ctx.request.body);
     })
     .get('/wechat-login', async ctx => {
+        if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
+            ctx.body = `你已经成功登录，member_id 是：${ctx.state.hcd_user.member_id}`;
+            return;
+        }
+
         if (!/MicroMessenger/i.test(ctx.userAgent.source)) {
             return ctx.body = '请在微信中打开此链接。';
         }
@@ -67,7 +72,7 @@ if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
     app.use(serveStatic('build'));
 
     router
-        .get('/test/', serveSPA)
+        .get('/profile', serveSPA)
     ;
 
     async function serveSPA(ctx) {
