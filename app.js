@@ -42,10 +42,6 @@ router
             return;
         }
 
-        if (!/MicroMessenger/i.test(ctx.userAgent.source)) {
-            return ctx.body = '请在微信中打开此链接。';
-        }
-
         ctx.redirect(await WechatOAuth.getOAuthLink(`${config.endPoints.buzzCorner}/wechat-login`));
     })
     .get('/wechat/oauth/callback', async ctx => {
