@@ -1,22 +1,8 @@
 'use strict';
 
 const config = require('../config');
-const request = require('request');
+const request = require('request-promise-native');
 const cookie = require('../helpers/cookie');
-
-function doRequest(options) {
-    return new Promise((resolve, reject) => {
-        let req = request(options);
-
-        req.on('data', data => {
-            console.log('on data = ', data.toString());
-            resolve(JSON.parse(data.toString()));
-        });
-        req.on('error', err => {
-            reject(err);
-        });
-    });
-}
 
 function setHcdUser(context, data) {
     context.state.hcd_user = {
@@ -40,10 +26,8 @@ async function parseTokenAndSetHcdUser(context, token) {
             }
         };
     } else {
-        result = await doRequest({
-            uri: 'http://' + config.sso.inner.host + ':' + config.sso.inner.port + '/token/parse',
-            json: {token: token},
-            method: 'POST'
+        result = await request.post(`${config.endPoints.sso}/token/parse`, {
+            json: {token: token}
         });
     }
 
@@ -97,10 +81,7 @@ async function setHcdUserFromQSOrCookie(context) {
 let membership = {
     parseTokenAndSetHcdUser: parseTokenAndSetHcdUser,
     setHcdUserFromCookie: setHcdUserFromCookie,
-
     setHcdUser: setHcdUser,
-
-    parseToken: parseTokenAndSetHcdUser
 };
 
 membership.setHcdUserIfSignedIn = async function (ctx, next) {
@@ -143,10 +124,8 @@ membership.ensureAdmin = async function (ctx, next) {
 };
 
 membership.signOut = async function (next) {
-    await doRequest({
-        uri: 'http://' + config.sso.inner.host + ':' + config.sso.inner.port + '/logon/logout',
-        json: {token: this.query.token || this.cookies.get('token')},
-        method: 'POST'
+    await request.post(`http://${config.endPoints.sso}/logon/logout`, {
+        json: {token: this.query.token || this.cookies.get('token')}
     });
 
     await next();
@@ -160,6 +139,24 @@ membership.requireAuthenticatedFor = function (paths) {
 
         return await next();
     };
+};
+
+membership.signInFromToken = async (ctx, next) => {
+    await setHcdUserFromQSOrCookie(ctx);
+
+    await next();
+};
+
+membership.signUpFromToken = async (ctx, next) => {
+    let response = await request.post(`${config.endPoints.sso}/member/registerByToken`, {
+        json: {token: ctx.query.token, autoLogon: true}
+    });
+
+    if (String(response.isSuccess) === String(true)) {
+        ctx.redirect(`/sign-in?token=${response.result.token}&openid=${ctx.query.openid}&from=${ctx.query.from}&member_id=${response.result.member_id}`);
+    } else {
+        ctx.throw(500, JSON.stringify(response));
+    }
 };
 
 module.exports = membership;

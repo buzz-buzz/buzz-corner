@@ -45,11 +45,19 @@ router
     })
     .get('/wechat/oauth/callback', async ctx => {
         if (String(ctx.query.is_registed) === String(true)) {
-            ctx.body = `你已注册过，现在可以使用 ${ctx.query.token} 登录`;
+            ctx.redirect(`/sign-in?token=${ctx.query.token}&openid=${ctx.query.openid}&from=${ctx.query.from}`);
         } else {
-            ctx.body = ctx.query;
+            ctx.redirect(`/sign-up?token=${ctx.query.token}&openid=${ctx.query.openid}&from=${ctx.query.from}`);
         }
     })
+    .get('/sign-in', membership.signInFromToken, async ctx => {
+        if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
+            ctx.redirect(ctx.query.from || '/');
+        } else {
+            ctx.body = '登录失败！';
+        }
+    })
+    .get('/sign-up', membership.signUpFromToken)
 ;
 
 if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
