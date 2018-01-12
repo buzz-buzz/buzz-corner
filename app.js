@@ -44,17 +44,10 @@ router
         ctx.redirect(await WechatOAuth.getOAuthLink(`${config.endPoints.buzzCorner}/wechat-login`));
     })
     .get('/wechat/oauth/callback', async ctx => {
-        if (ctx.query.is_registed) {
+        if (String(ctx.query.is_registed) === String(true)) {
             ctx.body = `你已注册过，现在可以使用 ${ctx.query.token} 登录`;
         } else {
             ctx.body = ctx.query;
-        }
-    })
-    .get('/wechat-oauth-link', async ctx => {
-        try {
-            ctx.body = await WechatOAuth.getOAuthLink('test');
-        } catch (ex) {
-            ctx.throw(500, ex);
         }
     })
 ;

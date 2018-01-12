@@ -6,10 +6,21 @@ afterEach(() => {
 });
 
 describe('OAuth', function () {
-    test('should return a wechat oauth link', async () => {
-        const response = await request(server).get('/wechat-oauth-link');
+    test('should return a message to indicate user to open in wechat browser', async () => {
+        const response = await request(server).get('/wechat-login');
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('text/plain');
-        expect(response.text.match(/https:\/\/open.weixin.qq.com\/connect\/oauth2\/authorize\?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fauth.bridgeplus.cn%2Fwechat%2Flogon&response_type=code&scope=snsapi_userinfo&state=_trd_we_act_(\d+)&connect_redirect=1#wechat_redirect/).length).toEqual(2);
+        console.error(response.text);
+        expect(response.text).toEqual('请在微信中打开此链接。');
+    });
+
+    test('should return a wechat oauth link', async () => {
+        request.agent(server, {}).set('User-agent', 'MicroMessenger');
+        const response = await request(server)
+            .get('/wechat-login');
+        expect(response.status).toEqual(200);
+        expect(response.type).toEqual('text/plain');
+        console.error(response.text);
+        expect(response.text).toEqual('请在微信中打开此链接。');
     });
 });
