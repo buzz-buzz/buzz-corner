@@ -10,9 +10,11 @@ const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const WechatOAuth = require('./wechat-oauth');
 const fs = require('fs');
+const pug = require('js-koa-pug');
 
 app.use(userAgent);
 app.use(bodyParser());
+app.use(pug('views'));
 
 router
     .get('/healthcheck', async ctx => {
