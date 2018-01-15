@@ -16,7 +16,8 @@ let config = {
             hongda: 'http://10.20.32.51:10126',
             thirdParty: 'http://10.20.32.61:10101',
             buzzCorner: 'http://localhost:16111',
-            sso: 'http://10.20.32.61:10086'
+            sso: 'http://10.20.32.61:10086',
+            buzzService: 'http://10.20.32.61:16160'
         },
 
         logger: {
@@ -37,7 +38,8 @@ let config = {
             hongda: 'http://10.20.32.51:10126',
             thirdParty: 'http://10.20.32.61:10101',
             buzzCorner: 'http://10.20.32.51:16111',
-            sso: 'http://10.20.32.61:10086'
+            sso: 'http://10.20.32.61:10086',
+            buzzService: 'http://10.20.32.61:16160'
         },
 
         logger: {
@@ -59,7 +61,8 @@ let config = {
             hongda: 'http://114.55.233.38:10126',
             thirdParty: 'http://service.bridgeplus.cn:10101',
             buzzCorner: 'http://corner.buzzbuzzenglish.com',
-            sso: 'http://service.bridgeplus.cn:10086'
+            sso: 'http://service.bridgeplus.cn:10086',
+            buzzService: 'http://service.bridgeplus.cn:16160'
         },
 
         logger: {

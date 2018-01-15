@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Form, TextArea, Checkbox, Button, Modal, Header, Icon} from 'semantic-ui-react';
+import ServiceProxy from '../service-proxy';
 
 const genderOptions = [
     { key: 'm', text: 'Male', value: 'male' },
@@ -125,6 +126,16 @@ export default class profileSetup extends Component {
         this.setState({modal: true, profile: this.state.profile, msg: msg});
     }
 
+    async componentDidMount() {
+        //get profile first
+        // let questions = await ServiceProxy.proxyTo({
+        //     body: {
+        //         uri: '{config.endPoints.buzzService}/corner/profile/'
+        //     },
+        //     method: 'GET'
+        // });
+    }
+
     render() {
         return (
             <Container fluid>
@@ -202,7 +213,7 @@ export default class profileSetup extends Component {
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal}  closeIcon onClose={() => this.closeModal()}>
-                    <Header icon='archive' content='你填写的个人信息为' />
+                    <Header icon='archive' content='Message' />
                     <Modal.Content>
                         <p>{this.state.msg}</p>
                     </Modal.Content>
