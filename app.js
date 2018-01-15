@@ -40,7 +40,10 @@ router
     })
     .get('/wechat-login', membership.setHcdUserIfSignedIn, async ctx => {
         if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
-            ctx.body = `你已经成功登录，member_id 是：${ctx.state.hcd_user.member_id}`;
+            ctx.render('wechat-login-callback', {
+                hcd_user: ctx.state.hcd_user
+            });
+
             return;
         }
 
