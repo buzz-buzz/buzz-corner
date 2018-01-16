@@ -108,6 +108,7 @@ export default class profileSetup extends Component {
         let config = await ServiceProxy.proxy('/config');
         let msg = '';
         let clonedSubmitProfile = Object.assign({}, this.state.profile);
+        let userInfo = await ServiceProxy.proxy('/user-info');
 
         if (!clonedSubmitProfile.city) {
             msg = 'Please tell me your city!'
@@ -135,7 +136,7 @@ export default class profileSetup extends Component {
         //save to db
         let response = await ServiceProxy.proxyTo({
             body: {
-                uri:config.endPoints.buzzService + '/corner/profile/c7b6d3fb-32ea-4606-8358-3b7c70fb1dea',
+                uri:config.endPoints.buzzService + '/corner/profile/' + userInfo.member_id,
                 json: clonedSubmitProfile,
                 method: 'POST'
             }
