@@ -64,6 +64,9 @@ router
         }
     })
     .get('/sign-up', membership.signUpFromToken)
+    .get('/user-info', membership.ensureAuthenticated, async ctx => {
+        ctx.body = ctx.state.hcd_user;
+    })
 ;
 
 if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
