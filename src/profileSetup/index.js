@@ -11,22 +11,22 @@ const genderOptions = [
 const dayOptions = [];
 
 for (let i = 1; i <= 31; i++) {
-    dayOptions.push({key: i, text: i + '', value: i});
+    dayOptions.push({key: i, text: i + '', value: i > 9 ? i + '' : '0' + i});
 }
 
 const monthOptions = [
-    {key: 1, text: '1', value: 1},
-    {key: 2, text: '2', value: 2},
-    {key: 3, text: '3', value: 3},
-    {key: 4, text: '4', value: 4},
-    {key: 5, text: '5', value: 5},
-    {key: 6, text: '6', value: 6},
-    {key: 7, text: '7', value: 7},
-    {key: 8, text: '8', value: 8},
-    {key: 9, text: '9', value: 9},
-    {key: 10, text: '10', value: 10},
-    {key: 11, text: '11', value: 11},
-    {key: 12, text: '12', value: 12}
+    {key: 1, text: '1', value: '01'},
+    {key: 2, text: '2', value: '02'},
+    {key: 3, text: '3', value: '03'},
+    {key: 4, text: '4', value: '04'},
+    {key: 5, text: '5', value: '05'},
+    {key: 6, text: '6', value: '06'},
+    {key: 7, text: '7', value: '07'},
+    {key: 8, text: '8', value: '08'},
+    {key: 9, text: '9', value: '09'},
+    {key: 10, text: '10', value: '10'},
+    {key: 11, text: '11', value: '11'},
+    {key: 12, text: '12', value: '12'}
 ];
 
 const yearOptions = [];
@@ -34,7 +34,7 @@ const yearOptions = [];
 let yearNow = parseFloat((new Date).getFullYear());
 
 for (let j = yearNow; j >= yearNow - 100; j--) {
-    yearOptions.push({key: j, text: j + '', value: j});
+    yearOptions.push({key: j, text: j + '', value: j + ''});
 }
 
 export default class profileSetup extends Component {
@@ -63,23 +63,21 @@ export default class profileSetup extends Component {
     }
 
     handleProfileChange = (e, {name, value}) => {
-        this.state.profile[name] = value;
+        let clonedProfileInfo = Object.assign({}, this.state.profile);
+        clonedProfileInfo[name] = value;
 
         this.setState({
-            profile: this.state.profile
+            profile: clonedProfileInfo
         });
-
-        console.log(this.state.profile);
     };
 
     handleBirthChange = (e, {name, value}) => {
-        this.state.birthday[name] = value;
+        let clonedBirthday = Object.assign({}, this.state.birthday);
+        clonedBirthday[name] = value;
 
         this.setState({
-            birthday: this.state.birthday
+            birthday: clonedBirthday
         });
-
-        console.log(this.state.birthday);
     };
 
     handleInterestsChange = (e, {name, checked}) => {
@@ -107,8 +105,14 @@ export default class profileSetup extends Component {
     async submit() {
         let config = await ServiceProxy.proxy('/config');
         let msg = '';
+        let response = '';
         let clonedSubmitProfile = Object.assign({}, this.state.profile);
         let userInfo = await ServiceProxy.proxy('/user-info');
+
+        if (!userInfo.member_id) {
+            alert('You haven\'t Login');
+            return {};
+        }
 
         if (!clonedSubmitProfile.city) {
             msg = 'Please tell me your city!'
@@ -116,7 +120,7 @@ export default class profileSetup extends Component {
 
         //data check if could save to db
         if (this.state.birthday.day && this.state.birthday.month && this.state.birthday.year) {
-            clonedSubmitProfile.birthday = this.state.birthday.year + '' + (this.state.birthday.month > 9 ? this.state.birthday.month : '0' + this.state.birthday.month) + (this.state.birthday.day > 9 ? this.state.birthday.day : '0' + this.state.birthday.day);
+            clonedSubmitProfile.birthday = this.state.birthday.year + '' + this.state.birthday.month + '' + this.state.birthday.day;
         } else {
             msg = 'Please tell me your birthday!';
         }
@@ -130,22 +134,20 @@ export default class profileSetup extends Component {
         }
 
         if (!msg) {
-            msg = JSON.stringify(clonedSubmitProfile);
+            //save to db
+            response = await ServiceProxy.proxyTo({
+                body: {
+                    uri: config.endPoints.buzzService + '/corner/profile/' + userInfo.member_id,
+                    json: clonedSubmitProfile,
+                    method: 'POST'
+                }
+            });
         }
 
-        //save to db
-        let response = await ServiceProxy.proxyTo({
-            body: {
-                uri:config.endPoints.buzzService + '/corner/profile/' + userInfo.member_id,
-                json: clonedSubmitProfile,
-                method: 'POST'
-            }
-        });
-
-        if(response && response.msg === 'success'){
-            this.setState({modal: true, msg: 'Success!'});
-        }else{
-            this.setState({modal: true, msg: response.msg || 'something was wrong!'});
+        if (response && response.msg === 'success') {
+            this.setState({modal: true, msg: 'Save success!'});
+        } else {
+            this.setState({modal: true, msg: msg || response.msg || 'Save failed!'});
         }
 
     }
@@ -155,27 +157,28 @@ export default class profileSetup extends Component {
 
         let userInfo = await ServiceProxy.proxy('/user-info');
 
-        if(!userInfo.member_id){
+        if (!userInfo.member_id) {
             alert('You haven\'t Login');
+            return {};
         }
 
         //get profile first
         let profile = await ServiceProxy.proxyTo({
             body: {
-                uri:config.endPoints.buzzService  + `/corner/profile/` + userInfo.member_id
+                uri: config.endPoints.buzzService + `/corner/profile/` + userInfo.member_id
             }
         });
 
-        if(!profile.member_id){
+        if (!profile.member_id) {
             //first login
-        }else{
+        } else {
             profile.interests = profile.interests || [];
 
-            if(profile.birthday && profile.birthday.length === 8){
+            if (profile.birthday && profile.birthday.length === 8) {
                 profile.birthday = {
-                    day: parseFloat(profile.birthday.substring(6)),
-                    month: parseFloat(profile.birthday.substring(4, 6)),
-                    year: parseFloat(profile.birthday.substring(0, 4))
+                    day: profile.birthday.substring(6),
+                    month: profile.birthday.substring(4, 6),
+                    year: profile.birthday.substring(0, 4)
                 }
             }
 
