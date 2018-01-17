@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, TextArea, Checkbox, Button, Modal, Header, Icon} from 'semantic-ui-react';
+import {Button, Checkbox, Container, Form, Header, Icon, Modal, TextArea} from 'semantic-ui-react';
 import ServiceProxy from '../service-proxy';
 
 
@@ -38,6 +38,40 @@ for (let j = yearNow; j >= yearNow - 100; j--) {
 }
 
 export default class profileSetup extends Component {
+    handleProfileChange = (e, {name, value}) => {
+        let clonedProfileInfo = Object.assign({}, this.state.profile);
+        clonedProfileInfo[name] = value;
+
+        this.setState({
+            profile: clonedProfileInfo
+        });
+    };
+    handleBirthChange = (e, {name, value}) => {
+        let clonedBirthday = Object.assign({}, this.state.birthday);
+        clonedBirthday[name] = value;
+
+        this.setState({
+            birthday: clonedBirthday
+        });
+    };
+    handleInterestsChange = (e, {name, checked}) => {
+        let clonedProfile = Object.assign({}, this.state.profile);
+        if (checked) {
+            if (clonedProfile.interests.indexOf(name) < 0) {
+                clonedProfile.interests.push(name);
+            }
+        } else {
+            let index = clonedProfile.interests.indexOf(name);
+            if (index >= 0) {
+                clonedProfile.interests.splice(index, 1);
+            }
+        }
+
+        this.setState({
+            profile: clonedProfile
+        });
+    };
+
     constructor() {
         super();
 
@@ -61,42 +95,6 @@ export default class profileSetup extends Component {
             msg: ''
         }
     }
-
-    handleProfileChange = (e, {name, value}) => {
-        let clonedProfileInfo = Object.assign({}, this.state.profile);
-        clonedProfileInfo[name] = value;
-
-        this.setState({
-            profile: clonedProfileInfo
-        });
-    };
-
-    handleBirthChange = (e, {name, value}) => {
-        let clonedBirthday = Object.assign({}, this.state.birthday);
-        clonedBirthday[name] = value;
-
-        this.setState({
-            birthday: clonedBirthday
-        });
-    };
-
-    handleInterestsChange = (e, {name, checked}) => {
-        let clonedProfile = Object.assign({}, this.state.profile);
-        if (checked) {
-            if (clonedProfile.interests.indexOf(name) < 0) {
-                clonedProfile.interests.push(name);
-            }
-        } else {
-            let index = clonedProfile.interests.indexOf(name);
-            if (index >= 0) {
-                clonedProfile.interests.splice(index, 1);
-            }
-        }
-
-        this.setState({
-            profile: clonedProfile
-        });
-    };
 
     closeModal() {
         this.setState({modal: false});
@@ -158,8 +156,7 @@ export default class profileSetup extends Component {
         let userInfo = await ServiceProxy.proxy('/user-info');
 
         if (!userInfo.member_id) {
-            alert('You haven\'t Login');
-            return {};
+            window.location.href = '/login';
         }
 
         //get profile first
@@ -246,7 +243,7 @@ export default class profileSetup extends Component {
                     <Form.Group widths='equal'>
                         <Form.Checkbox name='football' control={Checkbox} label='Football' width={4}
                                        checked={this.state.profile.interests.indexOf('football') >= 0}
-                                       onChange={ (e, data) => {
+                                       onChange={(e, data) => {
                                            this.handleInterestsChange(e, data);
                                        }}/>
                         <Form.Checkbox name='pingpang' control={Checkbox} label='Ping-pang' width={4}

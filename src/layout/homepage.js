@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 class Homepage extends Component {
     render() {
@@ -8,9 +8,9 @@ class Homepage extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <a className="ui green button"
-                   href={`//corner.buzzbuzzenglish.com/wechat-login?sign_in_origin=${btoa(window.location.href)}`}>weChat login
-                </a>
+                <Link to="/login" key="login" history="/login" className="ui green button">
+                    Login
+                </Link>
                 <br/>
                 <Link to='/profile' key='profile' history="/profile">
                     <button className="ui green button" style={{margin: '1em 0'}}>profile setup</button>

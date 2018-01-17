@@ -5,20 +5,24 @@ import Header from './layout/header';
 import Footer from './layout/footer';
 import ProfilePage from './profileSetup';
 import HomePage from './layout/homepage';
-import {Router, Route, browserHistory} from "react-router";
+import {browserHistory, Route, Router} from "react-router";
+import Login from "./login/index";
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <Header />
+
+                <Header/>
                 <div className="content">
                     <Router history={browserHistory}>
                         <Route path='/' component={HomePage}/>
+
+                        <Route path="/login" component={Login}/>
                         <Route path='/profile' component={ProfilePage}/>
                     </Router>
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }
