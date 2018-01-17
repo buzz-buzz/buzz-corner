@@ -28,8 +28,9 @@
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&node app.js",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "server-test": "set PORT=22222&&jest",
+    "test": "npm run client-test",
+    "client-test": "react-scripts test --env=jsdom",
+    "server-test": "set PORT=22222&&node_modules\\react-scripts\\node_modules\\.bin\\jest --env=jsdom test\\\\.+\\.test\\.js",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   },
