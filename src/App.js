@@ -8,6 +8,7 @@ import HomePage from './layout/homepage';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
 import Avatar from './profileSetup/more-info';
+import LoginByFacebook from './login/facebook';
 
 class App extends Component {
     render() {
@@ -18,6 +19,7 @@ class App extends Component {
                     <Router history={browserHistory}>
                         <Route path='/' component={HomePage}/>
                         <Route path="/login" component={Login}/>
+                        <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path='/profile' component={ProfilePage}/>
                         <Route path='/profile/avatar' component={Avatar}/>
                     </Router>

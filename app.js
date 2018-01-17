@@ -60,12 +60,12 @@ router
         if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
             ctx.redirect(ctx.query.from || '/');
         } else {
-            ctx.body = {msg : 'login failed！'};
+            ctx.body = {msg: 'login failed！'};
         }
     })
     .get('/sign-up', membership.signUpFromToken)
     .get('/user-info', async ctx => {
-        ctx.body =  {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
+        ctx.body = {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
     })
 ;
 
@@ -77,6 +77,8 @@ if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
 
     router
         .get('/profile', serveSPA)
+        .get('/login', serveSPA)
+        .get('/login/facebook', serveSPA)
     ;
 
     async function serveSPA(ctx) {

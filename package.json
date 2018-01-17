@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "set NODE_ENV=development&&node app.js",
-    "prd-server": "set NODE_ENV=production&&node app.js",
+    "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
     "build": "react-scripts build",
     "test": "npm run client-test",
     "client-test": "react-scripts test --env=jsdom",
