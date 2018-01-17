@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
 import './App.css';
 
+import Header from './layout/header';
+import Footer from './layout/footer';
+import ProfilePage from './profileSetup';
+import HomePage from './layout/homepage';
+import {Router, Route, browserHistory} from "react-router";
+
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <a className="ui green button"
-                   href={`//corner.buzzbuzzenglish.com/wechat-login?sign_in_origin=${btoa(window.location.href)}`}>weChat login</a>
-                <br/>
-                <a className="ui green button" href="/profile" style={{margin: '1em 0'}}>profile setup</a>
+                <Header />
+                <div className="content">
+                    <Router history={browserHistory}>
+                        <Route path='/' component={HomePage}/>
+                        <Route path='/profile' component={ProfilePage}/>
+                    </Router>
+                </div>
+                <Footer />
             </div>
         );
     }
