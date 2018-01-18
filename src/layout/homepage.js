@@ -16,6 +16,9 @@ class Homepage extends Component {
                     <button className="ui green button" style={{margin: '1em 0'}}>profile setup</button>
                 </Link>
                 <br/>
+                <Link to='/profile/avatar' className="ui green button"  key='avatar' history="/profile/avatar">
+                    avatar setup
+                </Link>
                 <br/>
             </div>
         );

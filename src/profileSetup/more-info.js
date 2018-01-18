@@ -8,7 +8,7 @@ export default class profileSetup extends Component {
         super();
 
         this.state = {
-            avatar: '',
+            avatar: 'https://resource.buzzbuzzenglish.com/ad-icon-1.png',
             phone: ''
         }
     }
@@ -20,12 +20,13 @@ export default class profileSetup extends Component {
     };
 
     handleAvatarChange = (e) => {
-        var prevDiv = document.getElementById('preview');
         console.log(this.fileInput.files[0].name);
         //preview
         let reader = new FileReader();
-        reader.onload = function (evt) {
-            prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';
+        reader.onload = (evt) => {
+            this.setState({
+                avatar: evt.target.result || ''
+            });
         };
         reader.readAsDataURL(this.fileInput.files[0]);
     };
@@ -44,7 +45,7 @@ export default class profileSetup extends Component {
                         <div className="avatar">
                             {
                                 this.state.avatar ?
-                                    (<img src={this.state.avatar} alt="loading" />)
+                                    ('')
                                     :
                                     (<div className="plus">
                                         <b>+</b>
@@ -54,7 +55,9 @@ export default class profileSetup extends Component {
                                    onChange={(e) => this.handleAvatarChange(e)}
                                    ref={input => {this.fileInput = input;}}
                                    name="avatar" />
-                            <div id="preview"></div>
+                            <div id="preview">
+                                <img src={this.state.avatar || ''} alt=""/>
+                            </div>
                         </div>
                     </Form.Group>
                     <h4>phone number</h4>
