@@ -11,10 +11,25 @@ const userAgent = require('koa-useragent');
 const WechatOAuth = require('./wechat-oauth');
 const fs = require('fs');
 const pug = require('js-koa-pug');
+const busboy = require('koa-busboy')
+const uploader = busboy({
+});
 
 app.use(userAgent);
 app.use(bodyParser());
 app.use(pug('views'));
+
+function pipeRequest(from, bucket) {
+    return function (cb) {
+        from.pipe(request.put(
+            'http://uat.hcd.com:10003' + '/upload' + bucket,
+            {
+            },
+            function (err, response, body) {
+                cb(err, body);
+            }));
+    };
+}
 
 router
     .get('/healthcheck', async ctx => {
@@ -64,9 +79,19 @@ router
         }
     })
     .get('/sign-up', membership.signUpFromToken)
-    .get('/user-info', async ctx => {
-        ctx.body = {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
+    .get('/user-info', membership.ensureAuthenticated ,async ctx => {
+        ctx.body = ctx.state.hcd_user || {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
     })
+    .put('/avatar', uploader, async ctx=>{
+        let { name } = ctx.request.body;
+        // files
+        // uploaded files is add to ctx.request.files array
+        // let fileReadStream = ctx.request.files[0]
+        ctx.body ={
+            name: name,
+            file: ctx.request.files.length
+        };
+    });
 ;
 
 if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {

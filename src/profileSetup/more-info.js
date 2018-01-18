@@ -19,8 +19,7 @@ export default class profileSetup extends Component {
         });
     };
 
-    handleAvatarChange = (e) => {
-        console.log(this.fileInput.files[0].name);
+    async handleAvatarChange(e) {
         //preview
         let reader = new FileReader();
         reader.onload = (evt) => {
@@ -29,6 +28,17 @@ export default class profileSetup extends Component {
             });
         };
         reader.readAsDataURL(this.fileInput.files[0]);
+
+        let fileForm = new FormData();
+
+        fileForm.append("avatar", this.fileInput.files[0]);
+
+        let response = await  ServiceProxy.proxy('/avatar', {
+            body: fileForm,
+            method: 'PUT'
+        });
+
+        console.log(response);
     };
 
     async componentDidMount() {
@@ -53,8 +63,10 @@ export default class profileSetup extends Component {
                             }
                             <input type="file" id="avatar" accept="image/*;capture=camera"
                                    onChange={(e) => this.handleAvatarChange(e)}
-                                   ref={input => {this.fileInput = input;}}
-                                   name="avatar" />
+                                   ref={input => {
+                                       this.fileInput = input;
+                                   }}
+                                   name="avatar"/>
                             <div id="preview">
                                 <img src={this.state.avatar || ''} alt=""/>
                             </div>
@@ -62,14 +74,15 @@ export default class profileSetup extends Component {
                     </Form.Group>
                     <h4>phone number</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid icon='phone' iconPosition='left'
-                                    placeholder='Your phone number'  value={this.state.phone}
+                        <Form.Input fluid icon='phone' iconPosition='left' type="number"
+                                    placeholder='Your phone number' value={this.state.phone}
                                     onChange={(e, {value}) => this.handlePhoneChange(e, {value})}
-                                    name='phone' error={!this.state.phone || !(/^1[3|4|5|7|8][0-9]{9}$/.test(this.state.phone))} />
+                                    name='phone'
+                                    error={!this.state.phone || !(/^1[3|4|5|7|8][0-9]{9}$/.test(this.state.phone))}/>
                     </Form.Group>
                     <Form.Group widths='equal'>
                         <Form.Field id='submit' control={Button} content='Continue'
-                                    style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}} />
+                                    style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}/>
                     </Form.Group>
                 </Form>
             </Container>

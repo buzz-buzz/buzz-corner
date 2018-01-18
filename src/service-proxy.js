@@ -25,16 +25,13 @@ async function handleError(ex) {
 
 export default {
     proxy: async function (url, options) {
-        if (options && options.body && typeof options.body === 'object') {
+        if (options && options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
             options.body = JSON.stringify(options.body);
         }
 
         try {
             let mergedOptions = Object.assign({
                 accept: 'application/json',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 credentials: 'include'
             }, options);
 
