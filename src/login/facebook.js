@@ -1,12 +1,16 @@
 import React from 'react';
-import {Button, Container} from "semantic-ui-react";
+import {Button, Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 
 export default class FacebookLogin extends React.Component {
     constructor() {
         super();
 
-        this.facebookConnected = this.facebookConnected.bind(this);
+        this.facebookUserInfoGot = this.facebookUserInfoGot.bind(this);
+
+        this.state = {
+            loading: true
+        };
     }
 
     componentDidMount() {
@@ -36,71 +40,52 @@ export default class FacebookLogin extends React.Component {
         this.FB.getLoginStatus(this.facebookLoginStatusGot);
     };
 
-    facebookLogin = () => {
-        console.log('hallo');
-        if (!this.FB) return;
-
-        console.log('fetching login status');
-        this.FB.getLoginStatus(response => {
-            if (response.status === 'connected') {
-                this.facebookLoginStatusGot(response);
-            } else {
-                this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
-            }
-        },);
+    facebookLoginStatusGot = response => {
+        if (response.status === 'connected') {
+            this.FB.api('/me', this.facebookUserInfoGot);
+        } else {
+            alert('Failed to connect to Facebook.');
+            this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
+        }
     };
 
-    async facebookConnected(facebookUserData) {
+    facebookUserInfoGot = async (facebookUserData) => {
         try {
-            let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
-
-            await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
+            await this.loginOldUser(facebookUserData);
         } catch (error) {
-            if (this.isNewUser(error)) {
-                let newUserId = await this.registerByFacebook(facebookUserData);
-                await this.loginByFacebook(facebookUserData.id, newUserId);
-            } else {
-                throw error;
-                alert('Login failed!');
-            }
+            await this.loginNewUser(error, facebookUserData);
         }
-    }
+    };
 
-    isNewUser(error) {
-        return error.status === 404 && error.result && error.result.error === 'The requested user does not exists';
-    }
+    loginOldUser = async (facebookUserData) => {
+        let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
 
-    async getBuzzUserData(facebook_id) {
+        await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
+    };
+
+    loginNewUser = async (error, facebookUserData) => {
+        if (this.isNewUser(error)) {
+            let newUserId = await this.registerByFacebook(facebookUserData);
+            await this.loginByFacebook(facebookUserData.id, newUserId);
+        } else {
+            throw error;
+            alert('Login failed!');
+        }
+    };
+
+    getBuzzUserData = async (facebook_id) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
             }
         });
-    }
+    };
 
-    facebookLoginStatusGot = response => {
-        if (response.status === 'connected') {
-            this.FB.api('/me', this.facebookConnected);
-        } else {
-            alert('Failed to connect to Facebook.');
-        }
-    }
+    isNewUser = (error) => {
+        return error.status === 404 && error.result && error.result.error === 'The requested user does not exists';
+    };
 
-    async loginByFacebook(facebookId, userId) {
-        let res = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
-                method: 'PUT',
-                json: {
-                    user_id: userId,
-                    facebook_id: facebookId
-                }
-            }
-        });
-        console.log('登录成功！', res);
-    }
-
-    async registerByFacebook(facebookUserInfo) {
+    registerByFacebook = async (facebookUserInfo) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
@@ -113,13 +98,32 @@ export default class FacebookLogin extends React.Component {
                 }
             }
         });
-    }
+    };
+
+    loginByFacebook = async (facebookId, userId) => {
+        let res = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
+                method: 'PUT',
+                json: {
+                    user_id: userId,
+                    facebook_id: facebookId
+                }
+            }
+        });
+        console.log('登录成功！', res);
+        this.setState({
+            userInfo: res,
+            loading: false
+        });
+    };
 
     render() {
         return (
             <Container textAlign="center">
-                <p>Hello from facebook</p>
-                <Button onClick={this.facebookLogin}>Sign in with facebook</Button>
+                <Segment loading={this.state.loading}>
+                    {JSON.stringify(this.state.userInfo)}
+                </Segment>
             </Container>
         );
     }
