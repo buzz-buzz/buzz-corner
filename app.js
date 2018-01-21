@@ -97,7 +97,7 @@ router
                 uri: `https://api.weixin.qq.com/sns/userinfo?access_token=${accessTokenResponse.access_token}&openid=${accessTokenResponse.openid}&lang=zh_CN`
             });
 
-            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(userInfoResponse).toString('base64'))}`);
+            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}`);
         } catch (ex) {
             console.error(ex);
             getCode();

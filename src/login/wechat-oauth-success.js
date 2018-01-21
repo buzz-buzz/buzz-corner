@@ -9,7 +9,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
         this.state = {
             loading: true,
-            wechatUserInfo: JSON.parse(atob(props.params.wechatUserInfo))
+            wechatUserInfo: JSON.parse(decodeURIComponent(atob(props.params.wechatUserInfo)))
         };
     }
 
