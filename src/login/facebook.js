@@ -44,6 +44,12 @@ export default class FacebookLogin extends React.Component {
         this.state = {
             loading: true
         };
+
+        if (/MicroMessenger/.test(navigator.userAgent)) {
+            alert('在微信浏览器中请使用微信登录方式');
+            window.location.href = '/wechat-login';
+            return;
+        }
     }
 
     componentDidMount() {
@@ -62,16 +68,6 @@ export default class FacebookLogin extends React.Component {
 
     initializeFacebookLogin = () => {
         this.FB = window.FB;
-        this.checkLoginStatus();
-    };
-
-    checkLoginStatus = () => {
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            alert('在微信浏览器中请使用微信登录方式');
-            window.location.href = '/wechat-login';
-            return;
-        }
-
         this.FB.getLoginStatus(this.facebookLoginStatusGot);
     };
 
