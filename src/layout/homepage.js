@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import Resources from '../resources';
 
 class Homepage extends Component {
     render() {
@@ -9,15 +10,15 @@ class Homepage extends Component {
                 <br/>
                 <br/>
                 <Link to="/login" key="login" history="/login" className="ui green button">
-                    Login
+                    {Resources.getInstance().homeLogin}
                 </Link>
                 <br/>
                 <Link to='/profile' key='profile' history="/profile">
-                    <button className="ui green button" style={{margin: '1em 0'}}>profile setup</button>
+                    <button className="ui green button" style={{margin: '1em 0'}}>{Resources.getInstance().homeProfile}</button>
                 </Link>
                 <br/>
                 <Link to='/profile/avatar' className="ui green button"  key='avatar' history="/profile/avatar">
-                    avatar setup
+                    {Resources.getInstance().homeAvatar}
                 </Link>
                 <br/>
             </div>

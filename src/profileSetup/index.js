@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Checkbox, Container, Form, Header, Icon, Modal, TextArea} from 'semantic-ui-react';
 import ServiceProxy from '../service-proxy';
-
+import Resources from '../resources';
 
 const genderOptions = [
     {key: 'm', text: 'Male', value: 'male'},
@@ -191,11 +191,11 @@ export default class profileSetup extends Component {
     render() {
         return (
             <Container fluid>
-                <h1 style={{margin: '14px 0', textAlign: 'center'}}>Setup your profile</h1>
+                <h1 style={{margin: '14px 0', textAlign: 'center'}}>{Resources.getInstance().profileTitle}</h1>
                 <Form>
-                    <h4>Name</h4>
+                    <h4>{Resources.getInstance().profileName}</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid placeholder='Your name' value={this.state.profile.name}
+                        <Form.Input fluid placeholder={Resources.getInstance().profileNameHolder} value={this.state.profile.name}
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
