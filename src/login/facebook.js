@@ -3,16 +3,17 @@ import {Button, Container} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 
 export default class FacebookLogin extends React.Component {
-    /**
-     * Init FB object and check Facebook Login status
-     */
+    constructor() {
+        super();
+
+        this.facebookConnected = this.facebookConnected.bind(this);
+    }
+
     initializeFacebookLogin = () => {
         this.FB = window.FB;
         this.checkLoginStatus();
-    }
-    /**
-     * Check login status
-     */
+    };
+
     checkLoginStatus = () => {
         if (/MicroMessenger/.test(navigator.userAgent)) {
             alert('在微信浏览器中请使用微信登录方式');
@@ -21,10 +22,8 @@ export default class FacebookLogin extends React.Component {
         }
 
         this.FB.getLoginStatus(this.facebookLoginHandler);
-    }
-    /**
-     * Check login status and call login api is user is not logged in
-     */
+    };
+
     facebookLogin = () => {
         console.log('hallo');
         if (!this.FB) return;
@@ -39,55 +38,37 @@ export default class FacebookLogin extends React.Component {
         },);
     };
 
-    /**
-     * Handle login response
-     */
-    facebookLoginHandler = response => {
-        let self = this;
-        if (response.status === 'connected') {
-            this.FB.api('/me', userData => {
-                let result = {
-                    ...response,
-                    user: userData
-                };
-
-                Promise.all([0].map(async () => {
-                    try {
-                        let res = await ServiceProxy.proxyTo({
-                            body: {
-                                uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${userData.id}`
-                            }
-                        });
-
-                        return self.loginByFacebook(userData.id, res.user_id);
-                    } catch (error) {
-                        if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
-                            return self.registerByFacebook(result.user)
-                                .then((userId) => {
-                                    return self.loginByFacebook(result.user.id, userId);
-                                })
-                                ;
-                        } else {
-                            throw error;
-                        }
-                    }
-                }))
-                    .then(([buzzUserData]) => {
-                        console.log('signed in with ', buzzUserData);
-                        console.log('登录成功，你的 id 是 ', buzzUserData.user_id);
-                    })
-                    .catch((e) => {
-                        console.error('error with ', e);
-                        alert('登录失败！');
-                    });
+    async facebookConnected(userData) {
+        try {
+            let res = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${userData.id}`
+                }
             });
+
+            await this.loginByFacebook(userData.id, res.user_id);
+        } catch (error) {
+            if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
+                let newUserId = await this.registerByFacebook(userData);
+                await  this.loginByFacebook(userData.id, newUserId);
+            } else {
+                throw error;
+
+                alert('Login failed!');
+            }
+        }
+    }
+
+    facebookLoginHandler = response => {
+        if (response.status === 'connected') {
+            this.FB.api('/me', this.facebookConnected);
         } else {
             alert('Failed to connect to Facebook.');
         }
     }
 
-    loginByFacebook(facebookId, userId) {
-        return ServiceProxy.proxyTo({
+    async loginByFacebook(facebookId, userId) {
+        let res = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
                 method: 'PUT',
@@ -97,10 +78,11 @@ export default class FacebookLogin extends React.Component {
                 }
             }
         });
+        console.log('登录成功！', res);
     }
 
-    registerByFacebook(facebookUserInfo) {
-        return ServiceProxy.proxyTo({
+    async registerByFacebook(facebookUserInfo) {
+        return await ServiceProxy.proxyTo({
             body: {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
                 method: 'POST',
