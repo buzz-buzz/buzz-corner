@@ -1,6 +1,39 @@
 import React from 'react';
-import {Button, Container, Segment} from "semantic-ui-react";
+import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
+
+let loadFacebookScripts = () => {
+    window.fbAsyncInit = function () {
+        window.FB.init({
+            appId: '534664310238961',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.11'
+        });
+
+        window.FB.AppEvents.logPageView();
+
+        var fbInitEvent = new Event('FBObjectReady');
+        document.dispatchEvent(fbInitEvent);
+
+        document.addEventListener('componentDidMount', function () {
+            console.log('component mounted');
+            document.dispatchEvent(fbInitEvent);
+            console.log('dispatched fb ready.');
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+};
 
 export default class FacebookLogin extends React.Component {
     constructor() {
@@ -14,6 +47,8 @@ export default class FacebookLogin extends React.Component {
     }
 
     componentDidMount() {
+        loadFacebookScripts();
+
         document.addEventListener('FBObjectReady', this.initializeFacebookLogin);
 
         let mountEvent = new Event('componentDidMount');

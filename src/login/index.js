@@ -10,9 +10,10 @@ export default class Login extends React.Component {
         return (
             <Container textAlign="center">
                 <a className="ui green button"
-                   href={`//corner.buzzbuzzenglish.com/wechat-login?sign_in_origin=${btoa(window.location.href)}`}>weChat login</a>
+                   href={`//corner.buzzbuzzenglish.com/wechat-login?sign_in_origin=${btoa(window.location.href)}`}>weChat
+                    login</a>
                 <br/>
-                <Button circular color='facebook' icon='facebook' onClick={this.gotoFacebookLogin()}/>
+                <Button circular color='facebook' icon='facebook' onClick={this.gotoFacebookLogin}/>
             </Container>
         );
     }
