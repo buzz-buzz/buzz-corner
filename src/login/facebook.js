@@ -47,7 +47,7 @@ export default class FacebookLogin extends React.Component {
 
         if (/MicroMessenger/.test(navigator.userAgent)) {
             alert('在微信浏览器中请使用微信登录方式');
-            window.location.href = '/wechat-login';
+            window.location.href = '/login/wechat';
             return;
         }
     }

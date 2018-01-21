@@ -1,19 +1,18 @@
 import React from 'react';
-import {Button, Container} from "semantic-ui-react";
+import {Button, Container, Icon} from "semantic-ui-react";
+import {Link} from "react-router";
 
 export default class Login extends React.Component {
-    gotoFacebookLogin = () => {
-        window.location.href = '/login/facebook';
-    };
-
     render() {
         return (
             <Container textAlign="center">
-                <a className="ui green button"
-                   href={`//corner.buzzbuzzenglish.com/wechat-login?sign_in_origin=${btoa(window.location.href)}`}>weChat
-                    login</a>
+                <Link to="login/wechat" className="ui green button">微信登录</Link>
                 <br/>
-                <Button circular color='facebook' icon='facebook' onClick={this.gotoFacebookLogin}/>
+                <br/>
+                <Link to="login/facebook" className="ui facebook button">
+                    <Icon name="facebook"/>
+                    Facebook 登录
+                </Link>
             </Container>
         );
     }

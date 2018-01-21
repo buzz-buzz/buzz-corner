@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-const request = require('request');
+const request = require('request-promise-native');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const serveStatic = require('koa-static');
@@ -17,17 +17,6 @@ const uploader = busboy({});
 app.use(userAgent);
 app.use(bodyParser());
 app.use(pug('views'));
-
-function pipeRequest(from, bucket) {
-    return function (cb) {
-        from.pipe(request.put(
-            'http://uat.hcd.com:10003' + '/upload' + bucket,
-            {},
-            function (err, response, body) {
-                cb(err, body);
-            }));
-    };
-}
 
 router
     .get('/healthcheck', async ctx => {
@@ -73,6 +62,47 @@ router
             ctx.redirect(`/sign-up?token=${ctx.query.token}&openid=${ctx.query.openid}&from=${ctx.query.from}`);
         }
     })
+    .get('/wechat/oauth/redirect', async ctx => {
+        let getCode = function () {
+            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fbuzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
+        };
+
+        let code = ctx.query.code;
+        if (!code) {
+            getCode();
+            return;
+        }
+
+        try {
+            let accessTokenResponse = JSON.parse(await request({
+                uri: `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.buzz_wechat_appid}&secret=${process.env.buzz_wechat_secret}&code=${code}&grant_type=authorization_code`
+            }));
+
+            console.log('response = ', accessTokenResponse);
+
+            if (accessTokenResponse.errcode === 40163 && accessTokenResponse.errmsg.startsWith('code been used,')) {
+                getCode();
+                return;
+            }
+
+            // response =  { access_token: '6_l7QIfpUBCn_wnWsFcsb5fP_94GcrPU3lm-aTvk9yhVt43CcxI75aH5Soz1pN5dDbOjaNj-FIVXX6YQApyvqQNg',
+            //     expires_in: 7200,
+            //     refresh_token: '6_1tXQ-GUhbbqUx69UGxQzxKMGygmfBTOHGWNuNoQV48PhqLrBZH5EDYsSz0OSKXmw1MMjjRN5IujlQpR1ZipJfw',
+            //     openid: 'oyjHGw_XuFegDeFmObyFh0uTnHXI',
+            //     scope: 'snsapi_userinfo',
+            //     unionid: 'omVC7woQqmPJnrTQIqzt1PXjnhIk' }
+
+            let userInfoResponse = await request({
+                uri: `https://api.weixin.qq.com/sns/userinfo?access_token=${accessTokenResponse.access_token}&openid=${accessTokenResponse.openid}&lang=zh_CN`
+            });
+
+            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(userInfoResponse).toString('base64'))}`);
+        } catch (ex) {
+            console.error(ex);
+            getCode();
+        }
+    })
+    .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
             ctx.redirect(ctx.query.from || '/');
@@ -95,7 +125,15 @@ router
         };
 
     });
-;
+
+
+async function serveSPA(ctx) {
+    if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
+        await send(ctx, 'build/index.html');
+    } else {
+        await send(ctx, 'public/index.html');
+    }
+}
 
 if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
     console.log('running code for production only...');
@@ -107,11 +145,9 @@ if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/profile', serveSPA)
         .get('/login', serveSPA)
         .get('/login/facebook', serveSPA)
+        .get('/login/wechat', serveSPA)
     ;
 
-    async function serveSPA(ctx) {
-        await send(ctx, 'build/index.html');
-    }
 
     console.log('end running code for production only.')
 }
