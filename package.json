@@ -25,7 +25,7 @@
     "semantic-ui-react": "^0.77.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=80&&react-app-rewired start",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
     "build": "react-scripts build",
@@ -41,6 +41,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^22.1.1",
     "mocha": "^4.1.0",
+    "react-app-rewired": "^1.4.0",
     "supertest": "^3.0.0"
   }
 }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 
 import Header from './layout/header';
 import Footer from './layout/footer';
@@ -9,11 +8,12 @@ import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
 import Avatar from './profileSetup/more-info';
 import LoginByFacebook from './login/facebook';
+import {Container} from "semantic-ui-react";
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
+            <Container style={{height: '100%'}}>
                 <Header/>
                 <div className="content">
                     <Router history={browserHistory}>
@@ -25,7 +25,7 @@ class App extends Component {
                     </Router>
                 </div>
                 <Footer/>
-            </div>
+            </Container>
         );
     }
 }

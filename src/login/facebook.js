@@ -13,6 +13,12 @@ export default class FacebookLogin extends React.Component {
      * Check login status
      */
     checkLoginStatus = () => {
+        if (/MicroMessenger/.test(navigator.userAgent)) {
+            alert('在微信浏览器中请使用微信登录方式');
+            window.location.href = '/wechat-login';
+            return;
+        }
+
         this.FB.getLoginStatus(this.facebookLoginHandler);
     }
     /**
@@ -22,6 +28,7 @@ export default class FacebookLogin extends React.Component {
         console.log('hallo');
         if (!this.FB) return;
 
+        console.log('fetching login status');
         this.FB.getLoginStatus(response => {
             if (response.status === 'connected') {
                 this.facebookLoginHandler(response);
@@ -40,7 +47,7 @@ export default class FacebookLogin extends React.Component {
                     ...response,
                     user: userData
                 };
-                console.log('me')
+                console.log('me: ', result.user)
                 // this.props.onLogin(true, result);
             });
         } else {
@@ -51,6 +58,10 @@ export default class FacebookLogin extends React.Component {
 
     componentDidMount() {
         document.addEventListener('FBObjectReady', this.initializeFacebookLogin);
+
+        let mountEvent = new Event('componentDidMount');
+        document.dispatchEvent(mountEvent);
+
     }
 
     componentWillUnmount() {

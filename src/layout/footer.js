@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import {Container} from "semantic-ui-react";
 
 class Footer extends Component {
     render() {
         return (
-            <header className="App-footer">
-                <div className="App">
-                </div>
-            </header>
+            <Container>
+
+            </Container>
         );
     }
 }
