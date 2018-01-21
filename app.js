@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const app = new Koa();
 const request = require('request-promise-native');
+const oldRequest = require('request');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const serveStatic = require('koa-static');
@@ -42,7 +43,7 @@ router
 
         console.log('proxing with ...', ctx.request.body);
 
-        ctx.body = await request(ctx.request.body);
+        ctx.body = await oldRequest(ctx.request.body);
     })
     .get('/wechat-login', membership.setHcdUserIfSignedIn, async ctx => {
         if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {

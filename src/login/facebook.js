@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
+import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -95,7 +96,7 @@ export default class FacebookLogin extends React.Component {
     };
 
     loginNewUser = async (error, facebookUserData) => {
-        if (this.isNewUser(error)) {
+        if (BuzzServiceApiErrorParser.isNewUser(error)) {
             let newUserId = await this.registerByFacebook(facebookUserData);
             await this.loginByFacebook(facebookUserData.id, newUserId);
         } else {
@@ -110,10 +111,6 @@ export default class FacebookLogin extends React.Component {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
             }
         });
-    };
-
-    isNewUser = (error) => {
-        return error.status === 404 && error.result && error.result.error === 'The requested user does not exists';
     };
 
     registerByFacebook = async (facebookUserInfo) => {
