@@ -9,6 +9,18 @@ export default class FacebookLogin extends React.Component {
         this.facebookConnected = this.facebookConnected.bind(this);
     }
 
+    componentDidMount() {
+        document.addEventListener('FBObjectReady', this.initializeFacebookLogin);
+
+        let mountEvent = new Event('componentDidMount');
+        document.dispatchEvent(mountEvent);
+
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
+    }
+
     initializeFacebookLogin = () => {
         this.FB = window.FB;
         this.checkLoginStatus();
@@ -21,7 +33,7 @@ export default class FacebookLogin extends React.Component {
             return;
         }
 
-        this.FB.getLoginStatus(this.facebookLoginHandler);
+        this.FB.getLoginStatus(this.facebookLoginStatusGot);
     };
 
     facebookLogin = () => {
@@ -31,35 +43,42 @@ export default class FacebookLogin extends React.Component {
         console.log('fetching login status');
         this.FB.getLoginStatus(response => {
             if (response.status === 'connected') {
-                this.facebookLoginHandler(response);
+                this.facebookLoginStatusGot(response);
             } else {
-                this.FB.login(this.facebookLoginHandler, {scope: 'public_profile'});
+                this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
             }
         },);
     };
 
-    async facebookConnected(userData) {
+    async facebookConnected(facebookUserData) {
         try {
-            let res = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${userData.id}`
-                }
-            });
+            let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
 
-            await this.loginByFacebook(userData.id, res.user_id);
+            await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
         } catch (error) {
-            if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
-                let newUserId = await this.registerByFacebook(userData);
-                await  this.loginByFacebook(userData.id, newUserId);
+            if (this.isNewUser(error)) {
+                let newUserId = await this.registerByFacebook(facebookUserData);
+                await this.loginByFacebook(facebookUserData.id, newUserId);
             } else {
                 throw error;
-
                 alert('Login failed!');
             }
         }
     }
 
-    facebookLoginHandler = response => {
+    isNewUser(error) {
+        return error.status === 404 && error.result && error.result.error === 'The requested user does not exists';
+    }
+
+    async getBuzzUserData(facebook_id) {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
+            }
+        });
+    }
+
+    facebookLoginStatusGot = response => {
         if (response.status === 'connected') {
             this.FB.api('/me', this.facebookConnected);
         } else {
@@ -94,18 +113,6 @@ export default class FacebookLogin extends React.Component {
                 }
             }
         });
-    }
-
-    componentDidMount() {
-        document.addEventListener('FBObjectReady', this.initializeFacebookLogin);
-
-        let mountEvent = new Event('componentDidMount');
-        document.dispatchEvent(mountEvent);
-
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
     }
 
     render() {
