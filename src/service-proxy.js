@@ -5,7 +5,14 @@ async function checkStatus(response) {
         const error = new Error(`HTTP Error: ${response.statusText}`);
         error.statusText = response.statusText;
         error.status = response.status;
-        error.authPath = await response.text();
+        if (response.status === 401) {
+            error.authPath = await response.text();
+        }
+        try {
+            error.result = await response.json();
+        } catch (e) {
+            error.result = await response.text();
+        }
         throw error;
     }
 }
@@ -32,6 +39,9 @@ export default {
         try {
             let mergedOptions = Object.assign({
                 accept: 'application/json',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 credentials: 'include'
             }, options);
 

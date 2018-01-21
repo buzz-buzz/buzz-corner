@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Container} from "semantic-ui-react";
+import ServiceProxy from '../service-proxy';
 
 export default class FacebookLogin extends React.Component {
     /**
@@ -36,24 +37,81 @@ export default class FacebookLogin extends React.Component {
                 this.FB.login(this.facebookLoginHandler, {scope: 'public_profile'});
             }
         },);
-    }
+    };
+
     /**
      * Handle login response
      */
     facebookLoginHandler = response => {
+        let self = this;
         if (response.status === 'connected') {
             this.FB.api('/me', userData => {
                 let result = {
                     ...response,
                     user: userData
                 };
-                console.log('me: ', result.user)
-                // this.props.onLogin(true, result);
+
+                console.log(userData);
+
+                Promise.all([0].map(async () => {
+                    return await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${result.user.id}`
+                        }
+                    });
+                })).then(function (results) {
+                    console.log('done with ', results[0]);
+                    return self.loginByFacebook(userData.id, results[0].user_id);
+                }, function (error) {
+                    if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
+                        return self.registerByFacebook(result.user)
+                            .then((userId) => {
+                                return self.loginByFacebook(result.user.id, userId);
+                            })
+                            ;
+                    } else {
+                        throw error;
+                    }
+                })
+                    .then((s) => {
+                        console.log('signed in with ', s);
+                    })
+                    .catch((e) => {
+                        console.error('error with ', e);
+                        alert('登录失败！');
+                    });
             });
         } else {
-            console.log('not me');
-            // this.props.onLogin(false);
+            alert('登录失败！');
         }
+    }
+
+    loginByFacebook(facebookId, userId) {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
+                method: 'PUT',
+                json: {
+                    user_id: userId,
+                    facebook_id: facebookId
+                }
+            }
+        });
+    }
+
+    registerByFacebook(facebookUserInfo) {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users',
+                method: 'POST',
+                json: {
+                    role: 's',
+                    name: facebookUserInfo.name,
+                    facebook_id: facebookUserInfo.id,
+                    facebook_name: facebookUserInfo.name
+                }
+            }
+        });
     }
 
     componentDidMount() {

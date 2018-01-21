@@ -12,8 +12,7 @@ const WechatOAuth = require('./wechat-oauth');
 const fs = require('fs');
 const pug = require('js-koa-pug');
 const busboy = require('koa-busboy')
-const uploader = busboy({
-});
+const uploader = busboy({});
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -23,8 +22,7 @@ function pipeRequest(from, bucket) {
     return function (cb) {
         from.pipe(request.put(
             'http://uat.hcd.com:10003' + '/upload' + bucket,
-            {
-            },
+            {},
             function (err, response, body) {
                 cb(err, body);
             }));
@@ -49,8 +47,12 @@ router
                 .replace('{config.endPoints.interview}', config.endPoints.interview)
                 .replace('{config.endPoints.masr}', config.endPoints.masr)
                 .replace('{config.endPoints.hongda}', config.endPoints.hongda)
+                .replace('{config.endPoints.buzzService}', config.endPoints.buzzService)
             ;
         }
+
+        console.log('proxing with ...', ctx.request.body);
+
         ctx.body = await request(ctx.request.body);
     })
     .get('/wechat-login', membership.setHcdUserIfSignedIn, async ctx => {
@@ -79,15 +81,15 @@ router
         }
     })
     .get('/sign-up', membership.signUpFromToken)
-    .get('/user-info', membership.ensureAuthenticated ,async ctx => {
+    .get('/user-info', membership.ensureAuthenticated, async ctx => {
         ctx.body = ctx.state.hcd_user || {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
     })
-    .put('/avatar', uploader, async ctx=>{
-        let { name } = ctx.request.body;
+    .put('/avatar', uploader, async ctx => {
+        let {name} = ctx.request.body;
         // files
         // uploaded files is add to ctx.request.files array
         // let fileReadStream = ctx.request.files[0]
-        ctx.body ={
+        ctx.body = {
             name: name,
             file: ctx.request.files.length
         };

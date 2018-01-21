@@ -17,7 +17,7 @@ let config = {
             thirdParty: 'http://10.20.32.61:10101',
             buzzCorner: 'http://localhost:16111',
             sso: 'http://10.20.32.61:10086',
-            buzzService: 'http://10.20.32.61:16160',
+            buzzService: 'https://buzz-corner-service.herokuapp.com',
             upload_qiniu: 'http://uat.hcd.com:10003'
         },
 
@@ -40,7 +40,7 @@ let config = {
             thirdParty: 'http://10.20.32.61:10101',
             buzzCorner: 'http://10.20.32.51:16111',
             sso: 'http://10.20.32.61:10086',
-            buzzService: 'http://10.20.32.61:16160',
+            buzzService: 'https://buzz-corner-service.herokuapp.com',
             upload_qiniu: 'http://uat.hcd.com:10003'
         },
 
