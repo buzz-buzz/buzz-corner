@@ -11,7 +11,7 @@ export default class Resources {
 
     static getInstance() {
         if (!resources) {
-            Resources.setCulture('en-US');
+            Resources.setCulture(window.navigator.language || 'en-US');
         }
 
         return resources;
