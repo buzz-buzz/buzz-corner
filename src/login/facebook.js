@@ -51,30 +51,30 @@ export default class FacebookLogin extends React.Component {
                     user: userData
                 };
 
-                console.log(userData);
-
                 Promise.all([0].map(async () => {
-                    return await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${result.user.id}`
+                    try {
+                        let res = await ServiceProxy.proxyTo({
+                            body: {
+                                uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${userData.id}`
+                            }
+                        });
+
+                        return self.loginByFacebook(userData.id, res.user_id);
+                    } catch (error) {
+                        if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
+                            return self.registerByFacebook(result.user)
+                                .then((userId) => {
+                                    return self.loginByFacebook(result.user.id, userId);
+                                })
+                                ;
+                        } else {
+                            throw error;
                         }
-                    });
-                })).then(function (results) {
-                    console.log('done with ', results[0]);
-                    return self.loginByFacebook(userData.id, results[0].user_id);
-                }, function (error) {
-                    if (error.status === 404 && error.result && error.result.error === 'The requested user does not exists') {
-                        return self.registerByFacebook(result.user)
-                            .then((userId) => {
-                                return self.loginByFacebook(result.user.id, userId);
-                            })
-                            ;
-                    } else {
-                        throw error;
                     }
-                })
-                    .then((s) => {
-                        console.log('signed in with ', s);
+                }))
+                    .then(([buzzUserData]) => {
+                        console.log('signed in with ', buzzUserData);
+                        console.log('登录成功，你的 id 是 ', buzzUserData.user_id);
                     })
                     .catch((e) => {
                         console.error('error with ', e);
@@ -82,7 +82,7 @@ export default class FacebookLogin extends React.Component {
                     });
             });
         } else {
-            alert('登录失败！');
+            alert('Failed to connect to Facebook.');
         }
     }
 
