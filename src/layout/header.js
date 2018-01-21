@@ -7,10 +7,9 @@ class Header extends Component {
         return (
             <Container>
                 <Segment inverted>
-                    <a href="/">
-                        <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" className="" alt="logo"
-                             style={{maxWidth: '100%', maxHeight: '50px'}}/>
-                    </a>
+                    <Link to="/" key="home" history="/">
+                        <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" className="" alt="logo" style={{maxWidth: '100%', maxHeight: '50px'}}/>
+                    </Link>
                     <h1 className="App-title">{Resources.getInstance().header}</h1>
                 </Segment>
             </Container>
