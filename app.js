@@ -9,7 +9,6 @@ const config = require('./config');
 const membership = require('./membership');
 const send = require('koa-send');
 const userAgent = require('koa-useragent');
-const WechatOAuth = require('./wechat-oauth');
 const fs = require('fs');
 const pug = require('js-koa-pug');
 const busboy = require('koa-busboy')
@@ -44,24 +43,6 @@ router
         console.log('proxing with ...', ctx.request.body);
 
         ctx.body = await oldRequest(ctx.request.body);
-    })
-    .get('/wechat-login', membership.setHcdUserIfSignedIn, async ctx => {
-        if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
-            ctx.render('wechat-login-callback', {
-                hcd_user: ctx.state.hcd_user
-            });
-
-            return;
-        }
-
-        ctx.redirect(await WechatOAuth.getOAuthLink(`${config.endPoints.buzzCorner}/wechat-login`));
-    })
-    .get('/wechat/oauth/callback', async ctx => {
-        if (String(ctx.query.is_registed) === String(true)) {
-            ctx.redirect(`/sign-in?token=${ctx.query.token}&openid=${ctx.query.openid}&from=${ctx.query.from}`);
-        } else {
-            ctx.redirect(`/sign-up?token=${ctx.query.token}&openid=${ctx.query.openid}&from=${ctx.query.from}`);
-        }
     })
     .get('/wechat/oauth/redirect', async ctx => {
         let getCode = function () {
@@ -105,15 +86,14 @@ router
     })
     .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
     .get('/sign-in', membership.signInFromToken, async ctx => {
-        if (ctx.state.hcd_user && ctx.state.hcd_user.member_id) {
+        if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/');
         } else {
             ctx.body = {msg: 'login failed！'};
         }
     })
-    .get('/sign-up', membership.signUpFromToken)
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        ctx.body = ctx.state.hcd_user || {member_id: 'c7b6d3fb-32ea-4606-8358-3b7c70fb1dea'};
+        ctx.body = ctx.state.user;
     })
     .put('/avatar', uploader, async ctx => {
         let {name} = ctx.request.body;
@@ -138,7 +118,6 @@ async function serveSPA(ctx) {
 
 if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
     console.log('running code for production only...');
-    app.use(membership.requireAuthenticatedFor([]));
 
     app.use(serveStatic('build'));
 

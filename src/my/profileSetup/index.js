@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Checkbox, Container, Form, Header, Icon, Modal, TextArea} from 'semantic-ui-react';
-import ServiceProxy from '../../service-proxy';
-import Resources from '../../resources';
+import ServiceProxy from '../service-proxy';
+import Resources from '../resources';
+import CurrentUser from "../membership/user";
 
 const genderOptions = [
-    {key: 'm', text: 'Male', value: 'male'},
-    {key: 'f', text: 'Female', value: 'female'},
+    {key: 'm', text: 'Male', value: 'm'},
+    {key: 'f', text: 'Female', value: 'f'},
 ];
 
 const dayOptions = [];
@@ -77,15 +78,16 @@ export default class profileSetup extends Component {
 
         this.state = {
             profile: {
-                name: '',
+                display_name: '',
                 gender: '',
-                city: '',
+                location: '',
                 avatar: '',
                 interests: [],
-                introduction: '',
-                phone: '',
-                mail: '',
-                user_type: 1
+                description: '',
+                mobile: '',
+                email: '',
+                role: 's',
+                date_of_birth: '',
             },
             birthday: {
                 day: '',
@@ -93,7 +95,9 @@ export default class profileSetup extends Component {
                 year: ''
             },
             msg: ''
-        }
+        };
+
+        this.submit = this.submit.bind(this);
     }
 
     closeModal() {
@@ -101,91 +105,76 @@ export default class profileSetup extends Component {
     };
 
     async submit() {
-        let config = await ServiceProxy.proxy('/config');
-        let msg = '';
-        let response = '';
-        let clonedSubmitProfile = Object.assign({}, this.state.profile);
-        let userInfo = await ServiceProxy.proxy('/user-info');
+        try {
+            let profile = this.validateForm();
 
-        if (!userInfo.member_id) {
-            alert('You haven\'t Login');
-            return {};
+            let response = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
+                    json: profile,
+                    method: 'PUT'
+                }
+            });
+
+            this.setState({modal: true, msg: 'Save success!'});
+        } catch (ex) {
+            console.error(ex);
+            this.setState({modal: true, msg: ex.message || 'Save failed!'});
         }
+    }
 
-        if (!clonedSubmitProfile.city) {
-            msg = 'Please tell me your city!'
+    validateForm() {
+        let profile = this.state.profile;
+        if (!profile.location) {
+            throw new Error('Please tell me your city!')
         }
 
         //data check if could save to db
         if (this.state.birthday.day && this.state.birthday.month && this.state.birthday.year) {
-            clonedSubmitProfile.birthday = this.state.birthday.year + '' + this.state.birthday.month + '' + this.state.birthday.day;
+            profile.date_of_birth = new Date(this.state.birthday.year + '' + this.state.birthday.month + '' + this.state.birthday.day)
         } else {
-            msg = 'Please tell me your birthday!';
+            throw new Error('Please tell me your birthday!');
         }
 
-        if (!clonedSubmitProfile.gender) {
-            msg = 'Please tell me your gender!'
+        if (!profile.gender) {
+            throw new Error('Please tell me your gender!');
         }
 
-        if (!clonedSubmitProfile.name) {
-            msg = 'Please tell me your name!'
+        if (!profile.display_name) {
+            throw new Error('Please tell me your name!');
         }
-
-        if (!msg) {
-            //save to db
-            response = await ServiceProxy.proxyTo({
-                body: {
-                    uri: config.endPoints.buzzService + '/corner/profile/' + userInfo.member_id,
-                    json: clonedSubmitProfile,
-                    method: 'POST'
-                }
-            });
-        }
-
-        if (response && response.msg === 'success') {
-            this.setState({modal: true, msg: 'Save success!'});
-        } else {
-            this.setState({modal: true, msg: msg || response.msg || 'Save failed!'});
-        }
-
+        return profile;
     }
 
     async componentDidMount() {
-        let config = await ServiceProxy.proxy('/config');
+        let userId = await CurrentUser.getUserId();
 
-        let userInfo = await ServiceProxy.proxy('/user-info');
-
-        if (!userInfo.member_id) {
-            window.location.href = '/login';
-        }
-
-        //get profile first
-        let profile = await ServiceProxy.proxyTo({
+        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
             body: {
-                uri: config.endPoints.buzzService + `/corner/profile/` + userInfo.member_id
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
             }
+        }));
+
+        this.setState({
+            userId: userId,
+            profile: profile,
+            birthday: {day: '05', month: '05', year: '2005'}
         });
+    }
 
-        if (!profile.member_id) {
-            //first login
-        } else {
-            profile.interests = profile.interests || [];
-
-            if (profile.birthday && profile.birthday.length === 8) {
-                profile.birthday = {
-                    day: profile.birthday.substring(6),
-                    month: profile.birthday.substring(4, 6),
-                    year: profile.birthday.substring(0, 4)
-                }
-            }
-
-            if (profile.member_id) {
-                this.setState({
-                    profile: profile,
-                    birthday: profile.birthday
-                });
-            }
-        }
+    getProfileFromUserData(userData) {
+        return {
+            interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? [userData.interests] : []),
+            display_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
+            date_of_birth: userData.date_of_birth,
+            gender: userData.gender || '',
+            location: userData.location || '',
+            avatar: userData.avatar || '',
+            description: userData.description || '',
+            mobile: userData.mobile || '',
+            email: userData.email || '',
+            role: userData.role || ''
+        };
     }
 
     render() {
@@ -195,12 +184,13 @@ export default class profileSetup extends Component {
                 <Form>
                     <h4>{Resources.getInstance().profileName}</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid placeholder={Resources.getInstance().profileNameHolder} value={this.state.profile.name}
+                        <Form.Input fluid placeholder={Resources.getInstance().profileNameHolder}
+                                    value={this.state.profile.display_name}
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
                                     })}
-                                    name='name' error={!this.state.profile.name}/>
+                                    name='display_name' error={!this.state.profile.display_name}/>
                     </Form.Group>
                     <h4>Gender</h4>
                     <Form.Select options={genderOptions} placeholder='Gender' value={this.state.profile.gender}
@@ -232,12 +222,12 @@ export default class profileSetup extends Component {
                     </Form.Group>
                     <h4>Where do you live?</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input placeholder='What city do you live in?' value={this.state.profile.city}
+                        <Form.Input placeholder='What city do you live in?' value={this.state.profile.location}
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
                                     })}
-                                    name='city' error={!this.state.profile.city}/>
+                                    name='location' error={!this.state.profile.location}/>
                     </Form.Group>
                     <h4>Interests</h4>
                     <Form.Group widths='equal'>
@@ -261,16 +251,16 @@ export default class profileSetup extends Component {
                     <h4>Describe yourself</h4>
                     <Form.Field id='form-opinion' control={TextArea}
                                 placeholder='Write a short introduction about yourself.'
-                                value={this.state.profile.introduction}
+                                value={this.state.profile.description}
                                 onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                     name,
                                     value
                                 })}
-                                name='introduction'/>
+                                name='description'/>
                     <Form.Group widths='equal'>
-                        <Form.Field id='submit' control={Button} content='Continue'
+                        <Form.Field control={Button} content='Continue'
                                     style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}
-                                    onClick={() => this.submit()}/>
+                                    onClick={this.submit}/>
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>

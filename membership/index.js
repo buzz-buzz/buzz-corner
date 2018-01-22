@@ -4,96 +4,56 @@ const config = require('../config');
 const request = require('request-promise-native');
 const cookie = require('../helpers/cookie');
 
-function setHcdUser(context, data) {
-    context.state.hcd_user = {
-        member_id: data.member_id,
-        token: data.token,
-
-        isAdmin: false
+function setUser(context, data) {
+    context.state.user = {
+        userId: data.user_id
     };
 }
 
-async function parseTokenAndSetHcdUser(context, token) {
-    let result = {
-        result: {}
-    };
+async function parseUserIdAndSetUser(context, user_id) {
+    setUser(context, {
+        user_id: user_id
+    });
 
-    if (config.mock) {
-        result = {
-            isSuccess: true,
-            result: {
-                member_id: 'fake member'
-            }
-        };
-    } else {
-        result = await request.post(`${config.endPoints.sso}/token/parse`, {
-            json: {token: token}
-        });
-    }
-
-    if (result.isSuccess) {
-        console.log('setting token: ', token);
-        setHcdUser(context, {
-            member_id: result.result.member_id,
-            token: token
-        });
-
-        return result.result;
-    } else {
-        console.log('token not valid');
-        delete context.state.hcd_user;
-        return {};
-    }
+    return {user_id: user_id}
 }
 
-async function setHcdUserFromCookie(context) {
+async function setUserFromCookie(context) {
     if (!context.cookies) {
         return;
     }
 
-    let token = context.cookies.get('token');
+    let user_id = context.cookies.get('user_id');
 
-    if (token) {
-        await parseTokenAndSetHcdUser(context, token);
+    if (user_id) {
+        await parseUserIdAndSetUser(context, user_id);
     } else {
-        delete context.state.hcd_user;
+        delete context.state.user;
     }
 }
 
-async function setHcdUserFromQueryString(context) {
-    let token = context.query.token;
+async function setUserFromQueryString(context) {
+    let user_id = context.query.user_id;
 
-    if (token) {
-        console.log('parsing token: ', token);
-        let result = await parseTokenAndSetHcdUser(context, token);
-        console.log('result = ', result);
-        cookie.resetSignOnCookies.call(context, Object.assign({}, result, {token: token}));
+    if (user_id) {
+        await parseUserIdAndSetUser(context, user_id);
+        cookie.resetSignOnCookies.call(context, Object.assign({}, {user_id: user_id}));
     }
 
-    return token;
+    return user_id;
 }
 
-async function setHcdUserFromQSOrCookie(context) {
-    (await setHcdUserFromQueryString(context))
-    || (await setHcdUserFromCookie(context));
+async function setUserFromQSOrCookie(context) {
+    (await setUserFromQueryString(context))
+    || (await setUserFromCookie(context));
 }
 
-let membership = {
-    parseTokenAndSetHcdUser: parseTokenAndSetHcdUser,
-    setHcdUserFromCookie: setHcdUserFromCookie,
-    setHcdUser: setHcdUser,
-};
-
-membership.setHcdUserIfSignedIn = async function (ctx, next) {
-    await setHcdUserFromQSOrCookie(ctx);
-
-    await next();
-};
+let membership = {};
 
 membership.ensureAuthenticated = async function (context, next) {
-    await setHcdUserFromQSOrCookie(context);
+    await setUserFromQSOrCookie(context);
 
-    if (!context.state.hcd_user) {
+    if (!context.state.user) {
         if (context.request.get('X-Request-With') === 'XMLHttpRequest') {
             let returnUrl = context.headers.referer;
             let result = {};
@@ -112,17 +72,6 @@ membership.ensureAuthenticated = async function (context, next) {
     await next();
 };
 
-membership.ensureAdmin = async function (ctx, next) {
-    await setHcdUserFromQSOrCookie(ctx);
-
-    if (!this.state.hcd_user || !this.state.hcd_user.isAdmin) {
-        require('../helpers/cookie').deleteToken.apply(this);
-        return this.redirect('/sign-in?return_url=' + encodeURIComponent(this.request.originalUrl));
-    }
-
-    await next();
-};
-
 membership.signOut = async function (next) {
     await request.post(`http://${config.endPoints.sso}/logon/logout`, {
         json: {token: this.query.token || this.cookies.get('token')}
@@ -131,32 +80,10 @@ membership.signOut = async function (next) {
     await next();
 };
 
-membership.requireAuthenticatedFor = function (paths) {
-    return async function (ctx, next) {
-        if (paths.indexOf(ctx.path) >= 0) {
-            return await membership.ensureAuthenticated(ctx, next);
-        }
-
-        return await next();
-    };
-};
-
 membership.signInFromToken = async (ctx, next) => {
-    await setHcdUserFromQSOrCookie(ctx);
+    await setUserFromQSOrCookie(ctx);
 
     await next();
-};
-
-membership.signUpFromToken = async (ctx, next) => {
-    let response = await request.post(`${config.endPoints.sso}/member/registerByToken`, {
-        json: {token: ctx.query.token, autoLogon: true}
-    });
-
-    if (String(response.isSuccess) === String(true)) {
-        ctx.redirect(`/sign-in?token=${response.result.token}&openid=${ctx.query.openid}&from=${ctx.query.from}&member_id=${response.result.member_id}`);
-    } else {
-        ctx.throw(500, JSON.stringify(response));
-    }
 };
 
 module.exports = membership;

@@ -18,17 +18,17 @@ let sessionCookieOption = {
 // }
 
 let o = {
-    setToken: function (token) {
-        this.cookies.set('token', token, sessionCookieOption);
+    setUserId: function (token) {
+        this.cookies.set('user_id', token, sessionCookieOption);
     },
-    deleteToken: function () {
-        this.cookies.set('token', '', clearCookieOption);
+    deleteUserId: function () {
+        this.cookies.set('user_id', '', clearCookieOption);
     }
 };
 
 o.resetSignOnCookies = function (result) {
-    o.deleteToken.call(this);
-    o.setToken.call(this, result.token);
+    o.deleteUserId.call(this);
+    o.setUserId.call(this, result.token);
 };
 
 module.exports = o;

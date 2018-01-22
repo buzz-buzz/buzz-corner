@@ -73,6 +73,7 @@ export default class FacebookLogin extends React.Component {
     };
 
     facebookLoginStatusGot = response => {
+        console.log('response = ', response);
         if (response.status === 'connected') {
             this.FB.api('/me', this.facebookUserInfoGot);
         } else {
