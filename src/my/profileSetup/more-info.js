@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Container, Form, Button, Modal, Header, Icon, Input} from 'semantic-ui-react';
 import './avatar.css';
-import ServiceProxy from '../service-proxy';
-import Resources from '../resources';
+import ServiceProxy from '../../service-proxy';
+import Resources from '../../resources';
 
 export default class profileSetup extends Component {
     constructor() {

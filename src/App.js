@@ -2,15 +2,18 @@ import React, {Component} from 'react';
 
 import Header from './layout/header';
 import Footer from './layout/footer';
-import ProfilePage from './profileSetup';
+import ProfilePage from './my/profileSetup';
 import HomePage from './layout/homepage';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
-import Avatar from './profileSetup/more-info';
+import Avatar from './my/profileSetup/more-info';
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
+import My from './my';
+import Language from './my/myLanguage';
+
 import {Container} from "semantic-ui-react";
 
 class App extends Component {
@@ -26,8 +29,10 @@ class App extends Component {
                         <Route path="/login/wechat" component={LoginByWechat}/>
                         <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
                         <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
-                        <Route path='/profile' component={ProfilePage}/>
-                        <Route path='/profile/avatar' component={Avatar}/>
+                        <Route path='/my' component={My}/>
+                        <Route path='/my/profile' component={ProfilePage}/>
+                        <Route path='/my/profile/avatar' component={Avatar}/>
+                        <Route path='/my/profile/language' component={Language} />
                     </Router>
                 </div>
                 <Footer/>

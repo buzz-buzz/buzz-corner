@@ -27,3 +27,8 @@ export const avatarTile = 'Setup your avatar';
 export const avatarLabel = 'avatar';
 export const phoneLabel = 'phone number';
 export const phoneHolder = 'Your phone number';
+
+export const my = 'my';
+export const toggleLanguage = 'language selector';
+export const languageUs = 'English';
+export const languageCN = '简体中文';

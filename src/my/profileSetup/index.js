@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Checkbox, Container, Form, Header, Icon, Modal, TextArea} from 'semantic-ui-react';
-import ServiceProxy from '../service-proxy';
-import Resources from '../resources';
+import ServiceProxy from '../../service-proxy';
+import Resources from '../../resources';
 
 const genderOptions = [
     {key: 'm', text: 'Male', value: 'male'},
