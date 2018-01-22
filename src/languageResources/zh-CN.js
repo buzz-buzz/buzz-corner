@@ -27,6 +27,8 @@ export const avatarTile = '头像设置';
 export const avatarLabel = '头像';
 export const phoneLabel = '手机号码';
 export const phoneHolder = '你的常用手机号';
+export const email = '邮箱';
+export const emailHolder = '你的邮箱地址';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';
