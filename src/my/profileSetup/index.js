@@ -12,19 +12,19 @@ const genderOptions = [
 const dayOptions = [];
 
 for (let i = 1; i <= 31; i++) {
-    dayOptions.push({key: i, text: i + '', value: i > 9 ? i + '' : '0' + i});
+    dayOptions.push({key: i, text: i + '', value: i > 9 ? i + '' : '' + i});
 }
 
 const monthOptions = [
-    {key: 1, text: '1', value: '01'},
-    {key: 2, text: '2', value: '02'},
-    {key: 3, text: '3', value: '03'},
-    {key: 4, text: '4', value: '04'},
-    {key: 5, text: '5', value: '05'},
-    {key: 6, text: '6', value: '06'},
-    {key: 7, text: '7', value: '07'},
-    {key: 8, text: '8', value: '08'},
-    {key: 9, text: '9', value: '09'},
+    {key: 1, text: '1', value: '1'},
+    {key: 2, text: '2', value: '2'},
+    {key: 3, text: '3', value: '3'},
+    {key: 4, text: '4', value: '4'},
+    {key: 5, text: '5', value: '5'},
+    {key: 6, text: '6', value: '6'},
+    {key: 7, text: '7', value: '7'},
+    {key: 8, text: '8', value: '8'},
+    {key: 9, text: '9', value: '9'},
     {key: 10, text: '10', value: '10'},
     {key: 11, text: '11', value: '11'},
     {key: 12, text: '12', value: '12'}
@@ -36,6 +36,23 @@ let yearNow = parseFloat((new Date).getFullYear());
 
 for (let j = yearNow; j >= yearNow - 100; j--) {
     yearOptions.push({key: j, text: j + '', value: j + ''});
+}
+
+function getBirthDay(date_of_birth) {
+    if (date_of_birth) {
+        let date = new Date(date_of_birth);
+        return {
+            day: String(date.getDate()),
+            month: String(date.getMonth() + 1),
+            year: String(date.getFullYear())
+        };
+    } else {
+        return {
+            day: null,
+            month: null,
+            year: null
+        }
+    }
 }
 
 export default class profileSetup extends Component {
@@ -88,6 +105,7 @@ export default class profileSetup extends Component {
                 email: '',
                 role: 's',
                 date_of_birth: '',
+                language: '',
             },
             birthday: {
                 day: '',
@@ -131,7 +149,9 @@ export default class profileSetup extends Component {
 
         //data check if could save to db
         if (this.state.birthday.day && this.state.birthday.month && this.state.birthday.year) {
-            profile.date_of_birth = new Date(this.state.birthday.year + '' + this.state.birthday.month + '' + this.state.birthday.day)
+            let date = new Date(this.state.birthday.year + '-' + this.state.birthday.month + '-' + this.state.birthday.day);
+            console.log(date);
+            profile.date_of_birth = date;
         } else {
             throw new Error('Please tell me your birthday!');
         }
@@ -158,7 +178,7 @@ export default class profileSetup extends Component {
         this.setState({
             userId: userId,
             profile: profile,
-            birthday: {day: '05', month: '05', year: '2005'}
+            birthday: getBirthDay(profile.date_of_birth)
         });
     }
 
@@ -173,7 +193,8 @@ export default class profileSetup extends Component {
             description: userData.description || '',
             mobile: userData.mobile || '',
             email: userData.email || '',
-            role: userData.role || ''
+            role: userData.role || '',
+            language: userData.language || ''
         };
     }
 
@@ -247,6 +268,16 @@ export default class profileSetup extends Component {
                         <Form.Checkbox name='basketball' control={Checkbox} label='Basketball' width={4}
                                        checked={this.state.profile.interests.indexOf('basketball') >= 0}
                                        onChange={(e, data) => this.handleInterestsChange(e, data)}/>
+                    </Form.Group>
+
+                    <h4>Language</h4>
+                    <Form.Group widths='equal'>
+                        <Form.Input placeholder='Language' value={this.state.profile.language}
+                                    onChange={(e, {name, value}) => this.handleProfileChange(e, {
+                                        name,
+                                        value
+                                    })}
+                                    name='language' error={!this.state.profile.language}/>
                     </Form.Group>
                     <h4>Describe yourself</h4>
                     <Form.Field id='form-opinion' control={TextArea}
