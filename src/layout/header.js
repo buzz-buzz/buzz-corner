@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Segment} from "semantic-ui-react";
 import Resources from '../resources';
+import {Link} from 'react-router';
 
 class Header extends Component {
     render() {
