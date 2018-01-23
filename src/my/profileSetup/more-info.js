@@ -3,6 +3,7 @@ import {Button, Container, Form, Header, Icon, Modal} from 'semantic-ui-react';
 import './avatar.css';
 import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
+import CurrentUser from "../../membership/user";
 
 export default class profileSetup extends Component {
     constructor() {
@@ -10,14 +11,14 @@ export default class profileSetup extends Component {
 
         this.state = {
             avatar: 'https://resource.buzzbuzzenglish.com/ad-icon-1.png',
-            phone: '',
+            mobile: '',
             email: ''
         }
     }
 
     handlePhoneChange = (e, {value}) => {
         this.setState({
-            phone: value
+            mobile: value
         });
     };
 
@@ -54,22 +55,36 @@ export default class profileSetup extends Component {
     };
 
     async componentDidMount() {
+        let userId = await CurrentUser.getUserId();
 
+        let profile = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+            }
+        });
+
+        this.setState({
+            avatar: profile.avatar || '',
+            mobile: profile.mobile || '',
+            email: profile.email || '',
+            userData: profile,
+            userId: userId
+        });
     }
 
     async submit() {
         try {
             let profile = this.validateForm();
 
-            // let response = await ServiceProxy.proxyTo({
-            //     body: {
-            //         uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-            //         json: profile,
-            //         method: 'PUT'
-            //     }
-            // });
-
             console.log(profile);
+
+            let response = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
+                    json: profile,
+                    method: 'PUT'
+                }
+            });
 
             this.setState({modal: true, msg: 'Save success!'});
         } catch (ex) {
@@ -79,8 +94,12 @@ export default class profileSetup extends Component {
     }
 
     validateForm() {
-        let phone = this.state.phone;
+        let phone = this.state.mobile;
         let email = this.state.email;
+        let avatar = this.state.avatar;
+        let userData = this.state.userData;
+
+        console.log(phone, email, avatar);
 
         if (!(/^1[3|4|5|7|8][0-9]{9}$/.test(phone))) {
             throw new Error(Resources.getInstance().phoneWrong)
@@ -89,10 +108,11 @@ export default class profileSetup extends Component {
         if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email))) {
             throw new Error(Resources.getInstance().emailWrong);
         }
-        return {
-            phone: phone,
-            email: email
-        };
+
+        userData.mobile = phone;
+        userData.email = email;
+
+        return userData;
     }
 
     render() {
@@ -125,10 +145,10 @@ export default class profileSetup extends Component {
                     <h4>{Resources.getInstance().phoneLabel}</h4>
                     <Form.Group widths='equal'>
                         <Form.Input fluid icon='phone' iconPosition='left' type="number"
-                                    placeholder={Resources.getInstance().phoneHolder} value={this.state.phone}
+                                    placeholder={Resources.getInstance().phoneHolder} value={this.state.mobile}
                                     onChange={(e, {value}) => this.handlePhoneChange(e, {value})}
-                                    name='phone'
-                                    error={!this.state.phone || !(/^1[3|4|5|7|8][0-9]{9}$/.test(this.state.phone))}/>
+                                    name='mobile'
+                                    error={!this.state.mobile || !(/^1[3|4|5|7|8][0-9]{9}$/.test(this.state.mobile))}/>
                     </Form.Group>
                     <h4>{Resources.getInstance().emailLabel}</h4>
                     <Form.Group widths='equal'>
