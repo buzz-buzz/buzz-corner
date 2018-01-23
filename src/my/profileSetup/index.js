@@ -9,49 +9,12 @@ const genderOptions = [
     {key: 'f', text: 'Female', value: 'f'},
 ];
 
-const dayOptions = [];
-
-for (let i = 1; i <= 31; i++) {
-    dayOptions.push({key: i, text: i + '', value: i > 9 ? i + '' : '' + i});
-}
-
-const monthOptions = [
-    {key: 1, text: '1', value: '1'},
-    {key: 2, text: '2', value: '2'},
-    {key: 3, text: '3', value: '3'},
-    {key: 4, text: '4', value: '4'},
-    {key: 5, text: '5', value: '5'},
-    {key: 6, text: '6', value: '6'},
-    {key: 7, text: '7', value: '7'},
-    {key: 8, text: '8', value: '8'},
-    {key: 9, text: '9', value: '9'},
-    {key: 10, text: '10', value: '10'},
-    {key: 11, text: '11', value: '11'},
-    {key: 12, text: '12', value: '12'}
-];
-
-const yearOptions = [];
-
-let yearNow = parseFloat((new Date).getFullYear());
-
-for (let j = yearNow; j >= yearNow - 100; j--) {
-    yearOptions.push({key: j, text: j + '', value: j + ''});
-}
-
 function getBirthDay(date_of_birth) {
     if (date_of_birth) {
         let date = new Date(date_of_birth);
-        return {
-            day: String(date.getDate()),
-            month: String(date.getMonth() + 1),
-            year: String(date.getFullYear())
-        };
+        return  String(date.getFullYear()) + '-' + String(date.getMonth() + 1 >9?date.getMonth() + 1:'0'+(date.getMonth() + 1)) + '-' + String(date.getDate()>9?date.getDate():'0'+date.getDate());
     } else {
-        return {
-            day: null,
-            month: null,
-            year: null
-        }
+        return ''
     }
 }
 
@@ -62,14 +25,6 @@ export default class profileSetup extends Component {
 
         this.setState({
             profile: clonedProfileInfo
-        });
-    };
-    handleBirthChange = (e, {name, value}) => {
-        let clonedBirthday = Object.assign({}, this.state.birthday);
-        clonedBirthday[name] = value;
-
-        this.setState({
-            birthday: clonedBirthday
         });
     };
     handleInterestsChange = (e, {name, checked}) => {
@@ -105,12 +60,7 @@ export default class profileSetup extends Component {
                 email: '',
                 role: 's',
                 date_of_birth: '',
-                language: '',
-            },
-            birthday: {
-                day: '',
-                month: '',
-                year: ''
+                language: ''
             },
             msg: ''
         };
@@ -147,11 +97,11 @@ export default class profileSetup extends Component {
             throw new Error('Please tell me your city!')
         }
 
+        console.log(profile);
+
         //data check if could save to db
-        if (this.state.birthday.day && this.state.birthday.month && this.state.birthday.year) {
-            let date = new Date(this.state.birthday.year + '-' + this.state.birthday.month + '-' + this.state.birthday.day);
-            console.log(date);
-            profile.date_of_birth = date;
+        if (profile.date_of_birth) {
+            profile.date_of_birth = new Date(profile.date_of_birth);
         } else {
             throw new Error('Please tell me your birthday!');
         }
@@ -175,10 +125,11 @@ export default class profileSetup extends Component {
             }
         }));
 
+        profile.date_of_birth = getBirthDay(profile.date_of_birth);
+
         this.setState({
-            userId: userId,
             profile: profile,
-            birthday: getBirthDay(profile.date_of_birth)
+            userId: userId
         });
     }
 
@@ -186,7 +137,7 @@ export default class profileSetup extends Component {
         return {
             interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             display_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            date_of_birth: userData.date_of_birth,
+            date_of_birth: getBirthDay(userData.date_of_birth),
             gender: userData.gender || '',
             location: userData.location || '',
             avatar: userData.avatar || '',
@@ -222,24 +173,12 @@ export default class profileSetup extends Component {
                                  name='gender' error={!this.state.profile.gender}/>
                     <h4>Birthday</h4>
                     <Form.Group widths='equal'>
-                        <Form.Select options={dayOptions} placeholder='Day' value={this.state.birthday.day}
-                                     onChange={(e, {name, value}) => this.handleBirthChange(e, {
-                                         name,
-                                         value
-                                     })}
-                                     name='day' error={!this.state.birthday.day}/>
-                        <Form.Select options={monthOptions} placeholder='Month' value={this.state.birthday.month}
-                                     onChange={(e, {name, value}) => this.handleBirthChange(e, {
-                                         name,
-                                         value
-                                     })}
-                                     name='month' error={!this.state.birthday.month}/>
-                        <Form.Select options={yearOptions} placeholder='Year' value={this.state.birthday.year}
-                                     onChange={(e, {name, value}) => this.handleBirthChange(e, {
-                                         name,
-                                         value
-                                     })}
-                                     name='year' error={!this.state.birthday.year}/>
+                        <Form.Input placeholder='Your birthday' value={this.state.profile.date_of_birth} type="date"
+                                    onChange={(e, {name, value}) => this.handleProfileChange(e, {
+                                        name,
+                                        value
+                                    })}
+                                    name='date_of_birth' error={!this.state.profile.date_of_birth}/>
                     </Form.Group>
                     <h4>Where do you live?</h4>
                     <Form.Group widths='equal'>
