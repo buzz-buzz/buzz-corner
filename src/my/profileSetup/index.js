@@ -184,7 +184,7 @@ export default class profileSetup extends Component {
 
     getProfileFromUserData(userData) {
         return {
-            interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? [userData.interests] : []),
+            interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             display_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
             date_of_birth: userData.date_of_birth,
             gender: userData.gender || '',
