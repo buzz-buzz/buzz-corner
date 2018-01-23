@@ -97,8 +97,6 @@ export default class profileSetup extends Component {
             throw new Error('Please tell me your city!')
         }
 
-        console.log(profile);
-
         //data check if could save to db
         if (profile.date_of_birth) {
             profile.date_of_birth = new Date(profile.date_of_birth);

@@ -13,7 +13,9 @@ export default class profileSetup extends Component {
             avatar: 'https://resource.buzzbuzzenglish.com/ad-icon-1.png',
             mobile: '',
             email: ''
-        }
+        };
+
+        this.submit = this.submit.bind(this);
     }
 
     handlePhoneChange = (e, {value}) => {
@@ -67,7 +69,6 @@ export default class profileSetup extends Component {
             avatar: profile.avatar || '',
             mobile: profile.mobile || '',
             email: profile.email || '',
-            userData: profile,
             userId: userId
         });
     }
@@ -97,22 +98,20 @@ export default class profileSetup extends Component {
         let phone = this.state.mobile;
         let email = this.state.email;
         let avatar = this.state.avatar;
-        let userData = this.state.userData;
 
-        console.log(phone, email, avatar);
-
-        if (!(/^1[3|4|5|7|8][0-9]{9}$/.test(phone))) {
+        if (!phone) {
             throw new Error(Resources.getInstance().phoneWrong)
         }
 
-        if (!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email))) {
+        if (!email) {
             throw new Error(Resources.getInstance().emailWrong);
         }
 
-        userData.mobile = phone;
-        userData.email = email;
-
-        return userData;
+        return {
+            mobile: phone,
+            email: email,
+            avatar: avatar
+        };
     }
 
     render() {
@@ -148,7 +147,7 @@ export default class profileSetup extends Component {
                                     placeholder={Resources.getInstance().phoneHolder} value={this.state.mobile}
                                     onChange={(e, {value}) => this.handlePhoneChange(e, {value})}
                                     name='mobile'
-                                    error={!this.state.mobile || !(/^1[3|4|5|7|8][0-9]{9}$/.test(this.state.mobile))}/>
+                                    error={!this.state.mobile}/>
                     </Form.Group>
                     <h4>{Resources.getInstance().emailLabel}</h4>
                     <Form.Group widths='equal'>
@@ -156,12 +155,12 @@ export default class profileSetup extends Component {
                                     placeholder={Resources.getInstance().emailHolder} value={this.state.email}
                                     onChange={(e, {value}) => this.handleEmailChange(e, {value})}
                                     name='mail'
-                                    error={!this.state.email || !(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(this.state.email))}/>
+                                    error={!this.state.email}/>
                     </Form.Group>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={Resources.getInstance().profileSunmitBtn}
                                     style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}
-                                    onClick={()=>this.submit()} />
+                                    onClick={this.submit} />
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>
