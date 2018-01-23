@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Segment} from "semantic-ui-react";
+import {Button, Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 
@@ -41,6 +41,7 @@ export default class FacebookLogin extends React.Component {
         super();
 
         this.facebookUserInfoGot = this.facebookUserInfoGot.bind(this);
+        this.doLogin = this.doLogin.bind(this);
 
         this.state = {
             loading: true
@@ -77,9 +78,18 @@ export default class FacebookLogin extends React.Component {
         if (response.status === 'connected') {
             this.FB.api('/me', this.facebookUserInfoGot);
         } else {
-            alert('Failed to connect to Facebook.');
-            this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
+            console.error('facebook response: ', response);
+            this.setState({
+                loading: false
+            }, () => {
+                alert('Please click the button to log in or switch to the other ways to log in.');
+            });
         }
+    };
+
+    doLogin = () => {
+        this.setState({loading: true});
+        this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
 
     facebookUserInfoGot = async (facebookUserData) => {
@@ -153,6 +163,7 @@ export default class FacebookLogin extends React.Component {
                 <Segment loading={this.state.loading}>
                     {JSON.stringify(this.state.userInfo)}
                 </Segment>
+                <Button onClick={this.doLogin}>Click to login with facebook</Button>
             </Container>
         );
     }
