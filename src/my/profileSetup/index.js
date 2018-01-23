@@ -289,7 +289,7 @@ export default class profileSetup extends Component {
                                 })}
                                 name='description'/>
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content='Continue'
+                        <Form.Field control={Button} content={Resources.getInstance().profileSunmitBtn}
                                     style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}
                                     onClick={this.submit}/>
                     </Form.Group>
