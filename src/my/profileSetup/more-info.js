@@ -5,19 +5,12 @@ import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
 
-let saveData = async function (fileForm) {
-    return await  ServiceProxy.proxy('/avatar', {
-        body: fileForm,
-        method: 'PUT'
-    });
-};
-
 export default class profileSetup extends Component {
     constructor() {
         super();
 
         this.state = {
-            avatar: 'https://resource.buzzbuzzenglish.com/ad-icon-1.png',
+            avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             mobile: '',
             email: ''
         };
@@ -39,15 +32,6 @@ export default class profileSetup extends Component {
 
     async handleAvatarChange(e) {
         try {
-            //preview
-            let reader = new FileReader();
-            reader.onload = (evt) => {
-                this.setState({
-                    avatar: evt.target.result || ''
-                });
-            };
-            reader.readAsDataURL(this.fileInput.files[0]);
-
             let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
                 method: 'GET'
             });

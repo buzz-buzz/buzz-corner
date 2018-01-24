@@ -206,8 +206,7 @@ export default class profileSetup extends Component {
                                        checked={this.state.profile.interests.indexOf('basketball') >= 0}
                                        onChange={(e, data) => this.handleInterestsChange(e, data)}/>
                     </Form.Group>
-
-                    <h4>Language</h4>
+                    {/*<h4>Language</h4>*/}
                     {/*<Form.Group widths='equal'>*/}
                         {/*<Form.Input placeholder='Language' value={this.state.profile.language}*/}
                                     {/*onChange={(e, {name, value}) => this.handleProfileChange(e, {*/}

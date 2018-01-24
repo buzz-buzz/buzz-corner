@@ -101,17 +101,6 @@ router
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         ctx.body = ctx.state.user;
     })
-    .put('/avatar', uploader, async ctx => {
-        let {name} = ctx.request.body;
-        // files
-        // uploaded files is add to ctx.request.files array
-        // let fileReadStream = ctx.request.files[0]
-        ctx.body = {
-            name: name,
-            file: ctx.request.files.length
-        };
-
-    })
     .get('/qiniu/token', async ctx => {
         let token = putPolicy.uploadToken(mac);
         ctx.body = {
