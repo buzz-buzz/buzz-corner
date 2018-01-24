@@ -62,7 +62,7 @@ export default class profileSetup extends Component {
                 date_of_birth: '',
                 language: ''
             },
-            msg: ''
+            message: ''
         };
 
         this.submit = this.submit.bind(this);
@@ -84,10 +84,10 @@ export default class profileSetup extends Component {
                 }
             });
 
-            this.setState({modal: true, msg: 'Save success!'});
+            this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
             console.error(ex);
-            this.setState({modal: true, msg: ex.message || 'Save failed!'});
+            this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
         }
     }
 
@@ -162,32 +162,32 @@ export default class profileSetup extends Component {
                                     })}
                                     name='display_name' error={!this.state.profile.display_name}/>
                     </Form.Group>
-                    <h4>Gender</h4>
-                    <Form.Select options={genderOptions} placeholder='Gender' value={this.state.profile.gender}
+                    <h4>{Resources.getInstance().profileGender}</h4>
+                    <Form.Select options={genderOptions} placeholder={Resources.getInstance().profileGenderHolder} value={this.state.profile.gender}
                                  onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                      name,
                                      value
                                  })}
                                  name='gender' error={!this.state.profile.gender}/>
-                    <h4>Birthday</h4>
+                    <h4>{Resources.getInstance().profileBirthday}</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input placeholder='Your birthday' value={this.state.profile.date_of_birth} type="date"
+                        <Form.Input value={this.state.profile.date_of_birth} type="date"
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
                                     })}
                                     name='date_of_birth' error={!this.state.profile.date_of_birth}/>
                     </Form.Group>
-                    <h4>Where do you live?</h4>
+                    <h4>{Resources.getInstance().profileCity}</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input placeholder='What city do you live in?' value={this.state.profile.location}
+                        <Form.Input placeholder={Resources.getInstance().profileCityHolder} value={this.state.profile.location}
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
                                     })}
                                     name='location' error={!this.state.profile.location}/>
                     </Form.Group>
-                    <h4>Interests</h4>
+                    <h4>{Resources.getInstance().profileInterests}</h4>
                     <Form.Group widths='equal'>
                         <Form.Checkbox name='football' control={Checkbox} label='Football' width={4}
                                        checked={this.state.profile.interests.indexOf('football') >= 0}
@@ -208,17 +208,17 @@ export default class profileSetup extends Component {
                     </Form.Group>
 
                     <h4>Language</h4>
-                    <Form.Group widths='equal'>
-                        <Form.Input placeholder='Language' value={this.state.profile.language}
-                                    onChange={(e, {name, value}) => this.handleProfileChange(e, {
-                                        name,
-                                        value
-                                    })}
-                                    name='language' error={!this.state.profile.language}/>
-                    </Form.Group>
-                    <h4>Describe yourself</h4>
+                    {/*<Form.Group widths='equal'>*/}
+                        {/*<Form.Input placeholder='Language' value={this.state.profile.language}*/}
+                                    {/*onChange={(e, {name, value}) => this.handleProfileChange(e, {*/}
+                                        {/*name,*/}
+                                        {/*value*/}
+                                    {/*})}*/}
+                                    {/*name='language' error={!this.state.profile.language}/>*/}
+                    {/*</Form.Group>*/}
+                    <h4>{Resources.getInstance().profileIntroduction}</h4>
                     <Form.Field id='form-opinion' control={TextArea}
-                                placeholder='Write a short introduction about yourself.'
+                                placeholder={Resources.getInstance().profileIntroductionHolder}
                                 value={this.state.profile.description}
                                 onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                     name,
@@ -232,9 +232,9 @@ export default class profileSetup extends Component {
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>
-                    <Header icon='archive' content='Message'/>
+                    <Header icon='archive' content={Resources.getInstance().modalTitle} />
                     <Modal.Content>
-                        <p>{this.state.msg}</p>
+                        <p>{this.state.message}</p>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={() => this.closeModal()}>

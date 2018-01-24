@@ -11,8 +11,14 @@ const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const fs = require('fs');
 const pug = require('js-koa-pug');
-const busboy = require('koa-busboy')
+const busboy = require('koa-busboy');
+const qiniu = require('qiniu');
 const uploader = busboy({});
+
+const mac = new qiniu.auth.digest.Mac('OlMuxpncg3fDYzOU2aVW2VC0bvPrQDWeO_elb5js', 'kljBtxHbByZTQjS0y73JnzUiaTmymb2-6RufCGj-');
+const putPolicy = new qiniu.rs.PutPolicy({
+    scope: 'buzz-resource'
+});
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -105,7 +111,14 @@ router
             file: ctx.request.files.length
         };
 
-    });
+    })
+    .get('/qiniu/token', async ctx => {
+        let token = putPolicy.uploadToken(mac);
+        ctx.body = {
+            uptoken: token || ''
+        };
+    })
+;
 
 
 async function serveSPA(ctx) {

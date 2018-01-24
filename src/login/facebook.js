@@ -47,10 +47,13 @@ export default class FacebookLogin extends React.Component {
             loading: true
         };
 
+        this.checkWechatBrowser();
+    }
+
+    checkWechatBrowser() {
         if (/MicroMessenger/.test(navigator.userAgent)) {
             alert('在微信浏览器中请使用微信登录方式');
             window.location.href = '/login/wechat';
-            return;
         }
     }
 
@@ -74,11 +77,9 @@ export default class FacebookLogin extends React.Component {
     };
 
     facebookLoginStatusGot = response => {
-        console.log('response = ', response);
         if (response.status === 'connected') {
             this.FB.api('/me', this.facebookUserInfoGot);
         } else {
-            console.error('facebook response: ', response);
             this.setState({
                 loading: false
             }, () => {
@@ -150,7 +151,7 @@ export default class FacebookLogin extends React.Component {
                 }
             }
         });
-        console.log('登录成功！', res);
+
         this.setState({
             userInfo: res,
             loading: false

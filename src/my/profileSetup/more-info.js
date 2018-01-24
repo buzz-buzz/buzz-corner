@@ -5,6 +5,13 @@ import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
 
+let saveData = async function (fileForm) {
+    return await  ServiceProxy.proxy('/avatar', {
+        body: fileForm,
+        method: 'PUT'
+    });
+};
+
 export default class profileSetup extends Component {
     constructor() {
         super();
@@ -31,25 +38,48 @@ export default class profileSetup extends Component {
     };
 
     async handleAvatarChange(e) {
-        //preview
-        let reader = new FileReader();
-        reader.onload = (evt) => {
-            this.setState({
-                avatar: evt.target.result || ''
+        try {
+            //preview
+            let reader = new FileReader();
+            reader.onload = (evt) => {
+                this.setState({
+                    avatar: evt.target.result || ''
+                });
+            };
+            reader.readAsDataURL(this.fileInput.files[0]);
+
+            let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
+                method: 'GET'
             });
-        };
-        reader.readAsDataURL(this.fileInput.files[0]);
 
-        let fileForm = new FormData();
+            if(!qiniu_token.uptoken){
+                throw new Error(Resources.getInstance().avatarTokenWrong);
+            }
 
-        fileForm.append("avatar", this.fileInput.files[0]);
+            let fileForm = new FormData();
 
-        let response = await  ServiceProxy.proxy('/avatar', {
-            body: fileForm,
-            method: 'PUT'
-        });
+            fileForm.append("name", this.fileInput.files[0].name);
+            fileForm.append("file", this.fileInput.files[0]);
+            fileForm.append("token", qiniu_token.uptoken);
 
-        console.log(response);
+            let result = await ServiceProxy.proxy(`http://upload.qiniu.com/`,{
+                method: 'POST',
+                body: fileForm,
+                credentials: undefined,
+                headers: undefined
+            });
+
+            if(!result.key || !result.hash){
+                throw new Error(Resources.getInstance().avatarKeyWrong);
+            }else{
+                this.setState({
+                    avatar: 'https://resource.buzzbuzzenglish.com/' + result.key
+                });
+            }
+        } catch (ex) {
+            console.error(ex);
+            this.setState({modal: true, message: ex.message || Resources.getInstance().avatarWrong});
+        }
     };
 
     closeModal() {
@@ -77,8 +107,6 @@ export default class profileSetup extends Component {
         try {
             let profile = this.validateForm();
 
-            console.log(profile);
-
             let response = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
@@ -87,10 +115,10 @@ export default class profileSetup extends Component {
                 }
             });
 
-            this.setState({modal: true, msg: 'Save success!'});
+            this.setState({modal: true, message: 'Save success!'});
         } catch (ex) {
             console.error(ex);
-            this.setState({modal: true, msg: ex.message || 'Save failed!'});
+            this.setState({modal: true, message: ex.message || 'Save failed!'});
         }
     }
 
@@ -164,9 +192,9 @@ export default class profileSetup extends Component {
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>
-                    <Header icon='archive' content='Message'/>
+                    <Header icon='archive' content={Resources.getInstance().modalTitle}/>
                     <Modal.Content>
-                        <p>{this.state.msg}</p>
+                        <p>{this.state.message}</p>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={() => this.closeModal()}>

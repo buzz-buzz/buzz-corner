@@ -25,6 +25,9 @@ export const profileSunmitBtn = '保存';
 
 export const avatarTile = '联系方式';
 export const avatarLabel = '头像';
+export const avatarTokenWrong = 'Token: 头像上传失败!';
+export const avatarKeyWrong = 'Key: 头像上传失败!';
+export const avatarWrong = '头像上传失败!';
 export const phoneLabel = '手机号码';
 export const phoneHolder = '你的常用手机号';
 export const phoneWrong = '手机号码格式不正确!';
@@ -36,3 +39,7 @@ export const my = '我的';
 export const toggleLanguage = '语言选项';
 export const languageUs = 'English';
 export const languageCN = '简体中文';
+
+export const modalTitle = '温馨提示';
+export const saveSuccess = '保存成功！';
+export const saveFailed = '保存失败！';
