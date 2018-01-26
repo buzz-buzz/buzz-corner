@@ -210,8 +210,8 @@ export default class profileSetup extends Component {
                                        onChange={(e, data) => {
                                            this.handleInterestsChange(e, data);
                                        }}/>
-                        <Form.Checkbox name='pingpang' control={Checkbox} label='Ping-pang' width={4}
-                                       checked={this.state.profile.interests.indexOf('pingpang') >= 0}
+                        <Form.Checkbox name='ping-pang' control={Checkbox} label='Ping-pang' width={4}
+                                       checked={this.state.profile.interests.indexOf('ping-pang') >= 0}
                                        onChange={(e, data) => this.handleInterestsChange(e, data)}/>
                     </Form.Group>
                     <Form.Group widths='equal'>
