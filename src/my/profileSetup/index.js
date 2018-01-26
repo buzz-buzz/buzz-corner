@@ -33,7 +33,7 @@ export default class profileSetup extends Component {
             if (clonedProfile.interests.indexOf(name) < 0) {
                 let newInterests = [];
                 for(let i in clonedProfile.interests){
-                    if( clonedProfile.interests[i]){
+                    if( clonedProfile.interests[i] && newInterests.indexOf(clonedProfile.interests[i]) < 0){
                         newInterests.push(clonedProfile.interests[i]);
                     }
                 }
@@ -47,7 +47,7 @@ export default class profileSetup extends Component {
             if (index >= 0) {
                 let newInterests = [];
                 for(let i in clonedProfile.interests){
-                    if( clonedProfile.interests[i] && clonedProfile.interests[i] !== name && newInterests.indexOf(name) < 0){
+                    if( clonedProfile.interests[i] && clonedProfile.interests[i] !== name && newInterests.indexOf(clonedProfile.interests[i]) < 0){
                         newInterests.push(clonedProfile.interests[i]);
                     }
                 }
