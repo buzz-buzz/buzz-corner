@@ -99,10 +99,10 @@ export default class profileSetup extends Component {
                 }
             });
 
-            this.setState({modal: true, message: 'Save success!'});
+            this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
             console.error(ex);
-            this.setState({modal: true, message: ex.message || 'Save failed!'});
+            this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
         }
     }
 

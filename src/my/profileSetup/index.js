@@ -31,12 +31,28 @@ export default class profileSetup extends Component {
         let clonedProfile = Object.assign({}, this.state.profile);
         if (checked) {
             if (clonedProfile.interests.indexOf(name) < 0) {
-                clonedProfile.interests.push(name);
+                let newInterests = [];
+                for(let i in clonedProfile.interests){
+                    if( clonedProfile.interests[i]){
+                        newInterests.push(clonedProfile.interests[i]);
+                    }
+                }
+
+                newInterests.push(name);
+
+                clonedProfile.interests  = newInterests;
             }
         } else {
             let index = clonedProfile.interests.indexOf(name);
             if (index >= 0) {
-                clonedProfile.interests.splice(index, 1);
+                let newInterests = [];
+                for(let i in clonedProfile.interests){
+                    if( clonedProfile.interests[i] && clonedProfile.interests[i] !== name && newInterests.indexOf(name) < 0){
+                        newInterests.push(clonedProfile.interests[i]);
+                    }
+                }
+
+                clonedProfile.interests = newInterests;
             }
         }
 
@@ -99,7 +115,7 @@ export default class profileSetup extends Component {
 
         //data check if could save to db
         if (profile.date_of_birth) {
-            profile.date_of_birth = new Date(profile.date_of_birth);
+            profile.date_of_birth = getBirthDay(profile.date_of_birth);
         } else {
             throw new Error('Please tell me your birthday!');
         }
