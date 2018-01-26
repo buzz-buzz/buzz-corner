@@ -46,7 +46,7 @@ export default class profileSetup extends Component {
             fileForm.append("file", this.fileInput.files[0]);
             fileForm.append("token", qiniu_token.uptoken);
 
-            let result = await ServiceProxy.proxy(`http://upload.qiniu.com/`,{
+            let result = await ServiceProxy.proxy(qiniu_token.upload_url,{
                 method: 'POST',
                 body: fileForm,
                 credentials: undefined,
@@ -57,7 +57,7 @@ export default class profileSetup extends Component {
                 throw new Error(Resources.getInstance().avatarKeyWrong);
             }else{
                 this.setState({
-                    avatar: 'https://resource.buzzbuzzenglish.com/' + result.key
+                    avatar: qiniu_token.resources_url + result.key
                 });
             }
         } catch (ex) {
