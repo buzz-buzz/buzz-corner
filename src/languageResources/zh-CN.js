@@ -43,3 +43,5 @@ export const languageCN = '简体中文';
 export const modalTitle = '温馨提示';
 export const saveSuccess = '保存成功！';
 export const saveFailed = '保存失败！';
+
+export const adminManageClass = '课程管理';

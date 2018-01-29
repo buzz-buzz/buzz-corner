@@ -43,3 +43,5 @@ export const languageCN = '简体中文';
 export const modalTitle = 'Message';
 export const saveSuccess = 'Save success!';
 export const saveFailed = 'Save failed!';
+
+export const adminManageClass = 'class manage';

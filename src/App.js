@@ -13,6 +13,8 @@ import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import My from './my';
 import Language from './my/myLanguage';
+import Admin from './admin/index';
+import ClassManage from './admin/classManage';
 
 import {Container} from "semantic-ui-react";
 
@@ -33,6 +35,8 @@ class App extends Component {
                         <Route path='/my/profile' component={ProfilePage}/>
                         <Route path='/my/profile/avatar' component={Avatar}/>
                         <Route path='/my/profile/language' component={Language} />
+                        <Route path='/admin' component={Admin} />
+                        <Route path='/admin/class' component={ClassManage} />
                     </Router>
                 </div>
                 <Footer/>
