@@ -8,9 +8,17 @@
     margin-bottom: 1em !important;
 }
 
+.profile-title{
+    text-align: center;
+    margin: 1em 0 !important;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
 .profile-progress{
     width: 100%;
     box-sizing: border-box;
+    margin-top: 1em;
 }
 
 .profile-progress>div{
@@ -77,7 +85,37 @@
     z-index: 99;
 }
 
+.check-number, .phone-number{
+    width: 100%;
+    position: relative;
+    height: 4em;
+    margin: 1em 0;
+}
 
+.check-number>button{
+    float: right;
+    font-weight: normal !important;
+    width: 35%;
+    letter-spacing: 1px;
+}
+
+.check-number>input, .check-number>button, .phone-number>input, .phone-number>button, .parents-name>input{
+    height: 4em;
+    letter-spacing: 1px;
+    border: none !important;
+    background-color: #eee !important;
+    color: rgba(0,0,0,.6);
+}
+
+.phone-number>input{
+    float: right;
+}
+
+.phone-number>button{
+    width: 35%;
+    font-weight: normal !important;
+    letter-spacing: 1px;
+}
 
 .profile-progress>div>p{
     padding-top: 2em;

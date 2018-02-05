@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {Form, Button} from 'semantic-ui-react';
 import Resources from '../resources';
 import HeaderWithBack from '../layout/header-with-go-back';
 import './my.css';
@@ -9,16 +10,13 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 3
+            step: 1
         }
     }
 
     render() {
         return (
             <div className="my-profile">
-                <br/>
-                <br/>
-                <br/>
                 <HeaderWithBack/>
                 <div className="profile-progress">
                     <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ?  'active' : '' )}>
@@ -50,6 +48,20 @@ class Homepage extends Component {
                         <p>语言档案</p>
                     </div>
                 </div>
+                <Form>
+                    <h3 className="profile-title">仅用于课程学习相关通知与服务</h3>
+                    <div className="parents-name">
+                        <input type="text"  placeholder='家长姓名' style={{width: '100%'}}/>
+                    </div>
+                    <div className="phone-number">
+                        <Button>中国(+86)</Button>
+                        <input type="text" style={{width: '60%'}}/>
+                    </div>
+                    <div className="check-number">
+                        <input type="text" style={{width: '60%'}}/>
+                        <Button>获取验证码</Button>
+                    </div>
+                </Form>
                 <br/>
             </div>
         );
