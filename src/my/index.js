@@ -5,6 +5,14 @@ import HeaderWithBack from '../layout/header-with-go-back';
 import './my.css';
 
 class Homepage extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            step: 3
+        }
+    }
+
     render() {
         return (
             <div className="my-profile">
@@ -12,17 +20,36 @@ class Homepage extends Component {
                 <br/>
                 <br/>
                 <HeaderWithBack/>
-                <Link to='/my/profile' className="ui wihte button"  key='profile' history="/my/profile">
-                   {Resources.getInstance().homeProfile}
-                </Link>
-                <br/>
-                <Link to='/my/profile/avatar' className="ui white button"  key='avatar' history="/my/profile/avatar">
-                    {Resources.getInstance().homeAvatar}
-                </Link>
-                <br/>
-                <Link to='/my/profile/language' className="ui white button"  key='language' history="/my/profile/language" >
-                    {Resources.getInstance().toggleLanguage}
-                </Link>
+                <div className="profile-progress">
+                    <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>联系方式</p>
+                    </div>
+                    <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>孩子信息</p>
+                    </div>
+                    <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>兴趣爱好</p>
+                    </div>
+                    <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>语言档案</p>
+                    </div>
+                </div>
                 <br/>
             </div>
         );
