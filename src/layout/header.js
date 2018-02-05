@@ -10,7 +10,7 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        let userInfo = await        ServiceProxy.proxy('/user-info');
+        let userInfo = await  ServiceProxy.proxy('/user-info');
         this.setState({
             userInfo: userInfo
         });

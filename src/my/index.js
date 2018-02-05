@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import Resources from '../resources';
+import HeaderWithBack from '../layout/header-with-go-back';
 import './my.css';
 
 class Homepage extends Component {
@@ -10,6 +11,7 @@ class Homepage extends Component {
                 <br/>
                 <br/>
                 <br/>
+                <HeaderWithBack/>
                 <Link to='/my/profile' className="ui wihte button"  key='profile' history="/my/profile">
                    {Resources.getInstance().homeProfile}
                 </Link>
