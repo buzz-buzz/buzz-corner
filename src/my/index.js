@@ -8,21 +8,51 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 1,
+            step: 3,
             profile: {
                 parents_name: '',
                 phone: '',
                 student_en_name: '',
                 city: '',
                 date_of_birth: '',
-                gender: ''
+                gender: '',
+                topics: []
             },
-            profile_title: '仅用于课程学习相关通知与服务'
+            profile_title: '仅用于课程学习相关通知与服务',
+            topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
         this.handleGender = this.handleGender.bind(this);
+        this.topicChange = this.topicChange.bind(this);
+    }
+
+    topicChange(event){
+        event.stopPropagation();
+        console.log(event.target.name);
+
+        let clonedProfile = this.state.profile;
+        let clonedTopics = clonedProfile.topics;
+
+        if(clonedTopics.indexOf(event.target.name) < 0){
+            clonedTopics.push(event.target.name);
+
+            clonedProfile.topics = clonedTopics;
+        }else{
+            let newTopics = [];
+            for(let i in clonedTopics){
+                if(clonedTopics[i] !== event.target.name){
+                    newTopics.push(clonedTopics[i]);
+                }
+            }
+
+            clonedProfile.topics = newTopics;
+        }
+
+        this.setState({profile: clonedProfile});
+
+        console.log(this.state.profile.topics);
     }
 
     handleGender(event){
@@ -143,13 +173,53 @@ class Homepage extends Component {
                                         </div>
                                     </div>
                                     ): (
-                                        <div></div>
+                                        this.state.step === 3 ?
+                                            (<div className='topic'>
+                                                <p>Choose type</p>
+                                                <div className="topic-items">
+                                                    <div>
+                                                        <div>
+                                                            <img src={this.state.topic_url} />
+                                                        </div>
+                                                        <p>First</p>
+                                                        <a  onClick={this.topicChange} name="first"
+                                                            style={{border: this.state.profile.topics.indexOf('first') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <img src={this.state.topic_url} />
+                                                        </div>
+                                                        <p>Second</p>
+                                                        <a  onClick={this.topicChange} name="second"
+                                                            style={{border: this.state.profile.topics.indexOf('second') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <img src={this.state.topic_url} />
+                                                        </div>
+                                                        <p>Third</p>
+                                                        <a  onClick={this.topicChange} name="third"
+                                                            style={{border: this.state.profile.topics.indexOf('third') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <img src={this.state.topic_url} />
+                                                        </div>
+                                                        <p>Fourth</p>
+                                                        <a  onClick={this.topicChange} name="fourth"
+                                                            style={{border: this.state.profile.topics.indexOf('fourth') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                                    </div>
+                                                </div>
+                                            </div>) :
+                                            (
+                                                <div></div>
+                                            )
                                     )
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): false)}
-                                    style={{margin: '2em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '2px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
+                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
+                                    style={{margin: '2em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
                     </Form.Group>
                 </Form>
                 <br/>
