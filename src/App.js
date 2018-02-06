@@ -22,7 +22,6 @@ class App extends Component {
     render() {
         return (
             <Container style={{height: '100%'}}>
-                <Header/>
                 <div className="content">
                     <Router history={browserHistory}>
                         <Route path='/' component={HomePage}/>
@@ -31,7 +30,7 @@ class App extends Component {
                         <Route path="/login/wechat" component={LoginByWechat}/>
                         <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
                         <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
-                        <Route path='/my' component={My}/>
+                        <Route path='/my/info' component={My}/>
                         <Route path='/my/profile' component={ProfilePage}/>
                         <Route path='/my/profile/avatar' component={Avatar}/>
                         <Route path='/my/profile/language' component={Language} />

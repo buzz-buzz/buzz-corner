@@ -18,7 +18,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Container>
+            <Container className='spa-header'>
                 <Segment inverted>
                     <a href="/">
                         <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" className="" alt="logo"

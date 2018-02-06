@@ -85,6 +85,10 @@
     z-index: 99;
 }
 
+.check-number{
+    display: none;
+}
+
 .check-number, .phone-number{
     width: 100%;
     position: relative;
@@ -107,6 +111,10 @@
     color: rgba(0,0,0,.6);
 }
 
+.parents-name>input{
+    padding-left: 1.5em !important;
+}
+
 .phone-number>input{
     float: right;
 }
@@ -115,6 +123,7 @@
     width: 35%;
     font-weight: normal !important;
     letter-spacing: 1px;
+    text-align: left !important;
 }
 
 .profile-progress>div>p{

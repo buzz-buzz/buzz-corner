@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import {Form, Button} from 'semantic-ui-react';
-import Resources from '../resources';
 import HeaderWithBack from '../layout/header-with-go-back';
 import './my.css';
 
@@ -10,8 +8,23 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 1
-        }
+            step: 1,
+            parents_name: 'aa',
+            phone: '123'
+        };
+
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    }
+
+    handlePhoneChange(event) {
+        console.log(event.target);
+        this.setState({phone: event.target.value});
+    }
+
+    handleNameChange(event) {
+        console.log(event.target);
+        this.setState({parents_name: event.target.value});
     }
 
     render() {
@@ -51,16 +64,26 @@ class Homepage extends Component {
                 <Form>
                     <h3 className="profile-title">仅用于课程学习相关通知与服务</h3>
                     <div className="parents-name">
-                        <input type="text"  placeholder='家长姓名' style={{width: '100%'}}/>
+                        <input type="text"  placeholder='家长姓名' style={{width: '100%'}}
+                               value={this.state.parents_name}
+                               onChange={this.handleNameChange}
+                               name='parents_name' />
                     </div>
                     <div className="phone-number">
                         <Button>中国(+86)</Button>
-                        <input type="text" style={{width: '60%'}}/>
+                        <input type="text" style={{width: '60%'}}
+                               value={this.state.phone}
+                               onChange={this.handlePhoneChange}
+                               name='phone'/>
                     </div>
                     <div className="check-number">
                         <input type="text" style={{width: '60%'}}/>
                         <Button>获取验证码</Button>
                     </div>
+                    <Form.Group widths='equal'>
+                        <Form.Field control={Button} content='继续'
+                                    style={{margin: '2em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: '#eee', height: '4em', letterSpacing: '2px', fontWeight: 'normal', borderRadius: '30px'}}/>
+                    </Form.Group>
                 </Form>
                 <br/>
             </div>

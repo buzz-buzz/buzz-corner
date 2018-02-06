@@ -13,7 +13,7 @@ class Homepage extends Component {
                     {Resources.getInstance().homeLogin}
                 </Link>
                 <br/>
-                <Link to='/my' className="ui green button"   style={{margin: '1em 0'}} key='my' >
+                <Link to='/my/info' className="ui green button"   style={{margin: '1em 0'}} key='my' >
                     {Resources.getInstance().my}
                 </Link>
                 <br/>
