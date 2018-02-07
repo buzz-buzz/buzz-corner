@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Form, Button} from 'semantic-ui-react';
-import HeaderWithBack from '../layout/header-with-go-back';
+import {Form, Button, Icon} from 'semantic-ui-react';
+import { browserHistory } from 'react-router';
 import './my.css';
 
 class Homepage extends Component {
@@ -8,7 +8,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 3,
+            step: 1,
             profile: {
                 parents_name: '',
                 phone: '',
@@ -26,11 +26,22 @@ class Homepage extends Component {
         this.submit = this.submit.bind(this);
         this.handleGender = this.handleGender.bind(this);
         this.topicChange = this.topicChange.bind(this);
+        this.goBack = this.goBack.bind(this);
+    }
+
+    goBack(){
+        if(this.state.step === 1){
+            browserHistory.push('/');
+        }else if(this.state.step <= 4){
+            let newStep = this.state.step - 1;
+            this.setState({
+                step: newStep
+            });
+        }
     }
 
     topicChange(event){
         event.stopPropagation();
-        console.log(event.target.name);
 
         let clonedProfile = this.state.profile;
         let clonedTopics = clonedProfile.topics;
@@ -51,8 +62,6 @@ class Homepage extends Component {
         }
 
         this.setState({profile: clonedProfile});
-
-        console.log(this.state.profile.topics);
     }
 
     handleGender(event){
@@ -82,6 +91,7 @@ class Homepage extends Component {
                 //done
                 console.log('用户填写完毕');
                 console.log(this.state.profile);
+                browserHistory.push('/placement');
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -94,7 +104,20 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
-                <HeaderWithBack/>
+                <div className="header-with-go-back">
+                    <div className="go-back" onClick={this.goBack}>
+                        <div className="arrow-left">
+                        </div>
+                        <div className="circle-border">
+                            <Icon className='arrow left'  />
+                        </div>
+                    </div>
+                    <div className="logo">
+                        <div>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                        </div>
+                    </div>
+                </div>
                 <div className="profile-progress">
                     <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ?  'active' : '' )}>
                         <div className="dot">
@@ -125,12 +148,12 @@ class Homepage extends Component {
                         <p>语言档案</p>
                     </div>
                 </div>
-                <Form>
+                <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {
                         this.state.step === 1 ?
                             (
-                                <div>
+                                <div className="form-content">
                                     <div className="parents-name">
                                         <input type="text"  placeholder='家长姓名' style={{width: '100%'}}
                                                value={this.state.profile.parents_name}
@@ -139,10 +162,10 @@ class Homepage extends Component {
                                     </div>
                                     <div className="phone-number">
                                         <Button>中国(+86)</Button>
-                                        <input type="text" style={{width: '60%'}}
+                                        <input type="number" style={{width: '60%'}}
                                                value={this.state.profile.phone}
                                                onChange={this.handleChange}
-                                               name='phone'/>
+                                               name='phone' />
                                     </div>
                                     <div className="check-number">
                                         <input type="text" style={{width: '60%'}}/>
@@ -151,7 +174,7 @@ class Homepage extends Component {
                                 </div>
                             ) : (
                                 this.state.step === 2 ? (
-                                    <div>
+                                    <div className="form-content">
                                         <div className="parents-name">
                                             <input type="text"  placeholder='学生英文名' style={{width: '100%'}}
                                                    value={this.state.profile.student_en_name}
@@ -174,7 +197,7 @@ class Homepage extends Component {
                                     </div>
                                     ): (
                                         this.state.step === 3 ?
-                                            (<div className='topic'>
+                                            (<div className='topic form-content'>
                                                 <p>Choose type</p>
                                                 <div className="topic-items">
                                                     <div>
@@ -212,15 +235,23 @@ class Homepage extends Component {
                                                 </div>
                                             </div>) :
                                             (
-                                                <div></div>
+                                                <div className="form-content">
+                                                    <h4>通过4道小问题帮助我们了解并为你的</h4>
+                                                    <h4>孩子优先匹配最合适<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
+                                                </div>
                                             )
                                     )
                             )
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
-                                    style={{margin: '2em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
+                                    style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
                     </Form.Group>
+                    {
+                        this.state.step === 4 ? (
+                                <div className="skip">Skip and setup later</div>
+                            ):('')
+                    }
                 </Form>
                 <br/>
             </div>

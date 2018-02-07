@@ -211,6 +211,80 @@ input[name='date_of_birth']{
     border: 1px solid transparent;
 }
 
+h4{
+    font-weight: normal;
+    text-align: center;
+}
+
 .topic>p{
     letter-spacing: 2px;
+}
+
+.profile-body>div.form-content{
+    min-height: 15em;
+}
+
+.skip{
+    margin: -1em auto 0 auto;
+    width: 50%;
+    text-align: center;
+    color: #999;
+}
+
+.header-with-go-back{
+    height: 70px;
+    width: 100%;
+    margin: 0;
+    padding: 20px 0 0 0;
+    z-index: 999;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.go-back{
+    position: absolute;
+    margin: 0;
+    width: 20%;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.go-back > div{
+    display: inline-block;
+    background-color: #eee;
+}
+
+.go-back>div.arrow-left{
+    width: 20%;
+    height: 30px;
+}
+
+.go-back>div.circle-border{
+    width: 30px;
+    height: 60%;
+    line-height: 30px;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.logo:nth-child(2) {
+    width: 20%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.logo>div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img{
+    width: 100%;
 }
