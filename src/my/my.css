@@ -3,6 +3,12 @@
     margin: 0;
 }
 
+.ui.container{
+    background-color: rgba(0,0,0,.1);
+    margin: 0 !important;
+    padding: 0 1em;
+}
+
 .my-profile>a{
     width: 100%;
     margin-bottom: 1em !important;
@@ -226,20 +232,20 @@ h4{
 
 .skip{
     margin: -1em auto 0 auto;
-    width: 50%;
+    width: 100%;
     text-align: center;
     color: #999;
 }
 
 .header-with-go-back{
     height: 70px;
-    width: 100%;
-    margin: 0;
+    margin: 0 -1em 0 -1em;
     padding: 20px 0 0 0;
     z-index: 999;
     border-bottom: 1px solid #ccc;
     position: relative;
     box-sizing: border-box;
+    background-color: white;
 }
 
 .go-back{

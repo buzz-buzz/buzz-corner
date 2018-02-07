@@ -10,20 +10,25 @@ class Homepage extends Component {
 
         this.state = {
             step: 1,
-            profile: {
-                parents_name: '',
-                phone: '',
-                student_en_name: '',
-                city: '',
-                date_of_birth: '',
-                gender: '',
-                topics: []
+            questions: {
+                title: 'Do you know how to introduce yourself in English?',
+                items: [
+                    'Yes, I can.df dfgdfgfdg dfgdfgfdg dfg dfgd dfg dgdf gd dfg ddg dfg dgd fgdfg',
+                    'No, I can\'t',
+                    'Oh, sorry...'
+                ]
             },
-            topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+            firstAnswer: ''
         };
+
+        this.answering = this.answering.bind(this);
     }
 
-
+    answering(event){
+        this.setState({
+            firstAnswer: event.target.name
+        });
+    }
 
     render() {
         return (
@@ -75,14 +80,38 @@ class Homepage extends Component {
                 <Form className='profile-body'>
                     {
                         this.state.step === 1 ?
-                            (<div>
-
+                            (<div className="first">
+                                <div className="first-question">
+                                    <div>
+                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                    </div>
+                                    <p className="first-title">
+                                        Do you know how to introduce yourself in English?
+                                    </p>
+                                </div>
+                                <div className="first-answer">
+                                    <div className="answer-title">Select the best matching answer.</div>
+                                    {
+                                        this.state.questions.items.map((item, index) => {
+                                            return <div className="answer-item" key={index}
+                                                style={this.state.firstAnswer === index + '' ? {background: '#f7b52a', color: 'white', border: '1px solid #f7b52a'} : {}}  >
+                                                <div className="item-value">
+                                                    <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
+                                                </div>
+                                                <div className="item-content">
+                                                    <p>{item}</p>
+                                                </div>
+                                                <button className="click-event" name={index} onClick={this.answering}>hidden</button>
+                                            </div>
+                                        })
+                                    }
+                                </div>
                             </div>)
                             :
                             (<div></div>)
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'}  style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
+                        <Form.Field control={Button} content='Continue'  style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.firstAnswer === ''} onClick={this.submit} />
                     </Form.Group>
                     <div className="skip">Skip and setup later</div>
                 </Form>
