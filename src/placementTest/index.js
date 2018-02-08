@@ -13,7 +13,7 @@ class Homepage extends Component {
             questions: {
                 title: 'Do you know how to introduce yourself in English?',
                 items: [
-                    'Yes, I can.df dfgdfgfdg dfgdfgfdg dfg dfgd dfg dgdf gd dfg ddg dfg dgd fgdfg',
+                    'Yes, I can introduce myself with a full sentence.',
                     'No, I can\'t',
                     'Oh, sorry...'
                 ]
@@ -22,12 +22,51 @@ class Homepage extends Component {
         };
 
         this.answering = this.answering.bind(this);
+        this.skip = this.skip.bind(this);
+        this.submit = this.submit.bind(this);
+        this.goBack = this.goBack.bind(this);
+    }
+
+    goBack(){
+        if(this.state.step === 1){
+            browserHistory.push('/');
+        }else if(this.state.step <= 4){
+            let newStep = this.state.step - 1;
+            this.setState({
+                step: newStep
+            });
+        }
     }
 
     answering(event){
         this.setState({
             firstAnswer: event.target.name
         });
+    }
+
+    async skip(){
+        browserHistory.push('/');
+    }
+
+    submit(){
+        try {
+            if(this.state.step < 4){
+                let newStep = this.state.step +1;
+                this.setState({
+                    step: newStep
+                });
+            }else{
+                //done
+                console.log('用户placement填写完毕');
+                console.log(this.state);
+                browserHistory.push('/');
+            }
+
+            //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
+        } catch (ex) {
+            console.error(ex);
+            //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
+        }
     }
 
     render() {
@@ -80,13 +119,13 @@ class Homepage extends Component {
                 <Form className='profile-body'>
                     {
                         this.state.step === 1 ?
-                            (<div className="first">
+                            (<div className="first placement-first">
                                 <div className="first-question">
                                     <div>
                                         <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                     </div>
                                     <p className="first-title">
-                                        Do you know how to introduce yourself in English?
+                                        <p>Do you know how to introduce yourself in English?</p>
                                     </p>
                                 </div>
                                 <div className="first-answer">
@@ -108,12 +147,32 @@ class Homepage extends Component {
                                 </div>
                             </div>)
                             :
-                            (<div></div>)
+                            (<div className="placement-second">
+                                <div className="second-title">
+                                    <p>Listen to the question and record an appropriate response.</p>
+                                </div>
+                                <div className="first-question">
+                                    <div>
+                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                    </div>
+                                    <div className="first-title">
+                                        <p>点击收听</p>
+                                    </div>
+                                </div>
+                                <div className="answering-audio">
+                                    <div className="first-title">
+                                        <p>点击回答</p>
+                                    </div>
+                                    <div>
+                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                    </div>
+                                </div>
+                            </div>)
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content='Continue'  style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.firstAnswer === ''} onClick={this.submit} />
                     </Form.Group>
-                    <div className="skip">Skip and setup later</div>
+                    <div className="skip" onClick={this.skip} >Skip and setup later</div>
                 </Form>
                 <br/>
             </div>

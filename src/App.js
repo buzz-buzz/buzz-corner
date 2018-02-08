@@ -22,7 +22,7 @@ import {Container} from "semantic-ui-react";
 class App extends Component {
     render() {
         return (
-            <Container>
+            <Container style={{minHeight: '100%'}}>
                 <div className="content">
                     <Router history={browserHistory}>
                         <Route path='/' component={HomePage}/>

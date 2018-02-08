@@ -1,35 +1,17 @@
+.placement-first, .placement-second, .placement-third,  .placement-fourth {
+    min-height: 15em;
+}
+
 .first-question{
-    height: 6em;
-    position: relative;
-    width: 100%;
+    height: 4em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin: 2em 0 1em 0;
 }
 
-.first-question>div, .first-question>p{
-    display: block;
+.first-question>div, .first-question>div>img{
     height: 100%;
-    padding: 1em;
-}
-
-.first-question>div>img{
-    height: 100%;
-    vertical-align: middle;
-}
-
-.first-question>div{
-    width: 25%;
-}
-
-.first-question>p{
-    width: 75%;
-    text-align: left;
-    height: 100%;
-    position: absolute;
-    font-size: 1.2em;
-    right: 0;
-    top: 0;
-    padding: 1.2em .5em;
-    font-weight: bold;
 }
 
 .first-answer>.answer-item{
@@ -39,6 +21,7 @@
     border: 1px solid #aaa;
     margin: 1em 0;
     position: relative;
+    display: flex;
 }
 
 .answer-title{
@@ -47,11 +30,6 @@
     text-align: center;
     color: #999;
     font-size: 1.2em;
-}
-
-.answer-item{
-    height: 4em;
-    position: relative;
 }
 
 .answer-item > div.item-value, .answer-item > div.item-content{
@@ -63,7 +41,6 @@
 }
 
 .answer-item > div.item-content{
-    float: right;
     width: 80%;
 }
 
@@ -71,7 +48,6 @@
     width: 20%;
     padding-left: 2em;
     font-size: 1.2em;
-    float: left;
 }
 
 .click-event{
@@ -82,4 +58,39 @@
     height: 100%;
     z-index: 99;
     opacity: 0;
+}
+
+.second-title{
+    box-sizing: border-box;
+    margin: 1em -1em;
+    border-left: .5em solid #f7b52a;
+}
+
+.second-title>p{
+    padding: 0 1em;
+    font-size: 1.2em;
+}
+
+.placement-second > .first-question{
+    margin: 1em 0;
+}
+
+.answering-audio{
+    height: 4em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.answering-audio>div, .answering-audio>div>img{
+    height: 100%;
+}
+
+.first-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 1em;
 }
