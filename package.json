@@ -26,7 +26,8 @@
     "semantic-ui-react": "^0.77.0"
   },
   "scripts": {
-    "start": "set PORT=80&&react-app-rewired start",
+    "start": "node app.js",
+    "client": "set PORT=80&&react-app-rewired start",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
     "build": "react-scripts build",
