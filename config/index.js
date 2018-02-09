@@ -64,7 +64,7 @@ let config = {
             thirdParty: 'http://service.bridgeplus.cn:10101',
             buzzCorner: 'http://corner.buzzbuzzenglish.com',
             sso: 'http://service.bridgeplus.cn:10086',
-            buzzService: 'http://service.bridgeplus.cn:16160',
+            buzzService: 'https://buzz-corner-service.herokuapp.com',
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
 
