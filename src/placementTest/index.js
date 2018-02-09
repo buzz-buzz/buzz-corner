@@ -9,7 +9,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 1,
+            step: 4,
             questions: {
                 title: 'Do you know how to introduce yourself in English?',
                 items: [
@@ -124,9 +124,9 @@ class Homepage extends Component {
                                     <div>
                                         <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                     </div>
-                                    <p className="first-title">
-                                        <p>Do you know how to introduce yourself in English?</p>
-                                    </p>
+                                    <div className="first-title">
+                                        <p>{this.state.questions.title}</p>
+                                    </div>
                                 </div>
                                 <div className="first-answer">
                                     <div className="answer-title">Select the best matching answer.</div>
@@ -147,27 +147,103 @@ class Homepage extends Component {
                                 </div>
                             </div>)
                             :
-                            (<div className="placement-second">
-                                <div className="second-title">
-                                    <p>Listen to the question and record an appropriate response.</p>
-                                </div>
-                                <div className="first-question">
-                                    <div>
-                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                            (this.state.step === 2 ? (
+                                    <div className="placement-second">
+                                        <div className="second-title">
+                                            <p>Listen to the question and record an appropriate response.</p>
+                                        </div>
+                                        <div className="first-question">
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                            <div className="first-title">
+                                                <p>点击收听</p>
+                                            </div>
+                                        </div>
+                                        <div className="answering-audio">
+                                            <div className="first-title">
+                                                <p>点击回答</p>
+                                            </div>
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="first-title">
-                                        <p>点击收听</p>
-                                    </div>
-                                </div>
-                                <div className="answering-audio">
-                                    <div className="first-title">
-                                        <p>点击回答</p>
-                                    </div>
-                                    <div>
-                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
-                                    </div>
-                                </div>
-                            </div>)
+                                ) : (this.state.step === 3 ? (
+                                        <div className="placement-second">
+                                            <div className="second-title">
+                                                <p>Listen to the question and record an appropriate response.</p>
+                                            </div>
+                                            <div className="first-question">
+                                                <div>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                                <div className="first-title">
+                                                    <p>点击收听</p>
+                                                </div>
+                                            </div>
+                                            <div className="answering-audio">
+                                                <div className="first-title">
+                                                    <p>点击回答</p>
+                                                </div>
+                                                <div>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                            </div>
+                                            <div className="first-question">
+                                                <div>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                                <div className="first-title">
+                                                    <p>点击收听</p>
+                                                </div>
+                                            </div>
+                                            <div className="answering-audio">
+                                                <div className="first-title">
+                                                    <p>点击回答</p>
+                                                </div>
+                                                <div>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (<div className="placement-second">
+                                        <div className="second-title">
+                                            <p>Listen to the question and record an appropriate response.</p>
+                                        </div>
+                                        <div className="first-question">
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                            <div className="first-title">
+                                                <p>点击收听</p>
+                                            </div>
+                                        </div>
+                                        <div className="answering-audio">
+                                            <div className="first-title">
+                                                <p>点击回答</p>
+                                            </div>
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div className="first-question">
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                            <div className="first-title">
+                                                <p>点击收听</p>
+                                            </div>
+                                        </div>
+                                        <div className="answering-audio">
+                                            <div className="first-title">
+                                                <p>点击回答</p>
+                                            </div>
+                                            <div>
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                        </div>
+                                    </div>)))
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content='Continue'  style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.firstAnswer === ''} onClick={this.submit} />

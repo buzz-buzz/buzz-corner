@@ -97,9 +97,10 @@
 
 .check-number, .phone-number{
     width: 100%;
-    position: relative;
     height: 4em;
     margin: 1em 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .check-number>button{
