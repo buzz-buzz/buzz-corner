@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import {Form, Button, Icon} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
+import CurrentUser from "../membership/user";
+import ServiceProxy from '../service-proxy';
 import './my.css';
+
+function getBirthDay(date_of_birth) {
+    if (date_of_birth) {
+        let date = new Date(date_of_birth);
+        return  String(date.getFullYear()) + '-' + String(date.getMonth() + 1 >9?date.getMonth() + 1:'0'+(date.getMonth() + 1)) + '-' + String(date.getDate()>9?date.getDate():'0'+date.getDate());
+    } else {
+        return ''
+    }
+}
 
 class Homepage extends Component {
     constructor() {
@@ -89,9 +100,21 @@ class Homepage extends Component {
                 });
             }else{
                 //done
-                console.log('用户填写完毕');
-                console.log(this.state.profile);
-                browserHistory.push('/placement');
+                let profileData = this.validateForm();
+
+                console.log(profileData);
+
+                let response = await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
+                        json: profileData,
+                        method: 'PUT'
+                    }
+                });
+
+                this.setState({
+
+                });
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -99,6 +122,45 @@ class Homepage extends Component {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
         }
+    }
+
+    validateForm() {
+        let profile = this.state.profile;
+
+        return {
+            display_name: profile.student_en_name,
+            gender: profile.gender,
+            location: profile.city,
+            mobile: profile.phone,
+            date_of_birth: getBirthDay(profile.date_of_birth)
+        };
+    }
+
+    async componentDidMount() {
+        let userId = await CurrentUser.getUserId();
+
+        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+            }
+        }));
+
+        this.setState({
+            profile: profile,
+            userId: userId
+        });
+    }
+
+    getProfileFromUserData(userData) {
+        return {
+            parents_name: '',
+            phone: userData.mobile || '',
+            student_en_name: userData.display_name || '',
+            city: userData.location || '',
+            date_of_birth: getBirthDay(userData.date_of_birth),
+            gender: userData.gender,
+            topics: []
+        };
     }
 
     render() {
@@ -182,8 +244,8 @@ class Homepage extends Component {
                                                    name='student_en_name' />
                                         </div>
                                         <div className="gender">
-                                            <Button name="gender" value="male" onClick={this.handleGender} style={{border: this.state.profile.gender === 'male' ? '1px solid #f7b52a' : ''}} >男</Button>
-                                            <Button name="gender" value="female" onClick={this.handleGender} style={{border: this.state.profile.gender === 'female' ? '1px solid #f7b52a' : ''}}>女</Button>
+                                            <Button name="gender" value="m" onClick={this.handleGender} style={{border: this.state.profile.gender === 'm' ? '1px solid #f7b52a' : ''}} >男</Button>
+                                            <Button name="gender" value="f" onClick={this.handleGender} style={{border: this.state.profile.gender === 'f' ? '1px solid #f7b52a' : ''}}>女</Button>
                                         </div>
                                         <Form.Group widths='equal'>
                                             <Form.Input value={this.state.profile.date_of_birth} type="date" onChange={this.handleChange} name='date_of_birth' />
