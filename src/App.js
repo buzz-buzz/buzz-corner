@@ -23,7 +23,7 @@ class App extends Component {
     render() {
         return (
             <Container style={{minHeight: '100%'}}>
-                <div className="content">
+                <div className="content" style={{paddingBottom: '5em'}}>
                     <Router history={browserHistory}>
                         <Route path='/' component={HomePage}/>
                         <Route path="/login" component={Login}/>

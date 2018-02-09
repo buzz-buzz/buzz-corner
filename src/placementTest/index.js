@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Form, Button, Icon} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
+import CurrentUser from "../membership/user";
+import ServiceProxy from '../service-proxy';
 import '../my/my.css';
 import './index.css';
 
@@ -9,7 +11,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 4,
+            step: 1,
             questions: {
                 title: 'Do you know how to introduce yourself in English?',
                 items: [
@@ -48,7 +50,15 @@ class Homepage extends Component {
         browserHistory.push('/');
     }
 
-    submit(){
+    async componentDidMount() {
+        let userId = await CurrentUser.getUserId();
+
+        this.setState({
+            userId: userId
+        });
+    }
+
+    async submit(){
         try {
             if(this.state.step < 4){
                 let newStep = this.state.step +1;
@@ -59,7 +69,24 @@ class Homepage extends Component {
                 //done
                 console.log('用户placement填写完毕');
                 console.log(this.state);
-                browserHistory.push('/');
+                //saveData to DB
+
+                let placementTestData = {
+                    user_id: this.state.userId,
+                    test_time: new Date(),
+                    placement_content: '{"question":"how old are you?";"answer":"I am 18."}',
+                    remark: ''
+                };
+
+                console.log(placementTestData);
+
+                // let response = await ServiceProxy.proxyTo({
+                //     body: {
+                //         uri: `{config.endPoints.buzzService}/api/v1/placement-test/${this.state.userId}`,
+                //         json: placementTestData,
+                //         method: 'POST'
+                //     }
+                // });
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});

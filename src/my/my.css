@@ -92,7 +92,7 @@
 }
 
 .check-number{
-    display: none;
+    display: none !important;
 }
 
 .check-number, .phone-number{
@@ -107,6 +107,7 @@
     font-weight: normal !important;
     width: 35%;
     letter-spacing: 1px;
+    margin: 0 !important;
 }
 
 .check-number>input, .check-number>button, .phone-number>input, .phone-number>button, .parents-name>input{
@@ -223,7 +224,7 @@ h4{
 }
 
 .profile-body>div.form-content{
-    min-height: 15em;
+    /*min-height: 15em;*/
 }
 
 .skip{

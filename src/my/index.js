@@ -111,11 +111,9 @@ class Homepage extends Component {
                         method: 'PUT'
                     }
                 });
-
-                this.setState({
-
-                });
             }
+
+            browserHistory.push('/placement');
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
