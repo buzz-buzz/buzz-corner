@@ -6,6 +6,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "co-request": "^1.0.0",
+    "concurrently": "^3.5.1",
     "js-koa-pug": "^1.0.3",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
@@ -26,7 +27,7 @@
     "semantic-ui-react": "^0.77.0"
   },
   "scripts": {
-    "start": "react-scripts build && node app.js",
+    "start": "concurrently \"react-scripts build\" \"node app.js\"",
     "client": "set PORT=80&&react-app-rewired start",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
