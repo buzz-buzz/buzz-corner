@@ -94,7 +94,7 @@ router
     .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
-            ctx.redirect(ctx.query.from || '/');
+            ctx.redirect(ctx.query.from || '/my/info');
         } else {
             ctx.body = {msg: 'login failed！'};
         }

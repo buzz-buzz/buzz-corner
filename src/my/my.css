@@ -4,9 +4,14 @@
 }
 
 .ui.container{
-    background-color: rgba(0,0,0,.1);
     margin: 0 !important;
     padding: 0 1em;
+}
+
+.my-profile{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .my-profile>a{
@@ -221,6 +226,22 @@ h4{
 
 .topic>p{
     letter-spacing: 2px;
+}
+
+.profile-body{
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-body > .fields{
+    flex: auto;
+}
+
+.profile-body > .fields > .field{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
 }
 
 .profile-body>div.form-content{

@@ -21,6 +21,7 @@ export default class WechatLogin extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log('aaaaaaaaaaaaa----', this.state.userInfo);
     }
 
     render() {

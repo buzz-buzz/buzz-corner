@@ -104,16 +104,16 @@ class Homepage extends Component {
 
                 console.log(profileData);
 
-                let response = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                        json: profileData,
-                        method: 'PUT'
-                    }
-                });
-            }
+                // let response = await ServiceProxy.proxyTo({
+                //     body: {
+                //         uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
+                //         json: profileData,
+                //         method: 'PUT'
+                //     }
+                // });
 
-            browserHistory.push('/placement');
+                browserHistory.push('/placement');
+            }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
@@ -135,18 +135,18 @@ class Homepage extends Component {
     }
 
     async componentDidMount() {
-        let userId = await CurrentUser.getUserId();
-
-        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-            }
-        }));
-
-        this.setState({
-            profile: profile,
-            userId: userId
-        });
+        // let userId = await CurrentUser.getUserId();
+        //
+        // let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
+        //     body: {
+        //         uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+        //     }
+        // }));
+        //
+        // this.setState({
+        //     profile: profile,
+        //     userId: userId
+        // });
     }
 
     getProfileFromUserData(userData) {
@@ -191,7 +191,7 @@ class Homepage extends Component {
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>孩子信息</p>
+                        <p>少年信息</p>
                     </div>
                     <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ?  'active' : '' )}>
                         <div className="dot">
@@ -205,7 +205,7 @@ class Homepage extends Component {
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>语言档案</p>
+                        <p>解密暗号</p>
                     </div>
                 </div>
                 <Form className='profile-body'>
