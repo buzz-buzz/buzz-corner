@@ -143,7 +143,7 @@
     height: 4em;
     width: 48%;
     margin: .5em 0 !important;
-    background-color: #eee !important;
+    background-color: #fff !important;
 }
 
 input[name='date_of_birth']{
@@ -153,8 +153,16 @@ input[name='date_of_birth']{
     text-align: center !important;
 }
 
-.phone-number>input,.parents-name>input,input[name='date_of_birth'] :focus{
-    border: 1px solid #f7b52a;
+.parents-name>input, .phone-number>input{
+    border: 1px solid transparent !important;
+}
+
+.parents-name>input:focus{
+    border: 1px solid #f7b52a !important;
+}
+
+.phone-number>input:focus{
+    border: 1px solid #f7b52a !important;
 }
 
 .profile-progress>div>p{

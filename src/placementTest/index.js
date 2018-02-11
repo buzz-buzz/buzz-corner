@@ -119,28 +119,28 @@ class Homepage extends Component {
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>First</p>
+                        <p>1</p>
                     </div>
                     <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ?  'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>Second</p>
+                        <p>2</p>
                     </div>
                     <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ?  'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>Third</p>
+                        <p>3</p>
                     </div>
                     <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ?  'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>Fourth</p>
+                        <p>4</p>
                     </div>
                 </div>
                 <Form className='profile-body'>

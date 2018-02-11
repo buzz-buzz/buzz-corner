@@ -236,7 +236,7 @@ class Homepage extends Component {
                                 this.state.step === 2 ? (
                                     <div className="form-content">
                                         <div className="parents-name">
-                                            <input type="text"  placeholder='学生英文名' style={{width: '100%'}}
+                                            <input type="text"  placeholder='少年英文名' style={{width: '100%'}}
                                                    value={this.state.profile.student_en_name}
                                                    onChange={this.handleChange}
                                                    name='student_en_name' />
@@ -258,7 +258,7 @@ class Homepage extends Component {
                                     ): (
                                         this.state.step === 3 ?
                                             (<div className='topic form-content'>
-                                                <p>Choose type</p>
+                                                <p>兴趣爱好</p>
                                                 <div className="topic-items">
                                                     <div>
                                                         <div>
