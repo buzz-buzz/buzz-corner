@@ -93,7 +93,7 @@ class Homepage extends Component {
         try {
             if(this.state.step < 4){
                 let newStep = this.state.step +1;
-                let newTitle = newStep === 2 ? '用于平台中呈现孩子的基本资料' : (newStep === 3 ? '用于匹配相似兴趣爱好的话题小组' : '建立孩子的语言档案');
+                let newTitle = newStep === 2 ? '用于平台中呈现少年的基本资料' : (newStep === 3 ? '用于匹配最优话题小组' : '建立少年的语言档案');
                 this.setState({
                     step: newStep,
                     profile_title: newTitle

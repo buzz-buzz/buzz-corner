@@ -1,0 +1,141 @@
+.my-home{
+    height: 100%;
+    margin: 0 -1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-home > .home-header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    box-shadow: 0 0 2px #ccc !important;
+    border-bottom-color: white;
+    position: relative;
+    z-index: 999;
+}
+
+.my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-message{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    position: relative;
+}
+
+.my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
+    position: absolute;
+    width: 33%;
+    bottom: 0;
+    left: 33%;
+}
+
+.my-home > .home-header > .consult{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+.my-home > .home-content{
+    width: 100%;
+    flex: auto;
+    background-color: rgb(244,245,249);
+    display: flex;
+    flex-direction: column;
+}
+
+.my-home > .home-content > .items, .my-home > .home-content > .none-items{
+    flex: auto;
+    width: 100%;
+}
+
+.my-home > .home-content > .items{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    justify-content: flex-start;
+    overflow: auto;
+}
+
+.my-home > .home-content > .items > .booking-item{
+    width: 100%;
+    margin-bottom: 1em;
+    height: 8em;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 0 2px #aaa !important;
+    flex: none;
+}
+
+.items, .my-home > .home-content > .none-items {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.items, .my-home > .home-content > .none-items  p{
+    text-align: center;
+    margin-bottom: .5em;
+}
+
+.my-home > .home-content > .booking-btn{
+    height: 6em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-home > .home-content > .booking-btn >div{
+    width: 80%;
+}
+
+.my-home > .home-content > .booking-btn button{
+    border-radius: 1.5em;
+    width: 100%;
+    height: 3em;
+    background-color: rgb(106, 225, 8);
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.my-home > .home-content > .message-tab{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-home > .home-content > .message-content{
+    width: 100%;
+    flex: auto;
+}
+
+.my-home > .home-content > .message-tab > div{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.my-home > .home-content > .message-tab > div:nth-child(1){
+    border-right: 1px solid #eee;
+}
+
+.my-home > .home-content > .message-tab > div.active{
+    color: #f7b52a;
+}
+
+.my-home > .offset-footer{
+    width: 100%;
+    height: 60px;
+}

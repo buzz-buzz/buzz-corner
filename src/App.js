@@ -16,6 +16,7 @@ import Language from './my/myLanguage';
 import Admin from './admin/index';
 import ClassManage from './admin/classManage';
 import Placement from './placementTest';
+import Home from './home';
 
 import {Container} from "semantic-ui-react";
 
@@ -38,9 +39,9 @@ class App extends Component {
                         <Route path='/admin' component={Admin} />
                         <Route path='/admin/class' component={ClassManage} />
                         <Route path='/placement' component={Placement} />
+                        <Route path='/home' component={Home} />
                     </Router>
                 </div>
-                <Footer/>
             </Container>
         );
     }
