@@ -118,6 +118,15 @@
     flex: auto;
 }
 
+.my-home > .home-content > .message-content > div > div{
+    margin: 1em;
+    height: 8em;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 0 2px #aaa !important;
+    flex: none;
+}
+
 .my-home > .home-content > .message-tab > div{
     width: 50%;
     height: 100%;

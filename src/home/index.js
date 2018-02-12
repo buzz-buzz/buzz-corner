@@ -12,14 +12,7 @@ class Home extends Component {
 
         this.state = {
             tab: 'booking',
-            booking: [
-                {
-                    name: 'hank'
-                },
-                {
-                    name: 'jeff'
-                }
-            ]
+            booking: []
         };
 
         this.tabChange = this.tabChange.bind(this);
@@ -93,7 +86,10 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className="message-content">
-
+                            <div className="friend-message-items">
+                                <div></div>
+                            </div>
+                            <div className="advisor-message-items"></div>
                         </div>
                     </div>)
                 }
