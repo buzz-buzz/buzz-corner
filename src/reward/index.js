@@ -20,7 +20,13 @@ class Reward extends Component {
     render() {
         return (
             <div className="reward-page">
-
+                <div className="header-with-go-back">
+                    <div className="logo-without-back">
+                        <div>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                        </div>
+                    </div>
+                </div>
                 <Footer />
             </div>
         );

@@ -1,0 +1,37 @@
+.user-page{
+    height: 100%;
+    margin: 0 -1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-with-go-back{
+    height: 70px;
+    margin: 0;
+    padding: 20px 0 0 0;
+    z-index: 999;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.logo-without-back{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.logo-without-back img{
+    width: 100%;
+    max-height: 40px;
+}
+
+.user-content{
+    flex: auto;
+    display: flex;
+    background-color: rgb(244,245,249);
+}

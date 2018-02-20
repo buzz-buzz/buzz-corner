@@ -20,7 +20,16 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
+                <div className="header-with-go-back">
+                    <div className="logo-without-back">
+                        <div>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                        </div>
+                    </div>
+                </div>
+                <div className="user-content">
 
+                </div>
                 <Footer />
             </div>
         );

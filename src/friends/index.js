@@ -20,7 +20,24 @@ class Friends extends Component {
     render() {
         return (
             <div className="friends-page">
-
+                <div className="header-without-go-back">
+                    <div className="logo-without-back">
+                        <div>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                        </div>
+                    </div>
+                </div>
+                <div className="friends-tab">
+                    <div>
+                        <span>外籍</span>
+                    </div>
+                    <div>
+                        <span>中方</span>
+                    </div>
+                </div>
+                <div className="friends-content">
+                    <span>你还没有好友哦</span>
+                </div>
                 <Footer />
             </div>
         );
