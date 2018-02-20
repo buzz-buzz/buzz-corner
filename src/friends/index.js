@@ -10,8 +10,34 @@ class Friends extends Component {
     constructor() {
         super();
 
+        this.state = {
+            friends_type: 1
+        };
 
+        this.friendTypeOne = this.friendTypeOne.bind(this);
+        this.friendTypeTwo = this.friendTypeTwo.bind(this);
     }
+
+    friendTypeOne(){
+        let type = this.state.friends_type;
+
+        if(type !== 1){
+            this.setState({
+                friends_type: 1
+            });
+        }
+    }
+
+    friendTypeTwo(){
+        let type = this.state.friends_type;
+
+        if(type !== 2){
+            this.setState({
+                friends_type: 2
+            });
+        }
+    }
+
 
     async componentDidMount() {
 
@@ -28,10 +54,10 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-tab">
-                    <div>
+                    <div onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
                         <span>外籍</span>
                     </div>
-                    <div>
+                    <div onClick={this.friendTypeTwo} style={this.state.friends_type === 2 ? {color: '#f7b52a'} : {}}>
                         <span>中方</span>
                     </div>
                 </div>

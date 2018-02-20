@@ -15,17 +15,28 @@ class Home extends Component {
             booking: []
         };
 
-        this.tabChange = this.tabChange.bind(this);
+        this.tabChangeBook = this.tabChangeBook.bind(this);
+        this.tabChangeMessage = this.tabChangeMessage.bind(this);
     }
 
-    tabChange(){
+    tabChangeBook(){
         let tab = this.state.tab;
 
-        tab = tab === 'booking' ? 'message' : 'booking';
+        if(tab !== 'booking'){
+            this.setState({
+                tab: 'booking'
+            });
+        }
+    }
 
-        this.setState({
-            tab: tab
-        });
+    tabChangeMessage(){
+        let tab = this.state.tab;
+
+        if(tab !== 'message'){
+            this.setState({
+                tab: 'message'
+            });
+        }
     }
 
     async componentDidMount() {
@@ -36,12 +47,12 @@ class Home extends Component {
         return (
             <div className="my-home">
                 <div className="home-header">
-                    <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChange}>
+                    <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeBook}>
                         <Icon name="object group" />
                         <span>booking</span>
                         <div className="tab-active"  style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
-                    <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}} onClick={this.tabChange}>
+                    <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeMessage}>
                         <Icon name="mail" />
                         <span>message</span>
                         <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
