@@ -30,7 +30,8 @@ class Homepage extends Component {
                 topics: []
             },
             profile_title: '仅用于课程学习相关通知与服务',
-            topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+            topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd",
+            agreement: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,6 +39,7 @@ class Homepage extends Component {
         this.handleGender = this.handleGender.bind(this);
         this.topicChange = this.topicChange.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.agreementCheck = this.agreementCheck.bind(this);
     }
 
     goBack(){
@@ -87,6 +89,13 @@ class Homepage extends Component {
 
         clonedProfile[event.target.name] =  event.target.value;
         this.setState({profile: clonedProfile});
+    }
+
+    agreementCheck(){
+        let agreement = this.state.agreement;
+        this.setState({
+            agreement: !agreement
+        });
     }
 
     async submit() {
@@ -231,6 +240,10 @@ class Homepage extends Component {
                                         <input type="text" style={{width: '60%'}}/>
                                         <Button>获取验证码</Button>
                                     </div>
+                                    <div className="agreement" onClick={this.agreementCheck}>
+                                        <Icon className='check circle' style={this.state.agreement === true ? {color: '#f7b52a'} : {}}  />
+                                        <span>我已接受并遵守BuzzBuzz的相关用户协议与条款</span>
+                                    </div>
                                 </div>
                             ) : (
                                 this.state.step === 2 ? (
@@ -304,7 +317,7 @@ class Homepage extends Component {
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
+                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
                                     style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
                     </Form.Group>
                     {

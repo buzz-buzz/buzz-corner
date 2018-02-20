@@ -17,6 +17,9 @@ import Admin from './admin/index';
 import ClassManage from './admin/classManage';
 import Placement from './placementTest';
 import Home from './home';
+import Friends from './friends';
+import Reward from './reward';
+import User from './user';
 
 import {Container} from "semantic-ui-react";
 
@@ -40,6 +43,9 @@ class App extends Component {
                         <Route path='/admin/class' component={ClassManage} />
                         <Route path='/placement' component={Placement} />
                         <Route path='/home' component={Home} />
+                        <Route path='/friends' component={Friends} />
+                        <Route path='/reward' component={Reward} />
+                        <Route path='/user' component={User} />
                     </Router>
                 </div>
             </Container>
