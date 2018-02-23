@@ -4,6 +4,7 @@ import Header from './layout/header';
 import Footer from './layout/footer';
 import ProfilePage from './my/profileSetup';
 import WechatLogin from './loginForWechat/index';
+import LoginEntrance from './loginEntrance/index';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
 import Avatar from './my/profileSetup/more-info';
@@ -29,7 +30,8 @@ class App extends Component {
             <Container style={{height: '100%'}}>
                 <div className="content" style={{height: '100%'}}>
                     <Router history={browserHistory}>
-                        <Route path='/' component={WechatLogin}/>
+                        <Route path='/' component={LoginEntrance}/>
+                        <Route path='/login-for-wechat' component={WechatLogin}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path="/login/wechat" component={LoginByWechat}/>
