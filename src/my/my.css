@@ -334,3 +334,7 @@ h4{
 .agreement > span{
     font-size: .8em;
 }
+
+.disabled{
+    opacity: 1 !important;
+}

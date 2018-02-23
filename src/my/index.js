@@ -318,7 +318,7 @@ class Homepage extends Component {
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
-                                    style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'}} onClick={this.submit} />
+                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))) ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', backgroundColor: '#f7b52a', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'white', backgroundColor: 'rgb(223, 223, 228)', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px', opacity: '1 !important'}} onClick={this.submit} />
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
