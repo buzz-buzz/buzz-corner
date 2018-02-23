@@ -31,7 +31,41 @@
 }
 
 .user-content{
-    flex: auto;
     display: flex;
+    flex: auto;
+    flex-direction: column;
     background-color: rgb(244,245,249);
 }
+
+.user-my{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.user-my > .user-avatar{
+    width: 6em;
+    margin: 1.5em auto;
+    height: 6em;
+}
+
+.user-my > .user-avatar > img{
+    width: 100%;
+}
+
+.user-my > .user-info > p{
+    text-align: center;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.user-my > .user-info > p.name{
+    font-size: 1.2em;
+    color: rgb(247, 181, 42);
+}
+
+
+.user-my > .user-info > p.nationality{
+    margin: .5em 0 1.5em 0;
+}
+

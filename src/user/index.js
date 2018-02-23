@@ -28,7 +28,15 @@ class User extends Component {
                     </div>
                 </div>
                 <div className="user-content">
-
+                    <div className="user-my">
+                        <div className="user-avatar">
+                            <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                        </div>
+                        <div className="user-info">
+                            <p className="name">Your Name</p>
+                            <p className="nationality">USA</p>
+                        </div>
+                    </div>
                 </div>
                 <Footer />
             </div>
