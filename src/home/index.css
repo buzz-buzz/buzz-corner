@@ -1,5 +1,5 @@
 .my-home{
-    height: 100%;
+    min-height: 100%;
     margin: 0 -1em;
     display: flex;
     flex-direction: column;
@@ -13,6 +13,7 @@
     border-bottom-color: white;
     position: relative;
     z-index: 999;
+    flex-shrink: 0;
 }
 
 .my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-message{
@@ -44,14 +45,14 @@
 
 .my-home > .home-content{
     width: 100%;
-    flex: auto;
     background-color: rgb(244,245,249);
     display: flex;
     flex-direction: column;
+    flex: 1 0 auto;
 }
 
 .my-home > .home-content > .items, .my-home > .home-content > .none-items{
-    flex: auto;
+    flex: 1 0 auto;
     width: 100%;
 }
 
@@ -91,6 +92,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .my-home > .home-content > .booking-btn >div{

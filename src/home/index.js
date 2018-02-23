@@ -12,7 +12,11 @@ class Home extends Component {
 
         this.state = {
             tab: 'booking',
-            booking: []
+            booking: [
+                {},
+                {},
+                {}
+            ]
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
