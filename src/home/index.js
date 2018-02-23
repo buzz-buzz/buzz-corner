@@ -13,9 +13,24 @@ class Home extends Component {
         this.state = {
             tab: 'booking',
             booking: [
-                {},
-                {},
-                {}
+                {
+                    status: 1,
+                    date: '2018-2-1',
+                    time: '9:00-11:00',
+                    topic: ''
+                },
+                {
+                    status: 2,
+                    date: '2018-2-1',
+                    time: '18:00-19:00',
+                    topic: 'sing a new song'
+                },
+                {
+                    status: 3,
+                    date: '2018-2-1',
+                    time: '18:00-19:00',
+                    topic: 'sing a new song'
+                }
             ]
         };
 
@@ -72,7 +87,18 @@ class Home extends Component {
                                 {
                                     this.state.booking.map((item, index) => {
                                         return <div className="booking-item" key={index} >
-
+                                            <div className="booking-item-avatar">
+                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            </div>
+                                            <div className="booking-item-info">
+                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em'}}>SEAN</p>
+                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>sing a New song</p>
+                                                <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Today, Friday 29 December</p>
+                                                <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>11:00 - 12:00</p>
+                                            </div>
+                                            <div className="booking-item-status">
+                                                <p style={item.status === 1 ? {color: 'red'} : (item.status === 2 ? {color: 'rgb(106, 225, 8)'} : {color: '#aaa'})}>{item.status === 1 ? '待确认' : (item.status === 2 ? '7天后' : '已结束')}</p>
+                                            </div>
                                         </div>
                                     })
                                 }
