@@ -19,7 +19,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 2,
+            step: 3,
             profile: {
                 parents_name: '',
                 phone: '',
@@ -31,7 +31,37 @@ class Homepage extends Component {
             },
             profile_title: '仅用于课程学习相关通知与服务',
             topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd",
-            agreement: false
+            agreement: false,
+            placement_topics: [
+                {
+                    name: '宇宙',
+                    value: '1'
+                },
+                {
+                    name: '商业',
+                    value: '2'
+                },
+                {
+                    name: '艺术',
+                    value: '3'
+                },
+                {
+                    name: '食品',
+                    value: '4'
+                },
+                {
+                    name: '环境',
+                    value: '5'
+                },
+                {
+                    name: '生活方式',
+                    value: '6'
+                },
+                {
+                    name: '娱乐',
+                    value: '7'
+                }
+            ]
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -301,38 +331,18 @@ class Homepage extends Component {
                                             (<div className='topic form-content'>
                                                 <p>兴趣爱好</p>
                                                 <div className="topic-items">
-                                                    <div>
-                                                        <div>
-                                                            <img src={this.state.topic_url} />
-                                                        </div>
-                                                        <p>First</p>
-                                                        <a  onClick={this.topicChange} name="first"
-                                                            style={{border: this.state.profile.topics.indexOf('first') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
-                                                    </div>
-                                                    <div>
-                                                        <div>
-                                                            <img src={this.state.topic_url} />
-                                                        </div>
-                                                        <p>Second</p>
-                                                        <a  onClick={this.topicChange} name="second"
-                                                            style={{border: this.state.profile.topics.indexOf('second') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
-                                                    </div>
-                                                    <div>
-                                                        <div>
-                                                            <img src={this.state.topic_url} />
-                                                        </div>
-                                                        <p>Third</p>
-                                                        <a  onClick={this.topicChange} name="third"
-                                                            style={{border: this.state.profile.topics.indexOf('third') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
-                                                    </div>
-                                                    <div>
-                                                        <div>
-                                                            <img src={this.state.topic_url} />
-                                                        </div>
-                                                        <p>Fourth</p>
-                                                        <a  onClick={this.topicChange} name="fourth"
-                                                            style={{border: this.state.profile.topics.indexOf('fourth') >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
-                                                    </div>
+                                                    {
+                                                        this.state.placement_topics.map((item, index) => {
+                                                            return <div  key={index}>
+                                                                <div>
+                                                                    <img src={this.state.topic_url} />
+                                                                </div>
+                                                                <p>{item.name}</p>
+                                                                <a  onClick={this.topicChange} name={item.value}
+                                                                    style={{border: this.state.profile.topics.indexOf(item.value) >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                                            </div>
+                                                        })
+                                                    }
                                                 </div>
                                             </div>) :
                                             (

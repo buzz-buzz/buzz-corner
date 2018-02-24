@@ -30,6 +30,7 @@
     width: 100%;
     box-sizing: border-box;
     margin-top: 1em;
+    flex-shrink: 0;
 }
 
 .profile-progress>div{
@@ -195,45 +196,39 @@ input[name='date_of_birth']{
 }
 
 .topic>.topic-items>div{
-    display: inline-block;
-    height: 3.6em;
-    padding: .2em;
-    border-radius: 1.8em;
-    background-color: #eee;
-    margin: .5em 1em;
     position: relative;
-}
-
-.topic>.topic-items>div:nth-child(odd){
-    background-color: #eee;
-    color: #666;
-}
-
-.topic>.topic-items>div:nth-child(even){
-    background-color: #bbb;
-    color: blue;
-}
-
-.topic>.topic-items>div>div{
-    width: 3em;
+    display: flex;
     height: 3em;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-.topic>.topic-items>div>div>img{
-    width: 100%;
-    vertical-align: middle;
-}
-
-.topic>.topic-items>div>p{
-    height: 3em;
-    padding: 0 1.5em 0 .5em;
-    display: inline-block;
-    line-height: 3em;
+    align-items: center;
     border-radius: 1.5em;
-    margin: 0;
+    margin-right: 1em;
+    margin-bottom: .5em;
+    padding: .2em;
+    background-color: rgba(6, 125, 241, .2);
+}
+
+.topic>.topic-items>div > div{
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.topic>.topic-items>div > p{
+    margin: 0 1em 0 .5em;
+}
+
+.topic>.topic-items>div > div > img{
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.topic>.topic-items{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    padding: 1em 0;
 }
 
 .topic>.topic-items>div>a{
