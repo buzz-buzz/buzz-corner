@@ -41,9 +41,13 @@ class Home extends Component {
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
         this.tabChangeMessage = this.tabChangeMessage.bind(this);
-        this.goClassDetail = this.goClassDetail.bind(this);
         this.messageTabChangeFriends = this.messageTabChangeFriends.bind(this);
         this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
+        this.signUp = this.signUp.bind(this);
+    }
+
+    signUp(){
+       browserHistory.push('/consult');
     }
 
     tabChangeBook(){
@@ -84,10 +88,6 @@ class Home extends Component {
                 message_tab: 'advisor'
             });
         }
-    }
-
-    goClassDetail(class_id){
-        //browserHistory.push('/class/' + class_id);
     }
 
     async componentDidMount() {

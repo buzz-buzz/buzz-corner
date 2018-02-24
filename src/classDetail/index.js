@@ -19,10 +19,15 @@ class classDetail extends Component {
         };
 
         this.back = this.back.bind(this);
+        this.goConsult = this.goConsult.bind(this);
     }
 
     back(){
         window.history.back();
+    }
+
+    goConsult(){
+        browserHistory.push('/consult');
     }
 
     async componentDidMount() {
@@ -38,7 +43,7 @@ class classDetail extends Component {
                     </div>
                     <div className="class-detail-title">课程详情</div>
                     <div className="class-order">
-                        <p>预约需求</p>
+                        <p onClick={this.goConsult}>预约需求</p>
                     </div>
                 </div>
                 <div className="class-detail-info">
