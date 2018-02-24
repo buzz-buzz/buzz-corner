@@ -108,9 +108,9 @@ class Home extends Component {
                         <span>message</span>
                         <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
-                    <div className="consult">
+                    <Link className="consult" to="consult">
                         <Icon name="wechat" />
-                    </div>
+                    </Link>
                 </div>
                 {this.state.tab === 'booking' ?
                     (<div className="home-content">
