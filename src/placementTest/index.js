@@ -273,7 +273,7 @@ class Homepage extends Component {
                                     </div>)))
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content='Continue'  style={{margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.firstAnswer === ''} onClick={this.submit} />
+                        <Form.Field control={Button} content='Continue'  style={this.state.firstAnswer === '' ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', height: '4em', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.firstAnswer === ''} onClick={this.submit} />
                     </Form.Group>
                     <div className="skip" onClick={this.skip} >Skip and setup later</div>
                 </Form>

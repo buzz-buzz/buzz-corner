@@ -284,15 +284,15 @@ h4{
     color: #999;
 }
 
-.header-with-go-back{
+.my-profile > .header-with-go-back{
     height: 70px;
     margin: 0 -1em 0 -1em;
     padding: 20px 0 0 0;
     z-index: 999;
-    border-bottom: 1px solid #ccc;
     position: relative;
     box-sizing: border-box;
     background-color: white;
+    box-shadow: 2px 2px 2px #eee;
 }
 
 .go-back{
