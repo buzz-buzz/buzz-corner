@@ -19,14 +19,14 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 1,
+            step: 2,
             profile: {
                 parents_name: '',
                 phone: '',
                 student_en_name: '',
                 city: '',
                 date_of_birth: '',
-                gender: '',
+                gender: 'm',
                 topics: []
             },
             profile_title: '仅用于课程学习相关通知与服务',
@@ -36,7 +36,8 @@ class Homepage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
-        this.handleGender = this.handleGender.bind(this);
+        this.changeGenderMale = this.changeGenderMale.bind(this);
+        this.changeGenderFemale = this.changeGenderFemale.bind(this);
         this.topicChange = this.topicChange.bind(this);
         this.goBack = this.goBack.bind(this);
         this.agreementCheck = this.agreementCheck.bind(this);
@@ -77,11 +78,28 @@ class Homepage extends Component {
         this.setState({profile: clonedProfile});
     }
 
-    handleGender(event){
-        let clonedProfile = Object.assign({}, this.state.profile);
+    changeGenderFemale(){
+        let gender = this.state.profile.gender;
 
-        clonedProfile.gender =  event.target.value;
-        this.setState({profile: clonedProfile});
+        if(gender !== 'f'){
+            let clonedProfile = this.state.profile;
+            clonedProfile.gender = 'f';
+            this.setState({
+                profile: clonedProfile
+            });
+        }
+    }
+
+    changeGenderMale(){
+        let gender = this.state.profile.gender;
+
+        if(gender !== 'm'){
+            let clonedProfile = this.state.profile;
+            clonedProfile.gender = 'm';
+            this.setState({
+                profile: clonedProfile
+            });
+        }
     }
 
     handleChange(event) {
@@ -255,8 +273,18 @@ class Homepage extends Component {
                                                    name='student_en_name' />
                                         </div>
                                         <div className="gender">
-                                            <Button name="gender" value="m" onClick={this.handleGender} style={{border: this.state.profile.gender === 'm' ? '1px solid #f7b52a' : ''}} >男</Button>
-                                            <Button name="gender" value="f" onClick={this.handleGender} style={{border: this.state.profile.gender === 'f' ? '1px solid #f7b52a' : ''}}>女</Button>
+                                            <div className="male" onClick={this.changeGenderMale}>
+                                                <div className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                                <span style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>男</span>
+                                            </div>
+                                            <div className="female"  onClick={this.changeGenderFemale}>
+                                                <div className={ this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                                <span style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
+                                            </div>
                                         </div>
                                         <Form.Group widths='equal'>
                                             <Form.Input value={this.state.profile.date_of_birth} type="date" onChange={this.handleChange} name='date_of_birth' />
