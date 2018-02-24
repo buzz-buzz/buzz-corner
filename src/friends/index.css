@@ -9,7 +9,7 @@
     height: 70px;
     padding: 20px 0 0 0;
     z-index: 999;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
     position: relative;
     box-sizing: border-box;
     background-color: white;
@@ -44,7 +44,7 @@
 }
 
 .friends-tab > div:nth-child(1){
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #eee;
     background-color: white;
 }
 

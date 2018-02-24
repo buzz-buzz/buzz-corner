@@ -3,6 +3,7 @@
     margin: 0 -1em;
     display: flex;
     flex-direction: column;
+    background-color: rgb(244,245,249);
 }
 
 .header-with-go-back{
@@ -14,6 +15,7 @@
     position: relative;
     box-sizing: border-box;
     background-color: white;
+    flex-shrink: 0;
 }
 
 .logo-without-back{
@@ -28,4 +30,86 @@
 .logo-without-back img{
     width: 100%;
     max-height: 40px;
+}
+
+.reward-page > .my-badge{
+    padding: 1em;
+    flex-shrink: 0;
+    background-color: white;
+}
+
+.reward-page > .my-badge > .badge-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.reward-page > .my-badge > .badge-rule{
+    text-align: center;
+    font-size: .8em;
+    letter-spacing: 1px;
+    color: #666;
+}
+
+.reward-page > .my-badge > .badge{
+    margin: 2em 0;
+    padding: 0 2em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.reward-page > .my-badge > .badge > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reward-page > .my-badge > .badge > .blue-diamond i{
+    color: rgb(69, 149, 229);
+    font-size: 3em;
+}
+
+.reward-page > .my-badge > .badge > .red-diamond i{
+    color: rgb(252, 78, 82);
+    font-size: 3em;
+}
+
+.reward-page > .my-badge > .badge > .yellow-diamond i{
+    color: rgb(212, 155, 11);
+    font-size: 3em;
+}
+
+.reward-page > .miles{
+    flex-shrink: 0;
+    margin-top: .5em;
+    background-color: white;
+    padding: 1em;
+}
+
+.reward-page > .miles > .title{
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.reward-page > .miles > .buzz-miles{
+    display: flex;
+    margin: 1em auto .5em auto;
+    align-items: center;
+    justify-content: space-between;
+    height: 3em;
+    width: 40%;
+}
+
+.reward-page > .miles > .buzz-miles > img{
+    height: 100%;
+}
+
+.reward-page > .miles > .buzz-miles > span{
+    font-size: 3em;
+    color: #f7b52a;
+    flex: 1 0 auto;
+    text-align: center;
 }
