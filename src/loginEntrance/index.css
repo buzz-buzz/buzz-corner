@@ -74,3 +74,7 @@
     letter-spacing: 2px;
     color: #fff;
 }
+
+.preview-video > p{
+    margin: 1em;
+}

@@ -17,25 +17,32 @@ class Home extends Component {
                     status: 1,
                     date: '2018-2-1',
                     time: '9:00-11:00',
-                    topic: ''
+                    topic: '',
+                    class_id: 1
                 },
                 {
                     status: 2,
                     date: '2018-2-1',
                     time: '18:00-19:00',
-                    topic: 'sing a new song'
+                    topic: 'sing a new song',
+                    class_id: 2
                 },
                 {
                     status: 3,
                     date: '2018-2-1',
                     time: '18:00-19:00',
-                    topic: 'sing a new song'
+                    topic: 'sing a new song',
+                    class_id: 3
                 }
-            ]
+            ],
+            message_tab: 'friends'
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
         this.tabChangeMessage = this.tabChangeMessage.bind(this);
+        this.goClassDetail = this.goClassDetail.bind(this);
+        this.messageTabChangeFriends = this.messageTabChangeFriends.bind(this);
+        this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
     }
 
     tabChangeBook(){
@@ -56,6 +63,30 @@ class Home extends Component {
                 tab: 'message'
             });
         }
+    }
+
+    messageTabChangeFriends(){
+        let tabIndex = this.state.message_tab;
+
+        if(tabIndex !== 'friends'){
+            this.setState({
+                message_tab: 'friends'
+            });
+        }
+    }
+
+    messageTabChangeAdvisor(){
+        let tabIndex = this.state.message_tab;
+
+        if(tabIndex !== 'advisor'){
+            this.setState({
+                message_tab: 'advisor'
+            });
+        }
+    }
+
+    goClassDetail(class_id){
+        //browserHistory.push('/class/' + class_id);
     }
 
     async componentDidMount() {
@@ -86,13 +117,13 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <div className="booking-item" key={index} >
+                                        return <div className="booking-item" key={index}>
                                             <div className="booking-item-avatar">
                                                 <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                             </div>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em'}}>SEAN</p>
-                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>sing a New song</p>
+                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>Sing a New song</p>
                                                 <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Today, Friday 29 December</p>
                                                 <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>11:00 - 12:00</p>
                                             </div>
@@ -119,18 +150,23 @@ class Home extends Component {
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
-                            <div className="message-friends">
+                            <div className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'} onClick={this.messageTabChangeFriends}>
                                 <p>Friends(10)</p>
                             </div>
-                            <div className="message-advisor active">
+                            <div className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'} onClick={this.messageTabChangeAdvisor}>
                                 <p>Advisor(10+)</p>
                             </div>
                         </div>
                         <div className="message-content">
-                            <div className="friend-message-items">
-                                <div></div>
-                            </div>
-                            <div className="advisor-message-items"></div>
+                            {
+                                this.state.message_tab === 'friends' ?
+                                    (<div className="friend-message-items">
+                                        <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                    </div>) :
+                                    (<div className="advisor-message-items">
+                                        <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                    </div>)
+                            }
                         </div>
                     </div>)
                 }

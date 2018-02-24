@@ -62,7 +62,7 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <span>你还没有好友哦</span>
+                    <span style={{color: '#aaa'}}>你还没有好友哦</span>
                 </div>
                 <Footer />
             </div>

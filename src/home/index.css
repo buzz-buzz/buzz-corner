@@ -152,6 +152,16 @@ p{
 .my-home > .home-content > .message-content{
     width: 100%;
     flex: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-home > .home-content > .message-content > div{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .my-home > .home-content > .message-content > div > div{

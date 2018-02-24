@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import Header from './layout/header';
-import Footer from './layout/footer';
 import ProfilePage from './my/profileSetup';
 import WechatLogin from './loginForWechat/index';
 import LoginEntrance from './loginEntrance/index';
@@ -16,6 +14,7 @@ import My from './my';
 import Language from './my/myLanguage';
 import Admin from './admin/index';
 import ClassManage from './admin/classManage';
+import ClassDetail from './classDetail/index';
 import Placement from './placementTest';
 import Home from './home';
 import Friends from './friends';
@@ -48,6 +47,7 @@ class App extends Component {
                         <Route path='/friends' component={Friends} />
                         <Route path='/reward' component={Reward} />
                         <Route path='/user' component={User} />
+                        <Route path='/class/:class_id' component={ClassDetail} />
                     </Router>
                 </div>
             </Container>
