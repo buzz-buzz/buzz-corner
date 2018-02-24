@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Button, Icon} from 'semantic-ui-react';
+import {Link} from "react-router";
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -117,12 +118,12 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <div className="booking-item" key={index}>
+                                        return <Link className="booking-item" key={index} to={"class/" + item.class_id}>
                                             <div className="booking-item-avatar">
                                                 <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                             </div>
                                             <div className="booking-item-info">
-                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em'}}>SEAN</p>
+                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>SEAN</p>
                                                 <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>Sing a New song</p>
                                                 <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Today, Friday 29 December</p>
                                                 <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>11:00 - 12:00</p>
@@ -130,7 +131,7 @@ class Home extends Component {
                                             <div className="booking-item-status">
                                                 <p style={item.status === 1 ? {color: 'red'} : (item.status === 2 ? {color: 'rgb(106, 225, 8)'} : {color: '#aaa'})}>{item.status === 1 ? '待确认' : (item.status === 2 ? '7天后' : '已结束')}</p>
                                             </div>
-                                        </div>
+                                        </Link>
                                     })
                                 }
                             </div>) :

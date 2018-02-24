@@ -16,8 +16,15 @@ class classDetail extends Component {
                 partners: [1, 2, 3],
                 status: 1
             }
-        }
+        };
+
+        this.back = this.back.bind(this);
     }
+
+    back(){
+        window.history.back();
+    }
+
     async componentDidMount() {
 
     }
@@ -27,7 +34,7 @@ class classDetail extends Component {
             <div className="class-detail">
                 <div className="class-detail-header">
                     <div className="arrow">
-                        <Icon name='arrow left' />
+                        <Icon name='arrow left' onClick={this.back} />
                     </div>
                     <div className="class-detail-title">课程详情</div>
                     <div className="class-order">
