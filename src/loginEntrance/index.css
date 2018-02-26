@@ -2,6 +2,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    margin: 0 -1em;
+    padding: 0 1em;
+    background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top center no-repeat;
+    background-size: 100% 100%;
 }
 
 .login-entrance > .entrance-logo{
@@ -77,4 +81,12 @@
 
 .preview-video > p{
     margin: 1em;
+}
+
+.entrance-choose img{
+    width: 60%;
+}
+
+.entrance-choose p{
+    margin-top: 1em;
 }

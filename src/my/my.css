@@ -21,7 +21,7 @@
 
 .profile-title{
     text-align: center;
-    margin: 1.5em 0 !important;
+    margin: 1em 0 !important;
     font-weight: normal;
     letter-spacing: 1px;
 }
@@ -186,6 +186,7 @@ input[name='date_of_birth']{
 
 .phone-number>input:focus{
     border: 1px solid #f7b52a !important;
+    background-color: white !important;
 }
 
 .profile-progress>div>p{
@@ -198,7 +199,7 @@ input[name='date_of_birth']{
 .topic>.topic-items>div{
     position: relative;
     display: flex;
-    height: 3em;
+    height: 2.5em;
     align-items: center;
     border-radius: 1.5em;
     margin-right: 1em;
@@ -270,6 +271,12 @@ h4{
 
 .profile-body>div.form-content{
     /*min-height: 15em;*/
+}
+
+.profile-done-img{
+    width: 50%;
+    margin: 0 auto;
+    display: block;
 }
 
 .skip{

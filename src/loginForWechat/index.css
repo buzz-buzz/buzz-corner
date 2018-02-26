@@ -12,6 +12,9 @@
     position: relative;
     margin: 0 -1em;
     height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .wechat-login > .login-logo{
@@ -36,7 +39,7 @@
     height: 33%;
     bottom: 0;
     left: 0;
-    background-color: #f7b52a;
+    background: linear-gradient(to right, rgba(255, 200, 0, 0.9) , rgba(255, 216, 0, .9));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,9 +59,27 @@
     align-items: center;
 }
 
-.wechat-login > .login-wechat-btn .field{
+.wechat-login > .login-wechat-btn div{
     box-shadow: 0 0 2px #333;
     border-radius: 2.5em;
+    display: flex;
+    align-items: center;
+    height: 4em;
+    width: 80%;
+    border: none !important;
+    overflow: hidden;
+}
+
+.wechat-login > .login-wechat-btn img{
+    height: 100%;
+    flex: 0 0 auto;
+}
+
+.wechat-login > .login-wechat-btn p{
+    height: 100%;
+    flex: 1 0 auto;
+    line-height: 4em;
+    text-align: center;
 }
 
 .wechat-login > .login-attention{
@@ -73,7 +94,7 @@
     text-align: center;
 }
 
-.wechat-login > .login-wechat-btn .field button{
+.wechat-login > .login-wechat-btn > .abc{
     width: 100%;
     color: rgba(0,0,0,.6);
     background-color: #fff;

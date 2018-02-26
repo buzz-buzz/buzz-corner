@@ -10,11 +10,16 @@ class loginEntrance extends Component {
         super();
 
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
+        this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
 
     }
 
     chineseChildEntrance(){
         browserHistory.push('/login-for-wechat');
+    }
+
+    foreignChildEntrance(){
+        window.location.href = 'https://jinshuju.net/f/OrK4p2';
     }
 
     async componentDidMount() {
@@ -36,11 +41,11 @@ class loginEntrance extends Component {
                 </div>
                 <div className="entrance-choose">
                     <div onClick={this.chineseChildEntrance}>
-                        <img src="" alt=""/>
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Learning%20English.png" alt=""/>
                         <p>中国少年</p>
                     </div>
-                    <div>
-                        <img src="" alt=""/>
+                    <div onClick={this.foreignChildEntrance}>
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Teach%20English.png" alt=""/>
                         <p>外籍学伴</p>
                     </div>
                 </div>

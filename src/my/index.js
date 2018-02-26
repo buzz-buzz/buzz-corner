@@ -19,47 +19,124 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 1,
+            step: 3,
             profile: {
                 parents_name: '',
                 phone: '',
                 student_en_name: '',
                 city: '',
+                class_level: '',
                 date_of_birth: '',
-                gender: 'm',
+                gender: '',
                 topics: []
             },
             profile_title: '仅用于课程学习相关通知与服务',
-            topic_url: "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd",
             agreement: false,
             placement_topics: [
                 {
                     name: '宇宙',
-                    value: '1'
+                    value: '1',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Universe.png',
+                    color_b: 'rgba(6, 125, 241, .2)',
+                    color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
                     name: '商业',
-                    value: '2'
+                    value: '2',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Business.png',
+                    color_b: 'rgba( 252, 78, 82, .2)',
+                    color_f: 'rgba( 252, 78, 82, .8)'
                 },
                 {
                     name: '艺术',
-                    value: '3'
+                    value: '3',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Art.png',
+                    color_b: 'rgba( 255, 112, 82, .2)',
+                    color_f: 'rgba( 255, 112, 82, .8)'
                 },
                 {
                     name: '食品',
-                    value: '4'
+                    value: '4',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Food.png',
+                    color_b: 'rgba( 117, 64, 238, .2)',
+                    color_f: 'rgba( 117, 64, 238, .8)'
                 },
                 {
                     name: '环境',
-                    value: '5'
+                    value: '5',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Environment.png',
+                    color_b: 'rgba(6, 125, 241, .2)',
+                    color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
                     name: '生活方式',
-                    value: '6'
+                    value: '6',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Lifestyle.png',
+                    color_b: 'rgba(0, 216, 90, .2)',
+                    color_f: 'rgba(0, 216, 90, .8)'
                 },
                 {
                     name: '娱乐',
-                    value: '7'
+                    value: '7',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Enterainment.png',
+                    color_b: 'rgba( 237, 207, 0, .2)',
+                    color_f: 'rgba( 237, 207, 0, .8)'
+                },
+                {
+                    name: '科学',
+                    value: '8',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Science.png',
+                    color_b: 'rgba(255, 112, 82, .2)',
+                    color_f: 'rgba(255, 112, 82, .8)'
+                },
+                {
+                    name: '技术',
+                    value: '9',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Technology.png',
+                    color_b: 'rgba(87, 113, 148, .2)',
+                    color_f: 'rgba(87, 113, 148, .8)'
+                },
+                {
+                    name: '养生',
+                    value: '10',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Health.png',
+                    color_b: 'rgba(0, 216, 90, .2)',
+                    color_f: 'rgba(0, 216, 90, .8)'
+                },
+                {
+                    name: '体育',
+                    value: '11',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Sports.png',
+                    color_b: 'rgba(6, 125, 241, .2)',
+                    color_f: 'rgba(6, 125, 241, .8)'
+                },
+                {
+                    name: '动物',
+                    value: '12',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Animal.png',
+                    color_b: 'rgba( 237, 207, 0, .2)',
+                    color_f: 'rgba( 237, 207, 0, .8)'
+                },
+                {
+                    name: '音乐',
+                    value: '13',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Music.png',
+                    color_b: 'rgba( 255, 112, 82, .2)',
+                    color_f: 'rgba( 255, 112, 82, .8)'
+                },
+                {
+                    name: '人',
+                    value: '14',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_People.png',
+                    color_b: 'rgba(87, 113, 148, .2)',
+                    color_f: 'rgba(87, 113, 148, .8)'
+                },
+                {
+                    name: '政治',
+                    value: '15',
+                    url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Politics.png',
+                    color_b: 'rgba(0, 216, 90, .2)',
+                    color_f: 'rgba(0, 216, 90, .8)'
                 }
             ]
         };
@@ -146,8 +223,10 @@ class Homepage extends Component {
         });
     }
 
-    async submit() {
+    async submit(event) {
         try {
+            event.stopPropagation();
+
             if(this.state.step < 4){
                 let newStep = this.state.step +1;
                 let newTitle = newStep === 2 ? '用于平台中呈现少年的基本资料' : (newStep === 3 ? '用于匹配最优话题小组' : '建立少年的语言档案');
@@ -305,13 +384,13 @@ class Homepage extends Component {
                                         <div className="gender">
                                             <div className="male" onClick={this.changeGenderMale}>
                                                 <div className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
-                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                    <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png" alt=""/>
                                                 </div>
                                                 <span style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>男</span>
                                             </div>
                                             <div className="female"  onClick={this.changeGenderFemale}>
                                                 <div className={ this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
-                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                    <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png" alt=""/>
                                                 </div>
                                                 <span style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
                                             </div>
@@ -319,11 +398,15 @@ class Homepage extends Component {
                                         <Form.Group widths='equal'>
                                             <Form.Input value={this.state.profile.date_of_birth} type="date" onChange={this.handleChange} name='date_of_birth' />
                                         </Form.Group>
-                                        <div className="parents-name">
-                                            <input type="text"  placeholder='所在城市' style={{width: '100%'}}
+                                        <div className="parents-name" style={{display: 'flex', justifyContent: 'space-between'}}>
+                                            <input type="text"  placeholder='所在城市' style={{width: '48%'}}
                                                    value={this.state.profile.city}
                                                    onChange={this.handleChange}
                                                    name='city' />
+                                            <input type="text"  placeholder='在读年级' style={{width: '48%'}}
+                                                   value={this.state.profile.class_level}
+                                                   onChange={this.handleChange}
+                                                   name='class_level' />
                                         </div>
                                     </div>
                                     ): (
@@ -333,11 +416,11 @@ class Homepage extends Component {
                                                 <div className="topic-items">
                                                     {
                                                         this.state.placement_topics.map((item, index) => {
-                                                            return <div  key={index}>
+                                                            return <div  key={index} style={{backgroundColor: item.color_b}}>
                                                                 <div>
-                                                                    <img src={this.state.topic_url} />
+                                                                    <img src={item.url} />
                                                                 </div>
-                                                                <p>{item.name}</p>
+                                                                <p style={{color: item.color_f}}>{item.name}</p>
                                                                 <a  onClick={this.topicChange} name={item.value}
                                                                     style={{border: this.state.profile.topics.indexOf(item.value) >=0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
                                                             </div>
@@ -347,8 +430,8 @@ class Homepage extends Component {
                                             </div>) :
                                             (
                                                 <div className="form-content">
-                                                    <h4>通过4道小问题帮助我们了解并为你的</h4>
-                                                    <h4>孩子优先匹配最合适<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
+                                                    <h4>优先匹配最合适的<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
+                                                    <img className="profile-done-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png" alt=""/>
                                                 </div>
                                             )
                                     )
@@ -360,7 +443,7 @@ class Homepage extends Component {
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
-                                <div className="skip">Skip and setup later</div>
+                                <div className="skip">跳过, 稍后完成</div>
                             ):('')
                     }
                 </Form>

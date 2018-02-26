@@ -29,6 +29,7 @@ export default class WechatLogin extends React.Component {
             <Container textAlign="center">
                 <Segment loading={this.state.loading}>
                     {JSON.stringify(this.state.userInfo)}
+                    <p>{this.props.params.return_url}</p>
                 </Segment>
             </Container>
         );
