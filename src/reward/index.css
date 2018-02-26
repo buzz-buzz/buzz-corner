@@ -59,6 +59,10 @@
     align-items: center;
 }
 
+.reward-page > .my-badge > .badge img{
+    width: 50%;
+}
+
 .reward-page > .my-badge > .badge > div{
     display: flex;
     flex-direction: column;

@@ -109,7 +109,7 @@ class Home extends Component {
                         <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
                     <Link className="consult" to="consult">
-                        <Icon name="wechat" />
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
                 {this.state.tab === 'booking' ?

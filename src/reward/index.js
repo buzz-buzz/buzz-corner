@@ -33,17 +33,17 @@ class Reward extends Component {
                     </div>
                     <div className="badge">
                         <div className="blue-diamond">
-                            <Icon name='diamond' />
+                            <img src="//resource.buzzbuzzenglish.com/Blue.png" alt=""/>
                             <p>Blue</p>
                             <p>Diamond</p>
                         </div>
                         <div className="red-diamond">
-                            <Icon name='diamond' />
+                            <img src="//resource.buzzbuzzenglish.com/Red.png" alt=""/>
                             <p>Red</p>
                             <p>Diamond</p>
                         </div>
                         <div className="yellow-diamond">
-                            <Icon name='diamond' />
+                            <img src="//resource.buzzbuzzenglish.com/Yellow.png" alt=""/>
                             <p>Yellow</p>
                             <p>Diamond</p>
                         </div>
@@ -55,7 +55,7 @@ class Reward extends Component {
                 <div className="miles">
                     <div className="title">BuzzBuzz Miles</div>
                     <div className="buzz-miles">
-                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"/>
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Bitmap.png"/>
                         <span>0</span>
                     </div>
                 </div>

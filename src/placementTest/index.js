@@ -31,7 +31,7 @@ class Homepage extends Component {
 
     goBack(){
         if(this.state.step === 1){
-            browserHistory.push('/');
+            window.history.back();
         }else if(this.state.step <= 4){
             let newStep = this.state.step - 1;
             this.setState({
@@ -47,7 +47,7 @@ class Homepage extends Component {
     }
 
     async skip(){
-        browserHistory.push('/');
+        browserHistory.push('/home');
     }
 
     async componentDidMount() {
@@ -80,7 +80,7 @@ class Homepage extends Component {
 
                 console.log(placementTestData);
 
-                browserHistory.push('./home');
+                browserHistory.push('/home');
 
                 // let response = await ServiceProxy.proxyTo({
                 //     body: {

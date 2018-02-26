@@ -48,6 +48,10 @@ p{
     color: #000;
 }
 
+.consult img{
+    width: 60%;
+}
+
 .my-home > .home-content{
     width: 100%;
     background-color: rgb(244,245,249);
