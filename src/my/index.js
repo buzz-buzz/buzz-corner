@@ -31,7 +31,7 @@ class Homepage extends Component {
                 topics: []
             },
             profile_title: '仅用于课程学习相关通知与服务',
-            agreement: false,
+            agreement: true,
             placement_topics: [
                 {
                     name: '宇宙',
