@@ -19,7 +19,8 @@ class loginEntrance extends Component {
     }
 
     foreignChildEntrance(){
-        window.location.href = 'https://jinshuju.net/f/OrK4p2';
+        //window.location.href = 'https://jinshuju.net/f/OrK4p2';
+        browserHistory.push('/my/info');
     }
 
     async componentDidMount() {

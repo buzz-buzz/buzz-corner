@@ -19,7 +19,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 3,
+            step: 1,
             profile: {
                 parents_name: '',
                 phone: '',

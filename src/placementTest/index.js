@@ -80,6 +80,8 @@ class Homepage extends Component {
 
                 console.log(placementTestData);
 
+                browserHistory.push('./home');
+
                 // let response = await ServiceProxy.proxyTo({
                 //     body: {
                 //         uri: `{config.endPoints.buzzService}/api/v1/placement-test/${this.state.userId}`,
