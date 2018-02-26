@@ -19,7 +19,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
-            step: 2,
+            step: 1,
             profile: {
                 parents_name: '',
                 phone: '',
@@ -368,7 +368,7 @@ class Homepage extends Component {
                                         <Button>获取验证码</Button>
                                     </div>
                                     <div className="agreement" onClick={this.agreementCheck}>
-                                        <Icon className='check circle' style={this.state.agreement === true ? {color: '#f7b52a'} : {}}  />
+                                        <img src={this.state.agreement === true ? "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" : "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select.png"} alt=""/>
                                         <span>我已接受并遵守BuzzBuzz的相关用户协议与条款</span>
                                     </div>
                                 </div>

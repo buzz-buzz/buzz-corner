@@ -351,8 +351,9 @@ h4{
     align-items: center;
 }
 
-.agreement > i{
-    height: 100%;
+.agreement > img{
+    height: 18px;
+    margin-right: 5px;
 }
 
 .agreement > span{
