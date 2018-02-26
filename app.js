@@ -131,6 +131,19 @@ if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/login', serveSPA)
         .get('/login/facebook', serveSPA)
         .get('/login/wechat', serveSPA)
+        .get('/my/info', serveSPA)
+        .get('/my/profile', serveSPA)
+        .get('/my/profile/avatar', serveSPA)
+        .get('/my/profile/language', serveSPA)
+        .get('/admin', serveSPA)
+        .get('/admin/class', serveSPA)
+        .get('/placement', serveSPA)
+        .get('/home', serveSPA)
+        .get('/friends', serveSPA)
+        .get('/reward', serveSPA)
+        .get('/user', serveSPA)
+        .get('/class/:class_id', serveSPA)
+        .get('/consult', serveSPA)
     ;
 
 
