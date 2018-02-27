@@ -51,7 +51,7 @@ router
 
         ctx.body = await oldRequest(ctx.request.body);
     })
-    .get('/wechat/oauth/redirect', async ctx => {
+    .get('/wechat/oauth/redirect/:return_url?', async ctx => {
         let getCode = function () {
             ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fheroku.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
         };
@@ -85,7 +85,7 @@ router
                 uri: `https://api.weixin.qq.com/sns/userinfo?access_token=${accessTokenResponse.access_token}&openid=${accessTokenResponse.openid}&lang=zh_CN`
             });
 
-            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}`);
+            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?return_url=${ctx.params.return_url}`);
         } catch (ex) {
             console.error(ex);
             getCode();

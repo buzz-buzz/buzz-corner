@@ -56,6 +56,7 @@ export default class WechatOAuthSuccess extends React.Component {
                 json: {
                     role: 's',
                     name: wechatUserInfo.nickname,
+                    wechat_nickname: wechatUserInfo.nickname,
                     wechat_openid: wechatUserInfo.openid,
                     wechat_unionid: wechatUserInfo.unionid,
                     avatar: wechatUserInfo.headimgurl,
@@ -91,6 +92,8 @@ export default class WechatOAuthSuccess extends React.Component {
             <Container textAlign="center">
                 <Segment loading={this.state.loading}>
                     {JSON.stringify(this.state.userInfo)}
+                    <p>return_url = {window.location.search}</p>
+                    <p>{decodeURIComponent(this.props.params.return_url)}</p>
                 </Segment>
             </Container>
         );
