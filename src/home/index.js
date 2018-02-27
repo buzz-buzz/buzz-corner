@@ -91,7 +91,15 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+        let userId = await CurrentUser.getUserId();
 
+        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+            }
+        }));
+
+        console.log(profile);
     }
 
     render() {

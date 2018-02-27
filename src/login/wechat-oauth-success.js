@@ -89,7 +89,7 @@ export default class WechatOAuthSuccess extends React.Component {
             userInfo: res,
             loading: false
         });
-    }
+    };
 
     render() {
         return (
