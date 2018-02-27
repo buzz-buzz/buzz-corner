@@ -19,6 +19,8 @@ export default class WechatOAuthSuccess extends React.Component {
         } catch (ex) {
             await this.loginNewUser(ex, this.state.wechatUserInfo);
         }
+
+        //window.location.href = ;
     }
 
     componentWillUnmount() {

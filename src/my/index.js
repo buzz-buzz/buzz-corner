@@ -97,7 +97,7 @@ class Homepage extends Component {
                     color_f: 'rgba(87, 113, 148, .8)'
                 },
                 {
-                    name: '养生',
+                    name: '健康',
                     value: '10',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Health.png',
                     color_b: 'rgba(0, 216, 90, .2)',
