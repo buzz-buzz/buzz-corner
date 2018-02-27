@@ -22,7 +22,7 @@ class WechatLogin extends Component {
             return;
         }else{
             //browserHistory.push('/my/info');
-            browserHistory.push('/login/wechat');
+            browserHistory.push('/login/wechat/' + encodeURIComponent('buzzbuzzenglish.com/home'));
         }
     }
 
