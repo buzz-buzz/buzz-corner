@@ -36,7 +36,7 @@ class App extends Component {
                         <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path="/login/wechat/:return_url" component={LoginByWechat}/>
                         <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
-                        <Route path="/wechat/oauth/success/:wechatUserInfo/:return_url" component={WechatOAuthSuccess}/>
+                        <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
                         <Route path='/my/info' component={My}/>
                         <Route path='/my/profile' component={ProfilePage}/>
                         <Route path='/my/profile/avatar' component={Avatar}/>
