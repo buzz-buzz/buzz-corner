@@ -277,7 +277,7 @@ class Homepage extends Component {
 
     async componentDidMount() {
         //await CurrentUser.getUserId()
-        let userId = 21;
+        let userId = await CurrentUser.getUserId();
 
         let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
             body: {
