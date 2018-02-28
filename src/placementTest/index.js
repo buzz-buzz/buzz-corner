@@ -13,11 +13,11 @@ class Homepage extends Component {
         this.state = {
             step: 1,
             questions: {
-                title: 'Do you know how to introduce yourself in English?',
+                title: '对没准备的话题, 仍然愿意用英语沟通.',
                 items: [
-                    'Yes, I can introduce myself with a full sentence.',
-                    'No, I can\'t',
-                    'Oh, sorry...'
+                    '不愿意.',
+                    '无所谓',
+                    '愿意'
                 ]
             },
             firstAnswer: ''

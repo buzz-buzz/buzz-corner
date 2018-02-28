@@ -103,7 +103,7 @@ class Home extends Component {
     async componentDidMount() {
 
         //await CurrentUser.getUserId();
-        let userId = await CurrentUser.getUserId();
+        let userId = 21;
 
         let profile = (await ServiceProxy.proxyTo({
             body: {

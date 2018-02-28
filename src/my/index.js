@@ -21,13 +21,13 @@ class Homepage extends Component {
         this.state = {
             step: 1,
             profile: {
-                parents_name: '',
+                parent_name: '',
                 phone: '',
                 student_en_name: '',
                 city: '',
-                class_level: '',
                 date_of_birth: '',
                 gender: '',
+                grade: '',
                 topics: []
             },
             profile_title: '仅用于课程学习相关通知与服务',
@@ -35,105 +35,105 @@ class Homepage extends Component {
             placement_topics: [
                 {
                     name: '宇宙',
-                    value: '1',
+                    value: 'universe',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Universe.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
                     name: '商业',
-                    value: '2',
+                    value: 'busines',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Business.png',
                     color_b: 'rgba( 252, 78, 82, .2)',
                     color_f: 'rgba( 252, 78, 82, .8)'
                 },
                 {
                     name: '艺术',
-                    value: '3',
+                    value: 'art',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Art.png',
                     color_b: 'rgba( 255, 112, 82, .2)',
                     color_f: 'rgba( 255, 112, 82, .8)'
                 },
                 {
                     name: '食品',
-                    value: '4',
+                    value: 'food',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Food.png',
                     color_b: 'rgba( 117, 64, 238, .2)',
                     color_f: 'rgba( 117, 64, 238, .8)'
                 },
                 {
                     name: '环境',
-                    value: '5',
+                    value: 'environment',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Environment.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
                     name: '生活方式',
-                    value: '6',
+                    value: 'lifestyle',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Lifestyle.png',
                     color_b: 'rgba(0, 216, 90, .2)',
                     color_f: 'rgba(0, 216, 90, .8)'
                 },
                 {
                     name: '娱乐',
-                    value: '7',
+                    value: 'enterainment',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Enterainment.png',
                     color_b: 'rgba( 237, 207, 0, .2)',
                     color_f: 'rgba( 237, 207, 0, .8)'
                 },
                 {
                     name: '科学',
-                    value: '8',
+                    value: 'science',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Science.png',
                     color_b: 'rgba(255, 112, 82, .2)',
                     color_f: 'rgba(255, 112, 82, .8)'
                 },
                 {
                     name: '技术',
-                    value: '9',
+                    value: 'technology',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Technology.png',
                     color_b: 'rgba(87, 113, 148, .2)',
                     color_f: 'rgba(87, 113, 148, .8)'
                 },
                 {
                     name: '健康',
-                    value: '10',
+                    value: 'health',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Health.png',
                     color_b: 'rgba(0, 216, 90, .2)',
                     color_f: 'rgba(0, 216, 90, .8)'
                 },
                 {
                     name: '体育',
-                    value: '11',
+                    value: 'sports',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Sports.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
                     name: '动物',
-                    value: '12',
+                    value: 'animal',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Animal.png',
                     color_b: 'rgba( 237, 207, 0, .2)',
                     color_f: 'rgba( 237, 207, 0, .8)'
                 },
                 {
                     name: '音乐',
-                    value: '13',
+                    value: 'music',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Music.png',
                     color_b: 'rgba( 255, 112, 82, .2)',
                     color_f: 'rgba( 255, 112, 82, .8)'
                 },
                 {
                     name: '人',
-                    value: '14',
+                    value: 'people',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_People.png',
                     color_b: 'rgba(87, 113, 148, .2)',
                     color_f: 'rgba(87, 113, 148, .8)'
                 },
                 {
                     name: '政治',
-                    value: '15',
+                    value: 'politics',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Politics.png',
                     color_b: 'rgba(0, 216, 90, .2)',
                     color_f: 'rgba(0, 216, 90, .8)'
@@ -238,17 +238,19 @@ class Homepage extends Component {
                 //done
                 let profileData = this.validateForm();
 
-                console.log(profileData);
+                if(this.state.userId){
+                    let response = await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
+                            json: profileData,
+                            method: 'PUT'
+                        }
+                    });
 
-                // let response = await ServiceProxy.proxyTo({
-                //     body: {
-                //         uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                //         json: profileData,
-                //         method: 'PUT'
-                //     }
-                // });
-
-                browserHistory.push('/placement');
+                    browserHistory.push('/home');
+                }else{
+                    alert('save failed!')
+                }
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -262,38 +264,45 @@ class Homepage extends Component {
         let profile = this.state.profile;
 
         return {
+            parent_name: profile.parent_name,
+            mobile: profile.phone,
             display_name: profile.student_en_name,
             gender: profile.gender,
             location: profile.city,
-            mobile: profile.phone,
-            date_of_birth: getBirthDay(profile.date_of_birth)
+            date_of_birth: getBirthDay(profile.date_of_birth),
+            grade: profile.grade,
+            interests: profile.topics
         };
     }
 
     async componentDidMount() {
-        // let userId = await CurrentUser.getUserId();
-        //
-        // let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
-        //     body: {
-        //         uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-        //     }
-        // }));
-        //
-        // this.setState({
-        //     profile: profile,
-        //     userId: userId
-        // });
+        //await CurrentUser.getUserId()
+        let userId = 21;
+
+        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+            }
+        }));
+
+        console.log(profile);
+
+        this.setState({
+            profile: profile,
+            userId: userId
+        });
     }
 
     getProfileFromUserData(userData) {
         return {
-            parents_name: '',
+            parent_name: userData.parent_name || '',
             phone: userData.mobile || '',
-            student_en_name: userData.display_name || '',
-            city: userData.location || '',
-            date_of_birth: getBirthDay(userData.date_of_birth),
+            student_en_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
             gender: userData.gender,
-            topics: []
+            date_of_birth: getBirthDay(userData.date_of_birth),
+            city: userData.location || '',
+            grade: userData.grade || '',
+            topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
         };
     }
 
@@ -352,9 +361,9 @@ class Homepage extends Component {
                                 <div className="form-content">
                                     <div className="parents-name">
                                         <input type="text"  placeholder='家长姓名' style={{width: '100%'}}
-                                               value={this.state.profile.parents_name}
+                                               value={this.state.profile.parent_name}
                                                onChange={this.handleChange}
-                                               name='parents_name' />
+                                               name='parent_name' />
                                     </div>
                                     <div className="phone-number">
                                         <Button>中国(+86)</Button>
@@ -404,9 +413,9 @@ class Homepage extends Component {
                                                    onChange={this.handleChange}
                                                    name='city' />
                                             <input type="text"  placeholder='在读年级' style={{width: '48%'}}
-                                                   value={this.state.profile.class_level}
+                                                   value={this.state.profile.grade}
                                                    onChange={this.handleChange}
-                                                   name='class_level' />
+                                                   name='grade' />
                                         </div>
                                     </div>
                                     ): (
@@ -438,8 +447,8 @@ class Homepage extends Component {
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parents_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))) ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'white', backgroundColor: 'rgb(223, 223, 228)', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px', opacity: '1 !important'}} onClick={this.submit} />
+                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
+                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))) ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'white', backgroundColor: 'rgb(223, 223, 228)', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px', opacity: '1 !important'}} onClick={this.submit} />
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
