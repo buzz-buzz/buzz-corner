@@ -263,6 +263,14 @@ class Homepage extends Component {
     validateForm() {
         let profile = this.state.profile;
 
+        let newTopics =  [];
+
+        for(let i in profile.topics){
+            if(profile.topics[i]){
+                newTopics.push(profile.topics[i]);
+            }
+        }
+
         return {
             parent_name: profile.parent_name,
             mobile: profile.phone,
@@ -271,7 +279,7 @@ class Homepage extends Component {
             location: profile.city,
             date_of_birth: getBirthDay(profile.date_of_birth),
             grade: profile.grade,
-            interests: profile.topics
+            interests: newTopics
         };
     }
 
