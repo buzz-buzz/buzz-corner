@@ -7,6 +7,16 @@ import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
 import './index.css';
 
+
+function getBirthDay(date_of_birth) {
+    if (date_of_birth) {
+        let date = new Date(date_of_birth);
+        return  String(date.getFullYear()) + '-' + String(date.getMonth() + 1 >9?date.getMonth() + 1:'0'+(date.getMonth() + 1)) + '-' + String(date.getDate()>9?date.getDate():'0'+date.getDate());
+    } else {
+        return ''
+    }
+}
+
 class Home extends Component {
     constructor() {
         super();
@@ -91,15 +101,22 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+
+        //await CurrentUser.getUserId();
         let userId = await CurrentUser.getUserId();
 
-        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
+        let profile = (await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
             }
         }));
 
         console.log(profile);
+
+        if(!profile.date_of_birth || !profile.location){
+            browserHistory.push('/my/info');
+        }
+
     }
 
     render() {
