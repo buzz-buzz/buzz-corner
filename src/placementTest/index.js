@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Form, Button, Icon} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
+import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import '../my/my.css';
 import './index.css';
@@ -40,7 +41,8 @@ class Homepage extends Component {
              ],
             firstAnswer: '',
             answers: [],
-            audioAnsweringStatus: false
+            audioAnsweringStatus: false,
+            audioAnswerUrl: ''
         };
 
         this.answering = this.answering.bind(this);
@@ -85,7 +87,7 @@ class Homepage extends Component {
 
     async componentDidMount() {
         //await CurrentUser.getUserId()
-        let userId = 21;
+        let userId = await CurrentUser.getUserId();
 
         this.setState({
             userId: userId
@@ -103,6 +105,43 @@ class Homepage extends Component {
     async handleAudioChange(e) {
         try {
             console.log(this.fileInput.files[0].name);
+
+            let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
+                method: 'GET'
+            });
+
+            if(!qiniu_token.uptoken){
+                throw new Error(Resources.getInstance().avatarTokenWrong);
+            }
+
+            let fileForm = new FormData();
+
+            fileForm.append("name", this.fileInput.files[0].name);
+            fileForm.append("file", this.fileInput.files[0]);
+            fileForm.append("token", qiniu_token.uptoken);
+
+            let result = await ServiceProxy.proxy(qiniu_token.upload_url,{
+                method: 'POST',
+                body: fileForm,
+                credentials: undefined,
+                headers: undefined
+            });
+
+            if(!result.key || !result.hash){
+                throw new Error(Resources.getInstance().avatarKeyWrong);
+            }else{
+                let clonedAnswers = this.state.answers;
+                clonedAnswers.push(qiniu_token.resources_url + result.key);
+
+                this.setState({
+                    audioAnswerUrl: qiniu_token.resources_url + result.key,
+                    audioAnsweringStatus: true,
+                    answers: clonedAnswers
+                });
+
+                console.log('upload success');
+                console.log(this.state);
+            }
 
             this.setState({
                 audioAnsweringStatus: true
@@ -126,9 +165,6 @@ class Homepage extends Component {
             }else{
                 //done
                 if(this.checkPlacementAnswer()){
-                    console.log(this.state.answers);
-                    //saveData to DB
-
                     let placementTestData = {
                         user_id: this.state.userId,
                         detail: JSON.stringify({
@@ -137,19 +173,17 @@ class Homepage extends Component {
                         })
                     };
 
-                    //browserHistory.push('/home');
-
                     console.log('已完成.........');
                     console.log(this.state.answers);
 
-                    // let response = await ServiceProxy.proxyTo({
-                    //     body: {
-                    //         uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                    //         json: placementTestData,
-                    //         method: 'PUT'
-                    //     }
-                    // });
-                    //
+                    let response = await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                            json: placementTestData,
+                            method: 'PUT'
+                        }
+                    });
+
                     // browserHistory.push('/home');
                 }else{
                     console.log('未完成.........');
@@ -255,7 +289,7 @@ class Homepage extends Component {
                                         <div className="first-title" onClick={this.listenAudio}>
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
-                                            <audio src="">not support audio</audio>
+                                            <audio src={this.state.audioAnswerUrl || ''}>not support audio</audio>
                                         </div>
                                         <p>60"</p>
                                     </div>
@@ -266,7 +300,7 @@ class Homepage extends Component {
                                             <div className="background-talk">
                                                 <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png" alt=""/>
                                             </div>
-                                            <input type="file" id="audio-answer" accept="audio/*"
+                                            <input type="file" id="audio-answer" accept="video/*"
                                                    onChange={(e) => this.handleAudioChange(e)}
                                                    ref={input => {
                                                        this.fileInput = input;
