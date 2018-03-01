@@ -309,7 +309,7 @@ class Homepage extends Component {
                                             <div className="background-talk">
                                                 <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png" alt=""/>
                                             </div>
-                                            <input type="file" id="audio-answer" accept="video/*"
+                                            <input type="file" id="audio-answer" accept="audio/*"
                                                    onChange={(e) => this.handleAudioChange(e)}
                                                    ref={input => {
                                                        this.fileInput = input;
@@ -324,7 +324,7 @@ class Homepage extends Component {
                                     </div>
                                     <div className="recordAgain" style={this.state.audioAnsweringStatus === true ? {display: 'block'} : {display: 'none'}}>
                                         <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '点击重录' : ''}</p>
-                                        <input type="file" id="audio-answer-again" accept="video/*"
+                                        <input type="file" id="audio-answer-again" accept="audio/*"
                                                onChange={(e) => this.handleAudioChange(e)}
                                                ref={input => {
                                                    this.fileInputAgain = input;
