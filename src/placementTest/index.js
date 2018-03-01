@@ -225,7 +225,7 @@ class Homepage extends Component {
                                     </div>
                                 </div>
                                 <div className="first-answer">
-                                    <div className="answer-title">选择最匹配的选项</div>
+                                    <div className="answer-title" style={{fontSize: '.8em'}}>选择最匹配的选项</div>
                                     {
                                         this.state.questions[this.state.step-1].items.map((item, index) => {
                                             return <div className="answer-item" key={index}

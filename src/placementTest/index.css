@@ -94,6 +94,15 @@
     letter-spacing: 2px;
     font-size: 1em;
     margin: 0 1em;
+}
+
+.placement-second .first-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px;
+    font-size: 1em;
+    margin: 0 1em;
     background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png') top center no-repeat;
     background-size: 100% 100%;
     padding: 1em 2em;
