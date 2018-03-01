@@ -51,6 +51,7 @@ class Homepage extends Component {
         this.goBack = this.goBack.bind(this);
         this.listenAudio = this.listenAudio.bind(this);
         this.recordAudio = this.recordAudio.bind(this);
+        this.playRecordedVideo = this.playRecordedVideo.bind(this);
     }
 
     goBack(){
@@ -70,6 +71,12 @@ class Homepage extends Component {
 
     recordAudio(){
 
+    }
+
+    playRecordedVideo(){
+        console.log('play video:' + this.state.audioAnswerUrl);
+
+        document.getElementById('playVideo').play();
     }
 
     answering(event){
@@ -104,7 +111,9 @@ class Homepage extends Component {
 
     async handleAudioChange(e) {
         try {
-            console.log(this.fileInput.files[0].name);
+            let inputFile = (this.state.audioAnsweringStatus === true ? this.fileInputAgain : this.fileInput);
+
+            console.log(inputFile.files[0].name);
 
             let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
                 method: 'GET'
@@ -116,8 +125,8 @@ class Homepage extends Component {
 
             let fileForm = new FormData();
 
-            fileForm.append("name", this.fileInput.files[0].name);
-            fileForm.append("file", this.fileInput.files[0]);
+            fileForm.append("name", inputFile.files[0].name);
+            fileForm.append("file", inputFile.files[0]);
             fileForm.append("token", qiniu_token.uptoken);
 
             let result = await ServiceProxy.proxy(qiniu_token.upload_url,{
@@ -289,14 +298,14 @@ class Homepage extends Component {
                                         <div className="first-title" onClick={this.listenAudio}>
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
-                                            <audio src={this.state.audioAnswerUrl || ''}>not support audio</audio>
+                                            <video id="playVideo" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</video>
                                         </div>
                                         <p>60"</p>
                                     </div>
                                     <div className="answering-audio">
                                         <div className="first-title-answer"  onClick={this.recordAudio}>
                                             <img className="transform-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
-                                            <p>{this.state.audioAnsweringStatus === true ? '已完成' : '点击录制你的回答'}</p>
+                                            <p>{this.state.audioAnsweringStatus === true ? '点击收听' : '点击录制你的回答'}</p>
                                             <div className="background-talk">
                                                 <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png" alt=""/>
                                             </div>
@@ -305,12 +314,22 @@ class Homepage extends Component {
                                                    ref={input => {
                                                        this.fileInput = input;
                                                    }} />
+                                            <div className="hasRecorded" style={this.state.audioAnsweringStatus === true ? {display: 'block'} : {display: 'none'}}
+                                            onClick={this.playRecordedVideo} >
+                                            </div>
                                         </div>
                                         <div>
                                             <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                         </div>
                                     </div>
-                                    <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '再次点击重录' : ''}</p>
+                                    <div className="recordAgain" style={this.state.audioAnsweringStatus === true ? {display: 'block'} : {display: 'none'}}>
+                                        <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '点击重录' : ''}</p>
+                                        <input type="file" id="audio-answer-again" accept="video/*"
+                                               onChange={(e) => this.handleAudioChange(e)}
+                                               ref={input => {
+                                                   this.fileInputAgain = input;
+                                               }} />
+                                    </div>
                                 </div>)
                             )
                     }

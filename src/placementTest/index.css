@@ -149,7 +149,12 @@
     transform: scaleX(-1);;
 }
 
-.first-title-answer input#audio-answer{
+.recordAgain{
+    position: relative;
+    margin-top: .5em;
+}
+
+.first-title-answer input#audio-answer, .recordAgain input#audio-answer-again{
     position: absolute;
     left: 0;
     top: 0;
@@ -159,10 +164,26 @@
     opacity: 0;
 }
 
+.first-title-answer  > .hasRecorded{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    opacity: 0;
+}
+
 .placement-audio-record-again{
     text-align: right;
     padding-right: 6em;
     margin-top: .5em;
     font-size: .8em;
     color: #aaa;
+}
+
+#playVideo{
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
