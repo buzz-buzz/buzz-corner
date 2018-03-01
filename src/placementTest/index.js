@@ -298,7 +298,7 @@ class Homepage extends Component {
                                         <div className="first-title" onClick={this.listenAudio}>
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
-                                            <video id="playVideo" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</video>
+                                            <audio id="playVideo" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
                                         </div>
                                         <p>60"</p>
                                     </div>
