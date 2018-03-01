@@ -182,7 +182,7 @@
     color: #aaa;
 }
 
-#playVideo{
+#playAnswerAudio, #playQuestionAudio{
     opacity: 0;
     width: 0;
     height: 0;

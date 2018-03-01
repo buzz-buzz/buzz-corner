@@ -42,15 +42,15 @@ class Homepage extends Component {
             firstAnswer: '',
             answers: [],
             audioAnsweringStatus: false,
-            audioAnswerUrl: ''
+            audioAnswerUrl: '',
+            audioQuestionUrl: ''
         };
 
         this.answering = this.answering.bind(this);
         this.skip = this.skip.bind(this);
         this.submit = this.submit.bind(this);
         this.goBack = this.goBack.bind(this);
-        this.listenAudio = this.listenAudio.bind(this);
-        this.recordAudio = this.recordAudio.bind(this);
+        this.playQuestionVideo = this.playQuestionVideo.bind(this);
         this.playRecordedVideo = this.playRecordedVideo.bind(this);
     }
 
@@ -65,18 +65,12 @@ class Homepage extends Component {
         }
     }
 
-    listenAudio(){
-
-    }
-
-    recordAudio(){
-
+    playQuestionVideo(){
+        document.getElementById('playQuestionAudio').play();
     }
 
     playRecordedVideo(){
-        console.log('play video:' + this.state.audioAnswerUrl);
-
-        document.getElementById('playVideo').play();
+        document.getElementById('playAnswerAudio').play();
     }
 
     answering(event){
@@ -295,15 +289,16 @@ class Homepage extends Component {
                                         <div>
                                             <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                         </div>
-                                        <div className="first-title" onClick={this.listenAudio}>
+                                        <div className="first-title" onClick={this.playQuestionVideo}>
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
-                                            <audio id="playVideo" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
+                                            <audio id="playAnswerAudio" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
+                                            <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || ''}>not support audio</audio>
                                         </div>
                                         <p>60"</p>
                                     </div>
                                     <div className="answering-audio">
-                                        <div className="first-title-answer"  onClick={this.recordAudio}>
+                                        <div className="first-title-answer">
                                             <img className="transform-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
                                             <p>{this.state.audioAnsweringStatus === true ? '点击收听' : '点击录制你的回答'}</p>
                                             <div className="background-talk">
