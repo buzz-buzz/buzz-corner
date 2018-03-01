@@ -39,13 +39,16 @@ class Homepage extends Component {
                 }
              ],
             firstAnswer: '',
-            answers: []
+            answers: [],
+            audioAnsweringStatus: false
         };
 
         this.answering = this.answering.bind(this);
         this.skip = this.skip.bind(this);
         this.submit = this.submit.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.listenAudio = this.listenAudio.bind(this);
+        this.recordAudio = this.recordAudio.bind(this);
     }
 
     goBack(){
@@ -57,6 +60,14 @@ class Homepage extends Component {
                 step: newStep
             });
         }
+    }
+
+    listenAudio(){
+
+    }
+
+    recordAudio(){
+
     }
 
     answering(event){
@@ -74,48 +85,77 @@ class Homepage extends Component {
 
     async componentDidMount() {
         //await CurrentUser.getUserId()
-        let userId = await CurrentUser.getUserId();
+        let userId = 21;
 
         this.setState({
             userId: userId
         });
     }
 
+    checkPlacementAnswer(){
+        if(this.state.answers.length === 4){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    async handleAudioChange(e) {
+        try {
+            console.log(this.fileInput.files[0].name);
+
+            this.setState({
+                audioAnsweringStatus: true
+            });
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
+
     async submit(){
         try {
             console.log('step');
             console.log(this.state.step);
+            console.log(this.state.answers);
 
-            if(this.state.step < 3){
+            if(this.state.step < 4){
                 let newStep = this.state.step +1;
                 this.setState({
                     step: newStep
                 });
             }else{
                 //done
-                console.log('用户placement填写完毕');
-                console.log(this.state.answers);
-                //saveData to DB
+                if(this.checkPlacementAnswer()){
+                    console.log(this.state.answers);
+                    //saveData to DB
 
-                let placementTestData = {
-                    user_id: this.state.userId,
-                    detail: JSON.stringify({
-                        questions: this.state.questions,
-                        answers: this.state.answers
-                    })
-                };
+                    let placementTestData = {
+                        user_id: this.state.userId,
+                        detail: JSON.stringify({
+                            questions: this.state.questions,
+                            answers: this.state.answers
+                        })
+                    };
 
-                //browserHistory.push('/home');
+                    //browserHistory.push('/home');
 
-                let response = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                        json: placementTestData,
-                        method: 'PUT'
-                    }
-                });
+                    console.log('已完成.........');
+                    console.log(this.state.answers);
 
-                browserHistory.push('/home');
+                    // let response = await ServiceProxy.proxyTo({
+                    //     body: {
+                    //         uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                    //         json: placementTestData,
+                    //         method: 'PUT'
+                    //     }
+                    // });
+                    //
+                    // browserHistory.push('/home');
+                }else{
+                    console.log('未完成.........');
+                    console.log(this.state.answers);
+                }
+
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -133,7 +173,7 @@ class Homepage extends Component {
                         <div className="arrow-left">
                         </div>
                         <div className="circle-border">
-                            <Icon className='arrow left'  />
+                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
                         </div>
                     </div>
                     <div className="logo">
@@ -212,34 +252,31 @@ class Homepage extends Component {
                                         <div>
                                             <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                         </div>
-                                        <div className="first-title">
+                                        <div className="first-title" onClick={this.listenAudio}>
                                             <p>点击收听</p>
+                                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
+                                            <audio src="">not support audio</audio>
                                         </div>
+                                        <p>60"</p>
                                     </div>
                                     <div className="answering-audio">
-                                        <div className="first-title">
-                                            <p>点击回答</p>
+                                        <div className="first-title-answer"  onClick={this.recordAudio}>
+                                            <img className="transform-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
+                                            <p>{this.state.audioAnsweringStatus === true ? '已完成' : '点击录制你的回答'}</p>
+                                            <div className="background-talk">
+                                                <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png" alt=""/>
+                                            </div>
+                                            <input type="file" id="audio-answer" accept="audio/*"
+                                                   onChange={(e) => this.handleAudioChange(e)}
+                                                   ref={input => {
+                                                       this.fileInput = input;
+                                                   }} />
                                         </div>
                                         <div>
                                             <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                         </div>
                                     </div>
-                                    <div className="first-question">
-                                        <div>
-                                            <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
-                                        </div>
-                                        <div className="first-title">
-                                            <p>点击收听</p>
-                                        </div>
-                                    </div>
-                                    <div className="answering-audio">
-                                        <div className="first-title">
-                                            <p>点击回答</p>
-                                        </div>
-                                        <div>
-                                            <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
-                                        </div>
-                                    </div>
+                                    <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '再次点击重录' : ''}</p>
                                 </div>)
                             )
                     }

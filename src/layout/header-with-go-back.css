@@ -41,6 +41,12 @@
     line-height: 30px;
     border-bottom-right-radius: 50%;
     border-top-right-radius: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.go-back>div.circle-border>img{
+    height: 40%;
 }
 
 .logo:nth-child(2) {
