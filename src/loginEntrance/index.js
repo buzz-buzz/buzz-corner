@@ -14,13 +14,26 @@ class loginEntrance extends Component {
 
     }
 
-    chineseChildEntrance(){
-        browserHistory.push('/login-for-wechat');
+    async chineseChildEntrance(){
+        //checkout if has login
+        try {
+            let userId = await CurrentUser.getUserId();
+
+            if(userId){
+                browserHistory.push('/home');
+            }else{
+                browserHistory.push('/login-for-wechat');
+            }
+        } catch (ex) {
+            //login error
+            browserHistory.push('/login-for-wechat');
+        } finally {
+            browserHistory.push('/login-for-wechat');
+        }
     }
 
     foreignChildEntrance(){
-        //window.location.href = 'https://jinshuju.net/f/OrK4p2';
-        browserHistory.push('/my/info');
+        window.location.href = 'https://jinshuju.net/f/OrK4p2';
     }
 
     async componentDidMount() {

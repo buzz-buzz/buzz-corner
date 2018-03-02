@@ -17,24 +17,29 @@ class User extends Component {
     }
 
     async componentDidMount() {
-        let userId = await CurrentUser.getUserId();
+        try {
+            let userId = await CurrentUser.getUserId();
 
-        let profile = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-            }
-        });
-
-        console.log(profile);
-
-        if(true){
-            this.setState({
-                avatar: profile.avatar,
-                userId: userId,
-                u_name: profile.display_name || profile.name || profile.facebook_name || profile.wechat_name || 'buzz'
+            let profile = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
             });
-        }
 
+            if(true){
+                this.setState({
+                    avatar: profile.avatar,
+                    userId: userId,
+                    u_name: profile.display_name || profile.name || profile.facebook_name || profile.wechat_name || 'buzz'
+                });
+            }
+        } catch (ex) {
+            //login error
+            //browserHistory.push('/login-for-wechat');
+        } finally {
+            //browserHistory.push('/login-for-wechat');
+            console.log('no user_id');
+        }
     }
 
     render() {

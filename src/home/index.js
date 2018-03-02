@@ -101,23 +101,27 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+        try {
+            //await CurrentUser.getUserId();
+            let userId = await CurrentUser.getUserId();
 
-        //await CurrentUser.getUserId();
-        let userId = await CurrentUser.getUserId();
+            let profile = (await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            }));
 
-        let profile = (await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+            if(!profile.date_of_birth || !profile.location){
+                browserHistory.push('/my/info');
+            }else{
+                //get class list
+
             }
-        }));
-
-        if(!profile.date_of_birth || !profile.location){
-            browserHistory.push('/my/info');
-        }else{
-            //get class list
-
+        } catch (ex) {
+            //login error
+        } finally {
+            console.log('login failed');
         }
-
     }
 
     render() {

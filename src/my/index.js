@@ -149,6 +149,7 @@ class Homepage extends Component {
         this.topicChange = this.topicChange.bind(this);
         this.goBack = this.goBack.bind(this);
         this.agreementCheck = this.agreementCheck.bind(this);
+        this.skipPlacement = this.skipPlacement.bind(this);
     }
 
     goBack(){
@@ -160,6 +161,10 @@ class Homepage extends Component {
                 step: newStep
             });
         }
+    }
+
+    skipPlacement(){
+        browserHistory.push('/home');
     }
 
     topicChange(event){
@@ -232,14 +237,14 @@ class Homepage extends Component {
         try {
             event.stopPropagation();
 
-            if(this.state.step < 4){
+            if(this.state.step < 3){
                 let newStep = this.state.step +1;
-                let newTitle = newStep === 2 ? '用于平台中呈现少年的基本资料' : (newStep === 3 ? '用于匹配最优话题小组' : '建立少年的语言档案');
+                let newTitle = newStep === 2 ? '用于平台中呈现少年的基本资料' :  '用于匹配最优话题小组';
                 this.setState({
                     step: newStep,
                     profile_title: newTitle
                 });
-            }else{
+            }else if(this.state.step === 3){
                 //done
                 let profileData = this.validateForm();
 
@@ -252,10 +257,17 @@ class Homepage extends Component {
                         }
                     });
 
-                    browserHistory.push('/home');
+                    let newStep = this.state.step +1;
+                    let newTitle = '建立少年的语言档案';
+                    this.setState({
+                        step: newStep,
+                        profile_title: newTitle
+                    });
                 }else{
                     alert('save failed!')
                 }
+            }else if(this.state.step === 4){
+                browserHistory.push('/placement');
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -471,7 +483,7 @@ class Homepage extends Component {
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
-                                <div className="skip">跳过, 稍后完成</div>
+                                <div className="skip" onClick={this.skipPlacement}>跳过, 稍后完成</div>
                             ):('')
                     }
                 </Form>
