@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
+import {Form, Button, Segment} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
@@ -167,6 +167,8 @@ class Homepage extends Component {
                 });
             }else{
                 //done
+                document.getElementById('loadingModal').style.display = 'block';
+
                 if(this.checkPlacementAnswer()){
                     let placementTestData = {
                         user_id: this.state.userId,
@@ -187,10 +189,12 @@ class Homepage extends Component {
                         }
                     });
 
-                    // browserHistory.push('/home');
+                    document.getElementById('loadingModal').style.display = 'none';
+                    browserHistory.push('/home');
                 }else{
                     console.log('未完成.........');
                     console.log(this.state.answers);
+                    document.getElementById('loadingModal').style.display = 'none';
                 }
 
             }
@@ -205,6 +209,8 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
+                <Segment loading={true} id='loadingModal' style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888, display: 'none'}}>
+                </Segment>
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">

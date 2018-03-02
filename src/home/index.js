@@ -182,10 +182,10 @@ class Home extends Component {
                     (<div className="home-content">
                         <div className="message-tab">
                             <div className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'} onClick={this.messageTabChangeFriends}>
-                                <p>Friends(10)</p>
+                                <p>Friends</p>
                             </div>
                             <div className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'} onClick={this.messageTabChangeAdvisor}>
-                                <p>Advisor(10+)</p>
+                                <p>Advisor</p>
                             </div>
                         </div>
                         <div className="message-content">

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
+import {Form, Button, Segment} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -245,7 +245,9 @@ class Homepage extends Component {
                     profile_title: newTitle
                 });
             }else if(this.state.step === 3){
-                //done
+                //loading
+                document.getElementById('loadingModal').style.display = 'block';
+
                 let profileData = this.validateForm();
 
                 if(this.state.userId){
@@ -257,12 +259,26 @@ class Homepage extends Component {
                         }
                     });
 
-                    let newStep = this.state.step +1;
-                    let newTitle = '建立少年的语言档案';
-                    this.setState({
-                        step: newStep,
-                        profile_title: newTitle
+                    //check if placement is done
+                    let placementResult =await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`
+                        }
                     });
+
+                    if(placementResult.detail && placementResult.detail.length > 20){
+                        document.getElementById('loadingModal').style.display = 'none';
+                        browserHistory.push('/home');
+                    }else{
+                        let newStep = this.state.step +1;
+                        let newTitle = '建立少年的语言档案';
+                        this.setState({
+                            step: newStep,
+                            profile_title: newTitle
+                        });
+
+                        document.getElementById('loadingModal').style.display = 'none';
+                    }
                 }else{
                     alert('save failed!')
                 }
@@ -334,6 +350,8 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
+                <Segment loading={true} id='loadingModal' style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888, display: 'none'}}>
+                </Segment>
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">
@@ -478,7 +496,7 @@ class Homepage extends Component {
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
+                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'} disabled={this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u'): (this.state.step === 3 ?  !this.state.profile.topics.length : false))}
                                     style={!(this.state.step === 1 ? (!this.state.profile.phone || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender): (this.state.step === 3 ?  !this.state.profile.topics.length : false))) ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'white', backgroundColor: 'rgb(223, 223, 228)', height: '4em', letterSpacing: '4px', fontWeight: 'normal', borderRadius: '30px', opacity: '1 !important'}} onClick={this.submit} />
                     </Form.Group>
                     {
