@@ -46,7 +46,8 @@ class Home extends Component {
                     class_id: 3
                 }
             ],
-            message_tab: 'friends'
+            message_tab: 'advisor',
+            placementDone: true
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -116,11 +117,23 @@ class Home extends Component {
             }else{
                 //get class list
 
+                //get placementTest result
+                let placementResult =await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${userId}`
+                    }
+                });
+
+                if(!placementResult.detail || placementResult.detail.length < 20){
+                    this.setState({
+                        placementDone: false
+                    });
+                }
             }
         } catch (ex) {
-            //login error
-        } finally {
             console.log('login failed');
+        } finally {
+            //console.log('login failed');
         }
     }
 
@@ -188,17 +201,34 @@ class Home extends Component {
                                 <p>Advisor</p>
                             </div>
                         </div>
-                        <div className="message-content">
-                            {
-                                this.state.message_tab === 'friends' ?
-                                    (<div className="friend-message-items">
-                                        <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
-                                    </div>) :
-                                    (<div className="advisor-message-items">
-                                        <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
-                                    </div>)
-                            }
-                        </div>
+                        {
+                            this.state.message_tab === 'friends' ?
+                                (<div className="none-items">
+                                    <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                </div>) :
+                                (this.state.placementDone === true ?
+                                    (<div className="none-items">
+                                            <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                        </div>
+                                    ) :
+                                    (<div className="items">
+                                            <Link className="booking-item" key={'placement-item'} to={"placement"}>
+                                                <div className="booking-item-avatar">
+                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                </div>
+                                                <div className="booking-item-info">
+                                                    <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>小测验</p>
+                                                    <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>免费智能评测</p>
+                                                    <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Buzzbuzz小助手</p>
+                                                    <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>帮助你更好地和外籍小伙伴交流</p>
+                                                </div>
+                                                <div className="booking-item-status">
+                                                    <p style={{color: 'red'}}>未完成</p>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    ))
+                        }
                     </div>)
                 }
                 <div className="offset-footer"></div>

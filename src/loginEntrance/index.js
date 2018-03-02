@@ -28,7 +28,7 @@ class loginEntrance extends Component {
             //login error
             browserHistory.push('/login-for-wechat');
         } finally {
-            browserHistory.push('/login-for-wechat');
+            //browserHistory.push('/login-for-wechat');
         }
     }
 

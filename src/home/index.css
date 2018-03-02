@@ -17,7 +17,7 @@ p{
     border-bottom-color: white;
     position: relative;
     z-index: 999;
-    flex-shrink: 0;
+    flex: 0 0 auto;
 }
 
 .my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-message{
@@ -152,30 +152,40 @@ p{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    flex: 0 0 auto;
 }
 
 .my-home > .home-content > .message-content{
     width: 100%;
-    flex: auto;
+    flex: 1 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .my-home > .home-content > .message-content > div{
-    display: flex;
     height: 100%;
+    width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.my-home > .home-content > .message-content > div > div{
+.my-home > .home-content > .message-content > div.has-items{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my-home > .home-content > .message-content > div.has-items > a{
+    display: flex;
     margin: 1em;
     height: 8em;
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 0 2px #aaa !important;
-    flex: none;
 }
 
 .my-home > .home-content > .message-tab > div{
@@ -198,4 +208,5 @@ p{
 .my-home > .offset-footer{
     width: 100%;
     height: 60px;
+    flex: 0 0 auto;
 }
