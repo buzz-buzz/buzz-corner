@@ -25,7 +25,7 @@ class Home extends Component {
             tab: 'booking',
             booking: [
                 {
-                    status: 1,
+                    status: "ended",
                     date: '2018-2-1',
                     time: '9:00-11:00',
                     topic: '',
@@ -103,7 +103,7 @@ class Home extends Component {
     async componentDidMount() {
 
         //await CurrentUser.getUserId();
-        let userId = await CurrentUser.getUserId();
+        let userId = 21;
 
         let profile = (await ServiceProxy.proxyTo({
             body: {
@@ -111,10 +111,11 @@ class Home extends Component {
             }
         }));
 
-        console.log(profile);
-
         if(!profile.date_of_birth || !profile.location){
             browserHistory.push('/my/info');
+        }else{
+            //get class list
+
         }
 
     }

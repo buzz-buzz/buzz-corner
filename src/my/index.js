@@ -19,6 +19,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
+            birthdayLabel: '',
             step: 1,
             profile: {
                 parent_name: '',
@@ -214,6 +215,10 @@ class Homepage extends Component {
 
         clonedProfile[event.target.name] =  event.target.value;
         this.setState({profile: clonedProfile});
+    }
+
+    handleChangeBirthdayLabel(event) {
+        this.setState({birthdayLabel: event.target.value});
     }
 
     agreementCheck(){
@@ -412,8 +417,14 @@ class Homepage extends Component {
                                                 <span style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
                                             </div>
                                         </div>
-                                        <Form.Group widths='equal'>
-                                            <Form.Input value={this.state.profile.date_of_birth} type="date" onChange={this.handleChange} name='date_of_birth' />
+                                        <Form.Group widths='equal' className="position-relative">
+                                            <Form.Input style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}} value={this.state.profile.date_of_birth} type="date" onChange={this.handleChange} name='date_of_birth' />
+                                            <div className="field birthday-label">
+                                                <input type="text"  placeholder='生日' style={{width: '100%'}}
+                                                       value={this.state.birthdayLabel || ''}
+                                                       onChange={this.handleChangeBirthdayLabel}
+                                                       name='birthdayLabel' />
+                                            </div>
                                         </Form.Group>
                                         <div className="parents-name" style={{display: 'flex', justifyContent: 'space-between'}}>
                                             <input type="text"  placeholder='所在城市' style={{width: '48%'}}

@@ -175,6 +175,20 @@ input[name='date_of_birth']{
     text-align: center !important;
 }
 
+input[name='birthdayLabel']{
+    height: 4em;
+    background-color: #eee !important;
+    border: none !important;
+    text-align: center !important;
+}
+
+.form-content .birthday-label{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
 .parents-name>input, .phone-number>input{
     border: 1px solid transparent !important;
 }
@@ -368,4 +382,8 @@ h4{
 
 .disabled{
     opacity: 1 !important;
+}
+
+.position-relative{
+    position: relative !important;
 }
