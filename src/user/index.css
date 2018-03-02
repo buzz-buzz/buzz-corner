@@ -51,6 +51,7 @@
 
 .user-my > .user-avatar > img{
     width: 100%;
+    border-radius: 50%;
 }
 
 .user-my > .user-info > p{
