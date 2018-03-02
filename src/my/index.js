@@ -327,7 +327,7 @@ class Homepage extends Component {
                         <div className="arrow-left">
                         </div>
                         <div className="circle-border">
-                            <Icon className='arrow left'  />
+                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
                         </div>
                     </div>
                     <div className="logo">

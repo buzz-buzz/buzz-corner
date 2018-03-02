@@ -21,7 +21,7 @@ class Consult extends Component {
             <div className="consult-page">
                 <div className="back-header">
                     <div>
-                        <Icon name='arrow left' onClick={this.back} />
+                        <img style={{width: '20px'}} src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
                     </div>
                 </div>
                 <div className="consult-content">

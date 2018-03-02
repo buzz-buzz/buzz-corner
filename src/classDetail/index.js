@@ -39,7 +39,7 @@ class classDetail extends Component {
             <div className="class-detail">
                 <div className="class-detail-header">
                     <div className="arrow">
-                        <Icon name='arrow left' onClick={this.back} />
+                        <img style={{width: '20px'}} src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt="" onClick={this.back} />
                     </div>
                     <div className="class-detail-title">课程详情</div>
                     <div className="class-order">
