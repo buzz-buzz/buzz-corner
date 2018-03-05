@@ -1,3 +1,5 @@
+import * as cookie from "./helpers/cookie";
+
 const Koa = require('koa');
 const app = new Koa();
 const request = require('request-promise-native');
@@ -14,8 +16,6 @@ const pug = require('js-koa-pug');
 const busboy = require('koa-busboy');
 const qiniu = require('qiniu');
 const config_qiniu = require('./config/qiniu');
-const uploader = busboy({});
-
 const mac = new qiniu.auth.digest.Mac(config_qiniu.ACCESS_KEY, config_qiniu.SECRET_KEY);
 const putPolicy = new qiniu.rs.PutPolicy({
     scope: config_qiniu.bucket
@@ -109,6 +109,10 @@ router
             upload_url: config_qiniu.url.upload_url,
             resources_url: config_qiniu.url.resources_url
         };
+    })
+    .get('/logout', async ctx => {
+        cookie.deleteUserId.call(this);
+        ctx.body = {message: 'logged out'};
     })
 ;
 

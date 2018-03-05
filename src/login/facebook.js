@@ -37,6 +37,93 @@ let loadFacebookScripts = () => {
 };
 
 export default class FacebookLogin extends React.Component {
+    initializeFacebookLogin = () => {
+        this.FB = window.FB;
+        this.FB.getLoginStatus(this.facebookLoginStatusGot);
+    };
+    facebookLoginStatusGot = response => {
+        if (response.status === 'connected') {
+            this.FB.api('/me', this.facebookUserInfoGot);
+        } else {
+            this.setState({
+                loading: false
+            }, () => {
+                alert('Please click the button to log in or switch to the other ways to log in.');
+            });
+        }
+    };
+    doLogin = () => {
+        this.setState({loading: true});
+        this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
+    };
+    logout = async () => {
+        this.setState({loading: true});
+
+        let logoutResponse = await new Promise(callback => this.FB.logout(callback));
+        await ServiceProxy.proxy('/logout');
+        this.setState({userInfo: {}, loading: false})
+    };
+    facebookUserInfoGot = async (facebookUserData) => {
+        try {
+            await this.loginOldUser(facebookUserData);
+        } catch (error) {
+            await this.loginNewUser(error, facebookUserData);
+        }
+    };
+    loginOldUser = async (facebookUserData) => {
+        let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
+
+        await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
+    };
+    loginNewUser = async (error, facebookUserData) => {
+        if (BuzzServiceApiErrorParser.isNewUser(error)) {
+            let newUserId = await this.registerByFacebook(facebookUserData);
+            await this.loginByFacebook(facebookUserData.id, newUserId);
+        } else {
+            alert('Login failed!');
+
+            throw error;
+        }
+    };
+    getBuzzUserData = async (facebook_id) => {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
+            }
+        });
+    };
+    registerByFacebook = async (facebookUserInfo) => {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users',
+                method: 'POST',
+                json: {
+                    role: 'c',
+                    name: facebookUserInfo.name,
+                    facebook_id: facebookUserInfo.id,
+                    facebook_name: facebookUserInfo.name
+                }
+            }
+        });
+    };
+    loginByFacebook = async (facebookId, userId) => {
+        let res = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
+                method: 'PUT',
+                json: {
+                    user_id: userId,
+                    facebook_id: facebookId
+                }
+            }
+        });
+
+        this.setState({
+            userInfo: res,
+            loading: false
+        });
+    };
+
     constructor() {
         super();
 
@@ -71,93 +158,6 @@ export default class FacebookLogin extends React.Component {
         document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
     }
 
-    initializeFacebookLogin = () => {
-        this.FB = window.FB;
-        this.FB.getLoginStatus(this.facebookLoginStatusGot);
-    };
-
-    facebookLoginStatusGot = response => {
-        if (response.status === 'connected') {
-            this.FB.api('/me', this.facebookUserInfoGot);
-        } else {
-            this.setState({
-                loading: false
-            }, () => {
-                alert('Please click the button to log in or switch to the other ways to log in.');
-            });
-        }
-    };
-
-    doLogin = () => {
-        this.setState({loading: true});
-        this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
-    };
-
-    facebookUserInfoGot = async (facebookUserData) => {
-        try {
-            await this.loginOldUser(facebookUserData);
-        } catch (error) {
-            await this.loginNewUser(error, facebookUserData);
-        }
-    };
-
-    loginOldUser = async (facebookUserData) => {
-        let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
-
-        await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
-    };
-
-    loginNewUser = async (error, facebookUserData) => {
-        if (BuzzServiceApiErrorParser.isNewUser(error)) {
-            let newUserId = await this.registerByFacebook(facebookUserData);
-            await this.loginByFacebook(facebookUserData.id, newUserId);
-        } else {
-            throw error;
-            alert('Login failed!');
-        }
-    };
-
-    getBuzzUserData = async (facebook_id) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
-            }
-        });
-    };
-
-    registerByFacebook = async (facebookUserInfo) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users',
-                method: 'POST',
-                json: {
-                    role: 's',
-                    name: facebookUserInfo.name,
-                    facebook_id: facebookUserInfo.id,
-                    facebook_name: facebookUserInfo.name
-                }
-            }
-        });
-    };
-
-    loginByFacebook = async (facebookId, userId) => {
-        let res = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
-                method: 'PUT',
-                json: {
-                    user_id: userId,
-                    facebook_id: facebookId
-                }
-            }
-        });
-
-        this.setState({
-            userInfo: res,
-            loading: false
-        });
-    };
-
     render() {
         return (
             <Container textAlign="center">
@@ -165,6 +165,7 @@ export default class FacebookLogin extends React.Component {
                     {JSON.stringify(this.state.userInfo)}
                 </Segment>
                 <Button onClick={this.doLogin}>Click to login with facebook</Button>
+                <Button onClick={this.logout}>Log out</Button>
             </Container>
         );
     }

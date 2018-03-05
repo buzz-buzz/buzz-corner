@@ -9,7 +9,7 @@ npm install
 For development run:
 ```
 npm run server
-npm start
+npm run client
 ```
 
 Run test:
