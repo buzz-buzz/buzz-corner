@@ -266,7 +266,7 @@ class Homepage extends Component {
                         }
                     });
 
-                    if(placementResult.detail && placementResult.detail.length > 20){
+                    if(placementResult && placementResult.detail && placementResult.detail.length > 20){
                         document.getElementById('loadingModal').style.display = 'none';
                         browserHistory.push('/home');
                     }else{

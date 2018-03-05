@@ -48,7 +48,13 @@ export default {
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
             if (mergedOptions.accept === 'application/json') {
-                return res.json();
+                try {
+                    let result = res.json();
+                    return result;
+                }
+                catch (ex){
+                    return res.text();
+                }
             } else {
                 return res.text();
             }

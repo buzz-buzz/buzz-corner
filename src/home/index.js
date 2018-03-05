@@ -124,14 +124,16 @@ class Home extends Component {
                     }
                 });
 
-                if(!placementResult.detail || placementResult.detail.length < 20){
+                console.log('placement......result');
+
+                if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
                     this.setState({
                         placementDone: false
                     });
                 }
             }
         } catch (ex) {
-            console.log('login failed');
+            console.log('login failed: ' + ex.toString());
         } finally {
             //console.log('login failed');
         }
