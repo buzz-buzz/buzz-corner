@@ -9,27 +9,15 @@ class loginEntrance extends Component {
     constructor() {
         super();
 
+        this.state = {};
+
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
         this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
 
     }
 
-    async chineseChildEntrance(){
-        //checkout if has login
-        try {
-            let userId = await CurrentUser.getUserId();
-
-            if(userId){
-                browserHistory.push('/home');
-            }else{
-                browserHistory.push('/login-for-wechat');
-            }
-        } catch (ex) {
-            //login error
-            browserHistory.push('/login-for-wechat');
-        } finally {
-            //browserHistory.push('/login-for-wechat');
-        }
+    chineseChildEntrance(){
+        browserHistory.push('/login-for-wechat');
     }
 
     foreignChildEntrance(){
@@ -37,7 +25,26 @@ class loginEntrance extends Component {
     }
 
     async componentDidMount() {
+        try {
+            let userId = await CurrentUser.getUserId();
 
+            if(userId){
+                let profile = (await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                    }
+                }));
+
+                if(!profile.date_of_birth || !profile.location){
+                    browserHistory.push('/my/info');
+                }else{
+                    browserHistory.push('/home');
+                }
+            }
+        } catch (ex) {
+            //login error
+            console.log("loginEntrance:" +ex.toString());
+        }
     }
 
     render() {
