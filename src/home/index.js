@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
+import Welcome from '../common/commonComponent/modalWelcome/index';
 import './index.css';
 
 
@@ -47,7 +48,7 @@ class Home extends Component {
                 }
             ],
             message_tab: 'advisor',
-            placementDone: true
+            placementDone: false
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -106,31 +107,16 @@ class Home extends Component {
             //await CurrentUser.getUserId();
             let userId = await CurrentUser.getUserId();
 
-            let profile = (await ServiceProxy.proxyTo({
+            let placementResult =await ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${userId}`
                 }
-            }));
+            });
 
-            if(!profile.date_of_birth || !profile.location){
-                browserHistory.push('/my/info');
-            }else{
-                //get class list
-
-                //get placementTest result
-                let placementResult =await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${userId}`
-                    }
-                });
-
-                console.log('placement......result');
-
-                if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
-                    this.setState({
-                        placementDone: false
-                    });
-                }
+            if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
+                // this.setState({
+                //     placementDone: false
+                // });
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
@@ -142,6 +128,7 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
+                <Welcome />
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeBook}>
                         <Icon name="object group" />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
+import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import { browserHistory } from 'react-router';
 
@@ -21,8 +22,28 @@ export default class WechatOAuthSuccess extends React.Component {
             await this.loginNewUser(ex, this.state.wechatUserInfo);
         }
 
-        //window.location.href = ;window.location.search
-        browserHistory.push('/' + window.location.search.split('=')[1]);
+        //check if profile is Done or not
+        //Done go home page, unDone go my/info
+        try {
+            //await CurrentUser.getUserId();
+            let userId = await CurrentUser.getUserId();
+
+            let profile = (await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            }));
+
+            if(!profile.date_of_birth || !profile.location){
+                browserHistory.push('/my/info');
+            }else{
+                browserHistory.push('/home');
+            }
+        } catch (ex) {
+            console.log('login failed: ' + ex.toString());
+        } finally {
+            //console.log('login failed');
+        }
     }
 
     componentWillUnmount() {

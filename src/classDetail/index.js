@@ -76,7 +76,7 @@ class classDetail extends Component {
                 <div className="class-detail-practice">
                     <div className="class-detail-notice">
                         <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
-                        <p>2.下载课程必备软件ZOOM，点击<a href="http://www.zoomcloud.cn/Download" style={{color: '#f7b52a'}}>下载安装</a> 。</p>
+                        <p>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a> 。</p>
                     </div>
                     <div className="class-detail-practice-content">
                         <div className="practise-advisor">
