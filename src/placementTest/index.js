@@ -203,6 +203,8 @@ class Homepage extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
+            document.getElementById('loadingModal').style.display = 'none';
+            browserHistory.push('/home');
         }
     }
 
