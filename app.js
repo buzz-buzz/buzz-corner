@@ -1,4 +1,4 @@
-import * as cookie from "./helpers/cookie";
+const cookie =  require("./helpers/cookie");
 
 const Koa = require('koa');
 const app = new Koa();
