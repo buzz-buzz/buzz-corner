@@ -29,6 +29,7 @@ class classDetail extends Component {
         this.goConsult = this.goConsult.bind(this);
         this.getAvatar = this.getAvatar.bind(this);
         this.getCompanionInfo = this.getCompanionInfo.bind(this);
+        this.showZoom = this.showZoom.bind(this);
     }
 
     back() {
@@ -146,6 +147,11 @@ class classDetail extends Component {
         return profile.avatar;
     }
 
+    showZoom(){
+        console.log(this.state.class_info.room_url);
+
+        window.location.href = this.state.class_info.room_url;
+    }
 
     async componentDidMount() {
         try {
@@ -170,6 +176,9 @@ class classDetail extends Component {
                     class_info.students[i].avatar = profileUser.avatar;
                 }
             }
+
+            console.log('time ....five minutes');
+            console.log(new Date(class_info.start_time) - new Date());
 
             this.setState({
                 class_info: class_info,
@@ -261,9 +270,9 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <div className="class-detail-button"
-                         style={this.state.class_info.status === 2 ? {} : {display: 'none'}}>
+                         style={this.state.class_info && this.state.class_info.start_time && (new Date(this.state.class_info.start_time) - new Date())/60000 <= 900 ? {} : {display: 'block'}}>
                         <Form.Group widths='equal'>
-                            <Form.Field control={Button} onClick={this.signUp}
+                            <Form.Field control={Button} onClick={this.showZoom}
                                         content='进入课堂'/>
                         </Form.Group>
                     </div>
