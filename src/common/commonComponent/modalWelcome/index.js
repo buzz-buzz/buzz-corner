@@ -11,8 +11,6 @@ class ModalWelcome extends Component {
         let strCookie = document.cookie;
         let arrCookie = strCookie.split(";");
 
-        console.log(arrCookie);
-
         let welcome = false;
         for (let i = 0; i < arrCookie.length; i++) {
             let arr = arrCookie[i].split("=");
@@ -31,8 +29,6 @@ class ModalWelcome extends Component {
 
     closeWelcome(){
         this.setCookie("homepage", "1");
-
-        console.log(document.cookie);
 
         this.setState({
             welcome: true
