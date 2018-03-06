@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
+import {Form, Button, Icon, Segment} from 'semantic-ui-react';
 import {Link} from "react-router";
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
@@ -26,25 +26,43 @@ class Home extends Component {
             tab: 'booking',
             booking: [
                 {
-                    status: "ended",
-                    date: '2018-2-1',
-                    time: '9:00-11:00',
-                    topic: '',
-                    class_id: 1
+                    class_id: 41,
+                    classes_status: "opened",
+                    end_time: "2018-12-25T15:59:00.000Z",
+                    start_time: "2018-12-24T15:59:00.000Z",
+                    status: "confirmed",
+                    topic: null,
+                    user_id: 21,
+                    companion_name: '',
+                    companion_avatar: '',
+                    show_date: 'Friday, 29 December',
+                    show_time: '11:00 - 11:25'
                 },
                 {
-                    status: 2,
-                    date: '2018-2-1',
-                    time: '18:00-19:00',
-                    topic: 'sing a new song',
-                    class_id: 2
+                    class_id: 41,
+                    classes_status: "opened",
+                    end_time: "2018-12-25T15:59:00.000Z",
+                    start_time: "2018-12-24T15:59:00.000Z",
+                    status: "confirmed",
+                    topic: null,
+                    user_id: 21,
+                    companion_name: '',
+                    companion_avatar: '',
+                    show_date: 'Friday, 29 December',
+                    show_time: '11:00 - 11:25'
                 },
                 {
-                    status: 3,
-                    date: '2018-2-1',
-                    time: '18:00-19:00',
-                    topic: 'sing a new song',
-                    class_id: 3
+                    class_id: 41,
+                    classes_status: "opened",
+                    end_time: "2018-12-25T15:59:00.000Z",
+                    start_time: "2018-12-24T15:59:00.000Z",
+                    status: "confirmed",
+                    topic: null,
+                    user_id: 21,
+                    companion_name: '',
+                    companion_avatar: '',
+                    show_date: 'Friday, 29 December',
+                    show_time: '11:00 - 11:25'
                 }
             ],
             message_tab: 'advisor',
@@ -102,26 +120,95 @@ class Home extends Component {
         }
     }
 
+    async getPlacementResult(user_id){
+        return  ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${user_id}`
+            }
+        });
+    }
+
+    async getUserClassList(user_id){
+        return  ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/student-class-schedule/${user_id}`
+            }
+        });
+    }
+
+    transformDay(day){
+        switch(day){
+            case 1: return 'Monday';break;
+            case 2: return 'Tuesday';break;
+            case 3: return 'Wednesday';break;
+            case 4: return 'Thursday';break;
+            case 5: return 'Friday';break;
+            case 6: return 'Saturday';break;
+            case 0: return 'Sunday';break;
+            default : break;
+        }
+    }
+
+    transformMonth(day){
+        switch(day){
+            case 0: return 'January';break;
+            case 1: return 'February';break;
+            case 2: return 'March';break;
+            case 3: return 'April';break;
+            case 4: return 'May';break;
+            case 5: return 'June';break;
+            case 6: return 'July';break;
+            case 7: return 'August';break;
+            case 8: return 'September';break;
+            case 9: return 'October';break;
+            case 10: return 'November';break;
+            case 11: return 'December';break;
+            default : break;
+        }
+    }
+
+    handleClassListData(classList){
+
+        if(classList && classList.length > 0){
+            for(let i in classList){
+                let dateClone = new Date(classList[0].start_time);
+                classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
+                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth());
+                classList[i].show_time = dateClone.getHours() + ':' + dateClone.getMinutes() + ' - '
+                    + new Date(classList[0].end_time).getHours() + ' : ' + new Date(classList[0].end_time).getMinutes();
+            }
+        }
+
+        return classList;
+    }
+
     async componentDidMount() {
         try {
-            //await CurrentUser.getUserId();
+            document.getElementById('loadingModal').style.display = 'block';
+
+            //check if placement is Done await CurrentUser.getUserId()
             let userId = await CurrentUser.getUserId();
 
-            let placementResult =await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${userId}`
-                }
-            });
+            let placementResult = await this.getPlacementResult(userId);
+
+            let classList = this.handleClassListData(await this.getUserClassList(userId));
 
             if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
-                // this.setState({
-                //     placementDone: false
-                // });
+                this.setState({
+                    placementDone: false,
+                    booking: classList
+                });
+            }else if(classList && classList.length > 0){
+                this.setState({
+                    booking: classList
+                });
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
+            document.getElementById('loadingModal').style.display = 'none';
         } finally {
             //console.log('login failed');
+            document.getElementById('loadingModal').style.display = 'none';
         }
     }
 
@@ -144,6 +231,8 @@ class Home extends Component {
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
+                <Segment loading={true} id='loadingModal' style={{border: 'none' ,position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888, display: 'none'}}>
+                </Segment>
                 {this.state.tab === 'booking' ?
                     (<div className="home-content">
                         {this.state.booking.length > 0 ?
@@ -152,16 +241,16 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index} to={"class/" + item.class_id}>
                                             <div className="booking-item-avatar">
-                                                <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                                <img src={item.companion_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'} alt=""/>
                                             </div>
                                             <div className="booking-item-info">
-                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>SEAN</p>
-                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>Sing a New song</p>
-                                                <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Today, Friday 29 December</p>
-                                                <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>11:00 - 12:00</p>
+                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>{item.companion_name || 'BuzzBuzz'}</p>
+                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>{item.topic || 'Sing a New song'}</p>
+                                                <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
+                                                <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
                                             </div>
                                             <div className="booking-item-status">
-                                                <p style={item.status === 1 ? {color: 'red'} : (item.status === 2 ? {color: 'rgb(106, 225, 8)'} : {color: '#aaa'})}>{item.status === 1 ? '待确认' : (item.status === 2 ? '7天后' : '已结束')}</p>
+                                                <p style={item.classes_status === 'cancelled' ? {color: 'red'} : (item.status === 'ended' ? {color: '#aaa'} : {color: 'rgb(106, 225, 8)'})}>{item.classes_status === 'cancelled' ? '已取消' : (item.status === 'ended' ? '已结束' : '已确认')}</p>
                                             </div>
                                         </Link>
                                     })
