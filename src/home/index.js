@@ -205,7 +205,6 @@ class Home extends Component {
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-            document.getElementById('loadingModal').style.display = 'none';
         } finally {
             //console.log('login failed');
             document.getElementById('loadingModal').style.display = 'none';

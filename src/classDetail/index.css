@@ -69,13 +69,14 @@
     padding-left: 2em;
 }
 
-.class-detail > .class-detail-info > .class-partners-avatar > div{
+.class-detail > .class-detail-info > .class-partners-avatar > a{
     height: 60%;
     margin-right: .5em;
 }
 
-.class-detail > .class-detail-info > .class-partners-avatar > div > img{
+.class-detail > .class-detail-info > .class-partners-avatar > a > img{
     height: 100%;
+    border-radius: 50%;
 }
 
 .class-detail > .class-detail-info > .class-info > .booking-item-avatar{
