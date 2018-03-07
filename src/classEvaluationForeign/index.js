@@ -18,7 +18,8 @@ class classEvaluationForeign extends Component {
                 status: 2,
                 show_date: 'tomorrow, is coming',
                 show_time: '00:00 - 00:00'
-            }
+            },
+            stars: 3
         };
     }
 
@@ -62,7 +63,29 @@ class classEvaluationForeign extends Component {
                     </div>
                 </div>
                 <div className="class-detail-foreign-list">
-
+                    <div className="foreign-evaluation-title">
+                        <p>对学生评价</p>
+                    </div>
+                    <div className="chinese-student-evaluation-list">
+                        <Link to='home'>
+                            <div className="evaluation-avatar">
+                                <img src="//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"/>
+                            </div>
+                            <div className="evaluation-content-show">
+                                <div className="chinese-name">Advisor</div>
+                                <div className="evaluation-result">
+                                    <p>评价: </p>
+                                    <div className="result-stars">
+                                        <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
+                                        <img src={ this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="2"  />
+                                        <img src={ this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="3" />
+                                        <img src={ this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="4" />
+                                        <img src={ this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="5" />
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',
