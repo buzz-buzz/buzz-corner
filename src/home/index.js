@@ -16,7 +16,7 @@ class Home extends Component {
             tab: 'booking',
             booking: [],
             message_tab: 'advisor',
-            placementDone: false
+            placementDone: true
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);

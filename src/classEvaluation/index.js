@@ -19,7 +19,7 @@ class classEvaluation extends Component {
                 show_date: 'tomorrow, is coming',
                 show_time: '00:00 - 00:00'
             },
-            user_type: 1,
+            user_type: 2,
             stars: 0,
             evaluation_items: [],
             evaluation_content: ''
@@ -102,52 +102,50 @@ class classEvaluation extends Component {
                         </div>
                     </div>
                 </div>
-                {
-                    this.state.user_type === 1 ?
-                        (
-                            <div className="class-detail-practice" id="evaluation" style={{backgroundColor: 'white'}}>
-                                <div className="evaluation-stars">
-                                    <div className="img-stars">
-                                        <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
-                                        <img src={ this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="2"  />
-                                        <img src={ this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="3" />
-                                        <img src={ this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="4" />
-                                        <img src={ this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="5" />
-                                    </div>
-                                    <div className="stars-word">
-                                        <p>{this.state.stars === 1 ? '非常差' : (this.state.stars === 2 ? '不满意' : (this.state.stars === 3 ? '一般' : (this.state.stars === 4 ? '比较满意' : (this.state.stars === 5 ? '非常棒' : '请选择'))))}</p>
-                                    </div>
-                                </div>
+                <div className="class-detail-practice" id="evaluation" style={{backgroundColor: 'white'}}>
+                    <div className="evaluation-stars">
+                        <div className="img-stars">
+                            <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
+                            <img src={ this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="2"  />
+                            <img src={ this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="3" />
+                            <img src={ this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="4" />
+                            <img src={ this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="5" />
+                        </div>
+                        <div className="stars-word">
+                            <p>{this.state.stars === 1 ? '非常差' : (this.state.stars === 2 ? '不满意' : (this.state.stars === 3 ? '一般' : (this.state.stars === 4 ? '比较满意' : (this.state.stars === 5 ? '非常棒' : '请选择'))))}</p>
+                        </div>
+                    </div>
+                    {
+                        this.state.user_type === 1 ?
+                            (
                                 <div className="evaluation-list">
                                     <a className={ this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                         name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
+                                       name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
                                     <a className={ this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                         name="b" onClick={this.evaluationItemsChange}>语速太快听不懂</a>
+                                       name="b" onClick={this.evaluationItemsChange}>语速太快听不懂</a>
                                     <a className={ this.state.evaluation_items.indexOf('c') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                         name="c" onClick={this.evaluationItemsChange}>有本土化发音</a>
+                                       name="c" onClick={this.evaluationItemsChange}>有本土化发音</a>
                                     <a className={ this.state.evaluation_items.indexOf('d') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                         name="d" onClick={this.evaluationItemsChange}>我不喜欢他/她</a>
+                                       name="d" onClick={this.evaluationItemsChange}>我不喜欢他/她</a>
                                 </div>
-                                <div className="evaluation-input">
-                                    <Form>
+                            ) :
+                            (
+                                <div className="evaluation-title">
+                                   <p>对该学生评价</p>
+                                </div>
+                            )
+                    }
+                    <div className="evaluation-input">
+                        <Form>
                                         <TextArea autoHeight placeholder='对课程的任何建议' rows={5} maxLength="200"
                                                   value={this.state.evaluation_content} onChange={(event, data) => this.evaluationContentChange(event, data)} />
-                                        <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
-                                    </Form>
-                                </div>
-                                <div className="evaluation-submit">
-                                    <div className="evaluation-done">完成</div>
-                                </div>
-                            </div>
-                        ) :
-                        (<div className="class-detail-practice">
-                            <div className="evaluation-stars"></div>
-                            <div className="evaluation-input"></div>
-                            <div className="evaluation-submit">
-                                <div className="evaluation-done">完成</div>
-                            </div>
-                        </div>)
-                }
+                            <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
+                        </Form>
+                    </div>
+                    <div className="evaluation-submit">
+                        <div className="evaluation-done">完成</div>
+                    </div>
+                </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',
                     position: 'fixed',
