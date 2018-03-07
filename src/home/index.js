@@ -8,63 +8,13 @@ import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome/index';
 import './index.css';
 
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return  String(date.getFullYear()) + '-' + String(date.getMonth() + 1 >9?date.getMonth() + 1:'0'+(date.getMonth() + 1)) + '-' + String(date.getDate()>9?date.getDate():'0'+date.getDate());
-    } else {
-        return ''
-    }
-}
-
 class Home extends Component {
     constructor() {
         super();
 
         this.state = {
             tab: 'booking',
-            booking: [
-                {
-                    class_id: 41,
-                    classes_status: "opened",
-                    end_time: "2018-12-25T15:59:00.000Z",
-                    start_time: "2018-12-24T15:59:00.000Z",
-                    status: "confirmed",
-                    topic: null,
-                    user_id: 21,
-                    companion_name: '',
-                    companion_avatar: '',
-                    show_date: 'Friday, 29 December',
-                    show_time: '11:00 - 11:25'
-                },
-                {
-                    class_id: 41,
-                    classes_status: "opened",
-                    end_time: "2018-12-25T15:59:00.000Z",
-                    start_time: "2018-12-24T15:59:00.000Z",
-                    status: "confirmed",
-                    topic: null,
-                    user_id: 21,
-                    companion_name: '',
-                    companion_avatar: '',
-                    show_date: 'Friday, 29 December',
-                    show_time: '11:00 - 11:25'
-                },
-                {
-                    class_id: 41,
-                    classes_status: "opened",
-                    end_time: "2018-12-25T15:59:00.000Z",
-                    start_time: "2018-12-24T15:59:00.000Z",
-                    status: "confirmed",
-                    topic: null,
-                    user_id: 21,
-                    companion_name: '',
-                    companion_avatar: '',
-                    show_date: 'Friday, 29 December',
-                    show_time: '11:00 - 11:25'
-                }
-            ],
+            booking: [],
             message_tab: 'advisor',
             placementDone: false
         };

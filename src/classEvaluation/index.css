@@ -1,0 +1,103 @@
+#evaluation.class-detail-practice{
+    display: flex;
+    flex-direction: column;
+}
+
+#evaluation > .evaluation-stars, #evaluation > .evaluation-list, #evaluation > .evaluation-submit{
+    flex:0 0 auto;
+}
+
+#evaluation > .evaluation-input{
+    flex: 1 1 auto;
+}
+
+#evaluation > .evaluation-input > form{
+    position: relative;
+}
+
+#evaluation > .evaluation-input > form > p{
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    color: #999;
+}
+
+.class-detail-practice > .evaluation-stars > .img-stars{
+    display: flex;
+    align-items: center;
+    height: 3em;
+    justify-content: space-around;
+    padding: 0 2em;
+}
+
+.class-detail-practice > .evaluation-stars > .img-stars > img{
+    height: 100%;
+}
+
+.class-detail-practice > .evaluation-stars > .stars-word{
+    text-align: center;
+    margin: 1em 0;
+    font-size: 1.2em;
+    color: #f7b52a;
+    letter-spacing: 1px;
+}
+
+.class-detail-practice > .evaluation-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 2em;
+}
+
+.class-detail-practice > .evaluation-list > a.evaluation-item{
+    height: 2em;
+    width: 48%;
+    box-sizing: border-box;
+    border: 1px solid #666;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 2em;
+    margin: .2em 0;
+    color: #000;
+}
+
+.class-detail-practice > .evaluation-list > a.evaluation-item-active{
+    height: 2em;
+    width: 48%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 2em;
+    margin: .2em 0;
+    color: white;
+    background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
+}
+
+.class-detail-practice .evaluation-input textarea{
+    background-color: rgb(244, 245, 249);
+    margin-top: 1em;
+    border-color: #eee;
+}
+
+.class-detail-practice .evaluation-input textarea:focus{
+    background-color: rgb(244, 245, 249) !important;
+    outline: none !important;
+    border-color: #eee;
+}
+
+#evaluation > .evaluation-submit{
+    background-color: rgb(244, 245, 249);
+    margin: 0 -2em -1em -2em;
+    padding: 2em;
+}
+
+#evaluation > .evaluation-submit > div.evaluation-done{
+    height: 3em;
+    text-align: center;
+    line-height: 3em;
+    width: 100%;
+    border-radius: 1.5em;
+    color: white;
+    background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
+}
