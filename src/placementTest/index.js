@@ -56,7 +56,7 @@ class Homepage extends Component {
 
     goBack(){
         if(this.state.step === 1){
-            window.history.back();
+            browserHistory.push('/home');
         }else if(this.state.step <= 4){
             let newStep = this.state.step - 1;
             this.setState({

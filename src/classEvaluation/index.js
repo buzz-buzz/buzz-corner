@@ -22,12 +22,20 @@ class classEvaluation extends Component {
             user_type: 2,
             stars: 0,
             evaluation_items: [],
-            evaluation_content: ''
+            evaluation_content: '',
+            to_user_id: props.params.to_user_id,
+            class_id: props.params.class_id,
+            evaluation_status: true
         };
 
         this.changeStars = this.changeStars.bind(this);
         this.evaluationItemsChange = this.evaluationItemsChange.bind(this);
+        this.back = this.back.bind(this);
 
+    }
+
+    back() {
+        window.history.back();
     }
 
     changeStars(event){
@@ -63,8 +71,30 @@ class classEvaluation extends Component {
         });
     }
 
-    async componentDidMount() {
+    async getEvaluationResult(from_user_id, to_user_id, class_id){
+        return  ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`
+            }
+        });
+    }
 
+    async componentDidMount() {
+        //get data from DB await CurrentUser.getUserId()
+        try {
+            let userId = await CurrentUser.getUserId();
+
+            if(userId){
+                //get evaluation result from DB
+                let evaluationResult = await this.getEvaluationResult(userId, this.state.to_user_id, this.state.class_id);
+
+                //update UI if reuslt is not not null
+                 this.setState();
+            }
+        } catch (ex) {
+            //login error
+            console.log("evaluation:" +ex.toString());
+        }
     }
 
     render() {
@@ -102,7 +132,7 @@ class classEvaluation extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-practice" id="evaluation" style={{backgroundColor: 'white'}}>
+                <div className="class-detail-practice" id="evaluation" style={{backgroundColor: 'white', position: 'relative'}}>
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
@@ -116,9 +146,9 @@ class classEvaluation extends Component {
                         </div>
                     </div>
                     {
-                        this.state.user_type === 1 ?
+                        0 === 1 ?
                             (
-                                <div className="evaluation-list">
+                                <div className="evaluation-list" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                                     <a className={ this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
                                        name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
                                     <a className={ this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
@@ -130,27 +160,33 @@ class classEvaluation extends Component {
                                 </div>
                             ) :
                             (
-                                <div className="evaluation-title">
+                                <div className="evaluation-title"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
                                    <p>对该学生评价</p>
                                 </div>
                             )
                     }
-                    <div className="evaluation-input">
+                    <div className="evaluation-input"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
                                         <TextArea autoHeight placeholder='对课程的任何建议' rows={5} maxLength="200"
                                                   value={this.state.evaluation_content} onChange={(event, data) => this.evaluationContentChange(event, data)} />
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
                         </Form>
                     </div>
-                    <div className="evaluation-submit">
+                    <div className="evaluation-submit"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <div className="evaluation-done">完成</div>
+                    </div>
+                    <div className="evaluation-result-show"  style={!this.state.evaluation_status ? {display: 'none'} : {}}>
+                        <p className="result-title">对该学生评价</p>
+                        <p className="result-content">会帮助其他的小伙伴，对他印象很好。</p>
                     </div>
                 </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',
-                    position: 'fixed',
+                    position: 'absolute',
                     top: 0,
                     left: 0,
+                    right: 0,
+                    bottom: 0,
                     width: '100%',
                     height: '100%',
                     zIndex: 888,

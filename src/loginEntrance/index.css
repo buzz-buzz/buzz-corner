@@ -4,8 +4,7 @@
     flex-direction: column;
     margin: 0 -1em;
     padding: 0 1em;
-    background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top center no-repeat;
-    background-size: 100% 100%;
+    background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top left no-repeat;
 }
 
 .login-entrance > .entrance-logo{
@@ -49,7 +48,7 @@
     width: 45%;
     height: 80%;
     display: flex;
-    border: 2px solid #f7b52a;
+    border: 2px solid rgba(237, 174, 0, 0.4);
     border-radius: 5px;
     justify-content: center;
     align-items: center;

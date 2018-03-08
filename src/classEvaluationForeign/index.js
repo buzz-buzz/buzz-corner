@@ -21,6 +21,12 @@ class classEvaluationForeign extends Component {
             },
             stars: 3
         };
+
+        this.back = this.back.bind(this);
+    }
+
+    back() {
+        window.history.back();
     }
 
     async componentDidMount() {
@@ -67,7 +73,7 @@ class classEvaluationForeign extends Component {
                         <p>对学生评价</p>
                     </div>
                     <div className="chinese-student-evaluation-list">
-                        <Link to='home'>
+                        <Link to='/home'>
                             <div className="evaluation-avatar">
                                 <img src="//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"/>
                             </div>
@@ -76,11 +82,11 @@ class classEvaluationForeign extends Component {
                                 <div className="evaluation-result">
                                     <p>评价: </p>
                                     <div className="result-stars">
-                                        <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
-                                        <img src={ this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="2"  />
-                                        <img src={ this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="3" />
-                                        <img src={ this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="4" />
-                                        <img src={ this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="5" />
+                                        <img src={ this.state.stars >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="1" />
+                                        <img src={ this.state.stars >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="2"  />
+                                        <img src={ this.state.stars >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="3" />
+                                        <img src={ this.state.stars >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="4" />
+                                        <img src={ this.state.stars >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="5" />
                                     </div>
                                 </div>
                             </div>

@@ -110,3 +110,17 @@
     color: white;
     background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
 }
+
+.evaluation-result-show > .result-title{
+    text-align: center;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    margin-bottom: .5em;
+}
+
+.evaluation-result-show > .result-content{
+    text-align: center;
+    font-size: 1em;
+    width: 70%;
+    margin: 0 auto;
+}
