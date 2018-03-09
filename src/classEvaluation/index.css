@@ -107,8 +107,6 @@
     line-height: 3em;
     width: 100%;
     border-radius: 1.5em;
-    color: white;
-    background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
 }
 
 .evaluation-result-show > .result-title{

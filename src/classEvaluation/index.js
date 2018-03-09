@@ -25,12 +25,13 @@ class classEvaluation extends Component {
             evaluation_content: '',
             to_user_id: props.params.to_user_id,
             class_id: props.params.class_id,
-            evaluation_status: true
+            evaluation_status: false
         };
 
         this.changeStars = this.changeStars.bind(this);
         this.evaluationItemsChange = this.evaluationItemsChange.bind(this);
         this.back = this.back.bind(this);
+        this.submitEvaluation = this.submitEvaluation.bind(this);
 
     }
 
@@ -39,9 +40,11 @@ class classEvaluation extends Component {
     }
 
     changeStars(event){
-        this.setState({
-            stars: parseInt(event.target.name)
-        });
+        if(!this.state.evaluation_status){
+            this.setState({
+                stars: parseInt(event.target.name)
+            });
+        }
     }
 
     evaluationContentChange(event, data){
@@ -71,29 +74,178 @@ class classEvaluation extends Component {
         });
     }
 
-    async getEvaluationResult(from_user_id, to_user_id, class_id){
-        return  ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`
+    transformDay(day) {
+        switch (day) {
+            case 1:
+                return 'Monday';
+                break;
+            case 2:
+                return 'Tuesday';
+                break;
+            case 3:
+                return 'Wednesday';
+                break;
+            case 4:
+                return 'Thursday';
+                break;
+            case 5:
+                return 'Friday';
+                break;
+            case 6:
+                return 'Saturday';
+                break;
+            case 0:
+                return 'Sunday';
+                break;
+            default :
+                break;
+        }
+    }
+
+    transformMonth(day) {
+        switch (day) {
+            case 0:
+                return 'January';
+                break;
+            case 1:
+                return 'February';
+                break;
+            case 2:
+                return 'March';
+                break;
+            case 3:
+                return 'April';
+                break;
+            case 4:
+                return 'May';
+                break;
+            case 5:
+                return 'June';
+                break;
+            case 6:
+                return 'July';
+                break;
+            case 7:
+                return 'August';
+                break;
+            case 8:
+                return 'September';
+                break;
+            case 9:
+                return 'October';
+                break;
+            case 10:
+                return 'November';
+                break;
+            case 11:
+                return 'December';
+                break;
+            default :
+                break;
+        }
+    }
+
+    handleClassInfoData(classInfo) {
+        let dateClone = new Date(classInfo.start_time);
+        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth());
+        classInfo.show_time = dateClone.getHours() + ':' + dateClone.getMinutes() + ' - '
+            + new Date(classInfo.end_time).getHours() + ' : ' + new Date(classInfo.end_time).getMinutes();
+        classInfo.companions = classInfo.companions.split(',')[0];
+
+        return classInfo;
+    }
+
+    validateForm(){
+        return [{
+            class_id: this.state.class_id,
+            from_user_id: this.state.userId,
+            to_user_id: this.state.to_user_id,
+            feedback_time: new Date(),
+            score: this.state.stars,
+            comment: this.state.evaluation_content
+        }];
+    }
+
+    async submitEvaluation(){
+        try {
+            if(!(!this.state.stars || !this.state.evaluation_content)){
+                document.getElementById('loadingModal').style.display = 'block';
+
+                //post data
+                let evaluationData = this.validateForm();
+
+                let response = await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.userId}/evaluate/${this.state.to_user_id}`,
+                        json: evaluationData,
+                        method: 'POST'
+                    }
+                });
+
+                this.setState({evaluation_status: true});
+
+                document.getElementById('loadingModal').style.display = 'none';
             }
-        });
+        }
+        catch (ex){
+            console.log('post evaluation data err:' +ex.toString());
+            document.getElementById('loadingModal').style.display = 'none';
+        }
     }
 
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
-            let userId = await CurrentUser.getUserId();
+            document.getElementById('loadingModal').style.display = 'block';
 
-            if(userId){
-                //get evaluation result from DB
-                let evaluationResult = await this.getEvaluationResult(userId, this.state.to_user_id, this.state.class_id);
+            let userId = 11;
 
-                //update UI if reuslt is not not null
-                 this.setState();
+            let class_info = await  ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
+                }
+            });
+
+            class_info = this.handleClassInfoData(class_info[0]);
+
+            //get feed_back data
+            let feed_back = await  ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${userId}/evaluate/${this.state.to_user_id}`
+                }
+            });
+
+            console.log('aaaaa....');
+            console.log(feed_back);
+            console.log(typeof feed_back);
+
+            if(feed_back.length && feed_back[0].comment && feed_back[0].score){
+                //set state
+                this.setState({
+                    class_info: class_info,
+                    companion_name: class_info.companion_name || '',
+                    companion_avatar: class_info.companion_avatar || '',
+                    stars: parseFloat(feed_back[0].score),
+                    evaluation_content:  feed_back[0].comment,
+                    evaluation_status: true,
+                    userId: userId
+                });
+            }else{
+                //set state
+                this.setState({
+                    class_info: class_info,
+                    companion_name: class_info.companion_name || '',
+                    companion_avatar: class_info.companion_avatar || '',
+                    userId: userId
+                });
             }
+
+            document.getElementById('loadingModal').style.display = 'none';
         } catch (ex) {
             //login error
             console.log("evaluation:" +ex.toString());
+            document.getElementById('loadingModal').style.display = 'none';
         }
     }
 
@@ -173,26 +325,30 @@ class classEvaluation extends Component {
                         </Form>
                     </div>
                     <div className="evaluation-submit"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <div className="evaluation-done">完成</div>
+                        <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {color: 'rgb(255, 255, 255)',
+                                background: 'rgb(223, 223, 228)'} : {color: 'white',
+                                background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'}}
+                            onClick={this.submitEvaluation}
+                        >完成</div>
                     </div>
                     <div className="evaluation-result-show"  style={!this.state.evaluation_status ? {display: 'none'} : {}}>
                         <p className="result-title">对该学生评价</p>
-                        <p className="result-content">会帮助其他的小伙伴，对他印象很好。</p>
+                        <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
+                    <Segment loading={true} id='loadingModal' style={{
+                        border: 'none',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        width: '100%',
+                        height: '100%',
+                        zIndex: 888,
+                        display: 'none'
+                    }}>
+                    </Segment>
                 </div>
-                <Segment loading={true} id='loadingModal' style={{
-                    border: 'none',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none'
-                }}>
-                </Segment>
             </div>
         );
     }

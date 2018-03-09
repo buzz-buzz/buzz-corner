@@ -183,7 +183,8 @@ class classDetail extends Component {
             this.setState({
                 class_info: class_info,
                 student_avatars: class_info.students,
-                companion_name: 'hank'
+                companion_name: class_info.companion_name || '',
+                companion_avatar: class_info.companion_avatar || ''
             });
 
         }
@@ -270,7 +271,7 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <div className="class-detail-button"
-                         style={this.state.class_info && this.state.class_info.start_time && (new Date(this.state.class_info.start_time) - new Date())/60000 <= 900 ? {} : {display: 'block'}}>
+                         style={this.state.class_info && this.state.class_info.start_time && (new Date(this.state.class_info.start_time) - new Date())/60000 <= 1500 && (new Date(this.state.class_info.start_time) - new Date())/60000 > -1500 ? {display: 'block'} : {display: 'none'}}>
                         <Form.Group widths='equal'>
                             <Form.Field control={Button} onClick={this.showZoom}
                                         content='进入课堂'/>
