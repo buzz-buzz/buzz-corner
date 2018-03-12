@@ -5,6 +5,7 @@
     margin: 0 -1em;
     padding: 0 1em;
     background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top left no-repeat;
+    position: relative;
 }
 
 .login-entrance > .entrance-logo{
