@@ -199,7 +199,7 @@ class classEvaluation extends Component {
         try {
             document.getElementById('loadingModal').style.display = 'block';
 
-            let userId = 11;
+            let userId = await CurrentUser.getUserId();
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {

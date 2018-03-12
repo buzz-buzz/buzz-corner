@@ -11,13 +11,16 @@ class classEvaluationForeign extends Component {
         super(props);
 
         this.state = {
+            class_id: props.params.class_id,
             class_info: {
                 topic: 'sing a New song',
                 time: '2018-2-1 friday',
                 partners: [1, 2, 3],
                 status: 2,
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00'
+                show_time: '00:00 - 00:00',
+                companion_name: '',
+                companion_avatar: ''
             },
             stars: 3
         };
@@ -29,8 +32,116 @@ class classEvaluationForeign extends Component {
         window.history.back();
     }
 
-    async componentDidMount() {
+    transformDay(day) {
+        switch (day) {
+            case 1:
+                return 'Monday';
+                break;
+            case 2:
+                return 'Tuesday';
+                break;
+            case 3:
+                return 'Wednesday';
+                break;
+            case 4:
+                return 'Thursday';
+                break;
+            case 5:
+                return 'Friday';
+                break;
+            case 6:
+                return 'Saturday';
+                break;
+            case 0:
+                return 'Sunday';
+                break;
+            default :
+                break;
+        }
+    }
 
+    transformMonth(month) {
+        switch (month) {
+            case 0:
+                return 'January';
+                break;
+            case 1:
+                return 'February';
+                break;
+            case 2:
+                return 'March';
+                break;
+            case 3:
+                return 'April';
+                break;
+            case 4:
+                return 'May';
+                break;
+            case 5:
+                return 'June';
+                break;
+            case 6:
+                return 'July';
+                break;
+            case 7:
+                return 'August';
+                break;
+            case 8:
+                return 'September';
+                break;
+            case 9:
+                return 'October';
+                break;
+            case 10:
+                return 'November';
+                break;
+            case 11:
+                return 'December';
+                break;
+            default :
+                break;
+        }
+    }
+
+    handleClassInfoData(classInfo) {
+        let dateClone = new Date(classInfo.start_time);
+        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth());
+        classInfo.show_time = dateClone.getHours() + ':' + dateClone.getMinutes() + ' - '
+            + new Date(classInfo.end_time).getHours() + ' : ' + new Date(classInfo.end_time).getMinutes();
+        classInfo.companions = classInfo.companions.split(',')[0];
+
+        return classInfo;
+    }
+
+    async componentDidMount() {
+        try {
+            document.getElementById('loadingModal').style.display = 'block';
+
+            let userId = await CurrentUser.getUserId();
+
+            let class_info = await  ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
+                }
+            });
+
+            class_info = this.handleClassInfoData(class_info[0]);
+
+            //get student list,then get evaluation result.
+            console.log(class_info);
+
+            this.setState({
+                userId: userId,
+                class_info: class_info
+            });
+
+            document.getElementById('loadingModal').style.display = 'none';
+        } catch (ex) {
+            //login error
+            console.log("evaluation:" +ex.toString());
+            document.getElementById('loadingModal').style.display = 'none';
+        }
     }
 
     render() {
@@ -51,12 +162,12 @@ class classEvaluationForeign extends Component {
                     <div className="class-info">
                         <div className="booking-item-avatar">
                             <img
-                                src={this.state.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
+                                src={this.state.class_info.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                 alt=""/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
-                               style={{fontWeight: 'bold', fontSize: '1.2em'}}>{this.state.companion_name || "Buzz"}</p>
+                               style={{fontWeight: 'bold', fontSize: '1.2em'}}>{this.state.class_info.companion_name || "Buzz"}</p>
                             <p className="class-topic" style={{
                                 color: '#f7b52a',
                                 margin: '.3em 0'
@@ -68,7 +179,7 @@ class classEvaluationForeign extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-foreign-list">
+                <div className="class-detail-foreign-list" style={{position: 'relative'}}>
                     <div className="foreign-evaluation-title">
                         <p>对学生评价</p>
                     </div>
@@ -92,18 +203,18 @@ class classEvaluationForeign extends Component {
                             </div>
                         </Link>
                     </div>
+                    <Segment loading={true} id='loadingModal' style={{
+                        border: 'none',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        zIndex: 888,
+                        display: 'none'
+                    }}>
+                    </Segment>
                 </div>
-                <Segment loading={true} id='loadingModal' style={{
-                    border: 'none',
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none'
-                }}>
-                </Segment>
             </div>
         );
     }
