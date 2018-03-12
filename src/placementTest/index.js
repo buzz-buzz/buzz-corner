@@ -15,31 +15,56 @@ class Homepage extends Component {
             step: 1,
             questions: [
                 {
-                    title: '对没准备的话题, 仍然愿意用英语沟通.',
+                    title: '你是否容易交到朋友',
                     items: [
-                    '不愿意.',
-                    '无所谓',
-                    '愿意'
+                         '是',
+                         '否'
                     ]
                 },
                 {
-                    title: '对于小伙伴是否能听懂我的英语，我',
+                    title: '你是否喜欢发言',
                     items: [
-                        '很担心.',
-                        '无所谓',
-                        '不担心'
+                        '是',
+                        '否'
                     ]
                 },
                 {
-                    title: '以下情况，你属于哪一种',
+                    title: '与不熟悉的伙伴同行，能很快加入谈话',
+                    items: [
+                        '能',
+                        '不能'
+                    ]
+                },
+                {
+                    title: '当其他伙伴不提出自己的建议时，能提出自己的看法',
+                    items: [
+                        '能',
+                        '不能'
+                    ]
+                },
+                {
+                    title: '在许多人和陌生人面前，不会感到不舒服',
+                    items: [
+                        '会',
+                        '不会'
+                    ]
+                },
+                {
+                    title: '喜欢与他人谈话的活动',
+                    items: [
+                        '喜欢',
+                        '不喜欢',
+                    ]
+                },
+                {
+                    title: '以下情况，你属于哪一种？',
                     items: [
                         '需要翻译听懂常用指令,能简短介绍个人和兴趣爱好',
                         '能听懂常用指令并做出反应，能清楚地介绍自己，能简单描述一件事',
-                        '能比较有条理地描述个人体验和表达个人想法，能与伙伴进行几个回合的交谈'
+                        '能比较有条理地描述个人体验和表达个人想法'
                     ]
                 }
              ],
-            firstAnswer: '',
             answers: [],
             audioAnsweringStatus: false,
             audioAnswerUrl: '',
@@ -88,7 +113,7 @@ class Homepage extends Component {
 
     async componentDidMount() {
         //await CurrentUser.getUserId()
-        let userId = await CurrentUser.getUserId();
+        let userId = 11;
 
         this.setState({
             userId: userId
@@ -96,7 +121,7 @@ class Homepage extends Component {
     }
 
     checkPlacementAnswer(){
-        if(this.state.answers.length === 4){
+        if(this.state.answers.length === 8){
             return true;
         }else{
             return false;
@@ -160,11 +185,23 @@ class Homepage extends Component {
             console.log(this.state.step);
             console.log(this.state.answers);
 
-            if(this.state.step < 4){
+            if(this.state.step < 8){
                 let newStep = this.state.step +1;
-                this.setState({
-                    step: newStep
-                });
+
+                if(this.state.step === 7){
+                    let answerSeventh = this.state.answers[6];
+
+                    let audioUrl = answerSeventh === 'A ' ? 'url1' : (answerSeventh === 'B' ? 'url2' : 'url3');
+
+                    this.setState({
+                        step: newStep,
+                        audioQuestionUrl: audioUrl
+                    });
+                }else{
+                    this.setState({
+                        step: newStep
+                    });
+                }
             }else{
                 //done
                 document.getElementById('loadingModal').style.display = 'block';
@@ -227,7 +264,7 @@ class Homepage extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="profile-progress">
+                <div className="profile-progress placement-test">
                     <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ?  'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
@@ -256,10 +293,38 @@ class Homepage extends Component {
                         </div>
                         <p>4</p>
                     </div>
+                    <div className={this.state.step > 5 ? 'done' : (this.state.step === 5 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>5</p>
+                    </div>
+                    <div className={this.state.step > 6 ? 'done' : (this.state.step === 6 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>6</p>
+                    </div>
+                    <div className={this.state.step > 7 ? 'done' : (this.state.step === 7 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>7</p>
+                    </div>
+                    <div className={this.state.step > 8 ? 'done' : (this.state.step === 8 ?  'active' : '' )}>
+                        <div className="dot">
+                            <div className="line-left"></div>
+                            <div className="circle"></div>
+                        </div>
+                        <p>8</p>
+                    </div>
                 </div>
                 <Form className='profile-body'>
                     {
-                        this.state.step <= 3 ?
+                        this.state.step <= 7 ?
                             (<div className="first placement-first">
                                 <div className="first-question">
                                     <div>
@@ -274,7 +339,7 @@ class Homepage extends Component {
                                     {
                                         this.state.questions[this.state.step-1].items.map((item, index) => {
                                             return <div className="answer-item" key={index}
-                                                style={this.state.answers[this.state.step-1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {background: '#f7b52a', color: 'white', border: '1px solid #f7b52a'} : {}}  >
+                                                style={this.state.answers[this.state.step-1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {color: 'rgb(246, 180, 12)', border: '1px solid rgb(246, 180, 12)'} : {}}  >
                                                 <div className="item-value">
                                                     <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
                                                 </div>
@@ -337,7 +402,7 @@ class Homepage extends Component {
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content='Continue'  style={this.state.answers[this.state.step - 1] === undefined ? {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', height: '4em', fontWeight: 'normal', borderRadius: '30px'} : {margin: '2em auto .5em auto', width: '100%', color: 'rgba(0,0,0,.6)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.answers[this.state.step - 1] === undefined} onClick={this.submit} />
+                        <Form.Field control={Button} content='Continue'  style={this.state.answers[this.state.step - 1] === undefined ? {margin: '2em auto .5em auto', width: '100%', color: 'rgb(255, 255, 255)', height: '4em', fontWeight: 'normal', borderRadius: '30px', backgroundColor: 'rgb(223,223,238)'} : {margin: '2em auto .5em auto', width: '100%', color: 'rgb(255, 255, 255)', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', height: '4em', fontWeight: 'normal', borderRadius: '30px'}} disabled={this.state.answers[this.state.step - 1] === undefined} onClick={this.submit} />
                     </Form.Group>
                 </Form>
                 <br/>

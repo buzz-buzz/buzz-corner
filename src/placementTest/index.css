@@ -187,3 +187,7 @@
     width: 0;
     height: 0;
 }
+
+.placement-test > div{
+    width: 12.5% !important;
+}
