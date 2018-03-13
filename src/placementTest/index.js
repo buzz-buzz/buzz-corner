@@ -69,7 +69,8 @@ class Homepage extends Component {
             answers: [],
             audioAnsweringStatus: false,
             audioAnswerUrl: '',
-            audioQuestionUrl: ''
+            audioQuestionUrl: '',
+            audioQuestionLength: 0
         };
 
         this.answering = this.answering.bind(this);
@@ -208,10 +209,12 @@ class Homepage extends Component {
                     let answerSeventh = this.state.answers[6];
 
                     let audioUrl = answerSeventh === 'A ' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%202.mp3' : 'http://p579tk2n2.bkt.clouddn.com/Placement%203.mp3');
+                    let audioQuestionLength = answerSeventh === 'A ' ? 5 : (answerSeventh === 'B' ? 13 : 11);
 
                     this.setState({
                         step: newStep,
-                        audioQuestionUrl: audioUrl
+                        audioQuestionUrl: audioUrl,
+                        audioQuestionLength: audioQuestionLength
                     });
                 }else{
                     this.setState({
@@ -384,10 +387,9 @@ class Homepage extends Component {
                                             <audio id="playAnswerAudio" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
                                             <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3'} >not support audio</audio>
                                         </div>
-                                        <p>{document.getElementById('playQuestionAudio') ? document.getElementById('playQuestionAudio').duration || 0 : 0}"</p>
+                                        <p>{this.state.audioQuestionLength || 0}"</p>
                                     </div>
                                     <div className="answering-audio">
-                                        <p style={this.state.audioAnsweringStatus === true ? {} : {display: 'none'}}>{document.getElementById('playQuestionAudio') ? document.getElementById('playQuestionAudio').duration || 0 : 0}"</p>
                                         <div className="first-title-answer">
                                             <img className="transform-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
                                             <p>{this.state.audioAnsweringStatus === true ? '点击收听' : '点击录制你的回答'}</p>
