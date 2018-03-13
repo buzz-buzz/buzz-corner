@@ -13,6 +13,7 @@ class Homepage extends Component {
         super();
 
         this.state = {
+            avatar: '',
             step: 1,
             questions: [
                 {
@@ -120,8 +121,15 @@ class Homepage extends Component {
         try{
             let userId = await CurrentUser.getUserId();
 
+            let profile = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            });
+
             this.setState({
-                userId: userId
+                userId: userId,
+                avatar: profile.avatar || ''
             });
         }
         catch (ex){
@@ -248,6 +256,7 @@ class Homepage extends Component {
                     });
 
                     document.getElementById('loadingModal').style.display = 'none';
+                    document.getElementById('loadingModal').style.display = 'none';
                     browserHistory.push('/home');
                 }else{
                     console.log('未完成.........');
@@ -349,7 +358,7 @@ class Homepage extends Component {
                             (<div className="first placement-first">
                                 <div className="first-question">
                                     <div>
-                                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                        <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
                                     </div>
                                     <div className="first-title">
                                         <p>{this.state.questions[this.state.step-1].title}</p>
@@ -381,7 +390,7 @@ class Homepage extends Component {
                                     </div>
                                     <div className="first-question">
                                         <div>
-                                            <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
                                         </div>
                                         <div className="first-title" onClick={this.playQuestionVideo}>
                                             <p>点击收听</p>
@@ -408,7 +417,7 @@ class Homepage extends Component {
                                             </div>
                                         </div>
                                         <div>
-                                            <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                            <img style={{borderRadius: '50%'}} src={this.state.avatar || 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'} alt=""/>
                                         </div>
                                     </div>
                                     <div className="recordAgain">
