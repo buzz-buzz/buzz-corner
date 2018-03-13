@@ -25,30 +25,7 @@ let config = {
             appName: 'buzz-corner'
         }
     },
-    uat: {
-        sso: {
-            inner: {
-                "host": "uat.service.hcd.com",
-                "port": 10086
-            }
-        },
-        endPoints: {
-            interview: 'http://10.20.32.61:12789',
-            video: 'http://uat.bridgeplus.cn',
-            masr: 'http://10.20.32.61:12444',
-            hongda: 'http://10.20.32.51:10126',
-            thirdParty: 'http://10.20.32.61:10101',
-            buzzCorner: 'http://10.20.32.51:16111',
-            sso: 'http://10.20.32.61:10086',
-            buzzService: 'https://buzz-corner-service.herokuapp.com',
-            upload_qiniu: 'http://uat.hcd.com:10003'
-        },
-
-        logger: {
-            appName: 'buzz-corner'
-        }
-    },
-    prd: {
+    production: {
         sso: {
             inner: {
                 "host": "service.bridgeplus.cn",
@@ -64,7 +41,7 @@ let config = {
             thirdParty: 'http://service.bridgeplus.cn:10101',
             buzzCorner: 'http://corner.buzzbuzzenglish.com',
             sso: 'http://service.bridgeplus.cn:10086',
-            buzzService: 'https://buzz-corner-service.herokuapp.com',
+            buzzService: 'http://localhost:16888',
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
 
@@ -73,7 +50,5 @@ let config = {
         }
     }
 };
-
-config.production = config.prd;
 
 module.exports = config[process.env.NODE_ENV || 'development'] || config.development;

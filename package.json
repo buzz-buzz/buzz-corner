@@ -47,5 +47,12 @@
     "mocha": "^4.1.0",
     "react-app-rewired": "^1.4.0",
     "supertest": "^3.0.0"
-  }
+  },
+  "apps": [
+    {
+      "script": "app.js",
+      "watch": "true",
+      "name": "buzz-corner"
+    }
+  ]
 }
