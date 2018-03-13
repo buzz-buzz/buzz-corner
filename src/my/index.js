@@ -374,7 +374,7 @@ class Homepage extends Component {
         return {
             parent_name: profile.parent_name,
             mobile: profile.phone,
-            display_name: profile.student_en_name,
+            name: profile.student_en_name,
             gender: profile.gender,
             city: profile.city,
             date_of_birth: getBirthDay(profile.date_of_birth),
@@ -386,7 +386,7 @@ class Homepage extends Component {
     async componentDidMount() {
         try {
             //await CurrentUser.getUserId()
-            let userId = await CurrentUser.getUserId();
+            let userId = 291;
 
             let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
                 body: {
@@ -410,7 +410,7 @@ class Homepage extends Component {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
             phone: userData.mobile || '',
-            student_en_name: userData.student_en_name || '',
+            student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: getBirthDay(userData.date_of_birth),
             city: userData.city || '',
