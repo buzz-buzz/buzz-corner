@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Form, Button, Segment} from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
+import {Link} from "react-router";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import '../my/my.css';
@@ -77,6 +78,8 @@ class Homepage extends Component {
         this.goBack = this.goBack.bind(this);
         this.playQuestionVideo = this.playQuestionVideo.bind(this);
         this.playRecordedVideo = this.playRecordedVideo.bind(this);
+        this.helpModalShow = this.helpModalShow.bind(this);
+        this.closeHelpModal = this.closeHelpModal.bind(this);
     }
 
     goBack(){
@@ -113,11 +116,24 @@ class Homepage extends Component {
 
     async componentDidMount() {
         //await CurrentUser.getUserId()
-        let userId = 11;
+        try{
+            let userId = await CurrentUser.getUserId();
 
-        this.setState({
-            userId: userId
-        });
+            this.setState({
+                userId: userId
+            });
+        }
+        catch (ex){
+            console.log(ex.toString());
+        }
+    }
+
+    helpModalShow(){
+        document.getElementById('help-modal').style.display = 'flex';
+    }
+
+    closeHelpModal(){
+        document.getElementById('help-modal').style.display = 'none';
     }
 
     checkPlacementAnswer(){
@@ -366,11 +382,12 @@ class Homepage extends Component {
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
                                             <audio id="playAnswerAudio" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
-                                            <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || ''} >not support audio</audio>
+                                            <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3'} >not support audio</audio>
                                         </div>
-                                        <p>60"</p>
+                                        <p>{document.getElementById('playQuestionAudio') ? document.getElementById('playQuestionAudio').duration || 0 : 0}"</p>
                                     </div>
                                     <div className="answering-audio">
+                                        <p style={this.state.audioAnsweringStatus === true ? {} : {display: 'none'}}>{document.getElementById('playQuestionAudio') ? document.getElementById('playQuestionAudio').duration || 0 : 0}"</p>
                                         <div className="first-title-answer">
                                             <img className="transform-img" src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
                                             <p>{this.state.audioAnsweringStatus === true ? '点击收听' : '点击录制你的回答'}</p>
@@ -390,13 +407,14 @@ class Homepage extends Component {
                                             <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
                                         </div>
                                     </div>
-                                    <div className="recordAgain" style={this.state.audioAnsweringStatus === true ? {display: 'block'} : {display: 'none'}}>
-                                        <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '点击重录' : ''}</p>
-                                        <input type="file" id="audio-answer-again" accept="audio/*"
+                                    <div className="recordAgain">
+                                        <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '点击重录' : '查看录音操作帮助'}</p>
+                                        <input type="file" id="audio-answer-again" accept="audio/*"  style={this.state.audioAnsweringStatus === true ? {} : {display: 'none'}}
                                                onChange={(e) => this.handleAudioChange(e)}
                                                ref={input => {
                                                    this.fileInputAgain = input;
                                                }} />
+                                        <a onClick={this.helpModalShow} style={this.state.audioAnsweringStatus === true ? {display: 'none'} : {}} />
                                     </div>
                                 </div>)
                             )
@@ -406,6 +424,22 @@ class Homepage extends Component {
                     </Form.Group>
                 </Form>
                 <br/>
+                <div id="help-modal" className="help-modal">
+                    <div className="class-detail-header">
+                        <div className="arrow">
+                            <img style={{width: '20px'}}
+                                 src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
+                                 onClick={this.closeHelpModal}/>
+                        </div>
+                        <div className="class-detail-title">录音使用帮助</div>
+                        <div className="class-order">
+
+                        </div>
+                    </div>
+                    <div className="help-content">
+                        <img src="//p579tk2n2.bkt.clouddn.com/placement-help.png" alt=""/>
+                    </div>
+                </div>
             </div>
         );
     }
