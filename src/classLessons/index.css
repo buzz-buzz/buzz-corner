@@ -59,15 +59,8 @@
     margin-bottom: .5em;
 }
 
-.class-lessons-content > .content-info > .content-notice{
-    color: rgb(102, 102, 102);
-    font-size: .8em;
-    letter-spacing: 1px;
-}
-
 .class-lessons-page  .content-list{
-    margin-top: .5em;
-    background-color: #fff;
+    margin-top: .8em;
 }
 
 .class-lessons-page  .content-list > div{
@@ -76,9 +69,6 @@
     justify-content: space-between;
     padding: 0 1em;
     height: 8em;
-    border-bottom: 1px solid rgb(223, 223, 228);
-}
-
-.class-lessons-page  .content-list > div:first-child{
-    border-top: 1px solid rgb(223, 223, 228);
+    margin-bottom: .5em;
+    background-color: #fff;
 }

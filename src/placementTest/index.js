@@ -191,7 +191,7 @@ class Homepage extends Component {
                 if(this.state.step === 7){
                     let answerSeventh = this.state.answers[6];
 
-                    let audioUrl = answerSeventh === 'A ' ? 'url1' : (answerSeventh === 'B' ? 'url2' : 'url3');
+                    let audioUrl = answerSeventh === 'A ' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%202.mp3' : 'http://p579tk2n2.bkt.clouddn.com/Placement%203.mp3');
 
                     this.setState({
                         step: newStep,
@@ -366,7 +366,7 @@ class Homepage extends Component {
                                             <p>点击收听</p>
                                             <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png" alt=""/>
                                             <audio id="playAnswerAudio" width="0" height="0" src={this.state.audioAnswerUrl || ''}>not support audio</audio>
-                                            <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || ''}>not support audio</audio>
+                                            <audio id="playQuestionAudio" width="0" height="0" src={this.state.audioQuestionUrl || ''} >not support audio</audio>
                                         </div>
                                         <p>60"</p>
                                     </div>

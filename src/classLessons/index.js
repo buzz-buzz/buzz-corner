@@ -57,7 +57,6 @@ class ClassLessons extends Component {
                             现有课时数
                         </div>
                         <div className="content-numbers">0</div>
-                        <div className="content-notice">请购买课时后进行预约</div>
                     </div>
                     <div className="content-list">
                         {

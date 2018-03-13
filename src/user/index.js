@@ -64,7 +64,7 @@ class User extends Component {
                         </div>
                     </div>
                     <div className="user-menu">
-                        <Link>
+                        <Link to="class-lessons">
                             <div className="icon">
                                 <Icon name='calendar'/>
                                 <div className="name">

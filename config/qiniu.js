@@ -1,12 +1,12 @@
 'use strict';
 
 let config_qiniu = {
-    ACCESS_KEY: 'OlMuxpncg3fDYzOU2aVW2VC0bvPrQDWeO_elb5js',
-    SECRET_KEY: 'kljBtxHbByZTQjS0y73JnzUiaTmymb2-6RufCGj-',
-    bucket: "buzz-resource",
+    ACCESS_KEY: 'JdoVVBo0xbN3QTHl0zwu5-oADr0j4dQS2A8uMbl6',
+    SECRET_KEY: 'fQd9WfsOrGx2gfrNTbbuc-zcKSndSx4tNJZLp9HP',
+    bucket: "buzz-corner-user-resource",
     url: {
         upload_url: 'http://upload.qiniu.com/',
-        resources_url:  'https://resource.buzzbuzzenglish.com/'
+        resources_url:  'http://p57969ygc.bkt.clouddn.com/'
     }
 };
 
