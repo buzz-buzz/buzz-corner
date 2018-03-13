@@ -241,4 +241,5 @@ div.help-modal > .class-detail-header > div.arrow{
 
 div.help-modal > .help-content > img{
     width: 100%;
+    margin-bottom: 2em;
 }

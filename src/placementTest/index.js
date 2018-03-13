@@ -86,7 +86,7 @@ class Homepage extends Component {
     goBack(){
         if(this.state.step === 1){
             browserHistory.push('/home');
-        }else if(this.state.step <= 4){
+        }else if(this.state.step <= 8){
             let newStep = this.state.step - 1;
             this.setState({
                 step: newStep
@@ -208,8 +208,10 @@ class Homepage extends Component {
                 if(this.state.step === 7){
                     let answerSeventh = this.state.answers[6];
 
-                    let audioUrl = answerSeventh === 'A ' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%202.mp3' : 'http://p579tk2n2.bkt.clouddn.com/Placement%203.mp3');
-                    let audioQuestionLength = answerSeventh === 'A ' ? 5 : (answerSeventh === 'B' ? 13 : 11);
+                    let audioUrl = answerSeventh === 'A' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%202.mp3' : 'http://p579tk2n2.bkt.clouddn.com/Placement%203.mp3');
+                    let audioQuestionLength = answerSeventh === 'A' ? 5 : (answerSeventh === 'B' ? 13 : 11);
+
+                    console.log(audioUrl, audioQuestionLength);
 
                     this.setState({
                         step: newStep,

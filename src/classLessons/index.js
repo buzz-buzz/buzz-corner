@@ -13,19 +13,28 @@ class ClassLessons extends Component {
             class_lessons: 0,
             buy_list: [
                 {
-                    lessons: 5,
-                    price: 31.6,
-                    total: 158
+                    title: '新用户体验包',
+                    lessons: '4课时',
+                    price: 188,
+                    discount: '6%OFF',
+                    before: '原价: ¥200元',
+                    img_url: ''
                 },
                 {
-                    lessons: 10,
-                    price: 28.5,
-                    total: 285
+                    title: '季度',
+                    lessons: '12课时',
+                    price: 588,
+                    discount: '7%OFF',
+                    before: '原价: ¥600元',
+                    img_url: ''
                 },
                 {
-                    lessons: 20,
-                    price: 25.5,
-                    total: 510
+                    title: '年卡',
+                    lessons: '52课时',
+                    price: 2188,
+                    discount: '15%OFF',
+                    before: '原价: ¥510元',
+                    img_url: ''
                 }
             ]
         };
@@ -63,9 +72,18 @@ class ClassLessons extends Component {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {
                                 return <div key={index}>
-                                    <div className="lessons">{item.lessons}课时</div>
-                                    <div className="price">{item.price}元/课时</div>
-                                    <div className="total">总计{item.total}元</div>
+                                    <div className="class-lesson-img">
+                                        <img src={item.img_url} alt=""/>
+                                    </div>
+                                    <div className="class-lesson-info">
+                                        <div className="lessons-title">{item.title}</div>
+                                        <div className="lessons-price">
+
+                                        </div>
+                                        <div className="lessons-number">
+
+                                        </div>
+                                    </div>
                                 </div>
                             })
                         }

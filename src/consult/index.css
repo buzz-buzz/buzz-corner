@@ -40,6 +40,12 @@
 .consult-page > .consult-content > .consult-QR-code{
     color: #666;
     font-size: .8em;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.consult-page > .consult-content > .consult-QR-code > img{
+    width: 100%;
 }
 
 .consult-content p{

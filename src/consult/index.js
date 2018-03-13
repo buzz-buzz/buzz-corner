@@ -26,14 +26,14 @@ class Consult extends Component {
                 </div>
                 <div className="consult-content">
                     <div className="consult-avatar">
-                        <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                        <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
                     </div>
                     <div className="consult-word">
                         <p>我是你的专属课程顾问</p>
                         <p>请通过如下方式和我联系</p>
                     </div>
                     <div className="consult-QR-code">
-                        <img src="" alt=""/>
+                        <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher-qr-code.jpeg" alt=""/>
                         <p>扫描二维码联系"BuzzBuzz导师"</p>
                     </div>
                 </div>
