@@ -386,7 +386,7 @@ class Homepage extends Component {
     async componentDidMount() {
         try {
             //await CurrentUser.getUserId()
-            let userId = 291;
+            let userId = await CurrentUser.getUserId();
 
             let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
                 body: {
@@ -403,6 +403,9 @@ class Homepage extends Component {
         }
         catch (ex) {
             console.log(ex.toString());
+            alert('未登录,即将跳转...');
+            browserHistory.push('/');
+
         }
     }
 
