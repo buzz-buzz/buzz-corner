@@ -17,6 +17,7 @@ import ClassManage from './admin/classManage';
 import ClassDetail from './classDetail/index';
 import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
+import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
 import Consult from './consult';
 import Home from './home';
@@ -54,6 +55,7 @@ class App extends Component {
                         <Route path='/consult' component={Consult} />
                         <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation} />
                         <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign} />
+                        <Route path='/class-lessons' component={ClassLessons} />
                     </Router>
                 </div>
             </Container>

@@ -1,0 +1,84 @@
+.class-lessons-page{
+    margin: 0 -1em;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.class-lessons-page > .class-detail-header{
+    flex-shrink: 0;
+    height: 50px;
+    display: flex;
+    border-bottom: 1px solid rgb(223, 223, 228);
+    justify-content: center;
+    align-items: center;
+    padding: 0 1em;
+    background-color: white;
+}
+
+.class-lessons-page > .class-detail-header > div{
+    flex: 1;
+}
+
+.class-lessons-page > .class-detail-header > div.class-detail-title{
+    font-size: 1.4em;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.class-lessons-page > .class-detail-header > div.class-order{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.class-lessons-page > .class-detail-header > div.arrow{
+    font-size: 1.5em;
+}
+
+.class-lessons-content{
+    flex: 1 0 auto;
+    background-color:  rgb(244, 245, 249);
+}
+
+.class-lessons-content > .content-info{
+    text-align: center;
+    padding: 1em 0;
+    background-color: white;
+}
+
+.class-lessons-content > .content-info > .content-info-title{
+    color: rgb(33, 23, 24);
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+}
+
+.class-lessons-content > .content-info > .content-numbers{
+    color: rgb(246, 180, 12);
+    font-size: 3em;
+    margin-bottom: .5em;
+}
+
+.class-lessons-content > .content-info > .content-notice{
+    color: rgb(102, 102, 102);
+    font-size: .8em;
+    letter-spacing: 1px;
+}
+
+.class-lessons-page  .content-list{
+    margin-top: .5em;
+    background-color: #fff;
+}
+
+.class-lessons-page  .content-list > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    height: 8em;
+    border-bottom: 1px solid rgb(223, 223, 228);
+}
+
+.class-lessons-page  .content-list > div:first-child{
+    border-top: 1px solid rgb(223, 223, 228);
+}

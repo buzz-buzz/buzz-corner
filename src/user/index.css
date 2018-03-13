@@ -40,6 +40,7 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    flex: 0 0 auto;
 }
 
 .user-my > .user-avatar{
@@ -69,3 +70,60 @@
     margin: .5em 0 1.5em 0;
 }
 
+.user-menu{
+    flex: 1 0 auto;
+    flex-direction: column;
+    margin-bottom: 60px;
+    padding-top: .5em;
+    display: flex;
+}
+
+.user-menu >a{
+    height: 3.5em;
+    width: 100%;
+    background-color: white;
+    padding: 0 1em;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    border-bottom: 1px solid rgb(208, 214, 219);
+}
+
+.user-menu > a:last-child{
+    border-bottom: 1px solid transparent !important;
+}
+
+.user-menu > a >div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 1px;
+}
+
+
+.user-menu > a > div{
+    display: flex;
+    height: 50%;
+}
+
+.user-menu > a >div.link{
+    color: rgb(102, 102, 102);
+}
+
+.user-menu > a >div.icon > .name{
+    margin: 0 .5em;
+}
+
+.user-menu > a >div.link >  .right-icon{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 .5em;
+}
+
+.user-menu > a >div.link >  .right-icon > img{
+    height: 100%;
+}

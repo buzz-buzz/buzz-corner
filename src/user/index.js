@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
+import {Link} from "react-router";
 import './index.css';
 
 class User extends Component {
@@ -61,6 +62,36 @@ class User extends Component {
                             <p className="name">{this.state.u_name}</p>
                             <p className="nationality">CHINA</p>
                         </div>
+                    </div>
+                    <div className="user-menu">
+                        <Link>
+                            <div className="icon">
+                                <Icon name='calendar'/>
+                                <div className="name">
+                                    我的课时
+                                </div>
+                            </div>
+                            <div className="link">
+                                <div className="class-numbers">4</div>
+                                <div className="right-icon">
+                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
+                                </div>
+                            </div>
+                        </Link>
+                        <Link>
+                            <div className="icon">
+                                <Icon name='globe'/>
+                                <div className="name">
+                                    语言系统
+                                </div>
+                            </div>
+                            <div className="link">
+                                <div className="class-numbers">中文</div>
+                                <div className="right-icon">
+                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <Footer />

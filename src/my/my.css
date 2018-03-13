@@ -120,7 +120,7 @@
     height: 4em;
     letter-spacing: 1px;
     border: none !important;
-    background-color: #eee !important;
+    background-color: rgb(244, 245, 249)!important;
     color: rgba(0,0,0,.6);
 }
 
@@ -177,7 +177,7 @@ input[name='date_of_birth']{
 
 input[name='birthdayLabel']{
     height: 4em;
-    background-color: #eee !important;
+    background-color: rgb(244, 245, 249) !important;
     border: none !important;
     text-align: center !important;
 }
@@ -386,4 +386,21 @@ h4{
 
 .position-relative{
     position: relative !important;
+}
+
+div.dropdown{
+    width: 100%;
+    height: 4em;
+    background: rgb(244, 245, 249) !important;
+    border: 1px solid transparent !important;
+    margin-bottom: .5em;
+}
+
+div.dropdown > div.text, div.dropdown > i{
+    line-height: 2em !important;
+}
+
+div.dropdown > input.search{
+    height: 4em;
+    line-height: 2em;
 }
