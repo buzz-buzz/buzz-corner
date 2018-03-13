@@ -63,24 +63,29 @@
     margin-top: .8em;
 }
 
-.class-lessons-page  .content-list > div{
+.class-lessons-page  .content-list > a{
     display: flex;
     align-items: center;
     padding: .5em 1em;
-    height: 8em;
     margin-bottom: .5em;
     background-color: #fff;
+    height: 10em;
 }
 
-.class-lessons-page  .content-list > div > div.class-lesson-img{
+.class-lessons-page  .content-list > a > div.class-lesson-img{
     width: 40%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1em;
 }
 
-.class-lessons-page  .content-list > div > div.class-lesson-info{
+.class-lessons-page  .content-list > a > div.class-lesson-img > img{
+    height: 100%;
+}
+
+.class-lessons-page  .content-list > a > div.class-lesson-info{
     width: 60%;
     height: 100%;
     display: flex;
@@ -89,6 +94,49 @@
     color: #000;
 }
 
-.class-lessons-page  .content-list > div > div{
+.class-lessons-page  .content-list > a > div{
     flex: 0 0 auto;
+}
+
+div.class-lesson-info > .lessons-price{
+    display: flex;
+    margin: 1em 0;
+    align-items: baseline;
+}
+
+div.class-lesson-info > .lessons-title{
+    font-size: 1.2em;
+}
+
+div.class-lesson-info > .lessons-price > .price{
+    font-size: 2em;
+    color: rgb(246, 180, 12);
+}
+
+div.class-lesson-info > .lessons-price > .yuan{
+    font-size: 1em;
+}
+
+div.class-lesson-info > .lessons-price > .discount{
+    font-size: .8em;
+    color: rgb(246, 109, 122);
+    margin-left: 1em;
+}
+
+
+
+div.class-lesson-info > .lessons-number{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.class-lesson-info > .lessons-number > .lessons{
+    font-size: .8em;
+    color: rgb(246, 180, 12);
+}
+
+div.class-lesson-info > .lessons-number > .before{
+    font-size: 1em;
+    color: #000;
 }

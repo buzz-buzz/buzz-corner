@@ -18,7 +18,8 @@ class ClassLessons extends Component {
                     price: 188,
                     discount: '6%OFF',
                     before: '原价: ¥200元',
-                    img_url: ''
+                    img_url: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                    youzan_url: 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
                 },
                 {
                     title: '季度',
@@ -26,7 +27,8 @@ class ClassLessons extends Component {
                     price: 588,
                     discount: '7%OFF',
                     before: '原价: ¥600元',
-                    img_url: ''
+                    img_url: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                    youzan_url: 'https://h5.youzan.com/v2/goods/3f0foz507x14q'
                 },
                 {
                     title: '年卡',
@@ -34,7 +36,8 @@ class ClassLessons extends Component {
                     price: 2188,
                     discount: '15%OFF',
                     before: '原价: ¥510元',
-                    img_url: ''
+                    img_url: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                    youzan_url: 'https://h5.youzan.com/v2/goods/3ewr6gf9jk4fe'
                 }
             ]
         };
@@ -44,6 +47,30 @@ class ClassLessons extends Component {
 
     back() {
         window.history.back();
+    }
+
+    async componentDidMount() {
+        try {
+            //await CurrentUser.getUserId()
+            let userId = await CurrentUser.getUserId();
+
+            let profile = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            });
+
+            this.setState({
+                class_lessons: profile.class_hours || 0,
+                userId: userId
+            });
+        }
+        catch (ex) {
+            console.log(ex.toString());
+            alert('未登录,即将跳转...');
+            browserHistory.push('/');
+
+        }
     }
 
     render() {
@@ -65,26 +92,29 @@ class ClassLessons extends Component {
                         <div className="content-info-title">
                             现有课时数
                         </div>
-                        <div className="content-numbers">0</div>
+                        <div className="content-numbers">{this.state.class_lessons}</div>
                     </div>
                     <div className="content-list">
                         {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {
-                                return <div key={index}>
+                                return <a key={index} href={item.youzan_url} >
                                     <div className="class-lesson-img">
-                                        <img src={item.img_url} alt=""/>
+                                        <img src={item.img_url} alt="" />
                                     </div>
                                     <div className="class-lesson-info">
                                         <div className="lessons-title">{item.title}</div>
                                         <div className="lessons-price">
-
+                                            <div className="price">{item.price}</div>
+                                            <div className="yuan">元</div>
+                                            <div className="discount">{item.discount}</div>
                                         </div>
                                         <div className="lessons-number">
-
+                                            <div className="lessons">{item.lessons}</div>
+                                            <div className="before"><s>{item.before}</s></div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             })
                         }
                     </div>
