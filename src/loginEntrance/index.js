@@ -39,7 +39,7 @@ class loginEntrance extends Component {
 
                 document.getElementById('loadingModal').style.display = 'none';
 
-                if(!profile.date_of_birth || !profile.location){
+                if(!profile.date_of_birth || !profile.city){
                     browserHistory.push('/my/info');
                 }else{
                     browserHistory.push('/home');
