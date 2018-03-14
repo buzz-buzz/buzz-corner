@@ -14,7 +14,7 @@ export default class WechatLogin extends React.Component {
             return;
         }
 
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fheroku.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${encodeURIComponent(props.params.return_url)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${encodeURIComponent(props.params.return_url)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
     }
 
     componentDidMount() {

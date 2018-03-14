@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import Resources from '../resources';
-import { browserHistory } from 'react-router';
-import {Button, Form} from 'semantic-ui-react';
 import './index.css';
 
 class WechatLogin extends Component {
@@ -15,14 +12,14 @@ class WechatLogin extends Component {
         this.signUp = this.signUp.bind(this);
     }
 
-    signUp(){
+    signUp() {
         //login/wechat
         if (!/MicroMessenger/.test(navigator.userAgent)) {
             alert('请在微信浏览器中使用微信登录方式');
             return;
-        }else{
+        } else {
             //browserHistory.push('/my/info');
-            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fheroku.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F` + 'home' + `&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F` + 'home' + `&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
         }
     }
 

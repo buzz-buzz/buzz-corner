@@ -53,7 +53,7 @@ router
     })
     .get('/wechat/oauth/redirect/:return_url?', async ctx => {
         let getCode = function () {
-            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fheroku.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
+            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
         };
 
         let code = ctx.query.code;
