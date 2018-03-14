@@ -75,14 +75,7 @@ export default class WechatOAuthSuccess extends React.Component {
     }
 
     async componentDidMount() {
-        let urlParams = new URLSearchParams(window.location.search);
-        let callbackOrigin = urlParams.get('callback_origin');
-
-        if (callbackOrigin !== window.location.origin) {
-            alert(window.location.search);
-            window.location = callbackOrigin + window.location.pathname + window.location.search;
-            return;
-        }
+        this.handleOrigin();
 
         try {
             await this.loginOldUser(this.state.wechatUserInfo);
@@ -111,6 +104,22 @@ export default class WechatOAuthSuccess extends React.Component {
             console.log('login failed: ' + ex.toString());
         } finally {
             //console.log('login failed');
+        }
+    }
+
+    handleOrigin() {
+        try {
+            let urlParams = new URLSearchParams(window.location.search);
+            let callbackOrigin = urlParams.get('callback_origin');
+            if (callbackOrigin) {
+                callbackOrigin = atob(callbackOrigin);
+            }
+
+            if (callbackOrigin !== window.location.origin) {
+                window.location = callbackOrigin + window.location.pathname + window.location.search;
+            }
+        } catch (ex) {
+            alert(JSON.stringify(ex));
         }
     }
 

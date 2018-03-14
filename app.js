@@ -51,7 +51,7 @@ router
 
         ctx.body = await oldRequest(ctx.request.body);
     })
-    .get('/wechat/oauth/redirect/:callback_origin?', async ctx => {
+    .get('/wechat/oauth/redirect/:base64_callback_origin?', async ctx => {
         let getCode = function () {
             ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
         };
@@ -90,9 +90,9 @@ router
             let json = JSON.parse(userInfoResponse);
 
             if (json.errcode || json.errmsg) {
-                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.callback_origin}`)
+                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}`)
             } else {
-                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.callback_origin}`);
+                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}`);
             }
         } catch (ex) {
             console.error(ex);
