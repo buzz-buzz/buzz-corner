@@ -16,20 +16,22 @@ class classDetail extends Component {
                 topic: 'sing a New song',
                 time: '2018-2-1 friday',
                 partners: [1, 2, 3],
-                status: 2,
+                status: "",
                 show_date: 'tomorrow, is coming',
                 show_time: '00:00 - 00:00'
             },
             companion_name: '',
             companion_avatar: '',
-            student_avatars: []
+            student_avatars: [],
+            class_status_show_style: '',
+            class_status_show_word: ''
         };
 
         this.back = this.back.bind(this);
         this.goConsult = this.goConsult.bind(this);
         this.getAvatar = this.getAvatar.bind(this);
         this.getCompanionInfo = this.getCompanionInfo.bind(this);
-        this.showZoom = this.showZoom.bind(this);
+        this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
     }
 
     back() {
@@ -114,9 +116,11 @@ class classDetail extends Component {
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth());
-        classInfo.show_time = dateClone.getHours() + ':' + dateClone.getMinutes() + ' - '
-            + new Date(classInfo.end_time).getHours() + ' : ' + new Date(classInfo.end_time).getMinutes();
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
+        classInfo.show_time = (dateClone.getHours() > 9 ?  dateClone.getHours() : '0' + dateClone.getHours()) + ':'
+            + (dateClone.getMinutes() > 9 ?  dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
+            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
+            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
         classInfo.companions = classInfo.companions.split(',')[0];
 
         let students = classInfo.students.split(',');
@@ -147,10 +151,26 @@ class classDetail extends Component {
         return profile.avatar;
     }
 
+    checkStatusAndTime(){
+        if((new Date(this.state.class_info.start_time) - new Date())/60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0){
+            this.showZoom();
+        }else{
+            browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+        }
+    }
+
     showZoom(){
         console.log(this.state.class_info.room_url);
 
         window.location.href = this.state.class_info.room_url;
+    }
+
+    calcDaysFromNow(date){
+        let theDate = new Date(new Date(date).getFullYear() + '-' + (new Date(date).getMonth() +1 )  + '-' + new Date(date).getDate() );
+
+        let nowDate = new Date(new Date().getFullYear() + '-' +( new Date().getMonth() + 1) + '-' +  new Date().getDate() ) ;
+
+        return parseInt((theDate - nowDate)/(1000*3600*24));
     }
 
     async componentDidMount() {
@@ -177,14 +197,15 @@ class classDetail extends Component {
                 }
             }
 
-            console.log('time ....five minutes');
-            console.log(new Date(class_info.start_time) - new Date());
+            let leftDays = this.calcDaysFromNow(class_info.start_time);
 
             this.setState({
                 class_info: class_info,
                 student_avatars: class_info.students,
                 companion_name: class_info.companion_name || '',
-                companion_avatar: class_info.companion_avatar || ''
+                companion_avatar: class_info.companion_avatar || '',
+                class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0  ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ?  '已开始' : '已结束' )),
+                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0  ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ?  'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ))
             });
 
         }
@@ -223,14 +244,14 @@ class classDetail extends Component {
                             <p className="class-topic" style={{
                                 color: '#f7b52a',
                                 margin: '.3em 0'
-                            }}>{this.state.class_info.topic || 'Sing a New song'}</p>
+                            }}>{this.state.class_info.topic || this.state.class_info.name || 'No names'}</p>
                             <p className="class-date"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
                             <p className="class-time"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
                         </div>
                         <div className="booking-item-status">
-                            <p style={this.state.class_info.status === 1 ? {color: 'red'} : (this.state.class_info.status === 2 ? {color: 'rgb(106, 225, 8)'} : {color: '#aaa'})}>{this.state.class_info.status === 1 ? '待确认' : (this.state.class_info.status === 2 ? '7天后开始' : '已结束')}</p>
+                            <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
                         </div>
                     </div>
                     <div className="class-partners-avatar">
@@ -252,7 +273,7 @@ class classDetail extends Component {
                         <p>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
-                    <div className="class-detail-practice-content">
+                    <div className="class-detail-practice-content" style={{opacity: '0'}}>
                         <div className="practise-advisor">
                             <div className="advisor-avatar">
                                 <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
@@ -270,11 +291,10 @@ class classDetail extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="class-detail-button"
-                         style={this.state.class_info && this.state.class_info.start_time && (new Date(this.state.class_info.start_time) - new Date())/60000 <= 1500 && (new Date(this.state.class_info.start_time) - new Date())/60000 > -1500 ? {display: 'block'} : {display: 'none'}}>
-                        <Form.Group widths='equal'>
-                            <Form.Field control={Button} onClick={this.showZoom}
-                                        content='进入课堂'/>
+                    <div className="class-detail-button" >
+                        <Form.Group widths='equal' style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date())/60000 <= 15  ? {} : {display: 'none'}}>
+                            <Form.Field control={Button} onClick={this.checkStatusAndTime}
+                                        content={(new Date(this.state.class_info.start_time) - new Date())/60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0 ? '进入课堂' : '课后评价' }/>
                         </Form.Group>
                     </div>
                 </div>
