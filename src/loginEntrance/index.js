@@ -13,6 +13,8 @@ class loginEntrance extends Component {
 
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
         this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
+        this.playVideo = this.playVideo.bind(this);
+        this.closeVideo = this.closeVideo.bind(this);
 
     }
 
@@ -22,6 +24,16 @@ class loginEntrance extends Component {
 
     foreignChildEntrance(){
         window.location.href = 'https://jinshuju.net/f/OrK4p2';
+    }
+
+    playVideo(){
+        document.getElementById('video-show').style.display = 'flex';
+    }
+
+    closeVideo(){
+        document.getElementById('video-corner').pause();
+
+        document.getElementById('video-show').style.display = 'none';
     }
 
     async componentDidMount() {
@@ -82,12 +94,12 @@ class loginEntrance extends Component {
                 </div>
                 <div className="preview-video">
                     <p>看其他伙伴是怎样互动的?</p>
-                    <div className="preview-video-btn">
-                        <Form.Group widths='equal'>
-                            <Form.Field control={Button}
-                                        content='去围观'/>
-                        </Form.Group>
+                    <div className="preview-video-btn" onClick={this.playVideo}>
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_suspend_light.png" alt=""/>
                     </div>
+                </div>
+                <div className="video-show" id="video-show" onClick={this.closeVideo}>
+                    <video id="video-corner" src="//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4" width="300" height="225" controls>抱歉, 你的浏览器不支持Video标签！</video>
                 </div>
             </div>
         );
