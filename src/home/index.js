@@ -194,12 +194,12 @@ class Home extends Component {
                                             </div>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>{item.companion_name || 'BuzzBuzz'}</p>
-                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>{item.topic || 'Sing a New song'}</p>
+                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
                                                 <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
                                             </div>
                                             <div className="booking-item-status">
-                                                <p style={item.classes_status === 'cancelled' ? {color: 'red'} : (item.status === 'ended' ? {color: '#aaa'} : {color: 'rgb(106, 225, 8)'})}>{item.classes_status === 'cancelled' ? '已取消' : (item.status === 'ended' ? '已结束' : '已确认')}</p>
+                                                <p style={item.status === 'cancelled' ? {color: 'red'} : (item.status === 'ended' ? {color: 'rgb(102， 102， 102)'} : {color: 'rgb(106, 225, 8)'})}>{item.status === 'cancelled' ? '已取消' : (item.status === 'ended' ? '已结束' : '已确认')}</p>
                                             </div>
                                         </Link>
                                     })
