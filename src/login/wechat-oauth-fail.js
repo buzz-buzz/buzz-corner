@@ -13,6 +13,8 @@ export default class WechatOAuthFail extends React.Component {
     }
 
     async componentDidMount() {
+        console.error(this.state.wechatErrorInfo)
+        this.setState({loading: false})
     }
 
     componentWillUnmount() {
@@ -21,7 +23,7 @@ export default class WechatOAuthFail extends React.Component {
     render() {
         return (
             <Container textAlign="center">
-                <Segment loading={true}
+                <Segment loading={this.state.loading}
                          style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
                     {JSON.stringify(this.state.wechatErroInfo)}
                 </Segment>

@@ -3,58 +3,14 @@ import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 
 export default class WechatOAuthSuccess extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: true,
-            wechatUserInfo: JSON.parse(decodeURIComponent(atob(props.params.wechatUserInfo)))
-        };
-    }
-
-    async componentDidMount() {
-        try {
-            await this.loginOldUser(this.state.wechatUserInfo);
-        } catch (ex) {
-            await this.loginNewUser(ex, this.state.wechatUserInfo);
-        }
-
-        //check if profile is Done or not
-        //Done go home page, unDone go my/info
-        try {
-            //await CurrentUser.getUserId();
-            let userId = await CurrentUser.getUserId();
-
-            let profile = (await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            }));
-
-            if(!profile.date_of_birth || !profile.location){
-                browserHistory.push('/my/info');
-            }else{
-                browserHistory.push('/home');
-            }
-        } catch (ex) {
-            console.log('login failed: ' + ex.toString());
-        } finally {
-            //console.log('login failed');
-        }
-    }
-
-    componentWillUnmount() {
-    }
-
     loginOldUser = async (wechatUserInfo) => {
         console.log('try login old user with ', wechatUserInfo);
         let buzzUserData = await this.getBuzzUserData(wechatUserInfo.unionid);
         await this.loginByWechat(wechatUserInfo.unionid, buzzUserData.user_id);
     };
-
     loginNewUser = async (error, wechatUserData) => {
         if (BuzzServiceApiErrorParser.isNewUser(error)) {
             let newUserId = await this.registerByWechat(wechatUserData);
@@ -64,7 +20,6 @@ export default class WechatOAuthSuccess extends React.Component {
             alert('Login failed!');
         }
     };
-
     getBuzzUserData = async (wechatUnionId) => {
         return await ServiceProxy.proxyTo({
             body: {
@@ -72,7 +27,6 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         });
     };
-
     registerByWechat = async (wechatUserInfo) => {
         return await ServiceProxy.proxyTo({
             body: {
@@ -92,7 +46,6 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         });
     };
-
     loginByWechat = async (wechatUnionId, userId) => {
         let res = await ServiceProxy.proxyTo({
             body: {
@@ -112,13 +65,66 @@ export default class WechatOAuthSuccess extends React.Component {
         });
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            wechatUserInfo: JSON.parse(decodeURIComponent(atob(props.params.wechatUserInfo)))
+        };
+    }
+
+    async componentDidMount() {
+        let urlParams = new URLSearchParams(window.location.search);
+        let callbackOrigin = urlParams.get('callback_origin');
+
+        if (callbackOrigin !== window.location.origin) {
+            alert(window.location.search);
+            window.location = callbackOrigin + window.location.pathname + window.location.search;
+            return;
+        }
+
+        try {
+            await this.loginOldUser(this.state.wechatUserInfo);
+        } catch (ex) {
+            await this.loginNewUser(ex, this.state.wechatUserInfo);
+        }
+
+        //check if profile is Done or not
+        //Done go home page, unDone go my/info
+        try {
+            //await CurrentUser.getUserId();
+            let userId = await CurrentUser.getUserId();
+
+            let profile = (await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            }));
+
+            if (!profile.date_of_birth || !profile.location) {
+                browserHistory.push('/my/info');
+            } else {
+                browserHistory.push('/home');
+            }
+        } catch (ex) {
+            console.log('login failed: ' + ex.toString());
+        } finally {
+            //console.log('login failed');
+        }
+    }
+
+    componentWillUnmount() {
+    }
+
     render() {
         return (
             <Container textAlign="center">
-                <Segment loading={true} style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
+                <Segment loading={true}
+                         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
                     {JSON.stringify(this.state.userInfo)}
                     <p>return_url = {window.location.search}</p>
-                    <p>{decodeURIComponent(this.props.params.return_url)}</p>
+                    <p>{decodeURIComponent(this.props.params.callback)}</p>
                 </Segment>
             </Container>
         );
