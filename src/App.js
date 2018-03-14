@@ -26,6 +26,7 @@ import Reward from './reward';
 import User from './user';
 
 import {Container} from "semantic-ui-react";
+import WechatOAuthFail from "./login/wechat-oauth-fail";
 
 class App extends Component {
     render() {
@@ -40,22 +41,23 @@ class App extends Component {
                         <Route path="/login/wechat/:return_url" component={LoginByWechat}/>
                         <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
                         <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
+                        <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
                         <Route path='/my/info' component={My}/>
                         <Route path='/my/profile' component={ProfilePage}/>
                         <Route path='/my/profile/avatar' component={Avatar}/>
-                        <Route path='/my/profile/language' component={Language} />
-                        <Route path='/admin' component={Admin} />
-                        <Route path='/admin/class' component={ClassManage} />
-                        <Route path='/placement' component={Placement} />
-                        <Route path='/home' component={Home} />
-                        <Route path='/friends' component={Friends} />
-                        <Route path='/reward' component={Reward} />
-                        <Route path='/user' component={User} />
-                        <Route path='/class/:class_id' component={ClassDetail} />
-                        <Route path='/consult' component={Consult} />
-                        <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation} />
-                        <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign} />
-                        <Route path='/class-lessons' component={ClassLessons} />
+                        <Route path='/my/profile/language' component={Language}/>
+                        <Route path='/admin' component={Admin}/>
+                        <Route path='/admin/class' component={ClassManage}/>
+                        <Route path='/placement' component={Placement}/>
+                        <Route path='/home' component={Home}/>
+                        <Route path='/friends' component={Friends}/>
+                        <Route path='/reward' component={Reward}/>
+                        <Route path='/user' component={User}/>
+                        <Route path='/class/:class_id' component={ClassDetail}/>
+                        <Route path='/consult' component={Consult}/>
+                        <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
+                        <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
+                        <Route path='/class-lessons' component={ClassLessons}/>
                     </Router>
                 </div>
             </Container>

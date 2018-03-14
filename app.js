@@ -1,4 +1,4 @@
-const cookie =  require("./helpers/cookie");
+const cookie = require("./helpers/cookie");
 
 const Koa = require('koa');
 const app = new Koa();
@@ -85,12 +85,21 @@ router
                 uri: `https://api.weixin.qq.com/sns/userinfo?access_token=${accessTokenResponse.access_token}&openid=${accessTokenResponse.openid}&lang=zh_CN`
             });
 
-            ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?return_url=${ctx.params.return_url}`);
+            console.log('wechat User Response = ', userInfoResponse);
+
+            let json = JSON.parse(userInfoResponse);
+
+            if (json.errcode || json.errmsg) {
+                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?return_url=${ctx.params.return_url}`)
+            } else {
+                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?return_url=${ctx.params.return_url}`);
+            }
         } catch (ex) {
             console.error(ex);
             getCode();
         }
     })
+    .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
