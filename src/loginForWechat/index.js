@@ -17,7 +17,7 @@ class WechatLogin extends Component {
             alert('请在微信浏览器中使用微信登录方式');
             return;
         } else {
-            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${encodeURIComponent(window.location.origin)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${encodeURIComponent(encodeURIComponent(window.location.origin))}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
         }
     }
 
