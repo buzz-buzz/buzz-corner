@@ -238,19 +238,14 @@ class Home extends Component {
                                             <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
                                         </div>
                                     ) :
-                                    (<div className="items">
-                                            <Link className="booking-item" key={'placement-item'} to={"placement"}>
-                                                <div className="booking-item-avatar">
-                                                    <img src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt=""/>
+                                    (<div className="message-items">
+                                            <Link className="message-item" key={'placement-item'} to={"placement"}>
+                                                <div className="message-item-avatar">
+                                                    <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
                                                 </div>
-                                                <div className="booking-item-info">
-                                                    <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>小测验</p>
-                                                    <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>免费智能评测</p>
-                                                    <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>Buzzbuzz小助手</p>
-                                                    <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>帮助你更好地和外籍小伙伴交流</p>
-                                                </div>
-                                                <div className="booking-item-status">
-                                                    <p style={{color: 'red'}}>未完成</p>
+                                                <div className="message-body">
+                                                    <div className="message-title">建立能力档案</div>
+                                                    <div className="message-content">请建立能力档案，完成后可以为你安排更合适的课程。</div>
                                                 </div>
                                             </Link>
                                         </div>

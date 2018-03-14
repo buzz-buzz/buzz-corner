@@ -213,3 +213,63 @@ p{
     height: 60px;
     flex: 0 0 auto;
 }
+
+.my-home > .home-content > .message-items{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.my-home > .home-content > .message-items > .message-item{
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1em;
+    height: 8em;
+    border-radius: 5px;
+    background-color: white;
+    /*box-shadow: 0 0 2px rgb(223, 223, 228) !important;*/
+    border: 1pt solid rgb(223, 223, 228);
+    flex: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.my-home > .home-content > .message-items > .message-item > .message-item-avatar{
+    flex: 0 0 auto;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-home > .home-content > .message-items > .message-item > .message-item-avatar > img{
+    height: 100%;
+}
+
+.my-home > .home-content > .message-items > .message-item > .message-body{
+    flex: 1 0 auto;
+    padding-left: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.message-body > .message-title{
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #000;
+    margin-bottom: .5em;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.message-body > .message-content{
+    font-size: .8em;
+    color: #666;
+    width: 100%;
+}
+
