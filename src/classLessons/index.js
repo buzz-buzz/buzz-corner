@@ -10,7 +10,7 @@ class ClassLessons extends Component {
         super();
 
         this.state = {
-            class_lessons: 0,
+            class_hours: 0,
             buy_list: [
                 {
                     title: '新用户体验包',
@@ -61,7 +61,7 @@ class ClassLessons extends Component {
             });
 
             this.setState({
-                class_lessons: profile.class_hours || 0,
+                class_hours: profile.class_hours || 0,
                 userId: userId
             });
         }
@@ -92,7 +92,7 @@ class ClassLessons extends Component {
                         <div className="content-info-title">
                             现有课时数
                         </div>
-                        <div className="content-numbers">{this.state.class_lessons}</div>
+                        <div className="content-numbers">{this.state.class_hours || 0}</div>
                     </div>
                     <div className="content-list">
                         {
