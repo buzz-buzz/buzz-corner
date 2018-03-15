@@ -193,12 +193,14 @@ class Home extends Component {
                 <Welcome />
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeBook}>
-                        <Icon name="object group" />
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt="" style={{height: '50%',
+                            marginRight: '.5em'}} />
                         <span>课程预约</span>
                         <div className="tab-active"  style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeMessage}>
-                        <Icon name="mail" />
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_message.png" alt="" style={{height: '40%',
+                            marginRight: '.5em'}} />
                         <span>消息通知</span>
                         <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
                         <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>

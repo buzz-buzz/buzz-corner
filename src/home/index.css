@@ -27,6 +27,13 @@ p{
     align-items: center;
     font-size: 1.2em;
     position: relative;
+    height: 100%;
+    padding-right: 1em;
+}
+
+.my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-booking{
+    padding-left: 1em;
+    padding-right: 0;
 }
 
 .my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
