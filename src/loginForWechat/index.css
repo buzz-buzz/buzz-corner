@@ -80,6 +80,8 @@
     flex: 1 0 auto;
     line-height: 4em;
     text-align: center;
+    padding-right: 2em;
+    letter-spacing: 1px;
 }
 
 .wechat-login > .login-attention{

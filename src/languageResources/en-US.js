@@ -7,7 +7,8 @@ export const welcomePageChineseChild = 'Companion';
 export const welcomePageForeignChild = 'Practice';
 export const welcomePageBtnWord = 'How does this work?';
 
-export const loginByWechat = 'sin up with Wechat';
+export const loginByWechatInfo = '微SIGN IN WITH WECHAT';
+export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
 
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
