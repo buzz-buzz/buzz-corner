@@ -12,6 +12,7 @@
 
 .footer>a{
     width: 25%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +20,11 @@
     color: rgba(0,0,0,.87);
 }
 
- .footer > a > i{
-    font-size: 1.5em;
+ .footer > a > img{
+     height: 38%;
+     margin-bottom: .2em;
+}
+
+.footer > a > p{
+    font-size: .8em;
 }

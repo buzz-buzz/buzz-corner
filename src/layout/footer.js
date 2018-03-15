@@ -35,26 +35,26 @@ class Footer extends Component {
         return (
             <div className="footer">
                 <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
-                    <Icon name='home'/>
+                    <img src={ this.state.url.indexOf('/home') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_home_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_home.png"} alt=""/>
                     <p>
                         主页
                     </p>
                 </Link>
                 <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
-                    <Icon name='users'/>
+                    <img src={ this.state.url.indexOf('/friends') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_Friend_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_Friend.png"} alt=""/>
                     <p>
                         好友
                     </p>
                 </Link>
                 <Link to="reward"  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
-                    <Icon name='gift'/>
+                    <img src={ this.state.url.indexOf('/reward') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_Reward_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_Reward.png"} alt=""/>
                     <p>
                         奖励
                     </p>
                 </Link>
 
                 <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}} >
-                    <Icon name='user'/>
+                    <img src={ this.state.url.indexOf('/user') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_user_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_user.png"} alt=""/>
                     <p>
                         我的
                     </p>
