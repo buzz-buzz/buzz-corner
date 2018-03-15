@@ -37,26 +37,26 @@ class Footer extends Component {
                 <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
                     <Icon name='home'/>
                     <p>
-                        Home
+                        主页
                     </p>
                 </Link>
                 <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
                     <Icon name='users'/>
                     <p>
-                        Friends
+                        好友
                     </p>
                 </Link>
                 <Link to="reward"  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                     <Icon name='gift'/>
                     <p>
-                        Reward
+                        奖励
                     </p>
                 </Link>
 
                 <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}} >
                     <Icon name='user'/>
                     <p>
-                        User
+                        我的
                     </p>
                 </Link>
             </div>

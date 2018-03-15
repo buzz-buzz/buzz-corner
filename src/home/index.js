@@ -121,11 +121,13 @@ class Home extends Component {
 
         if(classList && classList.length > 0){
             for(let i in classList){
-                let dateClone = new Date(classList[0].start_time);
+                let dateClone = new Date(classList[i].start_time);
                 classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
-                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth());
-                classList[i].show_time = dateClone.getHours() + ':' + dateClone.getMinutes() + ' - '
-                    + new Date(classList[0].end_time).getHours() + ' : ' + new Date(classList[0].end_time).getMinutes();
+                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' +  new Date(classList[i].end_time).getFullYear();
+                classList[i].show_time = (dateClone.getHours() > 9 ?  dateClone.getHours() : '0' + dateClone.getHours()) + ':'
+                    + (dateClone.getMinutes() > 9 ?  dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
+                    + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
+                    + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
             }
         }
 
@@ -192,13 +194,14 @@ class Home extends Component {
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeBook}>
                         <Icon name="object group" />
-                        <span>booking</span>
+                        <span>课程预约</span>
                         <div className="tab-active"  style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeMessage}>
                         <Icon name="mail" />
-                        <span>message</span>
+                        <span>消息通知</span>
                         <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
+                        <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
                     </div>
                     <Link className="consult" to="consult">
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
@@ -246,10 +249,11 @@ class Home extends Component {
                     (<div className="home-content">
                         <div className="message-tab">
                             <div className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'} onClick={this.messageTabChangeFriends}>
-                                <p>Friends</p>
+                                <p>伙伴</p>
                             </div>
                             <div className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'} onClick={this.messageTabChangeAdvisor}>
-                                <p>{'Advisor' + (this.state.messageFromAdvisor.length > 0 ? '('+ this.state.messageFromAdvisor.length + ')' : '')}</p>
+                                <p>{'助教' + (this.state.messageFromAdvisor.length > 0 ? '('+ this.state.messageFromAdvisor.length + ')' : '')}</p>
+                                <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
                             </div>
                         </div>
                         {
@@ -267,6 +271,7 @@ class Home extends Component {
                                                 this.state.messageFromAdvisor.map((item, index) => {
                                                     return <Link className="message-item" key={index} to={item.goUrl}>
                                                         <div className="message-item-avatar">
+                                                            <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
                                                             <img src={item.message_avatar} alt=""/>
                                                         </div>
                                                         <div className="message-body">

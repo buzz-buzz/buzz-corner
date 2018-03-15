@@ -189,6 +189,7 @@ p{
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 0 2px #aaa !important;
+    position: relative;
 }
 
 .my-home > .home-content > .message-tab > div{
@@ -198,6 +199,14 @@ p{
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    position: relative;
+}
+
+.my-home > .home-content > .message-tab > div > .message-red-circle{
+    top: .5em;
+    right: 3em;
+    height: 10px;
+    width: 10px;
 }
 
 .my-home > .home-content > .message-tab > div:nth-child(1){
@@ -243,10 +252,16 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .my-home > .home-content > .message-items > .message-item > .message-item-avatar > img{
     height: 100%;
+}
+
+.my-home > .home-content > .message-items > .message-item > .message-item-avatar > .message-red-circle{
+    top: .5em;
+    right: .5em;
 }
 
 .my-home > .home-content > .message-items > .message-item > .message-body{
@@ -271,5 +286,16 @@ p{
     font-size: .8em;
     color: #666;
     width: 100%;
+}
+
+.message-red-circle{
+    position: absolute;
+    background-color: rgb(252, 78, 82);
+    top: .5em;
+    right: 2em;
+    height: 15px;
+    width: 15px;
+    z-index: 60;
+    border-radius: 50%;
 }
 
