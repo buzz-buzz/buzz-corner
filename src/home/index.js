@@ -16,7 +16,7 @@ class Home extends Component {
             tab: 'booking',
             booking: [],
             message_tab: 'advisor',
-            placementDone: true
+            messageFromAdvisor: []
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -143,16 +143,40 @@ class Home extends Component {
 
             let classList = this.handleClassListData(await this.getUserClassList(userId));
 
+            classList = classList.filter(function(ele){
+                return ele.status && ele.status !== 'cancelled';
+            });
+
+            let clonedMessageFromAdvisor =  this.state.messageFromAdvisor;
+
             if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
-                this.setState({
-                    placementDone: false,
-                    booking: classList
-                });
-            }else if(classList && classList.length > 0){
-                this.setState({
-                    booking: classList
+
+                clonedMessageFromAdvisor.push({
+                    message_title: '建立能力档案',
+                    message_content: '请建立能力档案，完成后可以为你安排更合适的课程。',
+                    message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                    goUrl: '/placement'
                 });
             }
+
+            classList.map((item, index)=>{
+                if(item.end_time && new Date(item.end_time) - new Date() > 0 && !item.comment && !item.score){
+                    clonedMessageFromAdvisor.push({
+                        message_title: item.companion_name || 'Advisor',
+                        message_content: '课程结束了，给课程\"'+ (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
+                        message_avatar: item.companion_avatar ||  '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                        goUrl: '/class/evaluation/' + userId + '/' + item.class_id
+                    });
+                }
+            });
+
+            this.setState({
+                messageFromAdvisor: clonedMessageFromAdvisor,
+                booking: classList
+            });
+
+            //class_list --->  feedback list
+
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
         } finally {
@@ -225,7 +249,7 @@ class Home extends Component {
                                 <p>Friends</p>
                             </div>
                             <div className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'} onClick={this.messageTabChangeAdvisor}>
-                                <p>Advisor</p>
+                                <p>{'Advisor' + (this.state.messageFromAdvisor.length > 0 ? '('+ this.state.messageFromAdvisor.length + ')' : '')}</p>
                             </div>
                         </div>
                         {
@@ -233,21 +257,25 @@ class Home extends Component {
                                 (<div className="none-items">
                                     <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
                                 </div>) :
-                                (this.state.placementDone === true ?
+                                (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
                                             <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
                                         </div>
                                     ) :
                                     (<div className="message-items">
-                                            <Link className="message-item" key={'placement-item'} to={"placement"}>
-                                                <div className="message-item-avatar">
-                                                    <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
-                                                </div>
-                                                <div className="message-body">
-                                                    <div className="message-title">建立能力档案</div>
-                                                    <div className="message-content">请建立能力档案，完成后可以为你安排更合适的课程。</div>
-                                                </div>
-                                            </Link>
+                                            {
+                                                this.state.messageFromAdvisor.map((item, index) => {
+                                                    return <Link className="message-item" key={index} to={item.goUrl}>
+                                                        <div className="message-item-avatar">
+                                                            <img src={item.message_avatar} alt=""/>
+                                                        </div>
+                                                        <div className="message-body">
+                                                            <div className="message-title">{item.message_title}</div>
+                                                            <div className="message-content">{item.message_content}</div>
+                                                        </div>
+                                                    </Link>
+                                                })
+                                            }
                                         </div>
                                     ))
                         }
