@@ -50,7 +50,9 @@ class loginEntrance extends Component {
                     }
                 }));
 
-                document.getElementById('loadingModal').style.display = 'none';
+                if(document.getElementById('loadingModal')){
+                    document.getElementById('loadingModal').style.display = 'none';
+                }
 
                 if(!profile.date_of_birth || !profile.city){
                     browserHistory.push('/my/info');
@@ -58,13 +60,17 @@ class loginEntrance extends Component {
                     browserHistory.push('/home');
                 }
             }else{
-                document.getElementById('loadingModal').style.display = 'none';
+                if(document.getElementById('loadingModal')){
+                    document.getElementById('loadingModal').style.display = 'none';
+                }
             }
         } catch (ex) {
             //login error
             console.log("loginEntrance:" +ex.toString());
 
-            document.getElementById('loadingModal').style.display = 'none';
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 

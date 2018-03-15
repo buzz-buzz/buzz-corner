@@ -255,13 +255,14 @@ class Homepage extends Component {
                         }
                     });
 
-                    document.getElementById('loadingModal').style.display = 'none';
-                    document.getElementById('loadingModal').style.display = 'none';
+                    if(document.getElementById('loadingModal')){
+                        document.getElementById('loadingModal').style.display = 'none';
+                    }
                     browserHistory.push('/home');
                 }else{
-                    console.log('未完成.........');
-                    console.log(this.state.answers);
-                    document.getElementById('loadingModal').style.display = 'none';
+                    if(document.getElementById('loadingModal')){
+                        document.getElementById('loadingModal').style.display = 'none';
+                    }
                 }
 
             }
@@ -270,7 +271,9 @@ class Homepage extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
-            document.getElementById('loadingModal').style.display = 'none';
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
             browserHistory.push('/home');
         }
     }

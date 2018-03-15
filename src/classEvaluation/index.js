@@ -186,13 +186,15 @@ class classEvaluation extends Component {
                 });
 
                 this.setState({evaluation_status: true});
-
-                document.getElementById('loadingModal').style.display = 'none';
             }
         }
         catch (ex){
             console.log('post evaluation data err:' +ex.toString());
-            document.getElementById('loadingModal').style.display = 'none';
+        }
+        finally {
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 
@@ -242,12 +244,14 @@ class classEvaluation extends Component {
                     userId: userId
                 });
             }
-
-            document.getElementById('loadingModal').style.display = 'none';
         } catch (ex) {
             //login error
             console.log("evaluation:" +ex.toString());
-            document.getElementById('loadingModal').style.display = 'none';
+        }
+        finally {
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 

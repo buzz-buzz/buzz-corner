@@ -213,7 +213,9 @@ class classDetail extends Component {
             console.log('login failed: ' + ex.toString());
         } finally {
             //console.log('login failed');
-            document.getElementById('loadingModal').style.display = 'none';
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 

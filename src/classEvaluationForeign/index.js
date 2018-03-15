@@ -138,11 +138,15 @@ class classEvaluationForeign extends Component {
                 class_info: class_info
             });
 
-            document.getElementById('loadingModal').style.display = 'none';
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         } catch (ex) {
             //login error
             console.log("evaluation:" +ex.toString());
-            document.getElementById('loadingModal').style.display = 'none';
+            if(document.getElementById('loadingModal')){
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 

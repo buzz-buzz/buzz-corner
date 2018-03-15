@@ -334,7 +334,9 @@ class Homepage extends Component {
                     });
 
                     if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
-                        document.getElementById('loadingModal').style.display = 'none';
+                        if(document.getElementById('loadingModal')){
+                            document.getElementById('loadingModal').style.display = 'none';
+                        }
                         browserHistory.push('/home');
                     } else {
                         let newStep = this.state.step + 1;
@@ -344,7 +346,9 @@ class Homepage extends Component {
                             profile_title: newTitle
                         });
 
-                        document.getElementById('loadingModal').style.display = 'none';
+                        if(document.getElementById('loadingModal')){
+                            document.getElementById('loadingModal').style.display = 'none';
+                        }
                     }
                 } else {
                     alert('save failed!')
