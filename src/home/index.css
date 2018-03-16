@@ -264,6 +264,7 @@ p{
 
 .my-home > .home-content > .message-items > .message-item > .message-item-avatar > img{
     height: 100%;
+    border-radius: 50%;
 }
 
 .my-home > .home-content > .message-items > .message-item > .message-item-avatar > .message-red-circle{
