@@ -225,7 +225,7 @@ class Home extends Component {
                         message_title: item.companion_name || 'Advisor',
                         message_content: '课程结束了，给课程\"' + (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: '/class/evaluation/' + userId + '/' + item.class_id
+                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id
                     });
                 }
             });
