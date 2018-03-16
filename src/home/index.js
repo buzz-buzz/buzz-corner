@@ -16,7 +16,8 @@ class Home extends Component {
             tab: 'booking',
             booking: [],
             message_tab: 'advisor',
-            messageFromAdvisor: []
+            messageFromAdvisor: [],
+            messageRead: false
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -240,9 +241,14 @@ class Home extends Component {
                 }
             });
 
+            let messageCheck = clonedMessageFromAdvisor.filter(function(item){
+                return item.hasRead !== 'read';
+            });
+
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
-                booking: classList
+                booking: classList,
+                messageRead: messageCheck.length > 0
             });
 
             //class_list --->  feedback list
@@ -283,7 +289,7 @@ class Home extends Component {
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
                         <div className="message-red-circle"
-                             style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
+                             style={this.state.messageRead ? {} : {display: 'none'}}></div>
                     </div>
                     <Link className="consult" to="consult">
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
@@ -360,7 +366,7 @@ class Home extends Component {
                                 onClick={this.messageTabChangeAdvisor}>
                                 <p>{'助教' + (this.state.messageFromAdvisor.length > 0 ? '(' + this.state.messageFromAdvisor.length + ')' : '')}</p>
                                 <div className="message-red-circle"
-                                     style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
+                                     style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
                         </div>
                         {
