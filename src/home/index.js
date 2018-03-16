@@ -143,11 +143,15 @@ class Home extends Component {
 
             let placementResult = await this.getPlacementResult(userId);
 
-            let classList = this.handleClassListData(await this.getUserClassList(userId));
+            let classList = await this.getUserClassList(userId);
 
             classList = classList.filter(function(ele){
-                return ele.status && ele.status !== 'cancelled';
+                return ele.status && ele.status !== 'cancelled' && ele.class_id;
             });
+
+            classList = this.handleClassListData(classList);
+
+            console.log(classList);
 
             let clonedMessageFromAdvisor =  this.state.messageFromAdvisor;
 
@@ -162,7 +166,7 @@ class Home extends Component {
             }
 
             classList.map((item, index)=>{
-                if(item.end_time && new Date(item.end_time) - new Date() > 0 && !item.comment && !item.score){
+                if(item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score){
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
                         message_content: '课程结束了，给课程\"'+ (item.topic || item.name || 'No topic') + '\"来一个评价吧。',

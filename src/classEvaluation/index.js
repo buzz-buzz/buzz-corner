@@ -48,9 +48,11 @@ class classEvaluation extends Component {
     }
 
     evaluationContentChange(event, data){
-        this.setState({
-            evaluation_content: data.value
-        });
+        if(!this.state.evaluation_status){
+            this.setState({
+                evaluation_content: data.value
+            });
+        }
     }
 
     evaluationItemsChange(event){
@@ -330,7 +332,7 @@ class classEvaluation extends Component {
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
                         </Form>
                     </div>
-                    <div className="evaluation-submit"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                    <div className="evaluation-submit"  style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
                         <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {color: 'rgb(255, 255, 255)',
                                 background: 'rgb(223, 223, 228)'} : {color: 'white',
                                 background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'}}

@@ -80,7 +80,7 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
-                        <Link>
+                        <Link style={{display: 'none'}}>
                             <div className="icon">
                                 <Icon name='globe'/>
                                 <div className="name">
