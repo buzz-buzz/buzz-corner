@@ -25,7 +25,8 @@ let config = {
             appName: 'buzz-corner'
         }
     },
-    production: {
+
+    qa: {
         sso: {
             inner: {
                 "host": "service.bridgeplus.cn",
@@ -42,6 +43,30 @@ let config = {
             buzzCorner: 'http://corner.buzzbuzzenglish.com',
             sso: 'http://service.bridgeplus.cn:10086',
             buzzService: 'http://localhost:16888',
+            upload_qiniu: 'http://service.hcdlearning.com:10003'
+        },
+
+        logger: {
+            appName: 'buzz-corner'
+        }
+    },
+    production: {
+        sso: {
+            inner: {
+                "host": "service.bridgeplus.cn",
+                "port": 10086
+            }
+        },
+
+        endPoints: {
+            interview: 'http://service2.bridgeplus.cn:12789',
+            video: 'https://interview.bridgeplus.cn',
+            masr: 'http://114.55.233.38:12444',
+            hongda: 'http://114.55.233.38:10126',
+            thirdParty: 'http://service.bridgeplus.cn:10101',
+            buzzCorner: 'http://corner.buzzbuzzenglish.com',
+            sso: 'http://service.bridgeplus.cn:10086',
+            buzzService: process.env.buzz_service_endpoints,
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
 
