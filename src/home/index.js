@@ -215,7 +215,8 @@ class Home extends Component {
                     message_title: '建立能力档案',
                     message_content: '请建立能力档案，完成后可以为你安排更合适的课程。',
                     message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                    goUrl: '/placement'
+                    goUrl: '/placement',
+                    hasRead: ''
                 });
             }
 
@@ -225,7 +226,16 @@ class Home extends Component {
                         message_title: item.companion_name || 'Advisor',
                         message_content: '课程结束了，给课程\"' + (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id
+                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                        hasRead: ''
+                    });
+                }else if(item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score){
+                    clonedMessageFromAdvisor.push({
+                        message_title: item.companion_name || 'Advisor',
+                        message_content: '已完成课程\"' + (item.topic || item.name || 'No topic') + '\"的评价，点击查看。',
+                        message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                        hasRead: 'read'
                     });
                 }
             });
@@ -369,7 +379,7 @@ class Home extends Component {
                                                     return <Link className="message-item" key={index} to={item.goUrl}>
                                                         <div className="message-item-avatar">
                                                             <div className="message-red-circle"
-                                                                 style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
+                                                                 style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}></div>
                                                             <img src={item.message_avatar} alt=""/>
                                                         </div>
                                                         <div className="message-body">
