@@ -204,8 +204,8 @@ class classDetail extends Component {
                 student_avatars: class_info.students,
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
-                class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0  ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ?  '已开始' : '已结束' )),
-                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0  ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ?  'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ))
+                class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0  ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ?  'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' )),
+                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0  ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ?  '已开始' : '已结束' ))
             });
 
         }
