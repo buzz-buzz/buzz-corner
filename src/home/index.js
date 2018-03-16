@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Button, Icon, Segment} from 'semantic-ui-react';
 import {Link} from "react-router";
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
@@ -26,112 +26,166 @@ class Home extends Component {
         this.signUp = this.signUp.bind(this);
     }
 
-    signUp(){
-       browserHistory.push('/consult');
+    signUp() {
+        browserHistory.push('/consult');
     }
 
-    tabChangeBook(){
+    tabChangeBook() {
         let tab = this.state.tab;
 
-        if(tab !== 'booking'){
+        if (tab !== 'booking') {
             this.setState({
                 tab: 'booking'
             });
         }
     }
 
-    tabChangeMessage(){
+    tabChangeMessage() {
         let tab = this.state.tab;
 
-        if(tab !== 'message'){
+        if (tab !== 'message') {
             this.setState({
                 tab: 'message'
             });
         }
     }
 
-    messageTabChangeFriends(){
+    messageTabChangeFriends() {
         let tabIndex = this.state.message_tab;
 
-        if(tabIndex !== 'friends'){
+        if (tabIndex !== 'friends') {
             this.setState({
                 message_tab: 'friends'
             });
         }
     }
 
-    messageTabChangeAdvisor(){
+    messageTabChangeAdvisor() {
         let tabIndex = this.state.message_tab;
 
-        if(tabIndex !== 'advisor'){
+        if (tabIndex !== 'advisor') {
             this.setState({
                 message_tab: 'advisor'
             });
         }
     }
 
-    async getPlacementResult(user_id){
-        return  ServiceProxy.proxyTo({
+    async getPlacementResult(user_id) {
+        return ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${user_id}`
             }
         });
     }
 
-    async getUserClassList(user_id){
-        return  ServiceProxy.proxyTo({
+    async getUserClassList(user_id) {
+        return ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/student-class-schedule/${user_id}`
             }
         });
     }
 
-    transformDay(day){
-        switch(day){
-            case 1: return 'Monday';break;
-            case 2: return 'Tuesday';break;
-            case 3: return 'Wednesday';break;
-            case 4: return 'Thursday';break;
-            case 5: return 'Friday';break;
-            case 6: return 'Saturday';break;
-            case 0: return 'Sunday';break;
-            default : break;
+    transformDay(day) {
+        switch (day) {
+            case 1:
+                return 'Monday';
+                break;
+            case 2:
+                return 'Tuesday';
+                break;
+            case 3:
+                return 'Wednesday';
+                break;
+            case 4:
+                return 'Thursday';
+                break;
+            case 5:
+                return 'Friday';
+                break;
+            case 6:
+                return 'Saturday';
+                break;
+            case 0:
+                return 'Sunday';
+                break;
+            default :
+                break;
         }
     }
 
-    transformMonth(day){
-        switch(day){
-            case 0: return 'January';break;
-            case 1: return 'February';break;
-            case 2: return 'March';break;
-            case 3: return 'April';break;
-            case 4: return 'May';break;
-            case 5: return 'June';break;
-            case 6: return 'July';break;
-            case 7: return 'August';break;
-            case 8: return 'September';break;
-            case 9: return 'October';break;
-            case 10: return 'November';break;
-            case 11: return 'December';break;
-            default : break;
+    transformMonth(day) {
+        switch (day) {
+            case 0:
+                return 'January';
+                break;
+            case 1:
+                return 'February';
+                break;
+            case 2:
+                return 'March';
+                break;
+            case 3:
+                return 'April';
+                break;
+            case 4:
+                return 'May';
+                break;
+            case 5:
+                return 'June';
+                break;
+            case 6:
+                return 'July';
+                break;
+            case 7:
+                return 'August';
+                break;
+            case 8:
+                return 'September';
+                break;
+            case 9:
+                return 'October';
+                break;
+            case 10:
+                return 'November';
+                break;
+            case 11:
+                return 'December';
+                break;
+            default :
+                break;
         }
     }
 
-    handleClassListData(classList){
+    handleClassListData(classList) {
 
-        if(classList && classList.length > 0){
-            for(let i in classList){
+        if (classList && classList.length > 0) {
+            for (let i in classList) {
                 let dateClone = new Date(classList[i].start_time);
+
+                let leftDays = this.calcDaysFromNow(classList[i].start_time);
+
                 classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
-                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' +  new Date(classList[i].end_time).getFullYear();
-                classList[i].show_time = (dateClone.getHours() > 9 ?  dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-                    + (dateClone.getMinutes() > 9 ?  dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
+                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].end_time).getFullYear();
+                classList[i].show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
+                    + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
                     + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
                     + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
+
+                classList[i].class_status_show_style = leftDays >= 1 ? 'rgb(0, 216, 90)' : (dateClone - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
+                classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0  ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ?  '已开始' : '已结束' ));
             }
         }
 
         return classList;
+    }
+
+    calcDaysFromNow(date) {
+        let theDate = new Date(new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1 ) + '-' + new Date(date).getDate());
+
+        let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
+
+        return parseInt((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
     async componentDidMount() {
@@ -145,7 +199,7 @@ class Home extends Component {
 
             let classList = await this.getUserClassList(userId);
 
-            classList = classList.filter(function(ele){
+            classList = classList.filter(function (ele) {
                 return ele.status && ele.status !== 'cancelled' && ele.class_id;
             });
 
@@ -153,9 +207,9 @@ class Home extends Component {
 
             console.log(classList);
 
-            let clonedMessageFromAdvisor =  this.state.messageFromAdvisor;
+            let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 
-            if(!placementResult || !placementResult.detail || placementResult.detail.length < 20){
+            if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
 
                 clonedMessageFromAdvisor.push({
                     message_title: '建立能力档案',
@@ -165,12 +219,12 @@ class Home extends Component {
                 });
             }
 
-            classList.map((item, index)=>{
-                if(item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score){
+            classList.map((item, index) => {
+                if (item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: '课程结束了，给课程\"'+ (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
-                        message_avatar: item.companion_avatar ||  '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                        message_content: '课程结束了，给课程\"' + (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
+                        message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + userId + '/' + item.class_id
                     });
                 }
@@ -187,7 +241,7 @@ class Home extends Component {
             console.log('login failed: ' + ex.toString());
         } finally {
             //console.log('login failed');
-            if(document.getElementById('loadingModal')){
+            if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
 
@@ -199,24 +253,42 @@ class Home extends Component {
             <div className="my-home">
                 <Welcome />
                 <div className="home-header">
-                    <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeBook}>
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt="" style={{height: '50%',
-                            marginRight: '.5em'}} />
+                    <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
+                         onClick={this.tabChangeBook}>
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt="" style={{
+                            height: '50%',
+                            marginRight: '.5em'
+                        }}/>
                         <span>课程预约</span>
-                        <div className="tab-active"  style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
+                        <div className="tab-active"
+                             style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
-                    <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}} onClick={this.tabChangeMessage}>
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_message.png" alt="" style={{height: '40%',
-                            marginRight: '.5em'}} />
+                    <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
+                         onClick={this.tabChangeMessage}>
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_message.png" alt="" style={{
+                            height: '40%',
+                            marginRight: '.5em'
+                        }}/>
                         <span>消息通知</span>
-                        <div className="tab-active" style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
-                        <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
+                        <div className="tab-active"
+                             style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
+                        <div className="message-red-circle"
+                             style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
                     </div>
                     <Link className="consult" to="consult">
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
-                <Segment loading={true} id='loadingModal' style={{border: 'none' ,position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888, display: 'none'}}>
+                <Segment loading={true} id='loadingModal' style={{
+                    border: 'none',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 888,
+                    display: 'none'
+                }}>
                 </Segment>
                 {this.state.tab === 'booking' ?
                     (<div className="home-content">
@@ -226,16 +298,27 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index} to={"class/" + item.class_id}>
                                             <div className="booking-item-avatar">
-                                                <img src={item.companion_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'} alt=""/>
+                                                <img
+                                                    src={item.companion_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'}
+                                                    alt=""/>
                                             </div>
                                             <div className="booking-item-info">
-                                                <p className="your-name" style={{fontWeight: 'bold', fontSize: '1.2em', color: '#111'}}>{item.companion_name || 'BuzzBuzz'}</p>
-                                                <p className="class-topic" style={{color: '#f7b52a', margin: '.3em 0'}}>{item.topic || 'No topic'}</p>
-                                                <p className="class-date" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
-                                                <p className="class-time" style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
+                                                <p className="your-name" style={{
+                                                    fontWeight: 'bold',
+                                                    fontSize: '1.2em',
+                                                    color: '#111'
+                                                }}>{item.companion_name || 'BuzzBuzz'}</p>
+                                                <p className="class-topic" style={{
+                                                    color: '#f7b52a',
+                                                    margin: '.3em 0'
+                                                }}>{item.topic || 'No topic'}</p>
+                                                <p className="class-date"
+                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
+                                                <p className="class-time"
+                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
                                             </div>
                                             <div className="booking-item-status">
-                                                <p style={item.status === 'cancelled' ? {color: 'red'} : (item.status === 'ended' ? {color: 'rgb(102， 102， 102)'} : {color: 'rgb(106, 225, 8)'})}>{item.status === 'cancelled' ? '已取消' : (item.status === 'ended' ? '已结束' : '已确认')}</p>
+                                                <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>
                                             </div>
                                         </Link>
                                     })
@@ -257,12 +340,17 @@ class Home extends Component {
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
-                            <div className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'} onClick={this.messageTabChangeFriends}>
+                            <div
+                                className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'}
+                                onClick={this.messageTabChangeFriends}>
                                 <p>伙伴</p>
                             </div>
-                            <div className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'} onClick={this.messageTabChangeAdvisor}>
-                                <p>{'助教' + (this.state.messageFromAdvisor.length > 0 ? '('+ this.state.messageFromAdvisor.length + ')' : '')}</p>
-                                <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
+                            <div
+                                className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'}
+                                onClick={this.messageTabChangeAdvisor}>
+                                <p>{'助教' + (this.state.messageFromAdvisor.length > 0 ? '(' + this.state.messageFromAdvisor.length + ')' : '')}</p>
+                                <div className="message-red-circle"
+                                     style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
                             </div>
                         </div>
                         {
@@ -280,12 +368,14 @@ class Home extends Component {
                                                 this.state.messageFromAdvisor.map((item, index) => {
                                                     return <Link className="message-item" key={index} to={item.goUrl}>
                                                         <div className="message-item-avatar">
-                                                            <div className="message-red-circle" style={this.state.messageFromAdvisor.length > 0 ? {}:{display: 'none'}} ></div>
+                                                            <div className="message-red-circle"
+                                                                 style={this.state.messageFromAdvisor.length > 0 ? {} : {display: 'none'}}></div>
                                                             <img src={item.message_avatar} alt=""/>
                                                         </div>
                                                         <div className="message-body">
                                                             <div className="message-title">{item.message_title}</div>
-                                                            <div className="message-content">{item.message_content}</div>
+                                                            <div
+                                                                className="message-content">{item.message_content}</div>
                                                         </div>
                                                     </Link>
                                                 })
