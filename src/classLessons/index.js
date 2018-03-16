@@ -35,7 +35,7 @@ class ClassLessons extends Component {
                     lessons: '52课时',
                     price: 2188,
                     discount: '15%OFF',
-                    before: '原价: ¥510元',
+                    before: '原价: ¥2600元',
                     img_url: '//p579tk2n2.bkt.clouddn.com/banner_buzz_youzan_5.jpg',
                     youzan_url: 'https://h5.youzan.com/v2/goods/3ewr6gf9jk4fe'
                 }
