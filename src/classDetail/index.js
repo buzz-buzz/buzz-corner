@@ -142,7 +142,8 @@ class classDetail extends Component {
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
                 class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' )),
-                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0 ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ? '已开始' : '已结束' ))
+                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0 ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ? '已开始' : '已结束' )),
+                chats: class_info.exercises ? JSON.parse(class_info.exercises) : []
             });
 
         }
@@ -212,7 +213,7 @@ class classDetail extends Component {
                         <p>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
-                    <Practice/>
+                    <Practice chats={this.state.chats}/>
                 </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',
