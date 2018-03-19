@@ -43,6 +43,9 @@ export const rewardDiamond = 'Diamond';
 export const rewardMiles = 'BuzzBuzz miles';
 export const rewardRules = 'See the rules';
 
+export const myCoins = 'My Coins';
+export const myLanguage = 'Language';
+
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
 export const homeAvatar = 'contact information';

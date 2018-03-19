@@ -43,6 +43,9 @@ export const rewardDiamond = '钻';
 export const rewardMiles = 'BuzzBuzz积分';
 export const rewardRules = '查看获取规则';
 
+export const myCoins = '我的课时';
+export const myLanguage = '系统语言';
+
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';

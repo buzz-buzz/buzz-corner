@@ -3,6 +3,7 @@ import {Icon} from 'semantic-ui-react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import Resources from '../resources';
 import Footer from '../layout/footer';
 import './index.css';
 
@@ -69,7 +70,7 @@ class User extends Component {
                             <div className="icon">
                                 <Icon name='calendar'/>
                                 <div className="name">
-                                    我的课时
+                                    {Resources.getInstance().myCoins}
                                 </div>
                             </div>
                             <div className="link">
@@ -83,7 +84,7 @@ class User extends Component {
                             <div className="icon">
                                 <Icon name='globe'/>
                                 <div className="name">
-                                    语言系统
+                                    {Resources.getInstance().myLanguage}
                                 </div>
                             </div>
                             <div className="link">
