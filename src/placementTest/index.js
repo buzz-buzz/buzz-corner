@@ -9,12 +9,12 @@ import '../my/my.css';
 import './index.css';
 
 class Homepage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             avatar: '',
-            step: 1,
+            step: props.location.query.step || 1,
             questions: [
                 {
                     title: '你是否容易交到朋友',
