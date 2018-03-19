@@ -151,8 +151,8 @@ class Home extends Component {
             if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
 
                 clonedMessageFromAdvisor.push({
-                    message_title: '建立能力档案',
-                    message_content: '请建立能力档案，完成后可以为你安排更合适的课程。',
+                    message_title: Resources.getInstance().bookingPlacementInfoTitle,
+                    message_content: Resources.getInstance().bookingPlacementInfoContent,
                     message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                     goUrl: '/placement',
                     hasRead: ''
@@ -163,7 +163,7 @@ class Home extends Component {
                 if (item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: '课程结束了，给课程"' + (item.topic || item.name || 'No topic') + '"来一个评价吧。',
+                        message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                         hasRead: ''
@@ -171,7 +171,7 @@ class Home extends Component {
                 } else if (item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: '已完成课程"' + (item.topic || item.name || 'No topic') + '"的评价，点击查看。',
+                        message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic') ,
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                         hasRead: 'read'
@@ -282,9 +282,9 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-                                    <p>你还没开始预约课程</p>
-                                    <p>马上开始预约吧</p>
-                                    <p>与全球伙伴用英文交流</p>
+                                    <p>{Resources.getInstance().bookingNoItemText1}</p>
+                                    <p>{Resources.getInstance().bookingNoItemText2}</p>
+                                    <p>{Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
                     </div>) :
@@ -306,11 +306,11 @@ class Home extends Component {
                         {
                             this.state.message_tab === 'friends' ?
                                 (<div className="none-items">
-                                    <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                    <p style={{color: 'rgb(170, 170, 170)'}}>{Resources.getInstance().bookingNoMessage}</p>
                                 </div>) :
                                 (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
-                                            <p style={{color: 'rgb(170, 170, 170)'}}>你还没有收到消息哦</p>
+                                            <p style={{color: 'rgb(170, 170, 170)'}}>{Resources.getInstance().bookingNoMessage}</p>
                                         </div>
                                     ) :
                                     (<div className="message-items">
@@ -338,7 +338,7 @@ class Home extends Component {
                 <div className="booking-btn">
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.signUp}
-                                    content='预约'/>
+                                    content={Resources.getInstance().bookingBtnText} />
                     </Form.Group>
                 </div>
                 <div className="offset-footer"></div>
