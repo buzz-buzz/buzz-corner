@@ -6,6 +6,17 @@ import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
 
 export default class profileSetup extends Component {
+    handlePhoneChange = (e, {value}) => {
+        this.setState({
+            mobile: value
+        });
+    };
+    handleEmailChange = (e, {value}) => {
+        this.setState({
+            email: value
+        });
+    };
+
     constructor() {
         super();
 
@@ -18,25 +29,13 @@ export default class profileSetup extends Component {
         this.submit = this.submit.bind(this);
     }
 
-    handlePhoneChange = (e, {value}) => {
-        this.setState({
-            mobile: value
-        });
-    };
-
-    handleEmailChange = (e, {value}) => {
-        this.setState({
-            email: value
-        });
-    };
-
     async handleAvatarChange(e) {
         try {
             let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
                 method: 'GET'
             });
 
-            if(!qiniu_token.uptoken){
+            if (!qiniu_token.uptoken) {
                 throw new Error(Resources.getInstance().avatarTokenWrong);
             }
 
@@ -46,16 +45,16 @@ export default class profileSetup extends Component {
             fileForm.append("file", this.fileInput.files[0]);
             fileForm.append("token", qiniu_token.uptoken);
 
-            let result = await ServiceProxy.proxy(qiniu_token.upload_url,{
+            let result = await ServiceProxy.proxy(qiniu_token.upload_url, {
                 method: 'POST',
                 body: fileForm,
                 credentials: undefined,
                 headers: undefined
             });
 
-            if(!result.key || !result.hash){
+            if (!result.key || !result.hash) {
                 throw new Error(Resources.getInstance().avatarKeyWrong);
-            }else{
+            } else {
                 this.setState({
                     avatar: qiniu_token.resources_url + result.key
                 });
@@ -91,7 +90,7 @@ export default class profileSetup extends Component {
         try {
             let profile = this.validateForm();
 
-            let response = await ServiceProxy.proxyTo({
+            await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
                     json: profile,
@@ -172,7 +171,7 @@ export default class profileSetup extends Component {
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={Resources.getInstance().profileSunmitBtn}
                                     style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}
-                                    onClick={this.submit} />
+                                    onClick={this.submit}/>
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>

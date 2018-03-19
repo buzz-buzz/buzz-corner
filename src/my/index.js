@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Button, Segment, Dropdown} from 'semantic-ui-react';
+import {Button, Dropdown, Form, Segment} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -15,56 +15,56 @@ function getBirthDay(date_of_birth) {
 }
 
 const grade_list = [
-    {key: '1', value:  '1', text: '一年级'},
-    {key: '2', value:  '2', text: '二年级'},
-    {key: '3', value:  '3', text: '三年级'},
-    {key: '4', value:  '4', text: '四年级'},
-    {key: '5', value:  '5', text: '五年级'},
-    {key: '6', value:  '6', text: '六年级'},
-    {key: '7', value:  '7', text: '七年级'},
-    {key: '8', value:  '8', text: '八年级'},
-    {key: '9', value:  '9', text: '九年级'},
+    {key: '1', value: '1', text: '一年级'},
+    {key: '2', value: '2', text: '二年级'},
+    {key: '3', value: '3', text: '三年级'},
+    {key: '4', value: '4', text: '四年级'},
+    {key: '5', value: '5', text: '五年级'},
+    {key: '6', value: '6', text: '六年级'},
+    {key: '7', value: '7', text: '七年级'},
+    {key: '8', value: '8', text: '八年级'},
+    {key: '9', value: '9', text: '九年级'},
 ];
 
 const city_list = [
-    {key: '0', value:  '其他', text: '其他'},
-    {key: '1', value:  '北京', text: '北京'},
-    {key: '2', value:  '上海', text: '上海'},
-    {key: '3', value:  '广州', text: '广州'},
-    {key: '4', value:  '深圳', text: '深圳'},
-    {key: '5', value:  '天津', text: '天津'},
-    {key: '6', value:  '杭州', text: '杭州'},
-    {key: '7', value:  '南京', text: '南京'},
-    {key: '8', value:  '济南', text: '济南'},
-    {key: '9', value:  '重庆', text: '重庆'},
-    {key: '10', value:  '青岛', text: '青岛'},
-    {key: '11', value:  '大连', text: '大连'},
-    {key: '12', value:  '宁波', text: '宁波'},
-    {key: '13', value:  '厦门', text: '厦门'},
-    {key: '14', value:  '重庆', text: '重庆'},
-    {key: '15', value:  '成都', text: '成都'},
-    {key: '16', value:  '武汉', text: '武汉'},
-    {key: '17', value:  '哈尔滨', text: '哈尔滨'},
-    {key: '18', value:  '沈阳', text: '沈阳'},
-    {key: '19', value:  '西安', text: '西安'},
-    {key: '20', value:  '长春', text: '长春'},
-    {key: '21', value:  '长沙', text: '长沙'},
-    {key: '22', value:  '福州', text: '福州'},
-    {key: '23', value:  '郑州', text: '郑州'},
-    {key: '24', value:  '石家庄', text: '石家庄'},
-    {key: '25', value:  '苏州', text: '苏州'},
-    {key: '26', value:  '佛山', text: '佛山'},
-    {key: '27', value:  '东莞', text: '东莞'},
-    {key: '28', value:  '无锡', text: '无锡'},
-    {key: '29', value:  '烟台', text: '烟台'},
-    {key: '30', value:  '太原', text: '太原'},
-    {key: '31', value:  '合肥', text: '合肥'},
-    {key: '32', value:  '南昌', text: '南昌'},
-    {key: '33', value:  '南宁', text: '南宁'},
-    {key: '34', value:  '昆明', text: '昆明'},
-    {key: '35', value:  '温州', text: '温州'},
-    {key: '36', value:  '淄博', text: '淄博'},
-    {key: '37', value:  '唐山', text: '唐山'},
+    {key: '0', value: '其他', text: '其他'},
+    {key: '1', value: '北京', text: '北京'},
+    {key: '2', value: '上海', text: '上海'},
+    {key: '3', value: '广州', text: '广州'},
+    {key: '4', value: '深圳', text: '深圳'},
+    {key: '5', value: '天津', text: '天津'},
+    {key: '6', value: '杭州', text: '杭州'},
+    {key: '7', value: '南京', text: '南京'},
+    {key: '8', value: '济南', text: '济南'},
+    {key: '9', value: '重庆', text: '重庆'},
+    {key: '10', value: '青岛', text: '青岛'},
+    {key: '11', value: '大连', text: '大连'},
+    {key: '12', value: '宁波', text: '宁波'},
+    {key: '13', value: '厦门', text: '厦门'},
+    {key: '14', value: '重庆', text: '重庆'},
+    {key: '15', value: '成都', text: '成都'},
+    {key: '16', value: '武汉', text: '武汉'},
+    {key: '17', value: '哈尔滨', text: '哈尔滨'},
+    {key: '18', value: '沈阳', text: '沈阳'},
+    {key: '19', value: '西安', text: '西安'},
+    {key: '20', value: '长春', text: '长春'},
+    {key: '21', value: '长沙', text: '长沙'},
+    {key: '22', value: '福州', text: '福州'},
+    {key: '23', value: '郑州', text: '郑州'},
+    {key: '24', value: '石家庄', text: '石家庄'},
+    {key: '25', value: '苏州', text: '苏州'},
+    {key: '26', value: '佛山', text: '佛山'},
+    {key: '27', value: '东莞', text: '东莞'},
+    {key: '28', value: '无锡', text: '无锡'},
+    {key: '29', value: '烟台', text: '烟台'},
+    {key: '30', value: '太原', text: '太原'},
+    {key: '31', value: '合肥', text: '合肥'},
+    {key: '32', value: '南昌', text: '南昌'},
+    {key: '33', value: '南宁', text: '南宁'},
+    {key: '34', value: '昆明', text: '昆明'},
+    {key: '35', value: '温州', text: '温州'},
+    {key: '36', value: '淄博', text: '淄博'},
+    {key: '37', value: '唐山', text: '唐山'},
 ];
 
 class Homepage extends Component {
@@ -268,14 +268,14 @@ class Homepage extends Component {
         }
     }
 
-    handleCityChange(event, data){
+    handleCityChange(event, data) {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile.city = data.value;
         this.setState({profile: clonedProfile});
     }
 
-    handleGradeChange(event, data){
+    handleGradeChange(event, data) {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile.grade = data.value;
@@ -318,7 +318,7 @@ class Homepage extends Component {
                 let profileData = this.validateForm();
 
                 if (this.state.userId) {
-                    let response = await ServiceProxy.proxyTo({
+                    await ServiceProxy.proxyTo({
                         body: {
                             uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
                             json: profileData,
@@ -334,7 +334,7 @@ class Homepage extends Component {
                     });
 
                     if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
-                        if(document.getElementById('loadingModal')){
+                        if (document.getElementById('loadingModal')) {
                             document.getElementById('loadingModal').style.display = 'none';
                         }
                         browserHistory.push('/home');
@@ -346,7 +346,7 @@ class Homepage extends Component {
                             profile_title: newTitle
                         });
 
-                        if(document.getElementById('loadingModal')){
+                        if (document.getElementById('loadingModal')) {
                             document.getElementById('loadingModal').style.display = 'none';
                         }
                     }
@@ -449,7 +449,7 @@ class Homepage extends Component {
                     </div>
                     <div className="logo">
                         <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
                         </div>
                     </div>
                 </div>
@@ -515,116 +515,120 @@ class Homepage extends Component {
                                 </div>
                             ) : (
                                 this.state.step === 2 ? (
-                                        <div className="form-content">
-                                            <div className="parents-name">
-                                                <input type="text" placeholder='少年英文名' style={{width: '100%'}}
-                                                       value={this.state.profile.student_en_name}
-                                                       onChange={this.handleChange}
-                                                       name='student_en_name'/>
+                                    <div className="form-content">
+                                        <div className="parents-name">
+                                            <input type="text" placeholder='少年英文名' style={{width: '100%'}}
+                                                   value={this.state.profile.student_en_name}
+                                                   onChange={this.handleChange}
+                                                   name='student_en_name'/>
+                                        </div>
+                                        <div className="gender">
+                                            <div className="male" onClick={this.changeGenderMale}>
+                                                <div
+                                                    className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
+                                                    <img
+                                                        src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
+                                                        alt=""/>
+                                                </div>
+                                                <span
+                                                    style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>男</span>
                                             </div>
-                                            <div className="gender">
-                                                <div className="male" onClick={this.changeGenderMale}>
-                                                    <div
-                                                        className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>男</span>
+                                            <div className="female" onClick={this.changeGenderFemale}>
+                                                <div
+                                                    className={this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
+                                                    <img
+                                                        src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
+                                                        alt=""/>
                                                 </div>
-                                                <div className="female" onClick={this.changeGenderFemale}>
-                                                    <div
-                                                        className={ this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
-                                                </div>
-                                            </div>
-                                            <Form.Group widths='equal' className="position-relative">
-                                                <Form.Input
-                                                    style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                                                    value={this.state.profile.date_of_birth} type="date"
-                                                    onChange={this.handleChange} name='date_of_birth'/>
-                                                <div className="field birthday-label">
-                                                    <input type="text" placeholder='生日' style={{width: '100%'}}
-                                                           value={this.state.birthdayLabel || ''}
-                                                           onChange={this.handleChangeBirthdayLabel}
-                                                           name='birthdayLabel'/>
-                                                </div>
-                                            </Form.Group>
-                                            <div className="selection-options">
-                                                <Dropdown placeholder='城市' search selection noResultsMessage="没有这个城市哦"
-                                                          onChange = {(event, data) => {this.handleCityChange(event, data)}} value={this.state.profile.city}
-                                                          options={city_list}/>
-                                                <Dropdown placeholder='年级' search selection noResultsMessage="例如: 六年级"
-                                                          onChange = {(event, data) => {this.handleGradeChange(event, data)}} value={this.state.profile.grade}
-                                                          options={grade_list}/>
+                                                <span
+                                                    style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
                                             </div>
                                         </div>
-                                    ) : (
-                                        this.state.step === 3 ?
-                                            (<div className='topic form-content'>
-                                                <p>兴趣爱好</p>
-                                                <div className="topic-items">
-                                                    {
-                                                        this.state.placement_topics.map((item, index) => {
-                                                            return <div key={index}
-                                                                        style={{backgroundColor: item.color_b}}>
-                                                                <div>
-                                                                    <img src={item.url}/>
-                                                                </div>
-                                                                <p style={{color: item.color_f}}>{item.name}</p>
-                                                                <a onClick={this.topicChange} name={item.value}
-                                                                   style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}/>
+                                        <Form.Group widths='equal' className="position-relative">
+                                            <Form.Input
+                                                style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
+                                                value={this.state.profile.date_of_birth} type="date"
+                                                onChange={this.handleChange} name='date_of_birth'/>
+                                            <div className="field birthday-label">
+                                                <input type="text" placeholder='生日' style={{width: '100%'}}
+                                                       value={this.state.birthdayLabel || ''}
+                                                       onChange={this.handleChangeBirthdayLabel}
+                                                       name='birthdayLabel'/>
+                                            </div>
+                                        </Form.Group>
+                                        <div className="selection-options">
+                                            <Dropdown placeholder='城市' search selection noResultsMessage="没有这个城市哦"
+                                                      onChange={(event, data) => {
+                                                          this.handleCityChange(event, data)
+                                                      }} value={this.state.profile.city}
+                                                      options={city_list}/>
+                                            <Dropdown placeholder='年级' search selection noResultsMessage="例如: 六年级"
+                                                      onChange={(event, data) => {
+                                                          this.handleGradeChange(event, data)
+                                                      }} value={this.state.profile.grade}
+                                                      options={grade_list}/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    this.state.step === 3 ?
+                                        (<div className='topic form-content'>
+                                            <p>兴趣爱好</p>
+                                            <div className="topic-items">
+                                                {
+                                                    this.state.placement_topics.map((item, index) => {
+                                                        return <div key={index}
+                                                                    style={{backgroundColor: item.color_b}}>
+                                                            <div>
+                                                                <img src={item.url} alt="topic"/>
                                                             </div>
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>) :
-                                            (
-                                                <div className="form-content">
-                                                    <h4>优先匹配最合适的<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
-                                                    <img className="profile-done-img"
-                                                         src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
-                                                         alt=""/>
-                                                </div>
-                                            )
-                                    )
+                                                            <p style={{color: item.color_f}}>{item.name}</p>
+                                                            <a onClick={this.topicChange} name={item.value}
+                                                               style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}>&nbsp;</a>
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+                                        </div>) :
+                                        (
+                                            <div className="form-content">
+                                                <h4>优先匹配最合适的<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
+                                                <img className="profile-done-img"
+                                                     src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
+                                                     alt=""/>
+                                            </div>
+                                        )
+                                )
                             )
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'}
                                     disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (!this.state.profile.phone  || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '4em',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        } : {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            backgroundColor: 'rgb(223, 223, 228)',
-                                            height: '4em',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        }} onClick={this.submit}/>
+                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255,255,255)',
+                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                        height: '4em',
+                                        letterSpacing: '4px',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px',
+                                        opacity: '1 !important'
+                                    } : {
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255,255,255)',
+                                        backgroundColor: 'rgb(223, 223, 228)',
+                                        height: '4em',
+                                        letterSpacing: '4px',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px',
+                                        opacity: '1 !important'
+                                    }} onClick={this.submit}/>
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
-                                <div className="skip" onClick={this.skipPlacement}>跳过, 稍后完成</div>
-                            ) : ('')
+                            <div className="skip" onClick={this.skipPlacement}>跳过, 稍后完成</div>
+                        ) : ('')
                     }
                 </Form>
                 <br/>

@@ -17,7 +17,6 @@ export default class WechatOAuthSuccess extends React.Component {
             await this.loginByWechat(wechatUserData.unionid, newUserId);
         } else {
             throw error;
-            alert('Login failed!');
         }
     };
     getBuzzUserData = async (wechatUnionId) => {

@@ -59,7 +59,7 @@ export default class FacebookLogin extends React.Component {
     logout = async () => {
         this.setState({loading: true});
 
-        let logoutResponse = await new Promise(callback => this.FB.logout(callback));
+        await new Promise(callback => this.FB.logout(callback));
         await ServiceProxy.proxy('/logout');
         this.setState({userInfo: {}, loading: false})
     };

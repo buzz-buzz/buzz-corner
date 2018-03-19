@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
-import { browserHistory } from 'react-router';
-import CurrentUser from "../membership/user";
-import ServiceProxy from '../service-proxy';
 import './index.css';
 
 class Consult extends Component {
@@ -12,7 +8,7 @@ class Consult extends Component {
         this.back = this.back.bind(this);
     }
 
-    back(){
+    back() {
         window.history.back();
     }
 
@@ -21,7 +17,8 @@ class Consult extends Component {
             <div className="consult-page">
                 <div className="back-header">
                     <div>
-                        <img onClick={this.back} style={{width: '20px'}} src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
+                        <img onClick={this.back} style={{width: '20px'}}
+                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
                     </div>
                 </div>
                 <div className="consult-content">

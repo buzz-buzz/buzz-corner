@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
-import { browserHistory } from 'react-router';
+import {Icon} from 'semantic-ui-react';
+import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
-import {Link} from "react-router";
 import './index.css';
 
 class User extends Component {
@@ -29,7 +28,7 @@ class User extends Component {
                 }
             });
 
-            if(true){
+            if (true) {
                 this.setState({
                     avatar: profile.avatar,
                     userId: userId,
@@ -51,7 +50,7 @@ class User extends Component {
                 <div className="header-with-go-back">
                     <div className="logo-without-back">
                         <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz Logo"/>
                         </div>
                     </div>
                 </div>
@@ -96,7 +95,7 @@ class User extends Component {
                         </Link>
                     </div>
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }

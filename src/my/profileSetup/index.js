@@ -12,7 +12,7 @@ const genderOptions = [
 function getBirthDay(date_of_birth) {
     if (date_of_birth) {
         let date = new Date(date_of_birth);
-        return  String(date.getFullYear()) + '-' + String(date.getMonth() + 1 >9?date.getMonth() + 1:'0'+(date.getMonth() + 1)) + '-' + String(date.getDate()>9?date.getDate():'0'+date.getDate());
+        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
     } else {
         return ''
     }
@@ -32,22 +32,22 @@ export default class profileSetup extends Component {
         if (checked) {
             if (clonedProfile.interests.indexOf(name) < 0) {
                 let newInterests = [];
-                for(let i in clonedProfile.interests){
-                    if( clonedProfile.interests[i] && newInterests.indexOf(clonedProfile.interests[i]) < 0){
+                for (let i in clonedProfile.interests) {
+                    if (clonedProfile.interests[i] && newInterests.indexOf(clonedProfile.interests[i]) < 0) {
                         newInterests.push(clonedProfile.interests[i]);
                     }
                 }
 
                 newInterests.push(name);
 
-                clonedProfile.interests  = newInterests;
+                clonedProfile.interests = newInterests;
             }
         } else {
             let index = clonedProfile.interests.indexOf(name);
             if (index >= 0) {
                 let newInterests = [];
-                for(let i in clonedProfile.interests){
-                    if( clonedProfile.interests[i] && clonedProfile.interests[i] !== name && newInterests.indexOf(clonedProfile.interests[i]) < 0){
+                for (let i in clonedProfile.interests) {
+                    if (clonedProfile.interests[i] && clonedProfile.interests[i] !== name && newInterests.indexOf(clonedProfile.interests[i]) < 0) {
                         newInterests.push(clonedProfile.interests[i]);
                     }
                 }
@@ -92,7 +92,7 @@ export default class profileSetup extends Component {
         try {
             let profile = this.validateForm();
 
-            let response = await ServiceProxy.proxyTo({
+            await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
                     json: profile,
@@ -179,7 +179,8 @@ export default class profileSetup extends Component {
                                     name='display_name' error={!this.state.profile.display_name}/>
                     </Form.Group>
                     <h4>{Resources.getInstance().profileGender}</h4>
-                    <Form.Select options={genderOptions} placeholder={Resources.getInstance().profileGenderHolder} value={this.state.profile.gender}
+                    <Form.Select options={genderOptions} placeholder={Resources.getInstance().profileGenderHolder}
+                                 value={this.state.profile.gender}
                                  onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                      name,
                                      value
@@ -196,7 +197,8 @@ export default class profileSetup extends Component {
                     </Form.Group>
                     <h4>{Resources.getInstance().profileCity}</h4>
                     <Form.Group widths='equal'>
-                        <Form.Input placeholder={Resources.getInstance().profileCityHolder} value={this.state.profile.location}
+                        <Form.Input placeholder={Resources.getInstance().profileCityHolder}
+                                    value={this.state.profile.location}
                                     onChange={(e, {name, value}) => this.handleProfileChange(e, {
                                         name,
                                         value
@@ -224,12 +226,12 @@ export default class profileSetup extends Component {
                     </Form.Group>
                     {/*<h4>Language</h4>*/}
                     {/*<Form.Group widths='equal'>*/}
-                        {/*<Form.Input placeholder='Language' value={this.state.profile.language}*/}
-                                    {/*onChange={(e, {name, value}) => this.handleProfileChange(e, {*/}
-                                        {/*name,*/}
-                                        {/*value*/}
-                                    {/*})}*/}
-                                    {/*name='language' error={!this.state.profile.language}/>*/}
+                    {/*<Form.Input placeholder='Language' value={this.state.profile.language}*/}
+                    {/*onChange={(e, {name, value}) => this.handleProfileChange(e, {*/}
+                    {/*name,*/}
+                    {/*value*/}
+                    {/*})}*/}
+                    {/*name='language' error={!this.state.profile.language}/>*/}
                     {/*</Form.Group>*/}
                     <h4>{Resources.getInstance().profileIntroduction}</h4>
                     <Form.Field id='form-opinion' control={TextArea}
@@ -247,7 +249,7 @@ export default class profileSetup extends Component {
                     </Form.Group>
                 </Form>
                 <Modal open={this.state.modal} closeIcon onClose={() => this.closeModal()}>
-                    <Header icon='archive' content={Resources.getInstance().modalTitle} />
+                    <Header icon='archive' content={Resources.getInstance().modalTitle}/>
                     <Modal.Content>
                         <p>{this.state.message}</p>
                     </Modal.Content>

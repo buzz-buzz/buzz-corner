@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Form, Button, Segment, TextArea} from 'semantic-ui-react';
-import {browserHistory} from 'react-router';
+import {Form, Segment, TextArea} from 'semantic-ui-react';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
-import {Link} from "react-router";
 import './index.css';
+import * as time from "../common/timeHelper";
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -39,35 +38,35 @@ class classEvaluation extends Component {
         window.history.back();
     }
 
-    changeStars(event){
-        if(!this.state.evaluation_status){
+    changeStars(event) {
+        if (!this.state.evaluation_status) {
             this.setState({
-                stars: parseInt(event.target.name)
+                stars: Number(event.target.name)
             });
         }
     }
 
-    evaluationContentChange(event, data){
-        if(!this.state.evaluation_status){
+    evaluationContentChange(event, data) {
+        if (!this.state.evaluation_status) {
             this.setState({
                 evaluation_content: data.value
             });
         }
     }
 
-    evaluationItemsChange(event){
+    evaluationItemsChange(event) {
         let clonedItems = this.state.evaluation_items;
 
-        if(clonedItems.indexOf(event.target.name) > -1){
+        if (clonedItems.indexOf(event.target.name) > -1) {
             let newItems = [];
-            for(let i in clonedItems){
-                if(clonedItems[i] !== event.target.name){
+            for (let i in clonedItems) {
+                if (clonedItems[i] !== event.target.name) {
                     newItems.push(clonedItems[i]);
                 }
             }
 
             clonedItems = newItems;
-        }else{
+        } else {
             clonedItems.push(event.target.name);
         }
 
@@ -77,90 +76,27 @@ class classEvaluation extends Component {
     }
 
     transformDay(day) {
-        switch (day) {
-            case 1:
-                return 'Monday';
-                break;
-            case 2:
-                return 'Tuesday';
-                break;
-            case 3:
-                return 'Wednesday';
-                break;
-            case 4:
-                return 'Thursday';
-                break;
-            case 5:
-                return 'Friday';
-                break;
-            case 6:
-                return 'Saturday';
-                break;
-            case 0:
-                return 'Sunday';
-                break;
-            default :
-                break;
-        }
+        return time.getWeekdayNameByIndex(day)
     }
 
     transformMonth(day) {
-        switch (day) {
-            case 0:
-                return 'January';
-                break;
-            case 1:
-                return 'February';
-                break;
-            case 2:
-                return 'March';
-                break;
-            case 3:
-                return 'April';
-                break;
-            case 4:
-                return 'May';
-                break;
-            case 5:
-                return 'June';
-                break;
-            case 6:
-                return 'July';
-                break;
-            case 7:
-                return 'August';
-                break;
-            case 8:
-                return 'September';
-                break;
-            case 9:
-                return 'October';
-                break;
-            case 10:
-                return 'November';
-                break;
-            case 11:
-                return 'December';
-                break;
-            default :
-                break;
-        }
+        return time.getMonthNameByIndex(day);
     }
 
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth())  + ', ' +  new Date(classInfo.end_time).getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ?  dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ?  dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classInfo.end_time).getFullYear();
+        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
+            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
             + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() ) ;
+            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
         classInfo.companions = classInfo.companions.split(',')[0];
 
         return classInfo;
     }
 
-    validateForm(){
+    validateForm() {
         return [{
             class_id: this.state.class_id,
             from_user_id: this.state.userId,
@@ -171,15 +107,15 @@ class classEvaluation extends Component {
         }];
     }
 
-    async submitEvaluation(){
+    async submitEvaluation() {
         try {
-            if(!(!this.state.stars || !this.state.evaluation_content)){
+            if (!(!this.state.stars || !this.state.evaluation_content)) {
                 document.getElementById('loadingModal').style.display = 'block';
 
                 //post data
                 let evaluationData = this.validateForm();
 
-                let response = await ServiceProxy.proxyTo({
+                await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.userId}/evaluate/${this.state.to_user_id}`,
                         json: evaluationData,
@@ -190,11 +126,11 @@ class classEvaluation extends Component {
                 this.setState({evaluation_status: true});
             }
         }
-        catch (ex){
-            console.log('post evaluation data err:' +ex.toString());
+        catch (ex) {
+            console.log('post evaluation data err:' + ex.toString());
         }
         finally {
-            if(document.getElementById('loadingModal')){
+            if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
         }
@@ -226,18 +162,18 @@ class classEvaluation extends Component {
             console.log(feed_back);
             console.log(typeof feed_back);
 
-            if(feed_back.length && feed_back[0].comment && feed_back[0].score){
+            if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
                 //set state
                 this.setState({
                     class_info: class_info,
                     companion_name: class_info.companion_name || '',
                     companion_avatar: class_info.companion_avatar || '',
                     stars: parseFloat(feed_back[0].score),
-                    evaluation_content:  feed_back[0].comment,
+                    evaluation_content: feed_back[0].comment,
                     evaluation_status: true,
                     userId: userId
                 });
-            }else{
+            } else {
                 //set state
                 this.setState({
                     class_info: class_info,
@@ -248,10 +184,10 @@ class classEvaluation extends Component {
             }
         } catch (ex) {
             //login error
-            console.log("evaluation:" +ex.toString());
+            console.log("evaluation:" + ex.toString());
         }
         finally {
-            if(document.getElementById('loadingModal')){
+            if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
         }
@@ -292,14 +228,25 @@ class classEvaluation extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-practice" id="evaluation" style={{backgroundColor: 'white', position: 'relative'}}>
+                <div className="class-detail-practice" id="evaluation"
+                     style={{backgroundColor: 'white', position: 'relative'}}>
                     <div className="evaluation-stars">
                         <div className="img-stars">
-                            <img src={ this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="1" />
-                            <img src={ this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="2"  />
-                            <img src={ this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="3" />
-                            <img src={ this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="4" />
-                            <img src={ this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"} onClick={this.changeStars} name="5" />
+                            <img
+                                src={this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                onClick={this.changeStars} name="1" alt="star"/>
+                            <img
+                                src={this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                onClick={this.changeStars} name="2" alt="star"/>
+                            <img
+                                src={this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                onClick={this.changeStars} name="3" alt="star"/>
+                            <img
+                                src={this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                onClick={this.changeStars} name="4" alt="star"/>
+                            <img
+                                src={this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                onClick={this.changeStars} name="5" alt="star"/>
                         </div>
                         <div className="stars-word">
                             <p>{this.state.stars === 1 ? '非常差' : (this.state.stars === 2 ? '不满意' : (this.state.stars === 3 ? '一般' : (this.state.stars === 4 ? '比较满意' : (this.state.stars === 5 ? '非常棒' : '请选择'))))}</p>
@@ -308,38 +255,48 @@ class classEvaluation extends Component {
                     {
                         0 === 1 ?
                             (
-                                <div className="evaluation-list" style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <a className={ this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
+                                <div className="evaluation-list"
+                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                                    <a className={this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
                                        name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
-                                    <a className={ this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
+                                    <a className={this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
                                        name="b" onClick={this.evaluationItemsChange}>语速太快听不懂</a>
-                                    <a className={ this.state.evaluation_items.indexOf('c') > -1 ? "evaluation-item-active" : "evaluation-item"}
+                                    <a className={this.state.evaluation_items.indexOf('c') > -1 ? "evaluation-item-active" : "evaluation-item"}
                                        name="c" onClick={this.evaluationItemsChange}>有本土化发音</a>
-                                    <a className={ this.state.evaluation_items.indexOf('d') > -1 ? "evaluation-item-active" : "evaluation-item"}
+                                    <a className={this.state.evaluation_items.indexOf('d') > -1 ? "evaluation-item-active" : "evaluation-item"}
                                        name="d" onClick={this.evaluationItemsChange}>我不喜欢他/她</a>
                                 </div>
                             ) :
                             (
-                                <div className="evaluation-title"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                   <p>对该学生评价</p>
+                                <div className="evaluation-title"
+                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                                    <p>对该学生评价</p>
                                 </div>
                             )
                     }
-                    <div className="evaluation-input"  style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                    <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
                                         <TextArea autoHeight placeholder='对课程的任何建议' rows={5} maxLength="200"
-                                                  value={this.state.evaluation_content} onChange={(event, data) => this.evaluationContentChange(event, data)} />
+                                                  value={this.state.evaluation_content}
+                                                  onChange={(event, data) => this.evaluationContentChange(event, data)}/>
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
                         </Form>
                     </div>
-                    <div className="evaluation-submit"  style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
-                        <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {color: 'rgb(255, 255, 255)',
-                                background: 'rgb(223, 223, 228)'} : {color: 'white',
-                                background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'}}
-                            onClick={this.submitEvaluation}
-                        >完成</div>
+                    <div className="evaluation-submit"
+                         style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
+                        <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {
+                            color: 'rgb(255, 255, 255)',
+                            background: 'rgb(223, 223, 228)'
+                        } : {
+                            color: 'white',
+                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'
+                        }}
+                             onClick={this.submitEvaluation}
+                        >完成
+                        </div>
                     </div>
-                    <div className="evaluation-result-show"  style={!this.state.evaluation_status ? {display: 'none'} : {}}>
+                    <div className="evaluation-result-show"
+                         style={!this.state.evaluation_status ? {display: 'none'} : {}}>
                         <p className="result-title">对该学生评价</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>

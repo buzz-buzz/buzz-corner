@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
-import { browserHistory } from 'react-router';
-import CurrentUser from "../membership/user";
-import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
 import Developing from '../developing';
 import './index.css';
@@ -19,20 +15,20 @@ class Friends extends Component {
         this.friendTypeTwo = this.friendTypeTwo.bind(this);
     }
 
-    friendTypeOne(){
+    friendTypeOne() {
         let type = this.state.friends_type;
 
-        if(type !== 1){
+        if (type !== 1) {
             this.setState({
                 friends_type: 1
             });
         }
     }
 
-    friendTypeTwo(){
+    friendTypeTwo() {
         let type = this.state.friends_type;
 
-        if(type !== 2){
+        if (type !== 2) {
             this.setState({
                 friends_type: 2
             });
@@ -50,7 +46,7 @@ class Friends extends Component {
                 <div className="header-without-go-back">
                     <div className="logo-without-back">
                         <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz Logo"/>
                         </div>
                     </div>
                 </div>
@@ -65,7 +61,7 @@ class Friends extends Component {
                 <div className="friends-content">
                     <Developing />
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }

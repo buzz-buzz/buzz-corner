@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -98,9 +97,9 @@ class ClassLessons extends Component {
                         {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {
-                                return <a key={index} href={item.youzan_url} >
+                                return <a key={index} href={item.youzan_url}>
                                     <div className="class-lesson-img">
-                                        <img src={item.img_url} alt="" />
+                                        <img src={item.img_url} alt=""/>
                                     </div>
                                     <div className="class-lesson-info">
                                         <div className="lessons-title">{item.title}</div>

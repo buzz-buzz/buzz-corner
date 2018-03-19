@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import {Icon} from 'semantic-ui-react';
-import { browserHistory } from 'react-router';
-import CurrentUser from "../membership/user";
-import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
 import './index.css';
 
@@ -10,7 +6,7 @@ class Reward extends Component {
     constructor() {
         super();
 
-
+        this.state = {};
     }
 
     async componentDidMount() {
@@ -23,7 +19,7 @@ class Reward extends Component {
                 <div className="header-with-go-back">
                     <div className="logo-without-back">
                         <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png"/>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz logo"/>
                         </div>
                     </div>
                 </div>
@@ -55,11 +51,11 @@ class Reward extends Component {
                 <div className="miles">
                     <div className="title">BuzzBuzz Miles</div>
                     <div className="buzz-miles">
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Bitmap.png"/>
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Bitmap.png" alt="Buzzbuzz"/>
                         <span>0</span>
                     </div>
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }

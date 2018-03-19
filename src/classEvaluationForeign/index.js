@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Form, Button, Segment, TextArea} from 'semantic-ui-react';
-import {browserHistory} from 'react-router';
+import {Segment} from 'semantic-ui-react';
+import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
-import {Link} from "react-router";
 import './index.css';
+import * as timeHelper from "../common/timeHelper";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -33,82 +33,19 @@ class classEvaluationForeign extends Component {
     }
 
     transformDay(day) {
-        switch (day) {
-            case 1:
-                return 'Monday';
-                break;
-            case 2:
-                return 'Tuesday';
-                break;
-            case 3:
-                return 'Wednesday';
-                break;
-            case 4:
-                return 'Thursday';
-                break;
-            case 5:
-                return 'Friday';
-                break;
-            case 6:
-                return 'Saturday';
-                break;
-            case 0:
-                return 'Sunday';
-                break;
-            default :
-                break;
-        }
+        return timeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(month) {
-        switch (month) {
-            case 0:
-                return 'January';
-                break;
-            case 1:
-                return 'February';
-                break;
-            case 2:
-                return 'March';
-                break;
-            case 3:
-                return 'April';
-                break;
-            case 4:
-                return 'May';
-                break;
-            case 5:
-                return 'June';
-                break;
-            case 6:
-                return 'July';
-                break;
-            case 7:
-                return 'August';
-                break;
-            case 8:
-                return 'September';
-                break;
-            case 9:
-                return 'October';
-                break;
-            case 10:
-                return 'November';
-                break;
-            case 11:
-                return 'December';
-                break;
-            default :
-                break;
-        }
+        return timeHelper.getMonthNameByIndex(month);
     }
 
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth())  + ', ' +  new Date(classInfo.end_time).getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ?  dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ?  dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classInfo.end_time).getFullYear();
+        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
+            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
             + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
             + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
         classInfo.companions = classInfo.companions.split(',')[0];
@@ -138,13 +75,13 @@ class classEvaluationForeign extends Component {
                 class_info: class_info
             });
 
-            if(document.getElementById('loadingModal')){
+            if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
         } catch (ex) {
             //login error
-            console.log("evaluation:" +ex.toString());
-            if(document.getElementById('loadingModal')){
+            console.log("evaluation:" + ex.toString());
+            if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
         }
@@ -173,7 +110,10 @@ class classEvaluationForeign extends Component {
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
-                               style={{fontWeight: 'bold', fontSize: '1.2em'}}>{this.state.class_info.companion_name || "Buzz"}</p>
+                               style={{
+                                   fontWeight: 'bold',
+                                   fontSize: '1.2em'
+                               }}>{this.state.class_info.companion_name || "Buzz"}</p>
                             <p className="class-topic" style={{
                                 color: '#f7b52a',
                                 margin: '.3em 0'
@@ -192,18 +132,28 @@ class classEvaluationForeign extends Component {
                     <div className="chinese-student-evaluation-list">
                         <Link to='/home'>
                             <div className="evaluation-avatar">
-                                <img src="//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"/>
+                                <img src="//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd" alt="Avatar"/>
                             </div>
                             <div className="evaluation-content-show">
                                 <div className="chinese-name">Advisor</div>
                                 <div className="evaluation-result">
                                     <p>评价: </p>
                                     <div className="result-stars">
-                                        <img src={ this.state.stars >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="1" />
-                                        <img src={ this.state.stars >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="2"  />
-                                        <img src={ this.state.stars >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="3" />
-                                        <img src={ this.state.stars >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="4" />
-                                        <img src={ this.state.stars >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} onClick={this.changeStars} name="5" />
+                                        <img
+                                            src={this.state.stars >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                            onClick={this.changeStars} name="1" alt="star"/>
+                                        <img
+                                            src={this.state.stars >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                            onClick={this.changeStars} name="2" alt="star"/>
+                                        <img
+                                            src={this.state.stars >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                            onClick={this.changeStars} name="3" alt="star"/>
+                                        <img
+                                            src={this.state.stars >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                            onClick={this.changeStars} name="4" alt="star"/>
+                                        <img
+                                            src={this.state.stars >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                            onClick={this.changeStars} name="5" alt="star"/>
                                     </div>
                                 </div>
                             </div>

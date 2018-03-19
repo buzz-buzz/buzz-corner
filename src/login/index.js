@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Icon} from "semantic-ui-react";
+import {Container, Icon} from "semantic-ui-react";
 import {Link} from "react-router";
 
 export default class Login extends React.Component {

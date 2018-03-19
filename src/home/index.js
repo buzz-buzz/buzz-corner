@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Form, Button, Icon, Segment} from 'semantic-ui-react';
-import {Link} from "react-router";
-import {browserHistory} from 'react-router';
+import {Button, Form, Segment} from 'semantic-ui-react';
+import {browserHistory, Link} from "react-router";
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome/index';
 import './index.css';
+import * as timeHelper from "../common/timeHelper";
 
 class Home extends Component {
     constructor() {
@@ -89,74 +89,11 @@ class Home extends Component {
     }
 
     transformDay(day) {
-        switch (day) {
-            case 1:
-                return 'Monday';
-                break;
-            case 2:
-                return 'Tuesday';
-                break;
-            case 3:
-                return 'Wednesday';
-                break;
-            case 4:
-                return 'Thursday';
-                break;
-            case 5:
-                return 'Friday';
-                break;
-            case 6:
-                return 'Saturday';
-                break;
-            case 0:
-                return 'Sunday';
-                break;
-            default :
-                break;
-        }
+        return timeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(day) {
-        switch (day) {
-            case 0:
-                return 'January';
-                break;
-            case 1:
-                return 'February';
-                break;
-            case 2:
-                return 'March';
-                break;
-            case 3:
-                return 'April';
-                break;
-            case 4:
-                return 'May';
-                break;
-            case 5:
-                return 'June';
-                break;
-            case 6:
-                return 'July';
-                break;
-            case 7:
-                return 'August';
-                break;
-            case 8:
-                return 'September';
-                break;
-            case 9:
-                return 'October';
-                break;
-            case 10:
-                return 'November';
-                break;
-            case 11:
-                return 'December';
-                break;
-            default :
-                break;
-        }
+        return timeHelper.getMonthNameByIndex(day);
     }
 
     handleClassListData(classList) {
@@ -175,7 +112,7 @@ class Home extends Component {
                     + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
 
                 classList[i].class_status_show_style = leftDays >= 1 ? 'rgb(0, 216, 90)' : (dateClone - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
-                classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0  ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ?  '已开始' : '已结束' ));
+                classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0 ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ? '已开始' : '已结束' ));
             }
         }
 
@@ -187,7 +124,7 @@ class Home extends Component {
 
         let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
 
-        return parseInt((theDate - nowDate) / (1000 * 3600 * 24));
+        return Number((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
     async componentDidMount() {
@@ -226,23 +163,25 @@ class Home extends Component {
                 if (item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: '课程结束了，给课程\"' + (item.topic || item.name || 'No topic') + '\"来一个评价吧。',
+                        message_content: '课程结束了，给课程"' + (item.topic || item.name || 'No topic') + '"来一个评价吧。',
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                         hasRead: ''
                     });
-                }else if(item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score){
+                } else if (item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: '已完成课程\"' + (item.topic || item.name || 'No topic') + '\"的评价，点击查看。',
+                        message_content: '已完成课程"' + (item.topic || item.name || 'No topic') + '"的评价，点击查看。',
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                         hasRead: 'read'
                     });
                 }
+
+                return item;
             });
 
-            let messageCheck = clonedMessageFromAdvisor.filter(function(item){
+            let messageCheck = clonedMessageFromAdvisor.filter(function (item) {
                 return item.hasRead !== 'read';
             });
 
@@ -268,7 +207,7 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
-                <Welcome />
+                <Welcome/>
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
@@ -403,7 +342,7 @@ class Home extends Component {
                     </Form.Group>
                 </div>
                 <div className="offset-footer"></div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }
