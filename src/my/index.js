@@ -361,6 +361,9 @@ class Homepage extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
+            if (document.getElementById('loadingModal')) {
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     }
 
@@ -407,9 +410,7 @@ class Homepage extends Component {
         }
         catch (ex) {
             console.log(ex.toString());
-            alert('未登录,即将跳转...');
-            browserHistory.push('/');
-
+            //browserHistory.push('/');
         }
     }
 
