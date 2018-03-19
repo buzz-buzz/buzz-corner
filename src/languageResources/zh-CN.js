@@ -22,6 +22,27 @@ export const homeTabMessage = '消息通知';
 export const homeTabFriends = '伙伴';
 export const homeTabAdvisor = '助教';
 
+export const bookingBtnText = '预约';
+export const bookingNoItemText1 = '你还没开始预约课程';
+export const bookingNoItemText2 = '马上开始预约吧';
+export const bookingNoItemText3 = '与全球伙伴用英文交流';
+export const bookingNoMessage = '你还没有收到消息哦';
+export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
+export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
+export const bookingPlacementInfoTitle = '建立能力档案';
+export const bookingPlacementInfoContent = '请建立能力档案，完成后可以为你安排更合适的课程。';
+
+export const friendsTabChinese = '中方';
+export const friendsTabForeign = '外籍';
+
+export const rewardTitle = '我的徽章';
+export const rewardRedStone = '红';
+export const rewardYellowStone = '黄';
+export const rewardBlueStone = '蓝';
+export const rewardDiamond = '钻';
+export const rewardMiles = 'BuzzBuzz积分';
+export const rewardRules = '查看获取规则';
+
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';

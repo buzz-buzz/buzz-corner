@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Resources from '../resources';
 import Footer from '../layout/footer';
 import Developing from '../developing';
 import './index.css';
@@ -52,10 +53,10 @@ class Friends extends Component {
                 </div>
                 <div className="friends-tab">
                     <div onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
-                        <span>外籍</span>
+                        <span>{Resources.getInstance().friendsTabForeign}</span>
                     </div>
                     <div onClick={this.friendTypeTwo} style={this.state.friends_type === 2 ? {color: '#f7b52a'} : {}}>
-                        <span>中方</span>
+                        <span>{Resources.getInstance().friendsTabChinese}</span>
                     </div>
                 </div>
                 <div className="friends-content">

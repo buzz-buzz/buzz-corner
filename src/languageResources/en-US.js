@@ -7,7 +7,7 @@ export const welcomePageChineseChild = 'Practice';
 export const welcomePageForeignChild = 'Companion';
 export const welcomePageBtnWord = 'How does this work?';
 
-export const developWord = 'developing，please wait...';
+export const developWord = 'developing, please wait...';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
@@ -15,12 +15,33 @@ export const loginByWechatIntroduction = 'Become fluent in English by talking to
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
 export const footerReward = 'Reward';
-export const footerUser = 'User';
+export const footerUser = 'My';
 
 export const homeTabBooking = 'Booking';
 export const homeTabMessage = 'Message';
 export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
+
+export const bookingBtnText = 'booking';
+export const bookingNoItemText1 = 'you have\'t any booking yet,';
+export const bookingNoItemText2 = 'booking right now,';
+export const bookingNoItemText3 = 'talking with chinese student.';
+export const bookingNoMessage = 'No message';
+export const bookingFeedbackNotice = 'Finish the feedback for ';
+export const bookingFeedbackInfo = 'Finished the feedback for ';
+export const bookingPlacementInfoTitle = 'Placement test';
+export const bookingPlacementInfoContent = 'Finish the test for free';
+
+export const friendsTabChinese = 'chinese';
+export const friendsTabForeign = 'foreign';
+
+export const rewardTitle = 'My badge';
+export const rewardRedStone = 'Red';
+export const rewardYellowStone = 'Yellow';
+export const rewardBlueStone = 'Blue';
+export const rewardDiamond = 'Diamond';
+export const rewardMiles = 'BuzzBuzz miles';
+export const rewardRules = 'See the rules';
 
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
