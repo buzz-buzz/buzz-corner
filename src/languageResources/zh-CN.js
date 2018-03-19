@@ -7,8 +7,20 @@ export const welcomePageChineseChild = '中国少年';
 export const welcomePageForeignChild = '外籍学伴';
 export const welcomePageBtnWord = '看其他伙伴是怎样互动的?';
 
+export const developWord = '功能开发中, 敬请期待...';
+
 export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利地与全球各地英语母语的小伙伴交流	';
+
+export const footerHome = '主页';
+export const footerFriends = '好友';
+export const footerReward = '奖励';
+export const footerUser = '我的';
+
+export const homeTabBooking = '课程预约';
+export const homeTabMessage = '消息通知';
+export const homeTabFriends = '伙伴';
+export const homeTabAdvisor = '助教';
 
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';

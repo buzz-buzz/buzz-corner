@@ -52,12 +52,12 @@
 }
 
 .modal>.content > div > div.begin > div{
-    height: 4em;
+    height: 3em;
     width: 80%;
     color: white;
     background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
     letter-spacing: 1px;
-    border-radius: 2em;
+    border-radius: 1.5em;
     display: flex;
     justify-content: center;
     align-items: center;

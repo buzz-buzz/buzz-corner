@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import Resources from '../../../resources';
-import {Modal} from 'semantic-ui-react';
+import {browserHistory} from 'react-router';
 import './index.css';
 
 class ModalWelcome extends Component {
@@ -25,6 +25,13 @@ class ModalWelcome extends Component {
         };
 
         this.closeWelcome = this.closeWelcome.bind(this);
+        this.signUp = this.signUp.bind(this);
+    }
+
+    signUp() {
+        this.setCookie("homepage", "1");
+
+        browserHistory.push('/consult');
     }
 
     closeWelcome(){
@@ -60,7 +67,7 @@ class ModalWelcome extends Component {
                            <p>结识外籍伙伴</p>
                        </div>
                        <div className="begin">
-                           <div onClick={this.closeWelcome}>
+                           <div onClick={this.signUp}>
                                <p>开始预定课程</p>
                            </div>
                        </div>

@@ -4,6 +4,7 @@ import {Link} from "react-router";
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import Resources from '../resources';
 import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome/index';
 import './index.css';
@@ -275,7 +276,7 @@ class Home extends Component {
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
-                        <span>课程预约</span>
+                        <span>{Resources.getInstance().homeTabBooking}</span>
                         <div className="tab-active"
                              style={this.state.tab === 'booking' ? {border: '1px solid #f7b52a'} : {}}></div>
                     </div>
@@ -285,7 +286,7 @@ class Home extends Component {
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
-                        <span>消息通知</span>
+                        <span>{Resources.getInstance().homeTabMessage}</span>
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {border: '1px solid #f7b52a'} : {}}></div>
                         <div className="message-red-circle"
@@ -347,24 +348,18 @@ class Home extends Component {
                                     <p>与全球伙伴用英文交流</p>
                                 </div>
                             </div>)}
-                        <div className="booking-btn">
-                            <Form.Group widths='equal'>
-                                <Form.Field control={Button} onClick={this.signUp}
-                                            content='预约'/>
-                            </Form.Group>
-                        </div>
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
                             <div
                                 className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'}
                                 onClick={this.messageTabChangeFriends}>
-                                <p>伙伴</p>
+                                <p>{Resources.getInstance().homeTabFriends}</p>
                             </div>
                             <div
                                 className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'}
                                 onClick={this.messageTabChangeAdvisor}>
-                                <p>{'助教' + (this.state.messageFromAdvisor.length > 0 ? '(' + this.state.messageFromAdvisor.length + ')' : '')}</p>
+                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.length > 0 ? '(' + this.state.messageFromAdvisor.length + ')' : '')}</p>
                                 <div className="message-red-circle"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
@@ -401,6 +396,12 @@ class Home extends Component {
                         }
                     </div>)
                 }
+                <div className="booking-btn">
+                    <Form.Group widths='equal'>
+                        <Form.Field control={Button} onClick={this.signUp}
+                                    content='预约'/>
+                    </Form.Group>
+                </div>
                 <div className="offset-footer"></div>
                 <Footer />
             </div>
