@@ -12,6 +12,16 @@ export const developWord = 'developing，please wait...';
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
 
+export const footerHome = 'Home';
+export const footerFriends = 'Friends';
+export const footerReward = 'Reward';
+export const footerUser = 'User';
+
+export const homeTabBooking = 'Booking';
+export const homeTabMessage = 'Message';
+export const homeTabFriends = 'Friends';
+export const homeTabAdvisor = 'Advisor';
+
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
 export const homeAvatar = 'contact information';

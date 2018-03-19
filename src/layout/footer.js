@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Icon} from "semantic-ui-react";
-import { browserHistory } from 'react-router';
+import Resources from '../resources';
 import {Link} from "react-router";
 import './footer.css';
 
@@ -37,26 +36,26 @@ class Footer extends Component {
                 <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
                     <img src={ this.state.url.indexOf('/home') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_home_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_home.png"} alt=""/>
                     <p>
-                        主页
+                        {Resources.getInstance().footerHome}
                     </p>
                 </Link>
                 <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
                     <img src={ this.state.url.indexOf('/friends') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_Friend_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_Friend.png"} alt=""/>
                     <p>
-                        好友
+                        {Resources.getInstance().footerFriends}
                     </p>
                 </Link>
                 <Link to="reward"  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                     <img src={ this.state.url.indexOf('/reward') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_Reward_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_Reward.png"} alt=""/>
                     <p>
-                        奖励
+                        {Resources.getInstance().footerReward}
                     </p>
                 </Link>
 
                 <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}} >
                     <img src={ this.state.url.indexOf('/user') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_user_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_user.png"} alt=""/>
                     <p>
-                        我的
+                        {Resources.getInstance().footerUser}
                     </p>
                 </Link>
             </div>

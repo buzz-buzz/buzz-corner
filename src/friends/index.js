@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Footer from '../layout/footer';
+import Developing from '../developing';
 import './index.css';
 
 class Friends extends Component {
@@ -62,7 +63,7 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <span style={{color: '#aaa'}}>你还没有好友哦</span>
+                    <Developing />
                 </div>
                 <Footer />
             </div>
