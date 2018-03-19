@@ -7,6 +7,8 @@ export const welcomePageChineseChild = '中国少年';
 export const welcomePageForeignChild = '外籍学伴';
 export const welcomePageBtnWord = '看其他伙伴是怎样互动的?';
 
+export const developWord = '功能开发中，敬请期待...';
+
 export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利地与全球各地英语母语的小伙伴交流	';
 

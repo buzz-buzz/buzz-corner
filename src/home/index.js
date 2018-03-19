@@ -347,12 +347,6 @@ class Home extends Component {
                                     <p>与全球伙伴用英文交流</p>
                                 </div>
                             </div>)}
-                        <div className="booking-btn">
-                            <Form.Group widths='equal'>
-                                <Form.Field control={Button} onClick={this.signUp}
-                                            content='预约'/>
-                            </Form.Group>
-                        </div>
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
@@ -401,6 +395,12 @@ class Home extends Component {
                         }
                     </div>)
                 }
+                <div className="booking-btn">
+                    <Form.Group widths='equal'>
+                        <Form.Field control={Button} onClick={this.signUp}
+                                    content='预约'/>
+                    </Form.Group>
+                </div>
                 <div className="offset-footer"></div>
                 <Footer />
             </div>

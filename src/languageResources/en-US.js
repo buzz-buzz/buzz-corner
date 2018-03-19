@@ -3,11 +3,13 @@ export const header = 'Welcome to Buzzbuzz English Corner';
 export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
 export const welcomePageIntroductionLineTwo = 'Don\'t ever waste it!';
 export const welcomePageIntroductionLineThr = 'Connect English and Chinese speaking teens in a virtual language exchange space.';
-export const welcomePageChineseChild = 'Companion';
-export const welcomePageForeignChild = 'Practice';
+export const welcomePageChineseChild = 'Practice';
+export const welcomePageForeignChild = 'Companion';
 export const welcomePageBtnWord = 'How does this work?';
 
-export const loginByWechatInfo = '微SIGN IN WITH WECHAT';
+export const developWord = 'developing，please wait...';
+
+export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
 
 export const homeLogin = 'login';
