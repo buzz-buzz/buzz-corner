@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Resources from '../resources';
 import './index.css';
 
 class Consult extends Component {
@@ -26,12 +27,12 @@ class Consult extends Component {
                         <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
                     </div>
                     <div className="consult-word">
-                        <p>我是你的专属课程顾问</p>
-                        <p>请通过如下方式和我联系</p>
+                        <p>{Resources.getInstance().advisorInfo1}</p>
+                        <p>{Resources.getInstance().advisorInfo2}</p>
                     </div>
                     <div className="consult-QR-code">
                         <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher-qr-code.jpeg" alt=""/>
-                        <p>扫描二维码联系"BuzzBuzz导师"</p>
+                        <p>{Resources.getInstance().advisorInfo3}</p>
                     </div>
                 </div>
             </div>

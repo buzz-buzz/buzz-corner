@@ -85,7 +85,7 @@ class Homepage extends Component {
                 grade: '',
                 topics: []
             },
-            profile_title: '仅用于课程学习相关通知与服务',
+            profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
             placement_topics: [
                 {
@@ -307,7 +307,7 @@ class Homepage extends Component {
 
             if (this.state.step < 3) {
                 let newStep = this.state.step + 1;
-                let newTitle = newStep === 2 ? '用于平台中呈现少年的基本资料' : '用于匹配最优话题小组';
+                let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
                 this.setState({
                     step: newStep,
                     profile_title: newTitle
@@ -341,7 +341,7 @@ class Homepage extends Component {
                         browserHistory.push('/home');
                     } else {
                         let newStep = this.state.step + 1;
-                        let newTitle = '建立少年的语言档案';
+                        let newTitle = Resources.getInstance().profileStep4Info;
                         this.setState({
                             step: newStep,
                             profile_title: newTitle
@@ -461,28 +461,28 @@ class Homepage extends Component {
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>联系方式</p>
+                        <p>{Resources.getInstance().profileStep1}</p>
                     </div>
                     <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>少年信息</p>
+                        <p>{Resources.getInstance().profileStep2}</p>
                     </div>
                     <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>兴趣爱好</p>
+                        <p>{Resources.getInstance().profileStep3}</p>
                     </div>
                     <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ? 'active' : '' )}>
                         <div className="dot">
-                            <div className="line-left"></div>
+                            <div className="line-left line-left-last"></div>
                             <div className="circle"></div>
                         </div>
-                        <p>解密暗号</p>
+                        <p>{Resources.getInstance().profileStep4}</p>
                     </div>
                 </div>
                 <Form className='profile-body'>
@@ -492,34 +492,35 @@ class Homepage extends Component {
                             (
                                 <div className="form-content">
                                     <div className="parents-name">
-                                        <input type="text" placeholder='家长姓名' style={{width: '100%'}}
+                                        <input type="text" placeholder={Resources.getInstance().profileParentsName} style={{width: '100%'}}
                                                value={this.state.profile.parent_name}
                                                onChange={this.handleChange}
                                                name='parent_name'/>
                                     </div>
                                     <div className="phone-number">
-                                        <Button>中国(+86)</Button>
+                                        <Button>{Resources.getInstance().profilePhoneInfo}</Button>
                                         <input type="number" style={{width: '60%'}}
                                                value={this.state.profile.phone}
+                                               placeholder={Resources.getInstance().profilePhoneHolder}
                                                onChange={this.handleChange}
                                                name='phone'/>
                                     </div>
                                     <div className="check-number">
                                         <input type="text" style={{width: '60%'}}/>
-                                        <Button>获取验证码</Button>
+                                        <Button>{Resources.getInstance().profilePhoneCheck}</Button>
                                     </div>
                                     <div className="agreement" onClick={this.agreementCheck}>
                                         <img
                                             src={this.state.agreement === true ? "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" : "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select.png"}
                                             alt=""/>
-                                        <span>我已接受并遵守BuzzBuzz的相关用户协议与条款</span>
+                                        <span>{Resources.getInstance().profileAgreement}</span>
                                     </div>
                                 </div>
                             ) : (
                                 this.state.step === 2 ? (
                                     <div className="form-content">
                                         <div className="parents-name">
-                                            <input type="text" placeholder='少年英文名' style={{width: '100%'}}
+                                            <input type="text" placeholder={Resources.getInstance().profileChildName} style={{width: '100%'}}
                                                    value={this.state.profile.student_en_name}
                                                    onChange={this.handleChange}
                                                    name='student_en_name'/>
@@ -533,7 +534,7 @@ class Homepage extends Component {
                                                         alt=""/>
                                                 </div>
                                                 <span
-                                                    style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>男</span>
+                                                    style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileMale}</span>
                                             </div>
                                             <div className="female" onClick={this.changeGenderFemale}>
                                                 <div
@@ -543,7 +544,7 @@ class Homepage extends Component {
                                                         alt=""/>
                                                 </div>
                                                 <span
-                                                    style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>女</span>
+                                                    style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileFemale}</span>
                                             </div>
                                         </div>
                                         <Form.Group widths='equal' className="position-relative">
@@ -552,19 +553,19 @@ class Homepage extends Component {
                                                 value={this.state.profile.date_of_birth} type="date"
                                                 onChange={this.handleChange} name='date_of_birth'/>
                                             <div className="field birthday-label">
-                                                <input type="text" placeholder='生日' style={{width: '100%'}}
+                                                <input type="text" placeholder={Resources.getInstance().profileBirth} style={{width: '100%'}}
                                                        value={this.state.birthdayLabel || ''}
                                                        onChange={this.handleChangeBirthdayLabel}
                                                        name='birthdayLabel'/>
                                             </div>
                                         </Form.Group>
                                         <div className="selection-options">
-                                            <Dropdown placeholder='城市' search selection noResultsMessage="没有这个城市哦"
+                                            <Dropdown placeholder={Resources.getInstance().profileCity} search selection noResultsMessage="没有这个城市哦"
                                                       onChange={(event, data) => {
                                                           this.handleCityChange(event, data)
                                                       }} value={this.state.profile.city}
                                                       options={city_list}/>
-                                            <Dropdown placeholder='年级' search selection noResultsMessage="例如: 六年级"
+                                            <Dropdown placeholder={Resources.getInstance().profileGrade} search selection noResultsMessage="例如: 六年级"
                                                       onChange={(event, data) => {
                                                           this.handleGradeChange(event, data)
                                                       }} value={this.state.profile.grade}
@@ -574,7 +575,7 @@ class Homepage extends Component {
                                 ) : (
                                     this.state.step === 3 ?
                                         (<div className='topic form-content'>
-                                            <p>兴趣爱好</p>
+                                            <p>{Resources.getInstance().profileStep3}</p>
                                             <div className="topic-items">
                                                 {
                                                     this.state.placement_topics.map((item, index) => {
@@ -593,7 +594,7 @@ class Homepage extends Component {
                                         </div>) :
                                         (
                                             <div className="form-content">
-                                                <h4>优先匹配最合适的<span style={{color: '#f7b52a'}}>外籍伙伴</span></h4>
+                                                <h4>{Resources.getInstance().profileStep4InfoWord1}<span style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span></h4>
                                                 <img className="profile-done-img"
                                                      src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
                                                      alt=""/>
@@ -603,7 +604,7 @@ class Homepage extends Component {
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={this.state.step < 4 ? '继续' : '完成'}
+                        <Form.Field control={Button} content={this.state.step < 4 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
                                     disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
                                     style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
                                         margin: '2em auto .5em auto',
@@ -629,7 +630,7 @@ class Homepage extends Component {
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
-                            <div className="skip" onClick={this.skipPlacement}>跳过, 稍后完成</div>
+                            <div className="skip" onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
                         ) : ('')
                     }
                 </Form>

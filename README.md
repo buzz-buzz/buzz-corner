@@ -38,3 +38,9 @@ npm test
 npm run server-test
 npm run coverage
 ```
+
+发布：
+```
+git pull
+npm run deploy
+```

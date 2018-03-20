@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts build\" \"node app.js\"",
-    "client": "set PORT=80&&react-app-rewired start",
+    "client": "react-scripts start",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
     "build": "node node_modules/react-scripts/bin/react-scripts.js build",
@@ -38,7 +38,8 @@
     "client-test": "react-scripts test --env=jsdom",
     "server-test": "set PORT=22222&&node_modules\\react-scripts\\node_modules\\.bin\\jest --env=jsdom test\\\\.+\\.test\\.js",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm install && npm run build && gulp cdn"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

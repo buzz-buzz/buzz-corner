@@ -47,6 +47,55 @@ export const myCoins = 'My Coins';
 export const myLanguage = 'Language';
 export const classLessons = 'coins left';
 
+export const profileStep1 = 'Contact Information';
+export const profileStep1Info = 'For session information and our service';
+export const profileParentsName = 'parent\'s name';
+export const profilePhoneInfo = 'China(+86)';
+export const profilePhoneHolder = 'phone number';
+export const profilePhoneCheck = 'Verification Code';
+export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
+export const profileStep2 = 'personal information';
+export const profileStep2Info = 'Archive user information';
+export const profileChildName = 'english name';
+export const profileMale = 'Boy';
+export const profileFemale = 'Girl';
+export const profileBirth = 'Birthday';
+export const profileCityNow = 'City';
+export const profileGrade = 'Grade';
+export const profileStep3 = 'Hobbies';
+export const profileStep3Info = 'For marching themed conversion';
+export const profileContinue = 'Continue';
+export const profileDone = 'Well done';
+export const profileSkipNow = 'Skip this step';
+export const profileStep4 = 'placement test';
+export const profileStep4Info = 'Build child\'s language system';
+export const profileStep4InfoWord1 = 'Matching suitable';
+export const profileStep4InfoWordBold = ' Companion';
+
+export const placementSelectWord = 'Select the best one';
+
+export const classEvaluationStarsStatus0 = 'Please select';
+export const classEvaluationStarsStatus1 = 'Bad';
+export const classEvaluationStarsStatus2 = 'Not good';
+export const classEvaluationStarsStatus3 = 'Common';
+export const classEvaluationStarsStatus4 = 'Cool';
+export const classEvaluationStarsStatus5 = 'Outstanding';
+export const classEvaluationUnevaluate = 'Not yet';
+export const classEvaluationEvaluate = 'Feedback for student';
+export const classEvaluationDone = 'Done';
+export const classEvaluationSuggest = 'Suggestion for class';
+
+export const advisorInfo1 = 'I am your private advisor';
+export const advisorInfo2 = 'If you need any help';
+export const advisorInfo3 = 'You can scanning the WeChat Qrcode here';
+
+export const welcomePageTitle1 = 'Welcome to';
+export const welcomePageTitle2 = 'BuzzBuzz Virtual English corner';
+export const welcomePageWord1 = 'Improve English speaking and listening';
+export const welcomePageWord2 = 'Get to know your English native speaking companion';
+export const welcomePageBooking = 'start booking';
+export const welcomePageSkip = 'skip this step';
+
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
 export const homeAvatar = 'contact information';

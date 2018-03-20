@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
+import Resources from '../../../resources';
 import './index.css';
 import Cookies from 'universal-cookie';
 
@@ -53,20 +54,20 @@ class ModalWelcome extends Component {
                 <div className="content">
                     <div>
                         <div className="welcome-title">
-                            <p>欢迎加入</p>
-                            <p>BuzzBuzz虚拟英语角</p>
+                            <p>{Resources.getInstance().welcomePageTitle1}</p>
+                            <p>{Resources.getInstance().welcomePageTitle2}</p>
                         </div>
                         <div className="welcome-info">
-                            <p>轻松提高英语听说</p>
-                            <p>结识外籍伙伴</p>
+                            <p>{Resources.getInstance().welcomePageWord1}</p>
+                            <p>{Resources.getInstance().welcomePageWord2}</p>
                         </div>
                         <div className="begin">
                             <div onClick={this.signUp}>
-                                <p>开始预定课程</p>
+                                <p>{Resources.getInstance().welcomePageBooking}</p>
                             </div>
                         </div>
                         <div className="skip" onClick={this.closeWelcome}>
-                            跳过, 稍后完成
+                            {Resources.getInstance().welcomePageSkip}
                         </div>
                     </div>
                 </div>

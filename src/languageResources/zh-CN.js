@@ -47,6 +47,55 @@ export const myCoins = '我的课时';
 export const myLanguage = '系统语言';
 export const classLessons = '现有课时数';
 
+export const profileStep1 = '联系方式';
+export const profileStep1Info = '仅用于课程学习相关通知与服务';
+export const profileParentsName = '家长姓名';
+export const profilePhoneInfo = '中国(+86)';
+export const profilePhoneHolder = '手机号码';
+export const profilePhoneCheck = '获取验证码';
+export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
+export const profileStep2 = '个人信息';
+export const profileStep2Info = '用于平台中呈现少年的基本资料';
+export const profileChildName = '少年英文名';
+export const profileMale = '男';
+export const profileFemale = '女';
+export const profileBirth = '生日';
+export const profileCityNow = '所在城市';
+export const profileGrade = '在读年级';
+export const profileStep3 = '兴趣爱好';
+export const profileStep3Info = '用于匹配最优话题小组';
+export const profileContinue = '继续';
+export const profileDone = '完成';
+export const profileSkipNow = '跳过, 稍后完成';
+export const profileStep4 = '解密暗号';
+export const profileStep4Info = '建立少年的语言档案';
+export const profileStep4InfoWord1 = '优先匹配最合适的';
+export const profileStep4InfoWordBold = '外籍伙伴';
+
+export const placementSelectWord = '选择最匹配的选项';
+
+export const classEvaluationStarsStatus0 = '请选择';
+export const classEvaluationStarsStatus1 = '非常差';
+export const classEvaluationStarsStatus2 = '不满意';
+export const classEvaluationStarsStatus3 = '一般';
+export const classEvaluationStarsStatus4 = '比较满意';
+export const classEvaluationStarsStatus5 = '非常棒';
+export const classEvaluationUnevaluate = '尚未评价';
+export const classEvaluationEvaluate = '对学生评价';
+export const classEvaluationDone = '完成';
+export const classEvaluationSuggest = '对课程的任何建议';
+
+export const advisorInfo1 = '我是你的专属课程顾问';
+export const advisorInfo2 = '请通过如下方式和我联系';
+export const advisorInfo3 = '扫描二维码联系"BuzzBuzz导师"';
+
+export const welcomePageTitle1 = '欢迎加入';
+export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';
+export const welcomePageWord1 = '轻松提高英语听说';
+export const welcomePageWord2 = '结识外籍伙伴';
+export const welcomePageBooking = '开始预定课程';
+export const welcomePageSkip = '跳过, 稍后完成';
+
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';
