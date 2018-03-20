@@ -1,8 +1,8 @@
 'use strict';
 
 let config_qiniu = {
-    ACCESS_KEY: 'JdoVVBo0xbN3QTHl0zwu5-oADr0j4dQS2A8uMbl6',
-    SECRET_KEY: 'fQd9WfsOrGx2gfrNTbbuc-zcKSndSx4tNJZLp9HP',
+    ACCESS_KEY: process.env.buzz_qiniu_access_key,
+    SECRET_KEY: process.env.buzz_qiniu_secret_key,
     bucket: "buzz-corner-user-resource",
     url: {
         upload_url: 'http://upload.qiniu.com/',

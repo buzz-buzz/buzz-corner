@@ -17,7 +17,7 @@ let config = {
             thirdParty: 'http://10.20.32.61:10101',
             buzzCorner: 'http://localhost:16111',
             sso: 'http://10.20.32.61:10086',
-            buzzService: 'https://buzz-corner-service.herokuapp.com',
+            buzzService: process.env.buzzService || 'https://buzz-corner-service.herokuapp.com',
             upload_qiniu: 'http://uat.hcd.com:10003'
         },
 

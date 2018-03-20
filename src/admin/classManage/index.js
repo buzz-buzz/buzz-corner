@@ -32,8 +32,11 @@ class classManage extends Component {
     async submit() {
         try {
             //To qiniu
-            let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
+            let qiniu_token = await ServiceProxy.proxyTo({
+              body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
                 method: 'GET'
+              }
             });
 
             if(!qiniu_token.uptoken){

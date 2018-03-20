@@ -31,8 +31,11 @@ export default class profileSetup extends Component {
 
     async handleAvatarChange(e) {
         try {
-            let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
+            let qiniu_token = await ServiceProxy.proxyTo({
+              body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
                 method: 'GET'
+              }
             });
 
             if (!qiniu_token.uptoken) {

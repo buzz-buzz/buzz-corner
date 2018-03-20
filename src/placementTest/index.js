@@ -158,8 +158,11 @@ class Homepage extends Component {
 
             console.log(inputFile.files[0].name);
 
-            let qiniu_token = await  ServiceProxy.proxy('/qiniu/token', {
+            let qiniu_token = await ServiceProxy.proxyTo({
+              body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
                 method: 'GET'
+              }
             });
 
             if (!qiniu_token.uptoken) {
