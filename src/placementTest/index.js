@@ -326,58 +326,58 @@ class Homepage extends Component {
                     </div>
                 </div>
                 <div className="profile-progress placement-test">
-                    <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
+                    <div className={this.state.step >= 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>1</p>
                     </div>
-                    <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ? 'active' : '' )}>
+                    <div className={this.state.step >= 2 ? 'done' : (this.state.step === 2 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>2</p>
                     </div>
-                    <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ? 'active' : '' )}>
+                    <div className={this.state.step >= 3 ? 'done' : (this.state.step === 3 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>3</p>
                     </div>
-                    <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ? 'active' : '' )}>
+                    <div className={this.state.step >= 4 ? 'done' : (this.state.step === 4 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>4</p>
                     </div>
-                    <div className={this.state.step > 5 ? 'done' : (this.state.step === 5 ? 'active' : '' )}>
+                    <div className={this.state.step >= 5 ? 'done' : (this.state.step === 5 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>5</p>
                     </div>
-                    <div className={this.state.step > 6 ? 'done' : (this.state.step === 6 ? 'active' : '' )}>
+                    <div className={this.state.step >= 6 ? 'done' : (this.state.step === 6 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>6</p>
                     </div>
-                    <div className={this.state.step > 7 ? 'done' : (this.state.step === 7 ? 'active' : '' )}>
+                    <div className={this.state.step >= 7 ? 'done' : (this.state.step === 7 ? 'active' : '' )}>
                         <div className="dot">
                             <div className="line-left"></div>
                             <div className="circle"></div>
                         </div>
                         <p>7</p>
                     </div>
-                    <div className={this.state.step > 8 ? 'done' : (this.state.step === 8 ? 'active' : '' )}>
+                    <div className={this.state.step >= 8 ? 'done' : (this.state.step === 8 ? 'active' : '' )}>
                         <div className="dot">
-                            <div className="line-left"></div>
+                            <div className="line-left line-left-last"></div>
                             <div className="circle"></div>
                         </div>
                         <p>8</p>
@@ -408,7 +408,7 @@ class Homepage extends Component {
                                     </div>
                                 </div>
                                 <div className="first-answer">
-                                    <div className="answer-title" style={{fontSize: '.8em'}}>选择最匹配的选项</div>
+                                    <div className="answer-title" style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
                                     {
                                         this.state.questions[this.state.step - 1].items.map((item, index) => {
                                             return <div className="answer-item" key={index}

@@ -25,6 +25,7 @@
 .modal>.content > div{
     display: flex;
     flex-direction: column;
+    padding: 0 1em;
 }
 
 .modal>.content > div > div.welcome-title {

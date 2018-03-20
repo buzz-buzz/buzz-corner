@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Form, Segment, TextArea} from 'semantic-ui-react';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import Resources from '../resources';
 import './index.css';
 import * as time from "../common/timeHelper";
 
@@ -249,7 +250,7 @@ class classEvaluation extends Component {
                                 onClick={this.changeStars} name="5" alt="star"/>
                         </div>
                         <div className="stars-word">
-                            <p>{this.state.stars === 1 ? '非常差' : (this.state.stars === 2 ? '不满意' : (this.state.stars === 3 ? '一般' : (this.state.stars === 4 ? '比较满意' : (this.state.stars === 5 ? '非常棒' : '请选择'))))}</p>
+                            <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
                         </div>
                     </div>
                     {
@@ -270,13 +271,13 @@ class classEvaluation extends Component {
                             (
                                 <div className="evaluation-title"
                                      style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <p>对该学生评价</p>
+                                    <p>{Resources.getInstance().classEvaluationEvaluate}</p>
                                 </div>
                             )
                     }
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
-                                        <TextArea autoHeight placeholder='对课程的任何建议' rows={5} maxLength="200"
+                                        <TextArea autoHeight placeholder={Resources.getInstance().classEvaluationSuggest} rows={5} maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
@@ -292,12 +293,12 @@ class classEvaluation extends Component {
                             background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'
                         }}
                              onClick={this.submitEvaluation}
-                        >完成
+                        >{Resources.getInstance().classEvaluationDone}
                         </div>
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <p className="result-title">对该学生评价</p>
+                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
                     <Segment loading={true} id='loadingModal' style={{
