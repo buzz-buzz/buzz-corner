@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Form, Segment} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
+import wechat from "../wechat";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import '../my/my.css';
@@ -150,6 +151,23 @@ class Homepage extends Component {
         } else {
             return false;
         }
+    }
+
+    async startRecord() {
+      await wechat.init({
+        debug: false,
+        jsApiList: ['startRecord','stopRecord','onVoiceRecordEnd','playVoice','pauseVoice','stopVoice','onVoicePlayEnd','uploadVoice','downloadVoice'],
+        url: window.location.href.split('#')[0],
+      })
+      await wechat.startRecord(async localId => {
+        const serverId = await wechat.uploadVoice(localId)
+        await wechat.updateVoice({serverId})
+      })
+    }
+    async stopRecord() {
+      const localId = await wechat.stopRecord()
+      const serverId = await wechat.uploadVoice(localId)
+      await wechat.updateVoice({serverId})
     }
 
     async handleAudioChange(e) {
@@ -365,6 +383,18 @@ class Homepage extends Component {
                         <p>8</p>
                     </div>
                 </div>
+                <button type="button" onClick={this.startRecord}>开始</button>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <button type="button" onClick={this.stopRecord}>结束</button>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
                 <Form className='profile-body'>
                     {
                         this.state.step <= 7 ?

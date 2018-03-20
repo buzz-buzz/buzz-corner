@@ -12,8 +12,8 @@ export default {
   async getJsConfig(json) {
     return await ServiceProxy.proxyTo({
       body: {
-        // uri: '{config.endPoints.buzzService}/api/v1/users/getWechatJsConfig',
-        uri: 'http://127.0.0.1:16888/api/v1/users/getWechatJsConfig',
+        uri: '{config.endPoints.buzzService}/api/v1/users/getWechatJsConfig',
+        // uri: 'http://127.0.0.1:16888/api/v1/users/getWechatJsConfig',
         method: 'POST',
         json
       }
@@ -26,7 +26,7 @@ export default {
   async updateVoice(json) {
     return await ServiceProxy.proxyTo({
       body: {
-        // uri: '{config.endPoints.buzzService}/api/v1/users/wechatMedia',
+        uri: '{config.endPoints.buzzService}/api/v1/users/wechatMedia',
         uri: 'http://127.0.0.1:16888/api/v1/users/wechatMedia',
         method: 'POST',
         json
