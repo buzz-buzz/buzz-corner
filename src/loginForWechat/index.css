@@ -60,7 +60,7 @@
 }
 
 .wechat-login > .login-wechat-btn div{
-    box-shadow: 0 0 2px #333;
+    box-shadow: 0 2px 7px rgba(0,0,0,.1);
     border-radius: 2.5em;
     display: flex;
     align-items: center;

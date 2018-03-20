@@ -66,9 +66,7 @@ class ClassLessons extends Component {
         }
         catch (ex) {
             console.log(ex.toString());
-            alert('未登录,即将跳转...');
-            browserHistory.push('/');
-
+            //browserHistory.push('/');
         }
     }
 
@@ -81,7 +79,7 @@ class ClassLessons extends Component {
                              src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
                              onClick={this.back}/>
                     </div>
-                    <div className="class-detail-title">购买课时</div>
+                    <div className="class-detail-title">我的课时</div>
                     <div className="class-order">
 
                     </div>
