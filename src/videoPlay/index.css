@@ -1,0 +1,14 @@
+.video-play{
+    margin: 0 -1em 0 -1em;
+    position:relative;
+    padding-bottom:56.25%;    /*需要用padding来维持16:9比例,也就是9除以16*/
+    height: 0;
+}
+
+.video-play video{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}

@@ -14,9 +14,7 @@ class loginEntrance extends Component {
 
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
         this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
-        this.playVideo = this.playVideo.bind(this);
-        this.closeVideo = this.closeVideo.bind(this);
-
+        this.goVideoPlayPage = this.goVideoPlayPage.bind(this);
     }
 
     chineseChildEntrance() {
@@ -27,14 +25,8 @@ class loginEntrance extends Component {
         window.location.href = 'https://jinshuju.net/f/OrK4p2';
     }
 
-    playVideo() {
-        document.getElementById('video-show').style.display = 'flex';
-    }
-
-    closeVideo() {
-        document.getElementById('video-corner').pause();
-
-        document.getElementById('video-show').style.display = 'none';
+    goVideoPlayPage(){
+        browserHistory.push('/video-play');
     }
 
     async componentDidMount() {
@@ -109,14 +101,9 @@ class loginEntrance extends Component {
                 </div>
                 <div className="preview-video">
                     <p>{Resources.getInstance().welcomePageBtnWord}</p>
-                    <div className="preview-video-btn" onClick={this.playVideo}>
+                    <div className="preview-video-btn" onClick={this.goVideoPlayPage}>
                         <img src="//p579tk2n2.bkt.clouddn.com/icon_suspend_light.png" alt=""/>
                     </div>
-                </div>
-                <div className="video-show" id="video-show" onClick={this.closeVideo}>
-                    <video id="video-corner" src="//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4" width="300"
-                           height="225" controls>抱歉, 你的浏览器不支持Video标签！
-                    </video>
                 </div>
             </div>
         );

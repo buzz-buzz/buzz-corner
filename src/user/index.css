@@ -6,9 +6,9 @@
 }
 
 .header-with-go-back{
-    height: 70px;
+    height: 50px;
     margin: 0;
-    padding: 20px 0 0 0;
+    padding: 0 0 0 0;
     z-index: 999;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -26,7 +26,7 @@
 }
 
 .logo-without-back img{
-    max-height: 40px;
+    height: 40px;
 }
 
 .user-content{
@@ -125,5 +125,9 @@
 }
 
 .user-menu > a >div.link >  .right-icon > img{
+    height: 100%;
+}
+
+.user-menu > a > div.icon > img{
     height: 100%;
 }

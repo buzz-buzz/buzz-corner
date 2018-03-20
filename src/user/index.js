@@ -68,7 +68,7 @@ class User extends Component {
                     <div className="user-menu">
                         <Link to="class-lessons">
                             <div className="icon">
-                                <Icon name='calendar'/>
+                                <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myCoins}
                                 </div>

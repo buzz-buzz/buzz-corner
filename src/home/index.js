@@ -282,6 +282,7 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
+                                    <img src="//p579tk2n2.bkt.clouddn.com/icon_Coursepurchase tips.png" alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
                                     <p>{Resources.getInstance().bookingNoItemText2}</p>
                                     <p>{Resources.getInstance().bookingNoItemText3}</p>

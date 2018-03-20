@@ -72,6 +72,21 @@ p{
     width: 100%;
 }
 
+.my-home > .home-content > .items, .my-home > .home-content > .none-items > .no-items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.my-home > .home-content > .items, .my-home > .home-content > .none-items > .no-items > img{
+    width: 50%;
+    margin-bottom: 1em;
+}
+
+.my-home > .home-content > .items, .my-home > .home-content > .none-items > .no-items  > p{
+    margin: 0;
+}
+
 .my-home > .home-content > .items{
     display: flex;
     flex-direction: column;

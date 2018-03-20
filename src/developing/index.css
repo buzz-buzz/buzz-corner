@@ -7,3 +7,12 @@
     flex-direction: column;
     background-color: rgb(244, 245, 249);
 }
+
+.developing > .develop-img{
+    width: 50%;
+    margin-bottom: .5em;
+}
+
+.developing > .develop-img > img{
+    width: 100%;
+}

@@ -6,8 +6,8 @@
 }
 
 .header-without-go-back{
-    height: 70px;
-    padding: 20px 0 0 0;
+    height: 50px;
+    padding: 0 0 0 0;
     z-index: 999;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -25,7 +25,7 @@
 }
 
 .logo-without-back img{
-    max-height: 40px;
+    height: 40px;
 }
 
 .friends-tab{
