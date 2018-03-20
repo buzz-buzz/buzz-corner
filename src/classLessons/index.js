@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
+import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import './index.css';
@@ -79,7 +79,7 @@ class ClassLessons extends Component {
                              src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
                              onClick={this.back}/>
                     </div>
-                    <div className="class-detail-title">我的课时</div>
+                    <div className="class-detail-title">{Resources.getInstance().myCoins}</div>
                     <div className="class-order">
 
                     </div>
@@ -87,7 +87,7 @@ class ClassLessons extends Component {
                 <div className="class-lessons-content">
                     <div className="content-info">
                         <div className="content-info-title">
-                            现有课时数
+                            {Resources.getInstance().classLessons}
                         </div>
                         <div className="content-numbers">{this.state.class_hours || 0}</div>
                     </div>

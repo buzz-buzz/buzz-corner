@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Dropdown, Form, Segment} from 'semantic-ui-react';
+import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
