@@ -127,3 +127,7 @@
 .user-menu > a >div.link >  .right-icon > img{
     height: 100%;
 }
+
+.user-menu > a > div.icon > img{
+    height: 100%;
+}
