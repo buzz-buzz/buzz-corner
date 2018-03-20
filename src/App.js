@@ -8,6 +8,7 @@ import Login from "./login/index";
 import Avatar from './my/profileSetup/more-info';
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
+import WechatDemo from './wechat/demo';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import My from './my';
@@ -55,6 +56,7 @@ class App extends Component {
                         <Route path='/user' component={User}/>
                         <Route path='/class/:class_id' component={ClassDetail}/>
                         <Route path='/consult' component={Consult}/>
+                        <Route path='/wechat/demo' component={WechatDemo}/>
                         <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
                         <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
                         <Route path='/class-lessons' component={ClassLessons}/>
