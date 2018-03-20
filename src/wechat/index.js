@@ -27,7 +27,7 @@ export default {
     return await ServiceProxy.proxyTo({
       body: {
         uri: '{config.endPoints.buzzService}/api/v1/users/wechatMedia',
-        uri: 'http://127.0.0.1:16888/api/v1/users/wechatMedia',
+        // uri: 'http://127.0.0.1:16888/api/v1/users/wechatMedia',
         method: 'POST',
         json
       }
