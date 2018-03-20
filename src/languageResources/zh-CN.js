@@ -45,6 +45,7 @@ export const rewardRules = '查看获取规则';
 
 export const myCoins = '我的课时';
 export const myLanguage = '系统语言';
+export const classLessons = '现有课时数';
 
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';
