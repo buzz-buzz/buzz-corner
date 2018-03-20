@@ -19,7 +19,9 @@ export default class Practice extends React.Component {
             text: 'hahaha'
         };
 
-        replies.push({});
+        if (this.props.chats.length > this.state.replies.length) {
+            replies.push({});
+        }
 
         this.setState({replies});
     }
@@ -31,38 +33,55 @@ export default class Practice extends React.Component {
             <div>
                 {
                     this.state.replies.map((r, i) => {
-                        return (
-                            <div key={i}>
-                                <div className="practise-advisor chat message">
-                                    <Image avatar
-                                           src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
-                                           alt="avatar"/>
-                                    <div className="advisor-word talk-bubble tri-right left-bottom border round">
-                                        <div className="talktext">
-                                            <p>
-                                                {this.props && this.props.chats ? this.props.chats[i] : 'empty'}
-                                                <Icon name="rss" className="sound"/>
-                                            </p>
+                            return (
+                                <div key={i}>
+                                    <div className="practise-advisor chat message">
+                                        <div>
+                                            <Image avatar
+                                                   src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+                                                   alt="avatar"/>
+                                        </div>
+                                        <div className="advisor-word talk-bubble tri-right left-bottom border round">
+                                            <div className="talktext">
+                                                <p>
+                                                    {this.props && this.props.chats ? this.props.chats[i] : 'empty'}
+                                                    <Icon name="rss" className="sound"/>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="practise-student chat message" onClick={this.reply}>
-                                    <div className="student-word talk-bubble tri-left right-bottom border round">
-                                        <div className="talktext">
-                                            <p>
-                                                <Icon name="rss" className="flipped sound"/>
-                                                not bad
-                                            </p>
+                                    <div className="practise-student chat message reverse"
+                                         onClick={i === this.state.replies.length - 1 ? this.reply : () => false}>
+
+
+                                        <div>
+                                            <Image avatar
+                                                   src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+                                                   alt="avatar"/>
                                         </div>
+
+                                        <div className="student-word talk-bubble tri-left right-bottom border round">
+                                            <div className="talktext">
+                                                <p>
+                                                    <Icon name="rss" className="flipped sound"/>
+                                                    {
+                                                        i === this.state.replies.length - 1 &&
+                                                        <span>Tap to record</span>
+                                                    }
+                                                </p>
+                                            </div>
+
+                                            {
+                                                i === this.state.replies.length - 1 &&
+                                                <p className="tip">Press to record again</p>
+                                            }
+                                        </div>
+
                                     </div>
-                                    <Image avatar
-                                           src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
-                                           alt="avatar"/>
-                                    <p className="tip">Press to record again</p>
                                 </div>
-                            </div>
-                        );
-                    })
+                            );
+                        }
+                    )
                 }
             </div>
             <Divider horizontal/>

@@ -1,54 +1,54 @@
-.class-detail{
+.class-detail {
     min-height: 100%;
     height: 100%;
     margin: 0 -1em;
     display: flex;
     flex-direction: column;
-    background-color: rgb(244,245,249);
+    background-color: #f4f5f9;
 }
 
-.class-detail > .class-detail-header{
+.class-detail > .class-detail-header {
     flex-shrink: 0;
     height: 50px;
     display: flex;
-    border-bottom: 1px solid rgb(223, 223, 228);
+    border-bottom: 1px solid #dfdfe4;
     justify-content: center;
     align-items: center;
     padding: 0 1em;
     background-color: white;
 }
 
-.class-detail > .class-detail-info{
+.class-detail > .class-detail-info {
     flex-shrink: 0;
 }
 
-.class-detail > .class-detail-practice{
+.class-detail > .class-detail-practice {
     flex: 1 0 auto;
     padding: 1em 2em;
     display: flex;
     flex-direction: column;
 }
 
-.class-detail > .class-detail-header > div{
+.class-detail > .class-detail-header > div {
     flex: 1;
 }
 
-.class-detail > .class-detail-header > div.class-detail-title{
+.class-detail > .class-detail-header > div.class-detail-title {
     font-size: 1.4em;
     text-align: center;
     letter-spacing: 2px;
 }
 
-.class-detail > .class-detail-header > div.class-order{
+.class-detail > .class-detail-header > div.class-order {
     display: flex;
     justify-content: flex-end;
 }
 
-.class-detail > .class-detail-header > div.arrow{
+.class-detail > .class-detail-header > div.arrow {
     font-size: 1.5em;
 }
 
-.class-detail > .class-detail-info > .class-info{
+.class-detail > .class-detail-info > .class-info {
     height: 10em;
     display: flex;
     width: 100%;
@@ -60,7 +60,7 @@
     align-items: center;
 }
 
-.class-detail > .class-detail-info > .class-partners-avatar{
+.class-detail > .class-detail-info > .class-partners-avatar {
     height: 4em;
     display: flex;
     width: 100%;
@@ -69,93 +69,93 @@
     padding-left: 2em;
 }
 
-.class-detail > .class-detail-info > .class-partners-avatar > a{
+.class-detail > .class-detail-info > .class-partners-avatar > a {
     height: 60%;
     margin-right: .5em;
 }
 
-.class-detail > .class-detail-info > .class-partners-avatar > a > img{
+.class-detail > .class-detail-info > .class-partners-avatar > a > img {
     height: 100%;
     border-radius: 50%;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar{
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar {
     height: 80%;
     margin-right: 2em;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img{
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img {
     height: 100%;
     border-radius: 50%;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-info{
+.class-detail > .class-detail-info > .class-info > .booking-item-info {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-info > p{
+.class-detail > .class-detail-info > .class-info > .booking-item-info > p {
     text-align: left;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-status{
+.class-detail > .class-detail-info > .class-info > .booking-item-status {
     position: absolute;
     right: 2em;
     top: 2em;
     font-size: .8em;
 }
 
-.class-detail > .class-detail-practice > .class-detail-notice{
+.class-detail > .class-detail-practice > .class-detail-notice {
     flex-shrink: 0;
     letter-spacing: 1px;
 }
 
-.class-detail > .class-detail-practice > .class-detail-practice-content{
+.class-detail > .class-detail-practice > .class-detail-practice-content {
     flex-shrink: 0;
     margin: 2em 0;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button{
+.class-detail > .class-detail-practice > .class-detail-button {
     flex: 1 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button > div{
+.class-detail > .class-detail-practice > .class-detail-button > div {
     width: 100%;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button button{
+.class-detail > .class-detail-practice > .class-detail-button button {
     border-radius: 1.5em;
     width: 100%;
     height: 3em;
-    background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
+    background: linear-gradient(to right, rgb(251, 218, 97), rgb(246, 180, 12));
     letter-spacing: 2px;
     color: #fff;
 }
 
-.class-detail-practice-content >  div{
+.class-detail-practice-content > div {
     display: flex;
     height: 4em;
 }
 
-.class-detail-practice-content >  div > div.advisor-avatar, .class-detail-practice-content >  div > div.student-avatar{
+.class-detail-practice-content > div > div.advisor-avatar, .class-detail-practice-content > div > div.student-avatar {
     width: 4em;
     height: 4em;
     flex: none;
 }
 
-
-.class-detail-practice-content >  div > div.advisor-word{
+.class-detail-practice-content > div > div.advisor-word {
     flex: 1 0 auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0 1em;
 }
-.class-detail-practice-content >  div > div.student-word{
+
+.class-detail-practice-content > div > div.student-word {
     flex: 1 0 auto;
     display: flex;
     justify-content: flex-end;
@@ -163,16 +163,16 @@
     padding: 0 1em;
 }
 
-.class-detail-practice-content  img {
+.class-detail-practice-content img {
     width: 100%;
     height: 100%;
 }
 
-.class-detail-practice-content >  .practise-advisor{
+.class-detail-practice-content > .practise-advisor {
     justify-content: flex-start;
     margin-bottom: 2em;
 }
 
-.class-detail-practice-content >  .practise-student{
+.class-detail-practice-content > .practise-student {
     justify-content: flex-end;
 }
