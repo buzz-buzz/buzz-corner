@@ -46,6 +46,9 @@ export default {
             valid
               ? resolve(wx)
               : reject(res)
+          },
+          fail: res => {
+            reject(res || 'checkJsApi:fail')
           }
         })
       })
@@ -60,6 +63,9 @@ export default {
         isShowProgressTips,
         success: res => {
           resolve(res.serverId)
+        },
+        fail: res => {
+          reject(res || 'uploadVoice:fail')
         }
       })
     })
@@ -77,14 +83,28 @@ export default {
   //   })
   // },
   // 开始录音
-  startRecord(cb) {
-    wx.startRecord()
-    wx.onVoiceRecordEnd({
-      // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-      complete: res => {
-        cb(res.localId)
-      }
+  async startRecord() {
+    return new Promise((resolve, reject) => {
+      wx.startRecord({
+        success: res => {
+          resolve(res.localId);
+        },
+        fail: res => {
+          reject(res || 'startRecord:fail')
+        }
+      })
     })
+    // if (cb) {
+    //   wx.onVoiceRecordEnd({
+    //     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+    //     complete: async res => {
+    //       await cb(res.localId)
+    //     },
+    //     fail: res => {
+    //       reject(res || 'onVoiceRecordEnd:fail')
+    //     }
+    //   })
+    // }
   },
   // 主动结束录音, 返回 localId
   async stopRecord() {
@@ -92,6 +112,9 @@ export default {
       wx.stopRecord({
         success: res => {
           resolve(res.localId);
+        },
+        fail: res => {
+          reject(res || 'stopRecord:fail')
         }
       })
     })
