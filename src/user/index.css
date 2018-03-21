@@ -1,134 +1,111 @@
-.user-page{
-    height: 100%;
-    margin: 0 -1em;
-    display: flex;
-    flex-direction: column;
-}
+.user-page {
+  height: 100%;
+  margin: 0 -1em;
+  display: flex;
+  flex-direction: column; }
 
-.header-with-go-back{
-    height: 50px;
-    margin: 0;
-    padding: 0 0 0 0;
-    z-index: 999;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    box-sizing: border-box;
-    background-color: white;
-}
+.header-with-go-back {
+  height: 50px;
+  margin: 0;
+  padding: 0 0 0 0;
+  z-index: 999;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  box-sizing: border-box;
+  background-color: white; }
 
-.logo-without-back{
-    width: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
+.logo-without-back {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; }
 
-.logo-without-back img{
-    height: 40px;
-}
+.logo-without-back img {
+  height: 40px; }
 
-.user-content{
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-    background-color: rgb(244,245,249);
-}
+.user-content {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  background-color: #f4f5f9; }
 
-.user-my{
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    flex: 0 0 auto;
-}
+.user-my {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  flex: 0 0 auto; }
 
-.user-my > .user-avatar{
-    width: 6em;
-    margin: 1.5em auto;
-    height: 6em;
-}
+.user-my > .user-avatar {
+  width: 6em;
+  margin: 1.5em auto;
+  height: 6em; }
 
-.user-my > .user-avatar > img{
-    width: 100%;
-    border-radius: 50%;
-    border: 3px solid rgba(208, 214, 219, .5);
-}
+.user-my > .user-avatar > img {
+  width: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(208, 214, 219, 0.5); }
 
-.user-my > .user-info > p{
-    text-align: center;
-    margin: 0;
-    letter-spacing: 1px;
-}
+.user-my > .user-info > p {
+  text-align: center;
+  margin: 0;
+  letter-spacing: 1px; }
 
-.user-my > .user-info > p.name{
-    font-size: 1.2em;
-    color: rgb(247, 181, 42);
-}
+.user-my > .user-info > p.name {
+  font-size: 1.2em;
+  color: #f7b52a; }
 
+.user-my > .user-info > p.nationality {
+  margin: .5em 0 1.5em 0; }
 
-.user-my > .user-info > p.nationality{
-    margin: .5em 0 1.5em 0;
-}
+.user-menu {
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-bottom: 60px;
+  padding-top: .5em;
+  display: flex; }
 
-.user-menu{
-    flex: 1 0 auto;
-    flex-direction: column;
-    margin-bottom: 60px;
-    padding-top: .5em;
-    display: flex;
-}
+.user-menu > a {
+  height: 3.5em;
+  width: 100%;
+  background-color: white;
+  padding: 0 1em;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2em;
+  border-bottom: 1px solid #d0d6db; }
 
-.user-menu >a{
-    height: 3.5em;
-    width: 100%;
-    background-color: white;
-    padding: 0 1em;
-    color: #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-    border-bottom: 1px solid rgb(208, 214, 219);
-}
+.user-menu > a:last-child {
+  border-bottom: 1px solid transparent !important; }
 
-.user-menu > a:last-child{
-    border-bottom: 1px solid transparent !important;
-}
+.user-menu > a > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1px; }
 
-.user-menu > a >div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    letter-spacing: 1px;
-}
+.user-menu > a > div {
+  display: flex;
+  height: 50%; }
 
+.user-menu > a > div.link {
+  color: #666666; }
 
-.user-menu > a > div{
-    display: flex;
-    height: 50%;
-}
+.user-menu > a > div.icon > .name {
+  margin: 0 .5em; }
 
-.user-menu > a >div.link{
-    color: rgb(102, 102, 102);
-}
+.user-menu > a > div.link > .right-icon {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 .5em; }
 
-.user-menu > a >div.icon > .name{
-    margin: 0 .5em;
-}
+.user-menu > a > div.link > .right-icon > img {
+  height: 100%; }
 
-.user-menu > a >div.link >  .right-icon{
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 .5em;
-}
-
-.user-menu > a >div.link >  .right-icon > img{
-    height: 100%;
-}
-
-.user-menu > a > div.icon > img{
-    height: 100%;
-}
+.user-menu > a > div.icon > img {
+  height: 100%; }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Icon} from 'semantic-ui-react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
