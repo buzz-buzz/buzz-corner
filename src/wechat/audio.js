@@ -90,32 +90,38 @@ export default class WechatAudio {
         this.status = WechatAudioStatus.startingRecording;
         wx.startRecord();
         await new Promise((resolve, reject) => setTimeout(resolve, 59 * 1000))
-        timeoutCallback && timeoutCallback()
-        await this.stopRecording()
+        if (timeoutCallback) {
+            timeoutCallback();
+        } else {
+            await this.stopRecording()
+        }
     }
 
 
-    async upload(localId) {
+    async upload() {
         this.status = WechatAudioStatus.uploadingRecording;
         return new Promise((resolve, reject) => {
             wx.uploadVoice({
-                localId,
+                localId: this.localId,
                 isShowProgressTips: true,
-                success: res => resolve(res.serverId),
+                success: res => {
+                    this.serverId = res.serverId;
+                    resolve(res.serverId)
+                },
                 fail: reject
             })
         })
     }
 
 
-    async getQiniuLink(serverId) {
+    async getQiniuLink() {
         this.status = WechatAudioStatus.uploadingToQiniu;
         const {url} = await ServiceProxy.proxyTo({
             body: {
                 uri: '{config.endPoints.buzzService}/api/v1/wechat/media',
                 method: 'POST',
                 json: {
-                    serverId
+                    serverId: this.serverId
                 }
             }
         })
@@ -125,10 +131,9 @@ export default class WechatAudio {
     }
 
     async stopRecordingWithQiniuLink() {
-        let localId = await this.stopRecording();
-        let serverId = await this.upload(localId)
-        let qiniuLink = await this.getQiniuLink(serverId);
-        return qiniuLink
+        await this.stopRecording();
+        await this.upload()
+        return await this.getQiniuLink()
     }
 
     play() {

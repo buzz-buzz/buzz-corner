@@ -1,7 +1,9 @@
 import * as React from "react";
 import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import './chat.css';
-import wechatAudio from "../wechat/audio";
+import WechatAudio from "../wechat/audio";
+
+let wechatAudio = new WechatAudio()
 
 export default class Practice extends React.Component {
     constructor(props) {
@@ -25,9 +27,7 @@ export default class Practice extends React.Component {
         this.recordingStarted = true;
         this.setState({recording: true});
 
-        await wechatAudio.startRecording(async localId => {
-            this.wechatLocalId = localId
-        })
+        await wechatAudio.startRecording()
     }
 
     reply() {
@@ -39,26 +39,18 @@ export default class Practice extends React.Component {
         this.recordingStarted = false;
         this.setState({recording: false})
 
-        if (this.wechatLocalId || true) {
-            const localId = await wechatAudio.stopRecord()
-            const serverId = await wechatAudio.uploadVoice(localId)
-            let result = await wechatAudio.updateVoice({serverId})
-            console.log('result = ', result);
+        await wechatAudio.stopRecording()
 
+        let replies = this.state.replies;
+        replies[replies.length - 1] = {
+            text: 'replying'
+        };
 
-            let replies = this.state.replies;
-            replies[replies.length - 1] = {
-                text: 'replying'
-            };
-
-            if (this.props.chats.length > this.state.replies.length) {
-                replies.push({});
-            }
-
-            this.setState({replies});
-        } else {
-            alert('录音失败！')
+        if (this.props.chats.length > this.state.replies.length) {
+            replies.push({});
         }
+
+        this.setState({replies});
     }
 
     cancelReply() {
@@ -74,11 +66,7 @@ export default class Practice extends React.Component {
     }
 
     async componentDidMount() {
-        await wechatAudio.init({
-            debug: false,
-            jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice'],
-            url: window.location.href.split('#')[0],
-        });
+        await wechatAudio.init();
     }
 
     render() {
