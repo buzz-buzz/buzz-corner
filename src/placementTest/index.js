@@ -154,6 +154,9 @@ class Homepage extends Component {
 
     async handleAudioChange(e) {
         try {
+            //loading
+            document.getElementById('loadingModal').style.display = 'block';
+
             let inputFile = (this.state.audioAnsweringStatus === true ? this.fileInputAgain : this.fileInput);
 
             console.log(inputFile.files[0].name);
@@ -198,11 +201,18 @@ class Homepage extends Component {
                 console.log(this.state);
             }
 
+            if (document.getElementById('loadingModal')) {
+                document.getElementById('loadingModal').style.display = 'none';
+            }
+
             this.setState({
                 audioAnsweringStatus: true
             });
         } catch (ex) {
             console.error(ex);
+            if (document.getElementById('loadingModal')) {
+                document.getElementById('loadingModal').style.display = 'none';
+            }
         }
     };
 
@@ -409,7 +419,7 @@ class Homepage extends Component {
                                     </div>
                                     <div className="first-question">
                                         <div>
-                                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
+                                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt="" style={{borderRadius: '50%', border: '3px solid rgba(208, 214, 219, .5)'}}/>
                                         </div>
                                         <div className="first-title" onClick={this.playQuestionVideo}>
                                             <p>点击收听</p>
@@ -448,7 +458,7 @@ class Homepage extends Component {
                                             </div>
                                         </div>
                                         <div>
-                                            <img style={{borderRadius: '50%'}}
+                                            <img style={{borderRadius: '50%', border: '3px solid rgba(208, 214, 219, .5)'}}
                                                  src={this.state.avatar || 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'}
                                                  alt=""/>
                                         </div>

@@ -176,14 +176,14 @@ input[name='date_of_birth']{
     height: 4em;
     background-color: #eee !important;
     border: none !important;
-    text-align: center !important;
+    text-align: left !important;
 }
 
 input[name='birthdayLabel']{
     height: 4em;
     background-color: rgb(244, 245, 249) !important;
     border: none !important;
-    text-align: center !important;
+    text-align: left !important;
 }
 
 .form-content .birthday-label{

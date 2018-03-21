@@ -29,6 +29,8 @@
 .consult-page > .consult-content > .consult-avatar > img{
     height: 8em;
     width: 8em;
+    border-radius: 50%;
+    border: 3px solid rgba(208, 214, 219, .5);
 }
 
 .consult-page > .consult-content > .consult-word{

@@ -52,6 +52,7 @@
 .user-my > .user-avatar > img{
     width: 100%;
     border-radius: 50%;
+    border: 3px solid rgba(208, 214, 219, .5);
 }
 
 .user-my > .user-info > p{

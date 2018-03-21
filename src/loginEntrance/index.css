@@ -12,24 +12,22 @@
 
 .login-entrance > .entrance-logo{
     height: 40%;
-    padding: 3em 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .entrance-logo > .logo{
-    width: 40%;
+    width: 33.3%;
     margin: 0 auto;
-    height: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .entrance-logo > .logo > img{
-    width: auto !important;
-    height: 100%;
+    height: auto !important;
+    width: 100%;
     max-height: 100%;
 }
 
@@ -42,60 +40,82 @@
 .login-entrance > .entrance-choose{
     height: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0 2em;
 }
 
 .login-entrance > .entrance-choose > div {
-    width: 45%;
-    height: 80%;
     display: flex;
-    border: 2px solid rgba(237, 174, 0, 0.4);
-    border-radius: 5px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
 
-.login-entrance > .entrance-choose > div > p{
-    color: #f7b52a;
+.login-entrance > .entrance-choose > div > .image {
+    width: 100px;
+    flex: 1 1 auto;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
 }
 
+.login-entrance > .entrance-choose > div > .image > img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.login-entrance > .entrance-choose > div > .choseBtn{
+    background-image: linear-gradient(143deg, rgb(250, 217, 97), rgb(245, 180, 12));
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: white;
+    border-radius: 12.5px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
 
 .login-entrance > .preview-video{
     flex: auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: column;
+    padding: 0 1em 1em 1em;
 }
 
 .login-entrance > .preview-video > .preview-video-btn{
-    width: 80%;
+    width: 333px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('//p579tk2n2.bkt.clouddn.com/bg_home_video.png') top left no-repeat;
+    background-size: contain;
+}
+
+.login-entrance > .preview-video > .preview-video-btn > .btn-circle{
     height: 4em;
-    border-radius: 2em;
-    background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
+    width: 4em;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login-entrance > .preview-video > .preview-video-btn > img{
-    height: 50%;
+.login-entrance > .preview-video > .preview-video-btn > .btn-circle > img{
+    height: 100%;
+    z-index: 50;
 }
 
 
 .preview-video > p{
     margin: 1em;
-}
-
-.entrance-choose img{
-    width: 60%;
-}
-
-.entrance-choose p{
-    margin-top: 1em;
 }
 
 .login-entrance > .video-show{

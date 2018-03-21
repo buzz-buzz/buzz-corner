@@ -68,7 +68,7 @@ class User extends Component {
                     <div className="user-menu">
                         <Link to="class-lessons">
                             <div className="icon">
-                                <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt=""/>
+                                <img src="//p579tk2n2.bkt.clouddn.com/icon_my%20coins.png" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myCoins}
                                 </div>
@@ -82,7 +82,7 @@ class User extends Component {
                         </Link>
                         <Link style={{display: 'none'}}>
                             <div className="icon">
-                                <Icon name='globe'/>
+                                <img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myLanguage}
                                 </div>
