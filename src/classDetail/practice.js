@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import './chat.css';
-import wechat from "../wechat/index";
+import wechatAudio from "../wechat/audio";
 
 export default class Practice extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class Practice extends React.Component {
         this.recordingStarted = true;
         this.setState({recording: true});
 
-        await wechat.startRecord(async localId => {
+        await wechatAudio.startRecording(async localId => {
             this.wechatLocalId = localId
         })
     }
@@ -40,9 +40,9 @@ export default class Practice extends React.Component {
         this.setState({recording: false})
 
         if (this.wechatLocalId || true) {
-            const localId = await wechat.stopRecord()
-            const serverId = await wechat.uploadVoice(localId)
-            let result = await wechat.updateVoice({serverId})
+            const localId = await wechatAudio.stopRecord()
+            const serverId = await wechatAudio.uploadVoice(localId)
+            let result = await wechatAudio.updateVoice({serverId})
             console.log('result = ', result);
 
 
@@ -74,7 +74,7 @@ export default class Practice extends React.Component {
     }
 
     async componentDidMount() {
-        await wechat.init({
+        await wechatAudio.init({
             debug: false,
             jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice'],
             url: window.location.href.split('#')[0],

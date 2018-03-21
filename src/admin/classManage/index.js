@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Resources from '../../resources';
-import {Container, Form, Message, Button} from 'semantic-ui-react';
+import {Button, Container, Form, Message} from 'semantic-ui-react';
 import ServiceProxy from '../../service-proxy';
 
 class classManage extends Component {
@@ -14,15 +14,15 @@ class classManage extends Component {
         this.submit = this.submit.bind(this);
     }
 
-    handleChange(){
+    handleChange() {
         //this.fileInput.files[0].name  .mp3, .wav, etc
         console.log(this.fileInput.files[0].type);
 
-        if(this.fileInput.files[0].type.indexOf('audio') < 0){
+        if (this.fileInput.files[0].type.indexOf('audio') < 0) {
             this.setState({
                 message: '请选择音频文件! '
             });
-        }else{
+        } else {
             this.setState({
                 message: '已选择: ' + this.fileInput.files[0].name
             });
@@ -33,13 +33,13 @@ class classManage extends Component {
         try {
             //To qiniu
             let qiniu_token = await ServiceProxy.proxyTo({
-              body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
-                method: 'GET'
-              }
+                body: {
+                    uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
+                    method: 'GET'
+                }
             });
 
-            if(!qiniu_token.uptoken){
+            if (!qiniu_token.uptoken) {
                 throw new Error(Resources.getInstance().avatarTokenWrong);
             }
 
@@ -49,7 +49,7 @@ class classManage extends Component {
             fileForm.append("file", this.fileInput.files[0]);
             fileForm.append("token", qiniu_token.uptoken);
 
-            let result = await ServiceProxy.proxy(qiniu_token.upload_url,{
+            let result = await ServiceProxy.proxy(qiniu_token.upload_url, {
                 method: 'POST',
                 body: fileForm,
                 credentials: undefined,
@@ -85,7 +85,7 @@ class classManage extends Component {
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={Resources.getInstance().profileSunmitBtn}
                                     style={{margin: '2em auto', width: '100%', color: 'white', background: 'green'}}
-                                    onClick={this.submit} />
+                                    onClick={this.submit}/>
                     </Form.Group>
                 </Form>
             </Container>

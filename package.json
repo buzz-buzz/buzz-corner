@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts build\" \"node app.js\"",
-    "client": "react-scripts start",
+    "client": "set PORT=80&&react-scripts start",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
     "build": "node node_modules/react-scripts/bin/react-scripts.js build",

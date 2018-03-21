@@ -13,7 +13,7 @@ set PORT=80&&npm start
 PORT=80 npm start
 ```
 
-【注意2】如果需要在本地使用微信 Web 客户端工具打开网站，并且涉及到微信登录的话，由于安全域名的原因，需要改 hosts 文件，将 buzzbuzzenglish.com 指向 127.0.0.1，并且使用 http://buzzbuzzenglish.com 来访问本地。如果使用 http://127.0.0.1:16111，会在微信登录时出问题。
+【注意2】如果需要在本地使用微信 Web 客户端工具打开网站，并且涉及到微信登录的话，由于安全域名的原因，需要改 hosts 文件，将 buzzbuzzenglish.com 指向 127.0.0.1，并且使用 http://buzzbuzzenglish.com 来访问本地。如果使用 http://127.0.0.1:16111，某些涉及到微信接口的调用会失败。
 
 本地开发环境搭建：
 ```

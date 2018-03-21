@@ -33,7 +33,7 @@ export default class profileSetup extends Component {
         try {
             let qiniu_token = await ServiceProxy.proxyTo({
               body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
+                uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
                 method: 'GET'
               }
             });
