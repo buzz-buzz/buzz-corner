@@ -69,16 +69,14 @@
     padding: .5em 1em;
     margin-bottom: .5em;
     background-color: #fff;
-    height: 10em;
+    height: 150px;
 }
 
 .class-lessons-page  .content-list > a > div.class-lesson-img{
-    width: 40%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
 }
 
 .class-lessons-page  .content-list > a > div.class-lesson-img > img{
