@@ -204,7 +204,7 @@ class Homepage extends Component {
             if (document.getElementById('loadingModal')) {
                 document.getElementById('loadingModal').style.display = 'none';
             }
-            
+
             this.setState({
                 audioAnsweringStatus: true
             });

@@ -90,19 +90,25 @@ class loginEntrance extends Component {
                     </div>
                 </div>
                 <div className="entrance-choose">
-                    <div onClick={this.chineseChildEntrance}>
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Learning%20English.png" alt=""/>
-                        <p>{Resources.getInstance().welcomePageChineseChild}</p>
-                    </div>
                     <div onClick={this.foreignChildEntrance}>
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Teach%20English.png" alt=""/>
-                        <p>{Resources.getInstance().welcomePageForeignChild}</p>
+                        <div className="image">
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon_girl.png" alt=""/>
+                        </div>
+                        <div className="choseBtn">{Resources.getInstance().welcomePageForeignChild}</div>
+                    </div>
+                    <div onClick={this.chineseChildEntrance}>
+                        <div className="image">
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon_boy.png" alt=""/>
+                        </div>
+                        <div className="choseBtn">{Resources.getInstance().welcomePageChineseChild}</div>
                     </div>
                 </div>
                 <div className="preview-video">
                     <p>{Resources.getInstance().welcomePageBtnWord}</p>
                     <div className="preview-video-btn" onClick={this.goVideoPlayPage}>
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_suspend_light.png" alt=""/>
+                        <div className="btn-circle">
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon_play.png" alt=""/>
+                        </div>
                     </div>
                 </div>
             </div>
