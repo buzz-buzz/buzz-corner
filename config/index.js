@@ -26,6 +26,12 @@ let config = {
         }
     },
 
+    staging: {
+        endPoints: {
+            buzzService: 'https://buzz-corner-service.herokuapp.com'
+        }
+    },
+
     qa: {
         sso: {
             inner: {
