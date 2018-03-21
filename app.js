@@ -161,6 +161,7 @@ if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/class-lessons', serveSPA)
         .get('/consult', serveSPA)
         .get('/video-play', serveSPA)
+        .get('/wechat/demo', serveSPA)
     ;
 
 
