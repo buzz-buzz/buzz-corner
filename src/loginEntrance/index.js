@@ -81,7 +81,7 @@ class loginEntrance extends Component {
                 </Segment>
                 <div className="entrance-logo">
                     <div className="logo">
-                        <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz Logo"/>
+                        <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="Buzzbuzz Logo"/>
                     </div>
                     <div className="entrance-word">
                         <p>{Resources.getInstance().welcomePageIntroductionLineOne}</p>

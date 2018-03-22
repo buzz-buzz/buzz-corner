@@ -107,7 +107,7 @@ class classDetail extends Component {
 
         let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
 
-        return Number((theDate - nowDate) / (1000 * 3600 * 24));
+        return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
     async componentDidMount() {

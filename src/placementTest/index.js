@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Segment} from 'semantic-ui-react';
+import {Button, Form, Segment, Modal, Header, Icon} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
@@ -70,7 +70,8 @@ class Homepage extends Component {
             audioAnsweringStatus: false,
             audioAnswerUrl: '',
             audioQuestionUrl: '',
-            audioQuestionLength: 0
+            audioQuestionLength: 0,
+            modalOpen: false
         };
 
         this.answering = this.answering.bind(this);
@@ -82,6 +83,10 @@ class Homepage extends Component {
         this.helpModalShow = this.helpModalShow.bind(this);
         this.closeHelpModal = this.closeHelpModal.bind(this);
     }
+
+    handleOpen = () => this.setState({ modalOpen: true });
+
+    handleClose = () => this.setState({ modalOpen: false });
 
     goBack() {
         if (this.state.step === 1) {
@@ -500,22 +505,22 @@ class Homepage extends Component {
                     </Form.Group>
                 </Form>
                 <br/>
-                <div id="help-modal" className="help-modal">
-                    <div className="class-detail-header">
-                        <div className="arrow">
-                            <img style={{width: '20px'}}
-                                 src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
-                                 onClick={this.closeHelpModal}/>
-                        </div>
-                        <div className="class-detail-title">录音使用帮助</div>
-                        <div className="class-order">
-
-                        </div>
-                    </div>
-                    <div className="help-content">
-                        <img src="//p579tk2n2.bkt.clouddn.com/placement-help.png" alt=""/>
-                    </div>
-                </div>
+                <Modal
+                    open={this.state.modalOpen}
+                    onClose={this.handleClose}
+                    basic
+                    size='small'
+                >
+                    <Header icon='browser' content='Cookies policy' />
+                    <Modal.Content>
+                        <h3>This website uses cookies to ensure the best user experience.</h3>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button color='green' onClick={this.handleClose} inverted>
+                            <Icon name='checkmark' /> Got it
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
             </div>
         );
     }
