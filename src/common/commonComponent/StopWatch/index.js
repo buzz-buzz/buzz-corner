@@ -19,6 +19,7 @@ export default class StopWatch extends React.Component {
                     timeElapsed: this.state.timeElapsed + 1
                 }, () => {
                     if (this.state.timeElapsed >= 59) {
+                        window.clearInterval(this.state.timerId);
                         this.props.timeout()
                     }
                 })

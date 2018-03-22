@@ -3,6 +3,8 @@ import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
+import CurrentUser from "../membership/user";
+import ServiceProxy from "../service-proxy";
 
 export default class Practice extends React.Component {
     constructor(props) {
@@ -57,6 +59,15 @@ export default class Practice extends React.Component {
 
             await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
+            // 等待 2 秒，形成一种对方正在回复的感觉
+            this.setState({
+                replying: true
+            })
+            await new Promise(resolve => window.setTimeout(resolve, 2000));
+            this.setState({
+                replying: false
+            })
+
             let replies = this.state.replies;
             replies[replies.length - 1].text = 'replying';
             replies[replies.length - 1].answered = true;
@@ -87,6 +98,11 @@ export default class Practice extends React.Component {
 
     async componentDidMount() {
         WechatAudio.init()
+        let userId = await CurrentUser.getUserId();
+        let userInfo = await ServiceProxy.proxyTo({body: {uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`}});
+        this.setState({
+            avatar: userInfo.avatar
+        })
     }
 
     render() {
@@ -125,7 +141,7 @@ export default class Practice extends React.Component {
 
                                             <div>
                                                 <Image avatar
-                                                       src={this.props.avatars[1]}
+                                                       src={this.state.avatar}
                                                        alt="avatar"/>
                                             </div>
 
@@ -148,10 +164,29 @@ export default class Practice extends React.Component {
 
                                         </div>
                                     </div>
-                                )
-                                    ;
+                                );
                             }
                         )
+                    }
+
+
+                    {
+                        this.state.replying &&
+
+                        <div className="practise-advisor chat message">
+                            <div>
+                                <Image avatar src={this.props.avatars[0]} alt="avatar"/>
+                            </div>
+                            <div
+                                className="advisor-word talk-bubble tri-right left-bottom border round">
+                                <div className="talktext">
+                                    <p>
+                                        <Icon loading name='spinner'/>
+                                        <Icon name="ellipsis horizontal"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     }
                 </div>
                 <Divider horizontal/>
