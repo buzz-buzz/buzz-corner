@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
+import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
 
@@ -36,21 +37,28 @@ export default class Practice extends React.Component {
 
     async endReply() {
         console.log('ended recording');
-        this.recordingStarted = false;
-        this.setState({recording: false})
 
-        await wechatAudio.stopRecording()
+        if(this.props.audioUpload){
+            let url = 'hank'; //await wechatAudio.stopRecordingWithQiniuLink();
 
-        let replies = this.state.replies;
-        replies[replies.length - 1] = {
-            text: 'replying'
-        };
+            this.props.handleUploadUrl(url);
+        }else{
+            this.recordingStarted = false;
+            this.setState({recording: false})
 
-        if (this.props.chats.length > this.state.replies.length) {
-            replies.push({});
+            await wechatAudio.stopRecording()
+
+            let replies = this.state.replies;
+            replies[replies.length - 1] = {
+                text: 'replying'
+            };
+
+            if (this.props.chats.length > this.state.replies.length) {
+                replies.push({});
+            }
+
+            this.setState({replies});
         }
-
-        this.setState({replies});
     }
 
     cancelReply() {
@@ -81,13 +89,14 @@ export default class Practice extends React.Component {
                                         <div className="practise-advisor chat message">
                                             <div>
                                                 <Image avatar
-                                                       src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+                                                       src={this.props.avatars[0]}
                                                        alt="avatar"/>
                                             </div>
                                             <div className="advisor-word talk-bubble tri-right left-bottom border round">
                                                 <div className="talktext"
                                                      onTouchStart={() => this.play(i)}>
                                                     <p>
+                                                        {Resources.getInstance().placementListeningAudio}
                                                         {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
 
                                                         <Icon name="rss" className="sound"/>
@@ -102,7 +111,7 @@ export default class Practice extends React.Component {
 
                                             <div>
                                                 <Image avatar
-                                                       src="https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"
+                                                       src={this.props.avatars[1]}
                                                        alt="avatar"/>
                                             </div>
 

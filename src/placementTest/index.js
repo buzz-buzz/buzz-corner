@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
+import Practice from "../classDetail/practice";
 import '../my/my.css';
 import './index.css';
 
@@ -12,7 +13,7 @@ class Homepage extends Component {
         super(props);
 
         this.state = {
-            avatar: '',
+            avatar: '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             step: props.location.query.step || 1,
             questions: [
                 {
@@ -71,7 +72,9 @@ class Homepage extends Component {
             audioAnswerUrl: '',
             audioQuestionUrl: '',
             audioQuestionLength: 0,
-            modalOpen: false
+            modalOpen: false,
+            errorMessage: '错误: 上传失败!',
+            chats: []
         };
 
         this.answering = this.answering.bind(this);
@@ -80,8 +83,6 @@ class Homepage extends Component {
         this.goBack = this.goBack.bind(this);
         this.playQuestionVideo = this.playQuestionVideo.bind(this);
         this.playRecordedVideo = this.playRecordedVideo.bind(this);
-        this.helpModalShow = this.helpModalShow.bind(this);
-        this.closeHelpModal = this.closeHelpModal.bind(this);
     }
 
     handleOpen = () => this.setState({ modalOpen: true });
@@ -133,7 +134,7 @@ class Homepage extends Component {
 
             this.setState({
                 userId: userId,
-                avatar: profile.avatar || ''
+                avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
             });
         }
         catch (ex) {
@@ -141,12 +142,18 @@ class Homepage extends Component {
         }
     }
 
-    helpModalShow() {
-        document.getElementById('help-modal').style.display = 'flex';
-    }
+    handleUploadUrl(url){
+        console.log("upload result:++++++++++++++++++++++++++++++++++");
+        console.log( url);
+        //qiniu url
+        let clonedAnswers = this.state.answers;
+        clonedAnswers.push(url);
 
-    closeHelpModal() {
-        document.getElementById('help-modal').style.display = 'none';
+        this.setState({
+            audioAnswerUrl: url,
+            audioAnsweringStatus: true,
+            answers: clonedAnswers
+        });
     }
 
     checkPlacementAnswer() {
@@ -241,7 +248,8 @@ class Homepage extends Component {
                     this.setState({
                         step: newStep,
                         audioQuestionUrl: audioUrl,
-                        audioQuestionLength: audioQuestionLength
+                        audioQuestionLength: audioQuestionLength,
+                        chats: [].push(audioUrl)
                     });
                 } else {
                     this.setState({
@@ -277,6 +285,8 @@ class Homepage extends Component {
                     }
                     browserHistory.push('/home');
                 } else {
+                    //show error
+
                     if (document.getElementById('loadingModal')) {
                         document.getElementById('loadingModal').style.display = 'none';
                     }
@@ -420,70 +430,14 @@ class Homepage extends Component {
                             (
                                 (<div className="placement-second">
                                     <div className="second-title">
-                                        <p>Listen to the question and record an appropriate response.</p>
+                                        <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
-                                    <div className="first-question">
-                                        <div>
-                                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt="" style={{borderRadius: '50%', border: '3px solid rgba(208, 214, 219, .5)'}}/>
-                                        </div>
-                                        <div className="first-title" onClick={this.playQuestionVideo}>
-                                            <p>点击收听</p>
-                                            <img
-                                                src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png"
-                                                alt=""/>
-                                            <audio id="playAnswerAudio" width="0" height="0"
-                                                   src={this.state.audioAnswerUrl || ''}>not support audio
-                                            </audio>
-                                            <audio id="playQuestionAudio" width="0" height="0"
-                                                   src={this.state.audioQuestionUrl || 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3'}>
-                                                not support audio
-                                            </audio>
-                                        </div>
-                                        <p>{this.state.audioQuestionLength || 0}"</p>
-                                    </div>
-                                    <div className="answering-audio">
-                                        <div className="first-title-answer">
-                                            <img className="transform-img"
-                                                 src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_recording.png"
-                                                 alt=""/>
-                                            <p>{this.state.audioAnsweringStatus === true ? '点击收听' : '点击录制你的回答'}</p>
-                                            <div className="background-talk">
-                                                <img
-                                                    src="//resource.buzzbuzzenglish.com/image/buzz-corner/audio_talk.png"
-                                                    alt=""/>
-                                            </div>
-                                            <input type="file" id="audio-answer" accept="audio/*"
-                                                   onChange={(e) => this.handleAudioChange(e)}
-                                                   ref={input => {
-                                                       this.fileInput = input;
-                                                   }}/>
-                                            <div className="hasRecorded"
-                                                 style={this.state.audioAnsweringStatus === true ? {display: 'block'} : {display: 'none'}}
-                                                 onClick={this.playRecordedVideo}>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <img style={{borderRadius: '50%', border: '3px solid rgba(208, 214, 219, .5)'}}
-                                                 src={this.state.avatar || 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'}
-                                                 alt=""/>
-                                        </div>
-                                    </div>
-                                    <div className="recordAgain">
-                                        <p className="placement-audio-record-again">{this.state.audioAnsweringStatus ? '点击重录' : '查看录音操作帮助'}</p>
-                                        <input type="file" id="audio-answer-again" accept="audio/*"
-                                               style={this.state.audioAnsweringStatus === true ? {} : {display: 'none'}}
-                                               onChange={(e) => this.handleAudioChange(e)}
-                                               ref={input => {
-                                                   this.fileInputAgain = input;
-                                               }}/>
-                                        <a onClick={this.helpModalShow}
-                                           style={this.state.audioAnsweringStatus === true ? {display: 'none'} : {}}>&nbsp;</a>
-                                    </div>
+                                    <Practice chats={this.state.chats} avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]} handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true} />
                                 </div>)
                             )
                     }
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} content='Continue'
+                        <Form.Field control={Button} content={Resources.getInstance().profileContinue}
                                     style={this.state.answers[this.state.step - 1] === undefined ? {
                                         margin: '2em auto .5em auto',
                                         width: '100%',
@@ -513,7 +467,7 @@ class Homepage extends Component {
                 >
                     <Header icon='browser' content='Cookies policy' />
                     <Modal.Content>
-                        <h3>This website uses cookies to ensure the best user experience.</h3>
+                        <h3>{this.state.errorMessage}</h3>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={this.handleClose} inverted>

@@ -73,6 +73,9 @@ export const profileStep4InfoWord1 = 'Matching suitable';
 export const profileStep4InfoWordBold = ' Companion';
 
 export const placementSelectWord = 'Select the best one';
+export const placementAudioWord = 'Listen to the question and record an appropriate response.';
+export const placementListeningAudio = 'Click to listen';
+export const placementRecordAudio = 'Click to record';
 
 export const classEvaluationStarsStatus0 = 'Please select';
 export const classEvaluationStarsStatus1 = 'Bad';
