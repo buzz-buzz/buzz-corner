@@ -233,7 +233,8 @@ class classDetail extends Component {
                             。</p>
                     </div>
                     <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
-                              ref={p => this.practice = p}/>
+                              ref={p => this.practice = p}
+                              avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                 </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',

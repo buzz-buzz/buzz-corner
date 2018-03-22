@@ -51,7 +51,9 @@ export default class Practice extends React.Component {
                 return;
             }
 
-            this.setState({recording: false})
+            this.setState({recording: false}, () => {
+                this.props.recordingChanged(this.state.recording);
+            })
 
             await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
