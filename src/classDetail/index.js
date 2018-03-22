@@ -5,6 +5,7 @@ import ServiceProxy from '../service-proxy';
 import './index.css';
 import * as time from "../common/timeHelper";
 import Practice from "./practice";
+import RecordingModal from "../common/commonComponent/modalRecording/index";
 
 class classDetail extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class classDetail extends Component {
             companion_avatar: '',
             student_avatars: [],
             class_status_show_style: '',
-            class_status_show_word: ''
+            class_status_show_word: '',
+            recording: false
         };
 
         this.back = this.back.bind(this);
@@ -32,6 +34,9 @@ class classDetail extends Component {
         this.getAvatar = this.getAvatar.bind(this);
         this.getCompanionInfo = this.getCompanionInfo.bind(this);
         this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
+        this.recordingChanged = this.recordingChanged.bind(this);
+        this.cancelRecording = this.cancelRecording.bind(this);
+        this.finishRecording = this.finishRecording.bind(this)
     }
 
     back() {
@@ -157,6 +162,20 @@ class classDetail extends Component {
         }
     }
 
+    recordingChanged(recordingStatus) {
+        console.log('recording status = ', recordingStatus);
+        this.setState({recording: recordingStatus})
+    }
+
+    cancelRecording() {
+        this.practice.cancelReply();
+    }
+
+    finishRecording() {
+        console.log('end reply');
+        this.practice.endReply();
+    }
+
     render() {
         return (
             <div className="class-detail">
@@ -213,7 +232,8 @@ class classDetail extends Component {
                         <p>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
-                    <Practice chats={this.state.chats}/>
+                    <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
+                              ref={p => this.practice = p}/>
                 </div>
                 <Segment loading={true} id='loadingModal' style={{
                     border: 'none',
@@ -226,6 +246,8 @@ class classDetail extends Component {
                     display: 'none'
                 }}>
                 </Segment>
+                <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
+                                onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
             </div>
         );
     }

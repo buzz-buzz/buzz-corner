@@ -27,7 +27,9 @@ export default class Practice extends React.Component {
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
         console.log(`the ${buttonIndex} button was clicked`)
         if (!this.state.replies[buttonIndex].answered) {
-            this.setState({recording: true});
+            this.setState({recording: true}, () => {
+                this.props.recordingChanged(this.state.recording);
+            });
             await this.state.replies[buttonIndex].wechatAudio.startRecording()
         } else {
             this.state.replies[buttonIndex].wechatAudio.play();
@@ -61,7 +63,9 @@ export default class Practice extends React.Component {
             return;
         }
 
-        this.setState({recording: false})
+        this.setState({recording: false}, () => {
+            this.props.recordingChanged(this.state.recording);
+        })
 
         await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
@@ -84,8 +88,9 @@ export default class Practice extends React.Component {
     }
 
     async cancelReply() {
-        this.recordingStarted = false;
-        this.setState({recording: false});
+        this.setState({recording: false}, () => {
+            this.props.recordingChanged(this.state.recording);
+        });
         console.log('reply cancelled');
         await            this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
     }
@@ -128,8 +133,10 @@ export default class Practice extends React.Component {
                                             </div>
                                         </div>
                                         <div className="practise-student chat message reverse"
-                                             onTouchStart={() => this.replyButtonClicked(i)} onTouchEnd={this.endReply}
-                                             onTouchMoveCapture={this.reply}>
+                                             onTouchStart={() => this.replyButtonClicked(i)}
+                                            // onTouchEnd={this.endReply}
+                                            //  onTouchMoveCapture={this.reply}
+                                        >
 
 
                                             <div>
@@ -151,19 +158,20 @@ export default class Practice extends React.Component {
 
                                                 {
                                                     i === this.state.replies.length - 1 &&
-                                                    <p className="tip">Press to record again</p>
+                                                    <p className="tip">&nbsp;</p>
                                                 }
                                             </div>
 
                                         </div>
                                     </div>
-                                );
+                                )
+                                    ;
                             }
                         )
                     }
                 </div>
                 <Divider horizontal/>
-                <Dimmer active={this.state.recording} onClickOutside={this.cancelReply}>
+                <Dimmer active={this.state.recording} onClickOutside={this.cancelReply} inverted>
                     <Header as='h2' icon inverted>
                         <Icon name="unmute"/>
                         Recording!
