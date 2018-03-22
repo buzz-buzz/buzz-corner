@@ -44,9 +44,19 @@ export default class Practice extends React.Component {
 
     async endReply() {
         if (this.props.audioUpload) {
-            let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
+            try{
+                if (document.getElementById('loadingModal')) {
+                    document.getElementById('loadingModal').style.display = 'block';
+                }
 
-            this.props.handleUploadUrl(url);
+                let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
+
+                this.props.handleUploadUrl(url);
+            }
+            catch (ex){
+                this.props.handleUploadUrl('');
+            }
+
         } else {
             if (!this.state.recording) {
                 console.log('no need to end recording...');
@@ -115,7 +125,7 @@ export default class Practice extends React.Component {
                                 return (
                                     <div key={i}>
                                         <div className="practise-advisor chat message">
-                                            <div>
+                                            <div onClick={this.endReply}>
                                                 <Image avatar
                                                        src={this.props.avatars[0]}
                                                        alt="avatar"/>
@@ -151,7 +161,7 @@ export default class Practice extends React.Component {
                                                         <Icon name="rss" className="flipped sound"/>
                                                         {
                                                             i === this.state.replies.length - 1 &&
-                                                            <span>Tap to record</span>
+                                                            <span>{this.state.replies[this.state.replies.length - 1].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                         }
                                                     </p>
                                                 </div>

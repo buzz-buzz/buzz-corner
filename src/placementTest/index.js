@@ -73,7 +73,7 @@ class Homepage extends Component {
             audioQuestionUrl: '',
             audioQuestionLength: 0,
             modalOpen: false,
-            errorMessage: '错误: 上传失败!',
+            errorMessage: '错误: 上传失败, 请稍后重试!',
             chats: []
         };
 
@@ -143,17 +143,25 @@ class Homepage extends Component {
     }
 
     handleUploadUrl(url){
-        console.log("upload result:++++++++++++++++++++++++++++++++++");
-        console.log( url);
-        //qiniu url
-        let clonedAnswers = this.state.answers;
-        clonedAnswers.push(url);
+        if (document.getElementById('loadingModal')) {
+            document.getElementById('loadingModal').style.display = 'none';
+        }
 
-        this.setState({
-            audioAnswerUrl: url,
-            audioAnsweringStatus: true,
-            answers: clonedAnswers
-        });
+        if(url){
+            console.log("upload result:++++++++++++++++++++++++++++++++++");
+            console.log( url);
+            //qiniu url
+            let clonedAnswers = this.state.answers;
+            clonedAnswers.push(url);
+
+            this.setState({
+                audioAnswerUrl: url,
+                audioAnsweringStatus: true,
+                answers: clonedAnswers
+            });
+        }else{
+            this.setState({ modalOpen: true });
+        }
     }
 
     checkPlacementAnswer() {
@@ -163,70 +171,6 @@ class Homepage extends Component {
             return false;
         }
     }
-
-    async handleAudioChange(e) {
-        try {
-            //loading
-            document.getElementById('loadingModal').style.display = 'block';
-
-            let inputFile = (this.state.audioAnsweringStatus === true ? this.fileInputAgain : this.fileInput);
-
-            console.log(inputFile.files[0].name);
-
-            let qiniu_token = await ServiceProxy.proxyTo({
-              body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users/qiniu/token',
-                method: 'GET'
-              }
-            });
-
-            if (!qiniu_token.uptoken) {
-                throw new Error(Resources.getInstance().avatarTokenWrong);
-            }
-
-            let fileForm = new FormData();
-
-            fileForm.append("name", inputFile.files[0].name);
-            fileForm.append("file", inputFile.files[0]);
-            fileForm.append("token", qiniu_token.uptoken);
-
-            let result = await ServiceProxy.proxy(qiniu_token.upload_url, {
-                method: 'POST',
-                body: fileForm,
-                credentials: undefined,
-                headers: undefined
-            });
-
-            if (!result.key || !result.hash) {
-                throw new Error(Resources.getInstance().avatarKeyWrong);
-            } else {
-                let clonedAnswers = this.state.answers;
-                clonedAnswers.push(qiniu_token.resources_url + result.key);
-
-                this.setState({
-                    audioAnswerUrl: qiniu_token.resources_url + result.key,
-                    audioAnsweringStatus: true,
-                    answers: clonedAnswers
-                });
-
-                console.log('upload success');
-                console.log(this.state);
-            }
-
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
-
-            this.setState({
-                audioAnsweringStatus: true
-            });
-        } catch (ex) {
-            console.error(ex);
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
-        }
-    };
 
     async submit() {
         try {
@@ -465,7 +409,7 @@ class Homepage extends Component {
                     basic
                     size='small'
                 >
-                    <Header icon='browser' content='Cookies policy' />
+                    <Header icon='browser' content='Error!' />
                     <Modal.Content>
                         <h3>{this.state.errorMessage}</h3>
                     </Modal.Content>
