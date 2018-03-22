@@ -41,46 +41,28 @@ export default class Practice extends React.Component {
     }
 
     async endReply() {
-        console.log('ended recording');
-
-        if(this.props.audioUpload){
-            let url = await wechatAudio.stopRecordingWithQiniuLink();
+        if (this.props.audioUpload) {
+            let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
 
             this.props.handleUploadUrl(url);
-        }else{
-            this.recordingStarted = false;
+        } else {
+            if (!this.state.recording) {
+                console.log('no need to end recording...');
+                return;
+            }
+
             this.setState({recording: false})
 
-            await wechatAudio.stopRecording()
+            await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
             let replies = this.state.replies;
-            replies[replies.length - 1] = {
-                text: 'replying'
-            };
-
-        if (!this.state.recording) {
-            console.log('no need to end recording...');
-            return;
-        }
-
-        this.setState({recording: false}, () => {
-            this.props.recordingChanged(this.state.recording);
-        })
-
-        await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
-
-        let replies = this.state.replies;
-        replies[replies.length - 1].text = 'replying';
-        replies[replies.length - 1].answered = true;
-
-        if (this.props.chats.length > this.state.replies.length) {
-            replies.push({
-                wechatAudio: new WechatAudio()
-            });
-        }
+            replies[replies.length - 1].text = 'replying';
+            replies[replies.length - 1].answered = true;
 
             if (this.props.chats.length > this.state.replies.length) {
-                replies.push({});
+                replies.push({
+                    wechatAudio: new WechatAudio()
+                });
             }
 
             this.setState({replies});
