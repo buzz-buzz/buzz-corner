@@ -21,7 +21,7 @@ export default class WechatAudio {
         this.localId = null;
     }
 
-    async init() {
+    static async init() {
         const json = {
             debug: false,
             jsApiList: [
@@ -138,8 +138,10 @@ export default class WechatAudio {
 
     play() {
         if (this.localId) {
+            console.log('playing');
             this.status = WechatAudioStatus.playingSound;
             wx.playVoice({localId: this.localId})
+            console.log('played');
         } else {
             throw new Error('还没有可播放的声音');
         }

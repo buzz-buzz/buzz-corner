@@ -3,14 +3,14 @@ import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import './chat.css';
 import WechatAudio from "../wechat/audio";
 
-let wechatAudio = new WechatAudio()
-
 export default class Practice extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            replies: [{}]
+            replies: [{
+                wechatAudio: new WechatAudio()
+            }]
         }
 
         this.audios = {};
@@ -19,15 +19,18 @@ export default class Practice extends React.Component {
         this.renderChat = this.renderChat.bind(this);
         this.play = this.play.bind(this);
         this.endReply = this.endReply.bind(this);
-        this.replyStart = this.replyStart.bind(this);
+        this.replyButtonClicked = this.replyButtonClicked.bind(this);
         this.cancelReply = this.cancelReply.bind(this);
     }
 
-    async replyStart() {
-        this.recordingStarted = true;
-        this.setState({recording: true});
-
-        await wechatAudio.startRecording()
+    async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
+        console.log(`the ${buttonIndex} button was clicked`)
+        if (!this.state.replies[buttonIndex].answered) {
+            this.setState({recording: true});
+            await this.state.replies[buttonIndex].wechatAudio.startRecording()
+        } else {
+            this.state.replies[buttonIndex].wechatAudio.play();
+        }
     }
 
     reply() {
@@ -35,28 +38,33 @@ export default class Practice extends React.Component {
     }
 
     async endReply() {
-        console.log('ended recording');
-        this.recordingStarted = false;
+        if (!this.state.recording) {
+            console.log('no need to end recording...');
+            return;
+        }
+
         this.setState({recording: false})
 
-        await wechatAudio.stopRecording()
+        await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
         let replies = this.state.replies;
-        replies[replies.length - 1] = {
-            text: 'replying'
-        };
+        replies[replies.length - 1].text = 'replying';
+        replies[replies.length - 1].answered = true;
 
         if (this.props.chats.length > this.state.replies.length) {
-            replies.push({});
+            replies.push({
+                wechatAudio: new WechatAudio()
+            });
         }
 
         this.setState({replies});
     }
 
-    cancelReply() {
+    async cancelReply() {
         this.recordingStarted = false;
         this.setState({recording: false});
         console.log('reply cancelled');
+        await            this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
     }
 
     play(index) {
@@ -66,7 +74,7 @@ export default class Practice extends React.Component {
     }
 
     async componentDidMount() {
-        await wechatAudio.init();
+        WechatAudio.init()
     }
 
     render() {
@@ -96,8 +104,8 @@ export default class Practice extends React.Component {
                                             </div>
                                         </div>
                                         <div className="practise-student chat message reverse"
-                                             onTouchStart={i === this.state.replies.length - 1 ? this.replyStart : () => {
-                                             }} onTouchEnd={this.endReply} onTouchMoveCapture={this.reply}>
+                                             onTouchStart={() => this.replyButtonClicked(i)} onTouchEnd={this.endReply}
+                                             onTouchMoveCapture={this.reply}>
 
 
                                             <div>
