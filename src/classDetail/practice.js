@@ -125,7 +125,7 @@ export default class Practice extends React.Component {
                                 return (
                                     <div key={i}>
                                         <div className="practise-advisor chat message">
-                                            <div onClick={this.endReply}>
+                                            <div>
                                                 <Image avatar
                                                        src={this.props.avatars[0]}
                                                        alt="avatar"/>

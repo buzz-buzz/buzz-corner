@@ -5,6 +5,7 @@ import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import Practice from "../classDetail/practice";
+import RecordingModal from "../common/commonComponent/modalRecording/index";
 import '../my/my.css';
 import './index.css';
 
@@ -74,7 +75,8 @@ class Homepage extends Component {
             audioQuestionLength: 0,
             modalOpen: false,
             errorMessage: '错误: 上传失败, 请稍后重试!',
-            chats: []
+            chats: [],
+            recording: false
         };
 
         this.answering = this.answering.bind(this);
@@ -83,6 +85,9 @@ class Homepage extends Component {
         this.goBack = this.goBack.bind(this);
         this.playQuestionVideo = this.playQuestionVideo.bind(this);
         this.playRecordedVideo = this.playRecordedVideo.bind(this);
+        this.recordingChanged = this.recordingChanged.bind(this);
+        this.cancelRecording = this.cancelRecording.bind(this);
+        this.finishRecording = this.finishRecording.bind(this)
     }
 
     handleOpen = () => this.setState({ modalOpen: true });
@@ -172,6 +177,20 @@ class Homepage extends Component {
         }
     }
 
+    recordingChanged(recordingStatus) {
+        console.log('recording status = ', recordingStatus);
+        this.setState({recording: recordingStatus})
+    }
+
+    cancelRecording() {
+        this.practice.cancelReply();
+    }
+
+    finishRecording() {
+        console.log('end reply');
+        this.practice.endReply();
+    }
+
     async submit() {
         try {
             console.log('step');
@@ -193,7 +212,7 @@ class Homepage extends Component {
                         step: newStep,
                         audioQuestionUrl: audioUrl,
                         audioQuestionLength: audioQuestionLength,
-                        chats: [].push(audioUrl)
+                        chats: [audioUrl]
                     });
                 } else {
                     this.setState({
@@ -376,7 +395,7 @@ class Homepage extends Component {
                                     <div className="second-title">
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
-                                    <Practice chats={this.state.chats} avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]} handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true} />
+                                    <Practice chats={this.state.chats} avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]} handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}  recordingChanged={this.recordingChanged} ref={p => this.practice = p} />
                                 </div>)
                             )
                     }
@@ -419,6 +438,8 @@ class Homepage extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
+                <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
+                                onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
             </div>
         );
     }
