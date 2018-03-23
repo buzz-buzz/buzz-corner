@@ -170,7 +170,7 @@ export default class Practice extends React.Component {
 
                                                 {
                                                     i === this.state.replies.length - 1 &&
-                                                    <p className="tip">{this.state.replies[this.state.replies.length - 1].answered ? Resources.getInstance().placementRecordAgain : ''}</p>
+                                                    <p className="tip">&nbsp;&nbsp;</p>
                                                 }
                                             </div>
 

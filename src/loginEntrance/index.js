@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Segment} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
@@ -31,7 +30,7 @@ class loginEntrance extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'block';
+            document.getElementById('loadingModal').style.display = 'flex';
 
             let userId = await CurrentUser.getUserId();
 
@@ -69,16 +68,22 @@ class loginEntrance extends Component {
     render() {
         return (
             <div className="login-entrance">
-                <Segment loading={true} id='loadingModal' style={{
-                    position: 'absolute',
+                <div id='loadingModal' style={{
+                    position: 'fixed',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%',
                     zIndex: 888,
-                    display: 'none'
+                    display: 'none',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'white'
                 }}>
-                </Segment>
+                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+                           type="image/svg+xml"
+                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                </div>
                 <div className="entrance-logo">
                     <div className="logo">
                         <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="Buzzbuzz Logo"/>

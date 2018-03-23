@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Segment, TextArea} from 'semantic-ui-react';
+import {Form, TextArea} from 'semantic-ui-react';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
@@ -111,7 +111,7 @@ class classEvaluation extends Component {
     async submitEvaluation() {
         try {
             if (!(!this.state.stars || !this.state.evaluation_content)) {
-                document.getElementById('loadingModal').style.display = 'block';
+                document.getElementById('loadingModal').style.display = 'flex';
 
                 //post data
                 let evaluationData = this.validateForm();
@@ -140,7 +140,7 @@ class classEvaluation extends Component {
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
-            document.getElementById('loadingModal').style.display = 'block';
+            document.getElementById('loadingModal').style.display = 'flex';
 
             let userId = await CurrentUser.getUserId();
 
@@ -301,19 +301,22 @@ class classEvaluation extends Component {
                         <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
-                    <Segment loading={true} id='loadingModal' style={{
-                        border: 'none',
-                        position: 'absolute',
+                    <div id='loadingModal' style={{
+                        position: 'fixed',
                         top: 0,
                         left: 0,
-                        right: 0,
-                        bottom: 0,
                         width: '100%',
                         height: '100%',
                         zIndex: 888,
-                        display: 'none'
+                        display: 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'white'
                     }}>
-                    </Segment>
+                        <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+                               type="image/svg+xml"
+                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                    </div>
                 </div>
             </div>
         );

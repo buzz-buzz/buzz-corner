@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Segment} from 'semantic-ui-react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -55,7 +54,7 @@ class classEvaluationForeign extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'block';
+            document.getElementById('loadingModal').style.display = 'flex';
 
             let userId = await CurrentUser.getUserId();
 
@@ -159,17 +158,22 @@ class classEvaluationForeign extends Component {
                             </div>
                         </Link>
                     </div>
-                    <Segment loading={true} id='loadingModal' style={{
-                        border: 'none',
-                        position: 'absolute',
+                    <div id='loadingModal' style={{
+                        position: 'fixed',
                         top: 0,
                         left: 0,
                         width: '100%',
                         height: '100%',
                         zIndex: 888,
-                        display: 'none'
+                        display: 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'white'
                     }}>
-                    </Segment>
+                        <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+                               type="image/svg+xml"
+                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                    </div>
                 </div>
             </div>
         );

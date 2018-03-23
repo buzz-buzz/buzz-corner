@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Segment, Modal, Header, Icon} from 'semantic-ui-react';
+import {Button, Form, Modal, Header, Icon} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
@@ -184,7 +184,7 @@ class Homepage extends Component {
         console.log('recording status = ', recordingStatus);
         if(recordingStatus === false){
             if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'block';
+                document.getElementById('loadingModal').style.display = 'flex';
             }
         }
         this.setState({recording: recordingStatus})
@@ -233,7 +233,7 @@ class Homepage extends Component {
                 }
             } else {
                 //done
-                document.getElementById('loadingModal').style.display = 'block';
+                document.getElementById('loadingModal').style.display = 'flex';
 
                 if (this.checkPlacementAnswer()) {
                     let placementTestData = {
@@ -283,16 +283,22 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
-                <Segment loading={true} id='loadingModal' style={{
+                <div id='loadingModal' style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%',
                     zIndex: 888,
-                    display: 'none'
+                    display: 'none',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'white'
                 }}>
-                </Segment>
+                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+                           type="image/svg+xml"
+                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                </div>
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">

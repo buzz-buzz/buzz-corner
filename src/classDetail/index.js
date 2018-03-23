@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Segment} from 'semantic-ui-react';
 import {browserHistory, Link} from 'react-router';
 import ServiceProxy from '../service-proxy';
 import './index.css';
@@ -117,7 +116,7 @@ class classDetail extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'block';
+            document.getElementById('loadingModal').style.display = 'flex';
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -241,17 +240,22 @@ class classDetail extends Component {
                               ref={p => this.practice = p}
                               avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                 </div>
-                <Segment loading={true} id='loadingModal' style={{
-                    border: 'none',
+                <div id='loadingModal' style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%',
                     zIndex: 888,
-                    display: 'none'
+                    display: 'none',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'white'
                 }}>
-                </Segment>
+                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+                           type="image/svg+xml"
+                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                </div>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                 onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
             </div>
