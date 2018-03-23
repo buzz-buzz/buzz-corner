@@ -76,6 +76,7 @@ export const placementSelectWord = 'Select the best one';
 export const placementAudioWord = 'Listen to the question and record an appropriate response.';
 export const placementListeningAudio = 'Click to listen';
 export const placementRecordAudio = 'Click to record';
+export const placementRecordAgain = 'record again';
 
 export const classEvaluationStarsStatus0 = 'Please select';
 export const classEvaluationStarsStatus1 = 'Bad';
