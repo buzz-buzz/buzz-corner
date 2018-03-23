@@ -43,29 +43,31 @@ export default class Practice extends React.Component {
     }
 
     async endReply() {
+
+        if (!this.state.recording) {
+            console.log('no need to end recording...');
+            return;
+        }
+        this.setState({recording: false}, () => {
+            this.props.recordingChanged(this.state.recording);
+        })
         if (this.props.audioUpload) {
             try{
-                if (document.getElementById('loadingModal')) {
-                    document.getElementById('loadingModal').style.display = 'block';
-                }
-
                 let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
 
-                this.props.handleUploadUrl(url);
+                this.props.handleUploadUrl({
+                    url: url,
+                    err: ''
+                });
             }
             catch (ex){
-                this.props.handleUploadUrl('');
+                this.props.handleUploadUrl({
+                    url: '',
+                    err: ex.toString()
+                });
             }
 
         } else {
-            if (!this.state.recording) {
-                console.log('no need to end recording...');
-                return;
-            }
-
-            this.setState({recording: false}, () => {
-                this.props.recordingChanged(this.state.recording);
-            })
 
             await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
 
@@ -77,19 +79,19 @@ export default class Practice extends React.Component {
             this.setState({
                 replying: false
             })
-
-            let replies = this.state.replies;
-            replies[replies.length - 1].text = 'replying';
-            replies[replies.length - 1].answered = true;
-
-            if (this.props.chats.length > this.state.replies.length) {
-                replies.push({
-                    wechatAudio: new WechatAudio()
-                });
-            }
-
-            this.setState({replies});
         }
+
+        let replies = this.state.replies;
+        replies[replies.length - 1].text = 'replying';
+        replies[replies.length - 1].answered = true;
+
+        if (this.props.chats.length > this.state.replies.length) {
+            replies.push({
+                wechatAudio: new WechatAudio()
+            });
+        }
+
+        this.setState({replies});
     }
 
     async cancelReply() {
@@ -125,7 +127,7 @@ export default class Practice extends React.Component {
                                 return (
                                     <div key={i}>
                                         <div className="practise-advisor chat message">
-                                            <div onClick={this.endReply}>
+                                            <div>
                                                 <Image avatar
                                                        src={this.props.avatars[0]}
                                                        alt="avatar"/>

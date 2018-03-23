@@ -90,7 +90,7 @@ export const classEvaluationSuggest = '对课程的任何建议';
 
 export const advisorInfo1 = '我是你的专属课程顾问';
 export const advisorInfo2 = '请通过如下方式和我联系';
-export const advisorInfo3 = '扫描二维码联系"BuzzBuzz导师"';
+export const advisorInfo3 = '长按二维码联系"BuzzBuzz导师"';
 
 export const welcomePageTitle1 = '欢迎加入';
 export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';
