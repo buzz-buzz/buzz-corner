@@ -43,10 +43,10 @@ class videoPlay extends Component {
                         aspectRatio='16:9'
                         id='125292332'
                         placeholder='//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png'
-                        source='//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4eo'
+                        source='//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4'
                     />
                     <div className="video-btn" onClick={this.playCornerVideo}></div>
-                    <video id="corner-show" src="//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4eo" width="0" height="0">not support</video>
+                    <video id="corner-show" src="//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4" width="0" height="0">not support</video>
                 </div>
                 <div className="poster">
                     <img src="//p579tk2n2.bkt.clouddn.com/icon_login_play.png" alt=""/>
