@@ -1,4 +1,4 @@
-.modal {
+.buzz-modal {
     position: fixed;
     top: 0 !important;
     left: 0 !important;
@@ -11,10 +11,10 @@
     background-color: rgba(0, 0, 0, .3);
 }
 
-.modal > .content {
+.buzz-modal > .content {
     border-radius: 5px;
     width: 80%;
-    height: 60%;
+    min-height: 60%;
     background: white url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top center no-repeat;
     background-size: 100% 100%;
     display: flex;
@@ -22,22 +22,23 @@
     align-items: center;
 }
 
-.modal > .content > div {
+.buzz-modal > .content > div {
     display: flex;
     flex-direction: column;
     padding: 0 3rem;
     width: 100%;
 }
 
-.modal > .content > div > div.welcome-title {
+.buzz-modal > .content > div > div.welcome-title {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
     margin: 2em 0 1em 0;
     letter-spacing: 2px;
+    align-self: center;
 }
 
-.modal > .content > div > div.welcome-info {
+.buzz-modal > .content > div > div.welcome-info {
     text-align: center;
     font-size: 1em;
     font-weight: normal;
@@ -46,13 +47,13 @@
     color: rgba(0, 0, 0, .6);
 }
 
-.modal > .content > div > div.begin {
+.buzz-modal > .content > div > div.begin {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modal > .content > div > div.begin > div {
+.buzz-modal > .content > div > div.begin > div {
     height: 4em;
     width: 100%;
     color: white;
@@ -64,7 +65,7 @@
     align-items: center;
 }
 
-.modal > .content > div > div.skip {
+.buzz-modal > .content > div > div.skip {
     text-align: center;
     font-size: .8em;
     color: rgba(0, 0, 0, .6);

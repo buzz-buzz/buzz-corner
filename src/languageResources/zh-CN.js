@@ -143,3 +143,5 @@ export const saveSuccess = '保存成功！';
 export const saveFailed = '保存失败！';
 
 export const adminManageClass = '课程管理';
+
+export const finishRecording = '完成录音';

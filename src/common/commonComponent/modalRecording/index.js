@@ -1,7 +1,8 @@
 import * as React from "react";
 import BuzzModal from "../buzzModal/index";
-import {Header, Icon} from "semantic-ui-react";
+import {Header, Image} from "semantic-ui-react";
 import StopWatch from "../StopWatch/index";
+import Resources from "../../../resources";
 
 
 export default class RecordingModal extends BuzzModal {
@@ -22,16 +23,23 @@ export default class RecordingModal extends BuzzModal {
         return (
             <div>
                 <div className="welcome-title">
-                    <Icon name="unmute" className="massive"/>
+                    <div>
+                        <Image src="http://p579tk2n2.bkt.clouddn.com/icon_Siri%20Mic.png" alt="recording"
+                               style={{height: '100px', display: 'inline', textAlign: 'center'}}/>
+                    </div>
+                    <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}>
+                        <StopWatch start={0} timeout={this.props.timeout}></StopWatch>
+                    </Header>
                 </div>
-                <div className="welcome-info">
-                    <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}><StopWatch
-                        start={0} timeout={this.props.timeout}></StopWatch></Header>
-                </div>
+                <p>&nbsp;</p>
                 <div className="begin">
                     <div onTouchStart={this.props.onOK}>
-                        <p>完成录音</p>
+                        <p>{Resources.getInstance().finishRecording}</p>
                     </div>
+                </div>
+
+                <div className="skip" onClick={this.closeWelcome}>
+                    &nbsp;
                 </div>
             </div>
         )

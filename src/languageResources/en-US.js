@@ -143,3 +143,5 @@ export const saveSuccess = 'Save success!';
 export const saveFailed = 'Save failed!';
 
 export const adminManageClass = 'class manage';
+
+export const finishRecording = 'Done';
