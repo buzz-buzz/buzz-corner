@@ -152,7 +152,7 @@ class Homepage extends Component {
             document.getElementById('loadingModal').style.display = 'none';
         }
 
-        if(url){
+        if(url && url.url){
             console.log("upload result:++++++++++++++++++++++++++++++++++");
             console.log( url);
             //qiniu url
@@ -165,7 +165,10 @@ class Homepage extends Component {
                 answers: clonedAnswers
             });
         }else{
-            this.setState({ modalOpen: true });
+            this.setState({
+                modalOpen: true,
+                errorMessage: url.err
+            });
         }
     }
 
@@ -179,6 +182,11 @@ class Homepage extends Component {
 
     recordingChanged(recordingStatus) {
         console.log('recording status = ', recordingStatus);
+        if(recordingStatus === false){
+            if (document.getElementById('loadingModal')) {
+                document.getElementById('loadingModal').style.display = 'block';
+            }
+        }
         this.setState({recording: recordingStatus})
     }
 
@@ -187,6 +195,7 @@ class Homepage extends Component {
     }
 
     finishRecording() {
+
         console.log('end reply');
         this.practice.endReply();
     }
