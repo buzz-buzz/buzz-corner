@@ -191,13 +191,16 @@ class Homepage extends Component {
     }
 
     cancelRecording() {
-        this.practice.cancelReply();
+        if(this.practice){
+            this.practice.cancelReply();
+        }
     }
 
     finishRecording() {
-
         console.log('end reply');
-        this.practice.endReply();
+        if(this.practice) {
+            this.practice.endReply();
+        }
     }
 
     async submit() {

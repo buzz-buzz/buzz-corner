@@ -76,6 +76,7 @@ export const placementSelectWord = '选择最匹配的选项';
 export const placementAudioWord = '收听下面的问题并录制你的回答';
 export const placementListeningAudio = '点击收听';
 export const placementRecordAudio = '点击录制';
+export const placementRecordAgain = '重新录制';
 
 export const classEvaluationStarsStatus0 = '请选择';
 export const classEvaluationStarsStatus1 = '非常差';
