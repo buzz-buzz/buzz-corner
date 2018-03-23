@@ -127,7 +127,7 @@ router
 
 
 async function serveSPA(ctx) {
-    if (['production', 'uat', 'prd'].indexOf(process.env.NODE_ENV) >= 0) {
+    if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
         await send(ctx, 'build/index.html');
     } else {
         await send(ctx, 'public/index.html');
