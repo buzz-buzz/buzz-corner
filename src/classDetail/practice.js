@@ -57,13 +57,15 @@ export default class Practice extends React.Component {
 
                 this.props.handleUploadUrl({
                     url: url,
-                    err: ''
+                    err: '',
+                    type: 'end'
                 });
             }
             catch (ex){
                 this.props.handleUploadUrl({
                     url: '',
-                    err: ex.toString()
+                    err: ex.toString(),
+                    type: 'end'
                 });
             }
 
@@ -99,7 +101,15 @@ export default class Practice extends React.Component {
             this.props.recordingChanged(this.state.recording);
         });
         console.log('reply cancelled');
-        await            this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording()
+        await            this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording();
+
+        if (this.props.audioUpload) {
+            this.props.handleUploadUrl({
+                url: '',
+                err: '',
+                type: 'cancel'
+            });
+        }
     }
 
     play(index) {

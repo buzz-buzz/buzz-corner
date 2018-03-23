@@ -152,7 +152,7 @@ class Homepage extends Component {
             document.getElementById('loadingModal').style.display = 'none';
         }
 
-        if(url && url.url){
+        if(url.url && url.type === 'end'){
             console.log("upload result:++++++++++++++++++++++++++++++++++");
             console.log( url);
             //qiniu url
@@ -164,7 +164,7 @@ class Homepage extends Component {
                 audioAnsweringStatus: true,
                 answers: clonedAnswers
             });
-        }else{
+        }else if(url.type === 'end'){
             this.setState({
                 modalOpen: true,
                 errorMessage: url.err
