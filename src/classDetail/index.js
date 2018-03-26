@@ -39,13 +39,8 @@ class classDetail extends Component {
     }
 
     back() {
-        debugger
-        if (window.history.length > 0) {
-            window.history.back();
-        } else {
-            debugger
-            browserHistory.push('/');
-        }
+        window.history.back();
+        browserHistory.push('/');
     }
 
     goConsult() {
@@ -123,8 +118,6 @@ class classDetail extends Component {
             class_info = this.handleClassInfoData(class_info[0]);
 
             for (let i = 0; i < class_info.students.length; i++) {
-                console.log('class_info = ', class_info.students[i])
-                debugger;
                 let profileUser = await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.students[i].id}`
@@ -235,7 +228,7 @@ class classDetail extends Component {
                               ref={p => this.practice = p}
                               avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                 </div>
-                <LoadingModal loadingModal={this.state.loadingModal} />
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                 onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
             </div>
