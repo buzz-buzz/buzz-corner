@@ -10,6 +10,7 @@ class User {
     static async getInstance() {
         if (!currentUser) {
             let userData = await ServiceProxy.proxy('/user-info');
+            console.log('userData = ', userData);
 
             currentUser = new User(userData.userId);
         }

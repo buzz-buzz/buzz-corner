@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Form, Modal, Header, Icon} from 'semantic-ui-react';
+import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
-import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import Practice from "../classDetail/practice";
@@ -9,8 +8,14 @@ import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import '../my/my.css';
 import './index.css';
+import CurrentUser from "../membership/user";
 
 class Homepage extends Component {
+    handleOpen = () => this.setState({modalOpen: true});
+    handleClose = () => this.setState({modalOpen: false});
+    handleOpen = () => this.setState({modalOpen: true});
+    handleClose = () => this.setState({modalOpen: false});
+
     constructor(props) {
         super(props);
 
@@ -88,10 +93,6 @@ class Homepage extends Component {
         this.cancelRecording = this.cancelRecording.bind(this);
         this.finishRecording = this.finishRecording.bind(this)
     }
-
-    handleOpen = () => this.setState({modalOpen: true});
-
-    handleClose = () => this.setState({modalOpen: false});
 
     goBack() {
         if (this.state.step === 1) {
@@ -356,9 +357,9 @@ class Homepage extends Component {
                                         this.state.questions[this.state.step - 1].items.map((item, index) => {
                                             return <div className="answer-item" key={index}
                                                         style={this.state.answers[this.state.step - 1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {
-                                                                color: 'rgb(246, 180, 12)',
-                                                                border: '1px solid rgb(246, 180, 12)'
-                                                            } : {}}>
+                                                            color: 'rgb(246, 180, 12)',
+                                                            border: '1px solid rgb(246, 180, 12)'
+                                                        } : {}}>
                                                 <div className="item-value">
                                                     <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
                                                 </div>
@@ -390,22 +391,22 @@ class Homepage extends Component {
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={Resources.getInstance().profileContinue}
                                     style={this.state.answers[this.state.step - 1] === undefined ? {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255, 255, 255)',
-                                            height: '4em',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            backgroundColor: 'rgb(223,223,238)'
-                                        } : {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255, 255, 255)',
-                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '4em',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px'
-                                        }} disabled={this.state.answers[this.state.step - 1] === undefined}
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255, 255, 255)',
+                                        height: '4em',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px',
+                                        backgroundColor: 'rgb(223,223,238)'
+                                    } : {
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255, 255, 255)',
+                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                        height: '4em',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px'
+                                    }} disabled={this.state.answers[this.state.step - 1] === undefined}
                                     onClick={this.submit}/>
                     </Form.Group>
                 </Form>

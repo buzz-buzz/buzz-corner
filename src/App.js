@@ -37,6 +37,7 @@ class App extends Component {
                 <div className="content" style={{height: '100%'}}>
                     <Router history={browserHistory}>
                         <Route path='/' component={LoginEntrance}/>
+                        <Route path='/sign-in' component={WechatLogin}/>
                         <Route path='/login-for-wechat' component={WechatLogin}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/login/facebook" component={LoginByFacebook}/>

@@ -1,8 +1,14 @@
 async function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
+        let signInUrl = `${window.location.origin}/sign-in`;
+        if (response.url.indexOf(signInUrl) === 0) {
+            window.location.href = `${signInUrl}?return_url=${encodeURIComponent(window.location.pathname)}${window.location.search || ''}`;
+        }
         return response;
     } else {
-        const error = new Error(`HTTP Error: ${response.statusText}`);
+        const error = new Error(`
+            HTTP
+            Error: ${response.statusText}`);
         error.statusText = response.statusText;
         error.status = response.status;
         if (response.status === 401) {

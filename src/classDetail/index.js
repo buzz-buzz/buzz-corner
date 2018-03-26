@@ -31,7 +31,6 @@ class classDetail extends Component {
 
         this.back = this.back.bind(this);
         this.goConsult = this.goConsult.bind(this);
-        this.getAvatar = this.getAvatar.bind(this);
         this.getCompanionInfo = this.getCompanionInfo.bind(this);
         this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
@@ -40,9 +39,11 @@ class classDetail extends Component {
     }
 
     back() {
+        debugger
         if (window.history.length > 0) {
             window.history.back();
         } else {
+            debugger
             browserHistory.push('/');
         }
     }
@@ -87,16 +88,6 @@ class classDetail extends Component {
 
     }
 
-    async getAvatar(userId) {
-        let profile = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-            }
-        });
-
-        return profile.avatar;
-    }
-
     checkStatusAndTime() {
         if ((new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0) {
             this.showZoom();
@@ -131,7 +122,9 @@ class classDetail extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
-            for (let i in class_info.students) {
+            for (let i = 0; i < class_info.students.length; i++) {
+                console.log('class_info = ', class_info.students[i])
+                debugger;
                 let profileUser = await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.students[i].id}`

@@ -123,6 +123,9 @@ router
         cookie.deleteUserId.call(this);
         ctx.body = {message: 'logged out'};
     })
+    .get('/track_script_placeholder.js', async ctx => {
+        ctx.body = 'function doNothing(){}'
+    })
 ;
 
 
