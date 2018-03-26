@@ -39,7 +39,11 @@ class classDetail extends Component {
     }
 
     back() {
-        window.history.back();
+        if (window.history.length > 0) {
+            window.history.back();
+        } else {
+            browserHistory.push('/');
+        }
     }
 
     goConsult() {
@@ -167,14 +171,14 @@ class classDetail extends Component {
     }
 
     cancelRecording() {
-        if(this.practice){
+        if (this.practice) {
             this.practice.cancelReply();
         }
     }
 
     finishRecording() {
         console.log('end reply');
-        if(this.practice){
+        if (this.practice) {
             this.practice.endReply();
         }
 
@@ -254,7 +258,7 @@ class classDetail extends Component {
                 }}>
                     <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
                            type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                           pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                 </div>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                 onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
