@@ -53,6 +53,7 @@ export const profileParentsName = '家长姓名';
 export const profilePhoneInfo = '中国(+86)';
 export const profilePhoneHolder = '手机号码';
 export const profilePhoneCheck = '获取验证码';
+export const profilePhoneCheckError = '您输入的验证码不正确或过期, 请重新输入或获取新的验证码';
 export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
 export const profileStep2 = '个人信息';
 export const profileStep2Info = '用于平台中呈现少年的基本资料';
@@ -149,3 +150,4 @@ export const finishRecording = '完成录音';
 
 export const errorModalBtn = '确定';
 export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面，稍后重试';
+

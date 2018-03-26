@@ -53,6 +53,7 @@ export const profileParentsName = 'parent\'s name';
 export const profilePhoneInfo = 'China(+86)';
 export const profilePhoneHolder = 'phone number';
 export const profilePhoneCheck = 'Verification Code';
+export const profilePhoneCheckError = 'The code you entered is incorrect or expired. Please re-enter or get a new code';
 export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
 export const profileStep2 = 'personal information';
 export const profileStep2Info = 'Archive user information';
