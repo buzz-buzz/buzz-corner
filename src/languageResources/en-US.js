@@ -96,7 +96,7 @@ export const advisorInfo3 = 'You can scanning the WeChat Qrcode here';
 
 export const welcomePageTitle1 = 'Welcome to';
 export const welcomePageTitle2 = 'BuzzBuzz Virtual English corner';
-export const welcomePageWord1 = 'Improve English speaking and listening';
+export const welcomePageWord1 = 'Improve English speaking and listening, ';
 export const welcomePageWord2 = 'Get to know your English native speaking companion';
 export const welcomePageBooking = 'start booking';
 export const welcomePageSkip = 'skip this step';
