@@ -146,3 +146,6 @@ export const saveFailed = 'Save failed!';
 export const adminManageClass = 'class manage';
 
 export const finishRecording = 'Done';
+
+export const errorModalBtn = 'Got it';
+export const errorModalContent = 'Sorry, something was wrong。 please fresh the page and try later';

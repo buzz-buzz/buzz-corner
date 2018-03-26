@@ -90,6 +90,7 @@ p{
 
 .my-home > .home-content > .items, .my-home > .home-content > .none-items > .no-items  > p{
     margin: 0;
+    color: rgb(102, 102, 102);
 }
 
 .my-home > .home-content > .items{

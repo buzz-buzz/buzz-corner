@@ -146,3 +146,6 @@ export const saveFailed = '保存失败！';
 export const adminManageClass = '课程管理';
 
 export const finishRecording = '完成录音';
+
+export const errorModalBtn = '确定';
+export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面，稍后重试';
