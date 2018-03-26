@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20%;
+    height: 30%;
 }
 
 .wechat-login > .login-logo > img{
@@ -52,8 +52,9 @@
 }
 
 .wechat-login > .login-wechat-btn{
-    height: 25%;
-    padding: 0 1em;
+    height: 30%;
+    margin: 0 -1em;
+    padding: 0 37.5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,7 +66,7 @@
     display: flex;
     align-items: center;
     height: 4em;
-    width: 80%;
+    width: 100%;
     border: none !important;
     overflow: hidden;
 }
@@ -80,7 +81,6 @@
     flex: 1 0 auto;
     line-height: 4em;
     text-align: center;
-    padding-right: 2em;
     letter-spacing: 1px;
 }
 

@@ -88,11 +88,19 @@ class loginEntrance extends Component {
                     <div className="logo">
                         <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="Buzzbuzz Logo"/>
                     </div>
-                    <div className="entrance-word">
-                        <p>{Resources.getInstance().welcomePageIntroductionLineOne}</p>
-                        <p>{Resources.getInstance().welcomePageIntroductionLineTwo}</p>
-                        <p>{Resources.getInstance().welcomePageIntroductionLineThr}</p>
-                    </div>
+                    {
+                        window.navigator.language === 'zh-CN' ?
+                            (<div className="entrance-word">
+                                <p>{Resources.getInstance().welcomePageIntroductionLineOne}</p>
+                                <p>{Resources.getInstance().welcomePageIntroductionLineTwo}</p>
+                                <p>{Resources.getInstance().welcomePageIntroductionLineThr}</p>
+                            </div>):
+                            (
+                                <div className="entrance-word">
+                                    <p>{Resources.getInstance().welcomePageIntroductionLineOne + Resources.getInstance().welcomePageIntroductionLineTwo + Resources.getInstance().welcomePageIntroductionLineThr}</p>
+                                </div>
+                            )
+                    }
                 </div>
                 <div className="entrance-choose">
                     <div onClick={this.foreignChildEntrance}>

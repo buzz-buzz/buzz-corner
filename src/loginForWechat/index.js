@@ -26,22 +26,19 @@ class WechatLogin extends Component {
         return (
             <div className="wechat-login">
                 <div className="login-logo">
-                    <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="加载中..."/>
+                    <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="loading..."/>
                 </div>
                 <div className="login-wechat-img">
-                    <img src='//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png' alt="加载中..."/>
+                    <img src='//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png' alt="loading..."/>
                     <div className="img-introduction">
                         <p>{Resources.getInstance().loginByWechatIntroduction}</p>
                     </div>
                 </div>
                 <div className="login-wechat-btn" onClick={this.signUp}>
                     <div>
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png" alt=""/>
+                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png" alt="loading..."/>
                         <p>{Resources.getInstance().loginByWechatInfo}</p>
                     </div>
-                </div>
-                <div className="login-attention">
-
                 </div>
             </div>
         );

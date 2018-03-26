@@ -57,10 +57,20 @@ class ModalWelcome extends Component {
                             <p>{Resources.getInstance().welcomePageTitle1}</p>
                             <p>{Resources.getInstance().welcomePageTitle2}</p>
                         </div>
-                        <div className="welcome-info">
-                            <p>{Resources.getInstance().welcomePageWord1}</p>
-                            <p>{Resources.getInstance().welcomePageWord2}</p>
-                        </div>
+                        {
+                            window.navigator.language === 'zh-CN' ?
+                                (
+                                    <div className="welcome-info">
+                                        <p>{Resources.getInstance().welcomePageWord1}</p>
+                                        <p>{Resources.getInstance().welcomePageWord2}</p>
+                                </div>
+                                ):
+                                (
+                                    <div className="welcome-info">
+                                        <p>{Resources.getInstance().welcomePageWord1 + Resources.getInstance().welcomePageWord2}</p>
+                                    </div>
+                                )
+                        }
                         <div className="begin">
                             <div onClick={this.signUp}>
                                 <p>{Resources.getInstance().welcomePageBooking}</p>
