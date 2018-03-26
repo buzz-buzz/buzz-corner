@@ -73,6 +73,9 @@ class Homepage extends Component {
         super();
 
         this.state = {
+            waitSec: 0,
+            code: '',
+            mobileValid: false,
             birthdayLabel: '',
             step: 1,
             profile: {
@@ -197,6 +200,7 @@ class Homepage extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleCodeChange = this.handleCodeChange.bind(this);
         this.submit = this.submit.bind(this);
         this.changeGenderMale = this.changeGenderMale.bind(this);
         this.changeGenderFemale = this.changeGenderFemale.bind(this);
@@ -204,6 +208,32 @@ class Homepage extends Component {
         this.goBack = this.goBack.bind(this);
         this.agreementCheck = this.agreementCheck.bind(this);
         this.skipPlacement = this.skipPlacement.bind(this);
+        this.sms = this.sms.bind(this);
+    }
+
+    async sms() {
+      const { code } = await ServiceProxy.proxyTo({
+          body: {
+              uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
+              json: { mobile: this.state.profile.phone },
+              method: 'POST'
+          }
+      })
+      if (code) {
+        this.setState({code});
+      }
+      this.setState({waitSec: 60});
+      const interval = setInterval(() => {
+        if (this.state.waitSec) {
+          this.setState({waitSec: this.state.waitSec - 1});
+        } else {
+          clearInterval(interval)
+        }
+      }, 1000)
+    }
+
+    handleCodeChange(event) {
+        this.setState({code:event.target.value});
     }
 
     goBack() {
@@ -287,7 +317,7 @@ class Homepage extends Component {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile[event.target.name] = event.target.value;
-        this.setState({profile: clonedProfile});
+        this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11});
     }
 
     handleChangeBirthdayLabel(event) {
@@ -306,6 +336,21 @@ class Homepage extends Component {
             event.stopPropagation();
 
             if (this.state.step < 3) {
+                if (this.state.step === 1) {
+                  try {
+                    await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
+                            json: { mobile: this.state.profile.phone, code: this.state.code },
+                            method: 'POST'
+                        }
+                    })
+                  } catch (e) {
+                    console.log(e)
+                    alert(Resources.getInstance().profilePhoneCheckError)
+                    return
+                  }
+                }
                 let newStep = this.state.step + 1;
                 let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
                 this.setState({
@@ -512,8 +557,10 @@ class Homepage extends Component {
                                                name='phone'/>
                                     </div>
                                     <div className="check-number">
-                                        <input type="text" style={{width: '60%'}}/>
-                                        <Button>{Resources.getInstance().profilePhoneCheck}</Button>
+                                        <input type="text"
+                                          value={this.state.code}
+                                          onChange={this.handleCodeChange}  disabled={!this.state.mobileValid} style={{width: '60%'}} placeholder={Resources.getInstance().profilePhoneCheck}/>
+                                        <Button onClick={this.sms} disabled={!this.state.mobileValid || this.state.waitSec > 0 }>{ this.state.waitSec ||  Resources.getInstance().profilePhoneCheck }</Button>
                                     </div>
                                     <div className="agreement" onClick={this.agreementCheck}>
                                         <img

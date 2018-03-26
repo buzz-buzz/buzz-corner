@@ -101,9 +101,9 @@
     z-index: 99;
 }
 
-.check-number{
+/* .check-number{
     display: none !important;
-}
+} */
 
 .check-number, .phone-number{
     width: 100%;
@@ -113,11 +113,17 @@
     justify-content: space-between;
 }
 
-.check-number>button{
-    font-weight: normal !important;
+.check-number>.ui.button[disabled]{
+    color: rgb(255, 255, 255);
+    background-color: rgb(223, 223, 228) !important;
+}
+.check-number>.ui.button{
     width: 35%;
+    font-weight: normal !important;
     letter-spacing: 1px;
     margin: 0 !important;
+    background-image: linear-gradient(143deg, #fad961, #f5b40c);
+    color: #ffffff;
 }
 
 .check-number>input, .check-number>button, .phone-number>input, .phone-number>button, .parents-name>input{
