@@ -4,6 +4,7 @@ import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -348,8 +349,9 @@ class Homepage extends Component {
                     })
                   } catch (e) {
                     console.log(e)
-                    alert(Resources.getInstance().profilePhoneCheckError)
-                    return
+                    this.setState({messageModal: true, messageContent: e.toString(), messageName: 'error'});
+                      this.closeMessageModal();
+                    return;
                   }
                 }
                 let newStep = this.state.step + 1;
@@ -394,7 +396,8 @@ class Homepage extends Component {
                         });
                     }
                 } else {
-                    alert('save failed!')
+                    this.setState({messageModal: true, messageContent: Resources.getInstance().messageSaveFailed, messageName: 'error'});
+                    this.closeMessageModal();
                 }
             } else if (this.state.step === 4) {
                 browserHistory.push('/placement');
@@ -406,6 +409,18 @@ class Homepage extends Component {
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
             this.setState({loadingModal: false});
         }
+    }
+
+    closeMessageModal(){
+        const interval = setTimeout(() => {
+            console.log(this.state.messageModal, "sdfsdf------------------------");
+
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 3000)
     }
 
     validateForm() {
@@ -452,7 +467,13 @@ class Homepage extends Component {
         catch (ex) {
             console.log(ex.toString());
             //browserHistory.push('/');
+            this.setState({messageModal: true, messageContent: ex.toString(), messageName: 'error'});
+            this.closeMessageModal();
         }
+    }
+
+    componentWillUnmount(){
+        this.setState({messageModal: false});
     }
 
     getProfileFromUserData(userData) {
@@ -472,6 +493,7 @@ class Homepage extends Component {
         return (
             <div className="my-profile">
                 <LoadingModal loadingModal={this.state.loadingModal} />
+                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent} modalShow={this.state.messageModal} />
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">

@@ -150,3 +150,5 @@ export const finishRecording = 'Done';
 
 export const errorModalBtn = 'Got it';
 export const errorModalContent = 'Sorry, something was wrong。 please fresh the page and try later';
+
+export const messageSaveFailed = 'save Failed!';
