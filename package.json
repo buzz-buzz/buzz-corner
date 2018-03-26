@@ -44,7 +44,7 @@
     "server-test": "set PORT=22222&&node_modules\\react-scripts\\node_modules\\.bin\\jest --env=jsdom test\\\\.+\\.test\\.js",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
-    "deploy": "npm install && npm run build && gulp cdn"
+    "deploy": "npm install && npm run build && gulp cdn && gulp track"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
