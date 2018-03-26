@@ -129,7 +129,7 @@ class Homepage extends Component {
     async componentDidMount() {
         //await CurrentUser.getUserId()
         try {
-            let userId = await CurrentUser.getUserId();
+            let userId = 291;
 
             let profile = await ServiceProxy.proxyTo({
                 body: {
@@ -446,13 +446,13 @@ class Homepage extends Component {
                     basic
                     size='small'
                 >
-                    <Header icon='browser' content='Error!' />
+                    <Header icon='browser' content={Resources.getInstance().errorModalContent} />
                     <Modal.Content>
                         <h3>{this.state.errorMessage}</h3>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={this.handleClose} inverted>
-                            <Icon name='checkmark' /> Got it
+                            <Icon name='checkmark' /> {Resources.getInstance().errorModalBtn}
                         </Button>
                     </Modal.Actions>
                 </Modal>
