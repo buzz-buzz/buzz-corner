@@ -6,6 +6,7 @@ import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
+import LoadingModal from '../common/commonComponent/loadingModal';
 import '../my/my.css';
 import './index.css';
 
@@ -83,16 +84,14 @@ class Homepage extends Component {
         this.skip = this.skip.bind(this);
         this.submit = this.submit.bind(this);
         this.goBack = this.goBack.bind(this);
-        this.playQuestionVideo = this.playQuestionVideo.bind(this);
-        this.playRecordedVideo = this.playRecordedVideo.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
         this.cancelRecording = this.cancelRecording.bind(this);
         this.finishRecording = this.finishRecording.bind(this)
     }
 
-    handleOpen = () => this.setState({ modalOpen: true });
+    handleOpen = () => this.setState({modalOpen: true});
 
-    handleClose = () => this.setState({ modalOpen: false });
+    handleClose = () => this.setState({modalOpen: false});
 
     goBack() {
         if (this.state.step === 1) {
@@ -103,14 +102,6 @@ class Homepage extends Component {
                 step: newStep
             });
         }
-    }
-
-    playQuestionVideo() {
-        document.getElementById('playQuestionAudio').play();
-    }
-
-    playRecordedVideo() {
-        document.getElementById('playAnswerAudio').play();
     }
 
     answering(event) {
@@ -129,7 +120,7 @@ class Homepage extends Component {
     async componentDidMount() {
         //await CurrentUser.getUserId()
         try {
-            let userId = 291;
+            let userId = await CurrentUser.getUserId();
 
             let profile = await ServiceProxy.proxyTo({
                 body: {
@@ -147,14 +138,12 @@ class Homepage extends Component {
         }
     }
 
-    handleUploadUrl(url){
-        if (document.getElementById('loadingModal')) {
-            document.getElementById('loadingModal').style.display = 'none';
-        }
+    handleUploadUrl(url) {
+        this.setState({loadingModal: false});
 
-        if(url.url && url.type === 'end'){
+        if (url.url && url.type === 'end') {
             console.log("upload result:++++++++++++++++++++++++++++++++++");
-            console.log( url);
+            console.log(url);
             //qiniu url
             let clonedAnswers = this.state.answers;
             clonedAnswers.push(url);
@@ -164,7 +153,7 @@ class Homepage extends Component {
                 audioAnsweringStatus: true,
                 answers: clonedAnswers
             });
-        }else if(url.type === 'end'){
+        } else if (url.type === 'end') {
             this.setState({
                 modalOpen: true,
                 errorMessage: url.err
@@ -182,23 +171,21 @@ class Homepage extends Component {
 
     recordingChanged(recordingStatus) {
         console.log('recording status = ', recordingStatus);
-        if(recordingStatus === false){
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'flex';
-            }
+        if (recordingStatus === false) {
+            this.setState({loadingModal: true});
         }
         this.setState({recording: recordingStatus})
     }
 
     cancelRecording() {
-        if(this.practice){
+        if (this.practice) {
             this.practice.cancelReply();
         }
     }
 
     finishRecording() {
         console.log('end reply');
-        if(this.practice) {
+        if (this.practice) {
             this.practice.endReply();
         }
     }
@@ -233,7 +220,7 @@ class Homepage extends Component {
                 }
             } else {
                 //done
-                document.getElementById('loadingModal').style.display = 'flex';
+                this.setState({loadingModal: true});
 
                 if (this.checkPlacementAnswer()) {
                     let placementTestData = {
@@ -255,16 +242,12 @@ class Homepage extends Component {
                         }
                     });
 
-                    if (document.getElementById('loadingModal')) {
-                        document.getElementById('loadingModal').style.display = 'none';
-                    }
+                    this.setState({loadingModal: false});
                     browserHistory.push('/home');
                 } else {
                     //show error
 
-                    if (document.getElementById('loadingModal')) {
-                        document.getElementById('loadingModal').style.display = 'none';
-                    }
+                    this.setState({loadingModal: false});
                 }
 
             }
@@ -273,9 +256,7 @@ class Homepage extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
             browserHistory.push('/home');
         }
     }
@@ -283,22 +264,7 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
-                <div id='loadingModal' style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'white'
-                }}>
-                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                           type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                </div>
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">
@@ -384,14 +350,15 @@ class Homepage extends Component {
                                     </div>
                                 </div>
                                 <div className="first-answer">
-                                    <div className="answer-title" style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
+                                    <div className="answer-title"
+                                         style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
                                     {
                                         this.state.questions[this.state.step - 1].items.map((item, index) => {
                                             return <div className="answer-item" key={index}
                                                         style={this.state.answers[this.state.step - 1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {
-                                                            color: 'rgb(246, 180, 12)',
-                                                            border: '1px solid rgb(246, 180, 12)'
-                                                        } : {}}>
+                                                                color: 'rgb(246, 180, 12)',
+                                                                border: '1px solid rgb(246, 180, 12)'
+                                                            } : {}}>
                                                 <div className="item-value">
                                                     <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
                                                 </div>
@@ -413,29 +380,32 @@ class Homepage extends Component {
                                     <div className="second-title">
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
-                                    <Practice chats={this.state.chats} avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]} handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}  recordingChanged={this.recordingChanged} ref={p => this.practice = p} />
+                                    <Practice chats={this.state.chats}
+                                              avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]}
+                                              handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}
+                                              recordingChanged={this.recordingChanged} ref={p => this.practice = p}/>
                                 </div>)
                             )
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} content={Resources.getInstance().profileContinue}
                                     style={this.state.answers[this.state.step - 1] === undefined ? {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px',
-                                        backgroundColor: 'rgb(223,223,238)'
-                                    } : {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px'
-                                    }} disabled={this.state.answers[this.state.step - 1] === undefined}
+                                            margin: '2em auto .5em auto',
+                                            width: '100%',
+                                            color: 'rgb(255, 255, 255)',
+                                            height: '4em',
+                                            fontWeight: 'normal',
+                                            borderRadius: '30px',
+                                            backgroundColor: 'rgb(223,223,238)'
+                                        } : {
+                                            margin: '2em auto .5em auto',
+                                            width: '100%',
+                                            color: 'rgb(255, 255, 255)',
+                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                            height: '4em',
+                                            fontWeight: 'normal',
+                                            borderRadius: '30px'
+                                        }} disabled={this.state.answers[this.state.step - 1] === undefined}
                                     onClick={this.submit}/>
                     </Form.Group>
                 </Form>
@@ -446,13 +416,13 @@ class Homepage extends Component {
                     basic
                     size='small'
                 >
-                    <Header icon='browser' content={Resources.getInstance().errorModalContent} />
+                    <Header icon='browser' content={Resources.getInstance().errorModalContent}/>
                     <Modal.Content>
                         <h3>{this.state.errorMessage}</h3>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={this.handleClose} inverted>
-                            <Icon name='checkmark' /> {Resources.getInstance().errorModalBtn}
+                            <Icon name='checkmark'/> {Resources.getInstance().errorModalBtn}
                         </Button>
                     </Modal.Actions>
                 </Modal>

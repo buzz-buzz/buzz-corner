@@ -5,7 +5,8 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import Footer from '../layout/footer';
-import Welcome from '../common/commonComponent/modalWelcome/index';
+import Welcome from '../common/commonComponent/modalWelcome';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
 
@@ -129,7 +130,7 @@ class Home extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'flex';
+            this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
             let userId = await CurrentUser.getUserId();
@@ -196,11 +197,7 @@ class Home extends Component {
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
         } finally {
-            //console.log('login failed');
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
-
+            this.setState({loadingModal: false});
         }
     }
 
@@ -235,22 +232,7 @@ class Home extends Component {
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
-                <div id='loadingModal' style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'white'
-                }}>
-                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                           type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                </div>
+                <LoadingModal loadingModal={this.state.loadingModal} />
                 {this.state.tab === 'booking' ?
                     (<div className="home-content">
                         {this.state.booking.length > 0 ?

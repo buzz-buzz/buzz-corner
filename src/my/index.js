@@ -3,6 +3,7 @@ import {Button, Dropdown, Form} from 'semantic-ui-react';
 import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
+import LoadingModal from '../common/commonComponent/loadingModal';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -359,7 +360,7 @@ class Homepage extends Component {
                 });
             } else if (this.state.step === 3) {
                 //loading
-                document.getElementById('loadingModal').style.display = 'flex';
+                this.setState({loadingModal: true});
 
                 let profileData = this.validateForm();
 
@@ -380,21 +381,17 @@ class Homepage extends Component {
                     });
 
                     if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
-                        if (document.getElementById('loadingModal')) {
-                            document.getElementById('loadingModal').style.display = 'none';
-                        }
+                        this.setState({loadingModal: false});
+
                         browserHistory.push('/home');
                     } else {
                         let newStep = this.state.step + 1;
                         let newTitle = Resources.getInstance().profileStep4Info;
                         this.setState({
                             step: newStep,
-                            profile_title: newTitle
+                            profile_title: newTitle,
+                            loadingModal: false
                         });
-
-                        if (document.getElementById('loadingModal')) {
-                            document.getElementById('loadingModal').style.display = 'none';
-                        }
                     }
                 } else {
                     alert('save failed!')
@@ -407,9 +404,7 @@ class Homepage extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
@@ -476,22 +471,7 @@ class Homepage extends Component {
     render() {
         return (
             <div className="my-profile">
-                <div id='loadingModal' style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'white'
-                }}>
-                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                           type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                </div>
+                <LoadingModal loadingModal={this.state.loadingModal} />
                 <div className="header-with-go-back">
                     <div className="go-back" onClick={this.goBack}>
                         <div className="arrow-left">
@@ -560,7 +540,7 @@ class Homepage extends Component {
                                         <input type="text"
                                           value={this.state.code}
                                           onChange={this.handleCodeChange}  disabled={!this.state.mobileValid} style={{width: '60%'}} placeholder={Resources.getInstance().profilePhoneCheck}/>
-                                        <Button onClick={this.sms} disabled={!this.state.mobileValid || this.state.waitSec > 0 }>{ this.state.waitSec ||  Resources.getInstance().profilePhoneCheck }</Button>
+                                        <Button style={{padding: 0}} onClick={this.sms} disabled={!this.state.mobileValid || this.state.waitSec > 0 }>{ this.state.waitSec ||  Resources.getInstance().profilePhoneCheck }</Button>
                                     </div>
                                     <div className="agreement" onClick={this.agreementCheck}>
                                         <img

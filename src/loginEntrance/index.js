@@ -3,6 +3,7 @@ import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
 
 class loginEntrance extends Component {
@@ -30,7 +31,7 @@ class loginEntrance extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'flex';
+            this.setState({loadingModal: true});
 
             let userId = await CurrentUser.getUserId();
 
@@ -41,9 +42,7 @@ class loginEntrance extends Component {
                     }
                 }));
 
-                if (document.getElementById('loadingModal')) {
-                    document.getElementById('loadingModal').style.display = 'none';
-                }
+                this.setState({loadingModal: false});
 
                 if (!profile.date_of_birth || !profile.city) {
                     browserHistory.push('/my/info');
@@ -51,39 +50,20 @@ class loginEntrance extends Component {
                     browserHistory.push('/home');
                 }
             } else {
-                if (document.getElementById('loadingModal')) {
-                    document.getElementById('loadingModal').style.display = 'none';
-                }
+                this.setState({loadingModal: false});
             }
         } catch (ex) {
             //login error
             console.log("loginEntrance:" + ex.toString());
 
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
     render() {
         return (
             <div className="login-entrance">
-                <div id='loadingModal' style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'white'
-                }}>
-                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                           type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                </div>
+                <LoadingModal loadingModal={this.state.loadingModal} />
                 <div className="entrance-logo">
                     <div className="logo">
                         <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="Buzzbuzz Logo"/>

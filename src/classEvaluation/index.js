@@ -5,6 +5,7 @@ import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import './index.css';
 import * as time from "../common/timeHelper";
+import LoadingModal from '../common/commonComponent/loadingModal';
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -111,7 +112,7 @@ class classEvaluation extends Component {
     async submitEvaluation() {
         try {
             if (!(!this.state.stars || !this.state.evaluation_content)) {
-                document.getElementById('loadingModal').style.display = 'flex';
+                this.setState({loadingModal: true});
 
                 //post data
                 let evaluationData = this.validateForm();
@@ -124,23 +125,19 @@ class classEvaluation extends Component {
                     }
                 });
 
-                this.setState({evaluation_status: true});
+                this.setState({evaluation_status: true, loadingModal: false});
             }
         }
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
-        }
-        finally {
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
-            document.getElementById('loadingModal').style.display = 'flex';
+            this.setState({loadingModal: true});
 
             let userId = await CurrentUser.getUserId();
 
@@ -180,17 +177,13 @@ class classEvaluation extends Component {
                     class_info: class_info,
                     companion_name: class_info.companion_name || '',
                     companion_avatar: class_info.companion_avatar || '',
-                    userId: userId
+                    userId: userId,
+                    loadingModal: false
                 });
             }
         } catch (ex) {
             //login error
-            console.log("evaluation:" + ex.toString());
-        }
-        finally {
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
@@ -301,22 +294,7 @@ class classEvaluation extends Component {
                         <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
-                    <div id='loadingModal' style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 888,
-                        display: 'none',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'white'
-                    }}>
-                        <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                    </div>
+                    <LoadingModal loadingModal={this.state.loadingModal} />
                 </div>
             </div>
         );

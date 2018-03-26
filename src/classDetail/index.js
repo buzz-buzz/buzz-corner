@@ -5,6 +5,7 @@ import './index.css';
 import * as time from "../common/timeHelper";
 import Practice from "./practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
+import LoadingModal from '../common/commonComponent/loadingModal';
 
 class classDetail extends Component {
     constructor(props) {
@@ -120,7 +121,7 @@ class classDetail extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'flex';
+            this.setState({loadingModal: true});
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -151,17 +152,14 @@ class classDetail extends Component {
                 companion_avatar: class_info.companion_avatar || '',
                 class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' )),
                 class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0 ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ? '已开始' : '已结束' )),
-                chats: class_info.exercises ? JSON.parse(class_info.exercises) : []
+                chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
+                loadingModal: false
             });
 
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-        } finally {
-            //console.log('login failed');
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
@@ -244,22 +242,7 @@ class classDetail extends Component {
                               ref={p => this.practice = p}
                               avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                 </div>
-                <div id='loadingModal' style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 888,
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'white'
-                }}>
-                    <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                           type="image/svg+xml"
-                           pluginspage="http://www.adobe.com/svg/viewer/install/"/>
-                </div>
+                <LoadingModal loadingModal={this.state.loadingModal} />
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                 onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
             </div>

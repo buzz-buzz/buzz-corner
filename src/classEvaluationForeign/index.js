@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
 
@@ -54,7 +55,7 @@ class classEvaluationForeign extends Component {
 
     async componentDidMount() {
         try {
-            document.getElementById('loadingModal').style.display = 'flex';
+            this.setState({loadingModal: true});
 
             let userId = await CurrentUser.getUserId();
 
@@ -71,18 +72,13 @@ class classEvaluationForeign extends Component {
 
             this.setState({
                 userId: userId,
-                class_info: class_info
+                class_info: class_info,
+                loadingModal: false
             });
-
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
         } catch (ex) {
             //login error
             console.log("evaluation:" + ex.toString());
-            if (document.getElementById('loadingModal')) {
-                document.getElementById('loadingModal').style.display = 'none';
-            }
+            this.setState({loadingModal: false});
         }
     }
 
@@ -158,22 +154,7 @@ class classEvaluationForeign extends Component {
                             </div>
                         </Link>
                     </div>
-                    <div id='loadingModal' style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 888,
-                        display: 'none',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'white'
-                    }}>
-                        <embed src="//p579tk2n2.bkt.clouddn.com/index.earth-globe-map-spinner.svg" width="240" height="80"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
-                    </div>
+                    <LoadingModal loadingModal={this.state.loadingModal} />
                 </div>
             </div>
         );
