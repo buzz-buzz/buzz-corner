@@ -5,6 +5,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
 import CurrentUser from "../membership/user";
 import ServiceProxy from "../service-proxy";
+import Track from "../common/track";
 import {MemberType} from "../membership/member-type";
 import {Message} from "semantic-ui-react";
 
@@ -21,6 +22,7 @@ class SelectRole extends Component {
 
     async chineseChildEntrance() {
         this.setState({loadingModal: true});
+        Track.event('注册/登录', '点击中方');
 
         let userId = CurrentUser.getUserId()
         try {
@@ -45,14 +47,17 @@ class SelectRole extends Component {
     }
 
     foreignChildEntrance() {
+        Track.event('注册/登录', '点击外籍');
         window.location.href = 'https://jinshuju.net/f/OrK4p2';
     }
 
     goVideoPlayPage() {
+        Track.event('注册/登录', '点击查看案例');
         browserHistory.push('/video-play');
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        Track.event('注册/登录', '欢迎页');
     }
 
     render() {
