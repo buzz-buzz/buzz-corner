@@ -362,9 +362,9 @@ class Homepage extends Component {
                 let newStep = this.state.step + 1;
                 let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
 
-                if(newStep === 2){
+                if (newStep === 2) {
                     Track.event('注册', '孩子信息页面-中方');
-                }else if(newStep === 3){
+                } else if (newStep === 3) {
                     Track.event('注册', '孩子信息页面-继续');
                     Track.event('注册', '兴趣爱好页面-中方');
                 }
@@ -480,12 +480,11 @@ class Homepage extends Component {
                 }
             }));
 
-            console.log(profile);
-
             this.setState({
                 profile: profile,
-                userId: userId
-            });
+                userId: userId,
+                mobileValid: profile && profile.phone && profile.phone.length === 11
+            })
         }
         catch (ex) {
             console.log(ex.toString());
@@ -590,7 +589,7 @@ class Homepage extends Component {
                                                style={{width: '60%'}}
                                                placeholder={Resources.getInstance().profilePhoneCheck}/>
                                         <Button style={{padding: 0}} onClick={this.sms}
-                                                disabled={!this.state.mobileValid || this.state.waitSec > 0 }>{ this.state.waitSec || Resources.getInstance().profilePhoneCheck }</Button>
+                                                disabled={!this.state.mobileValid || this.state.waitSec > 0}>{this.state.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
                                     </div>
                                     <div className="agreement" onClick={this.agreementCheck}>
                                         <img
@@ -601,97 +600,97 @@ class Homepage extends Component {
                                 </div>
                             ) : (
                                 this.state.step === 2 ? (
-                                        <div className="form-content">
-                                            <div className="parents-name">
-                                                <input type="text"
-                                                       placeholder={Resources.getInstance().profileChildName}
-                                                       style={{width: '100%'}}
-                                                       value={this.state.profile.student_en_name}
-                                                       onChange={this.handleChange}
-                                                       name='student_en_name'/>
+                                    <div className="form-content">
+                                        <div className="parents-name">
+                                            <input type="text"
+                                                   placeholder={Resources.getInstance().profileChildName}
+                                                   style={{width: '100%'}}
+                                                   value={this.state.profile.student_en_name}
+                                                   onChange={this.handleChange}
+                                                   name='student_en_name'/>
+                                        </div>
+                                        <div className="gender">
+                                            <div className="male" onClick={this.changeGenderMale}>
+                                                <div
+                                                    className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
+                                                    <img
+                                                        src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
+                                                        alt=""/>
+                                                </div>
+                                                <span
+                                                    style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileMale}</span>
                                             </div>
-                                            <div className="gender">
-                                                <div className="male" onClick={this.changeGenderMale}>
-                                                    <div
-                                                        className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileMale}</span>
+                                            <div className="female" onClick={this.changeGenderFemale}>
+                                                <div
+                                                    className={this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
+                                                    <img
+                                                        src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
+                                                        alt=""/>
                                                 </div>
-                                                <div className="female" onClick={this.changeGenderFemale}>
-                                                    <div
-                                                        className={this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileFemale}</span>
-                                                </div>
-                                            </div>
-                                            <Form.Group widths='equal' className="position-relative">
-                                                <Form.Input
-                                                    style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                                                    value={this.state.profile.date_of_birth} type="date"
-                                                    onChange={this.handleChange} name='date_of_birth'/>
-                                                <div className="field birthday-label">
-                                                    <input type="text"
-                                                           placeholder={Resources.getInstance().profileBirth}
-                                                           style={{width: '100%'}}
-                                                           value={this.state.birthdayLabel || ''}
-                                                           onChange={this.handleChangeBirthdayLabel}
-                                                           name='birthdayLabel'/>
-                                                </div>
-                                            </Form.Group>
-                                            <div className="selection-options">
-                                                <Dropdown placeholder={Resources.getInstance().profileCity} search
-                                                          selection noResultsMessage="没有这个城市哦"
-                                                          onChange={(event, data) => {
-                                                              this.handleCityChange(event, data)
-                                                          }} value={this.state.profile.city}
-                                                          options={city_list}/>
-                                                <Dropdown placeholder={Resources.getInstance().profileGrade} search
-                                                          selection noResultsMessage="例如: 六年级"
-                                                          onChange={(event, data) => {
-                                                              this.handleGradeChange(event, data)
-                                                          }} value={this.state.profile.grade}
-                                                          options={grade_list}/>
+                                                <span
+                                                    style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileFemale}</span>
                                             </div>
                                         </div>
-                                    ) : (
-                                        this.state.step === 3 ?
-                                            (<div className='topic form-content'>
-                                                <p>{Resources.getInstance().profileStep3}</p>
-                                                <div className="topic-items">
-                                                    {
-                                                        this.state.placement_topics.map((item, index) => {
-                                                            return <div key={index}
-                                                                        style={{backgroundColor: item.color_b}}>
-                                                                <div>
-                                                                    <img src={item.url} alt="topic"/>
-                                                                </div>
-                                                                <p style={{color: item.color_f}}>{item.name}</p>
-                                                                <a onClick={this.topicChange} name={item.value}
-                                                                   style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}>&nbsp;</a>
+                                        <Form.Group widths='equal' className="position-relative">
+                                            <Form.Input
+                                                style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
+                                                value={this.state.profile.date_of_birth} type="date"
+                                                onChange={this.handleChange} name='date_of_birth'/>
+                                            <div className="field birthday-label">
+                                                <input type="text"
+                                                       placeholder={Resources.getInstance().profileBirth}
+                                                       style={{width: '100%'}}
+                                                       value={this.state.birthdayLabel || ''}
+                                                       onChange={this.handleChangeBirthdayLabel}
+                                                       name='birthdayLabel'/>
+                                            </div>
+                                        </Form.Group>
+                                        <div className="selection-options">
+                                            <Dropdown placeholder={Resources.getInstance().profileCity} search
+                                                      selection noResultsMessage="没有这个城市哦"
+                                                      onChange={(event, data) => {
+                                                          this.handleCityChange(event, data)
+                                                      }} value={this.state.profile.city}
+                                                      options={city_list}/>
+                                            <Dropdown placeholder={Resources.getInstance().profileGrade} search
+                                                      selection noResultsMessage="例如: 六年级"
+                                                      onChange={(event, data) => {
+                                                          this.handleGradeChange(event, data)
+                                                      }} value={this.state.profile.grade}
+                                                      options={grade_list}/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    this.state.step === 3 ?
+                                        (<div className='topic form-content'>
+                                            <p>{Resources.getInstance().profileStep3}</p>
+                                            <div className="topic-items">
+                                                {
+                                                    this.state.placement_topics.map((item, index) => {
+                                                        return <div key={index}
+                                                                    style={{backgroundColor: item.color_b}}>
+                                                            <div>
+                                                                <img src={item.url} alt="topic"/>
                                                             </div>
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>) :
-                                            (
-                                                <div className="form-content">
-                                                    <h4>{Resources.getInstance().profileStep4InfoWord1}<span
-                                                        style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
-                                                    </h4>
-                                                    <img className="profile-done-img"
-                                                         src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
-                                                         alt=""/>
-                                                </div>
-                                            )
-                                    )
+                                                            <p style={{color: item.color_f}}>{item.name}</p>
+                                                            <a onClick={this.topicChange} name={item.value}
+                                                               style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}>&nbsp;</a>
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+                                        </div>) :
+                                        (
+                                            <div className="form-content">
+                                                <h4>{Resources.getInstance().profileStep4InfoWord1}<span
+                                                    style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
+                                                </h4>
+                                                <img className="profile-done-img"
+                                                     src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
+                                                     alt=""/>
+                                            </div>
+                                        )
+                                )
                             )
                     }
                     <Form.Group widths='equal'>
@@ -699,32 +698,32 @@ class Homepage extends Component {
                                     content={this.state.step < 4 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
                                     disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
                                     style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '4em',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        } : {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            backgroundColor: 'rgb(223, 223, 228)',
-                                            height: '4em',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        }} onClick={this.submit}/>
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255,255,255)',
+                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                        height: '4em',
+                                        letterSpacing: '4px',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px',
+                                        opacity: '1 !important'
+                                    } : {
+                                        margin: '2em auto .5em auto',
+                                        width: '100%',
+                                        color: 'rgb(255,255,255)',
+                                        backgroundColor: 'rgb(223, 223, 228)',
+                                        height: '4em',
+                                        letterSpacing: '4px',
+                                        fontWeight: 'normal',
+                                        borderRadius: '30px',
+                                        opacity: '1 !important'
+                                    }} onClick={this.submit}/>
                     </Form.Group>
                     {
                         this.state.step === 4 ? (
-                                <div className="skip"
-                                     onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
-                            ) : ('')
+                            <div className="skip"
+                                 onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
+                        ) : ('')
                     }
                 </Form>
                 <br/>

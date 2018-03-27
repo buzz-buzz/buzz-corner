@@ -5,7 +5,7 @@ afterEach(() => {
     server.close();
 });
 
-describe('OAuth', function () {
+describe.skip('OAuth', function () {
     test('should redirect to wechat oauth page', async () => {
         const response = await request(server).get('/wechat-login');
         expect(response.status).toEqual(302);

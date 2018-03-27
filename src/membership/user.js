@@ -4,6 +4,7 @@ let currentUser;
 
 class User {
     constructor(userId) {
+        console.log('userId = ', userId);
         this.userId = userId;
     }
 
@@ -21,6 +22,24 @@ class User {
 
 export default class CurrentUser {
     static async getUserId() {
-        return (await User.getInstance()).userId;
+        let userId = (await User.getInstance()).userId;
+        console.log('got user id = ', userId);
+        return userId;
+    }
+
+    static async getProfile() {
+        let userId = await CurrentUser.getUserId();
+
+        if (!currentUser.profile) {
+            let profile = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                }
+            })
+
+            currentUser.profile = profile;
+        }
+
+        return currentUser.profile;
     }
 }

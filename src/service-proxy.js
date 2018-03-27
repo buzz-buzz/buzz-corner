@@ -1,4 +1,5 @@
 async function checkStatus(response) {
+    console.log('response = ', response);
     if (response.status >= 200 && response.status < 300) {
         let signInUrl = `${window.location.origin}/sign-in`;
         if (response.url.indexOf(signInUrl) === 0) {
@@ -54,16 +55,18 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
+            let textResult = typeof res.text === 'function' ? await res.text() : res.body;
+            console.log('textResult = ', textResult);
             if (mergedOptions.accept === 'application/json') {
                 try {
-                    let result = res.json();
+                    let result = JSON.parse(textResult);
+                    console.log('result of json = ', result);
                     return result;
-                }
-                catch (ex) {
-                    return res.text();
+                } catch (ex) {
+                    return textResult;
                 }
             } else {
-                return res.text();
+                return textResult;
             }
         } catch (ex) {
             await handleError(ex);

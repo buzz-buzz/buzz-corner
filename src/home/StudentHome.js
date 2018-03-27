@@ -10,6 +10,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import Track from "../common/track";
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
+import {MemberType} from "../membership/member-type";
 
 class Home extends Component {
     constructor() {
@@ -159,6 +160,22 @@ class Home extends Component {
 
             //check if placement is Done await CurrentUser.getUserId()
             let userId = await CurrentUser.getUserId();
+            let profile = await CurrentUser.getProfile();
+
+            if (!profile.role) {
+                browserHistory.push('/select-role');
+                return;
+            }
+
+            if (profile.role !== MemberType.Student) {
+                browserHistory.push('/under-construction');
+                return;
+            }
+
+            if (!profile.date_of_birth || !profile.city) {
+                browserHistory.push('/my/info');
+                return;
+            }
 
             let placementResult = await this.getPlacementResult(userId);
 
@@ -169,8 +186,6 @@ class Home extends Component {
             });
 
             classList = this.handleClassListData(classList);
-
-            console.log(classList);
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 

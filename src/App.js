@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 
 import ProfilePage from './my/profileSetup';
 import WechatLogin from './loginForWechat/index';
-import LoginEntrance from './loginEntrance/index';
+import SelectRole from './select-role/index';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
 import Avatar from './my/profileSetup/more-info';
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
-import WechatDemo from './wechat/demo';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import My from './my';
@@ -22,13 +21,15 @@ import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
 import VideoPlay from './videoPlay';
 import Consult from './consult';
-import Home from './home';
+import Home from './home/StudentHome';
 import Friends from './friends';
 import Reward from './reward';
 import User from './user';
 
 import {Container} from "semantic-ui-react";
 import WechatOAuthFail from "./login/wechat-oauth-fail";
+import UnderConstruction from "./common/commonComponent/under-construction/index";
+import EntryPoint from "./home/EntryPoint";
 
 class App extends Component {
     render() {
@@ -36,7 +37,8 @@ class App extends Component {
             <Container style={{height: '100%'}}>
                 <div className="content" style={{height: '100%'}}>
                     <Router history={browserHistory}>
-                        <Route path='/' component={LoginEntrance}/>
+                        <Route path='/' component={EntryPoint}/>
+                        <Route path='/select-role' component={SelectRole}/>
                         <Route path='/sign-in' component={WechatLogin}/>
                         <Route path='/login-for-wechat' component={WechatLogin}/>
                         <Route path="/login" component={Login}/>
@@ -58,11 +60,11 @@ class App extends Component {
                         <Route path='/user' component={User}/>
                         <Route path='/class/:class_id' component={ClassDetail}/>
                         <Route path='/consult' component={Consult}/>
-                        <Route path='/wechat/demo' component={WechatDemo}/>
                         <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
                         <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
                         <Route path='/class-lessons' component={ClassLessons}/>
                         <Route path='/video-play' component={VideoPlay}/>
+                        <Route path='/under-construction' component={UnderConstruction}/>
                     </Router>
                 </div>
             </Container>
