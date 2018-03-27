@@ -9,7 +9,7 @@ gulp.task('cdn', function () {
     }
 
     return gulp.src(['build/index.html'])
-        .pipe(replace('/static/', cdnifiedUrl))
+        .pipe(replace(/"\/static\//g, `"${cdnifiedUrl}`))
         .pipe(gulp.dest('build/'));
 });
 

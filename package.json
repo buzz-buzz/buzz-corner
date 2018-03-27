@@ -74,7 +74,7 @@
     "client": "set PORT=80&&node scripts/start.js",
     "server": "set NODE_ENV=development&&node app.js",
     "prd-server": "set NODE_ENV=production&&set PORT=80&&node app.js",
-    "build": "node node_modules/react-scripts/bin/react-scripts.js build",
+    "build": "node scripts/build.js",
     "test": "set PORT=22222&&node scripts/test.js --env=jsdom",
     "coverage": "set PORT=22222&&node scripts/test.js --env=jsdom --coverage",
     "deploy": "npm install && npm run build && gulp cdn && gulp track"
