@@ -139,9 +139,9 @@ class Homepage extends Component {
         this.setState({loadingModal: false});
 
         if (url.url && url.type === 'end') {
-            console.log("upload result:++++++++++++++++++++++++++++++++++");
-            console.log(url);
             //qiniu url
+            Track.event('测试', '录音上传七牛成功');
+
             let clonedAnswers = this.state.answers;
             clonedAnswers.push(url);
 
@@ -151,6 +151,8 @@ class Homepage extends Component {
                 answers: clonedAnswers
             });
         } else if (url.type === 'end') {
+            Track.event('测试', '录音上传过程失败');
+
             this.setState({
                 modalOpen: true,
                 errorMessage: url.err
