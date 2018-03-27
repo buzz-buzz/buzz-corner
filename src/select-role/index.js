@@ -24,9 +24,9 @@ class SelectRole extends Component {
         this.setState({loadingModal: true});
         Track.event('注册/登录', '点击中方');
 
-        let userId = CurrentUser.getUserId()
+        let userId = CurrentUser.getUserId();
         try {
-            let result = await ServiceProxy.proxyTo({
+            await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`,
                     method: 'PUT',

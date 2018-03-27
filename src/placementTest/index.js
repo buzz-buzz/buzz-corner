@@ -182,12 +182,16 @@ class Homepage extends Component {
     }
 
     cancelRecording() {
+        Track.event('测试', '点击取消录音');
+
         if (this.practice) {
             this.practice.cancelReply();
         }
     }
 
     finishRecording() {
+        Track.event('测试', '点击完成录音');
+
         console.log('end reply');
         if (this.practice) {
             this.practice.endReply();

@@ -3,6 +3,7 @@ import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
+import Track from "../common/track";
 import CurrentUser from "../membership/user";
 import ServiceProxy from "../service-proxy";
 
@@ -27,7 +28,9 @@ export default class Practice extends React.Component {
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        console.log(`the ${buttonIndex} button was clicked`)
+        Track.event(this.props.audioUpload ? '测试' : '课程详情', '点击音频录制');
+
+        console.log(`the ${buttonIndex} button was clicked`);
         if (!this.state.replies[buttonIndex].answered) {
             this.setState({recording: true}, () => {
                 this.props.recordingChanged(this.state.recording);
@@ -113,6 +116,8 @@ export default class Practice extends React.Component {
     }
 
     play(index) {
+        Track.event(this.props.audioUpload ? '测试' : '课程详情', '点击音频收听');
+
         if (this.audios[index]) {
             this.audios[index].play()
         }
