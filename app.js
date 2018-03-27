@@ -105,7 +105,7 @@ router
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
         } else {
-            ctx.body = await serveSPA(ctx);
+            await serveSPA(ctx);
         }
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
