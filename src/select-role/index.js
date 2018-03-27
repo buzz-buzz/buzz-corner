@@ -24,7 +24,7 @@ class SelectRole extends Component {
         this.setState({loadingModal: true});
         Track.event('注册/登录', '点击中方');
 
-        let userId = CurrentUser.getUserId();
+        let userId = await CurrentUser.getUserId();
         try {
             await ServiceProxy.proxyTo({
                 body: {
