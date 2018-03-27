@@ -71,7 +71,7 @@ const city_list = [
     {key: '37', value: '唐山', text: '唐山'},
 ];
 
-class Homepage extends Component {
+class My extends Component {
     constructor() {
         super();
 
@@ -354,7 +354,7 @@ class Homepage extends Component {
                         })
                     } catch (e) {
                         console.log(e)
-                        this.setState({messageModal: true, messageContent: e.toString(), messageName: 'error'});
+                        this.setState({messageModal: true, messageContent: '短信校验失败', messageName: 'error'});
                         this.closeMessageModal();
                         return;
                     }
@@ -434,14 +434,12 @@ class Homepage extends Component {
 
     closeMessageModal() {
         const interval = setTimeout(() => {
-            console.log(this.state.messageModal, "sdfsdf------------------------");
-
             if (this.state.messageModal) {
                 this.setState({messageModal: false});
             }
 
             clearTimeout(interval);
-        }, 3000)
+        }, 5000)
     }
 
     validateForm() {
@@ -472,7 +470,6 @@ class Homepage extends Component {
             Track.event('注册', '联系方式页面-中方');
 
             let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
-
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
@@ -501,6 +498,7 @@ class Homepage extends Component {
             city: userData.city || '',
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
+            user_id: userData.user_id
         };
     }
 
@@ -725,4 +723,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default My;
