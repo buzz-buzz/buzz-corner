@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import Track from "../common/track";
 import './index.css';
 
 class ClassLessons extends Component {
@@ -42,14 +43,24 @@ class ClassLessons extends Component {
         };
 
         this.back = this.back.bind(this);
+        this.goYouzanUrl = this.goYouzanUrl.bind(this);
     }
 
     back() {
         window.history.back();
     }
 
+    goYouzanUrl(event){
+        event.stopPropagation();
+
+        Track.event('购买课时', '商品' + (event.target.name + 1) + '点击');
+        window.location.href = this.state.buy_list[event.target.name].youzan_url;
+    }
+
     async componentDidMount() {
         try {
+            Track.event('购买课时', '购买课时页面');
+
             //await CurrentUser.getUserId()
             let userId = await CurrentUser.getUserId();
 
@@ -95,7 +106,7 @@ class ClassLessons extends Component {
                         {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {
-                                return <a key={index} href={item.youzan_url}>
+                                return <a key={index}>
                                     <div className="class-lesson-img">
                                         <img src={item.img_url} alt=""/>
                                     </div>
@@ -111,6 +122,7 @@ class ClassLessons extends Component {
                                             <div className="before"><s>{item.before}</s></div>
                                         </div>
                                     </div>
+                                    <input className="clickEvent" onClick={this.goYouzanUrl} name={index} />
                                 </a>
                             })
                         }

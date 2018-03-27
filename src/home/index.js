@@ -7,6 +7,7 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Track from "../common/track";
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
 
@@ -30,10 +31,14 @@ class Home extends Component {
     }
 
     signUp() {
+        Track.event('首页', '预约点击');
+
         browserHistory.push('/consult');
     }
 
     tabChangeBook() {
+        Track.event('首页', '预约Tab点击');
+
         let tab = this.state.tab;
 
         if (tab !== 'booking') {
@@ -44,6 +49,8 @@ class Home extends Component {
     }
 
     tabChangeMessage() {
+        Track.event('首页', '消息Tab点击');
+
         let tab = this.state.tab;
 
         if (tab !== 'message') {
@@ -54,6 +61,8 @@ class Home extends Component {
     }
 
     messageTabChangeFriends() {
+        Track.event('首页', '消息Tab切换为好友');
+
         let tabIndex = this.state.message_tab;
 
         if (tabIndex !== 'friends') {
@@ -64,6 +73,8 @@ class Home extends Component {
     }
 
     messageTabChangeAdvisor() {
+        Track.event('首页', '消息Tab切换为助教');
+
         let tabIndex = this.state.message_tab;
 
         if (tabIndex !== 'advisor') {
@@ -130,6 +141,8 @@ class Home extends Component {
 
     async componentDidMount() {
         try {
+            Track.event('首页', '首页Home页面');
+
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
@@ -196,6 +209,7 @@ class Home extends Component {
 
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
+            Track.event('错误', '首页错误' + ex.toString());
         } finally {
             this.setState({loadingModal: false});
         }

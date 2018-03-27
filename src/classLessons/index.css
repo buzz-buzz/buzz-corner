@@ -70,6 +70,7 @@
     margin-bottom: .5em;
     background-color: #fff;
     height: 150px;
+    position: relative;
 }
 
 .class-lessons-page  .content-list > a > div.class-lesson-img{
@@ -90,6 +91,16 @@
     flex-direction: column;
     padding: 1em;
     color: #000;
+}
+
+.class-lessons-page  .content-list > a > input.clickEvent{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    opacity: 0;
 }
 
 .class-lessons-page  .content-list > a > div{

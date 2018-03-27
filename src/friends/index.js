@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Developing from '../developing';
+import Track from "../common/track";
 import './index.css';
 
 class Friends extends Component {
@@ -17,6 +18,8 @@ class Friends extends Component {
     }
 
     friendTypeOne() {
+        Track.event('好友', '点击外籍好友Tab');
+
         let type = this.state.friends_type;
 
         if (type !== 1) {
@@ -27,6 +30,8 @@ class Friends extends Component {
     }
 
     friendTypeTwo() {
+        Track.event('好友', '点击中方好友Tab');
+
         let type = this.state.friends_type;
 
         if (type !== 2) {
@@ -38,7 +43,7 @@ class Friends extends Component {
 
 
     async componentDidMount() {
-
+        Track.event('好友', '好友页面展示');
     }
 
     render() {

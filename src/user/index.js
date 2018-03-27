@@ -4,6 +4,7 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import Footer from '../layout/footer';
+import Track from "../common/track";
 import './index.css';
 
 class User extends Component {
@@ -20,6 +21,8 @@ class User extends Component {
     async componentDidMount() {
         try {
             //await CurrentUser.getUserId()
+            Track.event('我的', '我的页面展示');
+
             let userId = await CurrentUser.getUserId();
 
             let profile = await ServiceProxy.proxyTo({

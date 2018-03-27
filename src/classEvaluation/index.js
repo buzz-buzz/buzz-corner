@@ -4,6 +4,7 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import './index.css';
+import Track from "../common/track";
 import * as time from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 
@@ -125,18 +126,22 @@ class classEvaluation extends Component {
                     }
                 });
 
+                Track.event('课后评价', '课后评价完成点击');
                 this.setState({evaluation_status: true, loadingModal: false});
             }
         }
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
             this.setState({loadingModal: false});
+            Track.event('错误', '课后评价完成点击后提交出错');
         }
     }
 
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
+            Track.event('课后评价', '课后评价页面');
+
             this.setState({loadingModal: true});
 
             let userId = await CurrentUser.getUserId();

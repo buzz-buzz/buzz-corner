@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
+import Track from "../common/track";
 import './index.css';
 
 class Consult extends Component {
@@ -10,7 +11,13 @@ class Consult extends Component {
     }
 
     back() {
+        Track.event('顾问', '顾问页面返回');
+
         window.history.back();
+    }
+
+    componentDidMount() {
+        Track.event('顾问', '顾问页面展示');
     }
 
     render() {
