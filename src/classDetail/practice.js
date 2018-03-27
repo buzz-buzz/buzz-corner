@@ -156,12 +156,21 @@ export default class Practice extends React.Component {
                                             <div className="advisor-word talk-bubble tri-right left-bottom border round">
                                                 <div className="talktext"
                                                      onTouchStart={() => this.play(i)}>
-                                                    <p>
-                                                        {Resources.getInstance().placementListeningAudio}
-                                                        {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                                                    {
+                                                        this.props.chats &&
+                                                        (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
+                                                            (<p>
+                                                                {Resources.getInstance().placementListeningAudio}
+                                                                {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
 
-                                                        <Icon name="rss" className="sound"/>
-                                                    </p>
+                                                                <Icon name="rss" className="sound"/>
+                                                            </p>) :
+                                                            (
+                                                                <p>
+                                                                    {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                                                                </p>
+                                                            )
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
