@@ -30,6 +30,10 @@ export default class CurrentUser {
     static async getProfile() {
         let userId = await CurrentUser.getUserId();
 
+        if (!userId) {
+            window.location.href = `/sign-in?return_url=${encodeURIComponent(window.location.pathname)}${window.location.search || ''}`;
+        }
+
         if (!currentUser.profile) {
             let profile = await ServiceProxy.proxyTo({
                 body: {

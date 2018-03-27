@@ -32,10 +32,10 @@ export default class profileSetup extends Component {
     async handleAvatarChange(e) {
         try {
             let qiniu_token = await ServiceProxy.proxyTo({
-              body: {
-                uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
-                method: 'GET'
-              }
+                body: {
+                    uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
+                    method: 'GET'
+                }
             });
 
             if (!qiniu_token.uptoken) {
@@ -73,19 +73,13 @@ export default class profileSetup extends Component {
     };
 
     async componentDidMount() {
-        let userId = await CurrentUser.getUserId();
-
-        let profile = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-            }
-        });
+        let profile = await CurrentUser.getProfile()
 
         this.setState({
             avatar: profile.avatar || '',
             mobile: profile.mobile || '',
             email: profile.email || '',
-            userId: userId
+            userId: profile.user_id
         });
     }
 

@@ -469,20 +469,13 @@ class Homepage extends Component {
 
     async componentDidMount() {
         try {
-            //await CurrentUser.getUserId()
             Track.event('注册', '联系方式页面-中方');
 
-            let userId = await CurrentUser.getUserId();
-
-            let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            }));
+            let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
 
             this.setState({
                 profile: profile,
-                userId: userId,
+                userId: profile.user_id,
                 mobileValid: profile && profile.phone && profile.phone.length === 11
             })
         }

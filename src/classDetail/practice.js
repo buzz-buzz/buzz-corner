@@ -5,7 +5,6 @@ import './chat.css';
 import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
 import CurrentUser from "../membership/user";
-import ServiceProxy from "../service-proxy";
 
 export default class Practice extends React.Component {
     constructor(props) {
@@ -55,7 +54,7 @@ export default class Practice extends React.Component {
             this.props.recordingChanged(this.state.recording);
         })
         if (this.props.audioUpload) {
-            try{
+            try {
                 let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
 
                 this.props.handleUploadUrl({
@@ -64,7 +63,7 @@ export default class Practice extends React.Component {
                     type: 'end'
                 });
             }
-            catch (ex){
+            catch (ex) {
                 this.props.handleUploadUrl({
                     url: '',
                     err: ex.toString(),
@@ -125,18 +124,17 @@ export default class Practice extends React.Component {
 
     async componentDidMount() {
         WechatAudio.init()
-        let userId = await CurrentUser.getUserId();
-        let userInfo = await ServiceProxy.proxyTo({body: {uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`}});
+        let userInfo = await CurrentUser.getProfile()
         this.setState({
             avatar: userInfo.avatar
         })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         //stop playing record
-        if(this.audios && this.audios.length){
-            for(let i in this.audios){
-                if(this.audios[i]){
+        if (this.audios && this.audios.length) {
+            for (let i in this.audios) {
+                if (this.audios[i]) {
                     this.audios[i].pause();
                 }
             }

@@ -120,20 +120,13 @@ class Homepage extends Component {
     }
 
     async componentDidMount() {
-        Track.event('测试', '题' + this.state.step +  '页面');
+        Track.event('测试', '题' + this.state.step + '页面');
 
-        //await CurrentUser.getUserId()
         try {
-            let userId = await CurrentUser.getUserId();
-
-            let profile = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            });
+            let profile = await CurrentUser.getProfile();
 
             this.setState({
-                userId: userId,
+                userId: profile.user_id,
                 avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
             });
         }
@@ -201,7 +194,7 @@ class Homepage extends Component {
     async submit() {
         try {
             if (this.state.step < 8) {
-                Track.event('测试', '题' + this.state.step +  '继续');
+                Track.event('测试', '题' + this.state.step + '继续');
 
                 let newStep = this.state.step + 1;
 
@@ -225,9 +218,9 @@ class Homepage extends Component {
                     });
                 }
 
-                Track.event('测试', '题' + newStep +  '页面');
+                Track.event('测试', '题' + newStep + '页面');
             } else {
-                Track.event('测试', '题' + this.state.step +  '完成');
+                Track.event('测试', '题' + this.state.step + '完成');
 
                 //done
                 this.setState({loadingModal: true});

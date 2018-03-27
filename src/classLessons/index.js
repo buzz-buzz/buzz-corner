@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
-import ServiceProxy from '../service-proxy';
 import Track from "../common/track";
 import './index.css';
 
@@ -50,7 +49,7 @@ class ClassLessons extends Component {
         window.history.back();
     }
 
-    goYouzanUrl(event){
+    goYouzanUrl(event) {
         event.stopPropagation();
 
         Track.event('购买课时', '商品' + (event.target.name + 1) + '点击');
@@ -61,18 +60,11 @@ class ClassLessons extends Component {
         try {
             Track.event('购买课时', '购买课时页面');
 
-            //await CurrentUser.getUserId()
-            let userId = await CurrentUser.getUserId();
-
-            let profile = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            });
+            let profile = await CurrentUser.getProfile();
 
             this.setState({
                 class_hours: profile.class_hours || 0,
-                userId: userId
+                userId: profile.user_id
             });
         }
         catch (ex) {
@@ -122,7 +114,7 @@ class ClassLessons extends Component {
                                             <div className="before"><s>{item.before}</s></div>
                                         </div>
                                     </div>
-                                    <input className="clickEvent" onClick={this.goYouzanUrl} name={index} />
+                                    <input className="clickEvent" onClick={this.goYouzanUrl} name={index}/>
                                 </a>
                             })
                         }

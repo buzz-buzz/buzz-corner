@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
-import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
@@ -19,32 +18,16 @@ class User extends Component {
     }
 
     async componentDidMount() {
-        try {
-            //await CurrentUser.getUserId()
-            Track.event('我的', '我的页面展示');
+        Track.event('我的', '我的页面展示');
 
-            let userId = await CurrentUser.getUserId();
+        let profile = await CurrentUser.getProfile();
 
-            let profile = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            });
-
-            if (true) {
-                this.setState({
-                    avatar: profile.avatar,
-                    userId: userId,
-                    u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
-                    class_hours: profile.class_hours || 0
-                });
-            }
-        } catch (ex) {
-            console.log(ex.toString());
-        } finally {
-            //browserHistory.push('/login-for-wechat');
-            console.log('no user_id');
-        }
+        this.setState({
+            avatar: profile.avatar,
+            userId: profile.user_id,
+            u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
+            class_hours: profile.class_hours || 0
+        });
     }
 
     render() {
