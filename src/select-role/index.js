@@ -22,7 +22,7 @@ class SelectRole extends Component {
 
     async chineseChildEntrance() {
         this.setState({loadingModal: true});
-        Track.event('注册/登录', '点击中方');
+        Track.event('注册/登录_点击中方');
 
         let userId = await CurrentUser.getUserId();
         try {
@@ -47,17 +47,17 @@ class SelectRole extends Component {
     }
 
     foreignChildEntrance() {
-        Track.event('注册/登录', '点击外籍');
+        Track.event('注册/登录_点击外籍');
         window.location.href = 'https://jinshuju.net/f/OrK4p2';
     }
 
     goVideoPlayPage() {
-        Track.event('注册/登录', '点击查看案例');
+        Track.event('注册/登录_点击查看案例');
         browserHistory.push('/video-play');
     }
 
     componentDidMount() {
-        Track.event('注册/登录', '欢迎页');
+        Track.event('注册/登录_欢迎页');
     }
 
     render() {

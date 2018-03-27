@@ -18,7 +18,7 @@ class Friends extends Component {
     }
 
     friendTypeOne() {
-        Track.event('好友', '点击外籍好友Tab');
+        Track.event('好友_点击外籍好友Tab');
 
         let type = this.state.friends_type;
 
@@ -30,7 +30,7 @@ class Friends extends Component {
     }
 
     friendTypeTwo() {
-        Track.event('好友', '点击中方好友Tab');
+        Track.event('好友_点击中方好友Tab');
 
         let type = this.state.friends_type;
 
@@ -43,7 +43,7 @@ class Friends extends Component {
 
 
     async componentDidMount() {
-        Track.event('好友', '好友页面展示');
+        Track.event('好友_好友页面展示');
     }
 
     render() {

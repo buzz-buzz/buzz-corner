@@ -18,7 +18,7 @@ class User extends Component {
     }
 
     async componentDidMount() {
-        Track.event('我的', '我的页面展示');
+        Track.event('我的_我的页面展示');
 
         let profile = await CurrentUser.getProfile();
 

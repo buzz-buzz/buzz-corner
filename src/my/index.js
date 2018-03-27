@@ -251,7 +251,7 @@ class My extends Component {
     }
 
     skipPlacement() {
-        Track.event('注册', '对暗号页面-跳过');
+        Track.event('注册_对暗号页面-跳过');
 
         browserHistory.push('/home');
     }
@@ -342,7 +342,7 @@ class My extends Component {
 
             if (this.state.step < 3) {
                 if (this.state.step === 1) {
-                    Track.event('注册', '联系方式继续-中方');
+                    Track.event('注册_联系方式继续-中方');
 
                     try {
                         await ServiceProxy.proxyTo({
@@ -363,10 +363,10 @@ class My extends Component {
                 let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
 
                 if (newStep === 2) {
-                    Track.event('注册', '孩子信息页面-中方');
+                    Track.event('注册_孩子信息页面-中方');
                 } else if (newStep === 3) {
-                    Track.event('注册', '孩子信息页面-继续');
-                    Track.event('注册', '兴趣爱好页面-中方');
+                    Track.event('注册_孩子信息页面-继续');
+                    Track.event('注册_兴趣爱好页面-中方');
                 }
 
                 this.setState({
@@ -374,7 +374,7 @@ class My extends Component {
                     profile_title: newTitle
                 });
             } else if (this.state.step === 3) {
-                Track.event('注册', '兴趣爱好继续-中方');
+                Track.event('注册_兴趣爱好继续-中方');
 
                 //loading
                 this.setState({loadingModal: true});
@@ -419,7 +419,7 @@ class My extends Component {
                     this.closeMessageModal();
                 }
             } else if (this.state.step === 4) {
-                Track.event('注册', '对暗号页面-继续');
+                Track.event('注册_对暗号页面-继续');
 
                 browserHistory.push('/placement');
             }
@@ -467,7 +467,7 @@ class My extends Component {
 
     async componentDidMount() {
         try {
-            Track.event('注册', '联系方式页面-中方');
+            Track.event('注册_联系方式页面-中方');
 
             let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
             this.setState({

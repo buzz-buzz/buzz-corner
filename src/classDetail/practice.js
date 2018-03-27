@@ -27,7 +27,7 @@ export default class Practice extends React.Component {
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        Track.event(this.props.audioUpload ? '测试' : '课程详情', '点击音频录制');
+        Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
         console.log(`the ${buttonIndex} button was clicked`);
         if (!this.state.replies[buttonIndex].answered) {
@@ -115,7 +115,7 @@ export default class Practice extends React.Component {
     }
 
     play(index) {
-        Track.event(this.props.audioUpload ? '测试' : '课程详情', '点击音频收听');
+        Track.event(this.props.audioUpload ? '测试_点击音频收听' : '课程详情_点击音频收听');
 
         if (this.audios[index]) {
             this.audios[index].play()

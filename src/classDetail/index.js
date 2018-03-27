@@ -46,7 +46,7 @@ class classDetail extends Component {
     }
 
     sendTrack(e, eventInfo){
-        Track.event('课程详情', eventInfo);
+        Track.event('课程详情_' + eventInfo);
     }
 
     goConsult() {
@@ -113,7 +113,7 @@ class classDetail extends Component {
 
     async componentDidMount() {
         try {
-            Track.event('课程详情', '课程详情页面');
+            Track.event('课程详情_课程详情页面');
 
             this.setState({loadingModal: true});
 
@@ -153,7 +153,7 @@ class classDetail extends Component {
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误', '课程详情页面报错' + ex.toString());
+            Track.event('错误_课程详情页面报错',  ex.toString());
             this.setState({loadingModal: false});
         }
     }
@@ -164,7 +164,7 @@ class classDetail extends Component {
     }
 
     cancelRecording() {
-        Track.event('课程详情', '点击取消录音');
+        Track.event('课程详情_点击取消录音');
 
         if (this.practice) {
             this.practice.cancelReply();
@@ -172,7 +172,7 @@ class classDetail extends Component {
     }
 
     finishRecording() {
-        Track.event('课程详情', '点击完成录音');
+        Track.event('课程详情_点击完成录音');
 
         console.log('end reply');
         if (this.practice) {

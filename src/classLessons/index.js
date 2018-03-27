@@ -52,13 +52,13 @@ class ClassLessons extends Component {
     goYouzanUrl(event) {
         event.stopPropagation();
 
-        Track.event('购买课时', '商品' + (event.target.name + 1) + '点击');
+        Track.event('购买课时_商品' + (event.target.name + 1) + '点击');
         window.location.href = this.state.buy_list[event.target.name].youzan_url;
     }
 
     async componentDidMount() {
         try {
-            Track.event('购买课时', '购买课时页面');
+            Track.event('购买课时_购买课时页面');
 
             let profile = await CurrentUser.getProfile();
 

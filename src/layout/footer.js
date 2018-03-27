@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
+import Track from "../common/track";
 import {Link} from "react-router";
 import './footer.css';
 
@@ -12,12 +13,17 @@ class Footer extends Component {
         };
 
         this.linkTo = this.linkTo.bind(this);
+        this.clickEvent = this.clickEvent.bind(this);
     }
 
     linkTo(url) {
         if (this.state.url.indexOf(url) === -1) {
             //browserHistory.push(url);
         }
+    }
+
+    clickEvent(event, page){
+        Track.event('首页_点击' + page + '图标');
     }
 
     componentDidMount() {
@@ -33,7 +39,7 @@ class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
+                <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
                     <img
                         src={this.state.url.indexOf('/home') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_home_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_home.png"}
                         alt=""/>
@@ -41,7 +47,7 @@ class Footer extends Component {
                         {Resources.getInstance().footerHome}
                     </p>
                 </Link>
-                <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
+                <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                     <img
                         src={this.state.url.indexOf('/friends') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_Friend_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_Friend.png"}
                         alt=""/>
@@ -49,7 +55,7 @@ class Footer extends Component {
                         {Resources.getInstance().footerFriends}
                     </p>
                 </Link>
-                <Link to="reward" style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
+                <Link to="reward" style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
                     <img
                         src={this.state.url.indexOf('/reward') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_Reward_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_Reward.png"}
                         alt=""/>
@@ -58,7 +64,7 @@ class Footer extends Component {
                     </p>
                 </Link>
 
-                <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
+                <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
                     <img
                         src={this.state.url.indexOf('/user') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_user_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_user.png"}
                         alt=""/>

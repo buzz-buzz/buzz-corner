@@ -126,21 +126,21 @@ class classEvaluation extends Component {
                     }
                 });
 
-                Track.event('课后评价', '课后评价完成点击');
+                Track.event('课后评价_课后评价完成点击');
                 this.setState({evaluation_status: true, loadingModal: false});
             }
         }
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
             this.setState({loadingModal: false});
-            Track.event('错误', '课后评价完成点击后提交出错');
+            Track.event('错误_课后评价完成点击后提交出错');
         }
     }
 
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
-            Track.event('课后评价', '课后评价页面');
+            Track.event('课后评价_课后评价页面');
 
             this.setState({loadingModal: true});
 

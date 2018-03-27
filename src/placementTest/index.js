@@ -120,7 +120,7 @@ class Homepage extends Component {
     }
 
     async componentDidMount() {
-        Track.event('测试', '题' + this.state.step + '页面');
+        Track.event('测试_题' + this.state.step + '页面');
 
         try {
             let profile = await CurrentUser.getProfile();
@@ -140,7 +140,7 @@ class Homepage extends Component {
 
         if (url.url && url.type === 'end') {
             //qiniu url
-            Track.event('测试', '录音上传七牛成功');
+            Track.event('测试_录音上传七牛成功');
 
             let clonedAnswers = this.state.answers;
             clonedAnswers.push(url);
@@ -151,7 +151,7 @@ class Homepage extends Component {
                 answers: clonedAnswers
             });
         } else if (url.type === 'end') {
-            Track.event('测试', '录音上传过程失败');
+            Track.event('测试_录音上传过程失败');
 
             this.setState({
                 modalOpen: true,
@@ -177,7 +177,7 @@ class Homepage extends Component {
     }
 
     cancelRecording() {
-        Track.event('测试', '点击取消录音');
+        Track.event('测试_点击取消录音');
 
         if (this.practice) {
             this.practice.cancelReply();
@@ -185,7 +185,7 @@ class Homepage extends Component {
     }
 
     finishRecording() {
-        Track.event('测试', '点击完成录音');
+        Track.event('测试_点击完成录音');
 
         console.log('end reply');
         if (this.practice) {
@@ -196,7 +196,7 @@ class Homepage extends Component {
     async submit() {
         try {
             if (this.state.step < 8) {
-                Track.event('测试', '题' + this.state.step + '继续');
+                Track.event('测试_题' + this.state.step + '继续');
 
                 let newStep = this.state.step + 1;
 
@@ -220,9 +220,9 @@ class Homepage extends Component {
                     });
                 }
 
-                Track.event('测试', '题' + newStep + '页面');
+                Track.event('测试_题' + newStep + '页面');
             } else {
-                Track.event('测试', '题' + this.state.step + '完成');
+                Track.event('测试_题' + this.state.step + '完成');
 
                 //done
                 this.setState({loadingModal: true});

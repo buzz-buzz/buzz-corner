@@ -34,7 +34,7 @@ class Home extends Component {
     }
 
     signUp() {
-        Track.event('首页', '预约点击');
+        Track.event('首页_预约点击');
 
         browserHistory.push('/consult');
     }
@@ -42,15 +42,15 @@ class Home extends Component {
     clickEvent(e, item) {
         let redStatus = item.hasRead === '' ?  '未读' : '已读';
 
-        Track.event('首页', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
+        Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
     }
 
     clickEventClassDetail(e, item) {
-        Track.event('首页', '课程点击', {'课程状态': item.class_status_show_word || ''});
+        Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
     }
 
     tabChangeBook() {
-        Track.event('首页', '预约Tab点击');
+        Track.event('首页_预约Tab点击');
 
         let tab = this.state.tab;
 
@@ -62,7 +62,7 @@ class Home extends Component {
     }
 
     tabChangeMessage() {
-        Track.event('首页', '消息Tab点击');
+        Track.event('首页_消息Tab点击');
 
         let tab = this.state.tab;
 
@@ -74,7 +74,7 @@ class Home extends Component {
     }
 
     messageTabChangeFriends() {
-        Track.event('首页', '消息Tab切换为好友');
+        Track.event('首页_消息Tab切换为好友');
 
         let tabIndex = this.state.message_tab;
 
@@ -86,7 +86,7 @@ class Home extends Component {
     }
 
     messageTabChangeAdvisor() {
-        Track.event('首页', '消息Tab切换为助教');
+        Track.event('首页_消息Tab切换为助教');
 
         let tabIndex = this.state.message_tab;
 
@@ -154,7 +154,7 @@ class Home extends Component {
 
     async componentDidMount() {
         try {
-            Track.event('首页', '首页Home页面');
+            Track.event('首页_首页Home页面');
 
             this.setState({loadingModal: true});
 
@@ -236,7 +236,7 @@ class Home extends Component {
 
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误', '首页错误' + ex.toString());
+            Track.event('首页_错误' + ex.toString());
         } finally {
             this.setState({loadingModal: false});
         }

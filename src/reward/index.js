@@ -14,11 +14,11 @@ class Reward extends Component {
     }
 
     rewardRule(){
-        Track.event('奖励', '点击查看规则');
+        Track.event('奖励_点击查看规则');
     }
 
     async componentDidMount() {
-        Track.event('奖励', '奖励页面展示');
+        Track.event('奖励_奖励页面展示');
     }
 
     render() {

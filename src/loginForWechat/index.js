@@ -15,7 +15,7 @@ class WechatLogin extends Component {
     }
 
     signUp() {
-        Track.event('登录页面', '点击微信登录按钮');
+        Track.event('登录页面_点击微信登录按钮');
 
         if (!/MicroMessenger/.test(navigator.userAgent)) {
             alert('请在微信浏览器中使用微信登录方式');
@@ -26,7 +26,7 @@ class WechatLogin extends Component {
     }
 
     componentDidMount() {
-        Track.event('登录页面', '中方微信登录页面');
+        Track.event('登录页面_中方微信登录页面');
     }
 
     render() {

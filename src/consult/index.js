@@ -11,13 +11,13 @@ class Consult extends Component {
     }
 
     back() {
-        Track.event('顾问', '顾问页面返回');
+        Track.event('顾问_顾问页面返回');
 
         window.history.back();
     }
 
     componentDidMount() {
-        Track.event('顾问', '顾问页面展示');
+        Track.event('顾问_顾问页面展示');
     }
 
     render() {
