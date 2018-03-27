@@ -28,12 +28,24 @@ class Home extends Component {
         this.messageTabChangeFriends = this.messageTabChangeFriends.bind(this);
         this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
         this.signUp = this.signUp.bind(this);
+        this.clickEvent = this.clickEvent.bind(this);
+        this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
     }
 
     signUp() {
         Track.event('首页', '预约点击');
 
         browserHistory.push('/consult');
+    }
+
+    clickEvent(e, item) {
+        let redStatus = item.hasRead === '' ?  '未读' : '已读';
+
+        Track.event('首页', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
+    }
+
+    clickEventClassDetail(e, item) {
+        Track.event('首页', '课程点击', {'课程状态': item.class_status_show_word || ''});
     }
 
     tabChangeBook() {
@@ -185,7 +197,7 @@ class Home extends Component {
                 } else if (item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score) {
                     clonedMessageFromAdvisor.push({
                         message_title: item.companion_name || 'Advisor',
-                        message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic') ,
+                        message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
                         goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                         hasRead: 'read'
@@ -246,14 +258,15 @@ class Home extends Component {
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
-                <LoadingModal loadingModal={this.state.loadingModal} />
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
                     (<div className="home-content">
                         {this.state.booking.length > 0 ?
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item" key={index} to={"class/" + item.class_id}>
+                                        return <Link className="booking-item" key={index} to={"class/" + item.class_id}
+                                                     onClick={event => this.clickEventClassDetail(event, item)}>
                                             <div className="booking-item-avatar">
                                                 <img
                                                     src={item.companion_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'}
@@ -318,7 +331,8 @@ class Home extends Component {
                                     (<div className="message-items">
                                             {
                                                 this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link className="message-item" key={index} to={item.goUrl}>
+                                                    return <Link className="message-item" key={index} to={item.goUrl}
+                                                                 onClick={event => this.clickEvent(event, item)}>
                                                         <div className="message-item-avatar">
                                                             <div className="message-red-circle"
                                                                  style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}></div>
@@ -340,7 +354,7 @@ class Home extends Component {
                 <div className="booking-btn">
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.signUp}
-                                    content={Resources.getInstance().bookingBtnText} />
+                                    content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
                 <div className="offset-footer"></div>

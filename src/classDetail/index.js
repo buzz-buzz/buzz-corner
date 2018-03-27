@@ -36,10 +36,8 @@ class classDetail extends Component {
         this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
         this.cancelRecording = this.cancelRecording.bind(this);
-        this.finishRecording = this.finishRecording.bind(this)
-        this.zoomDown = this.zoomDown.bind(this);
-        this.clickAvatar = this.clickAvatar.bind(this);
-        this.clickAvatarChinese = this.clickAvatarChinese.bind(this);
+        this.finishRecording = this.finishRecording.bind(this);
+        this.sendTrack = this.sendTrack.bind(this);
     }
 
     back() {
@@ -47,16 +45,8 @@ class classDetail extends Component {
         browserHistory.push('/');
     }
 
-    zoomDown(){
-        Track.event('课程详情', '下载ZOOM安装');
-    }
-
-    clickAvatar(){
-        Track.event('课程详情', '外籍头像点击');
-    }
-
-    clickAvatarChinese(){
-        Track.event('课程详情', '中方头像点击');
+    sendTrack(e, eventInfo){
+        Track.event('课程详情', eventInfo);
     }
 
     goConsult() {
@@ -204,7 +194,7 @@ class classDetail extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <img onClick={this.clickAvatar}
+                            <img onClick={event => this.sendTrack(event, '外籍头像点击')}
                                 src={this.state.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                 alt=""/>
                         </div>
@@ -224,11 +214,11 @@ class classDetail extends Component {
                             <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
                         </div>
                     </div>
-                    <div className="class-partners-avatar" onClick={this.clickAvatarChinese}>
+                    <div className="class-partners-avatar">
                         {
                             this.state.student_avatars.length > 0 &&
                             this.state.student_avatars.map((item, index) => {
-                                return <Link key={index} to="home">
+                                return <Link key={index} to="home"  onClick={event => this.sendTrack(event, '中方头像点击')}>
                                     <img
                                         src={item.avatar || "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                         alt=""/>
@@ -240,7 +230,7 @@ class classDetail extends Component {
                 <div className="class-detail-practice">
                     <div className="class-detail-notice">
                         <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
-                        <p onClick={this.zoomDown}>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
+                        <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
                     <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
