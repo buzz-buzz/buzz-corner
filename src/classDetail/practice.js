@@ -127,6 +127,17 @@ export default class Practice extends React.Component {
         })
     }
 
+    componentWillUnmount(){
+        //stop playing record
+        if(this.audios && this.audios.length){
+            for(let i in this.audios){
+                if(this.audios[i]){
+                    this.audios[i].pause();
+                }
+            }
+        }
+    }
+
     render() {
         return (
             <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
