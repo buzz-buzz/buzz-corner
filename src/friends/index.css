@@ -5,29 +5,6 @@
     flex-direction: column;
 }
 
-.header-without-go-back{
-    height: 50px;
-    padding: 0 0 0 0;
-    z-index: 999;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    box-sizing: border-box;
-    background-color: white;
-}
-
-.logo-without-back{
-    width: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.logo-without-back img{
-    height: 40px;
-}
-
 .friends-tab{
     height: 40px;
     display: flex;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import './index.css';
 
 class Reward extends Component {
@@ -24,13 +25,7 @@ class Reward extends Component {
     render() {
         return (
             <div className="reward-page">
-                <div className="header-with-go-back">
-                    <div className="logo-without-back">
-                        <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz logo"/>
-                        </div>
-                    </div>
-                </div>
+                <HeaderWithLogo/>
                 <div className="my-badge">
                     <div className="badge-title">
                         <p>{Resources.getInstance().rewardTitle}</p>

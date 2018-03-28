@@ -3,6 +3,7 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Developing from '../developing';
 import Track from "../common/track";
+import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import './index.css';
 
 class Friends extends Component {
@@ -49,13 +50,7 @@ class Friends extends Component {
     render() {
         return (
             <div className="friends-page">
-                <div className="header-without-go-back">
-                    <div className="logo-without-back">
-                        <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz Logo"/>
-                        </div>
-                    </div>
-                </div>
+                <HeaderWithLogo/>
                 <div className="friends-tab">
                     <div onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
                         <span>{Resources.getInstance().friendsTabForeign}</span>
