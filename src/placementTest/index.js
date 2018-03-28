@@ -6,6 +6,7 @@ import ServiceProxy from '../service-proxy';
 import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Track from "../common/track";
 import '../my/my.css';
 import './index.css';
@@ -89,10 +90,10 @@ class Homepage extends Component {
         this.answering = this.answering.bind(this);
         this.skip = this.skip.bind(this);
         this.submit = this.submit.bind(this);
-        this.goBack = this.goBack.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
         this.cancelRecording = this.cancelRecording.bind(this);
-        this.finishRecording = this.finishRecording.bind(this)
+        this.finishRecording = this.finishRecording.bind(this);
+        this.goBack = this.goBack.bind(this)
     }
 
     goBack() {
@@ -270,20 +271,7 @@ class Homepage extends Component {
         return (
             <div className="my-profile">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <div className="header-with-go-back">
-                    <div className="go-back" onClick={this.goBack}>
-                        <div className="arrow-left">
-                        </div>
-                        <div className="circle-border">
-                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt="Buzzbuzz"/>
-                        </div>
-                    </div>
-                    <div className="logo">
-                        <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz logo"/>
-                        </div>
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.goBack} />
                 <div className="profile-progress placement-test">
                     <div className={this.state.step >= 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
                         <div className="dot">
@@ -432,7 +420,7 @@ class Homepage extends Component {
                     </Modal.Actions>
                 </Modal>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
+                                onOK={this.finishRecording} timeout={this.finishRecording}/>
             </div>
         );
     }

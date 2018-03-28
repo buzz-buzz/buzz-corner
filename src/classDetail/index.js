@@ -243,7 +243,7 @@ class classDetail extends Component {
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                onOK={this.finishRecording} timeout={this.finishRecording}></RecordingModal>
+                                onOK={this.finishRecording} timeout={this.finishRecording}/>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Track from "../common/track";
 import ServiceProxy from '../service-proxy';
 import './my.css';
@@ -508,20 +509,7 @@ class My extends Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
-                <div className="header-with-go-back">
-                    <div className="go-back" onClick={this.goBack}>
-                        <div className="arrow-left">
-                        </div>
-                        <div className="circle-border">
-                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
-                        </div>
-                    </div>
-                    <div className="logo">
-                        <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
-                        </div>
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.goBack} />
                 <div className="profile-progress">
                     <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
                         <div className="dot">

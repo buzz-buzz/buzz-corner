@@ -1,4 +1,4 @@
-.header-with-go-back {
+.header-with-logo {
   height: 50px;
   margin: 0;
   padding: 0 0 0 0;
@@ -7,12 +7,12 @@
   position: relative;
   box-sizing: border-box;
   background-color: white; }
-  .header-with-go-back .logo-without-back {
+  .header-with-logo .logo-without-back {
     width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto; }
-  .header-with-go-back .logo-without-back img {
+  .header-with-logo .logo-without-back img {
     height: 40px; }

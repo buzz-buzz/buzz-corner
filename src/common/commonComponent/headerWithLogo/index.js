@@ -4,7 +4,7 @@ import React from 'react';
 export default class HeaderWithLogo extends React.Component {
     render() {
         return (
-            <div className="header-with-go-back">
+            <div className="header-with-logo">
                 <div className="logo-without-back">
                     <div>
                         <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz Logo"/>
