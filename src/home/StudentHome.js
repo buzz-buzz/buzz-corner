@@ -11,6 +11,7 @@ import Track from "../common/track";
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
 import {MemberType} from "../membership/member-type";
+import Avatar from '../common/commonComponent/avatar';
 
 class Home extends Component {
     constructor() {
@@ -40,7 +41,7 @@ class Home extends Component {
     }
 
     clickEvent(e, item) {
-        let redStatus = item.hasRead === '' ?  '未读' : '已读';
+        let redStatus = item.hasRead === '' ? '未读' : '已读';
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
     }
@@ -159,8 +160,8 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let userId = await CurrentUser.getUserId();
             let profile = await CurrentUser.getProfile();
+            let userId = profile.user_id;
 
             if (!profile.role) {
                 browserHistory.push('/select-role');
@@ -282,11 +283,8 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index} to={"class/" + item.class_id}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <div className="booking-item-avatar">
-                                                <img
-                                                    src={item.companion_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'}
-                                                    alt=""/>
-                                            </div>
+                                            <Avatar
+                                                src={item.companion_avatar}></Avatar>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',

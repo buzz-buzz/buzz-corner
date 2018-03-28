@@ -28,6 +28,8 @@ npm install
 npm run server
 # 跑客户端界面
 npm run client
+# 實時編譯CSS
+npm run watch-css
 ```
 【注意】如果只是改了客户端文件，那么 `npm run client` 会自动重启，不需要做什么。
 但是如果改了服务器端代码，需要 `Ctrl + C` 停止，再重新运行 `npm run server` 以使改动生效。

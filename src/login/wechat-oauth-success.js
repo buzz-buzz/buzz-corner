@@ -6,13 +6,13 @@ import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import {browserHistory} from 'react-router';
 
 export default class WechatOAuthSuccess extends React.Component {
-    loginOldUser = async (wechatUserInfo) => {
+    loginOldUser = async(wechatUserInfo) => {
         console.log('try login old user with ', wechatUserInfo);
         let buzzUserData = await this.getBuzzUserData(wechatUserInfo.unionid);
         console.log('trying to login with buzzData:', buzzUserData);
         await this.loginByWechat(wechatUserInfo.unionid, buzzUserData.user_id);
     };
-    loginNewUser = async (error, wechatUserData) => {
+    loginNewUser = async(error, wechatUserData) => {
         if (BuzzServiceApiErrorParser.isNewUser(error)) {
             let newUserId = await this.registerByWechat(wechatUserData);
             await this.loginByWechat(wechatUserData.unionid, newUserId);
@@ -20,14 +20,14 @@ export default class WechatOAuthSuccess extends React.Component {
             throw error;
         }
     };
-    getBuzzUserData = async (wechatUnionId) => {
+    getBuzzUserData = async(wechatUnionId) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-wechat?unionid=${wechatUnionId}`
             }
         });
     };
-    registerByWechat = async (wechatUserInfo) => {
+    registerByWechat = async(wechatUserInfo) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
@@ -44,7 +44,7 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         });
     };
-    loginByWechat = async (wechatUnionId, userId) => {
+    loginByWechat = async(wechatUnionId, userId) => {
         let res = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
@@ -109,6 +109,11 @@ export default class WechatOAuthSuccess extends React.Component {
         try {
             let urlParams = new URLSearchParams(window.location.search);
             let callbackOrigin = urlParams.get('callback_origin');
+
+            if (callbackOrigin === null && window.location.search.indexOf('?callbackorigin') === 0) {
+                callbackOrigin = window.location.search.replace('?callbackorigin=', '');
+            }
+
             if (callbackOrigin) {
                 callbackOrigin = atob(callbackOrigin);
             }
