@@ -230,15 +230,15 @@ class Home extends Component {
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
-                messageRead: messageCheck.length > 0
+                messageRead: messageCheck.length > 0,
+                loadingModal: false
             });
 
             //class_list --->  feedback list
-
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
             Track.event('首页_错误' + ex.toString());
-        } finally {
+
             this.setState({loadingModal: false});
         }
     }
@@ -283,8 +283,8 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index} to={"class/" + item.class_id}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <Avatar  marginRight="2em"
-                                                src={item.companion_avatar} />
+                                            <Avatar marginRight="2em"
+                                                    src={item.companion_avatar}/>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',
@@ -347,7 +347,7 @@ class Home extends Component {
                                                     return <Link className="message-item" key={index} to={item.goUrl}
                                                                  onClick={event => this.clickEvent(event, item)}>
                                                         <div className="message-item-avatar">
-                                                            <Avatar src={item.message_avatar} />
+                                                            <Avatar src={item.message_avatar}/>
                                                             <div className="message-red-circle"
                                                                  style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}></div>
                                                         </div>

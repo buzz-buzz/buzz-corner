@@ -36,13 +36,12 @@ class SelectRole extends Component {
                 }
             });
 
+            this.setState({loadingModal: false});
             browserHistory.push('/home');
         } catch (error) {
             console.error(error);
 
-            this.setState({error: true, message: JSON.stringify(error.message || error)})
-        } finally {
-            this.setState({loadingModal: false});
+            this.setState({error: true, message: JSON.stringify(error.message || error), loadingModal: false})
         }
     }
 
