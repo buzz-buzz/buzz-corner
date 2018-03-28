@@ -283,8 +283,8 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index} to={"class/" + item.class_id}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <Avatar
-                                                src={item.companion_avatar}></Avatar>
+                                            <Avatar  marginRight="2em"
+                                                src={item.companion_avatar} />
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',
@@ -347,9 +347,9 @@ class Home extends Component {
                                                     return <Link className="message-item" key={index} to={item.goUrl}
                                                                  onClick={event => this.clickEvent(event, item)}>
                                                         <div className="message-item-avatar">
+                                                            <Avatar src={item.message_avatar} />
                                                             <div className="message-red-circle"
                                                                  style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}></div>
-                                                            <img src={item.message_avatar} alt=""/>
                                                         </div>
                                                         <div className="message-body">
                                                             <div className="message-title">{item.message_title}</div>

@@ -5,8 +5,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  overflow: hidden;
-  margin-right: 2em; }
+  overflow: hidden; }
   .avatar-container img {
     height: 100%;
     width: auto; }
