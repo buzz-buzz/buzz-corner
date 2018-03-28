@@ -52,12 +52,13 @@
 }
 
 .wechat-login > .login-wechat-btn{
-    flex: 1 1 auto;
+    flex: auto;
     margin: 0 -1em;
     padding: 0 37.5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 80px;
 }
 
 .wechat-login > .login-wechat-btn div{
