@@ -275,7 +275,9 @@ class classEvaluation extends Component {
                     }
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
-                                        <TextArea autoHeight placeholder={Resources.getInstance().classEvaluationSuggest} rows={5} maxLength="200"
+                                        <TextArea autoHeight
+                                                  placeholder={Resources.getInstance().classEvaluationSuggest} rows={5}
+                                                  maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
@@ -296,10 +298,10 @@ class classEvaluation extends Component {
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
+                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
-                    <LoadingModal loadingModal={this.state.loadingModal} />
+                    <LoadingModal loadingModal={this.state.loadingModal}/>
                 </div>
             </div>
         );
