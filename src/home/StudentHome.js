@@ -137,7 +137,7 @@ class Home extends Component {
                     + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
                     + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
 
-                classList[i].class_status_show_style = leftDays >= 1 ? 'rgb(0, 216, 90)' : (dateClone - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
+                classList[i].class_status_show_style = leftDays >= 1 ? '#6ae108' : (dateClone - new Date() > 0 ? '#6ae108' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
                 classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0 ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ? '已开始' : '已结束' ));
             }
         }
@@ -288,17 +288,18 @@ class Home extends Component {
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',
-                                                    fontSize: '1.2em',
-                                                    color: '#111'
+                                                    fontSize: '15px',
+                                                    color: '#000'
                                                 }}>{item.companion_name || 'BuzzBuzz'}</p>
                                                 <p className="class-topic" style={{
-                                                    color: '#f7b52a',
-                                                    margin: '.3em 0'
+                                                    color: '#f6b40c',
+                                                    margin: '.3em 0',
+                                                    fontSize: '13px'
                                                 }}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date"
-                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
+                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_date}</p>
                                                 <p className="class-time"
-                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
+                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_time}</p>
                                             </div>
                                             <div className="booking-item-status">
                                                 <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>

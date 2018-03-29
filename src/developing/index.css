@@ -6,6 +6,7 @@
     align-items: center;
     flex-direction: column;
     background-color: rgb(244, 245, 249);
+    color: rgb(102, 102, 102);
 }
 
 .developing > .develop-img{

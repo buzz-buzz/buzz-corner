@@ -58,20 +58,20 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
-                        <Link style={{display: 'none'}}>
-                            <div className="icon">
-                                <img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>
-                                <div className="name">
-                                    {Resources.getInstance().myLanguage}
-                                </div>
-                            </div>
-                            <div className="link">
-                                <div className="class-numbers">中文</div>
-                                <div className="right-icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
-                                </div>
-                            </div>
-                        </Link>
+                        {/*<Link style={{display: 'none'}}>*/}
+                            {/*<div className="icon">*/}
+                                {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
+                                {/*<div className="name">*/}
+                                    {/*{Resources.getInstance().myLanguage}*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="link">*/}
+                                {/*<div className="class-numbers">中文</div>*/}
+                                {/*<div className="right-icon">*/}
+                                    {/*<img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
+                        {/*</Link>*/}
                     </div>
                 </div>
                 <Footer/>
