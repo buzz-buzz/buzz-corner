@@ -7,6 +7,7 @@ import Practice from "./practice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import {Button, Form} from "semantic-ui-react";
 
 class classDetail extends Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class classDetail extends Component {
         browserHistory.push('/');
     }
 
-    sendTrack(e, eventInfo){
+    sendTrack(e, eventInfo) {
         Track.event('课程详情_' + eventInfo);
     }
 
@@ -98,8 +99,6 @@ class classDetail extends Component {
     }
 
     showZoom() {
-        console.log(this.state.class_info.room_url);
-
         window.location.href = this.state.class_info.room_url;
     }
 
@@ -153,7 +152,7 @@ class classDetail extends Component {
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误_课程详情页面报错',  ex.toString());
+            Track.event('错误_课程详情页面报错', ex.toString());
             this.setState({loadingModal: false});
         }
     }
@@ -199,8 +198,8 @@ class classDetail extends Component {
                     <div className="class-info">
                         <div className="booking-item-avatar">
                             <img onClick={event => this.sendTrack(event, '外籍头像点击')}
-                                src={this.state.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
-                                alt=""/>
+                                 src={this.state.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
+                                 alt=""/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -222,7 +221,7 @@ class classDetail extends Component {
                         {
                             this.state.student_avatars.length > 0 &&
                             this.state.student_avatars.map((item, index) => {
-                                return <Link key={index} to="home"  onClick={event => this.sendTrack(event, '中方头像点击')}>
+                                return <Link key={index} to="home" onClick={event => this.sendTrack(event, '中方头像点击')}>
                                     <img
                                         src={item.avatar || "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                         alt=""/>
@@ -234,12 +233,21 @@ class classDetail extends Component {
                 <div className="class-detail-practice">
                     <div className="class-detail-notice">
                         <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
-                        <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
+                        <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a
+                            href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
                     <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
                               ref={p => this.practice = p}
                               avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
+
+                    <div className="class-detail-button">
+                        <Form.Group widths='equal'
+                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 ? {} : {display: 'none'}}>
+                            <Form.Field control={Button} onClick={this.checkStatusAndTime}
+                                        content={(new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0 ? '进入课堂' : '课后评价'}/>
+                        </Form.Group>
+                    </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
