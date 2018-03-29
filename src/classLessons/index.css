@@ -77,7 +77,8 @@
     width: 120px;
     height: 120px;
     border-radius: 5px;
-    border: 1px solid #aaa;
+    border: 1px solid rgb(244, 245, 249);
+    overflow: hidden;
 }
 
 .class-lessons-page  .content-list > a > div.class-lesson-img > img{
@@ -91,6 +92,7 @@
     flex-direction: column;
     padding: 1em;
     color: #000;
+    justify-content: space-between;
 }
 
 .class-lessons-page  .content-list > a > input.clickEvent{
@@ -114,7 +116,7 @@ div.class-lesson-info > .lessons-price{
 }
 
 div.class-lesson-info > .lessons-title{
-    font-size: 1.2em;
+    font-size: 15px;
 }
 
 div.class-lesson-info > .lessons-price > .price{

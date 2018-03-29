@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
-import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import Track from "../common/track";
 import './index.css';
 
@@ -34,7 +33,6 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
-                <HeaderWithLogo />
                 <div className="user-content">
                     <div className="user-my">
                         <div className="user-avatar">
