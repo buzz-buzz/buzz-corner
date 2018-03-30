@@ -195,7 +195,6 @@ class Homepage extends Component {
     }
 
     async submit() {
-        console.log('current location', window.location.href.split('#')[0])
         try {
             if (this.state.step < 8) {
                 Track.event('测试_题' + this.state.step + '继续');
