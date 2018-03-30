@@ -38,7 +38,7 @@ class Consult extends Component {
                         <p>{Resources.getInstance().advisorInfo2}</p>
                     </div>
                     <div className="consult-QR-code">
-                        <img src="//p579tk2n2.bkt.clouddn.com/Emily_qrcode.png" alt=""/>
+                        <img src="//p579tk2n2.bkt.clouddn.com/buzz_advisor_code.jpg" alt=""/>
                         <p>{Resources.getInstance().advisorInfo3}</p>
                     </div>
                 </div>
