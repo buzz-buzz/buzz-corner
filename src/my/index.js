@@ -470,7 +470,7 @@ class My extends Component {
         try {
             Track.event('注册_联系方式页面-中方');
 
-            let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
+            let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
 
             if (!profile.role) {
                 browserHistory.push('/select-role');
