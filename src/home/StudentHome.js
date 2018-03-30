@@ -30,7 +30,6 @@ class Home extends Component {
         this.messageTabChangeFriends = this.messageTabChangeFriends.bind(this);
         this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.clickEvent = this.clickEvent.bind(this);
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
     }
 
@@ -40,14 +39,22 @@ class Home extends Component {
         browserHistory.push('/consult');
     }
 
-    clickEvent(e, item) {
+    clickEventClassDetail(e, item) {
+        window.event.preventDefault();
+
+        Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
+
+        browserHistory.push("/class/" + item.class_id);
+    }
+
+    clickEventPlacement(e, item){
+        window.event.preventDefault();
+
         let redStatus = item.hasRead === '' ? '未读' : '已读';
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
-    }
 
-    clickEventClassDetail(e, item) {
-        Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
+        browserHistory.push(item.goUrl);
     }
 
     tabChangeBook() {
@@ -281,7 +288,7 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item" key={index} to={"class/" + item.class_id}
+                                        return <Link className="booking-item" key={index}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
                                             <Avatar marginRight="2em"
                                                     src={item.companion_avatar}/>
@@ -345,8 +352,8 @@ class Home extends Component {
                                     (<div className="message-items">
                                             {
                                                 this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link className="message-item" key={index} to={item.goUrl}
-                                                                 onClick={event => this.clickEvent(event, item)}>
+                                                    return <Link className="message-item" key={index}
+                                                                 onClick={event => this.clickEventPlacement(event, item)}>
                                                         <div className="message-item-avatar">
                                                             <Avatar src={item.message_avatar}/>
                                                             <div className="message-red-circle"
