@@ -174,7 +174,8 @@ class classEvaluation extends Component {
                     stars: parseFloat(feed_back[0].score),
                     evaluation_content: feed_back[0].comment,
                     evaluation_status: true,
-                    userId: userId
+                    userId: userId,
+                    loadingModal: false
                 });
             } else {
                 //set state
@@ -275,7 +276,9 @@ class classEvaluation extends Component {
                     }
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
-                                        <TextArea autoHeight placeholder={Resources.getInstance().classEvaluationSuggest} rows={5} maxLength="200"
+                                        <TextArea autoHeight
+                                                  placeholder={Resources.getInstance().classEvaluationSuggest} rows={5}
+                                                  maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
                             <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
@@ -299,7 +302,7 @@ class classEvaluation extends Component {
                         <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
-                    <LoadingModal loadingModal={this.state.loadingModal} />
+                    <LoadingModal loadingModal={this.state.loadingModal}/>
                 </div>
             </div>
         );
