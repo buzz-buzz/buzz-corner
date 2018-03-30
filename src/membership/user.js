@@ -37,9 +37,9 @@ export default class CurrentUser {
         if (!currentUser.profile) {
             let profile = await ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}?t=${new Date().getTime()}`
                 }
-            })
+            });
 
             currentUser.profile = profile;
         }
