@@ -36,7 +36,7 @@ class Home extends Component {
     signUp() {
         Track.event('首页_预约点击');
 
-        browserHistory.push('/consult');
+        window.location.href = '/consult';
     }
 
     clickEventClassDetail(e, item) {
@@ -277,7 +277,7 @@ class Home extends Component {
                         <div className="message-red-circle"
                              style={this.state.messageRead ? {} : {display: 'none'}}></div>
                     </div>
-                    <Link className="consult" to="consult">
+                    <Link className="consult" onClick={this.signUp}>
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
