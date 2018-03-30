@@ -160,9 +160,7 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let profile = await CurrentUser.getProfile().catch(e => {
-                browserHistory.push('/sign-in')
-            });
+            let profile = await CurrentUser.getProfile(true);
             let userId = profile.user_id;
 
             if (!profile.role) {
