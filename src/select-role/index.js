@@ -3,10 +3,7 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
-import CurrentUser from "../membership/user";
-import ServiceProxy from "../service-proxy";
 import Track from "../common/track";
-import {MemberType} from "../membership/member-type";
 import {Message} from "semantic-ui-react";
 
 class SelectRole extends Component {
