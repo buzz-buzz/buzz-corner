@@ -44,7 +44,7 @@ class Home extends Component {
 
         Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
-        browserHistory.push("/class/" + item.class_id);
+        window.location.href = "/class/" + item.class_id;
     }
 
     clickEventPlacement(e, item){
@@ -54,7 +54,7 @@ class Home extends Component {
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
 
-        browserHistory.push(item.goUrl);
+        window.location.href = item.goUrl;
     }
 
     tabChangeBook() {

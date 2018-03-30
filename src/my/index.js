@@ -422,7 +422,7 @@ class My extends Component {
             } else if (this.state.step === 4) {
                 Track.event('注册_对暗号页面-继续');
 
-                browserHistory.push('/placement');
+               window.location.href = '/placement';
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
