@@ -160,7 +160,9 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let profile = await CurrentUser.getProfile();
+            let profile = await CurrentUser.getProfile().catch(e => {
+                browserHistory.push('/sign-in')
+            });
             let userId = profile.user_id;
 
             if (!profile.role) {
@@ -237,7 +239,7 @@ class Home extends Component {
             //class_list --->  feedback list
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('首页_错误' + ex.toString());
+            Track.event('首页_错误', null, {"类型" : "错误", "错误内容": ex.toString()});
 
             this.setState({loadingModal: false});
         }
