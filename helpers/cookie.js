@@ -1,4 +1,4 @@
-'use strict';
+
 
 const config = require('../config');
 
@@ -8,7 +8,7 @@ let clearCookieOption = {
     httpOnly: true
 };
 let sessionCookieOption = {
-    expires: 0,
+    expires: new Date(Date.now() + 365*24*60*60*1000),
     path: '/',
     httpOnly: true
 };
