@@ -152,7 +152,7 @@ class classDetail extends Component {
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误_课程详情页面报错', ex.toString());
+            Track.event('错误_课程详情页面报错', null, {"类型" : "错误", "错误内容": ex.toString()});
             this.setState({loadingModal: false});
         }
     }
