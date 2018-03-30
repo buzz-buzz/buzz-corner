@@ -3,10 +3,7 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
-import CurrentUser from "../membership/user";
-import ServiceProxy from "../service-proxy";
 import Track from "../common/track";
-import {MemberType} from "../membership/member-type";
 import {Message} from "semantic-ui-react";
 
 class SelectRole extends Component {
@@ -23,26 +20,27 @@ class SelectRole extends Component {
     async chineseChildEntrance() {
         this.setState({loadingModal: true});
         Track.event('注册/登录_点击中方');
-
-        let userId = await CurrentUser.getUserId();
-        try {
-            await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`,
-                    method: 'PUT',
-                    json: {
-                        role: MemberType.Student
-                    }
-                }
-            });
-
-            this.setState({loadingModal: false});
-            browserHistory.push('/home');
-        } catch (error) {
-            console.error(error);
-
-            this.setState({error: true, message: JSON.stringify(error.message || error), loadingModal: false})
-        }
+        browserHistory.push('/sign-in');
+        // let userId = await CurrentUser.getUserId();
+        //
+        // try {
+        //     await ServiceProxy.proxyTo({
+        //         body: {
+        //             uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`,
+        //             method: 'PUT',
+        //             json: {
+        //                 role: MemberType.Student
+        //             }
+        //         }
+        //     });
+        //
+        //     this.setState({loadingModal: false});
+        //     browserHistory.push('/home');
+        // } catch (error) {
+        //     console.error(error);
+        //
+        //     this.setState({error: true, message: JSON.stringify(error.message || error), loadingModal: false})
+        // }
     }
 
     foreignChildEntrance() {

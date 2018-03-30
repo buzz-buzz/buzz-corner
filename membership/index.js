@@ -1,4 +1,4 @@
-'use strict';
+
 
 const config = require('../config');
 const request = require('request-promise-native');
@@ -63,7 +63,7 @@ membership.ensureAuthenticated = async function (context, next) {
 
             return context.body = result;
         } else {
-            let url = '/sign-in?return_url=' + encodeURIComponent(context.request.originalUrl);
+            let url = '/select-role?return_url=' + encodeURIComponent(context.request.originalUrl);
 
             return context.redirect(url);
         }

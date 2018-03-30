@@ -152,7 +152,7 @@ class classDetail extends Component {
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误_课程详情页面报错', ex.toString());
+            Track.event('错误_课程详情页面报错', null, {"类型" : "错误", "错误内容": ex.toString()});
             this.setState({loadingModal: false});
         }
     }
@@ -234,7 +234,7 @@ class classDetail extends Component {
                     <div className="class-detail-notice">
                         <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
                         <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a
-                            href="http://m.zoom.cn/plus/list.php?tid=3" style={{color: '#f7b52a'}}>下载安装</a>
+                            href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>下载安装</a>
                             。</p>
                     </div>
                     <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
