@@ -422,7 +422,7 @@ class My extends Component {
             } else if (this.state.step === 4) {
                 Track.event('注册_对暗号页面-继续');
 
-                browserHistory.push('/placement');
+               window.location.href = '/placement';
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
@@ -469,9 +469,7 @@ class My extends Component {
     async componentDidMount() {
         try {
             Track.event('注册_联系方式页面-中方');
-
-            let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
-
+            let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
             if (!profile.role) {
                 browserHistory.push('/select-role');
                 return;
@@ -688,7 +686,7 @@ class My extends Component {
                                             width: '100%',
                                             color: 'rgb(255,255,255)',
                                             background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '4em',
+                                            height: '50px',
                                             letterSpacing: '4px',
                                             fontWeight: 'normal',
                                             borderRadius: '30px',
@@ -696,9 +694,9 @@ class My extends Component {
                                         } : {
                                             margin: '2em auto .5em auto',
                                             width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            backgroundColor: 'rgb(223, 223, 228)',
-                                            height: '4em',
+                                            color: 'white',
+                                            background: '#dfdfe4',
+                                            height: '50px',
                                             letterSpacing: '4px',
                                             fontWeight: 'normal',
                                             borderRadius: '30px',

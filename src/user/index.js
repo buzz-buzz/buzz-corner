@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
-import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import Track from "../common/track";
 import './index.css';
 
@@ -34,7 +33,6 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
-                <HeaderWithLogo />
                 <div className="user-content">
                     <div className="user-my">
                         <div className="user-avatar">
@@ -60,20 +58,20 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
-                        <Link style={{display: 'none'}}>
-                            <div className="icon">
-                                <img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>
-                                <div className="name">
-                                    {Resources.getInstance().myLanguage}
-                                </div>
-                            </div>
-                            <div className="link">
-                                <div className="class-numbers">中文</div>
-                                <div className="right-icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
-                                </div>
-                            </div>
-                        </Link>
+                        {/*<Link style={{display: 'none'}}>*/}
+                            {/*<div className="icon">*/}
+                                {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
+                                {/*<div className="name">*/}
+                                    {/*{Resources.getInstance().myLanguage}*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="link">*/}
+                                {/*<div className="class-numbers">中文</div>*/}
+                                {/*<div className="right-icon">*/}
+                                    {/*<img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
+                        {/*</Link>*/}
                     </div>
                 </div>
                 <Footer/>

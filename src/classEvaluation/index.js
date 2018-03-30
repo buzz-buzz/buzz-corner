@@ -133,7 +133,7 @@ class classEvaluation extends Component {
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
             this.setState({loadingModal: false});
-            Track.event('错误_课后评价完成点击后提交出错');
+            Track.event('错误_课后评价完成点击后提交出错',  null, {"类型" : "错误", "错误内容": ex.toString()});
         }
     }
 
@@ -299,7 +299,7 @@ class classEvaluation extends Component {
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}}</p>
+                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
                         <p className="result-content">{this.state.evaluation_content}</p>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>

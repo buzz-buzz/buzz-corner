@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
-import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import './index.css';
 
 class Reward extends Component {
@@ -25,7 +24,6 @@ class Reward extends Component {
     render() {
         return (
             <div className="reward-page">
-                <HeaderWithLogo/>
                 <div className="my-badge">
                     <div className="badge-title">
                         <p>{Resources.getInstance().rewardTitle}</p>

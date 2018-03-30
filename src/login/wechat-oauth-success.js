@@ -92,7 +92,15 @@ export default class WechatOAuthSuccess extends React.Component {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
                 }
             }));
-
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`,
+                    method: 'PUT',
+                    json: {
+                        role: 's'
+                    }
+                }
+            });
             if (!profile.date_of_birth || (!profile.location && !profile.city)) {
                 browserHistory.push('/my/info');
             } else {

@@ -126,6 +126,7 @@ router
     .get('/track_script_placeholder.js', async ctx => {
         ctx.body = 'function doNothing(){}'
     })
+    .get('/select-role', serveSPA)
 ;
 
 
@@ -159,13 +160,14 @@ if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/reward', serveSPA)
         .get('/user', serveSPA)
         .get('/class/:class_id', serveSPA)
+        .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
         .get('/consult', serveSPA)
         .get('/login-for-wechat', serveSPA)
         .get('/class-lessons', serveSPA)
         .get('/consult', serveSPA)
         .get('/video-play', serveSPA)
         .get('/wechat/demo', serveSPA)
-        .get('/select-role', serveSPA)
+        // .get('/select-role', serveSPA)
     ;
 
 
