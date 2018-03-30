@@ -24,6 +24,8 @@
     margin: 1em 0 !important;
     font-weight: normal;
     letter-spacing: 1px;
+    font-size: 17px;
+    color: #000;
 }
 
 .profile-progress{
@@ -50,14 +52,14 @@
     width: 100%;
     box-sizing: border-box;
     height: 2px;
-    background-color: #aaa;
+    background-color: rgb(223, 223, 228);
 }
 
 .dot>div.line-left{
     box-sizing: border-box;
     width: 50%;
     height: 100%;
-    background-color: #aaa;
+    background-color: rgb(223, 223, 228);
 }
 
 .dot>div.line-left-last{
@@ -98,7 +100,7 @@
     border-radius: 50%;
     width: 6px;
     height: 6px;
-    background-color: #aaa;
+    background-color: rgb(223, 223, 228);
     z-index: 99;
 }
 
@@ -108,7 +110,7 @@
 
 .check-number, .phone-number{
     width: 100%;
-    height: 4em;
+    height: 50px;
     margin: 1em 0;
     display: flex;
     justify-content: space-between;
@@ -128,7 +130,7 @@
 }
 
 .check-number>input, .check-number>button, .phone-number>input, .phone-number>button, .parents-name>input{
-    height: 4em;
+    height: 50px;
     letter-spacing: 1px;
     border: none !important;
     background-color: rgb(244, 245, 249)!important;
@@ -180,14 +182,14 @@
 }
 
 input[name='date_of_birth']{
-    height: 4em;
+    height: 50px;
     background-color: #eee !important;
     border: none !important;
     text-align: left !important;
 }
 
 input[name='birthdayLabel']{
-    height: 4em;
+    height: 50px;
     background-color: rgb(244, 245, 249) !important;
     border: none !important;
     text-align: left !important;
@@ -219,6 +221,8 @@ input[name='birthdayLabel']{
     text-align: center;
     width: 100%;
     letter-spacing: 1px;
+    color: #666;
+    font-size: 13px;
 }
 
 .topic>.topic-items>div{
@@ -336,7 +340,7 @@ h4{
 
 div.dropdown{
     width: 100%;
-    height: 4em;
+    height: 50px;
     background: rgb(244, 245, 249) !important;
     border: 1px solid transparent !important;
     margin-bottom: .5em;
@@ -351,6 +355,6 @@ div.dropdown > i{
 }
 
 div.dropdown > input.search{
-    height: 4em;
+    height: 50px;
     line-height: 2em;
 }

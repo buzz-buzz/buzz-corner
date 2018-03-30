@@ -30,24 +30,31 @@ class Home extends Component {
         this.messageTabChangeFriends = this.messageTabChangeFriends.bind(this);
         this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.clickEvent = this.clickEvent.bind(this);
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
     }
 
     signUp() {
         Track.event('首页_预约点击');
 
-        browserHistory.push('/consult');
-    }
-
-    clickEvent(e, item) {
-        let redStatus = item.hasRead === '' ? '未读' : '已读';
-
-        Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
+        window.location.href = '/consult';
     }
 
     clickEventClassDetail(e, item) {
+        window.event.preventDefault();
+
         Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
+
+        window.location.href = "/class/" + item.class_id;
+    }
+
+    clickEventPlacement(e, item){
+        window.event.preventDefault();
+
+        let redStatus = item.hasRead === '' ? '未读' : '已读';
+
+        Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
+
+        window.location.href = item.goUrl;
     }
 
     tabChangeBook() {
@@ -137,7 +144,7 @@ class Home extends Component {
                     + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
                     + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
 
-                classList[i].class_status_show_style = leftDays >= 1 ? 'rgb(0, 216, 90)' : (dateClone - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
+                classList[i].class_status_show_style = leftDays >= 1 ? '#6ae108' : (dateClone - new Date() > 0 ? '#6ae108' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
                 classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0 ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ? '已开始' : '已结束' ));
             }
         }
@@ -160,7 +167,7 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let profile = await CurrentUser.getProfile();
+            let profile = await CurrentUser.getProfile(true);
             let userId = profile.user_id;
 
             if (!profile.role) {
@@ -237,7 +244,7 @@ class Home extends Component {
             //class_list --->  feedback list
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('首页_错误' + ex.toString());
+            Track.event('首页_错误', null, {"类型" : "错误", "错误内容": ex.toString()});
 
             this.setState({loadingModal: false});
         }
@@ -270,7 +277,7 @@ class Home extends Component {
                         <div className="message-red-circle"
                              style={this.state.messageRead ? {} : {display: 'none'}}></div>
                     </div>
-                    <Link className="consult" to="consult">
+                    <Link className="consult" onClick={this.signUp}>
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
                     </Link>
                 </div>
@@ -281,24 +288,25 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item" key={index} to={"class/" + item.class_id}
+                                        return <Link className="booking-item" key={index}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
                                             <Avatar marginRight="2em"
                                                     src={item.companion_avatar}/>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',
-                                                    fontSize: '1.2em',
-                                                    color: '#111'
+                                                    fontSize: '15px',
+                                                    color: '#000'
                                                 }}>{item.companion_name || 'BuzzBuzz'}</p>
                                                 <p className="class-topic" style={{
-                                                    color: '#f7b52a',
-                                                    margin: '.3em 0'
+                                                    color: '#f6b40c',
+                                                    margin: '.3em 0',
+                                                    fontSize: '13px'
                                                 }}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date"
-                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_date}</p>
+                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_date}</p>
                                                 <p className="class-time"
-                                                   style={{fontSize: '.8em', color: '#aaa'}}>{item.show_time}</p>
+                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_time}</p>
                                             </div>
                                             <div className="booking-item-status">
                                                 <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>
@@ -344,8 +352,8 @@ class Home extends Component {
                                     (<div className="message-items">
                                             {
                                                 this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link className="message-item" key={index} to={item.goUrl}
-                                                                 onClick={event => this.clickEvent(event, item)}>
+                                                    return <Link className="message-item" key={index}
+                                                                 onClick={event => this.clickEventPlacement(event, item)}>
                                                         <div className="message-item-avatar">
                                                             <Avatar src={item.message_avatar}/>
                                                             <div className="message-red-circle"

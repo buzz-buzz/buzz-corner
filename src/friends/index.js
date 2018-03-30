@@ -3,7 +3,6 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Developing from '../developing';
 import Track from "../common/track";
-import HeaderWithLogo from '../common/commonComponent/headerWithLogo';
 import './index.css';
 
 class Friends extends Component {
@@ -50,7 +49,6 @@ class Friends extends Component {
     render() {
         return (
             <div className="friends-page">
-                <HeaderWithLogo/>
                 <div className="friends-tab">
                     <div onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
                         <span>{Resources.getInstance().friendsTabForeign}</span>
