@@ -42,6 +42,7 @@ export default class WechatAudio {
                 json
             }
         })
+        console.log('wechat jsconfig', { url: window.location.href.split('#')[0], jsConfig })
         wx.config(jsConfig)
         const valid = await new Promise((resolve, reject) => {
             wx.ready(() => {
