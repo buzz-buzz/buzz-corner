@@ -15,6 +15,21 @@
         body{
             background-color: rgb(244, 245, 249);
         }
+        *:not(input):not(textarea) {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          outline-style:none;/*IE*/
+        }
+        * {
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+          -webkit-tap-highlight-color: transparent;
+        }
     </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
