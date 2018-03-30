@@ -10,7 +10,7 @@ export default class EntryPoint extends React.Component {
         if (userId) {
             browserHistory.push('/home')
         } else {
-            browserHistory.push('/sign-in')
+            browserHistory.push('/select-role')
         }
     }
 
