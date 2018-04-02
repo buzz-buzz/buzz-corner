@@ -222,10 +222,7 @@ export default class Practice extends React.Component {
                                                 <div className="talktext">
                                                     <p>
                                                         <Icon name="rss" className="flipped sound"/>
-                                                        {
-                                                            i === this.state.replies.length - 1 &&
-                                                            <span>{this.state.replies[this.state.replies.length - 1].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
-                                                        }
+                                                        <span>{this.state.replies[i].answered  ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                     </p>
                                                 </div>
 
