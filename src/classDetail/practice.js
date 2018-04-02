@@ -98,7 +98,7 @@ export default class Practice extends React.Component {
             // 等待 2 秒，形成一种对方正在回复的感觉
             this.setState({
                 replying: true
-            })
+            });
             await new Promise(resolve => window.setTimeout(resolve, 2000));
             this.setState({
                 replying: false
@@ -258,11 +258,10 @@ export default class Practice extends React.Component {
                             </div>
                             <div
                                 className="advisor-word talk-bubble tri-right left-bottom border round">
-                                <div className="talktext">
-                                    <p>
-                                        <Icon loading name='spinner'/>
-                                        <Icon name="ellipsis horizontal"/>
-                                    </p>
+                                <div className="talktext" style={{padding: '0'}}>
+                                    <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg" width="80" height="33"
+                                           type="image/svg+xml"
+                                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
                                 </div>
                             </div>
                         </div>
