@@ -1,9 +1,15 @@
 import * as React from "react";
-import {Segment} from "semantic-ui-react";
 import CurrentUser from "../membership/user";
 import {browserHistory} from "react-router";
+import LoadingModal from '../common/commonComponent/loadingModal';
 
 export default class EntryPoint extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {loadingModal: true}
+    }
+
     componentDidMount() {
         let userId = CurrentUser.getUserId();
 
@@ -14,9 +20,13 @@ export default class EntryPoint extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.setState({loadingModal: false});
+    }
+
     render() {
         return (
-            <Segment loading></Segment>
+            <LoadingModal loadingModal={this.state.loadingModal}/>
         )
     }
 }

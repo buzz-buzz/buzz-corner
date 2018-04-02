@@ -4,6 +4,7 @@ import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
+import LoadingModal from '../common/commonComponent/loadingModal';
 import CurrentUser from "../membership/user";
 
 export default class Practice extends React.Component {
@@ -123,10 +124,13 @@ export default class Practice extends React.Component {
     }
 
     async componentDidMount() {
-        WechatAudio.init()
-        let userInfo = await CurrentUser.getProfile()
+        this.setState({loadingModal: true});
+        await WechatAudio.init();
+
+        let userInfo = await CurrentUser.getProfile();
         this.setState({
-            avatar: userInfo.avatar
+            avatar: userInfo.avatar,
+            loadingModal: false
         })
     }
 
@@ -139,12 +143,17 @@ export default class Practice extends React.Component {
                 }
             }
         }
+
+        this.setState({
+            loadingModal: false
+        })
     }
 
     render() {
         return (
             <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                 <Divider horizontal></Divider>
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div>
                     {
                         this.state.replies.map((r, i) => {
