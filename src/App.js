@@ -25,6 +25,7 @@ import Home from './home/StudentHome';
 import Friends from './friends';
 import Reward from './reward';
 import User from './user';
+import Booking from './booking';
 
 import {Container} from "semantic-ui-react";
 import WechatOAuthFail from "./login/wechat-oauth-fail";
@@ -65,6 +66,7 @@ class App extends Component {
                         <Route path='/class-lessons' component={ClassLessons}/>
                         <Route path='/video-play' component={VideoPlay}/>
                         <Route path='/under-construction' component={UnderConstruction}/>
+                        <Route path='/booking' component={Booking}/>
                     </Router>
                 </div>
             </Container>
