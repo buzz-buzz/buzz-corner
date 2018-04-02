@@ -14,7 +14,9 @@ export default class Practice extends React.Component {
         this.state = {
             replies: [{
                 wechatAudio: new WechatAudio()
-            }]
+            }],
+
+            currentReplying: 0,
         }
 
         this.audios = {};
@@ -24,18 +26,29 @@ export default class Practice extends React.Component {
         this.play = this.play.bind(this);
         this.endReply = this.endReply.bind(this);
         this.replyButtonClicked = this.replyButtonClicked.bind(this);
+        this.reReplyButtonClicked = this.reReplyButtonClicked.bind(this);
         this.cancelReply = this.cancelReply.bind(this);
+    }
+
+    async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
+        this.setState({recording: true, currentReplying: buttonIndex}, () => {
+            this.props.recordingChanged(this.state.recording);
+        });
+        await this.state.replies[buttonIndex].wechatAudio.startRecording();
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
         Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
         console.log(`the ${buttonIndex} button was clicked`);
+
+        this.setState({currentReplying: buttonIndex});
+
         if (!this.state.replies[buttonIndex].answered) {
             this.setState({recording: true}, () => {
                 this.props.recordingChanged(this.state.recording);
             });
-            await this.state.replies[buttonIndex].wechatAudio.startRecording()
+            await this.state.replies[buttonIndex].wechatAudio.startRecording();
         } else {
             this.state.replies[buttonIndex].wechatAudio.play();
         }
@@ -46,14 +59,20 @@ export default class Practice extends React.Component {
     }
 
     async endReply() {
-
         if (!this.state.recording) {
             console.log('no need to end recording...');
             return;
         }
+
         this.setState({recording: false}, () => {
             this.props.recordingChanged(this.state.recording);
         })
+
+        if (this.state.currentReplying < this.state.replies.length - 1) {
+            await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording();
+            return;
+        }
+
         if (this.props.audioUpload) {
             try {
                 let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
@@ -217,6 +236,12 @@ export default class Practice extends React.Component {
                                             </div>
 
                                         </div>
+                                        {
+                                            this.state.replies[i].answered &&
+
+                                            <div onTouchStart={() => this.reReplyButtonClicked(i)}
+                                                 className="recordAgain">{Resources.getInstance().practiceAgain}</div>
+                                        }
                                     </div>
                                 );
                             }
@@ -225,9 +250,9 @@ export default class Practice extends React.Component {
 
 
                     {
-                        this.state.replying &&
+                        this.state.replying && this.props.chats.length > this.state.replies.length && this.state.currentReplying === (this.state.replies.length - 1) &&
 
-                        <div className="practise-advisor chat message">
+                        < div className="practise-advisor chat message">
                             <div>
                                 <Image avatar src={this.props.avatars[0]} alt="avatar"/>
                             </div>

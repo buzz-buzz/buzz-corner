@@ -356,3 +356,11 @@
 .class-detail-practice {
     background-color: #f4f5f9;
 }
+
+.recordAgain{
+    font-size: 12px;
+    color: #666;
+    padding-right: 60px;
+    text-align: right;
+    margin: -10px 0;
+}

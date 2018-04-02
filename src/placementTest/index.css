@@ -149,11 +149,6 @@
     transform: scaleX(-1);;
 }
 
-.recordAgain{
-    position: relative;
-    margin-top: .5em;
-}
-
 .first-title-answer input#audio-answer, .recordAgain input#audio-answer-again, .recordAgain a{
     position: absolute;
     left: 0;
