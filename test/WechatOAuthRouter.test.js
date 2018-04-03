@@ -1,8 +1,15 @@
-const server = require('../app');
+const app = require('../app');
 const request = require('supertest');
+
+let server = null;
+
+beforeEach(() => {
+    server = app.listen(process.env.PORT)
+})
 
 afterEach(() => {
     server.close();
+    console.log('server closed');
 });
 
 describe.skip('OAuth', function () {
