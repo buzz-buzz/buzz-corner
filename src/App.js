@@ -41,7 +41,6 @@ class App extends Component {
                         <Route path='/' component={EntryPoint}/>
                         <Route path='/select-role' component={SelectRole}/>
                         <Route path='/sign-in' component={WechatLogin}/>
-                        <Route path='/login-for-wechat' component={WechatLogin}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path="/login/wechat/:return_url" component={LoginByWechat}/>

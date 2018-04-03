@@ -70,12 +70,11 @@
   "scripts": {
     "watch-css": "cross-env npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "build-css": "node-sass-chokidar src/ -o src/",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run watch-css\"",
     "client": "cross-env PORT=80 node scripts/start.js",
     "server": "cross-env NODE_ENV=development node app.js",
-    "prd-server": "cross-env NODE_ENV=production PORT=80 node app.js",
     "build": "node scripts/build.js",
-    "test": "cross-env PORT=22222 node scripts/test.js --env=jsdom",
+    "test": "cross-env NODE_ENV=test PORT=22222 node scripts/test.js --env=jsdom",
     "coverage": "cross-env PORT=22222 node scripts/test.js --env=jsdom --coverage",
     "deploy": "npm install && npm run build && gulp cdn && gulp track"
   },

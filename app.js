@@ -51,9 +51,9 @@ router
 
         ctx.body = await oldRequest(ctx.request.body);
     })
-    .get('/wechat/oauth/redirect/:base64_callback_origin?', async ctx => {
+    .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string', async ctx => {
         let getCode = function () {
-            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
+            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${0}%2F${0}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
         };
 
         let code = ctx.query.code;
@@ -90,9 +90,9 @@ router
             let json = JSON.parse(userInfoResponse);
 
             if (json.errcode || json.errmsg) {
-                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}`)
+                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&return_url=${ctx.params.base64_query_string}`)
             } else {
-                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}`);
+                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&return_url=${ctx.params.base64_query_string}`);
             }
         } catch (ex) {
             console.error(ex);
@@ -126,7 +126,6 @@ router
     .get('/track_script_placeholder.js', async ctx => {
         ctx.body = 'function doNothing(){}'
     })
-    .get('/select-role', serveSPA)
 ;
 
 
@@ -162,12 +161,11 @@ if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/class/:class_id', serveSPA)
         .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
         .get('/consult', serveSPA)
-        .get('/login-for-wechat', serveSPA)
         .get('/class-lessons', serveSPA)
         .get('/consult', serveSPA)
         .get('/video-play', serveSPA)
         .get('/wechat/demo', serveSPA)
-        // .get('/select-role', serveSPA)
+        .get('/select-role', serveSPA)
     ;
 
 
@@ -178,7 +176,9 @@ app
     .use(router.routes())
     .use(router.allowedMethods());
 
-let port = process.env.PORT || 16111;
-let server = app.listen(port);
-
-module.exports = server;
+if (process.env.NODE_ENV !== 'test') {
+    let port = process.env.PORT || 16111;
+    module.exports = app.listen(port);
+} else {
+    module.exports = app;
+}
