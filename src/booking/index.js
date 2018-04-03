@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Resources from '../resources';
 import Track from "../common/track";
 import './index.css';
 
