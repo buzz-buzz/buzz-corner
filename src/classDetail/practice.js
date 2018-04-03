@@ -15,8 +15,10 @@ export default class Practice extends React.Component {
             replies: [{
                 wechatAudio: new WechatAudio()
             }],
-
+            soundPlaying: '//p579tk2n2.bkt.clouddn.com/icon_recording.gif',
             currentReplying: 0,
+            currentPlaying: -1,
+            repliesPlaying: -1
         }
 
         this.audios = {};
@@ -45,12 +47,18 @@ export default class Practice extends React.Component {
         this.setState({currentReplying: buttonIndex});
 
         if (!this.state.replies[buttonIndex].answered) {
-            this.setState({recording: true}, () => {
+            this.setState({recording: true, recordingStartTime: new Date().getTime()}, () => {
                 this.props.recordingChanged(this.state.recording);
             });
             await this.state.replies[buttonIndex].wechatAudio.startRecording();
         } else {
             this.state.replies[buttonIndex].wechatAudio.play();
+            //is playing && and the ended event
+            console.log(this.state.recordingEndTime - this.state.recordingStartTime);
+            this.setState({repliesPlaying: buttonIndex});
+            window.setTimeout(() => {
+                this.setState({repliesPlaying: -1});
+            }, this.state.recordingEndTime - this.state.recordingStartTime)
         }
     }
 
@@ -64,7 +72,7 @@ export default class Practice extends React.Component {
             return;
         }
 
-        this.setState({recording: false}, () => {
+        this.setState({recording: false, recordingEndTime: new Date().getTime()}, () => {
             this.props.recordingChanged(this.state.recording);
         })
 
@@ -138,7 +146,12 @@ export default class Practice extends React.Component {
         Track.event(this.props.audioUpload ? '测试_点击音频收听' : '课程详情_点击音频收听');
 
         if (this.audios[index]) {
-            this.audios[index].play()
+            this.setState({currentPlaying: index});
+            this.audios[index].play();
+
+            this.audios[index].addEventListener('ended', () => {
+                this.setState({currentPlaying: -1});
+            });
         }
     }
 
@@ -194,7 +207,13 @@ export default class Practice extends React.Component {
                                                                 {Resources.getInstance().placementListeningAudio}
                                                                 {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
 
-                                                                <Icon name="rss" className="sound"/>
+                                                                {
+                                                                    this.state.currentPlaying === i
+                                                                        ? <img style={{height: '20px'}}
+                                                                               src={this.state.soundPlaying}
+                                                                               alt=""/>
+                                                                        : <img src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"  style={{height: '20px'}}  alt=""/>
+                                                                }
                                                             </p>) :
                                                             (
                                                                 <p>
@@ -220,9 +239,10 @@ export default class Practice extends React.Component {
 
                                             <div className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
-                                                    <p>
-                                                        <Icon name="rss" className="flipped sound"/>
-                                                        <span>{this.state.replies[i].answered  ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
+                                                    <p style={{paddingLeft: '10px'}}>
+                                                        <img className="rotate180" style={{height: '20px'}}
+                                                             src={this.state.repliesPlaying === i ? this.state.soundPlaying  : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"} alt=""/>
+                                                        <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                     </p>
                                                 </div>
 
@@ -256,9 +276,10 @@ export default class Practice extends React.Component {
                             <div
                                 className="advisor-word talk-bubble tri-right left-bottom border round">
                                 <div className="talktext" style={{padding: '0'}}>
-                                    <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg" width="80" height="33"
+                                    <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg" width="80"
+                                           height="33"
                                            type="image/svg+xml"
-                                           pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                                           pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                                 </div>
                             </div>
                         </div>
