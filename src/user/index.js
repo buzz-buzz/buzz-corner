@@ -4,6 +4,7 @@ import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import '../common/Icon/style.css';
 import './index.css';
 
 class User extends Component {
@@ -54,7 +55,7 @@ class User extends Component {
                             <div className="link">
                                 <div className="class-numbers">{this.state.class_hours}</div>
                                 <div className="right-icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
+                                    <i className="icon-icon_back_down" />
                                 </div>
                             </div>
                         </Link>
@@ -68,7 +69,7 @@ class User extends Component {
                             {/*<div className="link">*/}
                                 {/*<div className="class-numbers">中文</div>*/}
                                 {/*<div className="right-icon">*/}
-                                    {/*<img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>*/}
+                                    {/*<i className="icon-icon_back_down" />*/}
                                 {/*</div>*/}
                             {/*</div>*/}
                         {/*</Link>*/}
