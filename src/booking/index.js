@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Track from "../common/track";
+import '../common/Icon/style.css';
 import './index.css';
 
 class Booking extends Component {
@@ -22,7 +23,7 @@ class Booking extends Component {
     render() {
         return (
             <div className="booking-page">
-
+                <i className="icon-icon_back_up" />
             </div>
         );
     }

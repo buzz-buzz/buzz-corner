@@ -19,6 +19,8 @@ $grey-background: rgb(244, 245, 249);
     flex-direction: column;
     background-color: white;
     flex: 0 0 auto;
+    min-height: 227px;
+    justify-content: center;
 }
 
 .user-my > .user-avatar{
@@ -40,7 +42,7 @@ $grey-background: rgb(244, 245, 249);
 }
 
 .user-my > .user-info > p.name{
-    font-size: 1.2em;
+    font-size: 15px;
     color: rgb(247, 181, 42);
 }
 
@@ -58,15 +60,15 @@ $grey-background: rgb(244, 245, 249);
 }
 
 .user-menu >a{
-    height: 3.5em;
+    height: 50px;
     width: 100%;
     background-color: white;
-    padding: 0 1em;
+    padding: 0 20px;
     color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.2em;
+    font-size: 15px;
     border-bottom: 1px solid rgb(208, 214, 219);
 }
 
@@ -91,20 +93,25 @@ $grey-background: rgb(244, 245, 249);
     color: rgb(102, 102, 102);
 }
 
+.user-menu > a >div.icon > img{
+    height: 24px;
+}
+
 .user-menu > a >div.icon > .name{
-    margin: 0 .5em;
+    margin: 0 15px;
 }
 
 .user-menu > a >div.link >  .right-icon{
-    height: 50%;
+    height: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 .5em;
+    margin-left: 10px;
+    font-size: 15px;
 }
 
-.user-menu > a >div.link >  .right-icon > img{
-    height: 100%;
+.link > .class-numbers{
+    color: #666;
 }
 
 .user-menu > a > div.icon > img{
