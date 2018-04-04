@@ -154,3 +154,19 @@ export const errorModalContent = 'Sorry, something was wrong。 please fresh the
 export const messageSaveFailed = 'save Failed!';
 
 export const practiceAgain = 'record again';
+
+export const hobbyUniverse = 'Universe';
+export const hobbyBusines = 'Busines';
+export const hobbyArt = 'Art';
+export const hobbyFood = 'Food';
+export const hobbyEnvironment = 'Environment';
+export const hobbyLifestyle = 'Lifestyle';
+export const hobbyEnterainment = 'Enterainment';
+export const hobbyScience = 'Science';
+export const hobbyTechnology = 'Technology';
+export const hobbyHealth = 'Health';
+export const hobbySports = 'Sports';
+export const hobbyAnimal = 'Animal';
+export const hobbyMusic = 'Music';
+export const hobbyPeople = 'People';
+export const hobbyPolitics = 'Politics';
