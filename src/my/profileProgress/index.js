@@ -56,7 +56,7 @@ export default class ProfileProgress extends React.Component {
                     </div>
                     <div className={this.props.step > 3 ? 'done' : (this.props.step === 3 ? 'active' : '' )}>
                         <div className="dot">
-                            <div className="line-left"></div>
+                            <div className="line-left line-left-last"></div>
                             <div className="circle"></div>
                         </div>
                         <p>{Resources.getInstance().profileStep3}</p>
