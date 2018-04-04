@@ -90,9 +90,9 @@ router
             let json = JSON.parse(userInfoResponse);
 
             if (json.errcode || json.errmsg) {
-                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&return_url=${ctx.params.base64_query_string}`)
+                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&base64_query_string=${ctx.params.base64_query_string}`)
             } else {
-                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&return_url=${ctx.params.base64_query_string}`);
+                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&base64_query_string=${ctx.params.base64_query_string}`);
             }
         } catch (ex) {
             console.error(ex);
@@ -107,6 +107,9 @@ router
         } else {
             await serveSPA(ctx);
         }
+    })
+    .get('/sign-out', membership.signOut, async ctx => {
+        ctx.body = 'signed out';
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         ctx.body = ctx.state.user;

@@ -143,8 +143,6 @@ export default class WechatOAuthSuccess extends React.Component {
                 <Segment loading={true}
                          style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
                     {JSON.stringify(this.state.userInfo)}
-                    <p>return_url = {window.location.search}</p>
-                    <p>{decodeURIComponent(this.props.params.callback)}</p>
                 </Segment>
             </Container>
         );
