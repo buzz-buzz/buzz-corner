@@ -144,7 +144,7 @@ class Homepage extends Component {
             Track.event('测试_录音上传七牛成功');
 
             let clonedAnswers = this.state.answers;
-            clonedAnswers.push(url);
+            clonedAnswers[this.state.step - 1] = url.url;
 
             this.setState({
                 audioAnswerUrl: url,
@@ -252,6 +252,7 @@ class Homepage extends Component {
                     browserHistory.push('/home');
                 } else {
                     //show error
+                    alert('answer is wrong:' + this.state.answers.length);
 
                     this.setState({loadingModal: false});
                 }
