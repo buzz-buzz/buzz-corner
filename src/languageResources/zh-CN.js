@@ -154,3 +154,19 @@ export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面�
 export const messageSaveFailed = '保存失败!';
 
 export const practiceAgain = '点击重新录制音频';
+
+export const hobbyUniverse = '宇宙';
+export const hobbyBusines = '商业';
+export const hobbyArt = '艺术';
+export const hobbyFood = '食品';
+export const hobbyEnvironment = '环境';
+export const hobbyLifestyle = '生活方式';
+export const hobbyEnterainment = '娱乐';
+export const hobbyScience = '科学';
+export const hobbyTechnology = '技术';
+export const hobbyHealth = '健康';
+export const hobbySports = '体育';
+export const hobbyAnimal = '动物';
+export const hobbyMusic = '音乐';
+export const hobbyPeople = '人';
+export const hobbyPolitics = '政治';

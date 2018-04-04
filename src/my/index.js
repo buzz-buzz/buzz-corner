@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-import {Button, Dropdown, Form} from 'semantic-ui-react';
+import {Button, Form} from 'semantic-ui-react';
 import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import ProfileProgress from './profileProgress/index';
+import ProfileFormStep1 from './profileFormStep1/index';
+import ProfileFormStep2 from './profileFormStep2/index';
+import {MemberType} from "../membership/member-type";
 import Track from "../common/track";
 import ServiceProxy from '../service-proxy';
 import './my.css';
@@ -18,59 +22,6 @@ function getBirthDay(date_of_birth) {
         return ''
     }
 }
-
-const grade_list = [
-    {key: '1', value: '1', text: '一年级'},
-    {key: '2', value: '2', text: '二年级'},
-    {key: '3', value: '3', text: '三年级'},
-    {key: '4', value: '4', text: '四年级'},
-    {key: '5', value: '5', text: '五年级'},
-    {key: '6', value: '6', text: '六年级'},
-    {key: '7', value: '7', text: '七年级'},
-    {key: '8', value: '8', text: '八年级'},
-    {key: '9', value: '9', text: '九年级'},
-];
-
-const city_list = [
-    {key: '0', value: '其他', text: '其他'},
-    {key: '1', value: '北京', text: '北京'},
-    {key: '2', value: '上海', text: '上海'},
-    {key: '3', value: '广州', text: '广州'},
-    {key: '4', value: '深圳', text: '深圳'},
-    {key: '5', value: '天津', text: '天津'},
-    {key: '6', value: '杭州', text: '杭州'},
-    {key: '7', value: '南京', text: '南京'},
-    {key: '8', value: '济南', text: '济南'},
-    {key: '9', value: '重庆', text: '重庆'},
-    {key: '10', value: '青岛', text: '青岛'},
-    {key: '11', value: '大连', text: '大连'},
-    {key: '12', value: '宁波', text: '宁波'},
-    {key: '13', value: '厦门', text: '厦门'},
-    {key: '14', value: '重庆', text: '重庆'},
-    {key: '15', value: '成都', text: '成都'},
-    {key: '16', value: '武汉', text: '武汉'},
-    {key: '17', value: '哈尔滨', text: '哈尔滨'},
-    {key: '18', value: '沈阳', text: '沈阳'},
-    {key: '19', value: '西安', text: '西安'},
-    {key: '20', value: '长春', text: '长春'},
-    {key: '21', value: '长沙', text: '长沙'},
-    {key: '22', value: '福州', text: '福州'},
-    {key: '23', value: '郑州', text: '郑州'},
-    {key: '24', value: '石家庄', text: '石家庄'},
-    {key: '25', value: '苏州', text: '苏州'},
-    {key: '26', value: '佛山', text: '佛山'},
-    {key: '27', value: '东莞', text: '东莞'},
-    {key: '28', value: '无锡', text: '无锡'},
-    {key: '29', value: '烟台', text: '烟台'},
-    {key: '30', value: '太原', text: '太原'},
-    {key: '31', value: '合肥', text: '合肥'},
-    {key: '32', value: '南昌', text: '南昌'},
-    {key: '33', value: '南宁', text: '南宁'},
-    {key: '34', value: '昆明', text: '昆明'},
-    {key: '35', value: '温州', text: '温州'},
-    {key: '36', value: '淄博', text: '淄博'},
-    {key: '37', value: '唐山', text: '唐山'},
-];
 
 class My extends Component {
     constructor() {
@@ -90,111 +41,114 @@ class My extends Component {
                 date_of_birth: '',
                 gender: '',
                 grade: '',
-                topics: []
+                topics: [],
+                email: '',
+                school: '',
+                nationality: ''
             },
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
             placement_topics: [
                 {
-                    name: '宇宙',
+                    name: Resources.getInstance().hobbyUniverse,
                     value: 'universe',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Universe.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
-                    name: '商业',
+                    name: Resources.getInstance().hobbyBusines,
                     value: 'busines',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Business.png',
                     color_b: 'rgba( 252, 78, 82, .2)',
                     color_f: 'rgba( 252, 78, 82, .8)'
                 },
                 {
-                    name: '艺术',
+                    name: Resources.getInstance().hobbyArt,
                     value: 'art',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Art.png',
                     color_b: 'rgba( 255, 112, 82, .2)',
                     color_f: 'rgba( 255, 112, 82, .8)'
                 },
                 {
-                    name: '食品',
+                    name:Resources.getInstance().hobbyFood,
                     value: 'food',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Food.png',
                     color_b: 'rgba( 117, 64, 238, .2)',
                     color_f: 'rgba( 117, 64, 238, .8)'
                 },
                 {
-                    name: '环境',
+                    name: Resources.getInstance().hobbyEnvironment,
                     value: 'environment',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Environment.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
-                    name: '生活方式',
+                    name: Resources.getInstance().hobbyLifestyle,
                     value: 'lifestyle',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Lifestyle.png',
                     color_b: 'rgba(0, 216, 90, .2)',
                     color_f: 'rgba(0, 216, 90, .8)'
                 },
                 {
-                    name: '娱乐',
+                    name: Resources.getInstance().hobbyEnterainment,
                     value: 'enterainment',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Enterainment.png',
                     color_b: 'rgba( 237, 207, 0, .2)',
                     color_f: 'rgba( 237, 207, 0, .8)'
                 },
                 {
-                    name: '科学',
+                    name: Resources.getInstance().hobbyScience,
                     value: 'science',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Science.png',
                     color_b: 'rgba(255, 112, 82, .2)',
                     color_f: 'rgba(255, 112, 82, .8)'
                 },
                 {
-                    name: '技术',
+                    name: Resources.getInstance().hobbyTechnology,
                     value: 'technology',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Technology.png',
                     color_b: 'rgba(87, 113, 148, .2)',
                     color_f: 'rgba(87, 113, 148, .8)'
                 },
                 {
-                    name: '健康',
+                    name: Resources.getInstance().hobbyHealth,
                     value: 'health',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Health.png',
                     color_b: 'rgba(0, 216, 90, .2)',
                     color_f: 'rgba(0, 216, 90, .8)'
                 },
                 {
-                    name: '体育',
+                    name: Resources.getInstance().hobbySports,
                     value: 'sports',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Sports.png',
                     color_b: 'rgba(6, 125, 241, .2)',
                     color_f: 'rgba(6, 125, 241, .8)'
                 },
                 {
-                    name: '动物',
+                    name: Resources.getInstance().hobbyAnimal,
                     value: 'animal',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Animal.png',
                     color_b: 'rgba( 237, 207, 0, .2)',
                     color_f: 'rgba( 237, 207, 0, .8)'
                 },
                 {
-                    name: '音乐',
+                    name: Resources.getInstance().hobbyMusic,
                     value: 'music',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Music.png',
                     color_b: 'rgba( 255, 112, 82, .2)',
                     color_f: 'rgba( 255, 112, 82, .8)'
                 },
                 {
-                    name: '人',
+                    name: Resources.getInstance().hobbyPeople,
                     value: 'people',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_People.png',
                     color_b: 'rgba(87, 113, 148, .2)',
                     color_f: 'rgba(87, 113, 148, .8)'
                 },
                 {
-                    name: '政治',
+                    name: Resources.getInstance().hobbyPolitics,
                     value: 'politics',
                     url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Politics.png',
                     color_b: 'rgba(0, 216, 90, .2)',
@@ -205,6 +159,10 @@ class My extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
+        this.handleGradeChange = this.handleGradeChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleChangeBirthdayLabel = this.handleChangeBirthdayLabel.bind(this);
+
         this.submit = this.submit.bind(this);
         this.changeGenderMale = this.changeGenderMale.bind(this);
         this.changeGenderFemale = this.changeGenderFemale.bind(this);
@@ -324,6 +282,11 @@ class My extends Component {
 
         clonedProfile[event.target.name] = event.target.value;
         this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11});
+
+        if(event.target.name === 'nationality'){
+            console.log( !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality );
+            console.log(!this.state.profile.date_of_birth , !this.state.profile.school, !this.state.profile.gender, !this.state.profile.grade, this.state.profile.gender === 'u' , !this.state.profile.nationality);
+        }
     }
 
     handleChangeBirthdayLabel(event) {
@@ -342,7 +305,7 @@ class My extends Component {
             event.stopPropagation();
 
             if (this.state.step < 3) {
-                if (this.state.step === 1) {
+                if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
                     Track.event('注册_联系方式继续-中方');
 
                     try {
@@ -392,24 +355,30 @@ class My extends Component {
                     });
 
                     //check if placement is done
-                    let placementResult = await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`
-                        }
-                    });
+                    if(this.state.profile.role === MemberType.Student){
+                        let placementResult = await ServiceProxy.proxyTo({
+                            body: {
+                                uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`
+                            }
+                        });
 
-                    if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
+                        if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
+                            this.setState({loadingModal: false});
+
+                            browserHistory.push('/home');
+                        } else {
+                            let newStep = this.state.step + 1;
+                            let newTitle = Resources.getInstance().profileStep4Info;
+                            this.setState({
+                                step: newStep,
+                                profile_title: newTitle,
+                                loadingModal: false
+                            });
+                        }
+                    }else{
                         this.setState({loadingModal: false});
 
                         browserHistory.push('/home');
-                    } else {
-                        let newStep = this.state.step + 1;
-                        let newTitle = Resources.getInstance().profileStep4Info;
-                        this.setState({
-                            step: newStep,
-                            profile_title: newTitle,
-                            loadingModal: false
-                        });
                     }
                 } else {
                     this.setState({
@@ -462,7 +431,10 @@ class My extends Component {
             city: profile.city,
             date_of_birth: getBirthDay(profile.date_of_birth),
             grade: profile.grade,
-            interests: newTopics
+            interests: newTopics,
+            email: profile.email,
+            school_name: profile.school,
+            country: profile.nationality
         };
     }
 
@@ -504,7 +476,10 @@ class My extends Component {
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             user_id: userData.user_id,
-            role: userData.role
+            role: userData.role,
+            email: userData.email || '',
+            school: userData.school || '',
+            nationality: userData.country || ''
         };
     }
 
@@ -515,135 +490,23 @@ class My extends Component {
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack}/>
-                <div className="profile-progress">
-                    <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>{Resources.getInstance().profileStep1}</p>
-                    </div>
-                    <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>{Resources.getInstance().profileStep2}</p>
-                    </div>
-                    <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>{Resources.getInstance().profileStep3}</p>
-                    </div>
-                    <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left line-left-last"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>{Resources.getInstance().profileStep4}</p>
-                    </div>
-                </div>
+                <ProfileProgress step={this.state.step} role={this.state.profile.role} />
                 <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {
                         this.state.step === 1 ?
                             (
-                                <div className="form-content">
-                                    <div className="parents-name">
-                                        <input type="text" placeholder={Resources.getInstance().profileParentsName}
-                                               style={{width: '100%'}}
-                                               value={this.state.profile.parent_name}
-                                               onChange={this.handleChange}
-                                               name='parent_name'/>
-                                    </div>
-                                    <div className="phone-number">
-                                        <Button>{Resources.getInstance().profilePhoneInfo}</Button>
-                                        <input type="number" style={{width: '60%'}}
-                                               value={this.state.profile.phone}
-                                               placeholder={Resources.getInstance().profilePhoneHolder}
-                                               onChange={this.handleChange}
-                                               name='phone'/>
-                                    </div>
-                                    <div className="check-number">
-                                        <input type="text"
-                                               value={this.state.code}
-                                               onChange={this.handleCodeChange} disabled={!this.state.mobileValid}
-                                               style={{width: '60%'}}
-                                               placeholder={Resources.getInstance().profilePhoneCheck}/>
-                                        <Button style={{padding: 0}} onClick={this.sms}
-                                                disabled={!this.state.mobileValid || this.state.waitSec > 0}>{this.state.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
-                                    </div>
-                                    <div className="agreement" onClick={this.agreementCheck}>
-                                        <img
-                                            src={this.state.agreement === true ? "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" : "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select.png"}
-                                            alt=""/>
-                                        <span>{Resources.getInstance().profileAgreement}</span>
-                                    </div>
-                                </div>
+                                <ProfileFormStep1 role={this.state.profile.role}  profile={this.state.profile} handleChange={this.handleChange}
+                                                  handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
+                                                  waitSec={this.state.waitSec} agreementCheck={this.agreementCheck} agreement={this.state.agreement}
+                                />
                             ) : (
                                 this.state.step === 2 ? (
-                                        <div className="form-content">
-                                            <div className="parents-name">
-                                                <input type="text"
-                                                       placeholder={Resources.getInstance().profileChildName}
-                                                       style={{width: '100%'}}
-                                                       value={this.state.profile.student_en_name}
-                                                       onChange={this.handleChange}
-                                                       name='student_en_name'/>
-                                            </div>
-                                            <div className="gender">
-                                                <div className="male" onClick={this.changeGenderMale}>
-                                                    <div
-                                                        className={this.state.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileMale}</span>
-                                                </div>
-                                                <div className="female" onClick={this.changeGenderFemale}>
-                                                    <div
-                                                        className={this.state.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
-                                                        <img
-                                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
-                                                            alt=""/>
-                                                    </div>
-                                                    <span
-                                                        style={this.state.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>{Resources.getInstance().profileFemale}</span>
-                                                </div>
-                                            </div>
-                                            <Form.Group widths='equal' className="position-relative">
-                                                <Form.Input
-                                                    style={this.state.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                                                    value={this.state.profile.date_of_birth} type="date"
-                                                    onChange={this.handleChange} name='date_of_birth'/>
-                                                <div className="field birthday-label">
-                                                    <input type="text"
-                                                           placeholder={Resources.getInstance().profileBirth}
-                                                           style={{width: '100%'}}
-                                                           value={this.state.birthdayLabel || ''}
-                                                           onChange={this.handleChangeBirthdayLabel}
-                                                           name='birthdayLabel'/>
-                                                </div>
-                                            </Form.Group>
-                                            <div className="selection-options">
-                                                <Dropdown placeholder={Resources.getInstance().profileCity} search
-                                                          selection noResultsMessage="没有这个城市哦"
-                                                          onChange={(event, data) => {
-                                                              this.handleCityChange(event, data)
-                                                          }} value={this.state.profile.city}
-                                                          options={city_list}/>
-                                                <Dropdown placeholder={Resources.getInstance().profileGrade} search
-                                                          selection noResultsMessage="例如: 六年级"
-                                                          onChange={(event, data) => {
-                                                              this.handleGradeChange(event, data)
-                                                          }} value={this.state.profile.grade}
-                                                          options={grade_list}/>
-                                            </div>
-                                        </div>
+                                        <ProfileFormStep2 role={this.state.profile.role}  profile={this.state.profile} handleChange={this.handleChange}
+                                                          changeGenderMale={this.changeGenderMale} changeGenderFemale={this.changeGenderFemale}
+                                                          handleChangeBirthdayLabel={this.handleChangeBirthdayLabel} handleCityChange={this.handleCityChange}
+                                                          handleGradeChange={this.handleGradeChange}
+                                        />
                                     ) : (
                                         this.state.step === 3 ?
                                             (<div className='topic form-content'>
@@ -680,8 +543,8 @@ class My extends Component {
                     <Form.Group widths='equal'>
                         <Form.Field control={Button}
                                     content={Resources.getInstance().profileContinue}
-                                    disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement  || !this.state.code) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
+                                    disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.profile.email ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality ) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
+                                    style={!(this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.profile.email ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality )  : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
                                             margin: '2em auto .5em auto',
                                             width: '100%',
                                             color: 'rgb(255,255,255)',
