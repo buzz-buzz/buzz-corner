@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ProfilePage from './my/profileSetup';
-import WechatLogin from './loginForWechat/index';
+import WechatLogin from './login-entry-point/index';
 import SelectRole from './select-role/index';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
