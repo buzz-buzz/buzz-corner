@@ -9,6 +9,10 @@ class Consult extends Component {
     constructor() {
         super();
 
+        this.state = {
+            role: 's'
+        };
+
         this.back = this.back.bind(this);
     }
 
