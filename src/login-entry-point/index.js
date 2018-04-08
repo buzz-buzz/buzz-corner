@@ -4,8 +4,11 @@ import Track from "../common/track";
 import './index.css';
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
+import {Button, Divider, Icon} from "semantic-ui-react";
+import {browserHistory} from "react-router";
+import FacebookLogin from "../login/facebook";
 
-class WechatLogin extends Component {
+class LoginEntryPoint extends Component {
     constructor() {
         super();
 
@@ -15,6 +18,7 @@ class WechatLogin extends Component {
         };
 
         this.signInViaWechat = this.signInViaWechat.bind(this);
+        this.signInViaFacebook = this.signInViaFacebook.bind(this);
     }
 
     signInViaWechat() {
@@ -26,6 +30,12 @@ class WechatLogin extends Component {
         } else {
             window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${btoa(window.location.origin)}%2F${btoa(window.location.search)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
         }
+    }
+
+    signInViaFacebook() {
+        Track.event('登录页面_点击 Facebook 按钮');
+
+        browserHistory.push(`/login/facebook${window.location.search}`);
     }
 
     componentDidMount() {
@@ -53,9 +63,11 @@ class WechatLogin extends Component {
                         <p>{Resources.getInstance().loginByWechatInfo}</p>
                     </div>
                 </div>
+                <FacebookLogin/>
+                <Divider horizontal/>
             </div>
         );
     }
 }
 
-export default WechatLogin;
+export default LoginEntryPoint;

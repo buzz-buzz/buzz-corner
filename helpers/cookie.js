@@ -1,5 +1,3 @@
-
-
 const config = require('../config');
 
 let clearCookieOption = {
@@ -7,8 +5,8 @@ let clearCookieOption = {
     path: '/',
     httpOnly: true
 };
-let sessionCookieOption = {
-    expires: new Date(Date.now() + 365*24*60*60*1000),
+let longCookie = {
+    expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     path: '/',
     httpOnly: true
 };
@@ -18,17 +16,16 @@ let sessionCookieOption = {
 // }
 
 let o = {
-    setUserId: function (token) {
-        this.cookies.set('user_id', token, sessionCookieOption);
+    setUserId: function (user_id) {
+        this.cookies.set('user_id', user_id, longCookie);
     },
     deleteUserId: function () {
         this.cookies.set('user_id', '', clearCookieOption);
     }
 };
 
-o.resetSignOnCookies = function (result) {
+o.resetSignOnCookies = function () {
     o.deleteUserId.call(this);
-    o.setUserId.call(this, result.token);
 };
 
 module.exports = o;
