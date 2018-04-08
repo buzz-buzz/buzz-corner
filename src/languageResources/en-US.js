@@ -1,3 +1,4 @@
+import * as timeHelper from "../common/timeHelper";
 export const header = 'Welcome to Buzzbuzz English Corner';
 
 export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
@@ -35,7 +36,7 @@ export const bookingPlacementInfoContent = 'Finish the test for free';
 export const friendsTabChinese = 'chinese';
 export const friendsTabForeign = 'foreign';
 
-export const rewardTitle = 'My badge';
+export const rewardTitle = 'My badges';
 export const rewardRedStone = 'Red';
 export const rewardYellowStone = 'Yellow';
 export const rewardBlueStone = 'Blue';
@@ -170,3 +171,23 @@ export const hobbyAnimal = 'Animal';
 export const hobbyMusic = 'Music';
 export const hobbyPeople = 'People';
 export const hobbyPolitics = 'Politics';
+
+export const evaluationWord = 'Feedback after class';
+export const evaluationForStudent = 'Feedback to student';
+export const evaluationTo = 'feedback:';
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = timeHelper.dateDiff(start_time, now_time);
+
+    if (d > 1) {
+        return `After ${d} days`;
+    }
+
+    if (d === 1) {
+        return 'Start tomorrow';
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+    }
+}
