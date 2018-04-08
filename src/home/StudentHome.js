@@ -166,7 +166,7 @@ class Home extends Component {
                 return;
             }
 
-            if (profile.role !== MemberType.Student) {
+            if (profile.role !== MemberType.Student && profile.role !== MemberType.Companion) {
                 browserHistory.push('/under-construction');
                 return;
             }

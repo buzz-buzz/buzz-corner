@@ -7,6 +7,7 @@ import URLHelper from "../common/url-helper";
 import {Button, Divider, Icon} from "semantic-ui-react";
 import {browserHistory} from "react-router";
 import FacebookLogin from "../login/facebook";
+import WeChatLogin from "../login/wechat";
 
 class LoginEntryPoint extends Component {
     constructor() {
@@ -23,13 +24,7 @@ class LoginEntryPoint extends Component {
 
     signInViaWechat() {
         Track.event('登录页面_点击微信登录按钮');
-
-        if (!/MicroMessenger/.test(navigator.userAgent)) {
-            alert('请在微信浏览器中使用微信登录方式');
-            return;
-        } else {
-            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=http%3A%2F%2Fcorner.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${btoa(window.location.origin)}%2F${btoa(window.location.search)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-        }
+        WeChatLogin.redirectToWechatOAuthPage();
     }
 
     signInViaFacebook() {

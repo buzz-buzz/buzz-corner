@@ -55,6 +55,7 @@ export default class FacebookLogin extends React.Component {
         }
     };
     doLogin = () => {
+        this.checkWechatBrowser();
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
@@ -141,13 +142,13 @@ export default class FacebookLogin extends React.Component {
             loading: true
         };
 
-        this.checkWechatBrowser();
+        // this.checkWechatBrowser();
     }
 
     checkWechatBrowser() {
         if (/MicroMessenger/.test(navigator.userAgent)) {
             alert('在微信浏览器中请使用微信登录方式');
-            window.location.href = '/login/wechat';
+            window.location.href = `/login/wechat/${window.location.search}`;
         }
     }
 
