@@ -164,7 +164,7 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
-            this.setState({loadingModal: true});
+            this.setState({loadingModal: true, fullModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);
@@ -184,6 +184,8 @@ class Home extends Component {
                 browserHistory.push('/my/info');
                 return;
             }
+
+            this.setState({fullModal: false});
 
             let placementResult = await this.getPlacementResult(userId);
 
@@ -246,13 +248,18 @@ class Home extends Component {
             console.log('login failed: ' + ex.toString());
             Track.event('首页_错误', null, {"类型" : "错误", "错误内容": ex.toString()});
 
-            this.setState({loadingModal: false});
+            this.setState({loadingModal: false, fullModal: false});
         }
+    }
+
+    componentWillUnmount(){
+        this.setState({loadingModal: false, fullModal: false});
     }
 
     render() {
         return (
             <div className="my-home">
+                <LoadingModal loadingModal={this.state.fullModal} fullScreen={true} />
                 <Welcome/>
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}

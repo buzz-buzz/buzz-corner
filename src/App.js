@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ProfilePage from './my/profileSetup';
-import WechatLogin from './loginForWechat/index';
+import WechatLogin from './login-entry-point/index';
 import SelectRole from './select-role/index';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
@@ -25,6 +25,7 @@ import Home from './home/StudentHome';
 import Friends from './friends';
 import Reward from './reward';
 import User from './user';
+import Booking from './booking';
 
 import {Container} from "semantic-ui-react";
 import WechatOAuthFail from "./login/wechat-oauth-fail";
@@ -40,11 +41,11 @@ class App extends Component {
                         <Route path='/' component={EntryPoint}/>
                         <Route path='/select-role' component={SelectRole}/>
                         <Route path='/sign-in' component={WechatLogin}/>
-                        <Route path='/login-for-wechat' component={WechatLogin}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path="/login/wechat/:return_url" component={LoginByWechat}/>
-                        <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
+                        <Route path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
+                               component={WechatOAuthRedirect}/>
                         <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
                         <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
                         <Route path='/my/info' component={My}/>
@@ -65,6 +66,7 @@ class App extends Component {
                         <Route path='/class-lessons' component={ClassLessons}/>
                         <Route path='/video-play' component={VideoPlay}/>
                         <Route path='/under-construction' component={UnderConstruction}/>
+                        <Route path='/booking' component={Booking}/>
                     </Router>
                 </div>
             </Container>

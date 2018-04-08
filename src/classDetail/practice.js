@@ -4,6 +4,7 @@ import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
+import LoadingModal from '../common/commonComponent/loadingModal';
 import CurrentUser from "../membership/user";
 
 export default class Practice extends React.Component {
@@ -13,7 +14,11 @@ export default class Practice extends React.Component {
         this.state = {
             replies: [{
                 wechatAudio: new WechatAudio()
-            }]
+            }],
+            soundPlaying: '//p579tk2n2.bkt.clouddn.com/icon_recording.gif',
+            currentReplying: 0,
+            currentPlaying: -1,
+            repliesPlaying: -1
         }
 
         this.audios = {};
@@ -23,20 +28,37 @@ export default class Practice extends React.Component {
         this.play = this.play.bind(this);
         this.endReply = this.endReply.bind(this);
         this.replyButtonClicked = this.replyButtonClicked.bind(this);
+        this.reReplyButtonClicked = this.reReplyButtonClicked.bind(this);
         this.cancelReply = this.cancelReply.bind(this);
+    }
+
+    async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
+        this.setState({recording: true, currentReplying: buttonIndex}, () => {
+            this.props.recordingChanged(this.state.recording);
+        });
+        await this.state.replies[buttonIndex].wechatAudio.startRecording();
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
         Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
         console.log(`the ${buttonIndex} button was clicked`);
+
+        this.setState({currentReplying: buttonIndex});
+
         if (!this.state.replies[buttonIndex].answered) {
-            this.setState({recording: true}, () => {
+            this.setState({recording: true, recordingStartTime: new Date().getTime()}, () => {
                 this.props.recordingChanged(this.state.recording);
             });
-            await this.state.replies[buttonIndex].wechatAudio.startRecording()
+            await this.state.replies[buttonIndex].wechatAudio.startRecording();
         } else {
             this.state.replies[buttonIndex].wechatAudio.play();
+            //is playing && and the ended event
+            console.log(this.state.recordingEndTime - this.state.recordingStartTime);
+            this.setState({repliesPlaying: buttonIndex});
+            window.setTimeout(() => {
+                this.setState({repliesPlaying: -1});
+            }, this.state.recordingEndTime - this.state.recordingStartTime)
         }
     }
 
@@ -45,14 +67,20 @@ export default class Practice extends React.Component {
     }
 
     async endReply() {
-
         if (!this.state.recording) {
             console.log('no need to end recording...');
             return;
         }
-        this.setState({recording: false}, () => {
+
+        this.setState({recording: false, recordingEndTime: new Date().getTime()}, () => {
             this.props.recordingChanged(this.state.recording);
         })
+
+        if (this.state.currentReplying < this.state.replies.length - 1) {
+            await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording();
+            return;
+        }
+
         if (this.props.audioUpload) {
             try {
                 let url = await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecordingWithQiniuLink();
@@ -78,7 +106,7 @@ export default class Practice extends React.Component {
             // 等待 2 秒，形成一种对方正在回复的感觉
             this.setState({
                 replying: true
-            })
+            });
             await new Promise(resolve => window.setTimeout(resolve, 2000));
             this.setState({
                 replying: false
@@ -118,15 +146,23 @@ export default class Practice extends React.Component {
         Track.event(this.props.audioUpload ? '测试_点击音频收听' : '课程详情_点击音频收听');
 
         if (this.audios[index]) {
-            this.audios[index].play()
+            this.setState({currentPlaying: index});
+            this.audios[index].play();
+
+            this.audios[index].addEventListener('ended', () => {
+                this.setState({currentPlaying: -1});
+            });
         }
     }
 
     async componentDidMount() {
-        WechatAudio.init()
-        let userInfo = await CurrentUser.getProfile()
+        this.setState({loadingModal: true});
+        await WechatAudio.init();
+
+        let userInfo = await CurrentUser.getProfile();
         this.setState({
-            avatar: userInfo.avatar
+            avatar: userInfo.avatar,
+            loadingModal: false
         })
     }
 
@@ -139,12 +175,17 @@ export default class Practice extends React.Component {
                 }
             }
         }
+
+        this.setState({
+            loadingModal: false
+        })
     }
 
     render() {
         return (
             <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                 <Divider horizontal></Divider>
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div>
                     {
                         this.state.replies.map((r, i) => {
@@ -166,7 +207,13 @@ export default class Practice extends React.Component {
                                                                 {Resources.getInstance().placementListeningAudio}
                                                                 {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
 
-                                                                <Icon name="rss" className="sound"/>
+                                                                {
+                                                                    this.state.currentPlaying === i
+                                                                        ? <img style={{height: '20px'}}
+                                                                               src={this.state.soundPlaying}
+                                                                               alt=""/>
+                                                                        : <img src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"  style={{height: '20px'}}  alt=""/>
+                                                                }
                                                             </p>) :
                                                             (
                                                                 <p>
@@ -192,12 +239,10 @@ export default class Practice extends React.Component {
 
                                             <div className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
-                                                    <p>
-                                                        <Icon name="rss" className="flipped sound"/>
-                                                        {
-                                                            i === this.state.replies.length - 1 &&
-                                                            <span>{this.state.replies[this.state.replies.length - 1].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
-                                                        }
+                                                    <p style={{paddingLeft: '10px'}}>
+                                                        <img className="rotate180" style={{height: '20px'}}
+                                                             src={this.state.repliesPlaying === i ? this.state.soundPlaying  : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"} alt=""/>
+                                                        <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                     </p>
                                                 </div>
 
@@ -208,6 +253,12 @@ export default class Practice extends React.Component {
                                             </div>
 
                                         </div>
+                                        {
+                                            this.state.replies[i].answered &&
+
+                                            <div onTouchStart={() => this.reReplyButtonClicked(i)}
+                                                 className="recordAgain">{Resources.getInstance().practiceAgain}</div>
+                                        }
                                     </div>
                                 );
                             }
@@ -216,19 +267,19 @@ export default class Practice extends React.Component {
 
 
                     {
-                        this.state.replying &&
+                        this.state.replying && this.props.chats.length > this.state.replies.length && this.state.currentReplying === (this.state.replies.length - 1) &&
 
-                        <div className="practise-advisor chat message">
+                        < div className="practise-advisor chat message">
                             <div>
                                 <Image avatar src={this.props.avatars[0]} alt="avatar"/>
                             </div>
                             <div
                                 className="advisor-word talk-bubble tri-right left-bottom border round">
-                                <div className="talktext">
-                                    <p>
-                                        <Icon loading name='spinner'/>
-                                        <Icon name="ellipsis horizontal"/>
-                                    </p>
+                                <div className="talktext" style={{padding: '0'}}>
+                                    <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg" width="80"
+                                           height="33"
+                                           type="image/svg+xml"
+                                           pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                                 </div>
                             </div>
                         </div>

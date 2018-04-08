@@ -174,7 +174,8 @@ class classEvaluation extends Component {
                     stars: parseFloat(feed_back[0].score),
                     evaluation_content: feed_back[0].comment,
                     evaluation_status: true,
-                    userId: userId
+                    userId: userId,
+                    loadingModal: false
                 });
             } else {
                 //set state

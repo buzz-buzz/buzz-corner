@@ -12,14 +12,7 @@ class Footer extends Component {
             url: window.location.href
         };
 
-        this.linkTo = this.linkTo.bind(this);
         this.clickEvent = this.clickEvent.bind(this);
-    }
-
-    linkTo(url) {
-        if (this.state.url.indexOf(url) === -1) {
-            //browserHistory.push(url);
-        }
     }
 
     clickEvent(event, page){
