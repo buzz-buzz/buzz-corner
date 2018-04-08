@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ProfilePage from './my/profileSetup';
-import WechatLogin from './loginForWechat/index';
+import WechatLogin from './login-entry-point/index';
 import SelectRole from './select-role/index';
 import {browserHistory, Route, Router} from "react-router";
 import Login from "./login/index";
@@ -44,7 +44,8 @@ class App extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/login/facebook" component={LoginByFacebook}/>
                         <Route path="/login/wechat/:return_url" component={LoginByWechat}/>
-                        <Route path="/wechat/oauth/redirect" component={WechatOAuthRedirect}/>
+                        <Route path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
+                               component={WechatOAuthRedirect}/>
                         <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
                         <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
                         <Route path='/my/info' component={My}/>

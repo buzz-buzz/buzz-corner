@@ -7,18 +7,18 @@ export default class URLHelper {
             if (value) {
                 return value;
             }
-        } else {
-            let pairs = search.replace('?', '').split('&');
-
-            for (let i = 0; i < pairs.length; i++) {
-                let keyValue = pairs[i].split('=');
-
-                if (keyValue[0] === name) {
-                    return keyValue[1]
-                }
-            }
-
-            return '';
         }
+
+        let pairs = search.replace('?', '').split('&');
+
+        for (let i = 0; i < pairs.length; i++) {
+            let keyValue = pairs[i].split('=');
+
+            if (keyValue[0] === name) {
+                return keyValue[1]
+            }
+        }
+
+        return '';
     }
 }
