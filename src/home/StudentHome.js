@@ -187,8 +187,6 @@ class Home extends Component {
 
             this.setState({fullModal: false});
 
-            let placementResult = await this.getPlacementResult(userId);
-
             let classList = await this.getUserClassList(userId);
 
             classList = classList.filter(function (ele) {
@@ -199,15 +197,20 @@ class Home extends Component {
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 
-            if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
+            //if this is a student, then check placement test
+            if(profile.role && profile.role === MemberType.Student){
+                let placementResult = await this.getPlacementResult(userId);
 
-                clonedMessageFromAdvisor.push({
-                    message_title: Resources.getInstance().bookingPlacementInfoTitle,
-                    message_content: Resources.getInstance().bookingPlacementInfoContent,
-                    message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                    goUrl: '/placement',
-                    hasRead: ''
-                });
+                if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
+
+                    clonedMessageFromAdvisor.push({
+                        message_title: Resources.getInstance().bookingPlacementInfoTitle,
+                        message_content: Resources.getInstance().bookingPlacementInfoContent,
+                        message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                        goUrl: '/placement',
+                        hasRead: ''
+                    });
+                }
             }
 
             classList.map((item, index) => {
