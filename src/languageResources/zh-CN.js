@@ -1,3 +1,4 @@
+import * as timeHelper from "../common/timeHelper";
 export const header = 'Buzzbuzz虚拟英语角';
 
 export const welcomePageIntroductionLineOne = '赋能同伴，成就更好的自己!';
@@ -170,3 +171,19 @@ export const hobbyAnimal = '动物';
 export const hobbyMusic = '音乐';
 export const hobbyPeople = '人';
 export const hobbyPolitics = '政治';
+
+export const evaluationWord = '课后评价';
+export const evaluationForStudent = '对学生评价';
+export const evaluationTo = '评价:';
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = timeHelper.dateDiff(start_time, now_time);
+
+    if (d > 0) {
+        return `${d} 天后开始`;
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+    }
+}

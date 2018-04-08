@@ -7,6 +7,7 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import TimeHelper from '../common/timeHelper';
 import Track from "../common/track";
 import './index.css';
 import * as timeHelper from "../common/timeHelper";
@@ -47,7 +48,7 @@ class Home extends Component {
         window.location.href = "/class/" + item.class_id;
     }
 
-    clickEventPlacement(e, item){
+    clickEventPlacement(e, item) {
         window.event.preventDefault();
 
         let redStatus = item.hasRead === '' ? '未读' : '已读';
@@ -135,8 +136,6 @@ class Home extends Component {
             for (let i in classList) {
                 let dateClone = new Date(classList[i].start_time);
 
-                let leftDays = this.calcDaysFromNow(classList[i].start_time);
-
                 classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
                     + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].end_time).getFullYear();
                 classList[i].show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
@@ -144,20 +143,12 @@ class Home extends Component {
                     + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
                     + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
 
-                classList[i].class_status_show_style = leftDays >= 1 ? '#6ae108' : (dateClone - new Date() > 0 ? '#6ae108' : ( new Date(classList[i].end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' ));
-                classList[i].class_status_show_word = leftDays >= 1 ? leftDays + '天后开始' : (dateClone - new Date() > 0 ? '今天开始' : ( new Date(classList[i].end_time) - new Date() > 0 ? '已开始' : '已结束' ));
+                classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].start_time), new Date(classList[i].end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
+                classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].start_time), new Date(classList[i].end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
             }
         }
 
         return classList;
-    }
-
-    calcDaysFromNow(date) {
-        let theDate = new Date(new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1 ) + '-' + new Date(date).getDate());
-
-        let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
-
-        return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
     async componentDidMount() {
@@ -180,7 +171,7 @@ class Home extends Component {
                 return;
             }
 
-            if (!profile.date_of_birth || !profile.city) {
+            if (!profile.date_of_birth || !profile.grade) {
                 browserHistory.push('/my/info');
                 return;
             }
@@ -198,7 +189,7 @@ class Home extends Component {
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 
             //if this is a student, then check placement test
-            if(profile.role && profile.role === MemberType.Student){
+            if (profile.role && profile.role === MemberType.Student) {
                 let placementResult = await this.getPlacementResult(userId);
 
                 if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
@@ -219,7 +210,7 @@ class Home extends Component {
                         message_title: item.companion_name || 'Advisor',
                         message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                        goUrl: profile.role && profile.role === MemberType.Student ? '/class/evaluation/' + item.companion_id + '/' + item.class_id : '/class/foreign/' + item.class_id,
                         hasRead: ''
                     });
                 } else if (item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score) {
@@ -227,7 +218,7 @@ class Home extends Component {
                         message_title: item.companion_name || 'Advisor',
                         message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
                         message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                        goUrl: profile.role && profile.role === MemberType.Student ? '/class/evaluation/' + item.companion_id + '/' + item.class_id : '/class/foreign/' + item.class_id,
                         hasRead: 'read'
                     });
                 }
@@ -249,20 +240,20 @@ class Home extends Component {
             //class_list --->  feedback list
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('首页_错误', null, {"类型" : "错误", "错误内容": ex.toString()});
+            Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
 
             this.setState({loadingModal: false, fullModal: false});
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState({loadingModal: false, fullModal: false});
     }
 
     render() {
         return (
             <div className="my-home">
-                <LoadingModal loadingModal={this.state.fullModal} fullScreen={true} />
+                <LoadingModal loadingModal={this.state.fullModal} fullScreen={true}/>
                 <Welcome/>
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}

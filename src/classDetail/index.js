@@ -5,6 +5,7 @@ import './index.css';
 import * as time from "../common/timeHelper";
 import Practice from "./practice";
 import Track from "../common/track";
+import TimeHelper from '../common/timeHelper';
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import {Button, Form} from "semantic-ui-react";
@@ -28,7 +29,8 @@ class classDetail extends Component {
             student_avatars: [],
             class_status_show_style: '',
             class_status_show_word: '',
-            recording: false
+            recording: false,
+            CURRENT_TIMESTAMP: new Date()
         };
 
         this.back = this.back.bind(this);
@@ -65,7 +67,7 @@ class classDetail extends Component {
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
+            + dateClone.getDate(classInfo.CURRENT_TIMESTAMP) + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
         classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
             + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
             + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
@@ -91,23 +93,16 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if ((new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0) {
+        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             this.showZoom();
         } else {
+            //maybe role "s" and "c" is different
             browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
         }
     }
 
     showZoom() {
         window.location.href = this.state.class_info.room_url;
-    }
-
-    calcDaysFromNow(date) {
-        let theDate = new Date(new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1 ) + '-' + new Date(date).getDate());
-
-        let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
-
-        return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
     async componentDidMount() {
@@ -136,23 +131,22 @@ class classDetail extends Component {
                 }
             }
 
-            let leftDays = this.calcDaysFromNow(class_info.start_time);
-
             this.setState({
                 class_info: class_info,
                 student_avatars: class_info.students,
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
-                class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' )),
-                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0 ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ? '已开始' : '已结束' )),
+                class_status_show_style: TimeHelper.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
+                class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
-                loadingModal: false
+                loadingModal: false,
+                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date()
             });
 
         }
         catch (ex) {
             console.log('login failed: ' + ex.toString());
-            Track.event('错误_课程详情页面报错', null, {"类型" : "错误", "错误内容": ex.toString()});
+            Track.event('错误_课程详情页面报错', null, {"类型": "错误", "错误内容": ex.toString()});
             this.setState({loadingModal: false});
         }
     }
@@ -243,9 +237,9 @@ class classDetail extends Component {
 
                     <div className="class-detail-button">
                         <Form.Group widths='equal'
-                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 ? {} : {display: 'none'}}>
+                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
                             <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                        content={(new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0 ? '进入课堂' : '课后评价'}/>
+                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? '进入课堂' : '课后评价'}/>
                         </Form.Group>
                     </div>
                 </div>
