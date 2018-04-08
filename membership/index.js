@@ -1,21 +1,13 @@
-
-
 const config = require('../config');
 const request = require('request-promise-native');
 const cookie = require('../helpers/cookie');
 
-function setUser(context, data) {
+async function setUserToState(context, user_id) {
     context.state.user = {
-        userId: data.user_id
+        userId: user_id
     };
-}
 
-async function parseUserIdAndSetUser(context, user_id) {
-    setUser(context, {
-        user_id: user_id
-    });
-
-    return {user_id: user_id}
+    return context.state.user;
 }
 
 async function setUserFromCookie(context) {
@@ -26,7 +18,7 @@ async function setUserFromCookie(context) {
     let user_id = context.cookies.get('user_id');
 
     if (user_id) {
-        await parseUserIdAndSetUser(context, user_id);
+        await setUserToState(context, user_id);
     } else {
         delete context.state.user;
     }
@@ -36,8 +28,8 @@ async function setUserFromQueryString(context) {
     let user_id = context.query.user_id;
 
     if (user_id) {
-        await parseUserIdAndSetUser(context, user_id);
-        cookie.resetSignOnCookies.call(context, Object.assign({}, {user_id: user_id}));
+        await setUserToState(context, user_id);
+        cookie.setUserId(user_id);
     }
 
     return user_id;
@@ -72,10 +64,8 @@ membership.ensureAuthenticated = async function (context, next) {
     await next();
 };
 
-membership.signOut = async function (next) {
-    await request.post(`http://${config.endPoints.sso}/logon/logout`, {
-        json: {token: this.query.token || this.cookies.get('token')}
-    });
+membership.signOut = async function (ctx, next) {
+    cookie.resetSignOnCookies.call(ctx);
 
     await next();
 };

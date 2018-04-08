@@ -243,7 +243,7 @@ class My extends Component {
     goBack() {
         if (this.state.step === 1) {
             browserHistory.push('/');
-        } else if (this.state.step <= 4) {
+        } else if (this.state.step <= 4 && this.state.step !== 2) {
             let newStep = this.state.step - 1;
             this.setState({
                 step: newStep
@@ -679,9 +679,9 @@ class My extends Component {
                     }
                     <Form.Group widths='equal'>
                         <Form.Field control={Button}
-                                    content={this.state.step < 4 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
-                                    disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
+                                    content={Resources.getInstance().profileContinue}
+                                    disabled={this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u') : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
+                                    style={!(this.state.step === 1 ? (!this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement  || !this.state.code) : (this.state.step === 2 ? (!this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender) : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
                                             margin: '2em auto .5em auto',
                                             width: '100%',
                                             color: 'rgb(255,255,255)',

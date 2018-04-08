@@ -5,6 +5,8 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
 import Track from "../common/track";
 import {Message} from "semantic-ui-react";
+import {MemberType} from "../membership/member-type";
+import URLHelper from "../common/url-helper";
 
 class SelectRole extends Component {
     constructor() {
@@ -20,32 +22,13 @@ class SelectRole extends Component {
     async chineseChildEntrance() {
         this.setState({loadingModal: true});
         Track.event('注册/登录_点击中方');
-        browserHistory.push('/sign-in');
-        // let userId = await CurrentUser.getUserId();
-        //
-        // try {
-        //     await ServiceProxy.proxyTo({
-        //         body: {
-        //             uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`,
-        //             method: 'PUT',
-        //             json: {
-        //                 role: MemberType.Student
-        //             }
-        //         }
-        //     });
-        //
-        //     this.setState({loadingModal: false});
-        //     browserHistory.push('/home');
-        // } catch (error) {
-        //     console.error(error);
-        //
-        //     this.setState({error: true, message: JSON.stringify(error.message || error), loadingModal: false})
-        // }
+        browserHistory.push(`/sign-in?role=${MemberType.Student}&return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
     }
 
     foreignChildEntrance() {
+        this.setState({loadingModal: true});
         Track.event('注册/登录_点击外籍');
-        window.location.href = 'https://jinshuju.net/f/OrK4p2';
+        browserHistory.push(`/sign-in?role=${MemberType.Companion}&return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`)
     }
 
     goVideoPlayPage() {

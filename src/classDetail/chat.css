@@ -278,18 +278,8 @@
     -webkit-margin-after: 0em;
 }
 
-.talktext .sound {
-    margin-left: 1em;
-    margin-right: 0.5em;
-    color: #edae00;
-    transform: rotate(45deg);
-    padding-bottom: 20px;
-}
-
-.talktext .flipped.sound {
-    transform: rotate(225deg);
-    padding-top: 0;
-    padding-left: 5px;
+.rotate180{
+    transform: rotate(180deg);
 }
 
 .student-word, .practise-student {
@@ -355,4 +345,20 @@
 
 .class-detail-practice {
     background-color: #f4f5f9;
+}
+
+.recordAgain{
+    font-size: 12px;
+    color: #666;
+    padding-right: 60px;
+    text-align: right;
+    margin: -10px 0;
+}
+
+.talktext > p{
+    display: flex;
+}
+
+.talktext > p > img{
+    margin: 0 5px;
 }

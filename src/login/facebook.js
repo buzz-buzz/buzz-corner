@@ -1,7 +1,9 @@
 import React from 'react';
-import {Button, Container, Segment} from "semantic-ui-react";
+import {Button, Container, Icon, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
+import URLHelper from "../common/url-helper";
+import {MemberType} from "../membership/member-type";
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -48,7 +50,7 @@ export default class FacebookLogin extends React.Component {
             this.setState({
                 loading: false
             }, () => {
-                alert('Please click the button to log in or switch to the other ways to log in.');
+                // alert('Please click the Facebook Login button to open facebook authentication page...')
             });
         }
     };
@@ -98,7 +100,7 @@ export default class FacebookLogin extends React.Component {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
                 method: 'POST',
                 json: {
-                    role: 'c',
+                    role: URLHelper.getSearchParam(window.location.search, 'role') || MemberType.Companion,
                     name: facebookUserInfo.name,
                     facebook_id: facebookUserInfo.id,
                     facebook_name: facebookUserInfo.name
@@ -122,6 +124,11 @@ export default class FacebookLogin extends React.Component {
             userInfo: res,
             loading: false
         });
+
+        let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url') || '/';
+        if (returnUrl) {
+            window.location.href = returnUrl;
+        }
     };
 
     constructor() {
@@ -161,11 +168,15 @@ export default class FacebookLogin extends React.Component {
     render() {
         return (
             <Container textAlign="center">
-                <Segment loading={this.state.loading}>
-                    {JSON.stringify(this.state.userInfo)}
-                </Segment>
-                <Button onClick={this.doLogin}>Click to login with facebook</Button>
-                <Button onClick={this.logout}>Log out</Button>
+                <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}>
+                    <Icon name='facebook'/> Facebook
+                </Button>
+
+                {/*<Segment loading={this.state.loading}>*/}
+                {/*{JSON.stringify(this.state.userInfo)}*/}
+                {/*</Segment>*/}
+                {/*<Button onClick={this.doLogin}>Click to login with facebook</Button>*/}
+                {/*<Button onClick={this.logout}>Log out</Button>*/}
             </Container>
         );
     }
