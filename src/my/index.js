@@ -477,7 +477,7 @@ class My extends Component {
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             user_id: userData.user_id,
-            role: 'c' || userData.role,
+            role: userData.role,
             email: userData.email || '',
             school: userData.school_name || '',
             nationality: userData.country || ''
