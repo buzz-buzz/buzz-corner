@@ -51,12 +51,8 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
+    width: 50px;
     color: #000;
-}
-
-.consult img{
-    width: 24px;
 }
 
 .my-home > .home-content{
