@@ -230,7 +230,7 @@ class classDetail extends Component {
                         {
                             this.state.student_avatars.length > 0 &&
                             this.state.student_avatars.map((item, index) => {
-                                return <Link key={index} to="home" onClick={event => this.sendTrack(event, '中方头像点击')}>
+                                return <Link key={index} to="" onClick={event => this.sendTrack(event, '中方头像点击')}>
                                     <img
                                         src={item.avatar || "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                         alt=""/>
