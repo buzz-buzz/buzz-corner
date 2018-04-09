@@ -175,6 +175,8 @@ export const hobbyPolitics = 'Politics';
 export const evaluationWord = 'Feedback after class';
 export const evaluationForStudent = 'Feedback for student';
 export const evaluationTo = 'Assess:';
+export const goToClass = 'Go to class';
+export const goToAssess = 'Feedback';
 
 export function leftDays(start_time, end_time, now_time) {
     let d = timeHelper.dateDiff(start_time, now_time);

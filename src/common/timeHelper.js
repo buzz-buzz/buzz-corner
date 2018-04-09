@@ -1,5 +1,3 @@
-const Resources = require('../resources');
-
 module.exports = {
     getWeekdayNameByIndex(dayOfWeek) {
         return [
@@ -42,9 +40,25 @@ module.exports = {
         return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
     },
 
-    timeDiff(start_time, end_time, now_time)
+    timeDiff(start_time, end_time, now_time, language)
     {
-        return Resources.getInstance().leftDays(start_time, end_time, now_time);
+        let d = this.dateDiff(start_time, now_time);
+
+        if (d > 1) {
+            return language === 'zh-CN' ? `${d} 天后开始` : `After ${d} days`;
+        }
+
+        if (d === 1) {
+            return language === 'zh-CN' ? `${d} 天后开始` : 'Start tomorrow';
+        }
+
+        if (d <= 0 && language !== 'zh-CN') {
+            return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+        }
+
+        if(d <= 0 && language === 'zh-CN'){
+            return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+        }
     }
     ,
 
