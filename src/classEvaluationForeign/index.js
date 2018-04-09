@@ -23,7 +23,6 @@ class classEvaluationForeign extends Component {
                 companion_name: '',
                 companion_avatar: ''
             },
-            stars: 3,
             evaluation_list: [],
             CURRENT_TIMESTAMP: new Date()
         };
@@ -161,23 +160,23 @@ class classEvaluationForeign extends Component {
                                     <div className="chinese-name">{item.user_name}</div>
                                     <div className="evaluation-result">
                                         <p>{Resources.getInstance().evaluationTo}</p>
-                                        <div className="result-stars">
+                                        {   item.score === 0 ?
+                                            <div className="result-stars">
+                                                <p>{Resources.getInstance().evaluationNo}</p>
+                                            </div>
+                                            :
+                                            <div className="result-stars">
                                             <img
-                                                src={this.state.stars >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
-                                                onClick={this.changeStars} name="1" alt="star"/>
+                                                src={item.score >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
                                             <img
-                                                src={this.state.stars >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
-                                                onClick={this.changeStars} name="2" alt="star"/>
+                                                src={item.score >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
                                             <img
-                                                src={this.state.stars >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
-                                                onClick={this.changeStars} name="3" alt="star"/>
+                                                src={item.score >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
                                             <img
-                                                src={this.state.stars >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
-                                                onClick={this.changeStars} name="4" alt="star"/>
+                                                src={item.score >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
                                             <img
-                                                src={this.state.stars >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
-                                                onClick={this.changeStars} name="5" alt="star"/>
-                                        </div>
+                                                src={item.score >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
+                                        </div>}
                                     </div>
                                 </div>
                             </Link>

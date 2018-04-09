@@ -122,32 +122,23 @@ class classDetail extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
-            // let avatars = await ServiceProxy.proxyTo({
-            //     body: {
-            //         uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
-            //         json: { userIdList: class_info.students},
-            //         method: 'POST'
-            //     }
-            // });
-            //
-            // console.log('====avatars=====');
-            // console.log(avatars);
+            let studentsList = [];
 
-            for (let i = 0; i < class_info.students.length; i++) {
-                let profileUser = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.students[i].id}`
-                    }
-                });
-
-                if (profileUser.avatar) {
-                    class_info.students[i].avatar = profileUser.avatar;
-                }
+            for(let i in class_info.students){
+                studentsList.push(class_info.students[i].id);
             }
+
+            let avatars = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
+                    json: { userIdList: studentsList},
+                    method: 'POST'
+                }
+            }) || [];
 
             this.setState({
                 class_info: class_info,
-                student_avatars: class_info.students,
+                student_avatars: avatars,
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
                 class_status_show_style: time.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
