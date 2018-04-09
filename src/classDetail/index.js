@@ -4,7 +4,7 @@ import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import './index.css';
-import * as time from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
@@ -55,11 +55,11 @@ class classDetail extends Component {
     }
 
     transformDay(day) {
-        return time.getWeekdayNameByIndex(day);
+        return TimeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(monthIndex) {
-        return time.getMonthNameByIndex(monthIndex);
+        return TimeHelper.getMonthNameByIndex(monthIndex);
     }
 
     handleClassInfoData(classInfo) {
@@ -141,8 +141,8 @@ class classDetail extends Component {
                 student_avatars: avatars,
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
-                class_status_show_style: time.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
-                class_status_show_word: time.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
+                class_status_show_style: TimeHelper.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
+                class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),

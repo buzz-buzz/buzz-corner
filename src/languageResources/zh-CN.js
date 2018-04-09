@@ -1,4 +1,5 @@
-import * as timeHelper from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
+
 export const header = 'Buzzbuzz虚拟英语角';
 
 export const welcomePageIntroductionLineOne = '赋能同伴，成就更好的自己!';
@@ -180,7 +181,7 @@ export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
 export function leftDays(start_time, end_time, now_time) {
-    let d = timeHelper.dateDiff(start_time, now_time);
+    let d = TimeHelper.dateDiff(start_time, now_time);
 
     if (d > 0) {
         return `${d} 天后开始`;

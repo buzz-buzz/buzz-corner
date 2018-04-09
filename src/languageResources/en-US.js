@@ -1,4 +1,5 @@
-import * as timeHelper from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
+
 export const header = 'Welcome to Buzzbuzz English Corner';
 
 export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
@@ -180,7 +181,7 @@ export const goToClass = 'Go to class';
 export const goToAssess = 'Feedback';
 
 export function leftDays(start_time, end_time, now_time) {
-    let d = timeHelper.dateDiff(start_time, now_time);
+    let d = TimeHelper.dateDiff(start_time, now_time);
 
     if (d > 1) {
         return `After ${d} days`;

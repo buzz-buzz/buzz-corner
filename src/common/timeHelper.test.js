@@ -1,4 +1,4 @@
-const timeHelper = require('./timeHelper');
+import timeHelper from './timeHelper'
 
 describe('get date diff', () => {
     it('should display "今天開始" when start_time is in 15 min', () => {

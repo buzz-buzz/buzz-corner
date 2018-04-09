@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as timeHelper from "../../timeHelper";
+import TimeHelper from "../../timeHelper";
 
 export default class StopWatch extends React.Component {
     constructor(props) {
@@ -38,7 +38,7 @@ export default class StopWatch extends React.Component {
 
     render() {
         return (
-            <div>{timeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
+            <div>{TimeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
         )
     }
 }
