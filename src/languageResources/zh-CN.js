@@ -175,6 +175,8 @@ export const hobbyPolitics = '政治';
 export const evaluationWord = '课后评价';
 export const evaluationForStudent = '对学生评价';
 export const evaluationTo = '评价:';
+export const goToClass = '进入课堂';
+export const goToAssess = '课后评价';
 
 export function leftDays(start_time, end_time, now_time) {
     let d = timeHelper.dateDiff(start_time, now_time);
