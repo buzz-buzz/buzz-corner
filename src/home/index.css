@@ -13,7 +13,6 @@ p{
     width: 100%;
     height: 50px;
     display: flex;
-    box-shadow: 0 0 2px #ccc !important;
     border-bottom-color: white;
     position: relative;
     z-index: 999;
