@@ -279,7 +279,9 @@ class Home extends Component {
                              style={this.state.messageRead ? {} : {display: 'none'}}></div>
                     </div>
                     <Link className="consult" onClick={this.signUp}>
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_consult.png" alt=""/>
+                        <embed src="//p579tk2n2.bkt.clouddn.com/icon_Service.svg" width="24" height="60%"
+                               type="image/svg+xml"
+                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
                     </Link>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
