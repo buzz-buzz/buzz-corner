@@ -27,7 +27,7 @@ class User extends Component {
             avatar: profile.avatar,
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
-            class_hours: profile.class_hours || 0
+            class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0)
         });
     }
 
