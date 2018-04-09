@@ -5,7 +5,7 @@ import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import './index.css';
-import * as timeHelper from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -35,11 +35,11 @@ class classEvaluationForeign extends Component {
     }
 
     transformDay(day) {
-        return timeHelper.getWeekdayNameByIndex(day);
+        return TimeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(month) {
-        return timeHelper.getMonthNameByIndex(month);
+        return TimeHelper.getMonthNameByIndex(month);
     }
 
     handleClassInfoData(classInfo) {
@@ -160,23 +160,28 @@ class classEvaluationForeign extends Component {
                                     <div className="chinese-name">{item.user_name}</div>
                                     <div className="evaluation-result">
                                         <p>{Resources.getInstance().evaluationTo}</p>
-                                        {   item.score === 0 ?
+                                        {item.score === 0 ?
                                             <div className="result-stars">
                                                 <p>{Resources.getInstance().evaluationNo}</p>
                                             </div>
                                             :
                                             <div className="result-stars">
-                                            <img
-                                                src={item.score >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
-                                            <img
-                                                src={item.score >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
-                                            <img
-                                                src={item.score >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
-                                            <img
-                                                src={item.score >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
-                                            <img
-                                                src={item.score >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"} alt="star"/>
-                                        </div>}
+                                                <img
+                                                    src={item.score >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                            </div>}
                                     </div>
                                 </div>
                             </Link>

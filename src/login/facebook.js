@@ -169,7 +169,8 @@ export default class FacebookLogin extends React.Component {
     render() {
         return (
             <Container textAlign="center">
-                <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}>
+                <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}
+                        disabled={this.state.loading}>
                     <Icon name='facebook'/> Facebook
                 </Button>
 

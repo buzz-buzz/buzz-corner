@@ -10,7 +10,6 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import TimeHelper from '../common/timeHelper';
 import Track from "../common/track";
 import './index.css';
-import * as timeHelper from "../common/timeHelper";
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 
@@ -123,11 +122,11 @@ class Home extends Component {
     }
 
     transformDay(day) {
-        return timeHelper.getWeekdayNameByIndex(day);
+        return TimeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(day) {
-        return timeHelper.getMonthNameByIndex(day);
+        return TimeHelper.getMonthNameByIndex(day);
     }
 
     handleClassListData(classList) {
@@ -281,7 +280,7 @@ class Home extends Component {
                     <Link className="consult" onClick={this.signUp}>
                         <embed src="//p579tk2n2.bkt.clouddn.com/icon_Service.svg" width="24" height="60%"
                                type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                     </Link>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>

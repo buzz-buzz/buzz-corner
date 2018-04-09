@@ -5,7 +5,7 @@ import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import './index.css';
 import Track from "../common/track";
-import * as time from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 
 class classEvaluation extends Component {
@@ -80,11 +80,11 @@ class classEvaluation extends Component {
     }
 
     transformDay(day) {
-        return time.getWeekdayNameByIndex(day)
+        return TimeHelper.getWeekdayNameByIndex(day)
     }
 
     transformMonth(day) {
-        return time.getMonthNameByIndex(day);
+        return TimeHelper.getMonthNameByIndex(day);
     }
 
     handleClassInfoData(classInfo) {
@@ -134,7 +134,7 @@ class classEvaluation extends Component {
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
             this.setState({loadingModal: false});
-            Track.event('错误_课后评价完成点击后提交出错',  null, {"类型" : "错误", "错误内容": ex.toString()});
+            Track.event('错误_课后评价完成点击后提交出错', null, {"类型": "错误", "错误内容": ex.toString()});
         }
     }
 
