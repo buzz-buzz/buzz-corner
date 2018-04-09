@@ -46,7 +46,7 @@ class videoPlay extends Component {
                         source='//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4'
                     />
                     <div className="video-btn" onClick={this.playCornerVideo}></div>
-                    <video id="corner-show" src="//p579tk2n2.bkt.clouddn.com/Buzzbuzz%20vedio2.mp4" width="0" height="0">not support</video>
+                    <video id="corner-show" src="//p579tk2n2.bkt.clouddn.com/Training%20video_3min.mp4" width="0" height="0">not support</video>
                 </div>
                 <div className="poster">
                     <img src="//p579tk2n2.bkt.clouddn.com/icon_login_play.png" alt=""/>
