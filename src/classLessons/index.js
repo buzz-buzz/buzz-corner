@@ -63,7 +63,7 @@ class ClassLessons extends Component {
             let profile = await CurrentUser.getProfile();
 
             this.setState({
-                class_hours: profile.class_hours || 0,
+                class_hours:  (profile.class_hours || 0) + (profile.booked_class_hours || 0),
                 userId: profile.user_id
             });
         }
