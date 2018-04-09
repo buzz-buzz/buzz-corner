@@ -55,7 +55,8 @@
     text-align: center;
 }
 
-.email-info{
-    font-size: 15px;
-    margin: 15px 0;
+.consult-content p.email-info{
+    font-size: 15px !important;
+    margin: 15px 0 !important;
+    font-weight: 600 !important;
 }
