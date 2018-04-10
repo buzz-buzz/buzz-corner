@@ -35,6 +35,9 @@ class App extends Component {
     render() {
         return (
             <div className="content" style={{height: '100%'}}>
+                <style>{`
+                    .content > div {height: 100%;}
+                `}</style>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
                     <Route path='/select-role' component={SelectRole}/>

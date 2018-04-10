@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Track from "../common/track";
 import './index.css';
-import {MemberType} from "../membership/member-type";
-import URLHelper from "../common/url-helper";
-import {Button, Container, Divider, Form, Grid, Header, Icon, Image} from "semantic-ui-react";
+import {Button, Form, Grid, Header, Image} from "semantic-ui-react";
 import {browserHistory} from "react-router";
 import FacebookLogin from "../login/facebook";
 import WeChatLogin from "../login/wechat";
 
-class LoginEntryPoint extends Component {
+class CompanionLoginEntryPoint extends Component {
     constructor() {
         super();
 
@@ -35,7 +33,7 @@ class LoginEntryPoint extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{height: '100%'}}>
                 <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
                     <Grid.Row>
                         <Grid.Column>
@@ -69,4 +67,4 @@ class LoginEntryPoint extends Component {
     }
 }
 
-export default LoginEntryPoint;
+export default CompanionLoginEntryPoint;

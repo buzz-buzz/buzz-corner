@@ -31,7 +31,7 @@ class LoginEntryPoint extends Component {
 
     render() {
         return (
-            <div>
+            <div start={{height: '100%'}}>
                 {
                     this.state.role === MemberType.Student &&
                     <StudentLoginEntryPoint/>
