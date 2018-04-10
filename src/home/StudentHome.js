@@ -121,6 +121,14 @@ class Home extends Component {
         });
     }
 
+    async getCompanionEvaluation(class_id) {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/class-feedback/evaluate/${class_id}`
+            }
+        });
+    }
+
     transformDay(day) {
         return TimeHelper.getWeekdayNameByIndex(day);
     }
@@ -203,23 +211,38 @@ class Home extends Component {
                 }
             }
 
-            classList.map((item, index) => {
-                if (item.end_time && new Date(item.end_time) - new Date() < 0 && !item.comment && !item.score) {
-                    clonedMessageFromAdvisor.push({
-                        message_title: item.companion_name || 'Advisor',
-                        message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-                        message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: profile.role && profile.role === MemberType.Student ? '/class/evaluation/' + item.companion_id + '/' + item.class_id : '/class/foreign/' + item.class_id,
-                        hasRead: ''
-                    });
-                } else if (item.end_time && new Date(item.end_time) - new Date() < 0 && item.comment && item.score) {
-                    clonedMessageFromAdvisor.push({
-                        message_title: item.companion_name || 'Advisor',
-                        message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
-                        message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: profile.role && profile.role === MemberType.Student ? '/class/evaluation/' + item.companion_id + '/' + item.class_id : '/class/foreign/' + item.class_id,
-                        hasRead: 'read'
-                    });
+            classList.map(async (item, index) =>  {
+                if(profile.role === MemberType.Student){
+                    if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) ) {
+                        clonedMessageFromAdvisor.push({
+                            message_title: item.companion_name || 'Advisor',
+                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
+                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                            hasRead: ''
+                        });
+                    } else if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
+                        clonedMessageFromAdvisor.push({
+                            message_title: item.companion_name || 'Advisor',
+                            message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
+                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                            hasRead: 'read'
+                        });
+                    }
+                }else if(profile.role === MemberType.Companion){
+                    if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 ) {
+                        //get companion evaluation is done
+                        let result = await this.getCompanionEvaluation(item.class_id);
+
+                        clonedMessageFromAdvisor.push({
+                            message_title: item.companion_name || 'Advisor',
+                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
+                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
+                            goUrl:  '/class/foreign/' + item.class_id,
+                            hasRead: result && result.feedback ?  'read' : ''
+                        });
+                    }
                 }
 
                 return item;
