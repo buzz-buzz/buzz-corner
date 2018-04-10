@@ -1,0 +1,33 @@
+.overlay {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(255, 200, 0, 0.8), rgba(255, 216, 0, 0.8));
+  color: white;
+  padding: 19.5px 40px;
+  font-family: ProximaNova;
+  font-size: 17px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  text-shadow: 0 0.5px 2px #dba100;
+
+  div {
+
+  }
+}
+
+@media all and (min-width: 751px) {
+  .banner-companion {
+    background: url('//p579tk2n2.bkt.clouddn.com/image/jpgpeople-1920x1280.jpg');
+    background-size: 100%;
+
+    img {
+      opacity: 0;
+    }
+  }
+}

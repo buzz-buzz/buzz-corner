@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Container, Icon} from "semantic-ui-react";
+import {Image} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
 import {MemberType} from "../membership/member-type";
+import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -170,16 +171,17 @@ export default class FacebookLogin extends React.Component {
 
     render() {
         return (
-            <Container textAlign="center">
+            <div>
                 {
                     this.state.facebookConnected &&
 
-                    <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}
-                            disabled={this.state.loading}>
-                        <Icon name='facebook'/> Facebook
-                    </Button>
+                    <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
+                                     paddingLeft="60px">
+                        <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
+                        SIGN IN WITH <strong>FACEBOOK</strong>
+                    </BuzzRoundButton>
                 }
-            </Container>
+            </div>
         );
     }
 }
