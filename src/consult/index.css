@@ -1,7 +1,6 @@
 .consult-page{
     display: flex;
     height: 100%;
-    margin: 0 -1em;
     flex-direction: column;
 }
 

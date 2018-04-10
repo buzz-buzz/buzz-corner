@@ -1,6 +1,5 @@
 .my-home{
     min-height: 100%;
-    margin: 0 -1em;
     display: flex;
     flex-direction: column;
 }

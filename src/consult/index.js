@@ -66,7 +66,7 @@ class Consult extends Component {
                         </div>
                         <div className="email">
                             <p className="email-title">1.  You can send mail to contact us</p>
-                            <p  className="email-address"><p><img style={{height: '15px'}} src="//p579tk2n2.bkt.clouddn.com/icon_mail.svg" alt=""/><span style={{verticalAlign: 'super', marginLeft: '10px'}}>peertutor@buzzbuzzenglish.com</span></p></p>
+                            <div  className="email-address"><p><img style={{height: '15px'}} src="//p579tk2n2.bkt.clouddn.com/icon_mail.svg" alt=""/><span style={{verticalAlign: 'super', marginLeft: '10px'}}>peertutor@buzzbuzzenglish.com</span></p></div>
                         </div>
                         <p className="email-title">2. You can use wechat and <span style={{color: '#edae00'}}>scan the QR code</span></p>
                         <div className="consult-QR-code" style={{width: '40%'}}>
