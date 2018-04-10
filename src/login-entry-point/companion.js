@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Resources from '../resources';
 import Track from "../common/track";
-import {Button, Divider, Form, Grid, Header, Image} from "semantic-ui-react";
+import {Divider, Form, Grid, Header, Image} from "semantic-ui-react";
 import {browserHistory} from "react-router";
 import FacebookLogin from "../login/facebook";
 import WeChatLogin from "../login/wechat";
