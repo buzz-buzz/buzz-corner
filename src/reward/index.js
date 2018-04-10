@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
+import CurrentUser from "../membership/user";
 import Footer from '../layout/footer';
 import Track from "../common/track";
 import './index.css';
@@ -8,7 +9,7 @@ class Reward extends Component {
     constructor() {
         super();
 
-        this.state = {};
+        this.state = { integral: 0 };
 
         this.rewardRule = this.rewardRule.bind(this);
     }
@@ -19,6 +20,12 @@ class Reward extends Component {
 
     async componentDidMount() {
         Track.event('奖励_奖励页面展示');
+
+        let profile = await CurrentUser.getProfile(true);
+
+        this.setState({
+            integral: profile.integral
+        });
     }
 
     render() {
@@ -53,7 +60,7 @@ class Reward extends Component {
                     <div className="title">{Resources.getInstance().rewardMiles}</div>
                     <div className="buzz-miles">
                         <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Bitmap.png" alt="Buzzbuzz"/>
-                        <span>0</span>
+                        <span>{this.state.integral}</span>
                     </div>
                 </div>
                 <Footer/>
