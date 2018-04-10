@@ -48,7 +48,8 @@ export default class FacebookLogin extends React.Component {
             this.FB.api('/me', this.facebookUserInfoGot);
         } else {
             this.setState({
-                loading: false
+                loading: false,
+                facebookConnected: true
             }, () => {
                 // alert('Please click the Facebook Login button to open facebook authentication page...')
             });
@@ -139,7 +140,8 @@ export default class FacebookLogin extends React.Component {
         this.doLogin = this.doLogin.bind(this);
 
         this.state = {
-            loading: true
+            loading: true,
+            facebookConnected: false
         };
 
         // this.checkWechatBrowser();
@@ -169,16 +171,14 @@ export default class FacebookLogin extends React.Component {
     render() {
         return (
             <Container textAlign="center">
-                <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}
-                        disabled={this.state.loading}>
-                    <Icon name='facebook'/> Facebook
-                </Button>
+                {
+                    this.state.facebookConnected &&
 
-                {/*<Segment loading={this.state.loading}>*/}
-                {/*{JSON.stringify(this.state.userInfo)}*/}
-                {/*</Segment>*/}
-                {/*<Button onClick={this.doLogin}>Click to login with facebook</Button>*/}
-                {/*<Button onClick={this.logout}>Log out</Button>*/}
+                    <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}
+                            disabled={this.state.loading}>
+                        <Icon name='facebook'/> Facebook
+                    </Button>
+                }
             </Container>
         );
     }
