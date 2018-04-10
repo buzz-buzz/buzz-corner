@@ -75,23 +75,22 @@ class classEvaluationForeign extends Component {
             //create a students evaluation list.
             let clonedEvaluationList = this.state.evaluation_list;
 
-            //todo: a new api
-
-
             if (class_info.companions && class_info.partners && class_info.partners.length > 0) {
-                for (let i in class_info.partners) {
-                    let evaluationResult = await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${class_info.companions}/evaluate/${class_info.partners[i]}`
-                        }
-                    });
+                let evaluationResult = await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/feedback/${this.state.class_id}`
+                    }
+                });
 
-                    clonedEvaluationList.push({
-                        url: '/class/evaluation/' + class_info.partners[i] + '/' + this.state.class_id,
-                        score: evaluationResult.score || 0,
-                        user_name: evaluationResult.to_name || 'no',
-                        avatar: evaluationResult.to_avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
-                    });
+                if(evaluationResult && evaluationResult.userInfo && evaluationResult.userInfo.length > 0){
+                    for(let i in evaluationResult.userInfo){
+                        clonedEvaluationList.push({
+                            url: '/class/evaluation/' + evaluationResult.userInfo[i].userId + '/' + this.state.class_id,
+                            score: evaluationResult.userInfo[i].score || 0,
+                            user_name: evaluationResult.userInfo[i].userName || 'Buzz',
+                            avatar: evaluationResult.userInfo[i].avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
+                        });
+                    }
                 }
             }
 
