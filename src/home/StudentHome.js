@@ -196,7 +196,7 @@ class Home extends Component {
             let classList = await this.getUserClassList(userId, profile.role);
 
             classList = classList.filter(function (ele) {
-                return ele.status && ele.status !== 'cancelled' && ele.class_id;
+                return ele.status && ele.status !== 'cancelled' && (ele.class_id || ele.classes_id);
             });
 
             classList = this.handleClassListData(classList);
