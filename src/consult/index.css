@@ -60,3 +60,38 @@
     margin: 15px 0 !important;
     font-weight: 600 !important;
 }
+
+.consult-content .consult-word-foreign{
+    font-size: 15px;
+    color: #f6b40c;
+    margin-bottom: 20px;
+}
+
+.consult-content .email{
+    width: 100%;
+    border-top: 1px solid #dfdfe4;
+    padding: 20px 0;
+}
+
+.consult-content .email-title{
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+    padding: 0 20px;
+    border-left: 4px solid #edae00;
+    margin-bottom: 15px;
+}
+
+.consult-content .email .email-address{
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+    padding-left: 20px;
+    border-left: 4px solid #fff;
+}
+
+.consult-content .email .email-address > p{
+    text-align: left;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dfdfe4;
+}
