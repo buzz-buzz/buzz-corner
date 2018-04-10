@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Icon, Segment} from "semantic-ui-react";
+import {Button, Container, Icon} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";

@@ -28,6 +28,13 @@ class Reward extends Component {
         });
     }
 
+    componentWillUnmount(){
+        //重写组件的setState方法，直接返回空
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
     render() {
         return (
             <div className="reward-page">

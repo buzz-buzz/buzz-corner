@@ -1,6 +1,5 @@
 .friends-page{
     height: 100%;
-    margin: 0 -1em;
     display: flex;
     flex-direction: column;
 }

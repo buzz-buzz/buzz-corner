@@ -26,7 +26,6 @@ import Reward from './reward';
 import User from './user';
 import Booking from './booking';
 
-import {Container} from "semantic-ui-react";
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
 import EntryPoint from "./home/EntryPoint";
