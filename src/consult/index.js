@@ -27,7 +27,7 @@ class Consult extends Component {
 
         let profile = await CurrentUser.getProfile(true);
 
-        this.setState({role: 'c' || profile.role});
+        this.setState({role: profile.role});
     }
 
     render() {
