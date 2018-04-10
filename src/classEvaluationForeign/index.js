@@ -77,6 +77,7 @@ class classEvaluationForeign extends Component {
 
             //todo: a new api
 
+
             if (class_info.companions && class_info.partners && class_info.partners.length > 0) {
                 for (let i in class_info.partners) {
                     let evaluationResult = await ServiceProxy.proxyTo({
