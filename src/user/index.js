@@ -24,7 +24,7 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar,
+            avatar: profile.avatar ||  'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0)
@@ -53,7 +53,7 @@ class User extends Component {
                                 </div>
                             </div>
                             <div className="link">
-                                <div className="class-numbers">{this.state.class_hours}</div>
+                                <div className="class-numbers">{this.state.class_hours || 0}</div>
                                 <div className="right-icon">
                                     <i className="icon-icon_back_down" />
                                 </div>

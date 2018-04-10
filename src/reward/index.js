@@ -24,7 +24,7 @@ class Reward extends Component {
         let profile = await CurrentUser.getProfile(true);
 
         this.setState({
-            integral: profile.integral
+            integral: profile.integral || 0
         });
     }
 
