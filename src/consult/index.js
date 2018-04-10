@@ -10,7 +10,7 @@ class Consult extends Component {
         super();
 
         this.state = {
-            role: 's'
+            role: ''
         };
 
         this.back = this.back.bind(this);
@@ -48,15 +48,17 @@ class Consult extends Component {
                         <p>{Resources.getInstance().advisorInfo2}</p>
                     </div>
                     {
-                        this.state.role === MemberType.Student ?
-                            (<div className="consult-QR-code">
+                        this.state.role === MemberType.Student &&
+                            <div className="consult-QR-code">
                                 <img src="//p579tk2n2.bkt.clouddn.com/buzz_advisor_code.jpg" alt=""/>
                                 <p>{Resources.getInstance().advisorInfo3}</p>
-                            </div>)
-                            :
-                            (<div className="email-address">
-                                <p className="email-info">peertutor@buzzbuzzenglish.com</p>
-                            </div>)
+                            </div>
+                    }
+                    {
+                        this.state.role === MemberType.Companion &&
+                        <div className="email-address">
+                            <p className="email-info">peertutor@buzzbuzzenglish.com</p>
+                        </div>
                     }
                 </div>
             </div>
