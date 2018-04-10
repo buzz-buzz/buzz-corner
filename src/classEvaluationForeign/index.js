@@ -75,6 +75,8 @@ class classEvaluationForeign extends Component {
             //create a students evaluation list.
             let clonedEvaluationList = this.state.evaluation_list;
 
+            //todo: a new api
+
             if (class_info.companions && class_info.partners && class_info.partners.length > 0) {
                 for (let i in class_info.partners) {
                     let evaluationResult = await ServiceProxy.proxyTo({

@@ -55,7 +55,7 @@ class Consult extends Component {
                             </div>)
                             :
                             (<div className="email-address">
-                                <p className="email-info">service@buzzbuzzenglish.com</p>
+                                <p className="email-info">peertutor@buzzbuzzenglish.com</p>
                             </div>)
                     }
                 </div>

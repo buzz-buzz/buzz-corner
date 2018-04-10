@@ -94,7 +94,7 @@ class ClassLessons extends Component {
                         </div>
                         <div className="content-numbers">{this.state.class_hours || 0}</div>
                     </div>
-                    <div className="content-list">
+                    <div className="content-list" style={{display: 'none'}}>
                         {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {

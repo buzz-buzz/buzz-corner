@@ -65,7 +65,7 @@ class classDetail extends Component {
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate(classInfo.CURRENT_TIMESTAMP) + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
+            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
         classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
             + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
             + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
@@ -145,7 +145,7 @@ class classDetail extends Component {
                 class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
                 loadingModal: false,
-                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
+                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP|| new Date(),
                 role: profile.role || ''
             });
 
