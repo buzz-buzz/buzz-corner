@@ -158,6 +158,7 @@ p{
     align-items: center;
     position: fixed;
     bottom: 60px;
+    z-index: 100;
 }
 
 .my-home >  .booking-btn >div{

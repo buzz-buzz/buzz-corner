@@ -240,9 +240,9 @@ class classDetail extends Component {
                                     。</p>
                             </div> :
                             <div className="class-detail-notice">
-                                <p>1.Before the class, you need to download ZOOM if you haven't。</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.ZOOM link, click here.<a
-                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>Download</a>
+                                <p>1.Please install ZOOM before your class begins.</p>
+                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.Click to <a
+                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}> Install</a>
                                     。</p>
                             </div>
                     }
