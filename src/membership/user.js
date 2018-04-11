@@ -23,7 +23,7 @@ class User {
 
     static redirectToSignInPage() {
         console.log('redirecting...');
-        window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname)}${window.location.search || ''}`;
+        window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || '')) }`;
     }
 }
 
