@@ -1,4 +1,5 @@
 import TimeHelper from "../common/timeHelper";
+import React from 'react';
 
 export const header = 'Buzzbuzz虚拟英语角';
 
@@ -181,6 +182,12 @@ export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
 export const connectionError = '连接异常';
+
+export function signInWith(method) {
+    return (
+        <span>使用 <strong>{method}</strong> 登录</span>
+    )
+}
 
 export function leftDays(start_time, end_time, now_time) {
     let d = TimeHelper.dateDiff(start_time, now_time);
