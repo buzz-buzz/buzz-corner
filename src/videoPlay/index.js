@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Embed} from "semantic-ui-react";
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import {browserHistory} from 'react-router';
 import './index.css';
 
@@ -24,20 +25,7 @@ class videoPlay extends Component {
     render() {
         return (
             <div className="video-play">
-                <div className="header-with-go-back">
-                    <div className="go-back" onClick={this.goBack}>
-                        <div className="arrow-left">
-                        </div>
-                        <div className="circle-border">
-                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
-                        </div>
-                    </div>
-                    <div className="logo">
-                        <div>
-                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
-                        </div>
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
                     <Embed
                         aspectRatio='16:9'
