@@ -4,7 +4,8 @@
   margin-top: 1em;
   flex-shrink: 0;
   display: flex;
-  position: relative; }
+  position: relative;
+  padding: 0 1em; }
 
 .profile-progress-foreign > div {
   flex: 0 0 auto;
