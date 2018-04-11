@@ -1,4 +1,5 @@
 import TimeHelper from "../common/timeHelper";
+import React from 'react';
 
 export const header = 'Welcome to Buzzbuzz English Corner';
 
@@ -181,6 +182,13 @@ export const goToClass = 'Go to class';
 export const goToAssess = 'Feedback';
 
 export const connectionError = 'Connection error';
+
+
+export function signInWith(method) {
+    return (
+        <span>SIGN IN WITH <strong>{method}</strong></span>
+    )
+}
 
 export function leftDays(start_time, end_time, now_time) {
     let d = TimeHelper.dateDiff(start_time, now_time);

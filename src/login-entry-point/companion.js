@@ -6,6 +6,7 @@ import FacebookLogin from "../login/facebook";
 import WeChatLogin from "../login/wechat";
 import './companion.css';
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
+import Resources from "../resources";
 
 class CompanionLoginEntryPoint extends Component {
     constructor() {
@@ -61,7 +62,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
                                     <Image src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png"
                                            alt="Wechat login"/>
-                                    SIGN IN WITH <strong>WECHAT</strong>
+                                    {Resources.getInstance().signInWith('WECHAT')}
                                 </BuzzRoundButton>
                             </Form>
                         </Grid.Column>
