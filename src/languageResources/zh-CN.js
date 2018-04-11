@@ -180,6 +180,8 @@ export const evaluationTo = '评价:';
 export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
+export const connectionError = '连接异常';
+
 export function leftDays(start_time, end_time, now_time) {
     let d = TimeHelper.dateDiff(start_time, now_time);
 

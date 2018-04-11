@@ -180,6 +180,8 @@ export const evaluationTo = 'Assess:';
 export const goToClass = 'Go to class';
 export const goToAssess = 'Feedback';
 
+export const connectionError = 'Connection error';
+
 export function leftDays(start_time, end_time, now_time) {
     let d = TimeHelper.dateDiff(start_time, now_time);
 
