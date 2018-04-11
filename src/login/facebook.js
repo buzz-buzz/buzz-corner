@@ -5,6 +5,8 @@ import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
 import {MemberType} from "../membership/member-type";
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
+import ModalMessage from "../common/commonComponent/modalMessage/index";
+import Resources from "../resources";
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -57,6 +59,10 @@ export default class FacebookLogin extends React.Component {
         }
     };
     doLogin = () => {
+        if (!this.state.facebookConnected) {
+            this.setState({modalShow: true})
+            return;
+        }
         this.checkWechatBrowser();
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
@@ -141,7 +147,6 @@ export default class FacebookLogin extends React.Component {
         this.doLogin = this.doLogin.bind(this);
 
         this.state = {
-            loading: true,
             facebookConnected: false
         };
 
@@ -172,15 +177,14 @@ export default class FacebookLogin extends React.Component {
     render() {
         return (
             <div>
-                {
-                    this.state.facebookConnected &&
-
-                    <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
-                                     paddingLeft="60px">
-                        <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
-                        SIGN IN WITH <strong>FACEBOOK</strong>
-                    </BuzzRoundButton>
-                }
+                <ModalMessage modalName="error" modalShow={this.state.modalShow}
+                              modalContent={Resources.getInstance().connectionError}
+                              style={{position: 'fixed'}} duration={'long'}/>
+                <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
+                                 paddingLeft="60px">
+                    <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
+                    SIGN IN WITH <strong>FACEBOOK</strong>
+                </BuzzRoundButton>
             </div>
         );
     }
