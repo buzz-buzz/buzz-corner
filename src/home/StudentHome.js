@@ -22,7 +22,12 @@ class Home extends Component {
             booking: [],
             message_tab: 'advisor',
             messageFromAdvisor: [],
-            messageRead: false
+            messageRead: false,
+            touchEvent: function (e) {
+                e.preventDefault();
+
+                browserHistory.push('/consult');
+            }
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -36,7 +41,14 @@ class Home extends Component {
     signUp() {
         Track.event('首页_预约点击');
 
-        window.location.href = '/consult';
+        let u = window.navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+
+        if(isAndroid){
+            browserHistory.push('/consult');
+        }else{
+            window.location.href = '/consult';
+        }
     }
 
     clickEventClassDetail(e, item) {
@@ -54,7 +66,14 @@ class Home extends Component {
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
 
-        window.location.href = item.goUrl;
+        let u = window.navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+
+        if(isAndroid){
+            browserHistory.push(item.goUrl);
+        }else{
+            window.location.href = item.goUrl;
+        }
     }
 
     tabChangeBook() {
@@ -116,9 +135,9 @@ class Home extends Component {
     async getUserClassList(user_id, role) {
         let url;
 
-        if(role === MemberType.Student){
+        if (role === MemberType.Student) {
             url = `{config.endPoints.buzzService}/api/v1/student-class-schedule/${user_id}`;
-        }else if(role === MemberType.Companion){
+        } else if (role === MemberType.Companion) {
             url = `{config.endPoints.buzzService}/api/v1/companion-class-schedule/${user_id}`;
         }
 
@@ -170,6 +189,13 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
+            //check system
+            let u = window.navigator.userAgent;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+            if (isAndroid) {
+                document.getElementById('booking-btn').addEventListener('touchstart', this.state.touchEvent, false);
+            }
+
             this.setState({loadingModal: true, fullModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
@@ -219,9 +245,9 @@ class Home extends Component {
                 }
             }
 
-            classList.map(async (item, index) =>  {
-                if(profile.role === MemberType.Student){
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) ) {
+            classList.map(async(item, index) => {
+                if (profile.role === MemberType.Student) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
@@ -238,8 +264,8 @@ class Home extends Component {
                             hasRead: 'read'
                         });
                     }
-                }else if(profile.role === MemberType.Companion){
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 ) {
+                } else if (profile.role === MemberType.Companion) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0) {
                         //get companion evaluation is done
                         let result = await this.getCompanionEvaluation(item.class_id);
 
@@ -247,8 +273,8 @@ class Home extends Component {
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
                             message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                            goUrl:  '/class/foreign/' + item.class_id  + '?tab=message',
-                            hasRead: result && result.feedback ?  'read' : ''
+                            goUrl: '/class/foreign/' + item.class_id + '?tab=message',
+                            hasRead: result && result.feedback ? 'read' : ''
                         });
                     }
                 }
@@ -277,6 +303,12 @@ class Home extends Component {
     }
 
     componentWillUnmount() {
+        let u = window.navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+        if (isAndroid) {
+            document.addEventListener('removeEventListener', this.state.touchEvent, false);
+        }
+
         this.setState({loadingModal: false, fullModal: false});
     }
 
@@ -407,7 +439,7 @@ class Home extends Component {
                 }
                 <div className="booking-btn">
                     <Form.Group widths='equal'>
-                        <Form.Field control={Button} onClick={this.signUp}
+                        <Form.Field control={Button} onClick={this.signUp} id="booking-btn"
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
