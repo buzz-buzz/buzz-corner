@@ -149,17 +149,17 @@ class Home extends Component {
 
         if (classList && classList.length > 0) {
             for (let i in classList) {
-                let dateClone = new Date(classList[i].start_time);
+                let dateClone = new Date(classList[i].class_start_time);
 
                 classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
-                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].end_time).getFullYear();
+                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].class_end_time).getFullYear();
                 classList[i].show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
                     + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-                    + (new Date(classList[i].end_time).getHours() > 9 ? new Date(classList[i].end_time).getHours() : '0' + new Date(classList[i].end_time).getHours() ) + ' : '
-                    + (new Date(classList[i].end_time).getMinutes() > 9 ? new Date(classList[i].end_time).getMinutes() : '0' + new Date(classList[i].end_time).getMinutes() );
+                    + (new Date(classList[i].class_end_time).getHours() > 9 ? new Date(classList[i].class_end_time).getHours() : '0' + new Date(classList[i].class_end_time).getHours() ) + ' : '
+                    + (new Date(classList[i].class_end_time).getMinutes() > 9 ? new Date(classList[i].class_end_time).getMinutes() : '0' + new Date(classList[i].class_end_time).getMinutes() );
 
-                classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].start_time), new Date(classList[i].end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
-                classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].start_time), new Date(classList[i].end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
+                classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
+                classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
             }
         }
 
@@ -196,7 +196,7 @@ class Home extends Component {
             let classList = await this.getUserClassList(userId, profile.role);
 
             classList = classList.filter(function (ele) {
-                return ele.status && ele.status !== 'cancelled' && (ele.class_id || ele.classes_id);
+                return ele.status && ele.status !== 'cancelled' && ele.class_id;
             });
 
             classList = this.handleClassListData(classList);
@@ -221,7 +221,7 @@ class Home extends Component {
 
             classList.map(async (item, index) =>  {
                 if(profile.role === MemberType.Student){
-                    if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) ) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) ) {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
@@ -229,7 +229,7 @@ class Home extends Component {
                             goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
                             hasRead: ''
                         });
-                    } else if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
+                    } else if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
@@ -239,7 +239,7 @@ class Home extends Component {
                         });
                     }
                 }else if(profile.role === MemberType.Companion){
-                    if (item.end_time && new Date(item.end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 ) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 ) {
                         //get companion evaluation is done
                         let result = await this.getCompanionEvaluation(item.class_id);
 
