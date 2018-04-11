@@ -14,11 +14,11 @@ import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 
 class Home extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            tab: 'booking',
+            tab: props.location.query.tab || 'booking',
             booking: [],
             message_tab: 'advisor',
             messageFromAdvisor: [],
@@ -213,7 +213,7 @@ class Home extends Component {
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
                         message_avatar: '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                        goUrl: '/placement',
+                        goUrl: '/placement?tab=message',
                         hasRead: ''
                     });
                 }
@@ -226,7 +226,7 @@ class Home extends Component {
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
                             message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: ''
                         });
                     } else if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
@@ -234,7 +234,7 @@ class Home extends Component {
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
                             message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id,
+                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: 'read'
                         });
                     }
@@ -247,7 +247,7 @@ class Home extends Component {
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
                             message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/buzz-teacher.png',
-                            goUrl:  '/class/foreign/' + item.class_id,
+                            goUrl:  '/class/foreign/' + item.class_id  + '?tab=message',
                             hasRead: result && result.feedback ?  'read' : ''
                         });
                     }

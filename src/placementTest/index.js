@@ -13,9 +13,6 @@ import './index.css';
 import CurrentUser from "../membership/user";
 
 class Homepage extends Component {
-    handleOpen = () => this.setState({modalOpen: true});
-    handleClose = () => this.setState({modalOpen: false});
-    handleOpen = () => this.setState({modalOpen: true});
     handleClose = () => this.setState({modalOpen: false});
 
     constructor(props) {
@@ -98,7 +95,11 @@ class Homepage extends Component {
 
     goBack() {
         if (this.state.step === 1) {
-            browserHistory.push('/home');
+            if(this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message'){
+                browserHistory.push('/home?tab=message');
+            }else{
+                browserHistory.push('/home');
+            }
         } else if (this.state.step <= 8) {
             let newStep = this.state.step - 1;
             this.setState({
