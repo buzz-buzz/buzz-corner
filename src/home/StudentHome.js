@@ -189,14 +189,14 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
+            this.setState({loadingModal: true, fullModal: true});
+
             //check system
             let u = window.navigator.userAgent;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
             if (isAndroid) {
                 document.getElementById('booking-btn').addEventListener('touchstart', this.state.touchEvent, false);
             }
-
-            this.setState({loadingModal: true, fullModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);

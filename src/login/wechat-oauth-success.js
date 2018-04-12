@@ -1,9 +1,9 @@
 import React from 'react';
-import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import {browserHistory} from 'react-router';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 
@@ -141,12 +141,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
     render() {
         return (
-            <Container textAlign="center">
-                <Segment loading={true}
-                         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
-                    {JSON.stringify(this.state.userInfo)}
-                </Segment>
-            </Container>
+            <LoadingModal loadingModal={true} fullScreen={true} />
         );
     }
 }

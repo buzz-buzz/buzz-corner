@@ -7,29 +7,30 @@ import URLHelper from "../common/url-helper";
 export default class EntryPoint extends React.Component {
     constructor() {
         super();
-
-        this.state = {loadingModal: true}
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let userId = CurrentUser.getUserId();
 
         let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
         if (userId) {
-            browserHistory.push(returnUrl  ||  '/home');
+            let profile = await CurrentUser.getProfile(true);
+
+            if (!profile.role) {
+                browserHistory.push(`/select-role?return_url=${returnUrl}`);
+                return;
+            }else{
+                browserHistory.push(returnUrl  ||  '/home');
+            }
         } else {
             browserHistory.push(`/select-role?return_url=${returnUrl}`);
         }
     }
 
-    componentWillUnmount() {
-        this.setState({loadingModal: false});
-    }
-
     render() {
         return (
-            <LoadingModal loadingModal={this.state.loadingModal}/>
+            <LoadingModal loadingModal={true} fullScreen={true} />
         )
     }
 }
