@@ -15,7 +15,7 @@ class User extends Component {
             avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             u_name: 'buzz',
             class_hours: 0,
-            country: 'CHINA'
+            country: 'china'
         }
     }
 
@@ -29,7 +29,7 @@ class User extends Component {
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
-            country: profile.country || 'CHINA'
+            country: profile.country || 'china'
         });
     }
 
@@ -43,7 +43,7 @@ class User extends Component {
                         </div>
                         <div className="user-info">
                             <p className="name">{this.state.u_name}</p>
-                            <p className="nationality">CHINA</p>
+                            <p className="nationality">{this.state.country}</p>
                         </div>
                     </div>
                     <div className="user-menu">
