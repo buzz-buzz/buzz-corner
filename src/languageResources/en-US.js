@@ -183,6 +183,7 @@ export const goToAssess = 'Feedback';
 
 export const connectionError = 'Connection error';
 export const unkownError = 'Connection error';
+export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
 
 
 export function signInWith(method) {

@@ -63,7 +63,14 @@ export default class FacebookLogin extends React.Component {
             this.setState({modalShow: true})
             return;
         }
-        this.checkWechatBrowser();
+        if (/MicroMessenger/.test(navigator.userAgent)) {
+            this.setState({wechatModalShow: true}, ()=>{
+                setTimeout(()=>{
+                    window.location.href = `/login/wechat/${window.location.search}`;
+                }, 5000)
+            })
+            return;
+        }
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
@@ -155,7 +162,7 @@ export default class FacebookLogin extends React.Component {
 
     checkWechatBrowser() {
         if (/MicroMessenger/.test(navigator.userAgent)) {
-            alert('在微信浏览器中请使用微信登录方式');
+            this.setState({wechatModalShow: true})
             window.location.href = `/login/wechat/${window.location.search}`;
         }
     }
@@ -179,6 +186,11 @@ export default class FacebookLogin extends React.Component {
             <div>
                 <ModalMessage modalName="error" modalShow={this.state.modalShow}
                               modalContent={Resources.getInstance().connectionError}
+                              style={{position: 'fixed'}} duration={'long'}/>
+
+
+                <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
+                              modalContent={Resources.getInstance().pleaseUseWechatToLogin}
                               style={{position: 'fixed'}} duration={'long'}/>
                 <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
                                  paddingLeft="60px">
