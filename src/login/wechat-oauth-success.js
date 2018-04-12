@@ -98,7 +98,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
             let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
-            if (!profile.date_of_birth || (!profile.location && !profile.city)) {
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
                 browserHistory.push(`/my/info?return_url=${returnUrl}`);
             } else {
                 browserHistory.push(returnUrl || '/home');

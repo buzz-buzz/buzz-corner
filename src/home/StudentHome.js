@@ -212,7 +212,7 @@ class Home extends Component {
                 return;
             }
 
-            if (!profile.date_of_birth || !profile.grade) {
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
                 browserHistory.push('/my/info');
                 return;
             }
