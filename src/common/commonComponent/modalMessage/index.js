@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Resources from '../../../resources';
 import './index.css';
 
 const ToastDuration = {
@@ -32,7 +33,7 @@ export default class ModalMessage extends Component {
         return (
             this.state.modalShow ?
                 <div className={this.props.modalName === 'error' ? 'error' : 'success'} style={this.props.style || {}}>
-                    {this.props.modalContent}
+                    {this.props.modalContent || Resources.getInstance().unkownError}
                 </div> : ''
         );
     }

@@ -182,6 +182,7 @@ export const goToClass = 'Go to class';
 export const goToAssess = 'Feedback';
 
 export const connectionError = 'Connection error';
+export const unkownError = 'Connection error';
 
 
 export function signInWith(method) {
