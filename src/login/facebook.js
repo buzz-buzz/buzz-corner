@@ -71,7 +71,7 @@ export default class FacebookLogin extends React.Component {
         this.setState({loading: true});
 
         await new Promise(callback => this.FB.logout(callback));
-        await ServiceProxy.proxy('/logout');
+        await ServiceProxy.proxy('/sign-out');
         this.setState({userInfo: {}, loading: false})
     };
     facebookUserInfoGot = async (facebookUserData) => {
@@ -183,7 +183,7 @@ export default class FacebookLogin extends React.Component {
                 <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
                                  paddingLeft="60px">
                     <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
-                    {Resources.getInstance().signInWith('FACEBOOK')}
+                    {Resources.getInstance('en-US').signInWith('FACEBOOK')}
                 </BuzzRoundButton>
             </div>
         );
