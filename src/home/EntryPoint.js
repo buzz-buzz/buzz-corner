@@ -11,7 +11,6 @@ export default class EntryPoint extends React.Component {
         let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
         if (userId) {
-            alert(userId);
             browserHistory.push(returnUrl || '/home');
         } else {
             browserHistory.push(`/select-role?return_url=${returnUrl}`);
