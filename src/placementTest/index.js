@@ -7,6 +7,7 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import {MemberType} from "../membership/member-type";
 import Track from "../common/track";
 import '../my/my.css';
 import './index.css';
@@ -127,10 +128,14 @@ class Homepage extends Component {
         try {
             let profile = await CurrentUser.getProfile();
 
-            this.setState({
-                userId: profile.user_id,
-                avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
-            });
+            if(profile.role && profile.role === MemberType.Companion){
+                browserHistory.push('/');
+            }else{
+                this.setState({
+                    userId: profile.user_id,
+                    avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
+                });
+            }
         }
         catch (ex) {
             console.log(ex.toString());
