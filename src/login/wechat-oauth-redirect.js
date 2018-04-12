@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Segment} from "semantic-ui-react";
+import LoadingModal from '../common/commonComponent/loadingModal';
 
 export default class WechatOAuthRedirect extends React.Component {
     constructor(props) {
@@ -23,11 +23,7 @@ export default class WechatOAuthRedirect extends React.Component {
 
     render() {
         return (
-            <Container textAlign="center">
-                <Segment loading={this.state.loading}>
-                    {JSON.stringify(this.state.userInfo)}
-                </Segment>
-            </Container>
+            <LoadingModal loadingModal={true} fullScreen={true} />
         );
     }
 }

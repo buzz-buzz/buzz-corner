@@ -1,9 +1,12 @@
 import React from 'react';
-import {Button, Container, Icon, Segment} from "semantic-ui-react";
+import {Image} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
 import {MemberType} from "../membership/member-type";
+import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
+import ModalMessage from "../common/commonComponent/modalMessage/index";
+import Resources from "../resources";
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -48,13 +51,26 @@ export default class FacebookLogin extends React.Component {
             this.FB.api('/me', this.facebookUserInfoGot);
         } else {
             this.setState({
-                loading: false
+                loading: false,
+                facebookConnected: true
             }, () => {
                 // alert('Please click the Facebook Login button to open facebook authentication page...')
             });
         }
     };
     doLogin = () => {
+        if (!this.state.facebookConnected) {
+            this.setState({modalShow: true})
+            return;
+        }
+        if (/MicroMessenger/.test(navigator.userAgent)) {
+            this.setState({wechatModalShow: true}, ()=>{
+                setTimeout(()=>{
+                    window.location.href = `/login/wechat/${window.location.search}`;
+                }, 5000)
+            })
+            return;
+        }
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
@@ -62,7 +78,7 @@ export default class FacebookLogin extends React.Component {
         this.setState({loading: true});
 
         await new Promise(callback => this.FB.logout(callback));
-        await ServiceProxy.proxy('/logout');
+        await ServiceProxy.proxy('/sign-out');
         this.setState({userInfo: {}, loading: false})
     };
     facebookUserInfoGot = async (facebookUserData) => {
@@ -138,16 +154,16 @@ export default class FacebookLogin extends React.Component {
         this.doLogin = this.doLogin.bind(this);
 
         this.state = {
-            loading: true
+            facebookConnected: false
         };
 
-        this.checkWechatBrowser();
+        // this.checkWechatBrowser();
     }
 
     checkWechatBrowser() {
         if (/MicroMessenger/.test(navigator.userAgent)) {
-            alert('在微信浏览器中请使用微信登录方式');
-            window.location.href = '/login/wechat';
+            this.setState({wechatModalShow: true})
+            window.location.href = `/login/wechat/${window.location.search}`;
         }
     }
 
@@ -167,17 +183,21 @@ export default class FacebookLogin extends React.Component {
 
     render() {
         return (
-            <Container textAlign="center">
-                <Button color="facebook" onClick={this.doLogin} loading={this.state.loading}>
-                    <Icon name='facebook'/> Facebook
-                </Button>
+            <div>
+                <ModalMessage modalName="error" modalShow={this.state.modalShow}
+                              modalContent={Resources.getInstance().connectionError}
+                              style={{position: 'fixed'}} duration={'long'}/>
 
-                {/*<Segment loading={this.state.loading}>*/}
-                {/*{JSON.stringify(this.state.userInfo)}*/}
-                {/*</Segment>*/}
-                {/*<Button onClick={this.doLogin}>Click to login with facebook</Button>*/}
-                {/*<Button onClick={this.logout}>Log out</Button>*/}
-            </Container>
+
+                <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
+                              modalContent={Resources.getInstance().pleaseUseWechatToLogin}
+                              style={{position: 'fixed'}} duration={'long'}/>
+                <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
+                                 paddingLeft="60px">
+                    <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
+                    {Resources.getInstance('en-US').signInWith('FACEBOOK')}
+                </BuzzRoundButton>
+            </div>
         );
     }
 }

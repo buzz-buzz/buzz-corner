@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {browserHistory, Link} from 'react-router';
 import ServiceProxy from '../service-proxy';
+import CurrentUser from "../membership/user";
+import {MemberType} from "../membership/member-type";
 import './index.css';
-import * as time from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Resources from '../resources';
 import {Button, Form} from "semantic-ui-react";
 
 class classDetail extends Component {
@@ -18,7 +21,7 @@ class classDetail extends Component {
             class_info: {
                 topic: 'sing a New song',
                 time: '2018-2-1 friday',
-                partners: [1, 2, 3],
+                partners: [],
                 status: "",
                 show_date: 'tomorrow, is coming',
                 show_time: '00:00 - 00:00'
@@ -28,11 +31,12 @@ class classDetail extends Component {
             student_avatars: [],
             class_status_show_style: '',
             class_status_show_word: '',
-            recording: false
+            recording: false,
+            CURRENT_TIMESTAMP: new Date(),
+            role: ''
         };
 
         this.back = this.back.bind(this);
-        this.goConsult = this.goConsult.bind(this);
         this.getCompanionInfo = this.getCompanionInfo.bind(this);
         this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
@@ -50,16 +54,12 @@ class classDetail extends Component {
         Track.event('课程详情_' + eventInfo);
     }
 
-    goConsult() {
-        browserHistory.push('/consult');
-    }
-
     transformDay(day) {
-        return time.getWeekdayNameByIndex(day);
+        return TimeHelper.getWeekdayNameByIndex(day);
     }
 
     transformMonth(monthIndex) {
-        return time.getMonthNameByIndex(monthIndex);
+        return TimeHelper.getMonthNameByIndex(monthIndex);
     }
 
     handleClassInfoData(classInfo) {
@@ -70,9 +70,9 @@ class classDetail extends Component {
             + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
             + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
             + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
-        classInfo.companions = classInfo.companions.split(',')[0];
+        classInfo.companions = classInfo.companions ? classInfo.companions.split(',')[0] : '';
 
-        let students = classInfo.students.split(',');
+        let students = classInfo.students ? classInfo.students.split(',') : [];
         let newStudents = [];
         for (let i in students) {
             if (students[i]) {
@@ -91,10 +91,14 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if ((new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0) {
+        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             this.showZoom();
         } else {
-            browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+            if(this.state.role === MemberType.Student){
+                browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+            }else if(this.state.role === MemberType.Companion){
+                browserHistory.push(`/class/foreign/${this.state.class_id}`);
+            }
         }
     }
 
@@ -102,19 +106,13 @@ class classDetail extends Component {
         window.location.href = this.state.class_info.room_url;
     }
 
-    calcDaysFromNow(date) {
-        let theDate = new Date(new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1 ) + '-' + new Date(date).getDate());
-
-        let nowDate = new Date(new Date().getFullYear() + '-' + ( new Date().getMonth() + 1) + '-' + new Date().getDate());
-
-        return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
-    }
-
     async componentDidMount() {
         try {
             Track.event('课程详情_课程详情页面');
 
             this.setState({loadingModal: true});
+
+            let profile = await CurrentUser.getProfile(true);
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -124,35 +122,37 @@ class classDetail extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
-            for (let i = 0; i < class_info.students.length; i++) {
-                let profileUser = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.students[i].id}`
-                    }
-                });
+            let studentsList = [];
 
-                if (profileUser.avatar) {
-                    class_info.students[i].avatar = profileUser.avatar;
-                }
+            for(let i in class_info.students){
+                studentsList.push(class_info.students[i].id);
             }
 
-            let leftDays = this.calcDaysFromNow(class_info.start_time);
+            let avatars = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
+                    json: { userIdList: studentsList},
+                    method: 'POST'
+                }
+            }) || [];
 
             this.setState({
                 class_info: class_info,
-                student_avatars: class_info.students,
+                student_avatars: avatars,
                 companion_name: class_info.companion_name || '',
                 companion_avatar: class_info.companion_avatar || '',
-                class_status_show_style: leftDays >= 1 ? 'rgb(0, 216, 90)' : (new Date(class_info.start_time) - new Date() > 0 ? 'rgb(0, 216, 90)' : ( new Date(class_info.end_time) - new Date() > 0 ? 'rgb(246, 180, 12)' : 'rgb(102， 102， 102)' )),
-                class_status_show_word: leftDays >= 1 ? leftDays + '天后开始' : (new Date(class_info.start_time) - new Date() > 0 ? '今天开始' : ( new Date(class_info.end_time) - new Date() > 0 ? '已开始' : '已结束' )),
+                class_status_show_style: TimeHelper.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
+                class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
-                loadingModal: false
+                loadingModal: false,
+                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP|| new Date(),
+                role: profile.role || ''
             });
 
         }
         catch (ex) {
-            console.log('login failed: ' + ex.toString());
-            Track.event('错误_课程详情页面报错', null, {"类型" : "错误", "错误内容": ex.toString()});
+            console.log(ex.toString());
+            Track.event('错误_课程详情页面报错', null, {"类型": "错误", "错误内容": ex.toString()});
             this.setState({loadingModal: false});
         }
     }
@@ -221,7 +221,7 @@ class classDetail extends Component {
                         {
                             this.state.student_avatars.length > 0 &&
                             this.state.student_avatars.map((item, index) => {
-                                return <Link key={index} to="home" onClick={event => this.sendTrack(event, '中方头像点击')}>
+                                return <Link key={index} to="" onClick={event => this.sendTrack(event, '中方头像点击')}>
                                     <img
                                         src={item.avatar || "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
                                         alt=""/>
@@ -231,27 +231,41 @@ class classDetail extends Component {
                     </div>
                 </div>
                 <div className="class-detail-practice">
-                    <div className="class-detail-notice">
-                        <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
-                        <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a
-                            href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>下载安装</a>
-                            。</p>
-                    </div>
-                    <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
-                              ref={p => this.practice = p}
-                              avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
-
+                    {
+                        this.state.role === MemberType.Student ?
+                            <div className="class-detail-notice">
+                                <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
+                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a
+                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>下载安装</a>
+                                    。</p>
+                            </div> :
+                            <div className="class-detail-notice">
+                                <p>1.Please install ZOOM before your class begins.</p>
+                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.Click to <a
+                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}> Install</a>
+                                    。</p>
+                            </div>
+                    }
+                    {
+                        this.state.role === MemberType.Student &&
+                        <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
+                                  ref={p => this.practice = p}
+                                  avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
+                    }
                     <div className="class-detail-button">
                         <Form.Group widths='equal'
-                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 ? {} : {display: 'none'}}>
+                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
                             <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                        content={(new Date(this.state.class_info.start_time) - new Date()) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date()) > 0 ? '进入课堂' : '课后评价'}/>
+                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ?  Resources.getInstance().goToClass :Resources.getInstance().goToAssess}/>
                         </Form.Group>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                onOK={this.finishRecording} timeout={this.finishRecording}/>
+                {
+                    this.state.role === MemberType.Student &&
+                    <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
+                                    onOK={this.finishRecording} timeout={this.finishRecording}/>
+                }
             </div>
         );
     }

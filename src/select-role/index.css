@@ -2,7 +2,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0 -1em;
     padding: 0 1em;
     background: url('//resource.buzzbuzzenglish.com/image/buzz-corner/circles.png') top left no-repeat;
     background-size: contain;

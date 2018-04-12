@@ -28,81 +28,7 @@
     color: #000;
 }
 
-.profile-progress{
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 1em;
-    flex-shrink: 0;
-    display: flex;
-    position: relative;
-}
 
-.profile-progress>div{
-    flex: 0 0 auto;
-    box-sizing: border-box;
-    margin-top: 1em;
-    width: 25%;
-    position: relative;
-}
-
-.profile-progress>div>div.dot{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    height: 2px;
-    background-color: rgb(223, 223, 228);
-}
-
-.dot>div.line-left{
-    box-sizing: border-box;
-    width: 50%;
-    height: 100%;
-    background-color: rgb(223, 223, 228);
-}
-
-.dot>div.line-left-last{
-    width: 100%;
-}
-
-.done>.dot{
-    background-color: #f7b52a !important;
-}
-
-.active>.dot>.line-left,.done>.dot>.line-left{
-    background-color: #f7b52a;
-}
-
-.done>p,.active>p{
-    color: #f7b52a;
-}
-
-.active>.dot>.circle{
-    position: absolute;
-    top: -9px;
-    left: calc(50% - 10px);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #f7b52a;
-    background-color: white;
-}
-
-.done>.dot>.circle{
-    background-color: #f7b52a !important;
-}
-
-.dot>div.circle{
-    position: absolute;
-    top: -2px;
-    left: calc(50% - 3px);
-    border-radius: 50%;
-    width: 6px;
-    height: 6px;
-    background-color: rgb(223, 223, 228);
-    z-index: 99;
-}
 
 /* .check-number{
     display: none !important;
@@ -216,15 +142,6 @@ input[name='birthdayLabel']{
     background-color: white !important;
 }
 
-.profile-progress>div>p{
-    padding-top: 2em;
-    text-align: center;
-    width: 100%;
-    letter-spacing: 1px;
-    color: #666;
-    font-size: 13px;
-}
-
 .topic>.topic-items>div{
     position: relative;
     display: flex;
@@ -286,6 +203,7 @@ h4{
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
+    padding: 0 1em;
 }
 
 .profile-body > .fields{
@@ -316,18 +234,19 @@ h4{
 }
 
 .agreement{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
+    width: 80%;
 }
 
 .agreement > img{
     height: 18px;
     margin-right: 5px;
+    vertical-align: bottom;
 }
 
 .agreement > span{
-    font-size: .8em;
+    font-size: 12px;
+    color: #666;
 }
 
 .disabled{
@@ -357,4 +276,8 @@ div.dropdown > i{
 div.dropdown > input.search{
     height: 50px;
     line-height: 2em;
+}
+
+.ui.search.dropdown>.text{
+    left: 5px !important;
 }

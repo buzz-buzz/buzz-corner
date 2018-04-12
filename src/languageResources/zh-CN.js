@@ -1,3 +1,6 @@
+import TimeHelper from "../common/timeHelper";
+import React from 'react';
+
 export const header = 'Buzzbuzz虚拟英语角';
 
 export const welcomePageIntroductionLineOne = '赋能同伴，成就更好的自己!';
@@ -154,3 +157,48 @@ export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面�
 export const messageSaveFailed = '保存失败!';
 
 export const practiceAgain = '点击重新录制音频';
+
+export const hobbyUniverse = '宇宙';
+export const hobbyBusines = '商业';
+export const hobbyArt = '艺术';
+export const hobbyFood = '食品';
+export const hobbyEnvironment = '环境';
+export const hobbyLifestyle = '生活方式';
+export const hobbyEnterainment = '娱乐';
+export const hobbyScience = '科学';
+export const hobbyTechnology = '技术';
+export const hobbyHealth = '健康';
+export const hobbySports = '体育';
+export const hobbyAnimal = '动物';
+export const hobbyMusic = '音乐';
+export const hobbyPeople = '人';
+export const hobbyPolitics = '政治';
+
+export const evaluationWord = '课后评价';
+export const evaluationForStudent = '对学生评价';
+export const evaluationNo = '未评价';
+export const evaluationTo = '评价:';
+export const goToClass = '进入课堂';
+export const goToAssess = '课后评价';
+
+export const connectionError = '连接异常';
+export const unkownError = '出现错误，请刷新页面重试';
+export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
+
+export function signInWith(method) {
+    return (
+        <span>使用 <strong>{method}</strong> 登录</span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 0) {
+        return `${d} 天后开始`;
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+    }
+}

@@ -1,7 +1,6 @@
 .class-detail {
     min-height: 100%;
     height: 100%;
-    margin: 0 -1em;
     display: flex;
     flex-direction: column;
     background-color: #f4f5f9;
@@ -120,7 +119,7 @@
     flex: 1 0 auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .class-detail > .class-detail-practice > .class-detail-button > div {

@@ -63,7 +63,7 @@ class ClassLessons extends Component {
             let profile = await CurrentUser.getProfile();
 
             this.setState({
-                class_hours: profile.class_hours || 0,
+                class_hours:  (profile.class_hours || 0) + (profile.booked_class_hours || 0),
                 userId: profile.user_id
             });
         }
@@ -94,7 +94,7 @@ class ClassLessons extends Component {
                         </div>
                         <div className="content-numbers">{this.state.class_hours || 0}</div>
                     </div>
-                    <div className="content-list">
+                    <div className="content-list" style={{display: 'none'}}>
                         {
                             this.state.buy_list.length &&
                             this.state.buy_list.map((item, index) => {

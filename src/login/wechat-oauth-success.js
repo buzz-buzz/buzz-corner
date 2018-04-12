@@ -1,9 +1,9 @@
 import React from 'react';
-import {Container, Segment} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import {browserHistory} from 'react-router';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 
@@ -96,10 +96,12 @@ export default class WechatOAuthSuccess extends React.Component {
                 }
             }));
 
-            if (!profile.date_of_birth || (!profile.location && !profile.city)) {
-                browserHistory.push('/my/info');
+            let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
+                browserHistory.push(`/my/info?return_url=${returnUrl}`);
             } else {
-                browserHistory.push('/home');
+                browserHistory.push(returnUrl || '/home');
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
@@ -139,12 +141,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
     render() {
         return (
-            <Container textAlign="center">
-                <Segment loading={true}
-                         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
-                    {JSON.stringify(this.state.userInfo)}
-                </Segment>
-            </Container>
+            <LoadingModal loadingModal={true} fullScreen={true} />
         );
     }
 }

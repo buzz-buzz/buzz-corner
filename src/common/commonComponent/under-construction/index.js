@@ -1,7 +1,9 @@
 import * as React from "react";
+import Developing from '../../../developing';
+
 
 export default class UnderConstruction extends React.Component {
     render() {
-        return (<p>正在建设中……</p>)
+        return (<Developing />)
     }
 }

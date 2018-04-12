@@ -6,7 +6,6 @@
 
 .wechat-login > .login-wechat-img{
     position: relative;
-    margin: 0 -1em;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
@@ -49,11 +48,11 @@
     padding: 0 1em;
     color: white;
     font-size: 1.2em;
+    text-align: center;
 }
 
 .wechat-login > .login-wechat-btn{
     flex: auto;
-    margin: 0 -1em;
     padding: 0 37.5px;
     display: flex;
     justify-content: center;

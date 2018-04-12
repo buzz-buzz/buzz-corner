@@ -3,7 +3,7 @@ async function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         let signInUrl = `${window.location.origin}/sign-in`;
         if (response.url.indexOf(signInUrl) === 0) {
-            window.location.href = `${signInUrl}?return_url=${encodeURIComponent(window.location.pathname)}${window.location.search || ''}`;
+            window.location.href = `${signInUrl}?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
         }
         return response;
     } else {
@@ -56,7 +56,6 @@ export default {
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
             let textResult = typeof res.text === 'function' ? await res.text() : res.body;
-            console.log('textResult = ', textResult);
             if (mergedOptions.accept === 'application/json') {
                 try {
                     let result = JSON.parse(textResult);

@@ -14,16 +14,28 @@ class User {
 
                 currentUser = new User(userData.userId);
             } catch (ex) {
-                User.redirectToSignInPage();
+                await User.signOut();
             }
         }
 
         return currentUser;
     }
 
-    static redirectToSignInPage() {
-        console.log('redirecting...');
-        window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname)}${window.location.search || ''}`;
+    static async signOut() {
+        User.destroy();
+        try {
+            await ServiceProxy.proxy(`/sign-out`);
+        } catch (ex) {
+            console.error(ex);
+        } finally {
+            window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || '')) }`;
+        }
+    }
+
+    static destroy() {
+        if (currentUser) {
+            currentUser = null;
+        }
     }
 }
 
@@ -44,9 +56,7 @@ export default class CurrentUser {
                 });
             } catch (ex) {
                 if (ex.status === 404) {
-                    await ServiceProxy.proxy(`/sign-out`);
-
-                    User.redirectToSignInPage();
+                    await User.signOut();
                 }
 
                 throw ex;

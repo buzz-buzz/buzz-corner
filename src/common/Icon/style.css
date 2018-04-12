@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?qvx6fc');
+  src:  url('fonts/icomoon.eot?qvx6fc#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?qvx6fc') format('truetype'),
+    url('fonts/icomoon.woff?qvx6fc') format('woff'),
+    url('fonts/icomoon.svg?qvx6fc#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon_back:before {
+  content: "\e908";
+}
+.icon-icon_back_down:before {
+  content: "\e910";
+}
+.icon-icon_back_up:before {
+  content: "\e911";
+}
+.icon-icon_play:before {
+  content: "\e94b";
+}
+.icon-icon_select_active:before {
+  content: "\e94f";
+  color: #dfdfe4;
+}
+.icon-icon_sign:before {
+  content: "\e950";
+}
+.icon-icon_Siri-Mic:before {
+  content: "\e951";
+}
+.icon-icon_Stars:before {
+  content: "\e952";
+}
+.icon-icon_Stars_active-Copy-2:before {
+  content: "\e953";
+}
+.icon-icon_add:before {
+  content: "\e970";
+}
+.icon-icon_Animal:before {
+  content: "\e971";
+}
+.icon-icon_Art:before {
+  content: "\e972";
+}
+.icon-icon_Business:before {
+  content: "\e973";
+}
+.icon-icon_Enterainment:before {
+  content: "\e974";
+}
+.icon-icon_Environment:before {
+  content: "\e975";
+}
+.icon-icon_Food:before {
+  content: "\e976";
+}
+.icon-icon_Health:before {
+  content: "\e977";
+}
+.icon-icon_Lifestyle:before {
+  content: "\e978";
+}
+.icon-icon_Music:before {
+  content: "\e979";
+}
+.icon-icon_People:before {
+  content: "\e97a";
+}
+.icon-icon_Politics:before {
+  content: "\e97b";
+}
+.icon-icon_Science:before {
+  content: "\e97c";
+}
+.icon-icon_Sports:before {
+  content: "\e97d";
+}
+.icon-icon_Technology:before {
+  content: "\e97e";
+}
+.icon-icon_Universe:before {
+  content: "\e97f";
+}

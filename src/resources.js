@@ -9,7 +9,11 @@ export default class Resources {
         }
     }
 
-    static getInstance() {
+    static getInstance(culture) {
+        if (culture) {
+            return require(`./languageResources/${culture}`);
+        }
+
         if (!resources) {
             Resources.setCulture(window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US');
         }
