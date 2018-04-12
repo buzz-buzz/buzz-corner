@@ -44,9 +44,9 @@ class Home extends Component {
         let u = window.navigator.userAgent;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
 
-        if(isAndroid){
+        if (isAndroid) {
             browserHistory.push('/consult');
-        }else{
+        } else {
             window.location.href = '/consult';
         }
     }
@@ -69,9 +69,9 @@ class Home extends Component {
         let u = window.navigator.userAgent;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
 
-        if(isAndroid){
+        if (isAndroid) {
             browserHistory.push(item.goUrl);
-        }else{
+        } else {
             window.location.href = item.goUrl;
         }
     }
@@ -200,6 +200,7 @@ class Home extends Component {
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);
+            console.log('profile = ', profile)
             let userId = profile.user_id;
 
             if (!profile.role) {
@@ -245,7 +246,7 @@ class Home extends Component {
                 }
             }
 
-            classList.map(async(item, index) => {
+            classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
                         clonedMessageFromAdvisor.push({

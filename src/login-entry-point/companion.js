@@ -62,7 +62,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
                                     <Image src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png"
                                            alt="Wechat login"/>
-                                    {Resources.getInstance().signInWith('WECHAT')}
+                                    {Resources.getInstance('en-US').signInWith('WECHAT')}
                                 </BuzzRoundButton>
                             </Form>
                         </Grid.Column>
