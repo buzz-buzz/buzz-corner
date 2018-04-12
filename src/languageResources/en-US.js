@@ -1,3 +1,6 @@
+import TimeHelper from "../common/timeHelper";
+import React from 'react';
+
 export const header = 'Welcome to Buzzbuzz English Corner';
 
 export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
@@ -35,7 +38,7 @@ export const bookingPlacementInfoContent = 'Finish the test for free';
 export const friendsTabChinese = 'chinese';
 export const friendsTabForeign = 'foreign';
 
-export const rewardTitle = 'My badge';
+export const rewardTitle = 'My badges';
 export const rewardRedStone = 'Red';
 export const rewardYellowStone = 'Yellow';
 export const rewardBlueStone = 'Blue';
@@ -154,3 +157,53 @@ export const errorModalContent = 'Sorry, something was wrong。 please fresh the
 export const messageSaveFailed = 'save Failed!';
 
 export const practiceAgain = 'record again';
+
+export const hobbyUniverse = 'Universe';
+export const hobbyBusines = 'Busines';
+export const hobbyArt = 'Art';
+export const hobbyFood = 'Food';
+export const hobbyEnvironment = 'Environment';
+export const hobbyLifestyle = 'Lifestyle';
+export const hobbyEnterainment = 'Enterainment';
+export const hobbyScience = 'Science';
+export const hobbyTechnology = 'Technology';
+export const hobbyHealth = 'Health';
+export const hobbySports = 'Sports';
+export const hobbyAnimal = 'Animal';
+export const hobbyMusic = 'Music';
+export const hobbyPeople = 'People';
+export const hobbyPolitics = 'Politics';
+
+export const evaluationWord = 'Feedback after class';
+export const evaluationForStudent = 'Feedback for student';
+export const evaluationNo = 'not yet';
+export const evaluationTo = 'Assess:';
+export const goToClass = 'Go to class';
+export const goToAssess = 'Feedback';
+
+export const connectionError = 'Connection error';
+export const unkownError = 'Connection error';
+export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
+
+
+export function signInWith(method) {
+    return (
+        <span>SIGN IN WITH <strong>{method}</strong></span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 1) {
+        return `After ${d} days`;
+    }
+
+    if (d === 1) {
+        return 'Start tomorrow';
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+    }
+}

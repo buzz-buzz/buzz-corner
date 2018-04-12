@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as timeHelper from "../../timeHelper";
+import TimeHelper from "../../timeHelper";
 
 export default class StopWatch extends React.Component {
     constructor(props) {
@@ -32,13 +32,20 @@ export default class StopWatch extends React.Component {
         })
     }
 
-    componentWillUnMount() {
-        window.clearInterval(this.state.timerId);
+    componentWillUnmount(){
+        //重写组件的setState方法，直接返回空
+        if(this.state.timerId){
+            window.clearInterval(this.state.timerId);
+        }
+
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
         return (
-            <div>{timeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
+            <div>{TimeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
         )
     }
 }

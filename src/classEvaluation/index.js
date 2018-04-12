@@ -5,7 +5,7 @@ import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import './index.css';
 import Track from "../common/track";
-import * as time from "../common/timeHelper";
+import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 
 class classEvaluation extends Component {
@@ -27,7 +27,8 @@ class classEvaluation extends Component {
             evaluation_content: '',
             to_user_id: props.params.to_user_id,
             class_id: props.params.class_id,
-            evaluation_status: false
+            evaluation_status: false,
+            CURRENT_TIMESTAMP: new Date()
         };
 
         this.changeStars = this.changeStars.bind(this);
@@ -79,11 +80,11 @@ class classEvaluation extends Component {
     }
 
     transformDay(day) {
-        return time.getWeekdayNameByIndex(day)
+        return TimeHelper.getWeekdayNameByIndex(day)
     }
 
     transformMonth(day) {
-        return time.getMonthNameByIndex(day);
+        return TimeHelper.getMonthNameByIndex(day);
     }
 
     handleClassInfoData(classInfo) {
@@ -133,7 +134,7 @@ class classEvaluation extends Component {
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
             this.setState({loadingModal: false});
-            Track.event('错误_课后评价完成点击后提交出错',  null, {"类型" : "错误", "错误内容": ex.toString()});
+            Track.event('错误_课后评价完成点击后提交出错', null, {"类型": "错误", "错误内容": ex.toString()});
         }
     }
 
@@ -202,7 +203,7 @@ class classEvaluation extends Component {
                              src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
                              onClick={this.back}/>
                     </div>
-                    <div className="class-detail-title">课后评价</div>
+                    <div className="class-detail-title">{Resources.getInstance().evaluationWord}</div>
                     <div className="class-order">
 
                     </div>

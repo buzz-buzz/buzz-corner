@@ -33,7 +33,7 @@ export default class Practice extends React.Component {
     }
 
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        this.setState({recording: true, currentReplying: buttonIndex}, () => {
+        this.setState({recording: true, currentReplying: buttonIndex, recordingStartTime: new Date().getTime()}, () => {
             this.props.recordingChanged(this.state.recording);
         });
         await this.state.replies[buttonIndex].wechatAudio.startRecording();

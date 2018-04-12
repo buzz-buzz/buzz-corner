@@ -4,6 +4,7 @@ import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import '../common/Icon/style.css';
 import './index.css';
 
 class User extends Component {
@@ -13,7 +14,8 @@ class User extends Component {
         this.state = {
             avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             u_name: 'buzz',
-            class_hours: 0
+            class_hours: 0,
+            country: 'china'
         }
     }
 
@@ -23,10 +25,11 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar,
+            avatar: profile.avatar ||  'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
-            class_hours: profile.class_hours || 0
+            class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
+            country: profile.country || 'china'
         });
     }
 
@@ -40,7 +43,7 @@ class User extends Component {
                         </div>
                         <div className="user-info">
                             <p className="name">{this.state.u_name}</p>
-                            <p className="nationality">CHINA</p>
+                            <p className="nationality">{this.state.country}</p>
                         </div>
                     </div>
                     <div className="user-menu">
@@ -52,9 +55,9 @@ class User extends Component {
                                 </div>
                             </div>
                             <div className="link">
-                                <div className="class-numbers">{this.state.class_hours}</div>
+                                <div className="class-numbers">{this.state.class_hours || 0}</div>
                                 <div className="right-icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>
+                                    <i className="icon-icon_back_down" />
                                 </div>
                             </div>
                         </Link>
@@ -68,7 +71,7 @@ class User extends Component {
                             {/*<div className="link">*/}
                                 {/*<div className="class-numbers">中文</div>*/}
                                 {/*<div className="right-icon">*/}
-                                    {/*<img src="//p579tk2n2.bkt.clouddn.com/image/icon_back.png" alt=""/>*/}
+                                    {/*<i className="icon-icon_back_down" />*/}
                                 {/*</div>*/}
                             {/*</div>*/}
                         {/*</Link>*/}

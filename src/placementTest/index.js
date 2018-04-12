@@ -7,15 +7,13 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import {MemberType} from "../membership/member-type";
 import Track from "../common/track";
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
 
 class Homepage extends Component {
-    handleOpen = () => this.setState({modalOpen: true});
-    handleClose = () => this.setState({modalOpen: false});
-    handleOpen = () => this.setState({modalOpen: true});
     handleClose = () => this.setState({modalOpen: false});
 
     constructor(props) {
@@ -98,7 +96,11 @@ class Homepage extends Component {
 
     goBack() {
         if (this.state.step === 1) {
-            browserHistory.push('/home');
+            if(this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message'){
+                browserHistory.push('/home?tab=message');
+            }else{
+                browserHistory.push('/home');
+            }
         } else if (this.state.step <= 8) {
             let newStep = this.state.step - 1;
             this.setState({
@@ -126,10 +128,14 @@ class Homepage extends Component {
         try {
             let profile = await CurrentUser.getProfile();
 
-            this.setState({
-                userId: profile.user_id,
-                avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
-            });
+            if(profile.role && profile.role === MemberType.Companion){
+                browserHistory.push('/');
+            }else{
+                this.setState({
+                    userId: profile.user_id,
+                    avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
+                });
+            }
         }
         catch (ex) {
             console.log(ex.toString());
@@ -144,7 +150,7 @@ class Homepage extends Component {
             Track.event('测试_录音上传七牛成功');
 
             let clonedAnswers = this.state.answers;
-            clonedAnswers.push(url);
+            clonedAnswers[this.state.step - 1] = url.url;
 
             this.setState({
                 audioAnswerUrl: url,
@@ -252,6 +258,7 @@ class Homepage extends Component {
                     browserHistory.push('/home');
                 } else {
                     //show error
+                    alert('answer is wrong:' + this.state.answers.length);
 
                     this.setState({loadingModal: false});
                 }

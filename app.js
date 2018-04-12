@@ -109,7 +109,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.body = 'signed out';
+        ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         ctx.body = ctx.state.user;
@@ -121,10 +121,6 @@ router
             upload_url: config_qiniu.url.upload_url,
             resources_url: config_qiniu.url.resources_url
         };
-    })
-    .get('/logout', async ctx => {
-        cookie.deleteUserId.call(this);
-        ctx.body = {message: 'logged out'};
     })
     .get('/track_script_placeholder.js', async ctx => {
         ctx.body = 'function doNothing(){}'
