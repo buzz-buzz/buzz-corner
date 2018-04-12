@@ -5,24 +5,13 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import URLHelper from "../common/url-helper";
 
 export default class EntryPoint extends React.Component {
-    constructor() {
-        super();
-    }
-
     async componentDidMount() {
         let userId = CurrentUser.getUserId();
 
         let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
         if (userId) {
-            let profile = await CurrentUser.getProfile(true);
-
-            if (!profile.role) {
-                browserHistory.push(`/select-role?return_url=${returnUrl}`);
-                return;
-            }else{
-                browserHistory.push(returnUrl  ||  '/home');
-            }
+            browserHistory.push(returnUrl || '/home');
         } else {
             browserHistory.push(`/select-role?return_url=${returnUrl}`);
         }
@@ -30,7 +19,7 @@ export default class EntryPoint extends React.Component {
 
     render() {
         return (
-            <LoadingModal loadingModal={true} fullScreen={true} />
+            <LoadingModal loadingModal={true} fullScreen={true}/>
         )
     }
 }

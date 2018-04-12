@@ -182,6 +182,7 @@ export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
 export const connectionError = '连接异常';
+export const unkownError = '出现错误，请刷新页面重试';
 
 export function signInWith(method) {
     return (
