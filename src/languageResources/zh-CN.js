@@ -183,6 +183,7 @@ export const goToAssess = '课后评价';
 
 export const connectionError = '连接异常';
 export const unkownError = '出现错误，请刷新页面重试';
+export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
 
 export function signInWith(method) {
     return (
