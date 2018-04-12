@@ -69,6 +69,8 @@ class Home extends Component {
         let u = window.navigator.userAgent;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
 
+        window.history.replaceState(window.history.state, "home", "?tab=" + this.state.tab);
+
         if (isAndroid) {
             browserHistory.push(item.goUrl);
         } else {
