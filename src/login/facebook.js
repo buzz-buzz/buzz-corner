@@ -64,11 +64,7 @@ export default class FacebookLogin extends React.Component {
             return;
         }
         if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({wechatModalShow: true}, ()=>{
-                setTimeout(()=>{
-                    window.location.href = `/login/wechat/${window.location.search}`;
-                }, 5000)
-            })
+            this.setState({wechatModalShow: true})
             return;
         }
         this.setState({loading: true});
