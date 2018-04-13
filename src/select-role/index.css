@@ -79,40 +79,6 @@
     letter-spacing: 1px;
 }
 
-.login-entrance > .preview-video{
-    flex: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-direction: column;
-    padding: 0 1em 1em 1em;
-}
-
-.login-entrance > .preview-video > .preview-video-btn{
-    width: 333px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url('//p579tk2n2.bkt.clouddn.com/bg_home_video.png') center center no-repeat;
-    background-size: contain;
-}
-
-.login-entrance > .preview-video > .preview-video-btn > .btn-circle{
-    height: 4em;
-    width: 4em;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-entrance > .preview-video > .preview-video-btn > .btn-circle > img{
-    height: 100%;
-    z-index: 50;
-}
-
-
 .preview-video > p{
     margin: 1em;
 }

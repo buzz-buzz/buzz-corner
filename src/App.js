@@ -18,7 +18,6 @@ import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
 import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
-import VideoPlay from './videoPlay';
 import Consult from './consult';
 import Home from './home/StudentHome';
 import Friends from './friends';
@@ -65,7 +64,6 @@ class App extends Component {
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
                     <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>
-                    <Route path='/video-play' component={VideoPlay}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
                 </Router>
