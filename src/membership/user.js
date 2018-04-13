@@ -10,9 +10,9 @@ class User {
     static async getInstance() {
         if (!currentUser) {
             try {
-                //let userData = await ServiceProxy.proxy('/user-info');
+                let userData = await ServiceProxy.proxy('/user-info');
 
-                currentUser = new User(351);
+                currentUser = new User(userData.userId);
             } catch (ex) {
                 await User.signOut();
             }
