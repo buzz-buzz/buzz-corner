@@ -41,7 +41,8 @@ export default class ProfileFormStep1 extends React.Component {
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>
                 </div>)
-                :
+                : (this.props.role === MemberType.Companion
+                    ?
                 (<div className="form-content">
                     <div className="parents-name">
                         <input type="text" placeholder='User Name'
@@ -63,7 +64,8 @@ export default class ProfileFormStep1 extends React.Component {
                             alt=""/>
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>
-                </div>)
+                </div>) : <div></div>
+                )
         )
     }
 }
