@@ -6,7 +6,7 @@
 
 .video-play > .video{
     flex: 0 0 auto;
-    position:relative;
+    position: relative;
 }
 
 .video-play > .video > .video-btn{
@@ -27,4 +27,24 @@
 
 .video-play > .poster > img{
     width: 50%;
+}
+
+.video > .embed > i{
+    display: none;
+}
+
+.video > .video-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+}
+
+.video > .video-icon > img{
+    width: 56px;
 }
