@@ -136,7 +136,7 @@ async function serveSPA(ctx) {
     }
 }
 
-if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
+if (['production', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
     console.log('running code for production only...');
 
     app.use(serveStatic('build'));
@@ -162,7 +162,6 @@ if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/consult', serveSPA)
         .get('/class-lessons', serveSPA)
         .get('/consult', serveSPA)
-        .get('/video-play', serveSPA)
         .get('/wechat/demo', serveSPA)
         .get('/select-role', serveSPA)
     ;
