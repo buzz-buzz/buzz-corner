@@ -136,67 +136,68 @@ export default class ProfileFormStep2 extends React.Component {
                                   options={grade_list}/>
                     </div>
                 </div>)
-                :
-                (<div className="form-content">
-                    <div className="gender">
-                        <div className="male" onClick={this.props.changeGenderMale}>
-                            <div
-                                className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
-                                <img
-                                    src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
-                                    alt=""/>
+                : ( this.props.role === MemberType.Companion ?
+                        <div className="form-content">
+                            <div className="gender">
+                                <div className="male" onClick={this.props.changeGenderMale}>
+                                    <div
+                                        className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
+                                        <img
+                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
+                                            alt=""/>
+                                    </div>
+                                    <span
+                                        style={this.props.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>Boy</span>
+                                </div>
+                                <div className="female" onClick={this.props.changeGenderFemale}>
+                                    <div
+                                        className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
+                                        <img
+                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
+                                            alt=""/>
+                                    </div>
+                                    <span
+                                        style={this.props.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>Girl</span>
+                                </div>
                             </div>
-                            <span
-                                style={this.props.profile.gender === 'm' ? {color: '#f7b52a'} : {}}>Boy</span>
-                        </div>
-                        <div className="female" onClick={this.props.changeGenderFemale}>
-                            <div
-                                className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
-                                <img
-                                    src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
-                                    alt=""/>
+                            <Form.Group widths='equal' className="position-relative">
+                                <Form.Input
+                                    style={this.props.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
+                                    value={this.props.profile.date_of_birth} type="date"
+                                    onChange={this.props.handleChange} name='date_of_birth'/>
+                                <div className="field birthday-label">
+                                    <input type="text"
+                                           placeholder="birthday"
+                                           style={{width: '100%'}}
+                                           value={this.props.birthdayLabel || ''}
+                                           onChange={this.props.handleChangeBirthdayLabel}
+                                           name='birthdayLabel'/>
+                                </div>
+                            </Form.Group>
+                            <div className="parents-name">
+                                <input type="text" placeholder="School Information"
+                                       style={{width: '100%'}}
+                                       value={this.props.profile.school}
+                                       onChange={this.props.handleChange}
+                                       name='school'/>
                             </div>
-                            <span
-                                style={this.props.profile.gender === 'f' ? {color: '#f7b52a'} : {}}>Girl</span>
-                        </div>
-                    </div>
-                    <Form.Group widths='equal' className="position-relative">
-                        <Form.Input
-                            style={this.props.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                            value={this.props.profile.date_of_birth} type="date"
-                            onChange={this.props.handleChange} name='date_of_birth'/>
-                        <div className="field birthday-label">
-                            <input type="text"
-                                   placeholder="birthday"
-                                   style={{width: '100%'}}
-                                   value={this.props.birthdayLabel || ''}
-                                   onChange={this.props.handleChangeBirthdayLabel}
-                                   name='birthdayLabel'/>
-                        </div>
-                    </Form.Group>
-                    <div className="parents-name">
-                        <input type="text" placeholder="School Information"
-                               style={{width: '100%'}}
-                               value={this.props.profile.school}
-                               onChange={this.props.handleChange}
-                               name='school'/>
-                    </div>
-                    <div className="selection-options" style={{height: '50px', margin: '10px 0', boxSizing: 'border-box'}}>
-                        <Dropdown placeholder="Grade" search
-                                  selection noResultsMessage="eg: grade 1"
-                                  onChange={(event, data) => {
-                                      this.props.handleGradeChange(event, data)
-                                  }} value={this.props.profile.grade}
-                                  options={grade_list_foreign}/>
-                    </div>
-                    <div className="parents-name">
-                        <input type="text" placeholder="Nationality"
-                               style={{width: '100%'}}
-                               value={this.props.profile.nationality}
-                               onChange={this.props.handleChange}
-                               name='nationality'/>
-                    </div>
-                </div>)
+                            <div className="selection-options" style={{height: '50px', margin: '10px 0', boxSizing: 'border-box'}}>
+                                <Dropdown placeholder="Grade" search
+                                          selection noResultsMessage="eg: grade 1"
+                                          onChange={(event, data) => {
+                                              this.props.handleGradeChange(event, data)
+                                          }} value={this.props.profile.grade}
+                                          options={grade_list_foreign}/>
+                            </div>
+                            <div className="parents-name">
+                                <input type="text" placeholder="Nationality"
+                                       style={{width: '100%'}}
+                                       value={this.props.profile.nationality}
+                                       onChange={this.props.handleChange}
+                                       name='nationality'/>
+                            </div>
+                        </div> : <div></div>
+                )
         )
     }
 }
