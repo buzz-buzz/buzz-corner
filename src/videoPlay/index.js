@@ -35,6 +35,9 @@ class videoPlay extends Component {
                     />
                     <div className="video-btn" onClick={this.playCornerVideo}></div>
                     <video id="corner-show" src="//p579tk2n2.bkt.clouddn.com/Training%20video_3min.mp4" width="0" height="0">not support</video>
+                    <div className="video-icon">
+                        <img src="//p579tk2n2.bkt.clouddn.com/icon_play.png" alt=""/>
+                    </div>
                 </div>
                 <div className="poster">
                     <img src="//p579tk2n2.bkt.clouddn.com/icon_login_play.png" alt=""/>
