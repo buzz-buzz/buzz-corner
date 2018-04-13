@@ -18,7 +18,7 @@ export const loginByWechatIntroduction = 'Become fluent in English by talking to
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
 export const footerReward = 'Reward';
-export const footerUser = 'My';
+export const footerUser = 'Me';
 
 export const homeTabBooking = 'Booking';
 export const homeTabMessage = 'Message';
