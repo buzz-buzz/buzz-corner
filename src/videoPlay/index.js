@@ -20,15 +20,21 @@ class videoPlay extends Component {
         let videos = document.getElementsByClassName('video-react-video');
         if(videos && videos.length){
             videos[0].addEventListener('play', function(){
-                document.getElementById('icon-play-video').style.display = 'none';
+                if(document.getElementById('icon-play-video')){
+                    document.getElementById('icon-play-video').style.display = 'none';
+                }
             });
 
             videos[0].addEventListener('pause', function(){
-                document.getElementById('icon-play-video').style.display = 'none';
+                if(document.getElementById('icon-play-video')){
+                    document.getElementById('icon-play-video').style.display = 'none';
+                }
             });
 
             videos[0].addEventListener('ended', function(){
-                document.getElementById('icon-play-video').style.display = 'none';
+                if(document.getElementById('icon-play-video')){
+                    document.getElementById('icon-play-video').style.display = 'none';
+                }
             });
         }
     }
