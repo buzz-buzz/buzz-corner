@@ -7,7 +7,6 @@ import Track from "../common/track";
 import {Message} from "semantic-ui-react";
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
-import EmbedVideo from "../common/commonComponent/EmbedVideo/index";
 
 class SelectRole extends Component {
     constructor() {
@@ -85,8 +84,11 @@ class SelectRole extends Component {
                 </div>
                 <div className="preview-video">
                     <p>{Resources.getInstance().welcomePageBtnWord}</p>
-                    <EmbedVideo sources={['//p579tk2n2.bkt.clouddn.com/Training%20video_3min.mp4']}
-                                poster={'//p579tk2n2.bkt.clouddn.com/bg_home_video.png'}></EmbedVideo>
+                    <div className="preview-video-btn" onClick={this.goVideoPlayPage}>
+                        <div className="btn-circle">
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon_play.png" alt=""/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

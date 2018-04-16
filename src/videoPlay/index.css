@@ -1,0 +1,38 @@
+.video-play{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.video-play > .video{
+    flex: 0 0 auto;
+    position:relative;
+}
+
+.video-play > .video > .video-btn{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-play > .video > .video-btn > img{
+    width: 60px;
+    height: 60px;
+}
+
+.video-play > .poster{
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-play > .poster > img{
+    width: 50%;
+}

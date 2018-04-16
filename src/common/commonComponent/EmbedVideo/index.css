@@ -1,0 +1,15 @@
+.video-react .video-react-big-play-button{
+    top: calc(50% - .75em) !important;
+    left: calc(50% - 1.5em) !important;
+    z-index: 600;
+    opacity: 0;
+}
+
+.video-react{
+    background-color: transparent !important;
+}
+
+.video-react .video-react-poster {
+    background-color: transparent !important;
+    background-size: cover;
+}
