@@ -164,6 +164,7 @@ if (['production', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
         .get('/consult', serveSPA)
         .get('/wechat/demo', serveSPA)
         .get('/select-role', serveSPA)
+        .get('/video-play', serveSPA)
     ;
 
 

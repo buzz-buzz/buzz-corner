@@ -1,6 +1,7 @@
 import * as React from "react";
 import '../../../../node_modules/video-react/dist/video-react.css';
 import {Player} from "video-react";
+import './index.css';
 
 export default class EmbedVideo extends React.Component {
     render() {

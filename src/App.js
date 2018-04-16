@@ -24,6 +24,7 @@ import Friends from './friends';
 import Reward from './reward';
 import User from './user';
 import Booking from './booking';
+import VideoPlay from './videoPlay';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
@@ -66,6 +67,7 @@ class App extends Component {
                     <Route path='/class-lessons' component={ClassLessons}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
+                    <Route path='/video-play' component={VideoPlay}/>
                 </Router>
             </div>
         );
