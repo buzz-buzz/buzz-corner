@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
-import Developing from '../developing';
+import WhiteSpace from '../common/commonComponent/whiteSpace';
 import Track from "../common/track";
 import TitleSet from '../common/titleUtil';
 import './index.css';
@@ -61,7 +61,7 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <Developing />
+                    <WhiteSpace message={Resources.getInstance().developWord} src="//p579tk2n2.bkt.clouddn.com/icon_blank%20page.png" />
                 </div>
                 <Footer/>
             </div>

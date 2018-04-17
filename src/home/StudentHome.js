@@ -12,6 +12,7 @@ import Track from "../common/track";
 import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
+import WhiteSpace from '../common/commonComponent/whiteSpace';
 import TitleSet from '../common/titleUtil';
 
 class Home extends Component {
@@ -413,11 +414,11 @@ class Home extends Component {
                         {
                             this.state.message_tab === 'friends' ?
                                 (<div className="none-items">
-                                    <p style={{color: 'rgb(170, 170, 170)'}}>{Resources.getInstance().bookingNoMessage}</p>
+                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
                                 </div>) :
                                 (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
-                                            <p style={{color: 'rgb(170, 170, 170)'}}>{Resources.getInstance().bookingNoMessage}</p>
+                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
                                         </div>
                                     ) :
                                     (<div className="message-items">
@@ -443,13 +444,13 @@ class Home extends Component {
                         }
                     </div>)
                 }
-                <div className="booking-btn">
+                <div className="booking-btn" style={this.state.tab === 'booking' ? {}:{display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.signUp} id="booking-btn"
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
-                <div className="offset-footer"></div>
+                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '132px'}:{height: '52px'}}></div>
                 <Footer/>
             </div>
         );
