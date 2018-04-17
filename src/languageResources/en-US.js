@@ -11,6 +11,7 @@ export const welcomePageForeignChild = 'Companion';
 export const welcomePageBtnWord = 'How does this work?';
 
 export const developWord = 'developing, please wait...';
+export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
