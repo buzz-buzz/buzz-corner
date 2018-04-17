@@ -3,14 +3,14 @@ import React from 'react';
 
 export const header = 'Welcome to Buzzbuzz English Corner';
 
-export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
-export const welcomePageIntroductionLineTwo = 'Don\'t ever waste it!';
-export const welcomePageIntroductionLineThr = 'Connect English and Chinese speaking teens in a virtual language exchange space.';
+export const welcomePageIntroductionLineOne = 'Connect English and Chinese speaking teens in a virtual space.';
+export const welcomePageIntroductionLineTwo = '';
+export const welcomePageIntroductionLineThr = '';
 export const welcomePageChineseChild = 'Learn English';
 export const welcomePageForeignChild = 'Teach English';
 export const welcomePageBtnWord = 'Who study here Let\'s see a sample';
 
-export const developWord = 'developing, please wait...';
+export const developWord = 'Site in construction, please come back and check later.';
 export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
@@ -18,7 +18,7 @@ export const loginByWechatIntroduction = 'Become fluent in English by talking to
 
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
-export const footerReward = 'Reward';
+export const footerReward = 'Rewards';
 export const footerUser = 'Me';
 
 export const homeTabBooking = 'Booking';
@@ -27,9 +27,8 @@ export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
 
 export const bookingBtnText = 'booking';
-export const bookingNoItemText1 = 'you have\'t any booking yet,';
-export const bookingNoItemText2 = 'booking right now,';
-export const bookingNoItemText3 = 'talking with chinese student.';
+export const bookingNoItemText1 = 'Oops, you have not booked any session yet.';
+export const bookingNoItemText2 = 'Start booking, connect with native English-speaking teens!';
 export const bookingNoMessage = 'No message';
 export const bookingFeedbackNotice = 'Finish the feedback for ';
 export const bookingFeedbackInfo = 'Finished the feedback for ';
@@ -47,12 +46,13 @@ export const rewardDiamond = 'Diamond';
 export const rewardMiles = 'BuzzBuzz miles';
 export const rewardRules = 'See the rules';
 
-export const myCoins = 'My Coins';
+export const myCoins = 'My Sessions';
 export const myLanguage = 'Language';
-export const classLessons = 'coins left';
+export const classLessons = 'Available sessions';
+export const sessions = 'Sessions';
 
 export const profileStep1 = 'Contact Information';
-export const profileStep1Info = 'For session information and our service';
+export const profileStep1Info = 'Session information and service notification';
 export const profileParentsName = 'parent\'s name';
 export const profilePhoneInfo = 'China(+86)';
 export const profilePhoneHolder = 'phone number';
@@ -60,7 +60,7 @@ export const profilePhoneCheck = 'Verification Code';
 export const profilePhoneCheckError = 'The code you entered is incorrect or expired. Please re-enter or get a new code';
 export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
 export const profileStep2 = 'personal information';
-export const profileStep2Info = 'Archive user information';
+export const profileStep2Info = 'Match peer tutor and students';
 export const profileChildName = 'english name';
 export const profileMale = 'Boy';
 export const profileFemale = 'Girl';
@@ -68,34 +68,51 @@ export const profileBirth = 'Birthday';
 export const profileCityNow = 'City';
 export const profileGrade = 'Grade';
 export const profileStep3 = 'Hobbies';
-export const profileStep3Info = 'For marching themed conversion';
+export const profileStep3Info = 'Match user with propriate themed conversational topic';
 export const profileContinue = 'Continue';
 export const profileDone = 'Well done';
 export const profileSkipNow = 'Skip this step';
 export const profileStep4 = 'placement test';
-export const profileStep4Info = 'Build child\'s language system';
-export const profileStep4InfoWord1 = 'Matching suitable';
-export const profileStep4InfoWordBold = ' Companion';
+export const profileStep4Info = 'Create user language profile, ';
+export const profileStep4InfoWord1 = 'match the perfect English native speaking';
+export const profileStep4InfoWordBold = ' peer tutor';
 
-export const placementSelectWord = 'Select the best one';
-export const placementAudioWord = 'Listen to the question and record an appropriate response.';
-export const placementListeningAudio = 'Click to listen';
-export const placementRecordAudio = 'Click to record';
-export const placementRecordAgain = 'record again';
+export const placementSelectWord = 'Choose the best answer';
+export const placementAudioWord = 'Listen to the question and record your answer.';
+export const placementListeningAudio = 'Tap to play';
+export const placementRecordAudio = 'Tap to record';
+export const placementRecordAgain = 'Tap to record';
 
-export const classEvaluationStarsStatus0 = 'Please select';
-export const classEvaluationStarsStatus1 = 'Bad';
-export const classEvaluationStarsStatus2 = 'Not good';
-export const classEvaluationStarsStatus3 = 'Common';
-export const classEvaluationStarsStatus4 = 'Cool';
-export const classEvaluationStarsStatus5 = 'Outstanding';
+export const placementYes = 'Yes';
+export const placementNo = 'No';
+export const placementQuestion1 = 'Is it easy for you to make friends？';
+export const placementQuestion2 = 'Do you like to speak in the public?';
+export const placementQuestion3 = 'Can you quickly join a conversation with unfamiliar people?';
+export const placementQuestion4 = 'When other people remain silent, you are willing to share your opinion';
+export const placementQuestion5 = 'Do not feel uncomfortable in front of starngers or in the public.';
+export const placementQuestion6 = 'Enjoy talking to others.';
+export const placementQuestion7 = 'Which of the following situation do you belong to?';
+export const placementQuestion7Answer1 = 'Need some translation assistance; can introduce yourself and your hobbies';
+export const placementQuestion7Answer2 = 'Can understand common conversations and respond, introduce yourself with clarity, and describe an event.';
+export const placementQuestion7Answer3 = 'Can describe your feelings and opinions logically.';
+
+export const classEvaluationStarsStatus0 = 'Waiting for your feedback';
+export const classEvaluationStarsStatus1 = 'Poor';
+export const classEvaluationStarsStatus2 = 'Needs Improvement';
+export const classEvaluationStarsStatus3 = 'Pretty good';
+export const classEvaluationStarsStatus4 = 'Good';
+export const classEvaluationStarsStatus5 = 'Amazing';
 export const classEvaluationUnevaluate = 'Not yet';
 export const classEvaluationEvaluate = 'Feedback for student';
-export const classEvaluationDone = 'Done';
-export const classEvaluationSuggest = 'Suggestion for class';
+export const classEvaluationDone = 'Well done!';
+export const classEvaluationSuggest = 'Share your feelings';
 
-export const advisorInfo1 = 'I am your private advisor';
-export const advisorInfo2 = 'If you need any help';
+export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';
+export const classDetailBeforeWord2 = '2.Before your first session, you must install "zoom".';
+export const classDetailBeforeWord3 = 'Click here to install.';
+
+export const advisorInfo1 = 'Hi, I am your private advisor.';
+export const advisorInfo2 = 'Please scan the QR code to contact me.';
 export const advisorInfo3 = 'You can scanning the WeChat Qrcode here';
 
 export const welcomePageTitle1 = 'Welcome to';
@@ -150,7 +167,7 @@ export const saveFailed = 'Save failed!';
 
 export const adminManageClass = 'class manage';
 
-export const finishRecording = 'Done';
+export const finishRecording = 'Well done';
 
 export const errorModalBtn = 'Got it';
 export const errorModalContent = 'Sorry, something was wrong。 please fresh the page and try later';
@@ -177,11 +194,12 @@ export const hobbyPolitics = 'Politics';
 
 export const evaluationWord = 'Feedback after class';
 export const evaluationForStudent = 'Feedback for student';
-export const evaluationNo = 'not yet';
+export const evaluationNo = 'Waiting for your feedback';
 export const evaluationTo = 'Assess:';
-export const goToClass = 'Go to class';
+export const goToClass = 'Enter session';
 export const goToAssess = 'Feedback';
 
+export const errorUpload = 'Eeeor: upload failed, please try later!';
 export const connectionError = 'Connection error';
 export const unkownError = 'Connection error';
 export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';

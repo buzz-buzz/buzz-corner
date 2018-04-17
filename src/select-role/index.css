@@ -33,7 +33,10 @@
 .entrance-logo > .entrance-word > p{
     text-align: center;
     margin: .5em 0;
-    font-size: 1.2em;
+    padding: 0 1em;
+    color: #000;
+    font-size: 17px;
+
 }
 
 .login-entrance > .entrance-choose{

@@ -3,18 +3,17 @@ import React from 'react';
 
 export const header = 'Buzzbuzz虚拟英语角';
 
-export const welcomePageIntroductionLineOne = '赋能同伴，成就更好的自己!';
-export const welcomePageIntroductionLineTwo = '结识英语母语国家的少年，';
-export const welcomePageIntroductionLineThr = '开启你的国际交流旅程。';
+export const welcomePageIntroductionLineOne = '结识英语学伴，对话英美少年！';
+export const welcomePageIntroductionLineTwo = '开启你的国际交流旅程。';
 export const welcomePageChineseChild = '中国少年';
 export const welcomePageForeignChild = '外籍学伴';
-export const welcomePageBtnWord = '看其他伙伴是怎样互动的?';
+export const welcomePageBtnWord = '快来围观';
 
 export const developWord = '功能开发中, 敬请期待...';
 export const whiteSpaceMessage = '还没有消息提醒哦～';
 
 export const loginByWechatInfo = '微信登录';
-export const loginByWechatIntroduction = '流利地与全球各地英语母语的小伙伴交流	';
+export const loginByWechatIntroduction = '流利地对话英美精英少年';
 
 export const footerHome = '主页';
 export const footerFriends = '好友';
@@ -28,8 +27,7 @@ export const homeTabAdvisor = '助教';
 
 export const bookingBtnText = '预约';
 export const bookingNoItemText1 = '你还没开始预约课程';
-export const bookingNoItemText2 = '马上开始预约吧';
-export const bookingNoItemText3 = '与全球伙伴用英文交流';
+export const bookingNoItemText2 = '马上进行预约，对话英美少年！';
 export const bookingNoMessage = '你还没有收到消息哦';
 export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
 export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
@@ -50,6 +48,7 @@ export const rewardRules = '查看获取规则';
 export const myCoins = '我的课时';
 export const myLanguage = '系统语言';
 export const classLessons = '现有课时数';
+export const sessions = '我的课时';
 
 export const profileStep1 = '联系方式';
 export const profileStep1Info = '仅用于课程学习相关通知与服务';
@@ -83,20 +82,37 @@ export const placementListeningAudio = '点击收听';
 export const placementRecordAudio = '点击录制';
 export const placementRecordAgain = '重新录制';
 
-export const classEvaluationStarsStatus0 = '请选择';
-export const classEvaluationStarsStatus1 = '非常差';
-export const classEvaluationStarsStatus2 = '不满意';
-export const classEvaluationStarsStatus3 = '一般';
-export const classEvaluationStarsStatus4 = '比较满意';
-export const classEvaluationStarsStatus5 = '非常棒';
+export const placementYes = '是';
+export const placementNo = '否';
+export const placementQuestion1 = '你是否容易交到朋友';
+export const placementQuestion2 = '你是否喜欢发言';
+export const placementQuestion3 = '与不熟悉的伙伴同行能很快加入谈话';
+export const placementQuestion4 = '当其他伙伴不提出自己的建议时能提出自己的看法';
+export const placementQuestion5 = '在许多人和陌生人面前，不会感到不舒服';
+export const placementQuestion6 = '喜欢与他人谈话的活动';
+export const placementQuestion7 = '以下情况，你属于哪一种？';
+export const placementQuestion7Answer1 = '需要翻译听懂常用指令,能简短介绍个人和兴趣爱好';
+export const placementQuestion7Answer2 = '能听懂常用指令对话并做出反应，能清楚地介绍自己，能简单描述一件事';
+export const placementQuestion7Answer3 = '能比较有条理地描述个人体验和表达个人想法';
+
+export const classEvaluationStarsStatus0 = '等待你的评价';
+export const classEvaluationStarsStatus1 = '比较弱';
+export const classEvaluationStarsStatus2 = '待提高';
+export const classEvaluationStarsStatus3 = '还行';
+export const classEvaluationStarsStatus4 = '不错';
+export const classEvaluationStarsStatus5 = '很棒';
 export const classEvaluationUnevaluate = '尚未评价';
 export const classEvaluationEvaluate = '对学生评价';
 export const classEvaluationDone = '完成';
-export const classEvaluationSuggest = '对课程的任何建议';
+export const classEvaluationSuggest = '分享你的真实感受';
 
-export const advisorInfo1 = '我是你的专属课程顾问';
-export const advisorInfo2 = '请通过如下方式和我联系';
-export const advisorInfo3 = '长按二维码联系"BuzzBuzz导师"';
+export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
+export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
+export const classDetailBeforeWord3 = '下载安装';
+
+export const advisorInfo1 = '我是你的私人课程助教';
+export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
+export const advisorInfo3 = '长按二维码结识"BuzzBuzz导师"';
 
 export const welcomePageTitle1 = '欢迎加入';
 export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';
@@ -182,6 +198,7 @@ export const evaluationTo = '评价:';
 export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
+export const errorUpload = '错误: 上传失败, 请稍后重试!';
 export const connectionError = '连接异常';
 export const unkownError = '出现错误，请刷新页面重试';
 export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';

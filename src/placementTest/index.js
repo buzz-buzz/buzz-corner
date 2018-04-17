@@ -24,53 +24,53 @@ class Homepage extends Component {
             step: props.location.query.step || 1,
             questions: [
                 {
-                    title: '你是否容易交到朋友',
+                    title: Resources.getInstance().placementQuestion1,
                     items: [
-                        '是',
-                        '否'
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '你是否喜欢发言',
+                    title: Resources.getInstance().placementQuestion2,
                     items: [
-                        '是',
-                        '否'
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '与不熟悉的伙伴同行，能很快加入谈话',
+                    title: Resources.getInstance().placementQuestion3,
                     items: [
-                        '能',
-                        '不能'
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '当其他伙伴不提出自己的建议时，能提出自己的看法',
+                    title: Resources.getInstance().placementQuestion4,
                     items: [
-                        '能',
-                        '不能'
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '在许多人和陌生人面前，不会感到不舒服',
+                    title: Resources.getInstance().placementQuestion5,
                     items: [
-                        '会',
-                        '不会'
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '喜欢与他人谈话的活动',
+                    title: Resources.getInstance().placementQuestion6,
                     items: [
-                        '喜欢',
-                        '不喜欢',
+                        Resources.getInstance().placementYes,
+                        Resources.getInstance().placementNo
                     ]
                 },
                 {
-                    title: '以下情况，你属于哪一种？',
+                    title: Resources.getInstance().placementQuestion7,
                     items: [
-                        '需要翻译听懂常用指令,能简短介绍个人和兴趣爱好',
-                        '能听懂常用指令并做出反应，能清楚地介绍自己，能简单描述一件事',
-                        '能比较有条理地描述个人体验和表达个人想法'
+                        Resources.getInstance().placementQuestion7Answer1,
+                        Resources.getInstance().placementQuestion7Answer2,
+                        Resources.getInstance().placementQuestion7Answer3
                     ]
                 }
             ],
@@ -80,7 +80,7 @@ class Homepage extends Component {
             audioQuestionUrl: '',
             audioQuestionLength: 0,
             modalOpen: false,
-            errorMessage: '错误: 上传失败, 请稍后重试!',
+            errorMessage: Resources.getInstance().errorUpload,
             chats: [],
             recording: false
         };

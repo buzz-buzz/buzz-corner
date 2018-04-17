@@ -82,7 +82,7 @@ class ClassLessons extends Component {
                              src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
                              onClick={this.back}/>
                     </div>
-                    <div className="class-detail-title">{Resources.getInstance().myCoins}</div>
+                    <div className="class-detail-title">{Resources.getInstance().sessions}</div>
                     <div className="class-order">
 
                     </div>
