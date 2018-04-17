@@ -48,17 +48,17 @@ class Reward extends Component {
                     <div className="badge">
                         <div className="blue-diamond">
                             <img src="//resource.buzzbuzzenglish.com/Blue.png" alt=""/>
-                            <p>{Resources.getInstance().rewardBlueStone.length === 1 ? '' : Resources.getInstance().rewardBlueStone}</p>
+                            <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardBlueStone.length === 1 ? '' : Resources.getInstance().rewardBlueStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardBlueStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="red-diamond">
                             <img src="//resource.buzzbuzzenglish.com/Red.png" alt=""/>
-                            <p>{Resources.getInstance().rewardRedStone.length === 1 ? '' : Resources.getInstance().rewardRedStone}</p>
+                            <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardRedStone.length === 1 ? '' : Resources.getInstance().rewardRedStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardRedStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="yellow-diamond">
                             <img src="//resource.buzzbuzzenglish.com/Yellow.png" alt=""/>
-                            <p>{Resources.getInstance().rewardYellowStone.length === 1 ? '' : Resources.getInstance().rewardYellowStone}</p>
+                            <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardYellowStone.length === 1 ? '' : Resources.getInstance().rewardYellowStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardYellowStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                     </div>

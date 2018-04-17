@@ -63,7 +63,8 @@ class SelectRole extends Component {
                             </div>) :
                             (
                                 <div className="entrance-word">
-                                    <p>{Resources.getInstance().welcomePageIntroductionLineOne + Resources.getInstance().welcomePageIntroductionLineTwo + Resources.getInstance().welcomePageIntroductionLineThr}</p>
+                                    <p>{Resources.getInstance().welcomePageIntroductionLineOne + Resources.getInstance().welcomePageIntroductionLineTwo}</p>
+                                    <p>{Resources.getInstance().welcomePageIntroductionLineThr}</p>
                                 </div>
                             )
                     }
