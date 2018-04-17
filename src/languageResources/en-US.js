@@ -6,9 +6,9 @@ export const header = 'Welcome to Buzzbuzz English Corner';
 export const welcomePageIntroductionLineOne = 'Everyone was born with the ability to change someone\'s life.';
 export const welcomePageIntroductionLineTwo = 'Don\'t ever waste it!';
 export const welcomePageIntroductionLineThr = 'Connect English and Chinese speaking teens in a virtual language exchange space.';
-export const welcomePageChineseChild = 'Practice';
-export const welcomePageForeignChild = 'Companion';
-export const welcomePageBtnWord = 'How does this work?';
+export const welcomePageChineseChild = 'Learn English';
+export const welcomePageForeignChild = 'Teach English';
+export const welcomePageBtnWord = 'Who study here Let\'s see a sample';
 
 export const developWord = 'developing, please wait...';
 export const whiteSpaceMessage = 'No message yet.～';
