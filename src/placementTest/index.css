@@ -44,6 +44,12 @@
     width: 80%;
 }
 
+.answer-item > div.item-content > p{
+    text-align: center;
+    width: 100%;
+    padding-right: 2em;
+}
+
 .answer-item > .item-value{
     width: 14%;
     padding-left: 1em;

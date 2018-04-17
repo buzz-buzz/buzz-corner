@@ -234,9 +234,9 @@ class classDetail extends Component {
                     {
                         this.state.role === MemberType.Student ?
                             <div className="class-detail-notice">
-                                <p>1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.下载课程必备软件ZOOM，点击<a
-                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>下载安装</a>
+                                <p>{Resources.getInstance().classDetailBeforeWord1}</p>
+                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
+                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>{Resources.getInstance().classDetailBeforeWord3}</a>
                                     。</p>
                             </div> :
                             <div className="class-detail-notice">
