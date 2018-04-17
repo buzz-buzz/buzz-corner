@@ -12,6 +12,7 @@ import Track from "../common/track";
 import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
+import TitleSet from '../common/titleUtil';
 
 class Home extends Component {
     constructor(props) {
@@ -190,6 +191,8 @@ class Home extends Component {
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
+
+            TitleSet.setTitle();
 
             this.setState({loadingModal: true, fullModal: true});
 

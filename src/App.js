@@ -30,8 +30,6 @@ import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
 import EntryPoint from "./home/EntryPoint";
 
-const setTitle = title => () => document.title = title;
-
 class App extends Component {
     render() {
         return (
@@ -56,10 +54,10 @@ class App extends Component {
                     <Route path='/admin' component={Admin}/>
                     <Route path='/admin/class' component={ClassManage}/>
                     <Route path='/placement' component={Placement}/>
-                    <Route path='/home' component={Home}  onEnter={setTitle('home')} />
-                    <Route path='/friends' component={Friends}  onEnter={setTitle('friends')} />
-                    <Route path='/reward' component={Reward} onEnter={setTitle('reward')}  />
-                    <Route path='/user' component={User}  onEnter={setTitle('me')}  />
+                    <Route path='/home' component={Home}  />
+                    <Route path='/friends' component={Friends}/>
+                    <Route path='/reward' component={Reward}/>
+                    <Route path='/user' component={User}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
