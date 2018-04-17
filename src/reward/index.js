@@ -3,6 +3,7 @@ import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import TitleSet from '../common/titleUtil';
 import './index.css';
 
 class Reward extends Component {
@@ -20,6 +21,8 @@ class Reward extends Component {
 
     async componentDidMount() {
         Track.event('奖励_奖励页面展示');
+
+        TitleSet.setTitle(Resources.getInstance().footerReward);
 
         let profile = await CurrentUser.getProfile(true);
 

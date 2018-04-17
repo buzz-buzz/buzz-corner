@@ -4,6 +4,7 @@ import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import TitleSet from '../common/titleUtil';
 import '../common/Icon/style.css';
 import './index.css';
 
@@ -22,6 +23,8 @@ class User extends Component {
     async componentDidMount() {
         Track.event('我的_我的页面展示');
 
+        TitleSet.setTitle(Resources.getInstance().footerUser);
+
         let profile = await CurrentUser.getProfile();
 
         this.setState({
@@ -31,6 +34,10 @@ class User extends Component {
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
             country: profile.country || 'china'
         });
+    }
+
+    componentWillUnmount(){
+        TitleSet.setTitle();
     }
 
     render() {
