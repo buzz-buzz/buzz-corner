@@ -182,7 +182,7 @@ class Home extends Component {
                     + (new Date(classList[i].class_end_time).getMinutes() > 9 ? new Date(classList[i].class_end_time).getMinutes() : '0' + new Date(classList[i].class_end_time).getMinutes() );
 
                 classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
-                classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
+                classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()), window.navigator.language);
             }
         }
 
