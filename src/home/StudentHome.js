@@ -229,7 +229,7 @@ class Home extends Component {
             let classList = await this.getUserClassList(userId, profile.role);
 
             classList = classList.filter(function (ele) {
-                return ele.status && ele.status !== 'cancelled' && ele.class_id;
+                return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
             });
 
             classList = this.handleClassListData(classList);
@@ -405,7 +405,7 @@ class Home extends Component {
                             <div
                                 className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'}
                                 onClick={this.messageTabChangeAdvisor}>
-                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.length > 0 ? '(' + this.state.messageFromAdvisor.length + ')' : '')}</p>
+                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length + ')' : '')}</p>
                                 <div className="message-red-circle"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
