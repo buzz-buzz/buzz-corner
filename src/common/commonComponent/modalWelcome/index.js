@@ -76,9 +76,9 @@ class ModalWelcome extends Component {
                                 <p>{Resources.getInstance().welcomePageBooking}</p>
                             </div>
                         </div>
-                        <div className="skip" onClick={this.closeWelcome}>
-                            <p>{Resources.getInstance().welcomePageSkip}</p>
-                        </div>
+                        {/*<div className="skip" onClick={this.closeWelcome}>*/}
+                            {/*<p>{Resources.getInstance().welcomePageSkip}</p>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>
