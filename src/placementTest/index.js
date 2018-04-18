@@ -235,7 +235,8 @@ class Homepage extends Component {
                 <Form className='profile-body'>
                     {
                         this.state.step <= 7 ?
-                            (<PlacementQuestion step={this.state.step} questions={this.state.questions} answering={this.answering} answers={this.state.answers} />)
+                            (<PlacementQuestion step={this.state.step} questions={this.state.questions}
+                                                answering={this.answering} answers={this.state.answers} />)
                             :
                             (
                                 (<div className="placement-second">
