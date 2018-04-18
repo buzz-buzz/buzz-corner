@@ -7,7 +7,10 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import PlacementProgress from './placementProgress';
+import PlacementQuestion from './placementQuestion';
 import {MemberType} from "../membership/member-type";
+import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import '../my/my.css';
 import './index.css';
@@ -22,58 +25,7 @@ class Homepage extends Component {
         this.state = {
             avatar: '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             step: props.location.query.step || 1,
-            questions: [
-                {
-                    title: Resources.getInstance().placementQuestion1,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion2,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion3,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion4,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion5,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion6,
-                    items: [
-                        Resources.getInstance().placementYes,
-                        Resources.getInstance().placementNo
-                    ]
-                },
-                {
-                    title: Resources.getInstance().placementQuestion7,
-                    items: [
-                        Resources.getInstance().placementQuestion7Answer1,
-                        Resources.getInstance().placementQuestion7Answer2,
-                        Resources.getInstance().placementQuestion7Answer3
-                    ]
-                }
-            ],
+            questions: Placement,
             answers: [],
             audioAnsweringStatus: false,
             audioAnswerUrl: '',
@@ -279,101 +231,11 @@ class Homepage extends Component {
             <div className="my-profile">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.goBack} />
-                <div className="profile-progress placement-test">
-                    <div className={this.state.step > 1 ? 'done' : (this.state.step === 1 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>1</p>
-                    </div>
-                    <div className={this.state.step > 2 ? 'done' : (this.state.step === 2 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>2</p>
-                    </div>
-                    <div className={this.state.step > 3 ? 'done' : (this.state.step === 3 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>3</p>
-                    </div>
-                    <div className={this.state.step > 4 ? 'done' : (this.state.step === 4 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>4</p>
-                    </div>
-                    <div className={this.state.step > 5 ? 'done' : (this.state.step === 5 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>5</p>
-                    </div>
-                    <div className={this.state.step > 6 ? 'done' : (this.state.step === 6 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>6</p>
-                    </div>
-                    <div className={this.state.step > 7 ? 'done' : (this.state.step === 7 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>7</p>
-                    </div>
-                    <div className={this.state.step > 8 ? 'done' : (this.state.step === 8 ? 'active' : '' )}>
-                        <div className="dot">
-                            <div className="line-left line-left-last"></div>
-                            <div className="circle"></div>
-                        </div>
-                        <p>8</p>
-                    </div>
-                </div>
+                <PlacementProgress  step={this.state.step} />
                 <Form className='profile-body'>
                     {
                         this.state.step <= 7 ?
-                            (<div className="first placement-first">
-                                <div className="first-question">
-                                    <div>
-                                        <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
-                                    </div>
-                                    <div className="first-title">
-                                        <p>{this.state.questions[this.state.step - 1].title}</p>
-                                    </div>
-                                </div>
-                                <div className="first-answer">
-                                    <div className="answer-title"
-                                         style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
-                                    {
-                                        this.state.questions[this.state.step - 1].items.map((item, index) => {
-                                            return <div className="answer-item" key={index}
-                                                        style={this.state.answers[this.state.step - 1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {
-                                                            color: 'rgb(246, 180, 12)',
-                                                            border: '1px solid rgb(246, 180, 12)'
-                                                        } : {}}>
-                                                <div className="item-value">
-                                                    <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
-                                                </div>
-                                                <div className="item-content">
-                                                    <p>{item}</p>
-                                                </div>
-                                                <button className="click-event"
-                                                        name={this.state.step + '' + (index === 0 ? 'A' : (index === 1 ? 'B' : 'C'))}
-                                                        onClick={this.answering}>hidden
-                                                </button>
-                                            </div>
-                                        })
-                                    }
-                                </div>
-                            </div>)
+                            (<PlacementQuestion step={this.state.step} questions={this.state.questions} answering={this.answering} answers={this.state.answers} />)
                             :
                             (
                                 (<div className="placement-second">
