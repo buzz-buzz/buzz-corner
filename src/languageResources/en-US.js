@@ -6,15 +6,15 @@ export const header = 'Welcome to Buzzbuzz English Corner';
 export const welcomePageIntroductionLineOne = 'Connect English and Chinese speaking teens in a virtual space.';
 export const welcomePageIntroductionLineTwo = '';
 export const welcomePageIntroductionLineThr = '';
-export const welcomePageChineseChild = 'Learn English';
-export const welcomePageForeignChild = 'Teach English';
-export const welcomePageBtnWord = 'Who study here Let\'s see a sample';
+export const welcomePageChineseChild = 'Practice';
+export const welcomePageForeignChild = 'Tutor';
+export const welcomePageBtnWord = 'How does this work?';
 
 export const developWord = 'Site in construction, please come back and check later.';
 export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
-export const loginByWechatIntroduction = 'Become fluent in English by talking to native speaking students from around the world.';
+export const loginByWechatIntroduction = 'Dialogue with Chinese teens';
 
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
@@ -55,7 +55,7 @@ export const profileStep1 = 'Contact Information';
 export const profileStep1Info = 'Session information and service notification';
 export const profileParentsName = 'parent\'s name';
 export const profilePhoneInfo = 'China(+86)';
-export const profilePhoneHolder = 'phone number';
+export const profilePhoneHolder = 'Phone number';
 export const profilePhoneCheck = 'Verification Code';
 export const profilePhoneCheckError = 'The code you entered is incorrect or expired. Please re-enter or get a new code';
 export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
