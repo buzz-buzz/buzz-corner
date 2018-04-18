@@ -6,6 +6,8 @@ import Footer from '../layout/footer';
 import Track from "../common/track";
 import '../common/Icon/style.css';
 import './index.css';
+import {Button} from "semantic-ui-react";
+import ServiceProxy from "../service-proxy";
 
 class User extends Component {
     constructor() {
@@ -15,8 +17,12 @@ class User extends Component {
             avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             u_name: 'buzz',
             class_hours: 0,
-            country: 'china'
+            country: 'china',
+            switchToUserId: 0
         }
+
+        this.handleUserIdChange = this.handleUserIdChange.bind(this);
+        this.switchToOtherUser = this.switchToOtherUser.bind(this);
     }
 
     async componentDidMount() {
@@ -25,11 +31,12 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar ||  'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
+            avatar: profile.avatar || 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
-            country: profile.country || 'china'
+            country: profile.country || 'china',
+            isSuper: await CurrentUser.isSuper()
         });
     }
 
@@ -57,29 +64,55 @@ class User extends Component {
                             <div className="link">
                                 <div className="class-numbers">{this.state.class_hours || 0}</div>
                                 <div className="right-icon">
-                                    <i className="icon-icon_back_down" />
+                                    <i className="icon-icon_back_down"/>
                                 </div>
                             </div>
                         </Link>
+
+                        {
+                            this.state.isSuper &&
+                            <Link to="">
+                                <div className="icon">
+                                    <div className="name">
+                                        切换成其他用户：<input type="number" name="switchToUserId"
+                                                       onChange={this.handleUserIdChange}
+                                                       value={this.state.switchToUserId}></input>
+                                        <Button onClick={this.switchToOtherUser}>切换</Button>
+                                    </div>
+                                </div>
+                                <div className="link">
+                                </div>
+                            </Link>
+                        }
+
                         {/*<Link style={{display: 'none'}}>*/}
-                            {/*<div className="icon">*/}
-                                {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
-                                {/*<div className="name">*/}
-                                    {/*{Resources.getInstance().myLanguage}*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="link">*/}
-                                {/*<div className="class-numbers">中文</div>*/}
-                                {/*<div className="right-icon">*/}
-                                    {/*<i className="icon-icon_back_down" />*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
+                        {/*<div className="icon">*/}
+                        {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
+                        {/*<div className="name">*/}
+                        {/*{Resources.getInstance().myLanguage}*/}
+                        {/*</div>*/}
+                        {/*</div>*/}
+                        {/*<div className="link">*/}
+                        {/*<div className="class-numbers">中文</div>*/}
+                        {/*<div className="right-icon">*/}
+                        {/*<i className="icon-icon_back_down" />*/}
+                        {/*</div>*/}
+                        {/*</div>*/}
                         {/*</Link>*/}
                     </div>
                 </div>
                 <Footer/>
             </div>
         );
+    }
+
+    handleUserIdChange(event) {
+        this.setState({switchToUserId: event.target.value})
+    }
+
+    async switchToOtherUser() {
+        await ServiceProxy.proxy(`/switch-to-user/${this.state.switchToUserId}`)
+        window.location.reload()
     }
 }
 
