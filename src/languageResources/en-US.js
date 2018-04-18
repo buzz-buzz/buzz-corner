@@ -21,8 +21,8 @@ export const footerFriends = 'Friends';
 export const footerReward = 'Rewards';
 export const footerUser = 'Me';
 
-export const homeTabBooking = 'Booking';
-export const homeTabMessage = 'Message';
+export const homeTabBooking = 'Bookings';
+export const homeTabMessage = 'Messages';
 export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
 
