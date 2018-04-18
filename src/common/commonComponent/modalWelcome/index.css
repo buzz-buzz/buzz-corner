@@ -30,20 +30,20 @@
 
 .modal>.content > div > div.welcome-title {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 21px;
     font-weight: bold;
-    margin: 2em 0 1em 0;
+    margin: 0 0 20px 0;
     letter-spacing: 2px;
 }
 
 
 .modal>.content > div > div.welcome-info {
     text-align: center;
-    font-size: 1em;
+    font-size: 15px;
     font-weight: normal;
-    margin-bottom: 3em;
+    margin-bottom: 34px;
     letter-spacing: 1px;
-    color: rgba(0, 0, 0, .6);
+    color: #666;
 }
 
 .modal>.content > div > div.begin{
@@ -53,8 +53,9 @@
 }
 
 .modal>.content > div > div.begin > div{
-    height: 4em;
-    width: 100%;
+    height: 50px;
+    width: 90%;
+    font-size: 17px;
     color: white;
     background: linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12));
     letter-spacing: 1px;

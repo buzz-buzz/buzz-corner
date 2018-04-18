@@ -116,10 +116,9 @@ export const advisorInfo3 = '长按二维码结识"BuzzBuzz导师"';
 
 export const welcomePageTitle1 = '欢迎加入';
 export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';
-export const welcomePageWord1 = '轻松提高英语听说';
-export const welcomePageWord2 = '结识外籍伙伴';
+export const welcomePageWord1 = '结识英语学伴';
+export const welcomePageWord2 = '对话英美少年';
 export const welcomePageBooking = '开始预定课程';
-export const welcomePageSkip = '跳过, 稍后完成';
 
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';

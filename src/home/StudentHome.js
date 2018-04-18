@@ -206,7 +206,6 @@ class Home extends Component {
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);
-            console.log('profile = ', profile)
             let userId = profile.user_id;
 
             if (!profile.role) {
