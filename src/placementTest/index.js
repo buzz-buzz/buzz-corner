@@ -289,8 +289,11 @@ class Homepage extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-                <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                onOK={this.finishRecording} timeout={this.finishRecording}/>
+                {
+                    this.state.step === 8 &&
+                    <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
+                                                            onOK={this.finishRecording} timeout={this.finishRecording}/>
+                }
             </div>
         );
     }
