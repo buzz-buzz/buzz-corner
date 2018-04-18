@@ -5,8 +5,8 @@ let clearCookieOption = {
     path: '/',
     httpOnly: true
 };
-let longCookie = {
-    expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+let sessionCookieOption = {
+    expires: 0,
     path: '/',
     httpOnly: true
 };
@@ -17,7 +17,7 @@ let longCookie = {
 
 let o = {
     setUserId: function (user_id) {
-        this.cookies.set('user_id', user_id, longCookie);
+        this.cookies.set('user_id', user_id, sessionCookieOption);
     },
     deleteUserId: function () {
         this.cookies.set('user_id', '', clearCookieOption);

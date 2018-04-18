@@ -9,9 +9,7 @@ import URLHelper from "../common/url-helper";
 
 export default class WechatOAuthSuccess extends React.Component {
     loginOldUser = async (wechatUserInfo) => {
-        console.log('try login old user with ', wechatUserInfo);
         let buzzUserData = await this.getBuzzUserData(wechatUserInfo.unionid);
-        console.log('trying to login with buzzData:', buzzUserData);
         await this.loginByWechat(wechatUserInfo.unionid, buzzUserData.user_id);
     };
     loginNewUser = async (error, wechatUserData) => {
