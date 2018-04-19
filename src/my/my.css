@@ -86,11 +86,11 @@
 }
 
 .gender > div > .avatar{
-    height: 3em;
-    width: 3em;
+    height: 45px;
+    width: 45px;
     border-radius: 50%;
     margin: 0 1em;
-    border: 1px solid #eee;
+    border: 1px solid #dfdfe4;
     display: flex;
     justify-content: center;
     align-items: center;
