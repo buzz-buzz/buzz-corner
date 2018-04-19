@@ -3,6 +3,7 @@ import {Form, TextArea} from 'semantic-ui-react';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
+import {MemberType} from "../membership/member-type";
 import './index.css';
 import Track from "../common/track";
 import TimeHelper from "../common/timeHelper";
@@ -145,7 +146,8 @@ class classEvaluation extends Component {
 
             this.setState({loadingModal: true});
 
-            let userId = await CurrentUser.getUserId();
+            let profile = await CurrentUser.getProfile(true);
+            let userId = profile.user_id;
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -162,9 +164,17 @@ class classEvaluation extends Component {
                 }
             });
 
-            console.log('aaaaa....');
-            console.log(feed_back);
-            console.log(typeof feed_back);
+            if(profile.role === MemberType.Companion){
+                //get to_user_id info
+                let user_profile = await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.to_user_id}?t=${new Date().getTime()}`
+                    }
+                });
+
+                class_info.companion_name = user_profile.name;
+                class_info.companion_avatar = user_profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg';
+            }
 
             if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
                 //set state
