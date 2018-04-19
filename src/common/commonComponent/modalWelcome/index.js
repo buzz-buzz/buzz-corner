@@ -50,7 +50,7 @@ class ModalWelcome extends Component {
 
     render() {
         return (
-            <div className="modal" style={this.state.welcome ? {display: 'none'} : {display: 'flex'}}>
+            <div className="modal" style={this.state.welcome ? {display: 'none'} : {display: 'flex'}} onClick={this.closeWelcome}>
                 <div className="content">
                     <div>
                         <div className="welcome-title">
