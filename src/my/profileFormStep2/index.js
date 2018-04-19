@@ -71,6 +71,8 @@ const city_list = [
     {key: '37', value: '唐山', text: '唐山'},
 ];
 
+const birthdayFrom = (new Date().getFullYear() - 7) + '-' + (new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1 ) ) + '-' + (new Date().getDate() > 9 ?  new Date().getDate() : '0' + new Date().getDate() );
+
 export default class ProfileFormStep2 extends React.Component {
     render() {
         return (
@@ -90,7 +92,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
+                                    src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -100,7 +102,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
+                                    src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -110,7 +112,7 @@ export default class ProfileFormStep2 extends React.Component {
                     <Form.Group widths='equal' className="position-relative">
                         <Form.Input
                             style={this.props.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                            value={this.props.profile.date_of_birth} type="date"
+                            value={this.props.profile.date_of_birth || birthdayFrom} type="date"
                             onChange={this.props.handleChange} name='date_of_birth'/>
                         <div className="field birthday-label">
                             <input type="text"
@@ -143,7 +145,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_boy.png"
+                                            src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
                                             alt=""/>
                                     </div>
                                     <span
@@ -153,7 +155,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_girl.png"
+                                            src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
                                             alt=""/>
                                     </div>
                                     <span
@@ -163,7 +165,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <Form.Group widths='equal' className="position-relative">
                                 <Form.Input
                                     style={this.props.profile.date_of_birth ? {opacity: '1'} : {opacity: '0'}}
-                                    value={this.props.profile.date_of_birth} type="date"
+                                    value={this.props.profile.date_of_birth || birthdayFrom} type="date"
                                     onChange={this.props.handleChange} name='date_of_birth'/>
                                 <div className="field birthday-label">
                                     <input type="text"

@@ -33,7 +33,7 @@ class My extends Component {
             code: '',
             mobileValid: false,
             birthdayLabel: '',
-            step: 1,
+            step: 2,
             profile: {
                 parent_name: '',
                 phone: '',
