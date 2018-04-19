@@ -95,9 +95,9 @@ class classDetail extends Component {
         if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             this.showZoom();
         } else {
-            if(this.state.role === MemberType.Student){
+            if (this.state.role === MemberType.Student) {
                 browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
-            }else if(this.state.role === MemberType.Companion){
+            } else if (this.state.role === MemberType.Companion) {
                 browserHistory.push(`/class/foreign/${this.state.class_id}`);
             }
         }
@@ -125,14 +125,14 @@ class classDetail extends Component {
 
             let studentsList = [];
 
-            for(let i in class_info.students){
+            for (let i in class_info.students) {
                 studentsList.push(class_info.students[i].id);
             }
 
             let avatars = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
-                    json: { userIdList: studentsList},
+                    json: {userIdList: studentsList},
                     method: 'POST'
                 }
             }) || [];
@@ -146,7 +146,7 @@ class classDetail extends Component {
                 class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
                 loadingModal: false,
-                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP|| new Date(),
+                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: profile.role || ''
             });
 
@@ -218,7 +218,7 @@ class classDetail extends Component {
                             <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
                         </div>
                     </div>
-                    <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack} />
+                    <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
                 </div>
                 <div className="class-detail-practice">
                     {
@@ -226,7 +226,8 @@ class classDetail extends Component {
                             <div className="class-detail-notice">
                                 <p>{Resources.getInstance().classDetailBeforeWord1}</p>
                                 <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
-                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}>{Resources.getInstance().classDetailBeforeWord3}</a>
+                                    href="http://wap.zoomcloud.cn/home/download"
+                                    style={{color: '#f7b52a'}}>{Resources.getInstance().classDetailBeforeWord3}</a>
                                     。</p>
                             </div> :
                             <div className="class-detail-notice">
@@ -238,7 +239,8 @@ class classDetail extends Component {
                     }
                     {
                         this.state.role === MemberType.Student &&
-                        <Practice chats={this.state.chats} recordingChanged={this.recordingChanged}
+                        <Practice chats={this.state.chats.filter(c => c !== '')}
+                                  recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
                                   avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                     }
@@ -246,7 +248,7 @@ class classDetail extends Component {
                         <Form.Group widths='equal'
                                     style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
                             <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ?  Resources.getInstance().goToClass :Resources.getInstance().goToAssess}/>
+                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess}/>
                         </Form.Group>
                     </div>
                 </div>

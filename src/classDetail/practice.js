@@ -178,119 +178,124 @@ export default class Practice extends React.Component {
 
     render() {
         return (
-            <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
-                <Divider horizontal></Divider>
-                <LoadingModal loadingModal={this.state.loadingModal}/>
-                <div>
-                    {
-                        this.state.replies.map((r, i) => {
-                                return (
-                                    <div key={i}>
-                                        <div className="practise-advisor chat message">
-                                            <div>
-                                                <Image avatar
-                                                       src={this.props.avatars[0]}
-                                                       alt="avatar"/>
-                                            </div>
-                                            <div className="advisor-word talk-bubble tri-right left-bottom border round">
-                                                <div className="talktext"
-                                                     onTouchStart={() => this.play(i)}>
-                                                    {
-                                                        this.props.chats &&
-                                                        (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
-                                                            (<p>
-                                                                {Resources.getInstance().placementListeningAudio}
-                                                                {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
-
-                                                                {
-                                                                    this.state.currentPlaying === i
-                                                                        ? <img style={{height: '20px'}}
-                                                                               src={this.state.soundPlaying}
-                                                                               alt=""/>
-                                                                        : <img
-                                                                            src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
-                                                                            style={{height: '20px'}} alt=""/>
-                                                                }
-                                                            </p>) :
-                                                            (
-                                                                <p>
+            this.props.chats.length ?
+                <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
+                    <Divider horizontal></Divider>
+                    <LoadingModal loadingModal={this.state.loadingModal}/>
+                    <div>
+                        {
+                            this.state.replies.map((r, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <div className="practise-advisor chat message">
+                                                <div>
+                                                    <Image avatar
+                                                           src={this.props.avatars[0]}
+                                                           alt="avatar"/>
+                                                </div>
+                                                <div
+                                                    className="advisor-word talk-bubble tri-right left-bottom border round">
+                                                    <div className="talktext"
+                                                         onTouchStart={() => this.play(i)}>
+                                                        {
+                                                            this.props.chats &&
+                                                            (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
+                                                                (<p>
+                                                                    {Resources.getInstance().placementListeningAudio}
                                                                     {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
-                                                                </p>
-                                                            )
+
+                                                                    {
+                                                                        this.state.currentPlaying === i
+                                                                            ? <img style={{height: '20px'}}
+                                                                                   src={this.state.soundPlaying}
+                                                                                   alt=""/>
+                                                                            : <img
+                                                                                src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
+                                                                                style={{height: '20px'}} alt=""/>
+                                                                    }
+                                                                </p>) :
+                                                                (
+                                                                    <p>
+                                                                        {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                                                                    </p>
+                                                                )
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="practise-student chat message reverse"
+                                                 onTouchStart={() => this.replyButtonClicked(i)}
+                                                // onTouchEnd={this.endReply}
+                                                //  onTouchMoveCapture={this.reply}
+                                            >
+
+
+                                                <div>
+                                                    <Image avatar
+                                                           src={this.state.avatar}
+                                                           alt="avatar"/>
+                                                </div>
+
+                                                <div
+                                                    className="student-word talk-bubble tri-left right-bottom border round">
+                                                    <div className="talktext">
+                                                        <p style={{paddingLeft: '10px'}}>
+                                                            <img className="rotate180" style={{height: '20px'}}
+                                                                 src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"}
+                                                                 alt=""/>
+                                                            <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
+                                                        </p>
+                                                    </div>
+
+                                                    {
+                                                        i === this.state.replies.length - 1 &&
+                                                        <p className="tip">&nbsp;&nbsp;</p>
                                                     }
                                                 </div>
+
                                             </div>
+                                            {
+                                                this.state.replies[i].answered &&
+
+                                                <div onTouchStart={() => this.reReplyButtonClicked(i)}
+                                                     className="recordAgain">{Resources.getInstance().practiceAgain}</div>
+                                            }
                                         </div>
-                                        <div className="practise-student chat message reverse"
-                                             onTouchStart={() => this.replyButtonClicked(i)}
-                                            // onTouchEnd={this.endReply}
-                                            //  onTouchMoveCapture={this.reply}
-                                        >
+                                    );
+                                }
+                            )
+                        }
 
 
-                                            <div>
-                                                <Image avatar
-                                                       src={this.state.avatar}
-                                                       alt="avatar"/>
-                                            </div>
+                        {
+                            this.state.replying && this.props.chats.length > this.state.replies.length && this.state.currentReplying === (this.state.replies.length - 1) &&
 
-                                            <div className="student-word talk-bubble tri-left right-bottom border round">
-                                                <div className="talktext">
-                                                    <p style={{paddingLeft: '10px'}}>
-                                                        <img className="rotate180" style={{height: '20px'}}
-                                                             src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"}
-                                                             alt=""/>
-                                                        <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
-                                                    </p>
-                                                </div>
-
-                                                {
-                                                    i === this.state.replies.length - 1 &&
-                                                    <p className="tip">&nbsp;&nbsp;</p>
-                                                }
-                                            </div>
-
-                                        </div>
-                                        {
-                                            this.state.replies[i].answered &&
-
-                                            <div onTouchStart={() => this.reReplyButtonClicked(i)}
-                                                 className="recordAgain">{Resources.getInstance().practiceAgain}</div>
-                                        }
+                            < div className="practise-advisor chat message">
+                                <div>
+                                    <Image avatar src={this.props.avatars[0]} alt="avatar"/>
+                                </div>
+                                <div
+                                    className="advisor-word talk-bubble tri-right left-bottom border round">
+                                    <div className="talktext" style={{padding: '0'}}>
+                                        <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg"
+                                               width="80"
+                                               height="33"
+                                               type="image/svg+xml"
+                                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                                     </div>
-                                );
-                            }
-                        )
-                    }
-
-
-                    {
-                        this.state.replying && this.props.chats.length > this.state.replies.length && this.state.currentReplying === (this.state.replies.length - 1) &&
-
-                        < div className="practise-advisor chat message">
-                            <div>
-                                <Image avatar src={this.props.avatars[0]} alt="avatar"/>
-                            </div>
-                            <div
-                                className="advisor-word talk-bubble tri-right left-bottom border round">
-                                <div className="talktext" style={{padding: '0'}}>
-                                    <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg" width="80"
-                                           height="33"
-                                           type="image/svg+xml"
-                                           pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                                 </div>
                             </div>
-                        </div>
-                    }
-                </div>
-                <Divider horizontal/>
-                <Dimmer active={this.state.recording} onClickOutside={this.cancelReply} inverted>
-                    <Header as='h2' icon inverted>
-                        <Icon name="unmute"/>
-                        Recording!
-                    </Header>
-                </Dimmer>
-            </Dimmer.Dimmable>
+                        }
+                    </div>
+                    <Divider horizontal/>
+                    <Dimmer active={this.state.recording} onClickOutside={this.cancelReply} inverted>
+                        <Header as='h2' icon inverted>
+                            <Icon name="unmute"/>
+                            Recording!
+                        </Header>
+                    </Dimmer>
+                </Dimmer.Dimmable>
+                : ''
         )
     }
 
