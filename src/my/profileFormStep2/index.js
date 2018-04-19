@@ -92,7 +92,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                    src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -145,7 +145,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                            src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
                                             alt=""/>
                                     </div>
                                     <span

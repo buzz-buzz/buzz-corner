@@ -15,7 +15,7 @@ class User extends Component {
         super();
 
         this.state = {
-            avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
+            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             u_name: 'buzz',
             class_hours: 0,
             country: 'china',
@@ -34,7 +34,7 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar || 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
+            avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),

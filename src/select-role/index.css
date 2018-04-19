@@ -118,6 +118,10 @@
 
 .preview-video > p{
     margin: 1em;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
 }
 
 .login-entrance > .video-show{
