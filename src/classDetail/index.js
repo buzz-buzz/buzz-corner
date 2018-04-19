@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {browserHistory, Link} from 'react-router';
+import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
@@ -9,6 +9,7 @@ import Practice from "./practice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import ClassPartners from './classPartnersAvatars';
 import Resources from '../resources';
 import {Button, Form} from "semantic-ui-react";
 
@@ -217,18 +218,7 @@ class classDetail extends Component {
                             <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
                         </div>
                     </div>
-                    <div className="class-partners-avatar">
-                        {
-                            this.state.student_avatars.length > 0 &&
-                            this.state.student_avatars.map((item, index) => {
-                                return <Link key={index} to="" onClick={event => this.sendTrack(event, '中方头像点击')}>
-                                    <img
-                                        src={item.avatar || "https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
-                                        alt=""/>
-                                </Link>
-                            })
-                        }
-                    </div>
+                    <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack} />
                 </div>
                 <div className="class-detail-practice">
                     {

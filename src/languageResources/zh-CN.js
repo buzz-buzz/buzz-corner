@@ -7,7 +7,7 @@ export const welcomePageIntroductionLineOne = '结识英语学伴，对话英美
 export const welcomePageIntroductionLineTwo = '开启你的国际交流旅程。';
 export const welcomePageChineseChild = '中国少年';
 export const welcomePageForeignChild = '外籍学伴';
-export const welcomePageBtnWord = '快来围观';
+export const welcomePageBtnWord = '快来围观吧!';
 
 export const developWord = '功能开发中, 敬请期待...';
 export const whiteSpaceMessage = '还没有消息提醒哦～';

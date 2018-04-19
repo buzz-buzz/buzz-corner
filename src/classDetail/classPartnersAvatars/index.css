@@ -1,0 +1,13 @@
+.class-partners-avatar {
+  height: 4em;
+  display: flex;
+  width: 100%;
+  background-color: white;
+  align-items: center;
+  padding-left: 2em; }
+  .class-partners-avatar a {
+    height: 60%;
+    margin-right: .5em; }
+    .class-partners-avatar a img {
+      height: 100%;
+      border-radius: 50%; }
