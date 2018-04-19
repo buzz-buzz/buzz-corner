@@ -1,10 +1,12 @@
 const config = require('../config');
-const request = require('request-promise-native');
 const cookie = require('../helpers/cookie');
 
 async function setUserToState(context, user_id) {
+    console.log('super users = ', config.superUsers);
+
     context.state.user = {
-        userId: user_id
+        userId: user_id,
+        super: (config.superUsers || []).indexOf(Number(user_id)) >= 0
     };
 
     return context.state.user;
@@ -25,11 +27,14 @@ async function setUserFromCookie(context) {
 }
 
 async function setUserFromQueryString(context) {
+    // TODO: allow login by query string using more safer method (temp token, for example)
+    return false;
+
     let user_id = context.query.user_id;
 
     if (user_id) {
         await setUserToState(context, user_id);
-        cookie.setUserId(user_id);
+        cookie.setUserId.call(context, user_id);
     }
 
     return user_id;
@@ -63,6 +68,13 @@ membership.ensureAuthenticated = async function (context, next) {
 
     await next();
 };
+
+membership.pretendToBeOtherUser = async function (context, next) {
+    await setUserToState(context, context.params.user_id)
+    cookie.setUserId.call(context, context.params.user_id)
+
+    await next();
+}
 
 membership.signOut = async function (ctx, next) {
     cookie.resetSignOnCookies.call(ctx);
