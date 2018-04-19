@@ -212,7 +212,7 @@ class classEvaluation extends Component {
                     <div className="class-info">
                         <div className="booking-item-avatar">
                             <img
-                                src={this.state.companion_avatar || "//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd"}
+                                src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
                                 alt=""/>
                         </div>
                         <div className="booking-item-info">

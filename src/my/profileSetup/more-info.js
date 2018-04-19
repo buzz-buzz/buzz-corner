@@ -21,7 +21,7 @@ export default class profileSetup extends Component {
         super();
 
         this.state = {
-            avatar: 'https://resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
+            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             mobile: '',
             email: ''
         };
@@ -76,7 +76,7 @@ export default class profileSetup extends Component {
         let profile = await CurrentUser.getProfile()
 
         this.setState({
-            avatar: profile.avatar || '',
+            avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             mobile: profile.mobile || '',
             email: profile.email || '',
             userId: profile.user_id

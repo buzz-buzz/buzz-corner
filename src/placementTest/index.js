@@ -23,7 +23,7 @@ class Homepage extends Component {
         super(props);
 
         this.state = {
-            avatar: '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd',
+            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             step: props.location.query.step || 1,
             questions: Placement,
             answers: [],
@@ -85,7 +85,7 @@ class Homepage extends Component {
             }else{
                 this.setState({
                     userId: profile.user_id,
-                    avatar: profile.avatar || '//resource.buzzbuzzenglish.com/FpfgA6nojLQAcoXjEv7sHfrNlOVd'
+                    avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
                 });
             }
         }
