@@ -3,8 +3,9 @@ import ServiceProxy from '../service-proxy';
 let currentUser;
 
 class User {
-    constructor(userId) {
+    constructor(userId, isSuper) {
         this.userId = userId;
+        this.isSuper = isSuper;
     }
 
     static async getInstance() {
@@ -12,7 +13,7 @@ class User {
             try {
                 let userData = await ServiceProxy.proxy('/user-info');
 
-                currentUser = new User(userData.userId);
+                currentUser = new User(userData.userId, userData.super);
             } catch (ex) {
                 await User.signOut();
             }
@@ -40,6 +41,10 @@ class User {
 }
 
 export default class CurrentUser {
+    static async isSuper() {
+        return (await User.getInstance()).isSuper;
+    }
+
     static async getUserId() {
         return (await User.getInstance()).userId;
     }

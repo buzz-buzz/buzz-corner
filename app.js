@@ -114,6 +114,9 @@ router
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         ctx.body = ctx.state.user;
     })
+    .get('/switch-to-user/:user_id', membership.ensureAuthenticated, membership.pretendToBeOtherUser, async ctx => {
+        ctx.body = ctx.state.user;
+    })
     .get('/qiniu/token', async ctx => {
         let token = putPolicy.uploadToken(mac);
         ctx.body = {
@@ -123,6 +126,9 @@ router
         };
     })
     .get('/track_script_placeholder.js', async ctx => {
+        ctx.body = 'function doNothing(){}'
+    })
+    .get('/fundebug.js', async ctx => {
         ctx.body = 'function doNothing(){}'
     })
 ;

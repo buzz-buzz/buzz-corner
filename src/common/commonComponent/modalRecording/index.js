@@ -28,7 +28,7 @@ export default class RecordingModal extends BuzzModal {
                                style={{height: '100px', display: 'inline', textAlign: 'center'}}/>
                     </div>
                     <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}>
-                        <StopWatch start={0} timeout={this.props.timeout}></StopWatch>
+                        <StopWatch start={0} timeout={this.props.timeout} visible={this.props.open}></StopWatch>
                     </Header>
                 </div>
                 <p>&nbsp;</p>
@@ -46,7 +46,6 @@ export default class RecordingModal extends BuzzModal {
     }
 
     render() {
-        console.log('recording props = ', this.props);
         return (
             super.render(this.renderBody())
         );
