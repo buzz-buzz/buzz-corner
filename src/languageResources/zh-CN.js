@@ -112,7 +112,7 @@ export const classDetailBeforeWord3 = '下载安装';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
-export const advisorInfo3 = '长按二维码结识"BuzzBuzz导师"';
+export const advisorInfo3 = '长按二维码联系"BuzzBuzz导师"';
 
 export const welcomePageTitle1 = '欢迎加入';
 export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';

@@ -316,6 +316,10 @@ class Home extends Component {
         }
 
         this.setState({loadingModal: false, fullModal: false});
+
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
