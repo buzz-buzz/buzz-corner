@@ -9,9 +9,35 @@ export default class StopWatch extends React.Component {
             timeElapsed: 0,
             timerId: null
         }
+
+        this.startTick = this.startTick.bind(this)
+        this.stopTick = this.stopTick.bind(this)
     }
 
-    componentDidMount() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible) {
+            this.startTick();
+        } else {
+            this.stopTick();
+        }
+    }
+
+    componentWillUnmount() {
+        this.stopTick()
+
+        //重写组件的setState方法，直接返回空
+        this.setState = (state, callback) => {
+            return
+        };
+    }
+
+    render() {
+        return (
+            <div>{TimeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
+        )
+    }
+
+    startTick() {
         this.setState({
             timeElapsed: this.props.start,
             timerId: window.setInterval(() => {
@@ -26,26 +52,9 @@ export default class StopWatch extends React.Component {
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            timeElapsed: nextProps.start
-        })
-    }
-
-    componentWillUnmount(){
-        //重写组件的setState方法，直接返回空
-        if(this.state.timerId){
+    stopTick() {
+        if (this.state.timerId) {
             window.clearInterval(this.state.timerId);
         }
-
-        this.setState = (state,callback)=>{
-            return;
-        };
-    }
-
-    render() {
-        return (
-            <div>{TimeHelper.formatSecondsToHHMMSS(this.state.timeElapsed)}</div>
-        )
     }
 }

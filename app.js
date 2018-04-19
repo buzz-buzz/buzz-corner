@@ -128,6 +128,9 @@ router
     .get('/track_script_placeholder.js', async ctx => {
         ctx.body = 'function doNothing(){}'
     })
+    .get('/fundebug.js', async ctx => {
+        ctx.body = 'function doNothing(){}'
+    })
 ;
 
 

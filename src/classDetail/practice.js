@@ -23,7 +23,6 @@ export default class Practice extends React.Component {
 
         this.audios = {};
 
-        this.reply = this.reply.bind(this);
         this.renderChat = this.renderChat.bind(this);
         this.play = this.play.bind(this);
         this.endReply = this.endReply.bind(this);
@@ -60,10 +59,6 @@ export default class Practice extends React.Component {
                 this.setState({repliesPlaying: -1});
             }, this.state.recordingEndTime - this.state.recordingStartTime)
         }
-    }
-
-    reply() {
-        console.log('replying...');
     }
 
     async endReply() {
@@ -212,7 +207,9 @@ export default class Practice extends React.Component {
                                                                         ? <img style={{height: '20px'}}
                                                                                src={this.state.soundPlaying}
                                                                                alt=""/>
-                                                                        : <img src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"  style={{height: '20px'}}  alt=""/>
+                                                                        : <img
+                                                                            src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
+                                                                            style={{height: '20px'}} alt=""/>
                                                                 }
                                                             </p>) :
                                                             (
@@ -241,7 +238,8 @@ export default class Practice extends React.Component {
                                                 <div className="talktext">
                                                     <p style={{paddingLeft: '10px'}}>
                                                         <img className="rotate180" style={{height: '20px'}}
-                                                             src={this.state.repliesPlaying === i ? this.state.soundPlaying  : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"} alt=""/>
+                                                             src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"}
+                                                             alt=""/>
                                                         <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                     </p>
                                                 </div>
