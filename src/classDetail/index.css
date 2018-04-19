@@ -67,6 +67,7 @@
 .class-detail > .class-detail-info > .class-info > .booking-item-avatar > img {
     height: 100%;
     border-radius: 50%;
+    border: 3px solid rgba(208, 214, 219, 0.5);
 }
 
 .class-detail > .class-detail-info > .class-info > .booking-item-info {
