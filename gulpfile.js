@@ -14,10 +14,18 @@ gulp.task('cdn', function () {
 });
 
 gulp.task('track', function () {
-    const url = `https://jic.talkingdata.com/app/h5/v1?appid=9E0813F899A5460D953190DF02F25381&vn=${pkg.name}_${process.env.NODE_ENV}&vc=${pkg.version}`
+    const url = `https://jic.talkingdata.com/app/h5/v1?appid=9E0813F899A5460D953190DF02F25381&vn=${pkg.name}_${process.env.NODE_ENV}&vc=${pkg.version}`;
 
     return gulp.src(['build/index.html'])
         .pipe(replace('/track_script_placeholder.js', url))
+        .pipe(gulp.dest('build/'));
+});
+
+gulp.task('fundebug', function () {
+    const url = `https://js.fundebug.cn/fundebug.0.3.6.min.js`;
+
+    return gulp.src(['build/index.html'])
+        .pipe(replace('/fundebug.js', url))
         .pipe(gulp.dest('build/'));
 });
 
@@ -29,4 +37,4 @@ gulp.task('fonts', () => {
         .pipe(gulp.dest('node_modules/semantic-ui-css/'));
 });
 
-gulp.task('default', gulp.series('cdn', 'track', 'fonts'));
+gulp.task('default', gulp.series('cdn', 'track', 'fundebug', 'fonts'));
