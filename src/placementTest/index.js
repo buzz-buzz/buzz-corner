@@ -80,14 +80,10 @@ class Homepage extends Component {
         try {
             let profile = await CurrentUser.getProfile();
 
-            if(profile.role && profile.role === MemberType.Companion){
-                browserHistory.push('/');
-            }else{
-                this.setState({
-                    userId: profile.user_id,
-                    avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
-                });
-            }
+            this.setState({
+                userId: profile.user_id,
+                avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
+            });
         }
         catch (ex) {
             console.log(ex.toString());
