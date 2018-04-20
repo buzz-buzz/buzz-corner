@@ -44,12 +44,12 @@ class Home extends Component {
         Track.event('首页_预约点击');
 
         let u = window.navigator.userAgent;
-        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
-        if (isAndroid) {
-            browserHistory.push('/consult');
-        } else {
+        if (isiOS) {
             window.location.href = '/consult';
+        } else {
+            browserHistory.push('/consult');
         }
     }
 
@@ -58,7 +58,13 @@ class Home extends Component {
 
         Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
-        window.location.href = "/class/" + item.class_id;
+        let u = window.navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+            window.location.href = "/class/" + item.class_id;
+        }else{
+            browserHistory.push("/class/" + item.class_id);
+        }
     }
 
     clickEventPlacement(e, item) {
@@ -69,14 +75,14 @@ class Home extends Component {
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
 
         let u = window.navigator.userAgent;
-        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
         window.history.replaceState(window.history.state, "home", "?tab=" + this.state.tab);
 
-        if (isAndroid) {
-            browserHistory.push(item.goUrl);
-        } else {
+        if (isiOS) {
             window.location.href = item.goUrl;
+        } else {
+            browserHistory.push(item.goUrl);
         }
     }
 
