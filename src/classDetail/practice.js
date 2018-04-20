@@ -2,6 +2,7 @@ import * as React from "react";
 import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import Resources from '../resources';
 import './chat.css';
+import html5Audio from '../wechat/html5Audio';
 import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -29,6 +30,10 @@ export default class Practice extends React.Component {
         this.replyButtonClicked = this.replyButtonClicked.bind(this);
         this.reReplyButtonClicked = this.reReplyButtonClicked.bind(this);
         this.cancelReply = this.cancelReply.bind(this);
+
+        html5Audio.addEventListener('ended', () => {
+            this.setState({currentPlaying: -1});
+        });
     }
 
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
@@ -137,16 +142,15 @@ export default class Practice extends React.Component {
         }
     }
 
-    play(index) {
+    async play(index) {
         Track.event(this.props.audioUpload ? '测试_点击音频收听' : '课程详情_点击音频收听');
 
         if (this.audios[index]) {
-            this.setState({currentPlaying: index});
-            this.audios[index].play();
+            let a = html5Audio;
+            html5Audio.src = this.audios[index].src;
 
-            this.audios[index].addEventListener('ended', () => {
-                this.setState({currentPlaying: -1});
-            });
+            await a.play();
+            this.setState({currentPlaying: index});
         }
     }
 
