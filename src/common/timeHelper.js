@@ -37,10 +37,8 @@ export default class TimeHelper {
 
 
     static dateDiff(start_time, now_time) {
-        let theDate = new Date(start_time.getFullYear() + '-' + (start_time.getMonth() + 1 ) + '-' + start_time.getDate());
-
-        let nowDate = new Date(now_time.getFullYear() + '-' + (now_time.getMonth() + 1) + '-' + now_time.getDate());
-
+        let theDate = new Date(start_time.getFullYear(), start_time.getMonth(), start_time.getDate()).getTime();
+        let nowDate = new Date(now_time.getFullYear(), now_time.getMonth(), now_time.getDate()).getTime();
         return Math.round((theDate - nowDate) / (1000 * 3600 * 24));
     }
 
