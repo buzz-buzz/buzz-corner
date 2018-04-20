@@ -24,4 +24,8 @@ describe('get date diff', () => {
     it('should display "Ended" ', () => {
         expect(timeHelper.timeDiff(new Date(2018, 3, 8, 12, 0), new Date(2018, 3, 8, 12, 25), new Date(2018, 3, 10, 12, 14), 'en-US')).toEqual('Ended')
     });
+
+    it('should display "Ended" ', () => {
+        expect(timeHelper.timeDiff(new Date(2018, 3, 8, 12, 0), new Date(2018, 3, 8, 12, 25), new Date(2018, 3, 10, 12, 14), '')).toEqual('Ended')
+    });
 });

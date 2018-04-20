@@ -80,14 +80,10 @@ class Homepage extends Component {
         try {
             let profile = await CurrentUser.getProfile();
 
-            if(profile.role && profile.role === MemberType.Companion){
-                browserHistory.push('/');
-            }else{
-                this.setState({
-                    userId: profile.user_id,
-                    avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
-                });
-            }
+            this.setState({
+                userId: profile.user_id,
+                avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
+            });
         }
         catch (ex) {
             console.log(ex.toString());
@@ -238,8 +234,7 @@ class Homepage extends Component {
                             (<PlacementQuestion step={this.state.step} questions={this.state.questions}
                                                 answering={this.answering} answers={this.state.answers} />)
                             :
-                            (
-                                (<div className="placement-second">
+                            (<div className="placement-second">
                                     <div className="second-title">
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
@@ -247,7 +242,7 @@ class Homepage extends Component {
                                               avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", this.state.avatar]}
                                               handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}
                                               recordingChanged={this.recordingChanged} ref={p => this.practice = p}/>
-                                </div>)
+                                </div>
                             )
                     }
                     <Form.Group widths='equal'>
