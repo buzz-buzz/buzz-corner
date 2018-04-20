@@ -148,6 +148,7 @@ export default class Practice extends React.Component {
         if (this.audios[index]) {
             let a = html5Audio;
             html5Audio.src = this.audios[index].src;
+            html5Audio.type = 'audio/mpeg';
 
             await a.play();
             this.setState({currentPlaying: index});
