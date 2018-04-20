@@ -210,7 +210,7 @@ export default class Practice extends React.Component {
                                                             </div>
                                                             :
                                                             <div className="talktext"
-                                                                 onTouchStart={() => this.paly(i)}>
+                                                                 onTouchStart={() => this.play(i)}>
                                                                 {
                                                                     this.renderAudio(i)
                                                                 }
