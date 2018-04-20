@@ -2,7 +2,6 @@ import * as React from "react";
 import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
 import Resources from '../resources';
 import './chat.css';
-import html5Audio from '../wechat/html5Audio';
 import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -30,10 +29,6 @@ export default class Practice extends React.Component {
         this.replyButtonClicked = this.replyButtonClicked.bind(this);
         this.reReplyButtonClicked = this.reReplyButtonClicked.bind(this);
         this.cancelReply = this.cancelReply.bind(this);
-
-        html5Audio.addEventListener('ended', () => {
-            this.setState({currentPlaying: -1});
-        });
     }
 
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
@@ -45,8 +40,6 @@ export default class Practice extends React.Component {
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
         Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
-
-        console.log(`the ${buttonIndex} button was clicked`);
 
         this.setState({currentReplying: buttonIndex});
 
@@ -68,7 +61,6 @@ export default class Practice extends React.Component {
 
     async endReply() {
         if (!this.state.recording) {
-            console.log('no need to end recording...');
             return;
         }
 
@@ -130,8 +122,7 @@ export default class Practice extends React.Component {
         this.setState({recording: false}, () => {
             this.props.recordingChanged(this.state.recording);
         });
-        console.log('reply cancelled');
-        await            this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording();
+        await this.state.replies[this.state.replies.length - 1].wechatAudio.stopRecording();
 
         if (this.props.audioUpload) {
             this.props.handleUploadUrl({
@@ -146,17 +137,24 @@ export default class Practice extends React.Component {
         Track.event(this.props.audioUpload ? '测试_点击音频收听' : '课程详情_点击音频收听');
 
         if (this.audios[index]) {
-            let a = html5Audio;
-            html5Audio.src = this.audios[index].src;
-
-            await a.play();
-            this.setState({currentPlaying: index});
+            try {
+                await this.audios[index].play()
+                this.setState({currentPlaying: index});
+            } catch (ex) {
+                alert(ex);
+            }
         }
     }
 
     async componentDidMount() {
-        this.setState({loadingModal: true});
-        await WechatAudio.init();
+        if (/MicroMessenger/.test(navigator.userAgent)) {
+            this.setState({loadingModal: true});
+            try {
+                await WechatAudio.init();
+            } catch (ex) {
+
+            }
+        }
 
         let userInfo = await CurrentUser.getProfile();
         this.setState({
@@ -200,7 +198,7 @@ export default class Practice extends React.Component {
                                                 <div
                                                     className="advisor-word talk-bubble tri-right left-bottom border round">
                                                     <div className="talktext"
-                                                         onTouchStart={() => this.play(i)}>
+                                                         onMouseDown={() => this.play(i)}>
                                                         {
                                                             this.props.chats &&
                                                             (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
@@ -307,9 +305,18 @@ export default class Practice extends React.Component {
         if (chat) {
             if (chat.startsWith('http') || chat.startsWith('//')) {
                 chat = chat.replace('http://', '//');
-                return <audio src={chat} ref={(audio) => {
+                return <audio type="audio/mpeg" src={chat} ref={(audio) => {
                     this.audios[index] = audio
-                }}></audio>
+
+                    if (audio) {
+                        audio.addEventListener('ended', () => {
+                            this.setState({currentPlaying: -1});
+                        });
+                    }
+                }}>
+                    <source src={chat} type="audio/mpeg"/>
+                    Your browser does not support the audio element.
+                </audio>
 
             } else {
                 return chat;
