@@ -179,6 +179,9 @@ export default class Practice extends React.Component {
     }
 
     render() {
+        let u = window.navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+
         return (
             this.props.chats.length ?
                 <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
@@ -197,32 +200,22 @@ export default class Practice extends React.Component {
                                                 </div>
                                                 <div
                                                     className="advisor-word talk-bubble tri-right left-bottom border round">
-                                                    <div className="talktext"
-                                                         onMouseDown={() => this.play(i)}>
-                                                        {
-                                                            this.props.chats &&
-                                                            (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
-                                                                (<p>
-                                                                    {Resources.getInstance().placementListeningAudio}
-                                                                    {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
-
-                                                                    {
-                                                                        this.state.currentPlaying === i
-                                                                            ? <img style={{height: '20px'}}
-                                                                                   src={this.state.soundPlaying}
-                                                                                   alt=""/>
-                                                                            : <img
-                                                                                src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
-                                                                                style={{height: '20px'}} alt=""/>
-                                                                    }
-                                                                </p>) :
-                                                                (
-                                                                    <p>
-                                                                        {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
-                                                                    </p>
-                                                                )
-                                                        }
-                                                    </div>
+                                                    {
+                                                        isAndroid ?
+                                                            <div className="talktext"
+                                                                 onMouseDown={() => this.play(i)}>
+                                                                {
+                                                                    this.renderAudio(i)
+                                                                }
+                                                            </div>
+                                                            :
+                                                            <div className="talktext"
+                                                                 onTouchStart={() => this.paly(i)}>
+                                                                {
+                                                                    this.renderAudio(i)
+                                                                }
+                                                            </div>
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="practise-student chat message reverse"
@@ -299,6 +292,30 @@ export default class Practice extends React.Component {
                 </Dimmer.Dimmable>
                 : ''
         )
+    }
+
+    renderAudio(i) {
+        return this.props.chats &&
+        (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
+            (<p>
+                {Resources.getInstance().placementListeningAudio}
+                {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+
+                {
+                    this.state.currentPlaying === i
+                        ? <img style={{height: '20px'}}
+                               src={this.state.soundPlaying}
+                               alt=""/>
+                        : <img
+                            src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
+                            style={{height: '20px'}} alt=""/>
+                }
+            </p>) :
+            (
+                <p>
+                    {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                </p>
+            );
     }
 
     renderChat(chat, index) {
