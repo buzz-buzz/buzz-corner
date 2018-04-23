@@ -1,13 +1,23 @@
-.class-partners-avatar {
-  height: 4em;
-  display: flex;
-  width: 100%;
+.class-partners {
   background-color: white;
-  align-items: center;
-  padding-left: 2em; }
-  .class-partners-avatar a {
-    height: 60%;
-    margin-right: .5em; }
-    .class-partners-avatar a img {
-      height: 100%;
-      border-radius: 50%; }
+  margin-top: 10px;
+  padding: 10px 0 0 0; }
+  .class-partners .class-partners-avatar {
+    height: 4em;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-left: 24px; }
+    .class-partners .class-partners-avatar a {
+      height: 60%;
+      margin-right: .5em; }
+      .class-partners .class-partners-avatar a img {
+        height: 100%;
+        border-radius: 50%; }
+  .class-partners .s-title {
+    background-color: white;
+    border-left: 4px solid #f7b52a;
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0; }

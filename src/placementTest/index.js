@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
+import {Button, Form} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';

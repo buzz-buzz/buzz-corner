@@ -10,6 +10,7 @@ import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
+import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form} from "semantic-ui-react";
 
@@ -219,23 +220,15 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
+                    <ClassAd />
                 </div>
                 <div className="class-detail-practice">
                     {
-                        this.state.role === MemberType.Student ?
-                            <div className="class-detail-notice">
-                                <p>{Resources.getInstance().classDetailBeforeWord1}</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
-                                    href="http://wap.zoomcloud.cn/home/download"
-                                    style={{color: '#f7b52a'}}>{Resources.getInstance().classDetailBeforeWord3}</a>
-                                    。</p>
-                            </div> :
-                            <div className="class-detail-notice">
-                                <p>1.Please install ZOOM before your class begins.</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.Click to <a
-                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}> Install</a>
-                                    。</p>
-                            </div>
+                        this.state.role === MemberType.Student &&
+                        <div>
+                            <div className="s-title">课前练习</div>
+                            <div className="line-middle" style={{margin: '0 20px 0 20px'}}></div>
+                        </div>
                     }
                     {
                         this.state.role === MemberType.Student &&
@@ -244,13 +237,6 @@ class classDetail extends Component {
                                   ref={p => this.practice = p}
                                   avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                     }
-                    <div className="class-detail-button">
-                        <Form.Group widths='equal'
-                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
-                            <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess}/>
-                        </Form.Group>
-                    </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {
@@ -258,6 +244,13 @@ class classDetail extends Component {
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
+                <div className="class-detail-button">
+                    <Form.Group widths='equal'
+                                style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
+                        <Form.Field control={Button} onClick={this.checkStatusAndTime}
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess}/>
+                    </Form.Group>
+                </div>
             </div>
         );
     }
