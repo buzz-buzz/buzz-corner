@@ -217,7 +217,7 @@ class My extends Component {
 
                         Track.event('注册', '手机验证', { '消息状态': '错误', '验证数据':  this.state.profile.phone + '-' + this.state.code});
 
-                        this.setState({messageModal: true, messageContent: '短信校验失败', messageName: 'error'});
+                        this.setState({messageModal: true, messageContent: '短信校验失败-' + this.state.profile.phone + '-' + this.state.code , messageName: 'error'});
                         this.closeMessageModal();
                         return;
                     }
