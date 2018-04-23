@@ -23,9 +23,12 @@
 
 .class-detail > .class-detail-practice {
     flex: 1 0 auto;
-    padding: 1em 2em;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 50px;
 }
 
 .class-detail > .class-detail-header > div {
@@ -97,21 +100,25 @@
     margin: 2em 0;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button {
+.class-detail-button {
     flex: 1 0 auto;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-}
-
-.class-detail > .class-detail-practice > .class-detail-button > div {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button button {
-    border-radius: 1.5em;
+.class-detail-button > div {
     width: 100%;
-    height: 3em;
+}
+
+.class-detail-button button {
+    border-radius: 0;
+    width: 100%;
+    height: 50px;
     background: linear-gradient(to right, rgb(251, 218, 97), rgb(246, 180, 12));
     letter-spacing: 2px;
     color: #fff;
@@ -156,4 +163,9 @@
 
 .class-detail-practice-content > .practise-student {
     justify-content: flex-end;
+}
+
+.class-detail-practice .segment{
+    padding: 0 1em !important;
+    margin: 0 !important;
 }
