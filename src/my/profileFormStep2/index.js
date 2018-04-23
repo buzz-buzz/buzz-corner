@@ -2,6 +2,8 @@ import Resources from '../../resources';
 import React from 'react';
 import {Dropdown, Form} from 'semantic-ui-react';
 import {MemberType} from "../../membership/member-type";
+import { zones } from 'moment-timezone/data/meta/latest.json';
+import { countries } from 'moment-timezone/data/meta/latest.json';
 
 const grade_list = [
     {key: '1', value: '1', text: '一年级'},
@@ -70,6 +72,14 @@ const city_list = [
     {key: '36', value: '淄博', text: '淄博'},
     {key: '37', value: '唐山', text: '唐山'},
 ];
+
+const timeZones = Object.keys(zones).map(key=>({
+    key, value: key, text: key
+}));
+
+let countryList = Object.keys(countries).map(key=>({
+    key, value: key, text: countries[key].name
+}));
 
 const birthdayFrom = (new Date().getFullYear() - 7) + '-' + (new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1 ) ) + '-' + (new Date().getDate() > 9 ?  new Date().getDate() : '0' + new Date().getDate() );
 
@@ -176,14 +186,7 @@ export default class ProfileFormStep2 extends React.Component {
                                            name='birthdayLabel'/>
                                 </div>
                             </Form.Group>
-                            <div className="parents-name">
-                                <input type="text" placeholder="School Information"
-                                       style={{width: '100%'}}
-                                       value={this.props.profile.school}
-                                       onChange={this.props.handleChange}
-                                       name='school'/>
-                            </div>
-                            <div className="selection-options" style={{height: '50px', margin: '10px 0', boxSizing: 'border-box'}}>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
                                 <Dropdown placeholder="Grade" search
                                           selection noResultsMessage="eg: grade 1"
                                           onChange={(event, data) => {
@@ -191,12 +194,28 @@ export default class ProfileFormStep2 extends React.Component {
                                           }} value={this.props.profile.grade}
                                           options={grade_list_foreign}/>
                             </div>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
+                                <Dropdown placeholder="Time zone" search
+                                          selection noResultsMessage="eg: Asia/Shanghai"
+                                          onChange={(event, data) => {
+                                              this.props.handleTimeZoneChange(event, data)
+                                          }} value={this.props.profile.time_zone}
+                                          options={timeZones}/>
+                            </div>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
+                                <Dropdown placeholder="Country" search
+                                          selection noResultsMessage="eg: China"
+                                          onChange={(event, data) => {
+                                              this.props.handleCountryChange(event, data)
+                                          }} value={this.props.profile.country}
+                                          options={countryList}/>
+                            </div>
                             <div className="parents-name">
-                                <input type="text" placeholder="Nationality"
+                                <input type="text" placeholder="School Information"
                                        style={{width: '100%'}}
-                                       value={this.props.profile.nationality}
+                                       value={this.props.profile.school}
                                        onChange={this.props.handleChange}
-                                       name='nationality'/>
+                                       name='school'/>
                             </div>
                         </div> : <div></div>
                 )
