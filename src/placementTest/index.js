@@ -100,9 +100,15 @@ class Homepage extends Component {
             this.setState({
                 audioAnswerUrl: url,
                 audioAnsweringStatus: true,
-                answers: clonedAnswers
+                answers: clonedAnswers,
+                messageModal: true,
+                messageContent: Resources.getInstance().successUpload,
+                messageName: 'success'
             });
-        } else if (url.type === 'end') {
+
+            //close messageModal
+            this.closeMessageModal();
+        } else{
             Track.event('测试_录音上传过程失败');
 
             let clonedAnswers = this.state.answers;
@@ -114,6 +120,8 @@ class Homepage extends Component {
                 messageContent: Resources.getInstance().errorUpload,
                 messageName: 'error'
             });
+
+            //close messageModal
             this.closeMessageModal();
         }
     }

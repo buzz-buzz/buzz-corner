@@ -198,6 +198,7 @@ export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
 export const errorUpload = '上传失败, 请稍后重试!';
+export const successUpload = '上传成功!';
 export const connectionError = '连接异常';
 export const unkownError = '出现错误，请刷新页面重试';
 export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';

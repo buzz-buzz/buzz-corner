@@ -199,6 +199,7 @@ export const goToClass = 'Enter session';
 export const goToAssess = 'Feedback';
 
 export const errorUpload = 'Upload failed, please try later!';
+export const successUpload = 'Upload successfully!';
 export const connectionError = 'Connection error';
 export const unkownError = 'Connection error';
 export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
