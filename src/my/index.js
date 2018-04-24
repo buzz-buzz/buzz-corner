@@ -33,6 +33,7 @@ class My extends Component {
             waitSec: 0,
             code: '',
             mobileValid: false,
+            emailValid: false,
             birthdayLabel: '',
             step: 1,
             profile: {
@@ -71,6 +72,7 @@ class My extends Component {
         this.agreementCheck = this.agreementCheck.bind(this);
         this.skipPlacement = this.skipPlacement.bind(this);
         this.sms = this.sms.bind(this);
+        this.sendEmail = this.sendEmail.bind(this);
     }
 
     async sms() {
@@ -84,6 +86,26 @@ class My extends Component {
         if (code) {
             this.setState({code});
         }
+        this.setState({waitSec: 60});
+        const interval = setInterval(() => {
+            if (this.state.waitSec) {
+                this.setState({waitSec: this.state.waitSec - 1});
+            } else {
+                clearInterval(interval)
+            }
+        }, 1000)
+    }
+
+    async sendEmail() {
+        const {code} = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
+                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                method: 'POST'
+            }
+        });
+        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+        this.closeMessageModal();
         this.setState({waitSec: 60});
         const interval = setInterval(() => {
             if (this.state.waitSec) {
@@ -198,7 +220,7 @@ class My extends Component {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile[event.target.name] = event.target.value;
-        this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11});
+        this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11, emailValid: clonedProfile.email && this.state.email_reg.test(clonedProfile.email) && clonedProfile.student_en_name});
     }
 
     handleChangeBirthdayLabel(event) {
@@ -233,11 +255,34 @@ class My extends Component {
 
                         Track.event('注册', '手机验证', { '消息状态': '错误', '验证数据':  this.state.profile.phone + '-' + this.state.code});
 
-                        this.setState({messageModal: true, messageContent: '短信校验失败-' + this.state.profile.phone + '-' + this.state.code , messageName: 'error'});
+                        this.setState({messageModal: true, messageContent: '短信校验失败'});
                         this.closeMessageModal();
                         return;
                     }
                 }
+
+                if (this.state.step === 1 && this.state.profile.role === MemberType.Companion) {
+                    Track.event('注册_联系方式继续-外籍');
+
+                    try {
+                        await ServiceProxy.proxyTo({
+                            body: {
+                                uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
+                                json: {mail: this.state.profile.email, code: this.state.code},
+                                method: 'POST'
+                            }
+                        })
+                    } catch (e) {
+                        console.log(e)
+
+                        Track.event('注册', '邮箱验证', { '消息状态': '错误', '验证数据':  this.state.profile.email + '-' + this.state.code});
+
+                        this.setState({messageModal: true, messageContent: Resources.getInstance().emailWrongVerification});
+                        this.closeMessageModal();
+                        return;
+                    }
+                }
+
                 let newStep = this.state.step + 1;
                 let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
 
@@ -392,7 +437,7 @@ class My extends Component {
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             user_id: userData.user_id,
-            role: userData.role,
+            role: 'c' || userData.role,
             email: userData.email || '',
             school: userData.school_name || '',
             country: userData.country || '',
@@ -413,9 +458,10 @@ class My extends Component {
                     {
                         this.state.step === 1 ?
                             (
-                                <ProfileFormStep1 role={this.state.profile.role}  profile={this.state.profile} handleChange={this.handleChange}
+                                <ProfileFormStep1 role={this.state.profile.role} profile={this.state.profile} handleChange={this.handleChange}
                                                   handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
                                                   waitSec={this.state.waitSec} agreementCheck={this.agreementCheck} agreement={this.state.agreement}
+                                                  sendEmail={this.sendEmail} emailValid={this.state.emailValid}
                                 />
                             ) : (
                                 this.state.step === 2 ? (
