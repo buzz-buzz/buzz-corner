@@ -73,7 +73,7 @@ export default class WechatOAuthSuccess extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         this.handleOrigin();
 
         try {
@@ -139,7 +139,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
     render() {
         return (
-            <LoadingModal loadingModal={true} fullScreen={true} />
+            <LoadingModal loadingModal={true} fullScreen={true}/>
         );
     }
 }
