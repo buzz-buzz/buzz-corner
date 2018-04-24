@@ -133,8 +133,6 @@ export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';
 
-export const weChatLogin = '微信登录';
-
 export const profileTitle = '填写个人信息';
 export const profileName = '姓名';
 export const profileNameHolder = '你的名字';
