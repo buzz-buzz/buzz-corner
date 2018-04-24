@@ -6,7 +6,7 @@ import './index.css';
 export default class ClassPartners extends React.Component {
     render() {
         return <div className="class-partners">
-            <div className="s-title">其他伙伴</div>
+            <div className="s-title">{Resources.getInstance().classDetailClassPartners}</div>
             <div className="class-partners-avatar">
                 {
                     this.props.student_avatars.length > 0 &&

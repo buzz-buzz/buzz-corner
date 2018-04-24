@@ -107,9 +107,18 @@ export const classEvaluationEvaluate = 'Feedback for student';
 export const classEvaluationDone = 'Well done!';
 export const classEvaluationSuggest = 'Share your feelings';
 
+export const classDetailTitle = 'Class Details';
 export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';
 export const classDetailBeforeWord2 = '2.Before your first session, you must install "zoom".';
 export const classDetailBeforeWord3 = 'Click here to install.';
+export const classDetailBeforeClassExercise = 'Exercise before class';
+export const classDetailBeforeClassNotice = 'Course announcement';
+export const classDetailClassPartners = 'Other partners';
+export const classDetailLeft = 'From the start of the course';
+export const classBeginModalTitle = 'Session starts';
+export const classBeginModalContent1 = 'Let\'s talk';
+export const classBeginModalContent2 = 'with your peers';
+export const classBeginModalBtn = 'Enter session';
 
 export const advisorInfo1 = 'Hi, I am your private advisor.';
 export const advisorInfo2 = 'Please scan the QR code to contact me.';

@@ -5,7 +5,7 @@ import './index.css';
     export default class ClassAd extends React.Component {
     render() {
         return <div className="class-ad">
-            <div className="s-title">课程公告</div>
+            <div className="s-title">{Resources.getInstance().classDetailBeforeClassNotice}</div>
             <div className="line-middle"></div>
             <div className="ad-content">
                 <p>{Resources.getInstance().classDetailBeforeWord1}</p>
