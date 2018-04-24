@@ -51,12 +51,22 @@ export default class ProfileFormStep1 extends React.Component {
                                onChange={this.props.handleChange}
                                name='student_en_name'/>
                     </div>
-                    <div className="parents-name" style={{margin: '10px 0'}}>
-                        <input type="text" placeholder='Email'
-                               style={{width: '100%'}}
+                    <div className="phone-number">
+                        <Button>Email</Button>
+                        <input type="text" style={{width: '60%'}}
                                value={this.props.profile.email}
+                               placeholder="eg: xxx@gmail.com"
                                onChange={this.props.handleChange}
                                name='email'/>
+                    </div>
+                    <div className="check-number">
+                        <input type="text"
+                               value={this.props.code}
+                               onChange={this.props.handleCodeChange} disabled={!this.props.emailValid}
+                               style={{width: '60%'}}
+                               placeholder={Resources.getInstance().profilePhoneCheck}/>
+                        <Button style={ this.props.waitSec ? {padding: 0, color: '#f5b40c'} : {padding: 0, color: 'white'}} onClick={this.props.sendEmail}
+                                disabled={!this.props.emailValid || this.props.waitSec > 0}>{this.props.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
                         <img

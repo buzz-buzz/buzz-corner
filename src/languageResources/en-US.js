@@ -163,6 +163,8 @@ export const phoneWrong = 'Phone number is wrong!';
 export const emailLabel = 'E-mail';
 export const emailHolder = 'Your E-mail address';
 export const emailWrong = 'Email is wrong!';
+export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
+export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
 
 export const my = 'my';
 export const toggleLanguage = 'language selector';
