@@ -19,7 +19,7 @@ class User extends Component {
             avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
             u_name: 'buzz',
             class_hours: 0,
-            country: 'china',
+            country: 'China',
             switchToUserId: 0,
             role: ''
         };
@@ -40,7 +40,7 @@ class User extends Component {
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
-            country: profile.country || 'china',
+            country: profile.country || 'China',
             isSuper: await CurrentUser.isSuper(),
             role: profile.role || ''
         });
