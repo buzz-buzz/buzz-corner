@@ -102,7 +102,7 @@ export const classEvaluationStarsStatus3 = '还行';
 export const classEvaluationStarsStatus4 = '不错';
 export const classEvaluationStarsStatus5 = '很棒';
 export const classEvaluationUnevaluate = '尚未评价';
-export const classEvaluationEvaluate = '对学生评价';
+export const classEvaluationEvaluate = '对学伴评价';
 export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
 
@@ -191,7 +191,7 @@ export const hobbyPeople = '人';
 export const hobbyPolitics = '政治';
 
 export const evaluationWord = '课后评价';
-export const evaluationForStudent = '对学生评价';
+export const evaluationForStudent = '对学伴评价';
 export const evaluationNo = '未评价';
 export const evaluationTo = '评价:';
 export const goToClass = '进入课堂';
