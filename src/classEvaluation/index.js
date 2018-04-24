@@ -240,7 +240,7 @@ class classEvaluation extends Component {
                     </div>
                 </div>
                 <div className="class-detail-practice" id="evaluation"
-                     style={{backgroundColor: 'white', position: 'relative'}}>
+                     style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img
@@ -263,28 +263,10 @@ class classEvaluation extends Component {
                             <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
                         </div>
                     </div>
-                    {
-                        0 === 1 ?
-                            (
-                                <div className="evaluation-list"
-                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <a className={this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
-                                    <a className={this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="b" onClick={this.evaluationItemsChange}>语速太快听不懂</a>
-                                    <a className={this.state.evaluation_items.indexOf('c') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="c" onClick={this.evaluationItemsChange}>有本土化发音</a>
-                                    <a className={this.state.evaluation_items.indexOf('d') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="d" onClick={this.evaluationItemsChange}>我不喜欢他/她</a>
-                                </div>
-                            ) :
-                            (
-                                <div className="evaluation-title"
-                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <p>{Resources.getInstance().classEvaluationEvaluate}</p>
-                                </div>
-                            )
-                    }
+                    <div className="evaluation-title"
+                         style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                        <p>{Resources.getInstance().classEvaluationEvaluate}</p>
+                    </div>
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
                                         <TextArea autoHeight

@@ -106,9 +106,18 @@ export const classEvaluationEvaluate = '对学伴评价';
 export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
 
+export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
 export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
 export const classDetailBeforeWord3 = '下载安装';
+export const classDetailBeforeClassExercise = '课前练习';
+export const classDetailBeforeClassNotice = '课程公告';
+export const classDetailClassPartners = '其他伙伴';
+export const classDetailLeft = '距离开课还有';
+export const classBeginModalTitle = '课程已开始';
+export const classBeginModalContent1 = '马上开始与你的';
+export const classBeginModalContent2 = '小伙伴开始见面吧';
+export const classBeginModalBtn = '立即进入';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
