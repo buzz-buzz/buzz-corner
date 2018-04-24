@@ -13,6 +13,7 @@ import {MemberType} from "../membership/member-type";
 import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import { zones } from 'moment-timezone/data/meta/latest.json';
+import { countries } from 'moment-timezone/data/meta/latest.json';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -204,7 +205,8 @@ class My extends Component {
 
         clonedProfile.time_zone = data.value;
 
-        clonedProfile.country = zones[data.value].countries[0];
+        let countryCode = zones[data.value].countries[0];
+        clonedProfile.country = countries[countryCode].name;
 
         this.setState({profile: clonedProfile});
     }

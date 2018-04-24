@@ -78,7 +78,7 @@ const timeZones = Object.keys(zones).map(key=>({
 }));
 
 let countryList = Object.keys(countries).map(key=>({
-    key, value: key, text: countries[key].name
+    key, value: countries[key].name, text: countries[key].name
 }));
 
 const birthdayFrom = (new Date().getFullYear() - 7) + '-' + (new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1 ) ) + '-' + (new Date().getDate() > 9 ?  new Date().getDate() : '0' + new Date().getDate() );
