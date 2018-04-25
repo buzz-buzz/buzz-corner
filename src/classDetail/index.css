@@ -61,15 +61,23 @@
     align-items: center;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar {
-    height: 80%;
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar , .booking-item-avatar{
+    height: 100%;
     margin-right: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img {
-    height: 100%;
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img , .booking-item-avatar > img{
+    height: 80%;
     border-radius: 50%;
     border: 3px solid rgba(208, 214, 219, 0.5);
+    margin-bottom: 5px;
+}
+
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar > i, .booking-item-avatar > i{
+    margin: 0 !important;
 }
 
 .class-detail > .class-detail-info > .class-info > .booking-item-info {

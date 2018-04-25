@@ -4,10 +4,12 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
+import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
 import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -29,7 +31,8 @@ class classEvaluation extends Component {
             to_user_id: props.params.to_user_id,
             class_id: props.params.class_id,
             evaluation_status: false,
-            CURRENT_TIMESTAMP: new Date()
+            CURRENT_TIMESTAMP: new Date(),
+            companion_country: ''
         };
 
         this.changeStars = this.changeStars.bind(this);
@@ -164,6 +167,7 @@ class classEvaluation extends Component {
                 }
             });
 
+            let companion_country = '';
             if(profile.role === MemberType.Companion){
                 //get to_user_id info
                 let user_profile = await ServiceProxy.proxyTo({
@@ -174,6 +178,17 @@ class classEvaluation extends Component {
 
                 class_info.companion_name = user_profile.name;
                 class_info.companion_avatar = user_profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg';
+                companion_country = user_profile.country || '';
+            }else{
+                if(class_info.companions){
+                    let companion_id = class_info.companions.split(',')[0];
+
+                    companion_country = (await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                        }
+                    })).country;
+                }
             }
 
             if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
@@ -186,7 +201,8 @@ class classEvaluation extends Component {
                     evaluation_content: feed_back[0].comment,
                     evaluation_status: true,
                     userId: userId,
-                    loadingModal: false
+                    loadingModal: false,
+                    companion_country: companion_country
                 });
             } else {
                 //set state
@@ -195,7 +211,8 @@ class classEvaluation extends Component {
                     companion_name: class_info.companion_name || '',
                     companion_avatar: class_info.companion_avatar || '',
                     userId: userId,
-                    loadingModal: false
+                    loadingModal: false,
+                    companion_country: companion_country
                 });
             }
         } catch (ex) {
@@ -221,9 +238,8 @@ class classEvaluation extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <img
-                                src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
-                                alt=""/>
+                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Flag name={this.state.companion_country.toLowerCase()} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
