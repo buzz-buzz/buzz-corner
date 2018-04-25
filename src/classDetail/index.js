@@ -11,9 +11,10 @@ import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
+import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
-import {Button, Form} from "semantic-ui-react";
+import {Button, Form, Flag} from "semantic-ui-react";
 
 class classDetail extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class classDetail extends Component {
             role: '',
             left: '',
             classBeginModal: false,
+            companion_country: '',
             interval: setInterval(() => {
                 if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
                     let left_new = this.state.left - 1;
@@ -166,6 +168,17 @@ class classDetail extends Component {
                 classBegin = true;
             }
 
+            let companion_country = '';
+            if(class_info.companions){
+                let companion_id = class_info.companions.split(',')[0];
+
+                companion_country = (await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                    }
+                })).country;
+            }
+
             this.setState({
                 class_info: class_info,
                 student_avatars: avatars,
@@ -178,7 +191,8 @@ class classDetail extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: profile.role || '',
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
-                classBeginModal: classBegin
+                classBeginModal: classBegin,
+                companion_country: companion_country
             });
         }
         catch (ex) {
@@ -241,10 +255,9 @@ class classDetail extends Component {
                 </div>
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar">
-                            <img onClick={event => this.sendTrack(event, '外籍头像点击')}
-                                 src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
-                                 alt=""/>
+                        <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
+                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Flag name={this.state.companion_country.toLowerCase() || 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
