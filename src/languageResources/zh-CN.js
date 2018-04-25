@@ -229,3 +229,51 @@ export function leftDays(start_time, end_time, now_time) {
         return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
     }
 }
+
+export const cityQT = '其他';
+export const cityBJ = '北京';
+export const citySH = '上海';
+export const cityGZ = '广州';
+export const citySZ = '深圳';
+export const cityTJ = '天津';
+export const cityHZ = '杭州';
+export const cityNJ = '南京';
+export const cityJN = '济南';
+export const cityQD = '青岛';
+export const cityDL = '大连';
+export const cityNB = '宁波';
+export const cityXM = '厦门';
+export const cityCQ = '重庆';
+export const cityCD = '成都';
+export const cityWH = '武汉';
+export const cityHEB = '哈尔滨';
+export const citySY = '沈阳';
+export const cityXA = '西安';
+export const cityCC = '长春';
+export const cityCS = '长沙';
+export const cityFZ = '福州';
+export const cityZZ = '郑州';
+export const citySJZ = '石家庄';
+export const citySZ1 = '苏州';
+export const cityFS ='佛山';
+export const cityDG = '东莞';
+export const cityWX = '无锡';
+export const cityYT = '烟台';
+export const cityTY = '太原';
+export const cityHF = '合肥';
+export const cityNC ='南昌';
+export const cityNN ='南宁';
+export const cityKM = '昆明';
+export const cityWZ ='温州';
+export const cityZB = '淄博';
+export const cityTS = '唐山';
+
+export const gradeOne = '一年级';
+export const gradeTwo = '二年级';
+export const gradeThr = '三年级';
+export const gradeFou = '四年级';
+export const gradeFiv = '五年级';
+export const gradeSix = '六年级';
+export const gradeSev = '七年级';
+export const gradeEig = '八年级';
+export const gradeNin = '九年级';
