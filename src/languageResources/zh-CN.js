@@ -189,6 +189,7 @@ export const hobbyArt = '艺术';
 export const hobbyFood = '食品';
 export const hobbyEnvironment = '环境';
 export const hobbyLifestyle = '生活方式';
+export const hobbyCulture = '文化';
 export const hobbyEntertainment = '娱乐';
 export const hobbyScience = '科学';
 export const hobbyTechnology = '技术';

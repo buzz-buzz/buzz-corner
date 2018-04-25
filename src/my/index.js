@@ -9,6 +9,7 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ProfileProgress from './profileProgress/index';
 import ProfileFormStep1 from './profileFormStep1/index';
 import ProfileFormStep2 from './profileFormStep2/index';
+import Hobby from './hobby';
 import {MemberType} from "../membership/member-type";
 import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
@@ -477,18 +478,13 @@ class My extends Component {
                                         this.state.step === 3 ?
                                             (<div className='topic form-content'>
                                                 <p>{Resources.getInstance().profileStep3}</p>
-                                                <div className="topic-items">
+                                                <div className="topic-items" style={{padding: '10px'}} >
                                                     {
                                                         this.state.placement_topics.map((item, index) => {
-                                                            return <div key={index}
-                                                                        style={{backgroundColor: item.color_b}}>
-                                                                <div>
-                                                                    <img src={item.url} alt="topic"/>
-                                                                </div>
-                                                                <p style={{color: item.color_f}}>{item.name}</p>
-                                                                <a onClick={this.topicChange} name={item.value}
-                                                                   style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}>&nbsp;</a>
-                                                            </div>
+                                                            return <Hobby key={index} src={item.url} circleColor={item.color_f}
+                                                                          bgColor={item.color_b} word={item.name} wordColor={item.color_f} select={this.topicChange}
+                                                                          name={item.value}
+                                                                          selected={this.state.profile.topics.indexOf(item.value) >= 0} />
                                                         })
                                                     }
                                                 </div>

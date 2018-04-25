@@ -190,6 +190,7 @@ export const hobbyArt = 'Art';
 export const hobbyFood = 'Food';
 export const hobbyEnvironment = 'Environment';
 export const hobbyLifestyle = 'Lifestyle';
+export const hobbyCulture = 'Culture';
 export const hobbyEntertainment = 'Entertainment';
 export const hobbyScience = 'Science';
 export const hobbyTechnology = 'Technology';
