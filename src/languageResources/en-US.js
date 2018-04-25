@@ -185,12 +185,12 @@ export const messageSaveFailed = 'save Failed!';
 export const practiceAgain = 'record again';
 
 export const hobbyUniverse = 'Universe';
-export const hobbyBusines = 'business';
+export const hobbyBusiness = 'business';
 export const hobbyArt = 'Art';
 export const hobbyFood = 'Food';
 export const hobbyEnvironment = 'Environment';
 export const hobbyLifestyle = 'Lifestyle';
-export const hobbyEnterainment = 'Entertainment';
+export const hobbyEntertainment = 'Entertainment';
 export const hobbyScience = 'Science';
 export const hobbyTechnology = 'Technology';
 export const hobbyHealth = 'Health';

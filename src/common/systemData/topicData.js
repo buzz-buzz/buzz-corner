@@ -9,8 +9,8 @@ export const Topics = [
         color_f: 'rgba(6, 125, 241, .8)'
     },
     {
-        name: Resources.getInstance().hobbyBusines,
-        value: 'busines',
+        name: Resources.getInstance().hobbyBusiness,
+        value: 'business',
         url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Business.png',
         color_b: 'rgba( 252, 78, 82, .2)',
         color_f: 'rgba( 252, 78, 82, .8)'
@@ -44,8 +44,8 @@ export const Topics = [
         color_f: 'rgba(0, 216, 90, .8)'
     },
     {
-        name: Resources.getInstance().hobbyEnterainment,
-        value: 'enterainment',
+        name: Resources.getInstance().hobbyEntertainment,
+        value: 'entertainment',
         url: '//resource.buzzbuzzenglish.com/image/buzz-corner/topics/icon_Enterainment.png',
         color_b: 'rgba( 237, 207, 0, .2)',
         color_f: 'rgba( 237, 207, 0, .8)'
