@@ -235,3 +235,52 @@ export function leftDays(start_time, end_time, now_time) {
         return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
     }
 }
+
+
+export const cityQT = 'Others';
+export const cityBJ = 'BeiJing';
+export const citySH = 'ShangHai';
+export const cityGZ = 'GuangZhou';
+export const citySZ = 'ShenZhen';
+export const cityTJ = 'TianJing';
+export const cityHZ = 'HangZhou';
+export const cityNJ = 'NanJing';
+export const cityJN = 'JiNan';
+export const cityQD = 'QingDao';
+export const cityDL = 'DaLian';
+export const cityNB = 'NingBo';
+export const cityXM = 'XiaMen';
+export const cityCQ = 'ChongQing';
+export const cityCD = 'ChengDu';
+export const cityWH = 'WuHan';
+export const cityHEB = 'HaErBing';
+export const citySY = 'ShenYang';
+export const cityXA = 'XiAn';
+export const cityCC = 'ChangChun';
+export const cityCS = 'ChangSha';
+export const cityFZ = 'FuZhou';
+export const cityZZ = 'ZhengZhou';
+export const citySJZ = 'ShiJiaZhuang';
+export const citySZ1 = 'SuZhou';
+export const cityFS ='FoShan';
+export const cityDG = 'DongGuan';
+export const cityWX = 'WuXi';
+export const cityYT = 'YanTai';
+export const cityTY = 'TaiYuan';
+export const cityHF = 'HeFei';
+export const cityNC ='NanChang';
+export const cityNN ='NanNing';
+export const cityKM = 'KunMing';
+export const cityWZ = 'WenZhou';
+export const cityZB = 'ZiBo';
+export const cityTS = 'TangShan';
+
+export const gradeOne = 'Grade 1';
+export const gradeTwo = 'Grade 2';
+export const gradeThr = 'Grade 3';
+export const gradeFou = 'Grade 4';
+export const gradeFiv = 'Grade 5';
+export const gradeSix = 'Grade 6';
+export const gradeSev = 'Grade 7';
+export const gradeEig = 'Grade 8';
+export const gradeNin = 'Grade 9';
