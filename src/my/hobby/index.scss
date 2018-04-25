@@ -1,0 +1,40 @@
+.hobby{
+  height: 35px;
+  border-radius: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1em;
+  margin-bottom: .5em;
+  position: relative;
+  padding: 0 15px 0 4px;
+
+  .circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+
+    img{
+      height: 50%;
+    }
+  }
+
+  .word{
+    font-size: 12px;
+  }
+
+  a{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 100;
+  }
+}
