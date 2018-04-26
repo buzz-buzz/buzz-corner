@@ -25,7 +25,7 @@ let config = {
 
     qa: {
         endPoints: {
-            buzzCorner: 'http://corner.buzzbuzzenglish.com',
+            buzzCorner: 'http://live.buzzbuzzenglish.com',
             buzzService: 'http://localhost:16888',
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
@@ -38,7 +38,7 @@ let config = {
     },
     production: {
         endPoints: {
-            buzzCorner: 'http://corner.buzzbuzzenglish.com',
+            buzzCorner: 'http://live.buzzbuzzenglish.com',
             buzzService: process.env.buzz_service_endpoints,
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
