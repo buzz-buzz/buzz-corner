@@ -158,7 +158,7 @@ class classEvaluationForeign extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-foreign-list" style={{position: 'relative'}}>
+                <div className="class-detail-foreign-list" style={{position: 'relative', background: '#f4f5f9'}}>
                     <div className="foreign-evaluation-title">
                         <p>{Resources.getInstance().evaluationForStudent}</p>
                     </div>
@@ -171,9 +171,9 @@ class classEvaluationForeign extends Component {
                                          alt="loading"/>
                                 </div>
                                 <div className="evaluation-content-show">
-                                    <div className="chinese-name">{item.user_name}</div>
+                                    <div className="chinese-name" style={{color: '#000', fontWeight: 'bold'}}>{item.user_name}</div>
                                     <div className="evaluation-result">
-                                        <p>{Resources.getInstance().evaluationTo}</p>
+                                        <p style={{color: '#868686'}}>{Resources.getInstance().evaluationTo}</p>
                                         {item.score === 0 ?
                                             <div className="result-stars">
                                                 <p>{Resources.getInstance().evaluationNo}</p>
