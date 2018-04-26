@@ -60,7 +60,7 @@
   background-color: #f7b52a; }
 
 .done > p, .active > p {
-  color: #f7b52a; }
+  color: #f7b52a !important; }
 
 .active > .dot > .circle {
   position: absolute;
