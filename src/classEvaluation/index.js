@@ -9,6 +9,7 @@ import './index.css';
 import Track from "../common/track";
 import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
@@ -295,16 +296,8 @@ class classEvaluation extends Component {
                     </div>
                     <div className="evaluation-submit"
                          style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
-                        <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {
-                            color: 'rgb(255, 255, 255)',
-                            background: 'rgb(223, 223, 228)'
-                        } : {
-                            color: 'white',
-                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'
-                        }}
-                             onClick={this.submitEvaluation}
-                        >{Resources.getInstance().classEvaluationDone}
-                        </div>
+                        <Button50px  disabled={!this.state.stars || !this.state.evaluation_content}
+                                     text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation} />
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>

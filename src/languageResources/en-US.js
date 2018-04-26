@@ -35,8 +35,8 @@ export const bookingFeedbackInfo = 'Finished the feedback for ';
 export const bookingPlacementInfoTitle = 'Placement test';
 export const bookingPlacementInfoContent = 'Finish the test for free';
 
-export const friendsTabChinese = 'Chinese';
-export const friendsTabForeign = 'Foreign';
+export const friendsTabChinese = 'Student';
+export const friendsTabForeign = 'Tutor';
 
 export const rewardTitle = 'My badges';
 export const rewardRedStone = 'Red';
