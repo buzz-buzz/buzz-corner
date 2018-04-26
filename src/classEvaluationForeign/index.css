@@ -54,17 +54,18 @@
 
 .class-detail-foreign-list > .chinese-student-evaluation-list > a > div.evaluation-content-show > .evaluation-result > .result-stars{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    padding-left: 5px;
     flex: 1 0 auto;
 }
 
 .class-detail-foreign-list > .chinese-student-evaluation-list > a > div.evaluation-content-show > .evaluation-result > .result-stars>img{
     height: 1.5em;
+    margin-right: 10px;
 }
 
 .class-detail-foreign-list > .chinese-student-evaluation-list > a > div.evaluation-content-show > .evaluation-result > .result-stars>p{
     width: 100%;
-    padding-left: 10px;
 }
 
 .class-detail-foreign-list > .chinese-student-evaluation-list > a > div.evaluation-avatar > img{
