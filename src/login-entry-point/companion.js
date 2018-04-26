@@ -50,7 +50,7 @@ class CompanionLoginEntryPoint extends Component {
                                        alt="Buzzbuzz banner" fluid/>
                             </div>
                             <div className="overlay">
-                                <div>#Make friends#  #Earn cool rewards# #Learn new languages# #Be a leader!#</div>
+                                <div>Make friends, earn cool rewards, learn new languages, be a leader!</div>
                             </div>
                         </Grid.Column>
                     </Grid.Row>
