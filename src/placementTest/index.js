@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
@@ -7,6 +7,7 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Button50px from '../common/commonComponent/submitButton50px';
 import PlacementProgress from './placementProgress';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
@@ -267,27 +268,10 @@ class Homepage extends Component {
                                 </div>
                             )
                     }
-                    <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={Resources.getInstance().profileContinue}
-                                    style={!this.state.answers[this.state.step - 1] ? {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px',
-                                        backgroundColor: 'rgb(223,223,238)'
-                                    } : {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px'
-                                    }} disabled={!this.state.answers[this.state.step - 1]}
-                                    onClick={this.submit}/>
-                    </Form.Group>
+                    <div className="profile-btn">
+                        <Button50px  disabled={!this.state.answers[this.state.step - 1]}
+                                     text={Resources.getInstance().profileContinue} submit={this.submit} />
+                    </div>
                 </Form>
                 <br/>
                 {

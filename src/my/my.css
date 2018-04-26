@@ -28,7 +28,13 @@
     color: #000;
 }
 
-
+.profile-btn{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 1em;
+}
 
 /* .check-number{
     display: none !important;
@@ -183,10 +189,11 @@ h4{
 }
 
 .skip{
-    margin: -1em auto 0 auto;
+    margin-top: 10px;
+    font-size: 10px;
     width: 100%;
     text-align: center;
-    color: #999;
+    color: #666;
 }
 
 .agreement{
