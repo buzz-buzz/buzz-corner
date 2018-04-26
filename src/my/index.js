@@ -38,7 +38,7 @@ class My extends Component {
             mobileValid: false,
             emailValid: false,
             birthdayLabel: '',
-            step: 3,
+            step: 1,
             profile: {
                 parent_name: '',
                 phone: '',
