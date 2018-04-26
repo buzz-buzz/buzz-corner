@@ -257,7 +257,7 @@ class classDetail extends Component {
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
                             <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country.toLowerCase() || 'united states'} />
+                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
