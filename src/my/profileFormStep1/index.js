@@ -31,7 +31,7 @@ export default class ProfileFormStep1 extends React.Component {
                                onChange={this.props.handleCodeChange} disabled={!this.props.mobileValid}
                                style={{width: '60%'}}
                                placeholder={Resources.getInstance().profilePhoneCheck}/>
-                        <Button style={ this.props.waitSec ? {padding: 0, color: '#f5b40c'} : {padding: 0, color: 'white'}} onClick={this.props.sms}
+                        <Button style={ this.props.waitSec ? {padding: 0, color: '#000'} : {padding: 0, color: 'white'}} onClick={this.props.sms}
                                 disabled={!this.props.mobileValid || this.props.waitSec > 0}>{this.props.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
@@ -65,7 +65,7 @@ export default class ProfileFormStep1 extends React.Component {
                                onChange={this.props.handleCodeChange} disabled={!this.props.emailValid}
                                style={{width: '60%'}}
                                placeholder={Resources.getInstance().profilePhoneCheck}/>
-                        <Button style={ this.props.waitSec ? {padding: 0, color: '#f5b40c'} : {padding: 0, color: 'white'}} onClick={this.props.sendEmail}
+                        <Button style={ this.props.waitSec ? {padding: 0, color: '#000'} : {padding: 0, color: 'white'}} onClick={this.props.sendEmail}
                                 disabled={!this.props.emailValid || this.props.waitSec > 0}>{this.props.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
