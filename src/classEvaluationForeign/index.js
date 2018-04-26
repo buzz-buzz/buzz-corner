@@ -139,7 +139,7 @@ class classEvaluationForeign extends Component {
                     <div className="class-info">
                         <div className="booking-item-avatar">
                             <Avatar src={this.state.class_info.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country.toLowerCase()} />
+                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
