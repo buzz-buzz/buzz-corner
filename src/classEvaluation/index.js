@@ -4,10 +4,13 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
+import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
 import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Button50px from '../common/commonComponent/submitButton50px';
+import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -29,7 +32,8 @@ class classEvaluation extends Component {
             to_user_id: props.params.to_user_id,
             class_id: props.params.class_id,
             evaluation_status: false,
-            CURRENT_TIMESTAMP: new Date()
+            CURRENT_TIMESTAMP: new Date(),
+            companion_country: ''
         };
 
         this.changeStars = this.changeStars.bind(this);
@@ -164,6 +168,7 @@ class classEvaluation extends Component {
                 }
             });
 
+            let companion_country = '';
             if(profile.role === MemberType.Companion){
                 //get to_user_id info
                 let user_profile = await ServiceProxy.proxyTo({
@@ -174,6 +179,17 @@ class classEvaluation extends Component {
 
                 class_info.companion_name = user_profile.name;
                 class_info.companion_avatar = user_profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg';
+                companion_country = user_profile.country || '';
+            }else{
+                if(class_info.companions){
+                    let companion_id = class_info.companions.split(',')[0];
+
+                    companion_country = (await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                        }
+                    })).country;
+                }
             }
 
             if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
@@ -186,7 +202,8 @@ class classEvaluation extends Component {
                     evaluation_content: feed_back[0].comment,
                     evaluation_status: true,
                     userId: userId,
-                    loadingModal: false
+                    loadingModal: false,
+                    companion_country: companion_country
                 });
             } else {
                 //set state
@@ -195,7 +212,8 @@ class classEvaluation extends Component {
                     companion_name: class_info.companion_name || '',
                     companion_avatar: class_info.companion_avatar || '',
                     userId: userId,
-                    loadingModal: false
+                    loadingModal: false,
+                    companion_country: companion_country
                 });
             }
         } catch (ex) {
@@ -221,9 +239,8 @@ class classEvaluation extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <img
-                                src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
-                                alt=""/>
+                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -240,7 +257,7 @@ class classEvaluation extends Component {
                     </div>
                 </div>
                 <div className="class-detail-practice" id="evaluation"
-                     style={{backgroundColor: 'white', position: 'relative'}}>
+                     style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img
@@ -263,28 +280,10 @@ class classEvaluation extends Component {
                             <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
                         </div>
                     </div>
-                    {
-                        0 === 1 ?
-                            (
-                                <div className="evaluation-list"
-                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <a className={this.state.evaluation_items.indexOf('a') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="a" onClick={this.evaluationItemsChange}>发音不标准</a>
-                                    <a className={this.state.evaluation_items.indexOf('b') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="b" onClick={this.evaluationItemsChange}>语速太快听不懂</a>
-                                    <a className={this.state.evaluation_items.indexOf('c') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="c" onClick={this.evaluationItemsChange}>有本土化发音</a>
-                                    <a className={this.state.evaluation_items.indexOf('d') > -1 ? "evaluation-item-active" : "evaluation-item"}
-                                       name="d" onClick={this.evaluationItemsChange}>我不喜欢他/她</a>
-                                </div>
-                            ) :
-                            (
-                                <div className="evaluation-title"
-                                     style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                                    <p>{Resources.getInstance().classEvaluationEvaluate}</p>
-                                </div>
-                            )
-                    }
+                    <div className="evaluation-title"
+                         style={this.state.evaluation_status ? {display: 'none'} : {}}>
+                        <p>{Resources.getInstance().classEvaluationEvaluate}</p>
+                    </div>
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
                                         <TextArea autoHeight
@@ -297,16 +296,8 @@ class classEvaluation extends Component {
                     </div>
                     <div className="evaluation-submit"
                          style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
-                        <div className="evaluation-done" style={!this.state.stars || !this.state.evaluation_content ? {
-                            color: 'rgb(255, 255, 255)',
-                            background: 'rgb(223, 223, 228)'
-                        } : {
-                            color: 'white',
-                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'
-                        }}
-                             onClick={this.submitEvaluation}
-                        >{Resources.getInstance().classEvaluationDone}
-                        </div>
+                        <Button50px  disabled={!this.state.stars || !this.state.evaluation_content}
+                                     text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation} />
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>

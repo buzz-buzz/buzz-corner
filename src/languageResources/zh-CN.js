@@ -102,13 +102,22 @@ export const classEvaluationStarsStatus3 = '还行';
 export const classEvaluationStarsStatus4 = '不错';
 export const classEvaluationStarsStatus5 = '很棒';
 export const classEvaluationUnevaluate = '尚未评价';
-export const classEvaluationEvaluate = '对学生评价';
+export const classEvaluationEvaluate = '对学伴评价';
 export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
 
+export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
 export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
 export const classDetailBeforeWord3 = '下载安装';
+export const classDetailBeforeClassExercise = '课前练习';
+export const classDetailBeforeClassNotice = '课程公告';
+export const classDetailClassPartners = '其他伙伴';
+export const classDetailLeft = '距离开课还有';
+export const classBeginModalTitle = '课程已开始';
+export const classBeginModalContent1 = '马上开始与你的';
+export const classBeginModalContent2 = '小伙伴开始见面吧';
+export const classBeginModalBtn = '立即进入';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
@@ -123,8 +132,6 @@ export const welcomePageBooking = '开始预定课程';
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';
-
-export const weChatLogin = '微信登录';
 
 export const profileTitle = '填写个人信息';
 export const profileName = '姓名';
@@ -153,6 +160,8 @@ export const phoneWrong = '手机号码格式不正确!';
 export const emailLabel = '邮箱';
 export const emailHolder = '你的邮箱地址';
 export const emailWrong = '邮箱格式不正确!';
+export const emailWrongVerification = '您输入的验证码不正确或过期, 请重新输入或者获取新的验证码!';
+export const emailUnkonwWrong = '若未收到验证码，请查看您的垃圾邮箱中是否存在!';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';
@@ -175,12 +184,13 @@ export const messageSaveFailed = '保存失败!';
 export const practiceAgain = '点击重新录制音频';
 
 export const hobbyUniverse = '宇宙';
-export const hobbyBusines = '商业';
+export const hobbyBusiness = '商业';
 export const hobbyArt = '艺术';
 export const hobbyFood = '食品';
 export const hobbyEnvironment = '环境';
 export const hobbyLifestyle = '生活方式';
-export const hobbyEnterainment = '娱乐';
+export const hobbyCulture = '文化';
+export const hobbyEntertainment = '娱乐';
 export const hobbyScience = '科学';
 export const hobbyTechnology = '技术';
 export const hobbyHealth = '健康';
@@ -191,13 +201,14 @@ export const hobbyPeople = '人';
 export const hobbyPolitics = '政治';
 
 export const evaluationWord = '课后评价';
-export const evaluationForStudent = '对学生评价';
+export const evaluationForStudent = '对学伴评价';
 export const evaluationNo = '未评价';
 export const evaluationTo = '评价:';
 export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 
-export const errorUpload = '错误: 上传失败, 请稍后重试!';
+export const errorUpload = '上传失败, 请稍后重试!';
+export const successUpload = '上传成功!';
 export const connectionError = '连接异常';
 export const unkownError = '出现错误，请刷新页面重试';
 export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
@@ -219,3 +230,51 @@ export function leftDays(start_time, end_time, now_time) {
         return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
     }
 }
+
+export const cityQT = '其他';
+export const cityBJ = '北京';
+export const citySH = '上海';
+export const cityGZ = '广州';
+export const citySZ = '深圳';
+export const cityTJ = '天津';
+export const cityHZ = '杭州';
+export const cityNJ = '南京';
+export const cityJN = '济南';
+export const cityQD = '青岛';
+export const cityDL = '大连';
+export const cityNB = '宁波';
+export const cityXM = '厦门';
+export const cityCQ = '重庆';
+export const cityCD = '成都';
+export const cityWH = '武汉';
+export const cityHEB = '哈尔滨';
+export const citySY = '沈阳';
+export const cityXA = '西安';
+export const cityCC = '长春';
+export const cityCS = '长沙';
+export const cityFZ = '福州';
+export const cityZZ = '郑州';
+export const citySJZ = '石家庄';
+export const citySZ1 = '苏州';
+export const cityFS ='佛山';
+export const cityDG = '东莞';
+export const cityWX = '无锡';
+export const cityYT = '烟台';
+export const cityTY = '太原';
+export const cityHF = '合肥';
+export const cityNC ='南昌';
+export const cityNN ='南宁';
+export const cityKM = '昆明';
+export const cityWZ ='温州';
+export const cityZB = '淄博';
+export const cityTS = '唐山';
+
+export const gradeOne = '一年级';
+export const gradeTwo = '二年级';
+export const gradeThr = '三年级';
+export const gradeFou = '四年级';
+export const gradeFiv = '五年级';
+export const gradeSix = '六年级';
+export const gradeSev = '七年级';
+export const gradeEig = '八年级';
+export const gradeNin = '九年级';

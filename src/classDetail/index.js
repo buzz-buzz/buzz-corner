@@ -10,8 +10,11 @@ import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
+import ClassBeginModal from '../common/commonComponent/modalClassBegin';
+import Avatar from '../common/commonComponent/avatar';
+import ClassAd from './classAd';
 import Resources from '../resources';
-import {Button, Form} from "semantic-ui-react";
+import {Button, Form, Flag} from "semantic-ui-react";
 
 class classDetail extends Component {
     constructor(props) {
@@ -34,7 +37,16 @@ class classDetail extends Component {
             class_status_show_word: '',
             recording: false,
             CURRENT_TIMESTAMP: new Date(),
-            role: ''
+            role: '',
+            left: '',
+            classBeginModal: false,
+            companion_country: '',
+            interval: setInterval(() => {
+                if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
+                    let left_new = this.state.left - 1;
+                    this.setState({left: left_new});
+                }
+            }, 1000)
         };
 
         this.back = this.back.bind(this);
@@ -44,6 +56,11 @@ class classDetail extends Component {
         this.cancelRecording = this.cancelRecording.bind(this);
         this.finishRecording = this.finishRecording.bind(this);
         this.sendTrack = this.sendTrack.bind(this);
+        this.closeClassBegin = this.closeClassBegin.bind(this);
+    }
+
+    closeClassBegin(){
+        this.setState({classBeginModal: false});
     }
 
     back() {
@@ -95,16 +112,24 @@ class classDetail extends Component {
         if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             this.showZoom();
         } else {
-            if (this.state.role === MemberType.Student) {
-                browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
-            } else if (this.state.role === MemberType.Companion) {
-                browserHistory.push(`/class/foreign/${this.state.class_id}`);
+            if (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) {
+                if (this.state.role === MemberType.Student) {
+                    browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+                } else if (this.state.role === MemberType.Companion) {
+                    browserHistory.push(`/class/foreign/${this.state.class_id}`);
+                }
             }
         }
     }
 
     showZoom() {
         window.location.href = this.state.class_info.room_url;
+    }
+
+    componentWillUnmount() {
+        if (this.state.interval) {
+            clearInterval(this.state.interval);
+        }
     }
 
     async componentDidMount() {
@@ -130,12 +155,29 @@ class classDetail extends Component {
             }
 
             let avatars = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
-                    json: {userIdList: studentsList},
-                    method: 'POST'
-                }
-            }) || [];
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
+                        json: {userIdList: studentsList},
+                        method: 'POST'
+                    }
+                }) || [];
+
+            let classBegin = false;
+
+            if((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0){
+                classBegin = true;
+            }
+
+            let companion_country = '';
+            if(class_info.companions){
+                let companion_id = class_info.companions.split(',')[0];
+
+                companion_country = (await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                    }
+                })).country;
+            }
 
             this.setState({
                 class_info: class_info,
@@ -147,9 +189,11 @@ class classDetail extends Component {
                 chats: class_info.exercises ? JSON.parse(class_info.exercises) : [],
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
-                role: profile.role || ''
+                role: profile.role || '',
+                left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
+                classBeginModal: classBegin,
+                companion_country: companion_country
             });
-
         }
         catch (ex) {
             console.log(ex.toString());
@@ -181,6 +225,20 @@ class classDetail extends Component {
 
     }
 
+    getCountDown() {
+        let days, hours, minutes, seconds;
+        days = Math.floor(this.state.left / (3600 * 24));
+        hours = Math.floor((this.state.left - days * 3600 * 24) / 3600);
+        minutes = Math.floor((this.state.left - days * 3600 * 24 - hours * 3600) / 60);
+        seconds = Math.floor(this.state.left - days * 3600 * 24 - hours * 3600 - minutes * 60);
+
+        if(days === 0){
+            return   (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes) + ':' + (seconds > 9 ? seconds : '0' + seconds);
+        }else{
+            return '';
+        }
+    }
+
     render() {
         return (
             <div className="class-detail">
@@ -190,17 +248,16 @@ class classDetail extends Component {
                              src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
                              onClick={this.back}/>
                     </div>
-                    <div className="class-detail-title">课程详情</div>
+                    <div className="class-detail-title">{Resources.getInstance().classDetailTitle}</div>
                     <div className="class-order">
 
                     </div>
                 </div>
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar">
-                            <img onClick={event => this.sendTrack(event, '外籍头像点击')}
-                                 src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
-                                 alt=""/>
+                        <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
+                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -219,23 +276,15 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
+                    <ClassAd />
                 </div>
-                <div className="class-detail-practice">
+                <div className="class-detail-practice" style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60*24 ? {marginBottom: '50px'} : {}}>
                     {
-                        this.state.role === MemberType.Student ?
-                            <div className="class-detail-notice">
-                                <p>{Resources.getInstance().classDetailBeforeWord1}</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
-                                    href="http://wap.zoomcloud.cn/home/download"
-                                    style={{color: '#f7b52a'}}>{Resources.getInstance().classDetailBeforeWord3}</a>
-                                    。</p>
-                            </div> :
-                            <div className="class-detail-notice">
-                                <p>1.Please install ZOOM before your class begins.</p>
-                                <p onClick={event => this.sendTrack(event, '下载ZOOM安装')}>2.Click to <a
-                                    href="http://wap.zoomcloud.cn/home/download" style={{color: '#f7b52a'}}> Install</a>
-                                    。</p>
-                            </div>
+                        this.state.role === MemberType.Student &&
+                        <div>
+                            <div className="s-title">{Resources.getInstance().classDetailBeforeClassExercise}</div>
+                            <div className="line-middle" style={{margin: '0 20px 0 20px'}}></div>
+                        </div>
                     }
                     {
                         this.state.role === MemberType.Student &&
@@ -244,20 +293,26 @@ class classDetail extends Component {
                                   ref={p => this.practice = p}
                                   avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
                     }
-                    <div className="class-detail-button">
-                        <Form.Group widths='equal'
-                                    style={this.state.class_info.status && this.state.class_info.status !== 'cancelled' && (new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {} : {display: 'none'}}>
-                            <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                        content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess}/>
-                        </Form.Group>
-                    </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
+                <ClassBeginModal modal={this.state.classBeginModal} closeModal={this.closeClassBegin} title={Resources.getInstance().classBeginModalTitle}
+                                 content1={Resources.getInstance().classBeginModalContent1}
+                                 content2={Resources.getInstance().classBeginModalContent2}
+                                 begin={this.checkStatusAndTime} btnWord={Resources.getInstance().classBeginModalBtn} />
                 {
                     this.state.role === MemberType.Student &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
+                <div className="class-detail-button"
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60*24 ? {} : {display: 'none'}}>
+                    <Form.Group widths='equal'>
+                        <Form.Field control={Button} onClick={this.checkStatusAndTime}
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft +  '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {color: 'white', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', borderRadius: '0', fontSize: '17px', fontWeight: 'bold'} : {color: 'white', background: '#dfdfe4', borderRadius: '0', fontSize: '17px', fontWeight: 'bold'}}
+                        />
+                    </Form.Group>
+                </div>
             </div>
         );
     }

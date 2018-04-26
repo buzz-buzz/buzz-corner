@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
@@ -7,9 +7,10 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Button50px from '../common/commonComponent/submitButton50px';
 import PlacementProgress from './placementProgress';
 import PlacementQuestion from './placementQuestion';
-import {MemberType} from "../membership/member-type";
+import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import '../my/my.css';
@@ -17,8 +18,6 @@ import './index.css';
 import CurrentUser from "../membership/user";
 
 class Homepage extends Component {
-    handleClose = () => this.setState({modalOpen: false});
-
     constructor(props) {
         super(props);
 
@@ -31,7 +30,6 @@ class Homepage extends Component {
             audioAnswerUrl: '',
             audioQuestionUrl: '',
             audioQuestionLength: 0,
-            modalOpen: false,
             errorMessage: Resources.getInstance().errorUpload,
             chats: [],
             recording: false
@@ -103,16 +101,41 @@ class Homepage extends Component {
             this.setState({
                 audioAnswerUrl: url,
                 audioAnsweringStatus: true,
-                answers: clonedAnswers
+                answers: clonedAnswers,
+                messageModal: true,
+                messageContent: Resources.getInstance().successUpload,
+                messageName: 'success'
             });
-        } else if (url.type === 'end') {
+
+            //close messageModal
+            this.closeMessageModal();
+        } else{
             Track.event('测试_录音上传过程失败');
 
+            let clonedAnswers = this.state.answers;
+            clonedAnswers[this.state.step - 1] = '';
+
             this.setState({
-                modalOpen: true,
-                errorMessage: url.err
+                answers: clonedAnswers,
+                messageModal: true,
+                messageContent: Resources.getInstance().errorUpload,
+                messageName: 'error'
             });
+
+            //close messageModal
+            this.closeMessageModal();
         }
+    }
+
+
+    closeMessageModal() {
+        const interval = setTimeout(() => {
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 5000)
     }
 
     checkPlacementAnswer() {
@@ -206,8 +229,6 @@ class Homepage extends Component {
                     browserHistory.push('/home');
                 } else {
                     //show error
-                    alert('answer is wrong:' + this.state.answers.length);
-
                     this.setState({loadingModal: false});
                 }
 
@@ -226,6 +247,8 @@ class Homepage extends Component {
         return (
             <div className="my-profile">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
+                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                              modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack} />
                 <PlacementProgress  step={this.state.step} />
                 <Form className='profile-body'>
@@ -245,45 +268,12 @@ class Homepage extends Component {
                                 </div>
                             )
                     }
-                    <Form.Group widths='equal'>
-                        <Form.Field control={Button} content={Resources.getInstance().profileContinue}
-                                    style={this.state.answers[this.state.step - 1] === undefined ? {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px',
-                                        backgroundColor: 'rgb(223,223,238)'
-                                    } : {
-                                        margin: '2em auto .5em auto',
-                                        width: '100%',
-                                        color: 'rgb(255, 255, 255)',
-                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                        height: '4em',
-                                        fontWeight: 'normal',
-                                        borderRadius: '30px'
-                                    }} disabled={this.state.answers[this.state.step - 1] === undefined}
-                                    onClick={this.submit}/>
-                    </Form.Group>
+                    <div className="profile-btn">
+                        <Button50px  disabled={!this.state.answers[this.state.step - 1]}
+                                     text={Resources.getInstance().profileContinue} submit={this.submit} />
+                    </div>
                 </Form>
                 <br/>
-                <Modal
-                    open={this.state.modalOpen}
-                    onClose={this.handleClose}
-                    basic
-                    size='small'
-                >
-                    <Header icon='browser' content={Resources.getInstance().errorModalContent}/>
-                    <Modal.Content>
-                        <h3>{this.state.errorMessage}</h3>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button color='green' onClick={this.handleClose} inverted>
-                            <Icon name='checkmark'/> {Resources.getInstance().errorModalBtn}
-                        </Button>
-                    </Modal.Actions>
-                </Modal>
                 {
                     this.state.step === 8 &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}

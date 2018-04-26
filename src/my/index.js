@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
-import {Button, Form} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Button50px from '../common/commonComponent/submitButton50px';
 import ProfileProgress from './profileProgress/index';
 import ProfileFormStep1 from './profileFormStep1/index';
 import ProfileFormStep2 from './profileFormStep2/index';
+import Hobby from './hobby';
 import {MemberType} from "../membership/member-type";
 import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
+import { zones } from 'moment-timezone/data/meta/latest.json';
+import { countries } from 'moment-timezone/data/meta/latest.json';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -32,6 +36,7 @@ class My extends Component {
             waitSec: 0,
             code: '',
             mobileValid: false,
+            emailValid: false,
             birthdayLabel: '',
             step: 1,
             profile: {
@@ -45,7 +50,8 @@ class My extends Component {
                 topics: [],
                 email: '',
                 school: '',
-                nationality: ''
+                country: '',
+                time_zone: ''
             },
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
@@ -58,6 +64,8 @@ class My extends Component {
         this.handleGradeChange = this.handleGradeChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleChangeBirthdayLabel = this.handleChangeBirthdayLabel.bind(this);
+        this.handleTimeZoneChange = this.handleTimeZoneChange.bind(this);
+        this.handleCountryChange = this.handleCountryChange.bind(this);
 
         this.submit = this.submit.bind(this);
         this.changeGenderMale = this.changeGenderMale.bind(this);
@@ -67,6 +75,7 @@ class My extends Component {
         this.agreementCheck = this.agreementCheck.bind(this);
         this.skipPlacement = this.skipPlacement.bind(this);
         this.sms = this.sms.bind(this);
+        this.sendEmail = this.sendEmail.bind(this);
     }
 
     async sms() {
@@ -80,6 +89,26 @@ class My extends Component {
         if (code) {
             this.setState({code});
         }
+        this.setState({waitSec: 60});
+        const interval = setInterval(() => {
+            if (this.state.waitSec) {
+                this.setState({waitSec: this.state.waitSec - 1});
+            } else {
+                clearInterval(interval)
+            }
+        }, 1000)
+    }
+
+    async sendEmail() {
+        await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
+                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                method: 'POST'
+            }
+        });
+        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+        this.closeMessageModal();
         this.setState({waitSec: 60});
         const interval = setInterval(() => {
             if (this.state.waitSec) {
@@ -173,16 +202,29 @@ class My extends Component {
         this.setState({profile: clonedProfile});
     }
 
+    handleTimeZoneChange(event, data){
+        let clonedProfile = Object.assign({}, this.state.profile);
+
+        clonedProfile.time_zone = data.value;
+
+        let countryCode = zones[data.value].countries[0];
+        clonedProfile.country = countries[countryCode].name;
+
+        this.setState({profile: clonedProfile});
+    }
+
+    handleCountryChange(event, data){
+        let clonedProfile = Object.assign({}, this.state.profile);
+
+        clonedProfile.country = data.value;
+        this.setState({profile: clonedProfile});
+    }
+
     handleChange(event) {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile[event.target.name] = event.target.value;
-        this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11});
-
-        if(event.target.name === 'nationality'){
-            console.log( !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality );
-            console.log(!this.state.profile.date_of_birth , !this.state.profile.school, !this.state.profile.gender, !this.state.profile.grade, this.state.profile.gender === 'u' , !this.state.profile.nationality);
-        }
+        this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11, emailValid: clonedProfile.email && this.state.email_reg.test(clonedProfile.email) && clonedProfile.student_en_name});
     }
 
     handleChangeBirthdayLabel(event) {
@@ -200,6 +242,8 @@ class My extends Component {
         try {
             event.stopPropagation();
 
+            console.log('=================');
+
             if (this.state.step < 3) {
                 if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
                     Track.event('注册_联系方式继续-中方');
@@ -214,11 +258,37 @@ class My extends Component {
                         })
                     } catch (e) {
                         console.log(e)
-                        this.setState({messageModal: true, messageContent: '短信校验失败', messageName: 'error'});
+
+                        Track.event('注册', '手机验证', { '消息状态': '错误', '验证数据':  this.state.profile.phone + '-' + this.state.code});
+
+                        this.setState({messageModal: true, messageContent: '短信校验失败'});
                         this.closeMessageModal();
                         return;
                     }
                 }
+
+                if (this.state.step === 1 && this.state.profile.role === MemberType.Companion) {
+                    Track.event('注册_联系方式继续-外籍');
+
+                    try {
+                        await ServiceProxy.proxyTo({
+                            body: {
+                                uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
+                                json: {mail: this.state.profile.email, code: this.state.code},
+                                method: 'POST'
+                            }
+                        })
+                    } catch (e) {
+                        console.log(e)
+
+                        Track.event('注册', '邮箱验证', { '消息状态': '错误', '验证数据':  this.state.profile.email + '-' + this.state.code});
+
+                        this.setState({messageModal: true, messageContent: Resources.getInstance().emailWrongVerification});
+                        this.closeMessageModal();
+                        return;
+                    }
+                }
+
                 let newStep = this.state.step + 1;
                 let newTitle = newStep === 2 ? Resources.getInstance().profileStep2Info : Resources.getInstance().profileStep3Info;
 
@@ -330,7 +400,8 @@ class My extends Component {
             interests: newTopics,
             email: profile.email,
             school_name: profile.school,
-            country: profile.nationality
+            country: profile.country,
+            time_zone: profile.time_zone
         };
     }
 
@@ -375,7 +446,8 @@ class My extends Component {
             role: userData.role,
             email: userData.email || '',
             school: userData.school_name || '',
-            nationality: userData.country || ''
+            country: userData.country || '',
+            time_zone: userData.time_zone || ''
         };
     }
 
@@ -392,33 +464,30 @@ class My extends Component {
                     {
                         this.state.step === 1 ?
                             (
-                                <ProfileFormStep1 role={this.state.profile.role}  profile={this.state.profile} handleChange={this.handleChange}
+                                <ProfileFormStep1 role={this.state.profile.role} profile={this.state.profile} handleChange={this.handleChange}
                                                   handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
                                                   waitSec={this.state.waitSec} agreementCheck={this.agreementCheck} agreement={this.state.agreement}
+                                                  sendEmail={this.sendEmail} emailValid={this.state.emailValid}
                                 />
                             ) : (
                                 this.state.step === 2 ? (
                                         <ProfileFormStep2 role={this.state.profile.role}  profile={this.state.profile} handleChange={this.handleChange}
                                                           changeGenderMale={this.changeGenderMale} changeGenderFemale={this.changeGenderFemale}
                                                           handleChangeBirthdayLabel={this.handleChangeBirthdayLabel} handleCityChange={this.handleCityChange}
-                                                          handleGradeChange={this.handleGradeChange}
+                                                          handleGradeChange={this.handleGradeChange} handleTimeZoneChange={this.handleTimeZoneChange}
+                                                          time_zone={this.state.profile.time_zone} handleCountryChange={this.handleCountryChange}
                                         />
                                     ) : (
                                         this.state.step === 3 ?
                                             (<div className='topic form-content'>
                                                 <p>{Resources.getInstance().profileStep3}</p>
-                                                <div className="topic-items">
+                                                <div className="topic-items" style={{padding: '20px 0'}} >
                                                     {
                                                         this.state.placement_topics.map((item, index) => {
-                                                            return <div key={index}
-                                                                        style={{backgroundColor: item.color_b}}>
-                                                                <div>
-                                                                    <img src={item.url} alt="topic"/>
-                                                                </div>
-                                                                <p style={{color: item.color_f}}>{item.name}</p>
-                                                                <a onClick={this.topicChange} name={item.value}
-                                                                   style={{border: this.state.profile.topics.indexOf(item.value) >= 0 ? '1px solid #f7b52a' : '1px solid transparent'}}>&nbsp;</a>
-                                                            </div>
+                                                            return <Hobby key={index} src={item.url} circleColor={item.color_f}
+                                                                          bgColor={item.color_b} word={item.name} wordColor={item.color_f} select={this.topicChange}
+                                                                          name={item.value}
+                                                                          selected={this.state.profile.topics.indexOf(item.value) >= 0} />
                                                         })
                                                     }
                                                 </div>
@@ -436,38 +505,16 @@ class My extends Component {
                                     )
                             )
                     }
-                    <Form.Group widths='equal'>
-                        <Form.Field control={Button}
-                                    content={Resources.getInstance().profileContinue}
-                                    disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality ) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name ||  !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.school || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.nationality )  : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '50px',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        } : {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'white',
-                                            background: '#dfdfe4',
-                                            height: '50px',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        }} onClick={this.submit}/>
-                    </Form.Group>
-                    {
-                        this.state.step === 4 ? (
-                                <div className="skip"
-                                     onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
-                            ) : ('')
-                    }
+                    <div className="profile-btn">
+                        <Button50px  disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
+                                     text={Resources.getInstance().profileContinue} submit={this.submit} />
+                        {
+                            this.state.step === 4 ? (
+                                    <div className="skip"
+                                         onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
+                                ) : ('')
+                        }
+                    </div>
                 </Form>
                 <br/>
             </div>

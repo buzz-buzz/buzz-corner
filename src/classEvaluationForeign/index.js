@@ -4,8 +4,10 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import TimeHelper from "../common/timeHelper";
+import {Flag} from "semantic-ui-react";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -24,7 +26,8 @@ class classEvaluationForeign extends Component {
                 companion_avatar: ''
             },
             evaluation_list: [],
-            CURRENT_TIMESTAMP: new Date()
+            CURRENT_TIMESTAMP: new Date(),
+            companion_country: ''
         };
 
         this.back = this.back.bind(this);
@@ -70,7 +73,16 @@ class classEvaluationForeign extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
-            console.log(class_info);
+            let companion_country = '';
+            if(class_info.companions){
+                let companion_id = class_info.companions.split(',')[0];
+
+                companion_country = (await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                    }
+                })).country;
+            }
 
             //create a students evaluation list.
             let clonedEvaluationList = this.state.evaluation_list;
@@ -99,7 +111,8 @@ class classEvaluationForeign extends Component {
                 class_info: class_info,
                 loadingModal: false,
                 evaluation_list: clonedEvaluationList,
-                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date()
+                CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
+                companion_country: companion_country
             });
         } catch (ex) {
             //login error
@@ -125,9 +138,8 @@ class classEvaluationForeign extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <img
-                                src={this.state.class_info.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
-                                alt=""/>
+                            <Avatar src={this.state.class_info.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -146,7 +158,7 @@ class classEvaluationForeign extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-foreign-list" style={{position: 'relative'}}>
+                <div className="class-detail-foreign-list" style={{position: 'relative', background: '#f4f5f9'}}>
                     <div className="foreign-evaluation-title">
                         <p>{Resources.getInstance().evaluationForStudent}</p>
                     </div>
@@ -159,9 +171,9 @@ class classEvaluationForeign extends Component {
                                          alt="loading"/>
                                 </div>
                                 <div className="evaluation-content-show">
-                                    <div className="chinese-name">{item.user_name}</div>
+                                    <div className="chinese-name" style={{color: '#000', fontWeight: 'bold'}}>{item.user_name}</div>
                                     <div className="evaluation-result">
-                                        <p>{Resources.getInstance().evaluationTo}</p>
+                                        <p style={{color: '#868686'}}>{Resources.getInstance().evaluationTo}</p>
                                         {item.score === 0 ?
                                             <div className="result-stars">
                                                 <p>{Resources.getInstance().evaluationNo}</p>
