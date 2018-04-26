@@ -57,7 +57,6 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         });
 
-        console.log('登录成功！', res);
         this.setState({
             userInfo: res,
             loading: false
@@ -118,6 +117,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
             if (callbackOrigin !== window.location.origin) {
                 window.location = callbackOrigin + window.location.pathname + window.location.search;
+                return;
             } else {
                 let base64QueryString = URLHelper.getSearchParam(window.location.search, 'base64_query_string');
                 if (base64QueryString) {
@@ -130,7 +130,8 @@ export default class WechatOAuthSuccess extends React.Component {
                 });
             }
         } catch (ex) {
-            alert(JSON.stringify(ex));
+            // alert(JSON.stringify(ex));
+            console.error(ex);
         }
     }
 
