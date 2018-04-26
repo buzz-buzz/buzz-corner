@@ -134,8 +134,8 @@ p{
 
 .my-home > .home-content > .items > .booking-item > .booking-item-status{
     position: absolute;
-    right: 1em;
-    top: 1em;
+    right: 20px;
+    top: 20px;
     font-size: .8em;
 }
 

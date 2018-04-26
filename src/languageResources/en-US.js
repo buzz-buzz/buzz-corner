@@ -26,7 +26,7 @@ export const homeTabMessage = 'Messages';
 export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
 
-export const bookingBtnText = 'booking';
+export const bookingBtnText = 'Booking';
 export const bookingNoItemText1 = 'Oops, you have not booked any session yet.';
 export const bookingNoItemText2 = 'Start booking, connect with native English-speaking teens!';
 export const bookingNoMessage = 'No message';
@@ -35,8 +35,8 @@ export const bookingFeedbackInfo = 'Finished the feedback for ';
 export const bookingPlacementInfoTitle = 'Placement test';
 export const bookingPlacementInfoContent = 'Finish the test for free';
 
-export const friendsTabChinese = 'chinese';
-export const friendsTabForeign = 'foreign';
+export const friendsTabChinese = 'Chinese';
+export const friendsTabForeign = 'Foreign';
 
 export const rewardTitle = 'My badges';
 export const rewardRedStone = 'Red';
@@ -148,10 +148,10 @@ export const profileCityHolder = 'What city do you live in';
 export const profileInterests = 'Interests';
 export const profileIntroduction = 'Describe your self';
 export const profileIntroductionHolder = 'Write a short introduction about yourself.';
-export const profileSunmitBtn = 'continue';
+export const profileSunmitBtn = 'Continue';
 
 export const avatarTile = 'Contact Information';
-export const avatarLabel = 'avatar';
+export const avatarLabel = 'Avatar';
 export const avatarTokenWrong = 'Token: avatar upload failed!';
 export const avatarKeyWrong = 'Key: avatar upload failed!';
 export const avatarWrong = 'avatar upload failed!';
@@ -164,8 +164,8 @@ export const emailWrong = 'Email is wrong!';
 export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
 export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
 
-export const my = 'my';
-export const toggleLanguage = 'language selector';
+export const my = 'My';
+export const toggleLanguage = 'Language selector';
 export const languageUs = 'English';
 export const languageCN = '简体中文';
 
@@ -173,19 +173,19 @@ export const modalTitle = 'Message';
 export const saveSuccess = 'Save success!';
 export const saveFailed = 'Save failed!';
 
-export const adminManageClass = 'class manage';
+export const adminManageClass = 'Class manage';
 
 export const finishRecording = 'Well done';
 
 export const errorModalBtn = 'Got it';
 export const errorModalContent = 'Sorry, something was wrong。 please fresh the page and try later';
 
-export const messageSaveFailed = 'save Failed!';
+export const messageSaveFailed = 'Save Failed!';
 
-export const practiceAgain = 'record again';
+export const practiceAgain = 'Record again';
 
 export const hobbyUniverse = 'Universe';
-export const hobbyBusiness = 'business';
+export const hobbyBusiness = 'Business';
 export const hobbyArt = 'Art';
 export const hobbyFood = 'Food';
 export const hobbyEnvironment = 'Environment';
