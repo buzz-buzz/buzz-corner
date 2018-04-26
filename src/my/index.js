@@ -38,7 +38,7 @@ class My extends Component {
             mobileValid: false,
             emailValid: false,
             birthdayLabel: '',
-            step: 1,
+            step: 3,
             profile: {
                 parent_name: '',
                 phone: '',
@@ -481,7 +481,7 @@ class My extends Component {
                                         this.state.step === 3 ?
                                             (<div className='topic form-content'>
                                                 <p>{Resources.getInstance().profileStep3}</p>
-                                                <div className="topic-items" style={{padding: '10px'}} >
+                                                <div className="topic-items" style={{padding: '20px 0'}} >
                                                     {
                                                         this.state.placement_topics.map((item, index) => {
                                                             return <Hobby key={index} src={item.url} circleColor={item.color_f}
