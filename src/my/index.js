@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Form} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import Resources from '../resources';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Button50px from '../common/commonComponent/submitButton50px';
 import ProfileProgress from './profileProgress/index';
 import ProfileFormStep1 from './profileFormStep1/index';
 import ProfileFormStep2 from './profileFormStep2/index';
@@ -99,7 +100,7 @@ class My extends Component {
     }
 
     async sendEmail() {
-        const {code} = await ServiceProxy.proxyTo({
+        await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
                 json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
@@ -240,6 +241,8 @@ class My extends Component {
     async submit(event) {
         try {
             event.stopPropagation();
+
+            console.log('=================');
 
             if (this.state.step < 3) {
                 if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
@@ -502,38 +505,16 @@ class My extends Component {
                                     )
                             )
                     }
-                    <Form.Group widths='equal'>
-                        <Form.Field control={Button}
-                                    content={Resources.getInstance().profileContinue}
-                                    disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                                    style={!(this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name ||  !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone)  : (this.state.step === 3 ? !this.state.profile.topics.length : false))) ? {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'rgb(255,255,255)',
-                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                            height: '50px',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        } : {
-                                            margin: '2em auto .5em auto',
-                                            width: '100%',
-                                            color: 'white',
-                                            background: '#dfdfe4',
-                                            height: '50px',
-                                            letterSpacing: '4px',
-                                            fontWeight: 'normal',
-                                            borderRadius: '30px',
-                                            opacity: '1 !important'
-                                        }} onClick={this.submit}/>
-                    </Form.Group>
-                    {
-                        this.state.step === 4 ? (
-                                <div className="skip"
-                                     onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
-                            ) : ('')
-                    }
+                    <div className="profile-btn">
+                        <Button50px  disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code ) : (this.state.step === 2 ? ( this.state.profile.role === MemberType.Student ?  !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' :  !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
+                                     text={Resources.getInstance().profileContinue} submit={this.submit} />
+                        {
+                            this.state.step === 4 ? (
+                                    <div className="skip"
+                                         onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
+                                ) : ('')
+                        }
+                    </div>
                 </Form>
                 <br/>
             </div>
