@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Form} from 'semantic-ui-react';
 import Resources from '../resources';
+import moment from 'moment-timezone'
 import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -405,13 +406,20 @@ class My extends Component {
         };
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             Track.event('注册_联系方式页面-中方');
             let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
             if (!profile.role) {
                 browserHistory.push('/select-role');
                 return;
+            }
+
+            //guess time_zone
+            if(!profile.time_zone){
+                profile.time_zone = moment.tz.guess();
+                let countryCode = zones[profile.time_zone].countries[0];
+                profile.country = countries[countryCode].name;
             }
 
             this.setState({
