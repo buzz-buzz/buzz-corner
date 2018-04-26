@@ -8,7 +8,7 @@
 
 .class-detail > .class-detail-header {
     flex-shrink: 0;
-    height: 50px;
+    height: 44px;
     display: flex;
     border-bottom: 1px solid #dfdfe4;
     justify-content: center;
@@ -23,9 +23,11 @@
 
 .class-detail > .class-detail-practice {
     flex: 1 0 auto;
-    padding: 1em 2em;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .class-detail > .class-detail-header > div {
@@ -59,15 +61,23 @@
     align-items: center;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar {
-    height: 80%;
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar , .booking-item-avatar{
+    height: 100%;
     margin-right: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img {
-    height: 100%;
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar > img , .booking-item-avatar > img{
+    height: 80%;
     border-radius: 50%;
     border: 3px solid rgba(208, 214, 219, 0.5);
+    margin-bottom: 5px;
+}
+
+.class-detail > .class-detail-info > .class-info > .booking-item-avatar > i, .booking-item-avatar > i{
+    margin: 0 !important;
 }
 
 .class-detail > .class-detail-info > .class-info > .booking-item-info {
@@ -82,8 +92,8 @@
 
 .class-detail > .class-detail-info > .class-info > .booking-item-status {
     position: absolute;
-    right: 2em;
-    top: 2em;
+    right: 20px;
+    top: 20px;
     font-size: .8em;
 }
 
@@ -97,21 +107,25 @@
     margin: 2em 0;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button {
+.class-detail-button {
     flex: 1 0 auto;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-}
-
-.class-detail > .class-detail-practice > .class-detail-button > div {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
 }
 
-.class-detail > .class-detail-practice > .class-detail-button button {
-    border-radius: 1.5em;
+.class-detail-button > div {
     width: 100%;
-    height: 3em;
+}
+
+.class-detail-button button {
+    border-radius: 0;
+    width: 100%;
+    height: 50px;
     background: linear-gradient(to right, rgb(251, 218, 97), rgb(246, 180, 12));
     letter-spacing: 2px;
     color: #fff;
@@ -156,4 +170,9 @@
 
 .class-detail-practice-content > .practise-student {
     justify-content: flex-end;
+}
+
+.class-detail-practice .segment{
+    padding: 0 1em !important;
+    margin: 0 !important;
 }

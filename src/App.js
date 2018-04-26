@@ -29,6 +29,7 @@ import VideoPlay from './videoPlay';
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
 import EntryPoint from "./home/EntryPoint";
+import SignOut from "./login/sign-out";
 
 class App extends Component {
     render() {
@@ -41,6 +42,7 @@ class App extends Component {
                     <Route path='/' component={EntryPoint}/>
                     <Route path='/select-role' component={SelectRole}/>
                     <Route path='/sign-in' component={LoginEntryPoint}/>
+                    <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
                     <Route path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
@@ -54,7 +56,7 @@ class App extends Component {
                     <Route path='/admin' component={Admin}/>
                     <Route path='/admin/class' component={ClassManage}/>
                     <Route path='/placement' component={Placement}/>
-                    <Route path='/home' component={Home}  />
+                    <Route path='/home' component={Home}/>
                     <Route path='/friends' component={Friends}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>

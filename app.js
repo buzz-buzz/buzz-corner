@@ -1,5 +1,3 @@
-const cookie = require("./helpers/cookie");
-
 const Koa = require('koa');
 const app = new Koa();
 const request = require('request-promise-native');
@@ -13,7 +11,6 @@ const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const fs = require('fs');
 const pug = require('js-koa-pug');
-const busboy = require('koa-busboy');
 const qiniu = require('qiniu');
 const config_qiniu = require('./config/qiniu');
 const mac = new qiniu.auth.digest.Mac(config_qiniu.ACCESS_KEY, config_qiniu.SECRET_KEY);
@@ -142,40 +139,34 @@ async function serveSPA(ctx) {
     }
 }
 
-if (['production', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
-    console.log('running code for production only...');
+app.use(serveStatic('build'));
 
-    app.use(serveStatic('build'));
-
-    router
-        .get('/profile', serveSPA)
-        .get('/login', serveSPA)
-        .get('/login/facebook', serveSPA)
-        .get('/login/wechat', serveSPA)
-        .get('/my/info', serveSPA)
-        .get('/my/profile', serveSPA)
-        .get('/my/profile/avatar', serveSPA)
-        .get('/my/profile/language', serveSPA)
-        .get('/admin', serveSPA)
-        .get('/admin/class', serveSPA)
-        .get('/placement', serveSPA)
-        .get('/home', serveSPA)
-        .get('/friends', serveSPA)
-        .get('/reward', serveSPA)
-        .get('/user', serveSPA)
-        .get('/class/:class_id', serveSPA)
-        .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
-        .get('/consult', serveSPA)
-        .get('/class-lessons', serveSPA)
-        .get('/consult', serveSPA)
-        .get('/wechat/demo', serveSPA)
-        .get('/select-role', serveSPA)
-        .get('/video-play', serveSPA)
-    ;
-
-
-    console.log('end running code for production only.')
-}
+router
+    .get('/profile', serveSPA)
+    .get('/login', serveSPA)
+    .get('/login/facebook', serveSPA)
+    .get('/login/wechat', serveSPA)
+    .get('/my/info', serveSPA)
+    .get('/my/profile', serveSPA)
+    .get('/my/profile/avatar', serveSPA)
+    .get('/my/profile/language', serveSPA)
+    .get('/admin', serveSPA)
+    .get('/admin/class', serveSPA)
+    .get('/placement', serveSPA)
+    .get('/home', serveSPA)
+    .get('/friends', serveSPA)
+    .get('/reward', serveSPA)
+    .get('/user', serveSPA)
+    .get('/class/:class_id', serveSPA)
+    .get('/class/foreign/:class_id', serveSPA)
+    .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
+    .get('/consult', serveSPA)
+    .get('/class-lessons', serveSPA)
+    .get('/consult', serveSPA)
+    .get('/wechat/demo', serveSPA)
+    .get('/select-role', serveSPA)
+    .get('/video-play', serveSPA)
+;
 
 app
     .use(router.routes())

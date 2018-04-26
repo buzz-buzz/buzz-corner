@@ -72,7 +72,7 @@ export default class WechatOAuthSuccess extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         this.handleOrigin();
 
         try {

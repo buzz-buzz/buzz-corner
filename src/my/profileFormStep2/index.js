@@ -2,17 +2,19 @@ import Resources from '../../resources';
 import React from 'react';
 import {Dropdown, Form} from 'semantic-ui-react';
 import {MemberType} from "../../membership/member-type";
+import { zones } from 'moment-timezone/data/meta/latest.json';
+import { countries } from 'moment-timezone/data/meta/latest.json';
 
 const grade_list = [
-    {key: '1', value: '1', text: '一年级'},
-    {key: '2', value: '2', text: '二年级'},
-    {key: '3', value: '3', text: '三年级'},
-    {key: '4', value: '4', text: '四年级'},
-    {key: '5', value: '5', text: '五年级'},
-    {key: '6', value: '6', text: '六年级'},
-    {key: '7', value: '7', text: '七年级'},
-    {key: '8', value: '8', text: '八年级'},
-    {key: '9', value: '9', text: '九年级'},
+    {key: '1', value: '1', text: Resources.getInstance().gradeOne},
+    {key: '2', value: '2', text: Resources.getInstance().gradeTwo},
+    {key: '3', value: '3', text: Resources.getInstance().gradeThr},
+    {key: '4', value: '4', text: Resources.getInstance().gradeFou},
+    {key: '5', value: '5', text: Resources.getInstance().gradeFiv},
+    {key: '6', value: '6', text: Resources.getInstance().gradeSix},
+    {key: '7', value: '7', text: Resources.getInstance().gradeSev},
+    {key: '8', value: '8', text: Resources.getInstance().gradeEig},
+    {key: '9', value: '9', text: Resources.getInstance().gradeNin},
 ];
 
 const grade_list_foreign = [
@@ -31,45 +33,53 @@ const grade_list_foreign = [
 ];
 
 const city_list = [
-    {key: '0', value: '其他', text: '其他'},
-    {key: '1', value: '北京', text: '北京'},
-    {key: '2', value: '上海', text: '上海'},
-    {key: '3', value: '广州', text: '广州'},
-    {key: '4', value: '深圳', text: '深圳'},
-    {key: '5', value: '天津', text: '天津'},
-    {key: '6', value: '杭州', text: '杭州'},
-    {key: '7', value: '南京', text: '南京'},
-    {key: '8', value: '济南', text: '济南'},
-    {key: '9', value: '重庆', text: '重庆'},
-    {key: '10', value: '青岛', text: '青岛'},
-    {key: '11', value: '大连', text: '大连'},
-    {key: '12', value: '宁波', text: '宁波'},
-    {key: '13', value: '厦门', text: '厦门'},
-    {key: '14', value: '重庆', text: '重庆'},
-    {key: '15', value: '成都', text: '成都'},
-    {key: '16', value: '武汉', text: '武汉'},
-    {key: '17', value: '哈尔滨', text: '哈尔滨'},
-    {key: '18', value: '沈阳', text: '沈阳'},
-    {key: '19', value: '西安', text: '西安'},
-    {key: '20', value: '长春', text: '长春'},
-    {key: '21', value: '长沙', text: '长沙'},
-    {key: '22', value: '福州', text: '福州'},
-    {key: '23', value: '郑州', text: '郑州'},
-    {key: '24', value: '石家庄', text: '石家庄'},
-    {key: '25', value: '苏州', text: '苏州'},
-    {key: '26', value: '佛山', text: '佛山'},
-    {key: '27', value: '东莞', text: '东莞'},
-    {key: '28', value: '无锡', text: '无锡'},
-    {key: '29', value: '烟台', text: '烟台'},
-    {key: '30', value: '太原', text: '太原'},
-    {key: '31', value: '合肥', text: '合肥'},
-    {key: '32', value: '南昌', text: '南昌'},
-    {key: '33', value: '南宁', text: '南宁'},
-    {key: '34', value: '昆明', text: '昆明'},
-    {key: '35', value: '温州', text: '温州'},
-    {key: '36', value: '淄博', text: '淄博'},
-    {key: '37', value: '唐山', text: '唐山'},
+    {key: '0', value: '其他', text: Resources.getInstance().cityQT},
+    {key: '1', value: '北京', text: Resources.getInstance().cityBJ},
+    {key: '2', value: '上海', text: Resources.getInstance().citySH},
+    {key: '3', value: '广州', text: Resources.getInstance().cityGZ},
+    {key: '4', value: '深圳', text: Resources.getInstance().citySZ},
+    {key: '5', value: '天津', text: Resources.getInstance().cityTJ},
+    {key: '6', value: '杭州', text: Resources.getInstance().cityHZ},
+    {key: '7', value: '南京', text: Resources.getInstance().cityNJ},
+    {key: '8', value: '济南', text: Resources.getInstance().cityJN},
+    {key: '9', value: '重庆', text: Resources.getInstance().cityCQ},
+    {key: '10', value: '青岛', text: Resources.getInstance().cityQD},
+    {key: '11', value: '大连', text: Resources.getInstance().cityDL},
+    {key: '12', value: '宁波', text: Resources.getInstance().cityNB},
+    {key: '13', value: '厦门', text: Resources.getInstance().cityXM},
+    {key: '14', value: '重庆', text: Resources.getInstance().cityCQ},
+    {key: '15', value: '成都', text: Resources.getInstance().cityCD},
+    {key: '16', value: '武汉', text: Resources.getInstance().cityWH},
+    {key: '17', value: '哈尔滨', text: Resources.getInstance().cityHEB},
+    {key: '18', value: '沈阳', text: Resources.getInstance().citySY},
+    {key: '19', value: '西安', text: Resources.getInstance().cityXA},
+    {key: '20', value: '长春', text: Resources.getInstance().cityCC},
+    {key: '21', value: '长沙', text: Resources.getInstance().cityCS},
+    {key: '22', value: '福州', text: Resources.getInstance().cityFZ},
+    {key: '23', value: '郑州', text: Resources.getInstance().cityZZ},
+    {key: '24', value: '石家庄', text: Resources.getInstance().citySJZ},
+    {key: '25', value: '苏州', text: Resources.getInstance().citySZ1},
+    {key: '26', value: '佛山', text: Resources.getInstance().cityFS},
+    {key: '27', value: '东莞', text: Resources.getInstance().cityDG},
+    {key: '28', value: '无锡', text: Resources.getInstance().cityWX},
+    {key: '29', value: '烟台', text: Resources.getInstance().cityYT},
+    {key: '30', value: '太原', text: Resources.getInstance().cityTY},
+    {key: '31', value: '合肥', text: Resources.getInstance().cityHF},
+    {key: '32', value: '南昌', text: Resources.getInstance().cityNC},
+    {key: '33', value: '南宁', text: Resources.getInstance().cityNN},
+    {key: '34', value: '昆明', text: Resources.getInstance().cityKM},
+    {key: '35', value: '温州', text: Resources.getInstance().cityWZ},
+    {key: '36', value: '淄博', text: Resources.getInstance().cityZB},
+    {key: '37', value: '唐山', text: Resources.getInstance().cityTS},
 ];
+
+const timeZones = Object.keys(zones).map(key=>({
+    key, value: key, text: key
+}));
+
+let countryList = Object.keys(countries).map(key=>({
+    key, value: countries[key].name, text: countries[key].name
+}));
 
 const birthdayFrom = (new Date().getFullYear() - 7) + '-' + (new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1 ) ) + '-' + (new Date().getDate() > 9 ?  new Date().getDate() : '0' + new Date().getDate() );
 
@@ -176,14 +186,7 @@ export default class ProfileFormStep2 extends React.Component {
                                            name='birthdayLabel'/>
                                 </div>
                             </Form.Group>
-                            <div className="parents-name">
-                                <input type="text" placeholder="School Information"
-                                       style={{width: '100%'}}
-                                       value={this.props.profile.school}
-                                       onChange={this.props.handleChange}
-                                       name='school'/>
-                            </div>
-                            <div className="selection-options" style={{height: '50px', margin: '10px 0', boxSizing: 'border-box'}}>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
                                 <Dropdown placeholder="Grade" search
                                           selection noResultsMessage="eg: grade 1"
                                           onChange={(event, data) => {
@@ -191,12 +194,28 @@ export default class ProfileFormStep2 extends React.Component {
                                           }} value={this.props.profile.grade}
                                           options={grade_list_foreign}/>
                             </div>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
+                                <Dropdown placeholder="Time zone" search
+                                          selection noResultsMessage="eg: Asia/Shanghai"
+                                          onChange={(event, data) => {
+                                              this.props.handleTimeZoneChange(event, data)
+                                          }} value={this.props.profile.time_zone}
+                                          options={timeZones}/>
+                            </div>
+                            <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
+                                <Dropdown placeholder="Country" search
+                                          selection noResultsMessage="eg: China"
+                                          onChange={(event, data) => {
+                                              this.props.handleCountryChange(event, data)
+                                          }} value={this.props.profile.country}
+                                          options={countryList}/>
+                            </div>
                             <div className="parents-name">
-                                <input type="text" placeholder="Nationality"
+                                <input type="text" placeholder="School Information"
                                        style={{width: '100%'}}
-                                       value={this.props.profile.nationality}
+                                       value={this.props.profile.school}
                                        onChange={this.props.handleChange}
-                                       name='nationality'/>
+                                       name='school'/>
                             </div>
                         </div> : <div></div>
                 )

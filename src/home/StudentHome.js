@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form} from 'semantic-ui-react';
+import {Button, Form, Flag} from 'semantic-ui-react';
 import {browserHistory, Link} from "react-router";
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -371,8 +371,10 @@ class Home extends Component {
                                     this.state.booking.map((item, index) => {
                                         return <Link className="booking-item" key={index}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <Avatar marginRight="2em"
-                                                    src={item.companion_avatar}/>
+                                            <div className="booking-item-avatar">
+                                                <Avatar src={item.companion_avatar}/>
+                                                <Flag name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'} />
+                                            </div>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
                                                     fontWeight: 'bold',
