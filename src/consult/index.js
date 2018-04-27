@@ -43,7 +43,7 @@ class Consult extends Component {
                     this.state.role === MemberType.Student &&
                     <div className="consult-content">
                         <div className="consult-avatar">
-                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
+                            <img src="//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg" alt=""/>
                         </div>
                         <div className="consult-word">
                             <p>{Resources.getInstance().advisorInfo1}</p>
@@ -59,7 +59,7 @@ class Consult extends Component {
                     this.state.role === MemberType.Companion &&
                     <div className="consult-content">
                         <div className="consult-avatar">
-                            <img src="//p579tk2n2.bkt.clouddn.com/buzz-teacher.png" alt=""/>
+                            <img src="//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg" alt=""/>
                         </div>
                         <div className="consult-word-foreign">
                             <p>I am your private advisor</p>
