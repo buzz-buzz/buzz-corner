@@ -13,7 +13,6 @@ import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
-import TitleSet from '../common/titleUtil';
 
 class Home extends Component {
     constructor(props) {
@@ -25,6 +24,7 @@ class Home extends Component {
             message_tab: 'advisor',
             messageFromAdvisor: [],
             messageRead: false,
+            role: '',
             touchEvent: function (e) {
                 e.preventDefault();
 
@@ -199,7 +199,7 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
-            TitleSet.setTitle();
+            //TitleSet.setTitle();
 
             this.setState({loadingModal: true, fullModal: true});
 
@@ -302,7 +302,8 @@ class Home extends Component {
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
                 messageRead: messageCheck.length > 0,
-                loadingModal: false
+                loadingModal: false,
+                role: profile.role
             });
 
             //class_list --->  feedback list
@@ -402,7 +403,7 @@ class Home extends Component {
                                 <div className="no-items">
                                     <img src="//p579tk2n2.bkt.clouddn.com/icon_Coursepurchase tips.png" alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{Resources.getInstance().bookingNoItemText2}</p>
+                                    <p>{ this.state.role === MemberType.Student? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
                     </div>) :
