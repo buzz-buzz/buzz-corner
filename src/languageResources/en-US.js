@@ -6,7 +6,7 @@ export const header = 'Welcome to Buzzbuzz English Corner';
 export const welcomePageIntroductionLineOne = 'Connect English and Chinese speaking teens in a virtual space.';
 export const welcomePageIntroductionLineTwo = '';
 export const welcomePageIntroductionLineThr = '';
-export const welcomePageChineseChild = 'Practice';
+export const welcomePageChineseChild = 'Student';
 export const welcomePageForeignChild = 'Tutor';
 export const welcomePageBtnWord = 'How does this work?';
 
@@ -14,7 +14,7 @@ export const developWord = 'Site in construction, please come back and check lat
 export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
-export const loginByWechatIntroduction = 'Dialogue with Chinese teens';
+export const loginByWechatIntroduction = 'Dialogue with native English-speaking teens';
 
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
@@ -29,6 +29,7 @@ export const homeTabAdvisor = 'Advisor';
 export const bookingBtnText = 'Booking';
 export const bookingNoItemText1 = 'Oops, you have not booked any session yet.';
 export const bookingNoItemText2 = 'Start booking, connect with native English-speaking teens!';
+export const bookingNoItemText3 = 'Start booking, connect with Chinese teens!';
 export const bookingNoMessage = 'No message';
 export const bookingFeedbackNotice = 'Finish the feedback for ';
 export const bookingFeedbackInfo = 'Finished the feedback for ';

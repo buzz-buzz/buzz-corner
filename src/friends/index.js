@@ -3,7 +3,6 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import Track from "../common/track";
-import TitleSet from '../common/titleUtil';
 import './index.css';
 
 class Friends extends Component {
@@ -46,7 +45,7 @@ class Friends extends Component {
     async componentDidMount() {
         Track.event('好友_好友页面展示');
 
-        TitleSet.setTitle(Resources.getInstance().footerFriends);
+        //TitleSet.setTitle(Resources.getInstance().footerFriends);
     }
 
     render() {

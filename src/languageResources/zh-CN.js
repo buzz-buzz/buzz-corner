@@ -13,7 +13,7 @@ export const developWord = '功能开发中, 敬请期待...';
 export const whiteSpaceMessage = '还没有消息提醒哦～';
 
 export const loginByWechatInfo = '微信登录';
-export const loginByWechatIntroduction = '流利地对话英美精英少年';
+export const loginByWechatIntroduction = '流利对话英美优秀少年';
 
 export const footerHome = '主页';
 export const footerFriends = '好友';
@@ -28,6 +28,7 @@ export const homeTabAdvisor = '助教';
 export const bookingBtnText = '预约';
 export const bookingNoItemText1 = '你还没开始预约课程';
 export const bookingNoItemText2 = '马上进行预约，对话英美少年！';
+export const bookingNoItemText3 = '马上进行预约，对话中国少年！';
 export const bookingNoMessage = '你还没有收到消息哦';
 export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
 export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
