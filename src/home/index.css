@@ -167,7 +167,7 @@ p{
 }
 
 .my-home >  .booking-btn{
-    height: 80px;
+    height: 90px;
     width: 100%;
     max-width: 1200px;
     display: flex;
@@ -179,7 +179,8 @@ p{
 }
 
 .my-home >  .booking-btn >div{
-    width: 80%;
+    width: 100%;
+    padding: 0 21px;
 }
 
 .my-home > .booking-btn button{
