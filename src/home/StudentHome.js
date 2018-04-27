@@ -463,7 +463,7 @@ class Home extends Component {
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
-                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '132px'}:{height: '52px'}}></div>
+                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '142px'}:{height: '52px'}}></div>
                 <Footer/>
             </div>
         );
