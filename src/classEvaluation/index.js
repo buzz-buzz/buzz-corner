@@ -280,14 +280,10 @@ class classEvaluation extends Component {
                             <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
                         </div>
                     </div>
-                    <div className="evaluation-title"
-                         style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <p>{Resources.getInstance().classEvaluationEvaluate}</p>
-                    </div>
                     <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                         <Form>
                                         <TextArea autoHeight
-                                                  placeholder={Resources.getInstance().classEvaluationSuggest} rows={5}
+                                                  placeholder={Resources.getInstance().classEvaluationSuggest} rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
