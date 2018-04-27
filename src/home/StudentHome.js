@@ -343,7 +343,7 @@ class Home extends Component {
                         }}/>
                         <span>{Resources.getInstance().homeTabBooking}</span>
                         <div className="tab-active"
-                             style={this.state.tab === 'booking' ? {border: '2px solid #f7b52a'} : {}}></div>
+                             style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
@@ -353,7 +353,7 @@ class Home extends Component {
                         }}/>
                         <span>{Resources.getInstance().homeTabMessage}</span>
                         <div className="tab-active"
-                             style={this.state.tab === 'message' ? {border: '2px solid #f7b52a'} : {}}></div>
+                             style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                         <div className="message-red-circle"
                              style={this.state.messageRead ? {} : {display: 'none'}}></div>
                     </div>
