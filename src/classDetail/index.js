@@ -291,7 +291,7 @@ class classDetail extends Component {
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
-                                  avatars={["//p579tk2n2.bkt.clouddn.com/buzz-teacher.png", "//p579tk2n2.bkt.clouddn.com/buzz-teacher.png"]}/>
+                                  avatars={["h//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg", "//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg"]}/>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
