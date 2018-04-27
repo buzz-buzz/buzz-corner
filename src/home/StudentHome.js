@@ -354,8 +354,10 @@ class Home extends Component {
                         <span>{Resources.getInstance().homeTabMessage}</span>
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
-                        <div className="message-red-circle"
-                             style={this.state.messageRead ? {} : {display: 'none'}}></div>
+                        <div className="message-red-new"
+                             style={this.state.messageRead ? {} : {display: 'none'}}>
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon_NEW_message.svg" alt=""/>
+                        </div>
                     </div>
                     <Link className="consult" onClick={this.signUp}>
                         <embed src="//p579tk2n2.bkt.clouddn.com/icon_Service.svg" width="24" height="60%"
