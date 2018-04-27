@@ -12,10 +12,24 @@ p{
     width: 100%;
     height: 50px;
     display: flex;
-    border-bottom: 1px solid #dfdfe4;
     position: relative;
     z-index: 999;
     flex: 0 0 auto;
+}
+
+.my-home > .home-header:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    bottom: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-message{
@@ -103,7 +117,6 @@ p{
     height: 10em;
     border-radius: 5px;
     background-color: white;
-    border: 1px solid #dfdfe4;
     flex: none;
     position: relative;
     display: flex;

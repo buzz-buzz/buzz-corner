@@ -52,7 +52,7 @@ class Friends extends Component {
         return (
             <div className="friends-page">
                 <div className="friends-tab">
-                    <div onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
+                    <div className="first" onClick={this.friendTypeOne} style={this.state.friends_type === 1 ? {color: '#f7b52a'} : {}}>
                         <span>{Resources.getInstance().friendsTabForeign}</span>
                     </div>
                     <div onClick={this.friendTypeTwo} style={this.state.friends_type === 2 ? {color: '#f7b52a'} : {}}>
