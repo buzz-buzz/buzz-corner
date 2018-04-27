@@ -425,7 +425,8 @@ class My extends Component {
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
-                mobileValid: profile && profile.phone && profile.phone.length === 11
+                mobileValid: profile && profile.phone && profile.phone.length === 11,
+                emailValid: profile &&profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name
             })
         }
         catch (ex) {
