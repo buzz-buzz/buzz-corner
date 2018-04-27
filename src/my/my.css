@@ -12,6 +12,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 768px;
+    margin: 0 auto;
 }
 
 .my-profile>a{
@@ -199,6 +201,7 @@ h4{
 .agreement{
     margin: 0 auto;
     width: 80%;
+    text-align: center;
 }
 
 .agreement > img{
