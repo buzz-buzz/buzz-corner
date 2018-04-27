@@ -8,7 +8,24 @@
     height: 40px;
     display: flex;
     align-items: center;
+    position: relative;
 }
+
+.friends-tab:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    bottom: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 
 .friends-tab > div{
     width: 50%;
@@ -19,7 +36,24 @@
 }
 
 .friends-tab > div.first{
-    border-right: 1px solid #dfdfe4;
+    /*border-right: 1px solid #dfdfe4;*/
+    position: relative;
+}
+
+.friends-tab > div.first:after{
+    content: '';
+    position: absolute;
+    height: 200%;
+    width: 1px;
+    top: 0;
+    right: 0;
+    border-right: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .friends-content{

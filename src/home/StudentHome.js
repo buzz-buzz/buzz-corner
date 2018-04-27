@@ -410,7 +410,7 @@ class Home extends Component {
                     (<div className="home-content">
                         <div className="message-tab">
                             <div
-                                className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active' : 'message-friends'}
+                                className={(this.state.tab === 'message' && this.state.message_tab === 'friends') ? 'message-friends active first' : 'message-friends first'}
                                 onClick={this.messageTabChangeFriends}>
                                 <p>{Resources.getInstance().homeTabFriends}</p>
                             </div>
