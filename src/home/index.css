@@ -243,9 +243,24 @@ p{
     position: relative;
 }
 
-.my-home > .home-content > .message-tab > div:nth-child(1){
-    border-right: 1px solid #dfdfe4;
+.my-home > .home-content > .message-tab > div.first:after{
+    /*border-right: 1px solid #dfdfe4;*/
+    content: '';
+    position: absolute;
+    height: 200%;
+    width: 1px;
+    top: 0;
+    right: 0;
+    border-right: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
+
+
 
 .my-home > .home-content > .message-tab > div.active{
     color: #f7b52a;
