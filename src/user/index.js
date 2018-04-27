@@ -4,7 +4,6 @@ import CurrentUser from "../membership/user";
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
-import TitleSet from '../common/titleUtil';
 import {MemberType} from "../membership/member-type";
 import '../common/Icon/style.css';
 import './index.css';
@@ -31,7 +30,7 @@ class User extends Component {
     async componentDidMount() {
         Track.event('我的_我的页面展示');
 
-        TitleSet.setTitle(Resources.getInstance().footerUser);
+        //TitleSet.setTitle(Resources.getInstance().footerUser);
 
         let profile = await CurrentUser.getProfile();
 
@@ -47,7 +46,7 @@ class User extends Component {
     }
 
     componentWillUnmount(){
-        TitleSet.setTitle();
+
     }
 
     render() {
