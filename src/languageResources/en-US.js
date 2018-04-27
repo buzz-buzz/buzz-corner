@@ -93,7 +93,7 @@ export const placementQuestion4 = 'When other people remain silent, you are will
 export const placementQuestion5 = 'Do not feel uncomfortable in front of starngers or in the public.';
 export const placementQuestion6 = 'Enjoy talking to others.';
 export const placementQuestion7 = 'Which of the following situation do you belong to?';
-export const placementQuestion7Answer1 = 'Need some translation assistance; can introduce yourself and your hobbies';
+export const placementQuestion7Answer1 = 'Need some translation assistance, can introduce yourself and your hobbies.';
 export const placementQuestion7Answer2 = 'Can understand common conversations and respond, introduce yourself with clarity, and describe an event.';
 export const placementQuestion7Answer3 = 'Can describe your feelings and opinions logically.';
 
