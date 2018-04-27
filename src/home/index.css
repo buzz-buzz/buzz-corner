@@ -311,6 +311,8 @@ p{
     border-radius: 50%;
 }
 
+
+
 .my-home > .home-content > .message-items > .message-item > .message-item-avatar > .message-red-circle{
     top: .5em;
     right: .5em;
@@ -349,4 +351,17 @@ p{
     width: 15px;
     z-index: 60;
     border-radius: 50%;
+}
+
+.message-red-new{
+    position: absolute;
+    top: .5em;
+    right: 2em;
+    height: 17px;
+    width: 25px;
+    z-index: 60;
+}
+
+.message-red-new > img{
+    width: 100%;
 }
