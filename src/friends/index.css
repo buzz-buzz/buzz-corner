@@ -18,9 +18,8 @@
     justify-content: center;
 }
 
-.friends-tab > div:nth-child(1){
-    border-right: 1px solid #eee;
-    background-color: white;
+.friends-tab > div.first{
+    border-right: 1px solid #dfdfe4;
 }
 
 .friends-content{
