@@ -88,6 +88,7 @@ p{
 }
 .my-home > .home-content > .none-items > .no-items > img{
     width: 50%;
+    max-width: 200px;
     margin-bottom: 1em;
 }
 
@@ -167,6 +168,7 @@ p{
 .my-home >  .booking-btn{
     height: 80px;
     width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: center;
     align-items: center;
