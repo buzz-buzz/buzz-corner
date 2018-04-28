@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #ddd;
 }
 
 .video-play > .video{
     flex: 0 0 auto;
     position:relative;
+    background-color: white;
 }
 
 .video-play > .video > .video-btn{
@@ -26,13 +28,98 @@
     height: 60px;
 }
 
-.video-play > .poster{
+.video-play > .video-ad{
     flex: 1 0 auto;
+    background-color: white;
+    margin-top: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-play > .video-ad > div{
+    flex: 1 1 auto;
+}
+
+.video-ad .ad-points{
+    margin: 10px 0;
+    padding-left: 10px;
+}
+
+.ad-word > p{
+    text-align: center;
+}
+
+.video-ad .ad-points > img{
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.video-ad .ad-points > span{
+    font-size: 15px;
+    color: #666;
+}
+
+.ad-word > .ad-title, .link-title{
+    text-align: center;
+    font-size: 17px;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.link-img{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.video-play > .poster > img{
-    width: 50%;
+.link-img > img{
+    height: 100px;
+    width: 100%;
+}
+
+.class-link >  .content-list{
+    border: 1px solid #f4f5f9;
+    border-radius: 5px;
+}
+
+.class-link > .content-list > a{
+    display: flex;
+    align-items: center;
+    padding: .5em 1em;
+    margin-bottom: .5em;
+    background-color: #fff;
+    height: 150px;
+    position: relative;
+}
+
+
+ .content-list > a > div.class-lesson-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    border: 1px solid rgb(244, 245, 249);
+    overflow: hidden;
+}
+
+
+ .content-list > a > div.class-lesson-img > img{
+    height: 100%;
+}
+
+
+ .content-list > a > div.class-lesson-info{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    color: #000;
+    justify-content: space-between;
+}
+
+ .content-list > a > div{
+    flex: 0 0 auto;
 }
