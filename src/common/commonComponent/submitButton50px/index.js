@@ -31,7 +31,6 @@ export default class Button extends React.Component {
                 <button onClick={this.props.submit} disabled={this.props.disabled} style={ this.props.disabled === true ? {background: '#dfdfe4'} : {background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'}}>
                     {this.props.text || 'Continue'}
                 </button>
-                <div className="press" style={this.state.pressing ? {} : {display: 'none'}}></div>
             </div>
         )
     }
