@@ -13,9 +13,15 @@ export default class HeaderWithBack extends React.Component {
                     </div>
                 </div>
                 <div className="logo">
-                    <div>
-                        <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
-                    </div>
+                    {this.props.title ?
+                        <div>
+                            <span>{this.props.title === 'none' ? '' : this.props.title}</span>
+                        </div>
+                        :
+                        <div>
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
+                        </div>
+                    }
                 </div>
             </div>
         )

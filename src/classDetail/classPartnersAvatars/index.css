@@ -5,9 +5,8 @@
   .class-partners .class-partners-avatar {
     height: 4em;
     display: flex;
-    width: 100%;
     align-items: center;
-    margin-left: 24px; }
+    padding-left: 24px; }
     .class-partners .class-partners-avatar a {
       height: 60%;
       margin-right: .5em; }

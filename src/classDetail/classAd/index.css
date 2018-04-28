@@ -20,5 +20,23 @@
 
 .line-middle{
     margin: 10px 20px 10px 20px;
-    border-bottom: 1px solid #dfdfe4;
+    /*border-bottom: 1px solid #dfdfe4;*/
+    position: relative;
+}
+
+.line-middle:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
