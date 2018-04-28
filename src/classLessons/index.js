@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Track from "../common/track";
 import './index.css';
 
@@ -58,17 +59,7 @@ class ClassLessons extends Component {
     render() {
         return (
             <div className="class-lessons-page">
-                <div className="class-detail-header">
-                    <div className="arrow">
-                        <img style={{width: '20px'}}
-                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
-                             onClick={this.back}/>
-                    </div>
-                    <div className="class-detail-title">{Resources.getInstance().sessions}</div>
-                    <div className="class-order">
-
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().sessions} />
                 <div className="class-lessons-content">
                     <div className="content-info">
                         <div className="content-info-title">

@@ -10,6 +10,7 @@ import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
@@ -242,17 +243,7 @@ class classDetail extends Component {
     render() {
         return (
             <div className="class-detail">
-                <div className="class-detail-header">
-                    <div className="arrow">
-                        <img style={{width: '20px'}}
-                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
-                             onClick={this.back}/>
-                    </div>
-                    <div className="class-detail-title">{Resources.getInstance().classDetailTitle}</div>
-                    <div className="class-order">
-
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle} />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
@@ -291,7 +282,7 @@ class classDetail extends Component {
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
-                                  avatars={["h//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg", "//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg"]}/>
+                                  avatars={["//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg", "//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg"]}/>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
