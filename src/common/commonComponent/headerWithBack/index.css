@@ -41,5 +41,9 @@
     display: flex;
     justify-content: center;
     align-items: center; }
+    .header-with-go-back .logo > div span {
+      font-size: 17px;
+      text-align: center;
+      letter-spacing: 1px; }
   .header-with-go-back .logo img {
     height: 40px; }

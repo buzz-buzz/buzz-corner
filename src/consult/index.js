@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Track from "../common/track";
 import CurrentUser from "../membership/user";
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import {MemberType} from "../membership/member-type";
 import './index.css';
 
@@ -33,12 +34,7 @@ class Consult extends Component {
     render() {
         return (
             <div className="consult-page">
-                <div className="back-header">
-                    <div>
-                        <img onClick={this.back} style={{width: '20px'}}
-                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""/>
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.back} title='none' />
                 {
                     this.state.role === MemberType.Student &&
                     <div className="consult-content">
