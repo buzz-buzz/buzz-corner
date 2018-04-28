@@ -6,16 +6,6 @@
     background-color: #f4f5f9;
 }
 
-.class-detail > .class-detail-header {
-    flex-shrink: 0;
-    height: 44px;
-    display: flex;
-    border-bottom: 1px solid #dfdfe4;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1em;
-    background-color: white;
-}
 
 .class-detail > .class-detail-info {
     flex-shrink: 0;
@@ -34,11 +24,6 @@
     flex: 1;
 }
 
-.class-detail > .class-detail-header > div.class-detail-title {
-    font-size: 17px;
-    text-align: center;
-    letter-spacing: 2px;
-}
 
 .class-detail > .class-detail-header > div.class-order {
     display: flex;

@@ -55,6 +55,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    span{
+      font-size: 17px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
   }
 
   .logo img{
