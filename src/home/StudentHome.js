@@ -195,11 +195,38 @@ class Home extends Component {
         return classList;
     }
 
+    sortClassList(class_list){
+        //<= 0 >, >0 <
+        let future = [];
+        let past = [];
+
+        for(let i in class_list){
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time))/1000;
+            if(class_list[i].left_time <= 0){
+                future.push(class_list[i]);
+            }else{
+                past.push(class_list[i]);
+            }
+        }
+
+        future = future.sort(function(a, b){return b.left_time - a.left_time});
+        past = past.sort(function(a, b){return a.left_time - b.left_time});
+
+        class_list = future;
+
+        for(let f in past){
+            class_list.push(past[f]);
+        }
+
+        console.log('sort ==============');
+        console.log(class_list);
+
+        return class_list;
+    }
+
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
-
-            //TitleSet.setTitle();
 
             this.setState({loadingModal: true, fullModal: true});
 
@@ -240,6 +267,9 @@ class Home extends Component {
             classList = this.handleClassListData(classList);
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
+
+            classList = this.sortClassList(classList);
+
 
             //if this is a student, then check placement test
             if (profile.role && profile.role === MemberType.Student) {
