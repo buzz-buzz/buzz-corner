@@ -12,15 +12,16 @@
     text-shadow: 0 0 0 white;
     font-size: 17px;
     color: white;
+    position: relative;
   }
-  .press{
-    width: 100%;
-    height: 50px;
+  button.pressing:after{
+    content: '';
     border-radius: 30px;
-    z-index: 20;
-    background: rgba(0, 0, 0, .1);
     position: absolute;
-    top: 0;
+    width: 100%;
+    height: 100%;
     left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .1);
   }
 }
