@@ -202,43 +202,6 @@ export const hobbyMusic = 'Music';
 export const hobbyPeople = 'People';
 export const hobbyPolitics = 'Politics';
 
-export const evaluationWord = 'Feedback after class';
-export const evaluationForStudent = 'Feedback for student';
-export const evaluationNo = 'Waiting for your feedback';
-export const evaluationTo = 'Assess:';
-export const goToClass = 'Enter session';
-export const goToAssess = 'Feedback';
-
-export const errorUpload = 'Upload failed, please try later!';
-export const successUpload = 'Upload successfully!';
-export const connectionError = 'Connection error';
-export const unkownError = 'Connection error';
-export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
-
-
-export function signInWith(method) {
-    return (
-        <span>SIGN IN WITH <strong>{method}</strong></span>
-    )
-}
-
-export function leftDays(start_time, end_time, now_time) {
-    let d = TimeHelper.dateDiff(start_time, now_time);
-
-    if (d > 1) {
-        return `After ${d} days`;
-    }
-
-    if (d === 1) {
-        return 'Start tomorrow';
-    }
-
-    if (d === 0) {
-        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
-    }
-}
-
-
 export const cityQT = 'Others';
 export const cityBJ = 'BeiJing';
 export const citySH = 'ShangHai';
@@ -286,3 +249,42 @@ export const gradeSix = 'Grade 6';
 export const gradeSev = 'Grade 7';
 export const gradeEig = 'Grade 8';
 export const gradeNin = 'Grade 9';
+
+export const evaluationWord = 'Feedback after class';
+export const evaluationForStudent = 'Feedback for student';
+export const evaluationNo = 'Waiting for your feedback';
+export const evaluationTo = 'Assess:';
+export const goToClass = 'Enter session';
+export const goToAssess = 'Feedback';
+
+export const errorUpload = 'Upload failed, please try later!';
+export const successUpload = 'Upload successfully!';
+export const connectionError = 'Connection error';
+export const unkownError = 'Connection error';
+export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
+
+export const userCenterTitle = 'User Center';
+export const userCenterHobby = 'TA的兴趣爱好';
+
+
+export function signInWith(method) {
+    return (
+        <span>SIGN IN WITH <strong>{method}</strong></span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 1) {
+        return `After ${d} days`;
+    }
+
+    if (d === 1) {
+        return 'Start tomorrow';
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+    }
+}
