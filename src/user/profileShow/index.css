@@ -1,0 +1,71 @@
+.profile-show {
+  background-color: #f4f5f9; }
+  .profile-show .user {
+    padding: 24px;
+    width: 100%;
+    background-color: white; }
+    .profile-show .user .user-info {
+      display: flex;
+      align-items: center; }
+      .profile-show .user .user-info .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid rgba(208, 214, 219, 0.5);
+        margin-right: 20px; }
+        .profile-show .user .user-info .user-avatar img {
+          width: 100%; }
+      .profile-show .user .user-info .user-profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around; }
+        .profile-show .user .user-info .user-profile .profile-name {
+          font-size: 17px;
+          text-align: left;
+          color: #f6b40c;
+          margin-bottom: 6px;
+          letter-spacing: 1px; }
+        .profile-show .user .user-info .user-profile .profile-gender-birthday, .profile-show .user .user-info .user-profile .profile-city-grade {
+          font-size: 13px;
+          color: #666;
+          font-weight: lighter;
+          margin-bottom: 6px; }
+    .profile-show .user .user-country {
+      width: 100px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: #666;
+      margin-top: 15px; }
+  .profile-show .user-hobby {
+    margin-top: 10px;
+    background-color: white;
+    width: 100%;
+    padding-left: 12px; }
+    .profile-show .user-hobby .hobby-title {
+      height: 50px;
+      line-height: 50px;
+      padding-left: 8px;
+      position: relative;
+      font-size: 15px;
+      color: #000;
+      letter-spacing: 1px; }
+    .profile-show .user-hobby .hobby-title:after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 1px;
+      z-index: 20;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px solid  #dfdfe4;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scale(0.5, 0.5);
+      transform: scale(0.5, 0.5);
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+    .profile-show .user-hobby .hobby-items {
+      min-height: 65px;
+      padding: 15px 9px; }

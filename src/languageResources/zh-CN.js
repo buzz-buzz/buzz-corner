@@ -201,37 +201,6 @@ export const hobbyMusic = '音乐';
 export const hobbyPeople = '人';
 export const hobbyPolitics = '政治';
 
-export const evaluationWord = '课后评价';
-export const evaluationForStudent = '对学伴评价';
-export const evaluationNo = '未评价';
-export const evaluationTo = '评价:';
-export const goToClass = '进入课堂';
-export const goToAssess = '课后评价';
-
-export const errorUpload = '上传失败, 请稍后重试!';
-export const successUpload = '上传成功!';
-export const connectionError = '连接异常';
-export const unkownError = '出现错误，请刷新页面重试';
-export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
-
-export function signInWith(method) {
-    return (
-        <span>使用 <strong>{method}</strong> 登录</span>
-    )
-}
-
-export function leftDays(start_time, end_time, now_time) {
-    let d = TimeHelper.dateDiff(start_time, now_time);
-
-    if (d > 0) {
-        return `${d} 天后开始`;
-    }
-
-    if (d === 0) {
-        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
-    }
-}
-
 export const cityQT = '其他';
 export const cityBJ = '北京';
 export const citySH = '上海';
@@ -279,3 +248,37 @@ export const gradeSix = '六年级';
 export const gradeSev = '七年级';
 export const gradeEig = '八年级';
 export const gradeNin = '九年级';
+
+export const evaluationWord = '课后评价';
+export const evaluationForStudent = '对学伴评价';
+export const evaluationNo = '未评价';
+export const evaluationTo = '评价:';
+export const goToClass = '进入课堂';
+export const goToAssess = '课后评价';
+
+export const errorUpload = '上传失败, 请稍后重试!';
+export const successUpload = '上传成功!';
+export const connectionError = '连接异常';
+export const unkownError = '出现错误，请刷新页面重试';
+export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
+
+export const userCenterTitle = '用户信息';
+export const userCenterHobby = 'TA的兴趣爱好';
+
+export function signInWith(method) {
+    return (
+        <span>使用 <strong>{method}</strong> 登录</span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 0) {
+        return `${d} 天后开始`;
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+    }
+}

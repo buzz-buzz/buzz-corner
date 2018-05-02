@@ -66,7 +66,6 @@ class classDetail extends Component {
 
     back() {
         window.history.back();
-        browserHistory.push('/');
     }
 
     sendTrack(e, eventInfo) {

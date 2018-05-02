@@ -87,7 +87,7 @@ class User extends Component {
                                     <div className="name">
                                         切换成其他用户：<input type="number" name="switchToUserId"
                                                        onChange={this.handleUserIdChange}
-                                                       value={this.state.switchToUserId}></input>
+                                                       value={this.state.switchToUserId} />
                                         <Button onClick={this.switchToOtherUser}>切换</Button>
                                     </div>
                                 </div>
