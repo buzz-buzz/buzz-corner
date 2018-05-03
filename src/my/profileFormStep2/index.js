@@ -77,7 +77,7 @@ const timeZones = Object.keys(zones).map(key=>({
     key, value: key, text: key
 }));
 
-let countryList = Object.keys(countries).map(key=>({
+const countryList = Object.keys(countries).map(key=>({
     key, value: countries[key].name, text: countries[key].name
 }));
 

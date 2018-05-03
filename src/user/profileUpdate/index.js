@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { zones } from 'moment-timezone/data/meta/latest.json';
+import { countries } from 'moment-timezone/data/meta/latest.json';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
@@ -77,6 +79,14 @@ const city_list = [
     {key: '36', value: '淄博', text: Resources.getInstance().cityZB},
     {key: '37', value: '唐山', text: Resources.getInstance().cityTS},
 ];
+
+const timeZones = Object.keys(zones).map(key=>({
+    key, value: key, text: key
+}));
+
+const countryList = Object.keys(countries).map(key=>({
+    key, value: countries[key].name, text: countries[key].name
+}));
 
 function getBirthDay(date_of_birth) {
     if (date_of_birth) {
@@ -241,6 +251,15 @@ class UserUpdate extends Component {
                     </div>
                     <div className="item-update with-half-border">
                         <div className="update-left">
+                            <span>英文名</span>
+                        </div>
+                        <div className="update-right">
+                            <span>{this.state.profile.student_en_name}</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
                             <span>{Resources.getInstance().profileGender}</span>
                         </div>
                         <div className="update-right">
@@ -289,22 +308,63 @@ class UserUpdate extends Component {
                             </select>
                         </div>
                     </div>
-                    <div className="item-update with-half-border">
-                        <div className="update-left">
-                            <span>{Resources.getInstance().profileCityNow}</span>
+                    {
+                        this.state.profile.role === MemberType.Student &&
+                        <div className="item-update with-half-border">
+                            <div className="update-left">
+                                <span>{Resources.getInstance().profileCityNow}</span>
+                            </div>
+                            <div className="update-right">
+                                <span>{this.state.profile.city || '其他'}</span>
+                                <i className="icon-icon_back_down"/>
+                                <select name="city" placeholder="" value={this.state.profile.city} onChange={this.handleChange}>
+                                    {
+                                        city_list.map((item, index)=>{
+                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
                         </div>
-                        <div className="update-right">
-                            <span>{this.state.profile.city || '其他'}</span>
-                            <i className="icon-icon_back_down"/>
-                            <select name="city" placeholder="" value={this.state.profile.city} onChange={this.handleChange}>
-                                {
-                                    city_list.map((item, index)=>{
-                                        return <option key={index} value={item.value}>{item.text}</option>
-                                    })
-                                }
-                            </select>
+                    }
+                    {
+                        this.state.profile.role === MemberType.Companion &&
+                        <div className="item-update with-half-border">
+                            <div className="update-left">
+                                <span>Time zone</span>
+                            </div>
+                            <div className="update-right">
+                                <span>{this.state.profile.time_zone}</span>
+                                <i className="icon-icon_back_down"/>
+                                <select name="time_zone" value={this.state.profile.time_zone} onChange={this.handleChange}>
+                                    {
+                                        timeZones.map((item, index)=>{
+                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    {
+                        this.state.profile.role === MemberType.Companion &&
+                        <div className="item-update with-half-border">
+                            <div className="update-left">
+                                <span>Country</span>
+                            </div>
+                            <div className="update-right">
+                                <span>{this.state.profile.country}</span>
+                                <i className="icon-icon_back_down"/>
+                                <select name="country" value={this.state.profile.country} onChange={this.handleChange}>
+                                    {
+                                        countryList.map((item, index)=>{
+                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
                     <div className="item-update with-half-border">
                         <div className="update-left">
                             <span>{Resources.getInstance().profileStep3}</span>
@@ -316,7 +376,7 @@ class UserUpdate extends Component {
                     </div>
                     <div className="item-update">
                         <div className="update-left">
-                            <span>{Resources.getInstance().phoneLabel}</span>
+                            <span>{ this.state.profile.role === MemberType.Student?  Resources.getInstance().phoneLabel : 'Email'}</span>
                         </div>
                         <div className="update-right">
                             <span>{ this.state.profile.role === MemberType.Student ? this.state.profile.phone : this.state.profile.email}</span>
