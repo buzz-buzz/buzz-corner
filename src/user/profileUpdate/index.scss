@@ -37,19 +37,24 @@
         padding-right: 16px;
         position: relative;
         overflow: hidden;
-        span{
+        span, input.input-show{
           color: #666;
           font-size: 14px;
           font-weight: lighter;
           padding-right: 10px;
           letter-spacing: 1px;
         }
+        input.input-show{
+          border: none;
+          outline: none;
+          text-align: right;
+        }
         i{
           color: #666;
           font-size: 15px;
           font-weight: 300;
         }
-        input, select{
+        input.hidden, select{
           position: absolute;
           left: 0;
           top: 0;
