@@ -4,7 +4,7 @@ let config = {
     development: {
         endPoints: {
             buzzCorner: 'http://localhost:16111',
-            buzzService: process.env.buzzService || 'https://buzz-corner-service.herokuapp.com',
+            buzzService: `${process.env.cors}/127.0.0.1:16888/`,
             upload_qiniu: 'http://uat.hcd.com:10003'
         },
 

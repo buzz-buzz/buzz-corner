@@ -9,6 +9,7 @@ import './index.css';
 import Track from "../common/track";
 import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 
@@ -225,17 +226,7 @@ class classEvaluation extends Component {
     render() {
         return (
             <div className="class-detail">
-                <div className="class-detail-header">
-                    <div className="arrow">
-                        <img style={{width: '20px'}}
-                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
-                             onClick={this.back}/>
-                    </div>
-                    <div className="class-detail-title">{Resources.getInstance().evaluationWord}</div>
-                    <div className="class-order">
-
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">

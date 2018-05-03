@@ -5,6 +5,7 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Track from "../common/track";
 import {MemberType} from "../membership/member-type";
+import {browserHistory} from "react-router";
 import '../common/Icon/style.css';
 import './index.css';
 import {Button} from "semantic-ui-react";
@@ -25,9 +26,14 @@ class User extends Component {
 
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.switchToOtherUser = this.switchToOtherUser.bind(this);
+        this.showUserInfo = this.showUserInfo.bind(this);
     }
 
-    async componentDidMount() {
+    showUserInfo(){
+        browserHistory.push('/user/' + this.state.userId);
+    }
+
+    async componentWillMount() {
         Track.event('我的_我的页面展示');
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
@@ -45,16 +51,12 @@ class User extends Component {
         });
     }
 
-    componentWillUnmount(){
-
-    }
-
     render() {
         return (
             <div className="user-page">
                 <div className="user-content">
                     <div className="user-my">
-                        <div className="user-avatar">
+                        <div className="user-avatar" onClick={this.showUserInfo}>
                             <img src={this.state.avatar} alt=""/>
                         </div>
                         <div className="user-info">

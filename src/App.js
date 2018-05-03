@@ -10,6 +10,7 @@ import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import UserShow from './user/profileShow';
+import UserUpdate from './user/profileUpdate';
 import My from './my';
 import Language from './my/myLanguage';
 import Admin from './admin/index';
@@ -61,6 +62,7 @@ class App extends Component {
                     <Route path='/friends' component={Friends}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
+                    <Route path='/user/update' component={UserUpdate}/>
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
