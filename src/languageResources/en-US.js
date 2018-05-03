@@ -150,6 +150,7 @@ export const profileInterests = 'Interests';
 export const profileIntroduction = 'Describe your self';
 export const profileIntroductionHolder = 'Write a short introduction about yourself.';
 export const profileSunmitBtn = 'Continue';
+export const profileGradeName = 'Grade';
 
 export const avatarTile = 'Contact Information';
 export const avatarLabel = 'Avatar';

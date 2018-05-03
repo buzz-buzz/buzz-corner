@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
+import Button50px from '../../common/commonComponent/submitButton50px';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../../membership/user";
 import './index.css';
@@ -23,10 +24,16 @@ class UserUpdate extends Component {
         this.state = {
             profile: {}
         };
+
+        this.submit = this.submit.bind(this);
     }
 
     back(){
         window.history.back();
+    }
+
+    async submit(){
+
     }
 
     async componentWillMount(){
@@ -75,13 +82,63 @@ class UserUpdate extends Component {
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
-                    <div className="item-update with-half-border"></div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
+                            <span>性别</span>
+                        </div>
+                        <div className="update-right">
+                            <span>{this.state.profile.gender}</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
+                            <span>生日</span>
+                        </div>
+                        <div className="update-right">
+                            <span>2018-07-07</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
+                            <span>年级</span>
+                        </div>
+                        <div className="update-right">
+                            <span>一年级</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
+                            <span>城市</span>
+                        </div>
+                        <div className="update-right">
+                            <span>上海</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update with-half-border">
+                        <div className="update-left">
+                            <span>兴趣爱好</span>
+                        </div>
+                        <div className="update-right">
+                            <span>abc、ab、ac等3项</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                    <div className="item-update">
+                        <div className="update-left">
+                            <span>手机号</span>
+                        </div>
+                        <div className="update-right">
+                            <span>13061710755</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
+                </div>
+                <div className="update-btn">
+                    <Button50px disabled={false}  text='保存' submit={this.submit} />
                 </div>
             </div>
         );
