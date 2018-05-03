@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
+import MessageModal from '../../common/commonComponent/modalMessage';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
@@ -106,6 +107,8 @@ class UserUpdate extends Component {
         //check if has change
 
         //save data
+        this.setState({messageModal: true, messageName: 'success', messageContent: Resources.getInstance().saveSuccess});
+        this.closeMessageModal();
     }
 
     handleChange(event) {
@@ -117,8 +120,25 @@ class UserUpdate extends Component {
         });
     }
 
+    closeMessageModal() {
+        const interval = setTimeout(() => {
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 5000)
+    }
+
     async handleAvatarChange(e) {
         try {
+            if(this.fileInput.files[0].type !== 'image/jpeg' && this.fileInput.files[0].type !== 'image/png'){
+                //error
+                this.setState({messageModal: true, messageName: 'error', messageContent: Resources.getInstance().userProfileAvatarWrongType});
+                this.closeMessageModal();
+                return;
+            }
+
             let qiniu_token = await ServiceProxy.proxyTo({
                 body: {
                     uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
@@ -198,6 +218,8 @@ class UserUpdate extends Component {
     render() {
         return (
             <div className="profile-update">
+                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                              modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().userUpdateTitle} />
                 <div className="update-body">
                     <div className="avatar-update with-half-border">

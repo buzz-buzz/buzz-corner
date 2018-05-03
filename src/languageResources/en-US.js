@@ -270,6 +270,7 @@ export const userUpdateTitle = '修改信息';
 
 export const userProfileGender = 'Gender';
 export const userProfileChange = 'Upload';
+export const userProfileAvatarWrongType = 'Incorrect image format!';
 
 
 export function signInWith(method) {
