@@ -224,7 +224,7 @@ class UserUpdate extends Component {
                         <div className="update-right">
                             <span>{this.state.profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span>
                             <i className="icon-icon_back_down"/>
-                            <select name="gender" id="gender" onChange={this.handleChange}>
+                            <select name="gender" id="gender" value={this.state.profile.gender} onChange={this.handleChange}>
                                 <option value="f">{Resources.getInstance().profileFemale}</option>
                                 <option value="m">{Resources.getInstance().profileMale}</option>
                             </select>
@@ -251,7 +251,7 @@ class UserUpdate extends Component {
                         <div className="update-right">
                             <span>{this.state.profile.grade}</span>
                             <i className="icon-icon_back_down"/>
-                            <select name="grade" placeholder="" onChange={this.handleChange}>
+                            <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
                                 {
                                     this.state.profile.role === MemberType.Student &&
                                     grade_list.map((item, index)=>{
@@ -272,9 +272,9 @@ class UserUpdate extends Component {
                             <span>{Resources.getInstance().profileCityNow}</span>
                         </div>
                         <div className="update-right">
-                            <span>{this.state.profile.city || 'unknown'}</span>
+                            <span>{this.state.profile.city || '其他'}</span>
                             <i className="icon-icon_back_down"/>
-                            <select name="city" placeholder="" onChange={this.handleChange}>
+                            <select name="city" placeholder="" value={this.state.profile.city} onChange={this.handleChange}>
                                 {
                                     city_list.map((item, index)=>{
                                         return <option key={index} value={item.value}>{item.text}</option>
