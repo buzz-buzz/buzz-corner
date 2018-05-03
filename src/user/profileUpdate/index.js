@@ -177,7 +177,7 @@ class UserUpdate extends Component {
                         <div className="update-right">
                             <span>{Resources.getInstance().userProfileChange}</span>
                             <i className="icon-icon_back_down"/>
-                            <input id="avatar" className="avatar-input"
+                            <input id="avatar" className="avatar-input hidden"
                                    type="file" accept="image/*"
                                    onChange={(e) => this.handleAvatarChange(e)}
                                    ref={input => {
@@ -192,7 +192,8 @@ class UserUpdate extends Component {
                             <span>英文名</span>
                         </div>
                         <div className="update-right">
-                            <span>{this.state.profile.student_en_name}</span>
+                            <input className="input-show" type="text"
+                                   name="student_en_name" value={this.state.profile.student_en_name || ''} onChange={this.handleChange} />
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
@@ -216,7 +217,7 @@ class UserUpdate extends Component {
                         <div className="update-right">
                             <span>{this.state.profile.date_of_birth}</span>
                             <i className="icon-icon_back_down"/>
-                            <input type="date"
+                            <input type="date" className="hidden"
                                    placeholder={Resources.getInstance().profileBirth}
                                    value={this.state.profile.date_of_birth || ''}
                                    onChange={this.handleChange}
