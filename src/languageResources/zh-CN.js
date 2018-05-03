@@ -267,6 +267,10 @@ export const userCenterTitle = '用户信息';
 export const userCenterHobby = 'TA的兴趣爱好';
 export const userUpdateTitle = '修改信息';
 
+export const userProfileGender = '性别';
+export const userProfileChange = '更换';
+
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>
