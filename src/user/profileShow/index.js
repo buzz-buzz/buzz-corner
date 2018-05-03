@@ -3,6 +3,7 @@ import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import Hobby from '../../my/hobby';
 import {Topics} from "../../common/systemData/topicData";
+import {MemberType} from "../../membership/member-type";
 import './index.css';
 import ServiceProxy from "../../service-proxy";
 
@@ -81,7 +82,7 @@ class UserShow extends Component {
                             <div className="profile-name">{this.state.user_profile.name}</div>
                             <div className="profile-gender-birthday"><span style={{paddingRight: '20px'}}>{this.state.user_profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span></div>
                             <div className="profile-city-grade">{this.state.user_profile.date_of_birth}</div>
-                            <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>{this.state.user_profile.grade}年级</div>
+                            <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city || this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{ this.state.user_profile.role === MemberType.Student ? this.state.user_profile.grade + Resources.getInstance().profileGradeName :  Resources.getInstance().profileGradeName + this.state.user_profile.grade}</div>
                         </div>
                     </div>
                     <div className="user-country">{this.state.user_profile.country}</div>

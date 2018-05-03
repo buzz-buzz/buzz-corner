@@ -4,7 +4,7 @@ import React from 'react';
 export default class HeaderWithBack extends React.Component {
     render() {
         return (
-            <div className="header-with-go-back">
+            <div className={this.props.title ? "header-with-go-back half-line" : "header-with-go-back"}>
                 <div className="go-back" onClick={this.props.goBack}>
                     <div className="arrow-left">
                     </div>

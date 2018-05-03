@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 
-import ProfilePage from './my/profileSetup';
 import LoginEntryPoint from './login-entry-point/index';
 import SelectRole from './select-role/index';
 import {browserHistory, Route, Router} from "react-router";
-import Avatar from './my/profileSetup/more-info';
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
@@ -12,9 +10,6 @@ import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import UserShow from './user/profileShow';
 import UserUpdate from './user/profileUpdate';
 import My from './my';
-import Language from './my/myLanguage';
-import Admin from './admin/index';
-import ClassManage from './admin/classManage';
 import ClassDetail from './classDetail/index';
 import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
@@ -52,17 +47,12 @@ class App extends Component {
                     <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
                     <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
                     <Route path='/my/info' component={My}/>
-                    <Route path='/my/profile' component={ProfilePage}/>
-                    <Route path='/my/profile/avatar' component={Avatar}/>
-                    <Route path='/my/profile/language' component={Language}/>
-                    <Route path='/admin' component={Admin}/>
-                    <Route path='/admin/class' component={ClassManage}/>
                     <Route path='/placement' component={Placement}/>
                     <Route path='/home' component={Home}/>
                     <Route path='/friends' component={Friends}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
-                    <Route path='/user/update' component={UserUpdate}/>
+                    <Route path='/user-profile' component={UserUpdate}/>
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
