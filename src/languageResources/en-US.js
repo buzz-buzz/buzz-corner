@@ -265,6 +265,7 @@ export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
 
 export const userCenterTitle = 'User Center';
 export const userCenterHobby = 'TA的兴趣爱好';
+export const userUpdateTitle = '修改信息';
 
 
 export function signInWith(method) {

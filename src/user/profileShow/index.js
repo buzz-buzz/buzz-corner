@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import Hobby from '../../my/hobby';
-import Track from "../../common/track";
 import {Topics} from "../../common/systemData/topicData";
 import './index.css';
 import ServiceProxy from "../../service-proxy";
@@ -17,7 +16,7 @@ function getBirthDay(date_of_birth) {
     }
 }
 
-class User extends Component {
+class UserShow extends Component {
     constructor(props) {
         super(props);
 
@@ -63,9 +62,6 @@ class User extends Component {
 
         user_profile.date_of_birth = getBirthDay(user_profile.date_of_birth);
 
-        console.log('=========--------------==========')
-        console.log(user_profile.date_of_birth)
-
         this.setState({
             user_profile: user_profile,
             topics: newTopics
@@ -83,8 +79,8 @@ class User extends Component {
                         </div>
                         <div className="user-profile">
                             <div className="profile-name">{this.state.user_profile.name}</div>
-                            <div className="profile-gender-birthday"><span style={{paddingRight: '20px'}}>{this.state.user_profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span>{this.state.user_profile.date_of_birth}</div>
-                            <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>{this.state.user_profile.grade}年级</div>
+                            <div className="profile-gender-birthday"><span style={{paddingRight: '20px'}}>{this.state.user_profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span></div>
+                            <div className="profile-city-grade">{this.state.user_profile.date_of_birth}</div>
                             <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>{this.state.user_profile.grade}年级</div>
                         </div>
                     </div>
@@ -108,4 +104,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default UserShow;

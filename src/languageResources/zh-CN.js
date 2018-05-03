@@ -264,6 +264,7 @@ export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
 
 export const userCenterTitle = '用户信息';
 export const userCenterHobby = 'TA的兴趣爱好';
+export const userUpdateTitle = '修改信息';
 
 export function signInWith(method) {
     return (
