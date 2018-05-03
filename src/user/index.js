@@ -27,10 +27,15 @@ class User extends Component {
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.switchToOtherUser = this.switchToOtherUser.bind(this);
         this.showUserInfo = this.showUserInfo.bind(this);
+        this.goUpdateProfile = this.goUpdateProfile.bind(this);
     }
 
     showUserInfo(){
         browserHistory.push('/user/' + this.state.userId);
+    }
+
+    goUpdateProfile(){
+        browserHistory.push('/user-profile');
     }
 
     async componentWillMount() {
@@ -62,6 +67,9 @@ class User extends Component {
                         <div className="user-info">
                             <p className="name">{this.state.u_name}</p>
                             <p className="nationality">{this.state.country}</p>
+                        </div>
+                        <div className="edit-img" onClick={this.goUpdateProfile}>
+                            <img src="//p579tk2n2.bkt.clouddn.com/icon-sign.svg" alt=""/>
                         </div>
                     </div>
                     <div className="user-menu">
