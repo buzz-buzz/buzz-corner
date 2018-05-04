@@ -7,6 +7,7 @@ import WeChatLogin from "../login/wechat";
 import './companion.css';
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import Resources from "../resources";
+import {MemberType, MemberTypeChinese} from "../membership/member-type";
 
 class CompanionLoginEntryPoint extends Component {
     constructor() {
@@ -19,7 +20,9 @@ class CompanionLoginEntryPoint extends Component {
     }
 
     signInViaWechat() {
-        Track.event('登录页面_点击微信登录按钮');
+        Track.event('登录页面_点击微信登录按钮', null, {
+            '用户类型': MemberTypeChinese.Companion
+        });
         WeChatLogin.redirectToWechatOAuthPage();
     }
 
