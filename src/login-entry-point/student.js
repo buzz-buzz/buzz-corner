@@ -3,6 +3,7 @@ import Resources from '../resources';
 import Track from "../common/track";
 import './index.css';
 import WeChatLogin from "../login/wechat";
+import {MemberTypeChinese} from "../membership/member-type";
 
 class StudentLoginEntryPoint extends Component {
     constructor() {
@@ -12,7 +13,9 @@ class StudentLoginEntryPoint extends Component {
     }
 
     signInViaWechat() {
-        Track.event('登录页面_点击微信登录按钮');
+        Track.event('登录页面_点击微信登录按钮', null, {
+            '用户类型': MemberTypeChinese.Student
+        });
         WeChatLogin.redirectToWechatOAuthPage();
     }
 
