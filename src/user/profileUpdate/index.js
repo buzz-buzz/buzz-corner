@@ -6,6 +6,7 @@ import {ChineseCityList} from "../../common/systemData/chineseCityListData";
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
+import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
@@ -40,7 +41,8 @@ class UserUpdate extends Component {
         super(props);
 
         this.state = {
-            profile: {}
+            profile: {},
+            update: false
         };
 
         this.submit = this.submit.bind(this);
@@ -51,11 +53,49 @@ class UserUpdate extends Component {
         window.history.back();
     }
 
+    validateForm() {
+        let profile = this.state.profile;
+
+        let newTopics = [];
+
+        for (let i in profile.topics) {
+            if (profile.topics[i]) {
+                newTopics.push(profile.topics[i]);
+            }
+        }
+
+        return {
+            name: profile.student_en_name,
+            gender: profile.gender,
+            date_of_birth: getBirthDay(profile.date_of_birth),
+            grade: profile.grade,
+            time_zone: profile.time_zone,
+            country: profile.country || 'China',
+            city: profile.city,
+            interests: newTopics,
+            email: profile.email,
+            mobile: profile.phone
+        };
+    }
+
     async submit(){
         //check if has change
+        if(this.state.update){
+            //save data
+            this.setState({loadingModal: true});
 
-        //save data
-        this.setState({messageModal: true, messageName: 'success', messageContent: Resources.getInstance().saveSuccess});
+            let profileData = this.validateForm();
+
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.profile.user_id}`,
+                    json: profileData,
+                    method: 'PUT'
+                }
+            });
+        }
+
+        this.setState({loadingModal: false, messageModal: true, messageName: 'success', messageContent: Resources.getInstance().saveSuccess});
         this.closeMessageModal();
     }
 
@@ -64,7 +104,8 @@ class UserUpdate extends Component {
 
         clonedProfile[event.target.name] = event.target.value;
         this.setState({
-            profile: clonedProfile
+            profile: clonedProfile,
+            update: true
         });
     }
 
@@ -166,6 +207,7 @@ class UserUpdate extends Component {
     render() {
         return (
             <div className="profile-update">
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().userUpdateTitle} />
@@ -189,7 +231,7 @@ class UserUpdate extends Component {
                     </div>
                     <div className="item-update with-half-border">
                         <div className="update-left">
-                            <span>英文名</span>
+                            <span>{Resources.getInstance().profileChildName}</span>
                         </div>
                         <div className="update-right">
                             <input className="input-show" type="text"

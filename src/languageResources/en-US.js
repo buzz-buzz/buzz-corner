@@ -264,9 +264,9 @@ export const connectionError = 'Connection error';
 export const unkownError = 'Connection error';
 export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
 
-export const userCenterTitle = 'User Center';
-export const userCenterHobby = 'TA的兴趣爱好';
-export const userUpdateTitle = '修改信息';
+export const userCenterTitle = 'Information';
+export const userCenterHobby = 'Hobbies';
+export const userUpdateTitle = 'Information';
 
 export const userProfileGender = 'Gender';
 export const userProfileChange = 'Upload';
