@@ -45,7 +45,7 @@ class videoPlay extends Component {
                 <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
                     <EmbedVideo sources={['//p579tk2n2.bkt.clouddn.com/Training%20video_3min.mp4']}
-                                poster={'//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png'} />
+                                poster={'//p579tk2n2.bkt.clouddn.com/banner-inland.png'} />
                     <div className="video-btn" id="icon-play-video">
                         <img src="//p579tk2n2.bkt.clouddn.com/icon_play.png" alt=""/>
                     </div>

@@ -21,7 +21,7 @@ class Header extends Component {
             <Container className='spa-header'>
                 <Segment inverted>
                     <a href="/">
-                        <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" className="" alt="logo"
+                        <img src="//p579tk2n2.bkt.clouddn.com/new_buzz_logo.png" className="" alt="logo"
                              style={{maxWidth: '100%', maxHeight: '50px'}}/>
                     </a>
                     <p>Welcome, {JSON.stringify(this.state.userInfo)}</p>
