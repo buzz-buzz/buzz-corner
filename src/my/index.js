@@ -507,7 +507,7 @@ class My extends Component {
                                                         style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
                                                     </h4>
                                                     <img className="profile-done-img"
-                                                         src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
+                                                         src="//p579tk2n2.bkt.clouddn.com/friends.png"
                                                          alt=""/>
                                                 </div>
                                             )

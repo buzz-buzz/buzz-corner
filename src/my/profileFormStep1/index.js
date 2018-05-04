@@ -36,7 +36,7 @@ export default class ProfileFormStep1 extends React.Component {
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
                         <img
-                            src={this.props.agreement === true ? "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" : "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select.png"}
+                            src={this.props.agreement === true ? "//p579tk2n2.bkt.clouddn.com/icon_select_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_select.png"}
                             alt=""/>
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>
@@ -70,7 +70,7 @@ export default class ProfileFormStep1 extends React.Component {
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
                         <img
-                            src={this.props.agreement === true ? "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" : "//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select.png"}
+                            src={this.props.agreement === true ? "//p579tk2n2.bkt.clouddn.com/icon_select_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_select.png"}
                             alt=""/>
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>

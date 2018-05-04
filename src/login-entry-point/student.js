@@ -23,14 +23,14 @@ class StudentLoginEntryPoint extends Component {
                     <img src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png" alt="loading..."/>
                 </div>
                 <div className="login-wechat-img">
-                    <img src='//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png' alt="loading..."/>
+                    <img src='//p579tk2n2.bkt.clouddn.com/banner-inland.png' alt="loading..."/>
                     <div className="img-introduction">
                         <p>{Resources.getInstance().loginByWechatIntroduction}</p>
                     </div>
                 </div>
                 <div className="login-wechat-btn" onClick={this.signInViaWechat}>
                     <div>
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png" alt="loading..."/>
+                        <img src="//p579tk2n2.bkt.clouddn.com/button_WeChat.png" alt="loading..."/>
                         <p>{Resources.getInstance().loginByWechatInfo}</p>
                     </div>
                 </div>

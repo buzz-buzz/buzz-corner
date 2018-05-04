@@ -60,7 +60,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <FacebookLogin/>
                                 <Divider horizontal/>
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
-                                    <Image src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png"
+                                    <Image src="//p579tk2n2.bkt.clouddn.com/button_WeChat.png"
                                            alt="Wechat login"/>
                                     {Resources.getInstance('en-US').signInWith('WECHAT')}
                                 </BuzzRoundButton>
