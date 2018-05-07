@@ -13,6 +13,7 @@ import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
@@ -22,7 +23,7 @@ class Homepage extends Component {
         super(props);
 
         this.state = {
-            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: QiniuDomain + '/logo-image.svg',
             step: props.location.query.step || 1,
             questions: Placement,
             answers: [],
@@ -80,7 +81,7 @@ class Homepage extends Component {
 
             this.setState({
                 userId: profile.user_id,
-                avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
+                avatar: profile.avatar || QiniuDomain + '/logo-image.svg'
             });
         }
         catch (ex) {
@@ -181,7 +182,7 @@ class Homepage extends Component {
                 if (this.state.step === 7) {
                     let answerSeventh = this.state.answers[6];
 
-                    let audioUrl = answerSeventh === 'A' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://p579tk2n2.bkt.clouddn.com/Placement%202.mp3' : 'http://p579tk2n2.bkt.clouddn.com/Placement%203.mp3');
+                    let audioUrl = answerSeventh === 'A' ? QiniuDomain + '/Placement%201.mp3' : (answerSeventh === 'B' ?  QiniuDomain + '/Placement%202.mp3' :  QiniuDomain + '/Placement%203.mp3');
                     let audioQuestionLength = answerSeventh === 'A' ? 5 : (answerSeventh === 'B' ? 13 : 11);
 
                     console.log(audioUrl, audioQuestionLength);
@@ -262,7 +263,7 @@ class Homepage extends Component {
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
                                     <Practice chats={this.state.chats}
-                                              avatars={["//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg", this.state.avatar]}
+                                              avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", this.state.avatar]}
                                               handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}
                                               recordingChanged={this.recordingChanged} ref={p => this.practice = p}/>
                                 </div>

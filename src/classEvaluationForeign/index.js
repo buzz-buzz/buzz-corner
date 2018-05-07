@@ -5,6 +5,7 @@ import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import TimeHelper from "../common/timeHelper";
@@ -101,7 +102,7 @@ class classEvaluationForeign extends Component {
                             url: '/class/evaluation/' + evaluationResult.userInfo[i].userId + '/' + this.state.class_id,
                             score: evaluationResult.userInfo[i].score || 0,
                             user_name: evaluationResult.userInfo[i].userName || 'Buzz',
-                            avatar: evaluationResult.userInfo[i].avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
+                            avatar: evaluationResult.userInfo[i].avatar || QiniuDomain + '/logo-image.svg'
                         });
                     }
                 }
@@ -129,7 +130,7 @@ class classEvaluationForeign extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <Avatar src={this.state.class_info.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Avatar src={this.state.class_info.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -172,19 +173,19 @@ class classEvaluationForeign extends Component {
                                             :
                                             <div className="result-stars">
                                                 <img
-                                                    src={item.score >= 1 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    src={item.score >= 1 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                                 <img
-                                                    src={item.score >= 2 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    src={item.score >= 2 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                                 <img
-                                                    src={item.score >= 3 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    src={item.score >= 3 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                                 <img
-                                                    src={item.score >= 4 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    src={item.score >= 4 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                                 <img
-                                                    src={item.score >= 5 ? "//p579tk2n2.bkt.clouddn.com/image/icon_Stars_active1.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_Stars1.png"}
+                                                    src={item.score >= 5 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                             </div>}
                                     </div>

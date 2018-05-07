@@ -1,6 +1,7 @@
 import * as React from "react";
 import BuzzModal from "../buzzModal/index";
 import {Header, Image} from "semantic-ui-react";
+import QiniuDomain from '../../systemData/qiniuUrl';
 import StopWatch from "../StopWatch/index";
 import Resources from "../../../resources";
 
@@ -24,11 +25,11 @@ export default class RecordingModal extends BuzzModal {
             <div>
                 <div className="welcome-title">
                     <div>
-                        <Image src="http://p579tk2n2.bkt.clouddn.com/icon_Siri%20Mic.png" alt="recording"
+                        <Image src={QiniuDomain + "/icon_Siri%20Mic.png"} alt="recording"
                                style={{height: '100px', display: 'inline', textAlign: 'center'}}/>
                     </div>
                     <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}>
-                        <StopWatch start={0} timeout={this.props.timeout} visible={this.props.open}></StopWatch>
+                        <StopWatch start={0} timeout={this.props.timeout} visible={this.props.open} />
                     </Header>
                 </div>
                 <p>&nbsp;</p>

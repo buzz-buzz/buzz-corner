@@ -4,10 +4,11 @@ import {Divider, Form, Grid, Header, Image} from "semantic-ui-react";
 import {browserHistory} from "react-router";
 import FacebookLogin from "../login/facebook";
 import WeChatLogin from "../login/wechat";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import './companion.css';
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import Resources from "../resources";
-import {MemberType, MemberTypeChinese} from "../membership/member-type";
+import {MemberTypeChinese} from "../membership/member-type";
 
 class CompanionLoginEntryPoint extends Component {
     constructor() {
@@ -44,12 +45,12 @@ class CompanionLoginEntryPoint extends Component {
                             <Divider horizontal/>
                             <Divider horizontal/>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png"
+                                <Image src={QiniuDomain + "/logo_full%20name.png"}
                                        alt="Buzzbuzz header logo" size="medium" style={{width: '120px'}}/>
                             </Header>
                             <Divider horizontal/>
                             <div className="ui fluid image banner-companion">
-                                <Image src="//p579tk2n2.bkt.clouddn.com/image/jpgpeople-mobile.jpg"
+                                <Image src={ QiniuDomain + "/image/jpgpeople-mobile.jpg"}
                                        alt="Buzzbuzz banner" fluid/>
                             </div>
                             <div className="overlay">
@@ -63,7 +64,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <FacebookLogin/>
                                 <Divider horizontal/>
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
-                                    <Image src="//p579tk2n2.bkt.clouddn.com/button_WeChat.png"
+                                    <Image src={ QiniuDomain + "/button_WeChat.png"}
                                            alt="Wechat login"/>
                                     {Resources.getInstance('en-US').signInWith('WECHAT')}
                                 </BuzzRoundButton>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Resources from '../../resources';
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 import './index.css';
 
 export default class ClassPartners extends React.Component {
@@ -13,7 +14,7 @@ export default class ClassPartners extends React.Component {
                     this.props.student_avatars.map((item, index) => {
                         return <Link key={index} to={"/user/" + item.user_id} onClick={event => this.props.sendTrack(event, '中方头像点击')}>
                             <img
-                                src={item.avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}
+                                src={item.avatar || QiniuDomain + "/logo-image.svg"}
                                 alt=""/>
                         </Link>
                     })

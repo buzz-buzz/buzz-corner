@@ -12,6 +12,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
@@ -246,7 +247,7 @@ class classDetail extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
-                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Avatar src={this.state.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -281,7 +282,7 @@ class classDetail extends Component {
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
-                                  avatars={["//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg", "//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg"]}/>
+                                  avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>

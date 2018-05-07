@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Track from "../common/track";
 import {Link} from "react-router";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import './footer.css';
 
 class Footer extends Component {
@@ -34,7 +35,7 @@ class Footer extends Component {
             <div className="footer">
                 <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
                     <img
-                        src={this.state.url.indexOf('/home') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_home_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_home.png"}
+                        src={this.state.url.indexOf('/home') > -1 ? QiniuDomain + "/Icon_home_active.png" : QiniuDomain + "/Icon_home.png"}
                         alt=""/>
                     <p>
                         {Resources.getInstance().footerHome}
@@ -42,7 +43,7 @@ class Footer extends Component {
                 </Link>
                 <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                     <img
-                        src={this.state.url.indexOf('/friends') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_Friend_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_Friend.png"}
+                        src={this.state.url.indexOf('/friends') > -1 ? QiniuDomain + "/icon_Friend_active.png" :  QiniuDomain + "/icon_Friend.png"}
                         alt=""/>
                     <p>
                         {Resources.getInstance().footerFriends}
@@ -50,7 +51,7 @@ class Footer extends Component {
                 </Link>
                 <Link to="reward" style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
                     <img
-                        src={this.state.url.indexOf('/reward') > -1 ? "//p579tk2n2.bkt.clouddn.com/Icon_Reward_active.png" : "//p579tk2n2.bkt.clouddn.com/Icon_Reward.png"}
+                        src={this.state.url.indexOf('/reward') > -1 ?  QiniuDomain + "/Icon_Reward_active.png" : QiniuDomain + "/Icon_Reward.png"}
                         alt=""/>
                     <p>
                         {Resources.getInstance().footerReward}
@@ -59,7 +60,7 @@ class Footer extends Component {
 
                 <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
                     <img
-                        src={this.state.url.indexOf('/user') > -1 ? "//p579tk2n2.bkt.clouddn.com/icon_user_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_user.png"}
+                        src={this.state.url.indexOf('/user') > -1 ?  QiniuDomain + "/icon_user_active.png" : QiniuDomain + "/icon_user.png"}
                         alt=""/>
                     <p>
                         {Resources.getInstance().footerUser}

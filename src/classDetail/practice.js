@@ -6,6 +6,7 @@ import WechatAudio from "../wechat/audio";
 import Track from "../common/track";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import CurrentUser from "../membership/user";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 
 export default class Practice extends React.Component {
     constructor(props) {
@@ -15,11 +16,11 @@ export default class Practice extends React.Component {
             replies: [{
                 wechatAudio: new WechatAudio()
             }],
-            soundPlaying: '//p579tk2n2.bkt.clouddn.com/icon_recording.gif',
+            soundPlaying: QiniuDomain + '/icon_recording.gif',
             currentReplying: 0,
             currentPlaying: -1,
             repliesPlaying: -1
-        }
+        };
 
         this.audios = {};
 
@@ -236,7 +237,7 @@ export default class Practice extends React.Component {
                                                     <div className="talktext">
                                                         <p style={{paddingLeft: '10px'}}>
                                                             <img className="rotate180" style={{height: '20px'}}
-                                                                 src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"}
+                                                                 src={this.state.repliesPlaying === i ? this.state.soundPlaying : QiniuDomain + "/icon_recording_new.png"}
                                                                  alt=""/>
                                                             <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                         </p>
@@ -272,7 +273,7 @@ export default class Practice extends React.Component {
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
                                     <div className="talktext" style={{padding: '0'}}>
-                                        <embed src="http://p579tk2n2.bkt.clouddn.com/icon_information%20cue.svg"
+                                        <embed src={ QiniuDomain + "/icon_information%20cue.svg"}
                                                width="80"
                                                height="33"
                                                type="image/svg+xml"
@@ -307,7 +308,7 @@ export default class Practice extends React.Component {
                                src={this.state.soundPlaying}
                                alt=""/>
                         : <img
-                            src="//p579tk2n2.bkt.clouddn.com/icon_recording_new.png"
+                            src={QiniuDomain + "/icon_recording_new.png"}
                             style={{height: '20px'}} alt=""/>
                 }
             </p>) :

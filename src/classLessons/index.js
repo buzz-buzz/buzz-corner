@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
 import './index.css';
 
@@ -18,7 +19,7 @@ class ClassLessons extends Component {
                     price: 280,
                     discount: '4课时',
                     before: '',
-                    img_url: '//p579tk2n2.bkt.clouddn.com/banner_buzz_youzan_2.jpg',
+                    img_url:  QiniuDomain + '/banner_buzz_youzan_2.jpg',
                     youzan_url: 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
                 }
             ]
