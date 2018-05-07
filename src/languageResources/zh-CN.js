@@ -150,6 +150,7 @@ export const profileIntroduction = '自我介绍';
 export const profileIntroductionHolder = '用简短的话概括你自己';
 export const profileSunmitBtn = '保存';
 export const profileGradeName = '年级';
+export const profileTopicNone = '添加';
 
 export const avatarTile = '联系方式';
 export const avatarLabel = '头像';
