@@ -1,4 +1,3 @@
-import './index.css'
 import Resources from '../../resources';
 import React from 'react';
 import {Button} from 'semantic-ui-react';
@@ -31,7 +30,7 @@ export default class ProfileFormStep1 extends React.Component {
                                value={this.props.code}
                                onChange={this.props.handleCodeChange} disabled={!this.props.mobileValid}
                                style={{width: '60%'}}
-                               placeholder={Resources.getInstance().profilePhoneCheck}/>
+                               placeholder={Resources.getInstance().profilePhoneLabel}/>
                         <Button style={ this.props.waitSec ? {padding: 0, color: '#000'} : {padding: 0, color: 'white'}} onClick={this.props.sms}
                                 disabled={!this.props.mobileValid || this.props.waitSec > 0}>{this.props.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
                     </div>

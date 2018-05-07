@@ -475,6 +475,7 @@ class My extends Component {
                         this.state.step === 1 ?
                             (
                                 <ProfileFormStep1 role={this.state.profile.role} profile={this.state.profile} handleChange={this.handleChange}
+                                                  code={this.state.code}
                                                   handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
                                                   waitSec={this.state.waitSec} agreementCheck={this.agreementCheck} agreement={this.state.agreement}
                                                   sendEmail={this.sendEmail} emailValid={this.state.emailValid}
