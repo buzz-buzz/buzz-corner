@@ -6,6 +6,7 @@ import { zones } from 'moment-timezone/data/meta/latest.json';
 import { countries } from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChineseCityList} from "../../common/systemData/chineseCityListData";
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 
 const grade_list = GradeData.grade_list;
 
@@ -40,7 +41,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                    src={this.props.profile.gender === 'm'? QiniuDomain + '/icon_boy_active1.svg' : QiniuDomain + '/image/icon/icon_boy.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -50,7 +51,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
+                                    src={this.props.profile.gender === 'f'? QiniuDomain + '/image/icon/icon_girl_active.svg' : QiniuDomain + '/image/icon/icon_girl.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -93,7 +94,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                            src={this.props.profile.gender === 'm'? QiniuDomain + '/icon_boy_active1.svg' : QiniuDomain + '/image/icon/icon_boy.svg'}
                                             alt=""/>
                                     </div>
                                     <span
@@ -103,7 +104,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
+                                            src={this.props.profile.gender === 'f'? QiniuDomain + '/image/icon/icon_girl_active.svg' : QiniuDomain + '/image/icon/icon_girl.svg'}
                                             alt=""/>
                                     </div>
                                     <span

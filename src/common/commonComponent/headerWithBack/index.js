@@ -1,5 +1,6 @@
 import './index.css'
 import React from 'react';
+import QiniuDomain from '../../systemData/qiniuUrl';
 
 export default class HeaderWithBack extends React.Component {
     render() {
@@ -9,7 +10,7 @@ export default class HeaderWithBack extends React.Component {
                     <div className="arrow-left">
                     </div>
                     <div className="circle-border">
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_back.png" alt=""/>
+                        <img src={ QiniuDomain + "/icon_back.png"} alt=""/>
                     </div>
                 </div>
                 <div className="logo">
@@ -19,7 +20,7 @@ export default class HeaderWithBack extends React.Component {
                         </div>
                         :
                         <div>
-                            <img src="//p579tk2n2.bkt.clouddn.com/new_buzz_logo.png" alt="Buzzbuzz"/>
+                            <img src= { QiniuDomain + "/new_buzz_logo.png"} alt="Buzzbuzz"/>
                         </div>
                     }
                 </div>

@@ -17,6 +17,7 @@ import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import { zones } from 'moment-timezone/data/meta/latest.json';
 import { countries } from 'moment-timezone/data/meta/latest.json';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -507,7 +508,7 @@ class My extends Component {
                                                         style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
                                                     </h4>
                                                     <img className="profile-done-img"
-                                                         src="//p579tk2n2.bkt.clouddn.com/friends.png"
+                                                         src={ QiniuDomain + "/friends.png"}
                                                          alt=""/>
                                                 </div>
                                             )

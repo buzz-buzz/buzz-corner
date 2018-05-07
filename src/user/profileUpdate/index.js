@@ -4,6 +4,7 @@ import { countries } from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChineseCityList} from "../../common/systemData/chineseCityListData";
 import Resources from '../../resources';
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
@@ -200,7 +201,7 @@ class UserUpdate extends Component {
             school: userData.school_name || '',
             country: userData.country || '',
             time_zone: userData.time_zone || '',
-            avatar: userData.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'
+            avatar: userData.avatar ||  QiniuDomain + '/logo-image.svg'
         };
     }
 
@@ -214,7 +215,7 @@ class UserUpdate extends Component {
                 <div className="update-body">
                     <div className="avatar-update with-half-border">
                         <div className="avatar-img">
-                            <img src={this.state.profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg'} alt=""/>
+                            <img src={this.state.profile.avatar || QiniuDomain + '/logo-image.svg'} alt=""/>
                         </div>
                         <div className="update-right">
                             <span>{Resources.getInstance().userProfileChange}</span>

@@ -3,6 +3,7 @@ import Resources from '../../resources';
 import React from 'react';
 import {Button} from 'semantic-ui-react';
 import {MemberType} from "../../membership/member-type";
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 
 export default class ProfileFormStep1 extends React.Component {
     render() {
@@ -36,7 +37,7 @@ export default class ProfileFormStep1 extends React.Component {
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
                         <img
-                            src={this.props.agreement === true ? "//p579tk2n2.bkt.clouddn.com/icon_select_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_select.png"}
+                            src={this.props.agreement === true ? QiniuDomain + "/icon_select_active.png" : QiniuDomain + "/icon_select.png"}
                             alt=""/>
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>
@@ -70,7 +71,7 @@ export default class ProfileFormStep1 extends React.Component {
                     </div>
                     <div className="agreement" onClick={this.props.agreementCheck}>
                         <img
-                            src={this.props.agreement === true ? "//p579tk2n2.bkt.clouddn.com/icon_select_active.png" : "//p579tk2n2.bkt.clouddn.com/icon_select.png"}
+                            src={this.props.agreement === true ? QiniuDomain + "/icon_select_active.png" : QiniuDomain + "/icon_select.png"}
                             alt=""/>
                         <span>{Resources.getInstance().profileAgreement}</span>
                     </div>

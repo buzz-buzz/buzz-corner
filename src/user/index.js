@@ -10,13 +10,14 @@ import '../common/Icon/style.css';
 import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 
 class User extends Component {
     constructor() {
         super();
 
         this.state = {
-            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: QiniuDomain + '/logo-image.svg',
             u_name: 'buzz',
             class_hours: 0,
             country: 'China',
@@ -46,7 +47,7 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
@@ -69,7 +70,7 @@ class User extends Component {
                             <p className="nationality">{this.state.country}</p>
                         </div>
                         <div className="edit-img" onClick={this.goUpdateProfile}>
-                            <img src="//p579tk2n2.bkt.clouddn.com/icon-sign.svg" alt=""/>
+                            <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
                         </div>
                     </div>
                     <div className="user-menu">
@@ -77,7 +78,7 @@ class User extends Component {
                             this.state.role === MemberType.Student &&
                             <Link to="class-lessons">
                                 <div className="icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/icon_my%20coins.png" alt=""/>
+                                    <img src={ QiniuDomain + "/icon_my%20coins.png"} alt=""/>
                                     <div className="name">
                                         {Resources.getInstance().myCoins}
                                     </div>
@@ -108,7 +109,7 @@ class User extends Component {
 
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
-                        {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
+                        {/*<img src={QiniuDomain + "/icon_language.png"} alt=""/>*/}
                         {/*<div className="name">*/}
                         {/*{Resources.getInstance().myLanguage}*/}
                         {/*</div>*/}

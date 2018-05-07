@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 import Hobby from '../../my/hobby';
 import {Topics} from "../../common/systemData/topicData";
 import {MemberType} from "../../membership/member-type";
@@ -76,7 +77,7 @@ class UserShow extends Component {
                 <div className="user">
                     <div className="user-info">
                         <div className="user-avatar">
-                            <img src={ this.state.user_profile.avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"} alt=""/>
+                            <img src={ this.state.user_profile.avatar || QiniuDomain + "/logo-image.svg"} alt=""/>
                         </div>
                         <div className="user-profile">
                             <div className="profile-name">{this.state.user_profile.name}</div>

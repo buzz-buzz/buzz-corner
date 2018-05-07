@@ -4,6 +4,7 @@ import './avatar.css';
 import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 
 export default class profileSetup extends Component {
     handlePhoneChange = (e, {value}) => {
@@ -21,7 +22,7 @@ export default class profileSetup extends Component {
         super();
 
         this.state = {
-            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: QiniuDomain + '/logo-image.svg',
             mobile: '',
             email: ''
         };
@@ -76,7 +77,7 @@ export default class profileSetup extends Component {
         let profile = await CurrentUser.getProfile()
 
         this.setState({
-            avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
             mobile: profile.mobile || '',
             email: profile.email || '',
             userId: profile.user_id

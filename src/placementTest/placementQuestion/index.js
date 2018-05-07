@@ -1,5 +1,6 @@
 import React from 'react';
 import Resources from '../../resources';
+import QiniuDomain from '../../common/systemData/qiniuUrl';
 import './index.css';
 
 export default class PlacementQuestion extends React.Component {
@@ -7,7 +8,7 @@ export default class PlacementQuestion extends React.Component {
         return <div className="first placement-first">
             <div className="first-question">
                 <div>
-                    <img src="//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg" alt=""/>
+                    <img src={QiniuDomain + "/WeChat_use_tutor.jpg"} alt=""/>
                 </div>
                 <div className="first-title">
                     <p>{ this.props.questions && this.props.questions.length ? this.props.questions[this.props.step - 1].title : ''}</p>
