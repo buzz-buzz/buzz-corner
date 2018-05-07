@@ -9,6 +9,7 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
+import UpdateTopicModal from '../updateModal';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
 import CurrentUser from "../../membership/user";
@@ -43,15 +44,59 @@ class UserUpdate extends Component {
 
         this.state = {
             profile: {},
-            update: false
+            update: false,
+            topicShow: false
         };
 
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.topicChange = this.topicChange.bind(this);
+        this.topicToggle = this.topicToggle.bind(this);
     }
 
     back(){
         window.history.back();
+    }
+
+    topicToggle(){
+        let clonedTopicShow = this.state.topicShow;
+
+        if(clonedTopicShow){
+            document.getElementById('update-modal').style.animation = 'topic-move-hide .3s linear';
+
+            let onceDisappear = setTimeout(()=>{
+                this.setState({topicShow: !clonedTopicShow});
+                clearTimeout(onceDisappear);
+            },300)
+        }else{
+            document.getElementById('update-modal').style.animation = 'topic-move-show .3s linear';
+
+            this.setState({topicShow: !clonedTopicShow});
+        }
+    }
+
+    topicChange(event) {
+        event.stopPropagation();
+
+        let clonedProfile = this.state.profile;
+        let clonedTopics = clonedProfile.topics || [];
+
+        if (clonedTopics.indexOf(event.target.name) < 0) {
+            clonedTopics.push(event.target.name);
+
+            clonedProfile.topics = clonedTopics;
+        } else {
+            let newTopics = [];
+            for (let i in clonedTopics) {
+                if (clonedTopics[i] !== event.target.name) {
+                    newTopics.push(clonedTopics[i]);
+                }
+            }
+
+            clonedProfile.topics = newTopics;
+        }
+
+        this.setState({profile: clonedProfile});
     }
 
     validateForm() {
@@ -212,6 +257,9 @@ class UserUpdate extends Component {
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().userUpdateTitle} />
+                <UpdateTopicModal topics={this.state.profile.topics || []} topicChange={this.topicChange}
+                             modalShow={this.state.topicShow} topicToggle={this.topicToggle}
+                />
                 <div className="update-body">
                     <div className="avatar-update with-half-border">
                         <div className="avatar-img">
@@ -351,8 +399,8 @@ class UserUpdate extends Component {
                         <div className="update-left">
                             <span>{Resources.getInstance().profileStep3}</span>
                         </div>
-                        <div className="update-right">
-                            <span>abc、ab、ac等3项</span>
+                        <div className="update-right" onClick={this.topicToggle}>
+                            <span>{this.state.profile.topics && this.state.profile.topics.length ? this.state.profile.topics[0] + '...' : Resources.getInstance().profileTopicNone}</span>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
