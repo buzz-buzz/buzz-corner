@@ -57,6 +57,7 @@ export const profileParentsName = '家长姓名';
 export const profilePhoneInfo = '中国(+86)';
 export const profilePhoneHolder = '手机号码';
 export const profilePhoneCheck = '获取验证码';
+export const profilePhoneLabel = '输入验证码';
 export const profilePhoneCheckError = '您输入的验证码不正确或过期, 请重新输入或获取新的验证码';
 export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
 export const profileStep2 = '个人信息';
@@ -267,6 +268,7 @@ export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
 export const userCenterTitle = '用户信息';
 export const userCenterHobby = 'TA的兴趣爱好';
 export const userUpdateTitle = '修改信息';
+export const userUpdatephone = '修改手机号';
 
 export const userProfileGender = '性别';
 export const userProfileChange = '更换';

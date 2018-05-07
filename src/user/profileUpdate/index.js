@@ -9,6 +9,7 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
+import ModifyContact from '../modifyContact';
 import UpdateTopicModal from '../updateModal';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
@@ -43,19 +44,145 @@ class UserUpdate extends Component {
         super(props);
 
         this.state = {
+            canUpdate: true,
             profile: {},
             update: false,
-            topicShow: false
+            topicShow: false,
+            waitSec: 0,
+            code: '',
+            mobileValid: false,
+            emailValid: false,
+            email_reg: /^[a-zA-Z0-9._-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
+            modifyContactModal: false,
+            new_phone: '',
+            new_email: ''
         };
 
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.topicChange = this.topicChange.bind(this);
         this.topicToggle = this.topicToggle.bind(this);
+        this.showModifyContact = this.showModifyContact.bind(this);
+        this.handleCodeChange = this.handleCodeChange.bind(this);
+        this.sms = this.sms.bind(this);
+        this.sendEmail = this.sendEmail.bind(this);
+        this.modifyCheck = this.modifyCheck.bind(this);
+        this.handleContactChange = this.handleContactChange.bind(this);
     }
 
     back(){
         window.history.back();
+    }
+
+    async sms() {
+        const {code} = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
+                json: {mobile: this.state.profile.phone},
+                method: 'POST'
+            }
+        })
+        if (code) {
+            this.setState({code});
+        }
+        this.setState({waitSec: 60});
+        const interval = setInterval(() => {
+            if (this.state.waitSec) {
+                this.setState({waitSec: this.state.waitSec - 1});
+            } else {
+                clearInterval(interval)
+            }
+        }, 1000)
+    }
+
+    async sendEmail() {
+        await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
+                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                method: 'POST'
+            }
+        });
+        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+        this.closeMessageModal();
+        this.setState({waitSec: 60});
+        const interval = setInterval(() => {
+            if (this.state.waitSec) {
+                this.setState({waitSec: this.state.waitSec - 1});
+            } else {
+                clearInterval(interval)
+            }
+        }, 1000)
+    }
+
+    async modifyCheck(){
+        if (this.state.profile.role === MemberType.Student) {
+            try {
+                await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
+                        json: {mobile: this.state.new_phone, code: this.state.code},
+                        method: 'POST'
+                    }
+                });
+
+                let clonedProfile = this.state.profile;
+                clonedProfile.phone = this.state.new_phone;
+
+                this.setState({
+                    canUpdate: true,
+                    modifyContactModal: false,
+                    update: true,
+                    profile: clonedProfile
+                });
+            } catch (e) {
+                console.log(e)
+
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailWrongVerification,
+                    canUpdate: false
+                });
+                this.closeMessageModal();
+                return;
+            }
+        }
+
+        if (this.state.profile.role === MemberType.Companion) {
+            try {
+                await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
+                        json: {mail: this.state.new_email, code: this.state.code},
+                        method: 'POST'
+                    }
+                })
+
+                let clonedProfile = this.state.profile;
+                clonedProfile.email = this.state.new_email;
+
+                this.setState({
+                    canUpdate: true,
+                    modifyContactModal: false,
+                    update: true,
+                    profile: clonedProfile
+                });
+            } catch (e) {
+                console.log(e)
+
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailWrongVerification,
+                    canUpdate: false
+                });
+                this.closeMessageModal();
+                return;
+            }
+        }
+    }
+
+    handleCodeChange(event) {
+        this.setState({code: event.target.value});
     }
 
     topicToggle(){
@@ -73,6 +200,12 @@ class UserUpdate extends Component {
 
             this.setState({topicShow: !clonedTopicShow});
         }
+    }
+
+    showModifyContact(){
+        let clonedContact = this.state.modifyContactModal;
+
+        this.setState({modifyContactModal: !clonedContact});
     }
 
     topicChange(event) {
@@ -96,7 +229,7 @@ class UserUpdate extends Component {
             clonedProfile.topics = newTopics;
         }
 
-        this.setState({profile: clonedProfile});
+        this.setState({profile: clonedProfile, update: true});
     }
 
     validateForm() {
@@ -126,7 +259,7 @@ class UserUpdate extends Component {
 
     async submit(){
         //check if has change
-        if(this.state.update){
+        if(this.state.update && this.state.canUpdate){
             //save data
             this.setState({loadingModal: true});
 
@@ -149,10 +282,27 @@ class UserUpdate extends Component {
         let clonedProfile = Object.assign({}, this.state.profile);
 
         clonedProfile[event.target.name] = event.target.value;
+
         this.setState({
             profile: clonedProfile,
             update: true
         });
+    }
+
+    handleContactChange(event){
+        if(event.target.name === 'phone'){
+            this.setState({
+                new_phone: event.target.value,
+                mobileValid: event.target.value && event.target.value.length === 11
+            });
+        }
+
+        if(event.target.name === 'email'){
+            this.setState({
+                new_email: event.target.value,
+                emailValid: event.target.value && this.state.email_reg.test(event.target.value)
+            });
+        }
     }
 
     closeMessageModal() {
@@ -226,7 +376,11 @@ class UserUpdate extends Component {
         console.log(profile);
 
         this.setState({
-            profile: profile
+            profile: profile,
+            mobileValid: profile && profile.phone && profile.phone.length === 11,
+            emailValid: profile &&profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
+            new_phone: profile.phone,
+            new_email: profile.email
         });
     }
 
@@ -259,6 +413,13 @@ class UserUpdate extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().userUpdateTitle} />
                 <UpdateTopicModal topics={this.state.profile.topics || []} topicChange={this.topicChange}
                              modalShow={this.state.topicShow} topicToggle={this.topicToggle}
+                />
+                <ModifyContact modalShow={this.state.modifyContactModal} handleContactChange={this.handleContactChange}
+                               code={this.state.code || ''} handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
+                               waitSec={this.state.waitSec} sendEmail={this.sendEmail} emailValid={this.state.emailValid}
+                               role={this.state.profile.role || ''} modifyCheck={this.modifyCheck}
+                               new_phone={this.state.new_phone} new_email={this.state.new_email}
+                               closeModal={this.showModifyContact}
                 />
                 <div className="update-body">
                     <div className="avatar-update with-half-border">
@@ -408,14 +569,14 @@ class UserUpdate extends Component {
                         <div className="update-left">
                             <span>{ this.state.profile.role === MemberType.Student?  Resources.getInstance().phoneLabel : 'Email'}</span>
                         </div>
-                        <div className="update-right">
+                        <div className="update-right"  onClick={this.showModifyContact}>
                             <span>{ this.state.profile.role === MemberType.Student ? this.state.profile.phone : this.state.profile.email}</span>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
                 </div>
                 <div className="update-btn">
-                    <Button50px disabled={false}  text={Resources.getInstance().profileSunmitBtn} submit={this.submit} />
+                    <Button50px disabled={!(this.state.update && this.state.canUpdate)}  text={Resources.getInstance().profileSunmitBtn} submit={this.submit} />
                 </div>
             </div>
         );
