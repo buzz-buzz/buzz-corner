@@ -229,7 +229,7 @@ class UserUpdate extends Component {
             clonedProfile.topics = newTopics;
         }
 
-        this.setState({profile: clonedProfile, update: true});
+        this.setState({profile: clonedProfile, update: true, canUpdate: true});
     }
 
     validateForm() {
@@ -253,7 +253,8 @@ class UserUpdate extends Component {
             city: profile.city,
             interests: newTopics,
             email: profile.email,
-            mobile: profile.phone
+            mobile: profile.phone,
+            avatar: profile.avatar
         };
     }
 
@@ -285,7 +286,8 @@ class UserUpdate extends Component {
 
         this.setState({
             profile: clonedProfile,
-            update: true
+            update: true,
+            canUpdate: true
         });
     }
 
@@ -361,11 +363,13 @@ class UserUpdate extends Component {
                 console.log(qiniu_token.resources_url + result.key);
 
                 let clonedProfile = this.state.profile;
-                clonedProfile.avatar = qiniu_token.resources_url + result.key;
+                clonedProfile.avatar = qiniu_token.resources_url + result.key + '?imageView2/1/w/400/h/400';
 
                 this.setState({
                     profile: clonedProfile,
-                    loadingModal: false
+                    loadingModal: false,
+                    update: true,
+                    canUpdate: true
                 });
             }
         } catch (ex) {
@@ -407,7 +411,7 @@ class UserUpdate extends Component {
             school: userData.school_name || '',
             country: userData.country || '',
             time_zone: userData.time_zone || '',
-            avatar: userData.avatar ||  QiniuDomain + '/logo-image.svg'
+            avatar: userData.avatar || QiniuDomain + '/logo-image.svg'
         };
     }
 
