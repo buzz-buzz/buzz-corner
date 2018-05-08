@@ -113,7 +113,18 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        ctx.body = ctx.state.user;
+        let options = Object.assign({
+            headers: {
+                'X-Requested-With': 'buzz-corner'
+            },
+            uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
+        }, ctx.request.body);
+
+        let profile = await request(options);
+        
+        ctx.body = Object.assign(ctx.state.user, {
+            profile: JSON.parse(profile)
+        });
     })
     .get('/switch-to-user/:user_id', membership.ensureAuthenticated, membership.pretendToBeOtherUser, async ctx => {
         ctx.body = ctx.state.user;
