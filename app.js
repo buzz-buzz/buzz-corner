@@ -121,7 +121,7 @@ router
         }, ctx.request.body);
 
         let profile = await request(options);
-        
+
         ctx.body = Object.assign(ctx.state.user, {
             profile: JSON.parse(profile)
         });
