@@ -324,6 +324,8 @@ class UserUpdate extends Component {
                 return;
             }
 
+            this.setState({loadingModal: true});
+
             let qiniu_token = await ServiceProxy.proxyTo({
                 body: {
                     uri: '{config.endPoints.buzzService}/api/v1/qiniu/token',
@@ -349,7 +351,11 @@ class UserUpdate extends Component {
             });
 
             if (!result.key || !result.hash) {
-                throw new Error(Resources.getInstance().avatarKeyWrong);
+                this.setState({
+                    loadingModal: false,
+                    messageModal: true,
+                    messageContent: Resources.getInstance().errorUpload
+                });
             } else {
                 console.log('upload success!');
                 console.log(qiniu_token.resources_url + result.key);
@@ -358,7 +364,8 @@ class UserUpdate extends Component {
                 clonedProfile.avatar = qiniu_token.resources_url + result.key;
 
                 this.setState({
-                    profile: clonedProfile
+                    profile: clonedProfile,
+                    loadingModal: false
                 });
             }
         } catch (ex) {
