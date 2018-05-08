@@ -46,7 +46,11 @@ router
 
         console.log('proxing with ...', ctx.request.body);
 
-        ctx.body = await oldRequest(ctx.request.body);
+        ctx.body = await oldRequest(Object.assign({
+            headers: {
+                'X-Requested-With': 'buzz-corner'
+            }
+        }, ctx.request.body));
     })
     .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string', async ctx => {
         let getCode = function () {

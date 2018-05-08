@@ -47,7 +47,8 @@ export default {
             let mergedOptions = Object.assign({
                 accept: 'application/json',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'buzz-corner'
                 },
                 credentials: 'include'
             }, options);

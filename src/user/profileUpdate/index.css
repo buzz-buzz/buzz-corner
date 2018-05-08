@@ -40,7 +40,8 @@
         .profile-update .update-body div .update-right input.input-show {
           border: none;
           outline: none;
-          text-align: right; }
+          text-align: right;
+          font-weight: 600; }
         .profile-update .update-body div .update-right i {
           color: #666;
           font-size: 15px;
