@@ -46,7 +46,7 @@ class videoPlay extends Component {
                 <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
                     <EmbedVideo sources={[QiniuDomain + '/Training%20video_3min.mp4']}
-                                poster={QiniuDomain + 'm/banner-inland.png'} />
+                                poster={QiniuDomain + '/banner-inland.png'} />
                     <div className="video-btn" id="icon-play-video">
                         <img src={QiniuDomain + "/icon_play.png"} alt=""/>
                     </div>
