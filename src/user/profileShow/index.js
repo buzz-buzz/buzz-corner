@@ -48,15 +48,17 @@ class UserShow extends Component {
 
         let newTopics = [];
 
-        user_profile.topics = user_profile.interests.split(',');
+        if(user_profile.interests && user_profile.interests.length){
+            user_profile.topics = user_profile.interests.split(',');
 
-        for (let i in user_profile.topics) {
-            if (user_profile.topics[i]) {
-                //check Topics
-                for(let f in Topics){
-                    if(Topics[f].value === user_profile.topics[i]){
-                        newTopics.push(Topics[f]);
-                        break;
+            for (let i in user_profile.topics) {
+                if (user_profile.topics[i]) {
+                    //check Topics
+                    for(let f in Topics){
+                        if(Topics[f].value === user_profile.topics[i]){
+                            newTopics.push(Topics[f]);
+                            break;
+                        }
                     }
                 }
             }
@@ -83,7 +85,15 @@ class UserShow extends Component {
                             <div className="profile-name">{this.state.user_profile.name}</div>
                             <div className="profile-gender-birthday"><span style={{paddingRight: '20px'}}>{this.state.user_profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span></div>
                             <div className="profile-city-grade">{this.state.user_profile.date_of_birth}</div>
-                            <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city || this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{ this.state.user_profile.role === MemberType.Student ? this.state.user_profile.grade + Resources.getInstance().profileGradeName :  Resources.getInstance().profileGradeName + this.state.user_profile.grade}</div>
+                            {
+                                this.state.user_profile.role === MemberType.Student &&
+                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>
+                                    { this.state.user_profile.grade + Resources.getInstance().profileGradeName }</div>
+                            }
+                            {
+                                this.state.user_profile.role === MemberType.Companion &&
+                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{Resources.getInstance().profileGradeName + this.state.user_profile.grade}</div>
+                            }
                         </div>
                     </div>
                     <div className="user-country">{this.state.user_profile.country}</div>
