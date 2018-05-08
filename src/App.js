@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import LoginEntryPoint from './login-entry-point/index';
 import SelectRole from './select-role/index';
+import SelectRoleTablet from './select-role/tablet';
 import {browserHistory, Route, Router} from "react-router";
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
@@ -22,11 +23,16 @@ import Reward from './reward';
 import User from './user';
 import Booking from './booking';
 import VideoPlay from './videoPlay';
+import VideoPlayTablet from './videoPlay/tablet';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
 import EntryPoint from "./home/EntryPoint";
 import SignOut from "./login/sign-out";
+
+const width = window.screen.width;
+const height = window.screen.height;
+const client = Math.min(width, height) >= 600 ? 'tablet' : 'phone';
 
 class App extends Component {
     render() {
@@ -37,7 +43,7 @@ class App extends Component {
                 `}</style>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
-                    <Route path='/select-role' component={SelectRole}/>
+                    <Route path='/select-role' component={ client === 'phone' ? SelectRole : SelectRoleTablet}/>
                     <Route path='/sign-in' component={LoginEntryPoint}/>
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
@@ -61,7 +67,7 @@ class App extends Component {
                     <Route path='/class-lessons' component={ClassLessons}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
-                    <Route path='/video-play' component={VideoPlay}/>
+                    <Route path='/video-play' component={ client === 'phone' ? VideoPlay : VideoPlayTablet}/>
                 </Router>
             </div>
         );
