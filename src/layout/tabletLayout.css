@@ -1,10 +1,10 @@
 .tablet-header, .tablet-footer {
   width: 100%;
-  height: 45px;
+  height: 70px;
   position: fixed;
   z-index: 200;
   left: 0;
-  padding: 0 100px;
+  padding: 0 200px;
   display: flex;
   align-items: center; }
   .tablet-header .tablet-logo-left, .tablet-footer .tablet-logo-left {
@@ -12,15 +12,15 @@
     display: flex;
     align-items: center; }
     .tablet-header .tablet-logo-left img, .tablet-footer .tablet-logo-left img {
-      height: 25px;
+      height: 45px;
       cursor: pointer; }
   .tablet-header .tablet-middle p, .tablet-footer .tablet-middle p {
     color: #666;
-    font-size: 10px;
+    font-size: 1.5em;
     text-align: center; }
   .tablet-header .tablet-middle p.footer-word, .tablet-footer .tablet-middle p.footer-word {
     color: #666;
-    font-size: 6px; }
+    font-size: 1em; }
   .tablet-header div, .tablet-footer div {
     flex: 1 1 auto; }
 

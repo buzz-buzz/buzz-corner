@@ -1,7 +1,7 @@
 .login-entry-point{
   height: 100%;
   width: 100%;
-  padding: 45px 0;
+  padding: 70px 0;
   position: fixed;
   left: 0;
   top: 0;
@@ -11,22 +11,30 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 40px;
     .login-left-word{
       flex: 0 0 auto;
+      max-width: 600px;
       .login-word{
-        font-size: 23px;
-        font-weight: 500;
+        font-size: 2em;
+        font-weight: 600;
+        line-height: 1.5em;
         color: #000;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
       }
       .items{
-
+        justify-content: flex-start;
+        img{
+          height: 30px;
+          width: 30px;
+          margin-right: 15px;
+        }
       }
     }
     .login-right-code{
       flex: 0 0 auto;
-      width: 400px;
-      height: 300px;
+      width: 560px;
+      height: 450px;
       border-radius: 10px;
       box-shadow: 0 0.5px 3.5px 0 rgba(0, 0, 0, 0.1);
       background-color: #ffffff;
@@ -41,8 +49,27 @@
         border-radius: 5px;
         margin-bottom: 25px;
       }
+      .facebook-logo{
+        height: 120px;
+        width: 120px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+      }
       .code-word{
-        font-size: 15px;
+        font-size: 1.5em;
+        margin-bottom: 40px;
+      }
+      button{
+        padding: 10px 20px;
+        outline: none;
+        border: none;
+        border-radius: 20px;
+        background-image: linear-gradient(142deg, #fad961, #f5b40c);
+        box-shadow: 0 1px 3.5px 0 rgba(102, 102, 102, 0.2);
+        color: white;
+        font-size: 1em;
+        letter-spacing: 1px;
+        cursor: pointer;
       }
     }
   }

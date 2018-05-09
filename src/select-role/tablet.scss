@@ -2,7 +2,7 @@
 .login-entrance-tablet{
   height: 100%;
   width: 100%;
-  padding: 45px 0;
+  padding: 70px 0;
   position: fixed;
   left: 0;
   top: 0;
@@ -16,25 +16,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 0 20px;
       .btn-content{
         .btn-title{
-          font-size: 21px;
+          font-size: 2em;
           color: #000000;
           text-shadow: 0 1px 2px rgba(102, 102, 102, 0.2);
           margin-bottom: 30px;
         }
         .btns{
           button{
-            padding: 0 20px;
-            height: 30px;
-            line-height: 30px;
+            padding: 10px 20px;
             outline: none;
             border: none;
             border-radius: 20px;
             background-image: linear-gradient(142deg, #fad961, #f5b40c);
             box-shadow: 0 1px 3.5px 0 rgba(102, 102, 102, 0.2);
             color: white;
-            font-size: 7px;
+            font-size: 1em;
             margin-right: 30px;
             letter-spacing: 1px;
             cursor: pointer;
@@ -62,7 +61,7 @@
         align-items: center;
         z-index: 200;
         img{
-          width: 50px;
+          width: 80px;
           height: auto;
           cursor: pointer;
         }
