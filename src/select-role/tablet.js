@@ -51,14 +51,16 @@ class SelectRoleTablet extends Component {
                         <div className="btn-content">
                             <div className="btn-title">结识英语学伴，对话英美少年！</div>
                             <div className="btns">
-                                <button>外籍学伴</button>
-                                <button>中国少年</button>
+                                <button onClick={this.foreignChildEntrance}>外籍学伴</button>
+                                <button onClick={this.chineseChildEntrance}>中国少年</button>
                             </div>
                         </div>
                     </div>
                     <div className="role-choose-video">
-                        <img src="" alt=""/>
-                        <div className="icon-play"></div>
+                        <img src="//p579tk2n2.bkt.clouddn.com/tablet/header-bg.png" alt=""/>
+                        <div className="icon-play" onClick={this.goVideoPlayPage}>
+                            <img src="//p579tk2n2.bkt.clouddn.com/tablet/icon_video.png" alt=""/>
+                        </div>
                     </div>
                 </div>
                 <TabletFooter />

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import LoginEntryPoint from './login-entry-point/index';
+import LoginEntryPointTablet from './login-entry-point/tablet';
 import SelectRole from './select-role/index';
 import SelectRoleTablet from './select-role/tablet';
 import {browserHistory, Route, Router} from "react-router";
@@ -44,7 +45,7 @@ class App extends Component {
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
                     <Route path='/select-role' component={ client === 'phone' ? SelectRole : SelectRoleTablet}/>
-                    <Route path='/sign-in' component={LoginEntryPoint}/>
+                    <Route path='/sign-in' component={  client === 'phone' ? LoginEntryPoint : LoginEntryPointTablet}/>
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
