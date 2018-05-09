@@ -10,7 +10,7 @@ class TabletFooter extends Component {
         return (
             <div className="tablet-footer">
                 <div className="tablet-logo-left">
-                    <img src={QiniuDomain + '/new_buzz_logo.png'} alt=""/>
+
                 </div>
                 <div className="tablet-middle">
                     <p className="footer-word">© 2017  Copyrigts are Creative Commons</p>

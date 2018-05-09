@@ -1,0 +1,49 @@
+.login-entry-point{
+  height: 100%;
+  width: 100%;
+  padding: 45px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  .login-entry-content{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .login-left-word{
+      flex: 0 0 auto;
+      .login-word{
+        font-size: 23px;
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 15px;
+      }
+      .items{
+
+      }
+    }
+    .login-right-code{
+      flex: 0 0 auto;
+      width: 400px;
+      height: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0.5px 3.5px 0 rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border: solid 0.3px #d0d6db;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .code{
+        height: 150px;
+        width: 150px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+      }
+      .code-word{
+        font-size: 15px;
+      }
+    }
+  }
+}
