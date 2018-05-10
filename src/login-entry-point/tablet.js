@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import {browserHistory} from 'react-router';
 import Track from "../common/track";
+import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 import './tablet.css';
@@ -16,6 +17,8 @@ class LoginRole extends Component {
             role: URLHelper.getSearchParam(window.location.search, 'role')
         };
 
+        this.facebookLogin = this.facebookLogin.bind(this);
+
         if (this.state.role === MemberType.Student) {
             Track.event('登录页面_中方登录页面');
             return;
@@ -26,7 +29,11 @@ class LoginRole extends Component {
             return;
         }
 
-        browserHistory.push('/select-role')
+        browserHistory.push('/select-role');
+    }
+
+    facebookLogin(){
+        browserHistory.push(`/login/facebook${window.location.search}`);
     }
 
     render() {
@@ -37,9 +44,9 @@ class LoginRole extends Component {
                     this.state.role === MemberType.Student &&
                     <div className="login-entry-content">
                         <div className="login-left-word">
-                            <div className="login-word">对话英美精英少年，轻松挺高英语听说</div>
+                            <div className="login-word">{Resources.getInstance().loginTabletWord}</div>
                             <div className="items">
-                                <img src="//p579tk2n2.bkt.clouddn.com/tablet/icon_WeChat_active.png" alt=""/>
+                                <img src={QiniuDomain + "/tablet/icon_WeChat_active.png"} alt=""/>
                             </div>
                         </div>
                         <div className="login-right-code">
@@ -54,14 +61,14 @@ class LoginRole extends Component {
                         <div className="login-left-word">
                             <div className="login-word">Make friends, earn cool rewards, learn new languages, be a leader!</div>
                             <div className="items">
-                                <img src="//p579tk2n2.bkt.clouddn.com/tablet/icon_WeChat.png" alt=""/>
-                                <img src="//p579tk2n2.bkt.clouddn.com/tablet/icon_facebook_active.png" alt=""/>
+                                <img src={QiniuDomain + "/tablet/icon_WeChat.png"} alt=""/>
+                                <img src={QiniuDomain + "/tablet/icon_facebook_active.png"} alt=""/>
                             </div>
                         </div>
                         <div className="login-right-code">
-                            <img src="//p579tk2n2.bkt.clouddn.com/tablet/Facebook_pc.png" alt="" className="facebook-logo"/>
+                            <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
                             <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
-                            <button>LOGIN</button>
+                            <button onClick={this.facebookLogin}>LOGIN</button>
                         </div>
                     </div>
                 }

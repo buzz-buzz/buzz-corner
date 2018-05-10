@@ -15,6 +15,7 @@ export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Dialogue with native English-speaking teens';
+export const loginTabletWord = 'Connect English and Chinese speaking teens in a virtual space.';
 
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
