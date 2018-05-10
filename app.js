@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
+const request = require('request-promise-native');
 const oldRequest = require('request');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
