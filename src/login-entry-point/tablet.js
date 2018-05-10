@@ -33,6 +33,36 @@ class LoginRole extends Component {
         browserHistory.push('/select-role');
     }
 
+    componentDidMount(){
+        if(this.state.role === MemberType.Student){
+            let script=document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", "//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js");
+            let heads = document.getElementsByTagName("head");
+            if(heads.length)
+                heads[0].appendChild(script);
+            else
+                document.documentElement.appendChild(script);
+
+            let delay = setTimeout(function(){
+                if(window.WxLogin){
+
+                    var obj = new window.WxLogin({
+                        self_redirect: true,
+                        id: "qrcode-wechat",
+                        appid: "wx46e3b4c2a399d748",
+                        scope: "snsapi_login",
+                        redirect_uri: encodeURIComponent('http://live.buzzbuzzenglish.com/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string'),
+                        state: "123",
+                        style: "white"
+                    });
+                }
+
+                clearTimeout(delay);
+            }, 5000)
+        }
+    }
+
     facebookLogin(){
         browserHistory.push(`/login/facebook${window.location.search}`);
     }
@@ -51,9 +81,10 @@ class LoginRole extends Component {
                             </div>
                         </div>
                         <div className="login-right-code">
-                            <img src="" alt="" className="code"/>
+                            <div className="code" id="qrcode-wechat"></div>
                             <div className="code-word">使用微信扫码登录</div>
                         </div>
+                        {/*<script src="//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>*/}
                     </div>
                 }
                 {
