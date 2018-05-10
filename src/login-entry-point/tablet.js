@@ -36,21 +36,23 @@ class LoginRole extends Component {
         browserHistory.push('/select-role');
     }
 
+    createCode(){
+        new window.WxLogin({
+            self_redirect: true,
+            id: "qrcode-wechat",
+            appid: "wx46e3b4c2a399d748",
+            scope: "snsapi_login",
+            redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+            state: "123",
+            style: "white"
+        });
+    }
+
     changeWechatLogin(){
         if(this.state.active !== 's'){
             this.setState({
                 active: 's'
-            }, ()=>{
-                new window.WxLogin({
-                    self_redirect: true,
-                    id: "qrcode-wechat",
-                    appid: "wx46e3b4c2a399d748",
-                    scope: "snsapi_login",
-                    redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
-                    state: "123",
-                    style: "white"
-                });
-            });
+            }, this.createCode);
         }
     }
 
@@ -64,15 +66,7 @@ class LoginRole extends Component {
 
     componentDidMount(){
         if(window.WxLogin){
-            new window.WxLogin({
-                self_redirect: true,
-                id: "qrcode-wechat",
-                appid: "wx46e3b4c2a399d748",
-                scope: "snsapi_login",
-                redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
-                state: "123",
-                style: "white"
-            });
+            this.createCode();
         }
     }
 
