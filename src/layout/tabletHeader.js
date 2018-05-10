@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {browserHistory} from "react-router";
 import Resources from '../resources';
 import Track from "../common/track";
-import {Link} from "react-router";
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import './tabletLayout.css';
 
@@ -14,6 +13,8 @@ class TabletHeader extends Component {
     }
 
     goHomePage(){
+        Track.event('角色选择_logo点击', 'logo点击');
+
         browserHistory.push('/');
     }
 
@@ -24,7 +25,7 @@ class TabletHeader extends Component {
                     <img src={ QiniuDomain + "/new_buzz_logo.png"} alt="" onClick={this.goHomePage} />
                 </div>
                 <div className="tablet-middle">
-                    <p>Login</p>
+                    <p onClick={this.goHomePage}>{Resources.getInstance().homeLogin}</p>
                 </div>
                 <div className="tablet-language-right">
 

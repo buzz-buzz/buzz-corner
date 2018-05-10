@@ -4,7 +4,6 @@ import Resources from '../resources';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import './tablet.css';
 import Track from "../common/track";
-import {Message} from "semantic-ui-react";
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 import TabletHeader from '../layout/tabletHeader';
@@ -49,17 +48,17 @@ class SelectRoleTablet extends Component {
                 <div className="entrance-tablet">
                     <div className="role-choose-tablet">
                         <div className="btn-content">
-                            <div className="btn-title">结识英语学伴，对话英美少年！</div>
+                            <div className="btn-title">{Resources.getInstance().welcomePageIntroductionLineOne}</div>
                             <div className="btns">
-                                <button onClick={this.foreignChildEntrance}>外籍学伴</button>
-                                <button onClick={this.chineseChildEntrance}>中国少年</button>
+                                <button onClick={this.foreignChildEntrance}>{Resources.getInstance().welcomePageForeignChild}</button>
+                                <button onClick={this.chineseChildEntrance}>{Resources.getInstance().welcomePageChineseChild}</button>
                             </div>
                         </div>
                     </div>
                     <div className="role-choose-video">
-                        <img src="//p579tk2n2.bkt.clouddn.com/tablet/header-bg.png" alt=""/>
+                        <img src={ QiniuDomain + "/tablet/header-bg.png"} alt=""/>
                         <div className="icon-play" onClick={this.goVideoPlayPage}>
-                            <img src="//p579tk2n2.bkt.clouddn.com/tablet/icon_video.png" alt=""/>
+                            <img src={ QiniuDomain + "/tablet/icon_video.png"} alt=""/>
                         </div>
                     </div>
                 </div>

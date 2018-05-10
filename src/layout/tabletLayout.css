@@ -17,7 +17,8 @@
   .tablet-header .tablet-middle p, .tablet-footer .tablet-middle p {
     color: #666;
     font-size: 1.5em;
-    text-align: center; }
+    text-align: center;
+    cursor: pointer; }
   .tablet-header .tablet-middle p.footer-word, .tablet-footer .tablet-middle p.footer-word {
     color: #666;
     font-size: 1em; }
