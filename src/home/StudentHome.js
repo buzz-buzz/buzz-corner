@@ -390,11 +390,11 @@ class Home extends Component {
                             <img src={ QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
                         </div>
                     </div>
-                    <Link className="consult" onClick={this.signUp}>
+                    <a className="consult" onClick={this.signUp}>
                         <embed src={ QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
                                type="image/svg+xml"
                                pluginspage="http://www.adobe.com/svg/viewer/install/"/>
-                    </Link>
+                    </a>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?

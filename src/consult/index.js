@@ -67,7 +67,7 @@ class Consult extends Component {
                         </div>
                         <p className="email-title">2. You can use wechat and <span style={{color: '#edae00'}}>scan the QR code</span></p>
                         <div className="consult-QR-code" style={{width: '40%'}}>
-                            <img src={ QiniuDomain + "/companion_advisor.jpg.jpg"} alt=""/>
+                            <img src={ QiniuDomain + "/companion_advisor.jpg"} alt=""/>
                         </div>
                     </div>
                 }
