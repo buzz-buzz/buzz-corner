@@ -59,6 +59,7 @@ p{
 
 .my-home > .home-header > .consult{
     position: absolute;
+    cursor: pointer;
     left: 0;
     top: 0;
     height: 100%;
