@@ -44,10 +44,9 @@
       justify-content: center;
       align-items: center;
       .code{
-        height: 150px;
-        width: 150px;
-        border-radius: 5px;
-        margin-bottom: 25px;
+        height: 400px;
+        width: 300px;
+        border-radius: 10px;
       }
       .facebook-logo{
         height: 120px;
@@ -58,6 +57,9 @@
       .code-word{
         font-size: 1.5em;
         margin-bottom: 40px;
+      }
+      .qr-code-img{
+        min-height: 430px;
       }
       button{
         padding: 10px 20px;

@@ -40,10 +40,9 @@
       justify-content: center;
       align-items: center; }
       .login-entry-point .login-entry-content .login-right-code .code {
-        height: 150px;
-        width: 150px;
-        border-radius: 5px;
-        margin-bottom: 25px; }
+        height: 400px;
+        width: 300px;
+        border-radius: 10px; }
       .login-entry-point .login-entry-content .login-right-code .facebook-logo {
         height: 120px;
         width: 120px;
@@ -52,6 +51,8 @@
       .login-entry-point .login-entry-content .login-right-code .code-word {
         font-size: 1.5em;
         margin-bottom: 40px; }
+      .login-entry-point .login-entry-content .login-right-code .qr-code-img {
+        min-height: 430px; }
       .login-entry-point .login-entry-content .login-right-code button {
         padding: 10px 20px;
         outline: none;
