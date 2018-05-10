@@ -35,31 +35,17 @@ class LoginRole extends Component {
 
     componentDidMount(){
         if(this.state.role === MemberType.Student){
-            let script=document.createElement("script");
-            script.setAttribute("type", "text/javascript");
-            script.setAttribute("src", "//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js");
-            let heads = document.getElementsByTagName("head");
-            if(heads.length)
-                heads[0].appendChild(script);
-            else
-                document.documentElement.appendChild(script);
-
-            let delay = setTimeout(function(){
-                if(window.WxLogin){
-
-                    var obj = new window.WxLogin({
-                        self_redirect: true,
-                        id: "qrcode-wechat",
-                        appid: "wx46e3b4c2a399d748",
-                        scope: "snsapi_login",
-                        redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
-                        state: "123",
-                        style: "white"
-                    });
-                }
-
-                clearTimeout(delay);
-            }, 5000)
+            if(window.WxLogin){
+                var obj = new window.WxLogin({
+                    self_redirect: true,
+                    id: "qrcode-wechat",
+                    appid: "wx46e3b4c2a399d748",
+                    scope: "snsapi_login",
+                    redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+                    state: "123",
+                    style: "white"
+                });
+            }
         }
     }
 
