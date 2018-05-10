@@ -51,6 +51,8 @@ class App extends Component {
                     <Route path="/login/wechat" component={LoginByWechat}/>
                     <Route path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
                            component={WechatOAuthRedirect}/>
+                    <Route path="/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string"
+                           component={WechatOAuthRedirect}/>
                     <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
                     <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
                     <Route path='/my/info' component={My}/>
