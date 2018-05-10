@@ -137,6 +137,8 @@ export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
 export const homeAvatar = 'contact information';
 
+export const loginWechatScanQr = 'Use WeChat scan code to login';
+
 export const profileTitle = 'Setup your profile';
 export const profileName = 'Name';
 export const profileNameHolder = 'Your name';

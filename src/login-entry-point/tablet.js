@@ -15,10 +15,13 @@ class LoginRole extends Component {
         super();
 
         this.state = {
-            role: URLHelper.getSearchParam(window.location.search, 'role')
+            role: URLHelper.getSearchParam(window.location.search, 'role'),
+            active: 's'
         };
 
         this.facebookLogin = this.facebookLogin.bind(this);
+        this.changeWechatLogin = this.changeWechatLogin.bind(this);
+        this.changeFacebookLogin = this.changeFacebookLogin.bind(this);
 
         if (this.state.role === MemberType.Student) {
             Track.event('登录页面_中方登录页面');
@@ -33,9 +36,11 @@ class LoginRole extends Component {
         browserHistory.push('/select-role');
     }
 
-    componentDidMount(){
-        if(this.state.role === MemberType.Student){
-            if(window.WxLogin){
+    changeWechatLogin(){
+        if(this.state.active !== 's'){
+            this.setState({
+                active: 's'
+            }, ()=>{
                 var obj = new window.WxLogin({
                     self_redirect: true,
                     id: "qrcode-wechat",
@@ -45,7 +50,29 @@ class LoginRole extends Component {
                     state: "123",
                     style: "white"
                 });
-            }
+            });
+        }
+    }
+
+    changeFacebookLogin(){
+        if(this.state.active !== 'c'){
+            this.setState({
+                active: 'c'
+            });
+        }
+    }
+
+    componentDidMount(){
+        if(window.WxLogin){
+            var obj = new window.WxLogin({
+                self_redirect: true,
+                id: "qrcode-wechat",
+                appid: "wx46e3b4c2a399d748",
+                scope: "snsapi_login",
+                redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+                state: "123",
+                style: "white"
+            });
         }
     }
 
@@ -57,39 +84,36 @@ class LoginRole extends Component {
         return (
             <div className="login-entry-point">
                 <TabletHeader />
-                {
-                    this.state.role === MemberType.Student &&
-                    <div className="login-entry-content">
-                        <div className="login-left-word">
-                            <div className="login-word">{Resources.getInstance().loginTabletWord}</div>
-                            <div className="items">
-                                <img src={QiniuDomain + "/tablet/icon_WeChat_active.png"} alt=""/>
-                            </div>
+                <div className="login-entry-content">
+                    <div className="login-left-word">
+                        <div className="login-word">{ this.state.role === MemberType.Student ?
+                            Resources.getInstance().loginTabletWord : 'Make friends, earn cool rewards, learn new languages, be a leader!'}</div>
+                        <div className="items">
+                            <img src={ this.state.active === 's' ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
+                                 alt="" onClick={this.changeWechatLogin}/>
+                            {
+                                this.state.role === MemberType.Companion &&
+                                <img src={ this.state.active === 'c' ? QiniuDomain + "/tablet/icon_facebook_active.png" :  QiniuDomain + "/tablet/icon_facebook.png"}
+                                     alt="" onClick={this.changeFacebookLogin}/>
+                            }
                         </div>
-                        <div className="login-right-code">
-                            <div className="code" id="qrcode-wechat"></div>
-                            <div className="code-word">使用微信扫码登录</div>
-                        </div>
-                        {/*<script src="//res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>*/}
                     </div>
-                }
-                {
-                    this.state.role === MemberType.Companion &&
-                    <div className="login-entry-content">
-                        <div className="login-left-word">
-                            <div className="login-word">Make friends, earn cool rewards, learn new languages, be a leader!</div>
-                            <div className="items">
-                                <img src={QiniuDomain + "/tablet/icon_WeChat.png"} alt=""/>
-                                <img src={QiniuDomain + "/tablet/icon_facebook_active.png"} alt=""/>
-                            </div>
-                        </div>
+                    {
+                        this.state.active === 'c' &&
                         <div className="login-right-code">
                             <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
                             <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
                             <FacebookLogin btnText="LOGIN" />
                         </div>
-                    </div>
-                }
+                    }
+                    {
+                        this.state.active === 's' &&
+                        <div className="login-right-code">
+                            <div className="code" id="qrcode-wechat"></div>
+                            <div className="code-word">{Resources.getInstance().loginWechatScanQr}</div>
+                        </div>
+                    }
+                </div>
                 <TabletFooter />
             </div>
         );
