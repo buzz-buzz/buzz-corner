@@ -5,6 +5,7 @@ import Track from "../common/track";
 import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
+import FacebookLogin from "../login/facebook";
 import './tablet.css';
 import TabletHeader from '../layout/tabletHeader';
 import TabletFooter from '../layout/tabletFooter';
@@ -68,7 +69,7 @@ class LoginRole extends Component {
                         <div className="login-right-code">
                             <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
                             <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
-                            <button onClick={this.facebookLogin}>LOGIN</button>
+                            <FacebookLogin btnText="LOGIN" />
                         </div>
                     </div>
                 }
