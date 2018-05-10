@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import Resources from '../resources';
-import Track from "../common/track";
-import {Link} from "react-router";
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import './tabletLayout.css';
 
 class TabletFooter extends Component {

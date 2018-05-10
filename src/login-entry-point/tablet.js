@@ -41,7 +41,7 @@ class LoginRole extends Component {
             this.setState({
                 active: 's'
             }, ()=>{
-                var obj = new window.WxLogin({
+                new window.WxLogin({
                     self_redirect: true,
                     id: "qrcode-wechat",
                     appid: "wx46e3b4c2a399d748",
@@ -64,7 +64,7 @@ class LoginRole extends Component {
 
     componentDidMount(){
         if(window.WxLogin){
-            var obj = new window.WxLogin({
+            new window.WxLogin({
                 self_redirect: true,
                 id: "qrcode-wechat",
                 appid: "wx46e3b4c2a399d748",
