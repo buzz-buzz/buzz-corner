@@ -288,7 +288,7 @@ class Home extends Component {
                 }
             }
 
-            classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
                         clonedMessageFromAdvisor.push({
@@ -323,7 +323,7 @@ class Home extends Component {
                 }
 
                 return item;
-            });
+            }));
 
             let messageCheck = clonedMessageFromAdvisor.filter(function (item) {
                 return item.hasRead !== 'read';
@@ -332,12 +332,10 @@ class Home extends Component {
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
-                messageRead: messageCheck.length > 0,
+                messageRead: messageCheck && messageCheck.length > 0,
                 loadingModal: false,
                 role: profile.role
             });
-
-            //class_list --->  feedback list
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
