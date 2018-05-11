@@ -63,7 +63,7 @@ class Home extends Component {
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isiOS) {
             window.location.href = "/class/" + item.class_id;
-        }else{
+        } else {
             browserHistory.push("/class/" + item.class_id);
         }
     }
@@ -196,26 +196,30 @@ class Home extends Component {
         return classList;
     }
 
-    sortClassList(class_list){
+    sortClassList(class_list) {
         //<= 0 >, >0 <
         let future = [];
         let past = [];
 
-        for(let i in class_list){
-            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time))/1000;
-            if(class_list[i].left_time <= 0){
+        for (let i in class_list) {
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time)) / 1000;
+            if (class_list[i].left_time <= 0) {
                 future.push(class_list[i]);
-            }else{
+            } else {
                 past.push(class_list[i]);
             }
         }
 
-        future = future.sort(function(a, b){return b.left_time - a.left_time});
-        past = past.sort(function(a, b){return a.left_time - b.left_time});
+        future = future.sort(function (a, b) {
+            return b.left_time - a.left_time
+        });
+        past = past.sort(function (a, b) {
+            return a.left_time - b.left_time
+        });
 
         class_list = future;
 
-        for(let f in past){
+        for (let f in past) {
             class_list.push(past[f]);
         }
 
@@ -281,7 +285,7 @@ class Home extends Component {
                     clonedMessageFromAdvisor.push({
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
-                        message_avatar:  `${QiniuDomain}/WeChat_use_tutor.jpg`,
+                        message_avatar: `${QiniuDomain}/WeChat_use_tutor.jpg`,
                         goUrl: '/placement?tab=message',
                         hasRead: ''
                     });
@@ -337,7 +341,6 @@ class Home extends Component {
                 role: profile.role
             });
         } catch (ex) {
-            console.log('login failed: ' + ex.toString());
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
 
             this.setState({loadingModal: false, fullModal: false});
@@ -353,7 +356,7 @@ class Home extends Component {
 
         this.setState({loadingModal: false, fullModal: false});
 
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }
@@ -366,7 +369,7 @@ class Home extends Component {
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-                        <img src= { QiniuDomain + "/icon_booking.png" } alt="" style={{
+                        <img src={QiniuDomain + "/icon_booking.png"} alt="" style={{
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
@@ -376,7 +379,7 @@ class Home extends Component {
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <img src= { QiniuDomain + "/icon_message.png"} alt="" style={{
+                        <img src={QiniuDomain + "/icon_message.png"} alt="" style={{
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
@@ -385,11 +388,11 @@ class Home extends Component {
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                         <div className="message-red-new"
                              style={this.state.messageRead ? {} : {display: 'none'}}>
-                            <img src={ QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
+                            <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
                         </div>
                     </div>
                     <a className="consult" onClick={this.signUp}>
-                        <embed src={ QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
+                        <embed src={QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
                                type="image/svg+xml"
                                pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                     </a>
@@ -405,7 +408,8 @@ class Home extends Component {
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
                                             <div className="booking-item-avatar">
                                                 <Avatar src={item.companion_avatar}/>
-                                                <Flag name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'} />
+                                                <Flag
+                                                    name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'}/>
                                             </div>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
@@ -432,9 +436,9 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-                                    <img src={ QiniuDomain +  "/icon_Coursepurchase tips.png"} alt=""/>
+                                    <img src={QiniuDomain + "/icon_Coursepurchase tips.png"} alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{ this.state.role === MemberType.Student? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
+                                    <p>{this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
                     </div>) :
@@ -448,7 +452,11 @@ class Home extends Component {
                             <div
                                 className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'}
                                 onClick={this.messageTabChangeAdvisor}>
-                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length + ')' : '')}</p>
+                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
+                                    return ele.hasRead === '';
+                                }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                                 <div className="message-red-circle"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
@@ -456,11 +464,11 @@ class Home extends Component {
                         {
                             this.state.message_tab === 'friends' ?
                                 (<div className="none-items">
-                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
+                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
                                 </div>) :
                                 (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
-                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
+                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
                                         </div>
                                     ) :
                                     (<div className="message-items">
@@ -486,13 +494,14 @@ class Home extends Component {
                         }
                     </div>)
                 }
-                <div className="booking-btn" style={this.state.tab === 'booking' ? {}:{display: 'none'}}>
+                <div className="booking-btn" style={this.state.tab === 'booking' ? {} : {display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.signUp} id="booking-btn"
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
-                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '142px'}:{height: '52px'}}></div>
+                <div className="offset-footer"
+                     style={this.state.tab === 'booking' ? {height: '142px'} : {height: '52px'}}></div>
                 <Footer/>
             </div>
         );
