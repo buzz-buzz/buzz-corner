@@ -256,7 +256,7 @@ class Home extends Component {
                 return;
             }
 
-            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await this.isProfileOK(userId))) {
                 browserHistory.push('/my/info');
                 return;
             }
@@ -505,6 +505,15 @@ class Home extends Component {
                 <Footer/>
             </div>
         );
+    }
+
+    async isProfileOK(userId) {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/is-profile-ok/${userId}`,
+                method: 'GET'
+            }
+        })
     }
 }
 
