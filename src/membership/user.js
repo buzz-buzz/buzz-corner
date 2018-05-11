@@ -7,14 +7,17 @@ class User {
         this.userId = userId;
         this.isSuper = isSuper;
         this.profile = profile;
-
-        console.log(profile);
     }
 
     static async getInstance() {
         if (!currentUser) {
             try {
                 let userData = await ServiceProxy.proxy('/user-info');
+
+                if (typeof userData !== 'object' || !userData.userId) {
+                    await User.signOut();
+                    return;
+                }
 
                 currentUser = new User(userData.userId, userData.super, userData.profile);
             } catch (ex) {
