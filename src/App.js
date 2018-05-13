@@ -30,10 +30,7 @@ import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
 import EntryPoint from "./home/EntryPoint";
 import SignOut from "./login/sign-out";
-
-const width = window.screen.width;
-const height = window.screen.height;
-const client = Math.min(width, height) >= 600 ? 'tablet' : 'phone';
+import Client from "./common/client";
 
 class App extends Component {
     render() {
@@ -44,8 +41,10 @@ class App extends Component {
                 `}</style>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
-                    <Route path='/select-role' component={client === 'phone' ? SelectRole : SelectRoleTablet}/>
-                    <Route path='/sign-in' component={client === 'phone' ? LoginEntryPoint : LoginEntryPointTablet}/>
+                    <Route path='/select-role' component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
+                    <Route path='/sign-in' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+                    <Route path='/tutor' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+                    <Route path='/student' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
@@ -70,10 +69,11 @@ class App extends Component {
                     <Route path='/class-lessons' component={ClassLessons}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
-                    <Route path='/video-play' component={client === 'phone' ? VideoPlay : VideoPlayTablet}/>
+                    <Route path='/video-play' component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
                 </Router>
             </div>
-        );
+        )
+            ;
     }
 }
 

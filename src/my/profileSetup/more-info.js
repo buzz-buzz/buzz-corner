@@ -9,7 +9,7 @@ import QiniuDomain from '../../common/systemData/qiniuUrl';
 export default class profileSetup extends Component {
     handlePhoneChange = (e, {value}) => {
         this.setState({
-            mobile: value
+            Mobile: value
         });
     };
     handleEmailChange = (e, {value}) => {
@@ -78,7 +78,7 @@ export default class profileSetup extends Component {
 
         this.setState({
             avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
-            mobile: profile.mobile || '',
+            mobile: profile.Mobile || '',
             email: profile.email || '',
             userId: profile.user_id
         });
@@ -104,7 +104,7 @@ export default class profileSetup extends Component {
     }
 
     validateForm() {
-        let phone = this.state.mobile;
+        let phone = this.state.Mobile;
         let email = this.state.email;
         let avatar = this.state.avatar;
 
@@ -153,10 +153,10 @@ export default class profileSetup extends Component {
                     <h4>{Resources.getInstance().phoneLabel}</h4>
                     <Form.Group widths='equal'>
                         <Form.Input fluid icon='phone' iconPosition='left' type="number"
-                                    placeholder={Resources.getInstance().phoneHolder} value={this.state.mobile}
+                                    placeholder={Resources.getInstance().phoneHolder} value={this.state.Mobile}
                                     onChange={(e, {value}) => this.handlePhoneChange(e, {value})}
                                     name='mobile'
-                                    error={!this.state.mobile}/>
+                                    error={!this.state.Mobile}/>
                     </Form.Group>
                     <h4>{Resources.getInstance().emailLabel}</h4>
                     <Form.Group widths='equal'>
