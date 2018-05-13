@@ -166,6 +166,8 @@ router
     .get('/wechat/demo', serveSPA)
     .get('/select-role', serveSPA)
     .get('/video-play', serveSPA)
+    .get('/tutor', serveSPA)
+    .get('/student', serveSPA)
 ;
 
 app
