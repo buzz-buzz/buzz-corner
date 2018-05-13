@@ -9,14 +9,15 @@ import FacebookLogin from "../login/facebook";
 import './tablet.css';
 import TabletHeader from '../layout/tabletHeader';
 import TabletFooter from '../layout/tabletFooter';
+import RoleDesider from "./RoleDesider";
 
 class LoginRole extends Component {
     constructor() {
         super();
 
         this.state = {
-            role: URLHelper.getSearchParam(window.location.search, 'role'),
-            active: 's'
+            role: RoleDesider.getRole(),
+            active: MemberType.Student
         };
 
         this.facebookLogin = this.facebookLogin.bind(this);
@@ -36,7 +37,7 @@ class LoginRole extends Component {
         browserHistory.push('/select-role');
     }
 
-    createCode(){
+    createCode() {
         new window.WxLogin({
             self_redirect: true,
             id: "qrcode-wechat",
@@ -48,47 +49,49 @@ class LoginRole extends Component {
         });
     }
 
-    changeWechatLogin(){
-        if(this.state.active !== 's'){
+    changeWechatLogin() {
+        if (this.state.active !== 's') {
             this.setState({
                 active: 's'
             }, this.createCode);
         }
     }
 
-    changeFacebookLogin(){
-        if(this.state.active !== 'c'){
+    changeFacebookLogin() {
+        if (this.state.active !== 'c') {
             this.setState({
                 active: 'c'
             });
         }
     }
 
-    componentDidMount(){
-        if(window.WxLogin){
+    componentDidMount() {
+        if (window.WxLogin) {
             this.createCode();
         }
     }
 
-    facebookLogin(){
+    facebookLogin() {
         browserHistory.push(`/login/facebook${window.location.search}`);
     }
 
     render() {
         return (
             <div className="login-entry-point">
-                <TabletHeader />
+                <TabletHeader/>
                 <div className="login-entry-content">
                     <div className="login-left-word">
-                        <div className="login-word">{ this.state.role === MemberType.Student ?
+                        <div className="login-word">{this.state.role === MemberType.Student ?
                             Resources.getInstance().loginTabletWord : 'Make friends, earn cool rewards, learn new languages, be a leader!'}</div>
                         <div className="items">
-                            <img src={ this.state.active === 's' ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
-                                 alt="" onClick={this.changeWechatLogin}/>
+                            <img
+                                src={this.state.active === 's' ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
+                                alt="" onClick={this.changeWechatLogin}/>
                             {
                                 this.state.role === MemberType.Companion &&
-                                <img src={ this.state.active === 'c' ? QiniuDomain + "/tablet/icon_facebook_active.png" :  QiniuDomain + "/tablet/icon_facebook.png"}
-                                     alt="" onClick={this.changeFacebookLogin}/>
+                                <img
+                                    src={this.state.active === 'c' ? QiniuDomain + "/tablet/icon_facebook_active.png" : QiniuDomain + "/tablet/icon_facebook.png"}
+                                    alt="" onClick={this.changeFacebookLogin}/>
                             }
                         </div>
                     </div>
@@ -97,7 +100,7 @@ class LoginRole extends Component {
                         <div className="login-right-code">
                             <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
                             <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
-                            <FacebookLogin btnText="LOGIN" />
+                            <FacebookLogin btnText="LOGIN"/>
                         </div>
                     }
                     {
@@ -108,7 +111,7 @@ class LoginRole extends Component {
                         </div>
                     }
                 </div>
-                <TabletFooter />
+                <TabletFooter/>
             </div>
         );
     }
