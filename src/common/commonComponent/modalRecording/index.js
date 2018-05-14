@@ -34,7 +34,7 @@ export default class RecordingModal extends BuzzModal {
                 </div>
                 <p>&nbsp;</p>
                 <div className="begin">
-                    <div onTouchStart={this.props.onOK}>
+                    <div onClick={this.props.onOK}>
                         <p>{Resources.getInstance().finishRecording}</p>
                     </div>
                 </div>

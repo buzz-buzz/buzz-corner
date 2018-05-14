@@ -7,7 +7,8 @@ export default class StopWatch extends React.Component {
 
         this.state = {
             timeElapsed: 0,
-            timerId: null
+            timerId: null,
+            timer: false
         }
 
         this.startTick = this.startTick.bind(this)
@@ -23,7 +24,7 @@ export default class StopWatch extends React.Component {
     }
 
     componentWillUnmount() {
-        this.stopTick()
+        this.stopTick();
 
         //重写组件的setState方法，直接返回空
         this.setState = (state, callback) => {
@@ -38,23 +39,27 @@ export default class StopWatch extends React.Component {
     }
 
     startTick() {
-        this.setState({
-            timeElapsed: this.props.start,
-            timerId: window.setInterval(() => {
-                this.setState({
-                    timeElapsed: this.state.timeElapsed + 1
-                }, () => {
-                    if (this.state.timeElapsed >= 59) {
-                        this.props.timeout()
-                    }
-                })
-            }, 1000)
-        })
+        if(!this.state.timer){
+            this.setState({
+                timer: true,
+                timeElapsed: this.props.start,
+                timerId: window.setInterval(() => {
+                    this.setState({
+                        timeElapsed: this.state.timeElapsed + 1
+                    }, () => {
+                        if (this.state.timeElapsed >= 59) {
+                            this.props.timeout();
+                            this.stopTick();
+                        }
+                    })
+                }, 1000)
+            })
+        }
     }
 
     stopTick() {
         if (this.state.timerId) {
-            window.clearInterval(this.state.timerId);
+            clearInterval(this.state.timerId);
         }
     }
 }
