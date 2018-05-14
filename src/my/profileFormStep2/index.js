@@ -74,13 +74,13 @@ export default class ProfileFormStep2 extends React.Component {
                     </Form.Group>
                     <div className="selection-options">
                         <Dropdown placeholder={Resources.getInstance().profileCity} search
-                                  selection noResultsMessage="没有这个城市哦"
+                                  selection noResultsMessage="no result"
                                   onChange={(event, data) => {
                                       this.props.handleCityChange(event, data)
                                   }} value={this.props.profile.city}
                                   options={ChineseCityList}/>
                         <Dropdown placeholder={Resources.getInstance().profileGrade} search
-                                  selection noResultsMessage="例如: 六年级"
+                                  selection noResultsMessage="no result"
                                   onChange={(event, data) => {
                                       this.props.handleGradeChange(event, data)
                                   }} value={this.props.profile.grade}

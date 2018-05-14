@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import QiniuDomain from '../../common/systemData/qiniuUrl';
+import {GradeData} from "../../common/systemData/gradeData";
 import Hobby from '../../my/hobby';
 import {Topics} from "../../common/systemData/topicData";
 import {MemberType} from "../../membership/member-type";
 import './index.css';
 import ServiceProxy from "../../service-proxy";
+
+const grade_list = GradeData.grade_list;
+const grade_list_foreign = GradeData.grade_list_foreign;
 
 
 function getBirthDay(date_of_birth) {
@@ -23,7 +27,9 @@ class UserShow extends Component {
         super(props);
 
         this.state = {
-            user_profile: {},
+            user_profile: {
+
+            },
             topics: [],
             user_id: props.params.user_id
         };
@@ -88,11 +94,11 @@ class UserShow extends Component {
                             {
                                 this.state.user_profile.role === MemberType.Student &&
                                 <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>
-                                    { this.state.user_profile.grade + Resources.getInstance().profileGradeName }</div>
+                                    {grade_list[parseInt(this.state.user_profile.grade || 1) - 1].text}</div>
                             }
                             {
                                 this.state.user_profile.role === MemberType.Companion &&
-                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{Resources.getInstance().profileGradeName + this.state.user_profile.grade}</div>
+                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{grade_list_foreign[parseInt(this.state.user_profile.grade || 1) - 1].text}</div>
                             }
                         </div>
                     </div>
