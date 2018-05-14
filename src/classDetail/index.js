@@ -6,7 +6,6 @@ import {MemberType} from "../membership/member-type";
 import './index.css';
 import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
-import TabletPractice from "./tabletPractice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -17,7 +16,6 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
-import Client from "../common/client";
 import {Button, Form, Flag} from "semantic-ui-react";
 
 class classDetail extends Component {
@@ -297,15 +295,10 @@ class classDetail extends Component {
                     }
                     {
                         this.state.role === MemberType.Student &&
-                        Client.showComponent(<Practice chats={this.state.chats.filter(c => c !== '')}
-                                                       recordingChanged={this.recordingChanged}
-                                                       ref={p => this.practice = p}
-                                                       avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>,
-                            <TabletPractice chats={this.state.chats.filter(c => c !== '')}
-                                            recordingChanged={this.recordingChanged}
-                                            ref={p => this.tabletPractice = p}
-                                            avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
-                        )
+                        <Practice chats={this.state.chats.filter(c => c !== '')}
+                                  recordingChanged={this.recordingChanged}
+                                  ref={p => this.practice = p}
+                                  avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
