@@ -11,16 +11,16 @@ export const TabletAudioStatus = {
     stoppingSound: 'stopping sound'
 };
 
-let mediaSource = new MediaSource();
-mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
+// let mediaSource = new MediaSource();
+// mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs = [];
 let recordReadyStatus = false;
 
 
-function handleSourceOpen(event) {
-    mediaSource.addSourceBuffer('audio/webm');
-}
+// function handleSourceOpen(event) {
+//     mediaSource.addSourceBuffer('audio/webm');
+// }
 
 
 function handleSuccess(stream) {
