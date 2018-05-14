@@ -19,7 +19,6 @@ import './index.css';
 import '../../common/Icon/style.css';
 
 const grade_list = GradeData.grade_list;
-
 const grade_list_foreign = GradeData.grade_list_foreign;
 
 const timeZones = Object.keys(zones).map(key=>({
@@ -492,7 +491,12 @@ class UserUpdate extends Component {
                             <span>{Resources.getInstance().profileGrade}</span>
                         </div>
                         <div className="update-right">
-                            <span>{this.state.profile.grade}</span>
+                            {  this.state.profile.role === MemberType.Student &&
+                                <span>{grade_list[parseInt(this.state.profile.grade) - 1].text}</span>
+                            }
+                            {  this.state.profile.role === MemberType.Companion &&
+                                <span>{grade_list_foreign[parseInt(this.state.profile.grade) - 1].text}</span>
+                            }
                             <i className="icon-icon_back_down"/>
                             <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
                                 {
