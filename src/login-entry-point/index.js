@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import Track from "../common/track";
 import './index.css';
 import {MemberType} from "../membership/member-type";
-import URLHelper from "../common/url-helper";
 import StudentLoginEntryPoint from "./student";
 import CompanionLoginEntryPoint from "./companion";
 import {browserHistory} from "react-router";
+import RoleDesider from "./RoleDesider";
 
 class LoginEntryPoint extends Component {
     constructor() {
         super();
 
         this.state = {
-            role: URLHelper.getSearchParam(window.location.search, 'role')
+            role: RoleDesider.getRole()
         };
 
         if (this.state.role === MemberType.Student) {

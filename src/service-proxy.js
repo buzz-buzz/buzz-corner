@@ -48,7 +48,7 @@ export default {
                 accept: 'application/json',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Requested-With': 'buzz-corner'
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 credentials: 'include'
             }, options);
