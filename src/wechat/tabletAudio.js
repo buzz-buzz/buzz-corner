@@ -11,6 +11,7 @@ export const TabletAudioStatus = {
     stoppingSound: 'stopping sound'
 };
 
+//window.MediaSource = window.MediaSource || window.WebKitMediaSource;
 // let mediaSource = new MediaSource();
 // mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
