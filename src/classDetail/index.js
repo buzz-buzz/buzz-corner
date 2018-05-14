@@ -6,6 +6,7 @@ import {MemberType} from "../membership/member-type";
 import './index.css';
 import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
+import TabletPractice from "./tabletPractice";
 import Track from "../common/track";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -17,6 +18,10 @@ import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
+
+const width = window.screen.width;
+const height = window.screen.height;
+const client = Math.min(width, height) >= 600 ? 'tablet' : 'phone';
 
 class classDetail extends Component {
     constructor(props) {
@@ -213,6 +218,8 @@ class classDetail extends Component {
 
         if (this.practice) {
             this.practice.cancelReply();
+        }else if(this.tabletPractice){
+            this.tabletPractice.cancelReply();
         }
     }
 
@@ -222,6 +229,8 @@ class classDetail extends Component {
         console.log('end reply');
         if (this.practice) {
             this.practice.endReply();
+        }else if(this.tabletPractice){
+            this.tabletPractice.endReply();
         }
 
     }
@@ -278,10 +287,17 @@ class classDetail extends Component {
                         </div>
                     }
                     {
-                        this.state.role === MemberType.Student &&
+                        this.state.role === MemberType.Student && client === 'phone' &&
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
+                                  avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
+                    }
+                    {
+                        this.state.role === MemberType.Student && client === 'tablet' &&
+                        <TabletPractice chats={this.state.chats.filter(c => c !== '')}
+                                  recordingChanged={this.recordingChanged}
+                                  ref={p => this.tabletPractice = p}
                                   avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
                     }
                 </div>
