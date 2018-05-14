@@ -9,11 +9,13 @@
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 0 40px;
+    max-width: 1200px;
+    margin: 0 auto;
     .login-left-word{
-      flex: 0 0 auto;
+      flex: 1 1 auto;
       max-width: 600px;
       .login-word{
         font-size: 2em;
