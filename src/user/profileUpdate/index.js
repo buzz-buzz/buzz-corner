@@ -77,7 +77,7 @@ class UserUpdate extends Component {
         const {code} = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-                json: {mobile: this.state.profile.phone},
+                json: {mobile: this.state.new_phone},
                 method: 'POST'
             }
         })
@@ -98,7 +98,7 @@ class UserUpdate extends Component {
         await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                json: {mail: this.state.new_email, name: this.state.profile.student_en_name},
                 method: 'POST'
             }
         });
@@ -358,9 +358,6 @@ class UserUpdate extends Component {
                     messageContent: Resources.getInstance().errorUpload
                 });
             } else {
-                console.log('upload success!');
-                console.log(qiniu_token.resources_url + result.key);
-
                 let clonedProfile = this.state.profile;
                 clonedProfile.avatar = qiniu_token.resources_url + result.key + '?imageView2/1/w/400/h/400';
 
@@ -382,8 +379,6 @@ class UserUpdate extends Component {
             browserHistory.push('/select-role');
             return;
         }
-
-        console.log(profile);
 
         this.setState({
             profile: profile,
@@ -492,10 +487,10 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             {  this.state.profile.role === MemberType.Student &&
-                                <span>{grade_list[parseInt(this.state.profile.grade || 1) - 1].text}</span>
+                                <span>{grade_list[parseInt(this.state.profile.grade) - 1].text}</span>
                             }
                             {  this.state.profile.role === MemberType.Companion &&
-                                <span>{grade_list_foreign[parseInt(this.state.profile.grade || 1) - 1].text}</span>
+                            <span>{grade_list_foreign[parseInt(this.state.profile.grade) - 1].text}</span>
                             }
                             <i className="icon-icon_back_down"/>
                             <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
