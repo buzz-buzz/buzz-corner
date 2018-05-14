@@ -17,11 +17,8 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
+import Client from "../common/client";
 import {Button, Form, Flag} from "semantic-ui-react";
-
-const width = window.screen.width;
-const height = window.screen.height;
-const client = Math.min(width, height) >= 600 ? 'tablet' : 'phone';
 
 class classDetail extends Component {
     constructor(props) {
@@ -287,18 +284,16 @@ class classDetail extends Component {
                         </div>
                     }
                     {
-                        this.state.role === MemberType.Student && client === 'phone' &&
-                        <Practice chats={this.state.chats.filter(c => c !== '')}
-                                  recordingChanged={this.recordingChanged}
-                                  ref={p => this.practice = p}
-                                  avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
-                    }
-                    {
-                        this.state.role === MemberType.Student && client === 'tablet' &&
-                        <TabletPractice chats={this.state.chats.filter(c => c !== '')}
-                                  recordingChanged={this.recordingChanged}
-                                  ref={p => this.tabletPractice = p}
-                                  avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
+                        this.state.role === MemberType.Student &&
+                        Client.showComponent(<Practice chats={this.state.chats.filter(c => c !== '')}
+                                                       recordingChanged={this.recordingChanged}
+                                                       ref={p => this.practice = p}
+                                                       avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>,
+                            <TabletPractice chats={this.state.chats.filter(c => c !== '')}
+                                            recordingChanged={this.recordingChanged}
+                                            ref={p => this.tabletPractice = p}
+                                            avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
+                        )
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
