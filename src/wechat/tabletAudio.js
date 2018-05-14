@@ -146,8 +146,10 @@ export default class TabletAudio {
         if (!result.key || !result.hash) {
             url = '';
         }else{
-            url = qiniu_token.resources_url + result.key + '?imageView2/1/w/400/h/400';
+            url = qiniu_token.resources_url + result.key;
         }
+
+        alert(url);
 
         this.status = TabletAudioStatus.doneRecording;
         return url || ''

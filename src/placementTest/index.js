@@ -4,7 +4,6 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
 import Practice from "../classDetail/practice";
-import TabletPractice from "../classDetail/tabletPractice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
@@ -18,7 +17,6 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
-import Client from "../common/client";
 
 class Homepage extends Component {
     constructor(props) {
@@ -264,21 +262,12 @@ class Homepage extends Component {
                                     <div className="second-title">
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
-                                    {
-                                        Client.showComponent(<Practice chats={this.state.chats}
-                                                                       avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", this.state.avatar]}
-                                                                       handleUploadUrl={this.handleUploadUrl.bind(this)}
-                                                                       audioUpload={true}
-                                                                       recordingChanged={this.recordingChanged}
-                                                                       ref={p => this.practice = p}/>,
-                                            <TabletPractice chats={this.state.chats}
-                                                            avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", this.state.avatar]}
-                                                            handleUploadUrl={this.handleUploadUrl.bind(this)}
-                                                            audioUpload={true}
-                                                            recordingChanged={this.recordingChanged}
-                                                            ref={p => this.practice = p}/>
-                                        )
-                                    }
+                                    <Practice chats={this.state.chats}
+                                              avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", this.state.avatar]}
+                                              handleUploadUrl={this.handleUploadUrl.bind(this)}
+                                              audioUpload={true}
+                                              recordingChanged={this.recordingChanged}
+                                              ref={p => this.practice = p}/>
                                 </div>
                             )
                     }
