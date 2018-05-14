@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, TextArea} from 'semantic-ui-react';
+import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
@@ -25,7 +26,8 @@ class classEvaluation extends Component {
                 partners: [1, 2, 3],
                 status: 2,
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00'
+                show_time: '00:00 - 00:00',
+                companions: ''
             },
             user_type: 2,
             stars: 0,
@@ -42,11 +44,20 @@ class classEvaluation extends Component {
         this.evaluationItemsChange = this.evaluationItemsChange.bind(this);
         this.back = this.back.bind(this);
         this.submitEvaluation = this.submitEvaluation.bind(this);
+        this.companionCenter = this.companionCenter.bind(this);
 
     }
 
     back() {
         window.history.back();
+    }
+
+    companionCenter(){
+        Track.event('外籍头像点击');
+
+        if(this.state.class_info.companions){
+            browserHistory.push('/user/' + this.state.class_info.companions);
+        }
     }
 
     changeStars(event) {
@@ -186,6 +197,8 @@ class classEvaluation extends Component {
                 if(class_info.companions){
                     let companion_id = class_info.companions.split(',')[0];
 
+                    class_info.companions = companion_id;
+
                     companion_country = (await ServiceProxy.proxyTo({
                         body: {
                             uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
@@ -230,7 +243,7 @@ class classEvaluation extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar">
+                        <div className="booking-item-avatar"  onClick={this.companionCenter}>
                             <Avatar src={this.state.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
