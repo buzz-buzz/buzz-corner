@@ -69,7 +69,7 @@ class Reward extends Component {
                 <div className="miles">
                     <div className="title">{Resources.getInstance().rewardMiles}</div>
                     <div className="buzz-miles">
-                        <img src= { QiniuDomain + "/Bitmap.png"} alt="Buzzbuzz"/>
+                        <img src= { QiniuDomain + "/icon_money.svg"} alt="Loading..."/>
                         <span>{this.state.integral}</span>
                     </div>
                 </div>
