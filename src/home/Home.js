@@ -55,7 +55,9 @@ class Home extends Component {
     }
 
     clickEventClassDetail(e, item) {
-        window.event.preventDefault();
+        if(window.event){
+            window.event.preventDefault();
+        }
 
         Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
@@ -69,7 +71,9 @@ class Home extends Component {
     }
 
     clickEventPlacement(e, item) {
-        window.event.preventDefault();
+        if(window.event){
+            window.event.preventDefault();
+        }
 
         let redStatus = item.hasRead === '' ? '未读' : '已读';
 
