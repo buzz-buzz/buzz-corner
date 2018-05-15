@@ -5,7 +5,8 @@
   position: relative;
   box-sizing: border-box;
   background-color: white;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08); }
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+  flex: 0 0 auto; }
   .header-with-go-back .go-back {
     position: absolute;
     margin: 0;
