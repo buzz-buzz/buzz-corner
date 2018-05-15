@@ -57,7 +57,7 @@ class My extends Component {
             },
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
-            email_reg: /^[a-zA-Z0-9._-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
+            email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             placement_topics: Topics
         };
 
@@ -102,23 +102,38 @@ class My extends Component {
     }
 
     async sendEmail() {
-        await ServiceProxy.proxyTo({
+        this.setState({waitSec: 60});
+
+        let emailResult =  await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
                 json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
                 method: 'POST'
             }
         });
-        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
-        this.closeMessageModal();
-        this.setState({waitSec: 60});
-        const interval = setInterval(() => {
-            if (this.state.waitSec) {
-                this.setState({waitSec: this.state.waitSec - 1});
-            } else {
-                clearInterval(interval)
-            }
-        }, 1000)
+
+        if(emailResult && emailResult.error){
+            console.log(emailResult);
+            this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong});
+            this.closeMessageModal();
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
+        }else{
+            this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+            this.closeMessageModal();
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
+        }
     }
 
     handleCodeChange(event) {

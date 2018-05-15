@@ -170,6 +170,7 @@ export const emailHolder = 'Your E-mail address';
 export const emailWrong = 'Email is wrong!';
 export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
 export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
+export const emailSendWrong = 'Network error, please try again later!';
 
 export const my = 'My';
 export const toggleLanguage = 'Language selector';
