@@ -6,7 +6,8 @@
   min-height: 100%; }
   .profile-update .update-body {
     padding: 0 0 0 20px;
-    background-color: white; }
+    background-color: white;
+    flex: 0 0 auto; }
     .profile-update .update-body .avatar-update {
       height: 90px;
       width: 100%; }
