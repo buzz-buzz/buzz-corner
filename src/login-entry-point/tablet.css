@@ -16,7 +16,8 @@
     margin: 0 auto; }
     .login-entry-point .login-entry-content .login-left-word {
       flex: 1 1 auto;
-      max-width: 600px; }
+      max-width: 600px;
+      padding-right: 30px; }
       .login-entry-point .login-entry-content .login-left-word .login-word {
         font-size: 2em;
         font-weight: 600;
@@ -31,7 +32,7 @@
           margin-right: 15px;
           cursor: pointer; }
     .login-entry-point .login-entry-content .login-right-code {
-      flex: 0 0 auto;
+      flex: 1 1 auto;
       width: 560px;
       height: 450px;
       border-radius: 10px;
