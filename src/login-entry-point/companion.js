@@ -39,9 +39,9 @@ class CompanionLoginEntryPoint extends Component {
     render() {
         return (
             <div style={{height: '100%'}}>
-                <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
+                <Grid textAlign='center' style={{height: '100%', marginLeft: '0', marginRight: '0'}} verticalAlign='middle'>
                     <Grid.Row>
-                        <Grid.Column>
+                        <Grid.Column style={{padding: '0'}}>
                             <Divider horizontal/>
                             <Divider horizontal/>
                             <Header as="h2" color="teal" textAlign="center">
