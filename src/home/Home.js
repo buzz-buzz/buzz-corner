@@ -367,6 +367,11 @@ class Home extends Component {
                 <LoadingModal loadingModal={this.state.fullModal} fullScreen={true}/>
                 <Welcome/>
                 <div className="home-header">
+                    <a className="consult" onClick={this.signUp}>
+                        <embed src={QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
+                               type="image/svg+xml"
+                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+                    </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
                         <img src={QiniuDomain + "/icon_booking.png"} alt="" style={{
@@ -391,11 +396,6 @@ class Home extends Component {
                             <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
                         </div>
                     </div>
-                    <a className="consult" onClick={this.signUp}>
-                        <embed src={QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
-                    </a>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?

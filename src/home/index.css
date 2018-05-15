@@ -35,33 +35,29 @@ p{
 }
 
 .my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-message{
-    width: 50%;
+    width: calc(50% - 25px);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 15px;
     position: relative;
     height: 100%;
-    padding-right: 1em;
 }
 
 .my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-booking{
-    padding-left: 1em;
     padding-right: 0;
 }
 
 .my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
     position: absolute;
     width: 40%;
-    bottom: 0;
-    left: calc(30% + .5em);
+    bottom: 1px;
+    left: 30%;
 }
 
 .my-home > .home-header > .consult{
-    position: absolute;
+    position: relative;
     cursor: pointer;
-    left: 0;
-    top: 0;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -258,7 +254,7 @@ p{
     width: 1px;
     top: 0;
     right: 0;
-    z-index: -1;
+    z-index: 3;
     border-right: 1px solid  #dfdfe4;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
