@@ -169,6 +169,7 @@ export const emailHolder = '你的邮箱地址';
 export const emailWrong = '邮箱格式不正确!';
 export const emailWrongVerification = '您输入的验证码不正确或过期, 请重新输入或者获取新的验证码!';
 export const emailUnkonwWrong = '若未收到验证码，请查看您的垃圾邮箱中是否存在!';
+export const emailSendWrong = '网络出错, 请稍后重试!';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';

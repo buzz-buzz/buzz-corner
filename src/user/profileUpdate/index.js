@@ -51,7 +51,7 @@ class UserUpdate extends Component {
             code: '',
             mobileValid: false,
             emailValid: false,
-            email_reg: /^[a-zA-Z0-9._-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
+            email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             modifyContactModal: false,
             new_phone: '',
             new_email: ''
