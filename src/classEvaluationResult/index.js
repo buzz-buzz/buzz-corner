@@ -115,7 +115,7 @@ class classEvaluationResult extends Component {
                 });
 
                 if(feed_back.length && feed_back[0].comment && feed_back[0].score){
-                    evaluation.stars = feed_back[0].score;
+                    evaluation.stars = parseInt(feed_back[0].score, 10) || 0;
                     evaluation.evaluation_content = feed_back[0].comment;
                 }
             }
