@@ -248,7 +248,7 @@ class UserUpdate extends Component {
             date_of_birth: getBirthDay(profile.date_of_birth),
             grade: profile.grade,
             time_zone: profile.time_zone,
-            country: profile.country || 'China',
+            country: profile.country || 'china',
             city: profile.city,
             interests: newTopics,
             email: profile.email,

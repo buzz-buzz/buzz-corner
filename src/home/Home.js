@@ -227,9 +227,6 @@ class Home extends Component {
             class_list.push(past[f]);
         }
 
-        console.log('sort ==============');
-        console.log(class_list);
-
         return class_list;
     }
 

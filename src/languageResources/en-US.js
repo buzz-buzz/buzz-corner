@@ -105,10 +105,13 @@ export const classEvaluationStarsStatus2 = 'Needs Improvement';
 export const classEvaluationStarsStatus3 = 'Pretty good';
 export const classEvaluationStarsStatus4 = 'Good';
 export const classEvaluationStarsStatus5 = 'Amazing';
+export const classEvaluationStarsStatus6 = 'Waiting for feedback';
 export const classEvaluationUnevaluate = 'Not yet';
 export const classEvaluationEvaluate = 'Feedback for student';
 export const classEvaluationDone = 'Well done!';
 export const classEvaluationSuggest = 'Share your feelings';
+export const classEvaluationResultTitle = 'Feedback';
+export const classEvaluationResultContent = 'Feedback from classmates';
 
 export const classDetailTitle = 'Class Details';
 export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';

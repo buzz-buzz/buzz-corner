@@ -15,6 +15,7 @@ import My from './my';
 import ClassDetail from './classDetail/index';
 import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
+import ClassEvaluationResult from './classEvaluationResult';
 import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
 import Consult from './consult';
@@ -65,6 +66,7 @@ class App extends Component {
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
+                    <Route path='/evaluation/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationResult}/>
                     <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
