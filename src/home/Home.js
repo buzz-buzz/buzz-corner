@@ -382,7 +382,7 @@ class Home extends Component {
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
-                        <span>{Resources.getInstance().homeTabBooking}</span>
+                        <div>{Resources.getInstance().homeTabBooking}</div>
                         <div className="tab-active"
                              style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                     </div>
@@ -392,13 +392,15 @@ class Home extends Component {
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
-                        <span>{Resources.getInstance().homeTabMessage}</span>
+                        <div style={{position: 'relative'}}>
+                            <span>{Resources.getInstance().homeTabMessage}</span>
+                            <div className="message-red-new"
+                                 style={this.state.messageRead ? {} : {display: 'none'}}>
+                                <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
+                            </div>
+                        </div>
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
-                        <div className="message-red-new"
-                             style={this.state.messageRead ? {} : {display: 'none'}}>
-                            <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
-                        </div>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
