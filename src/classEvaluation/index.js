@@ -178,7 +178,7 @@ class classEvaluation extends Component {
                 });
 
                 class_info.companion_name = user_profile.name;
-                class_info.companion_avatar = user_profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg';
+                class_info.companion_avatar = user_profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg';
                 companion_country = user_profile.country || '';
             }else{
                 if(class_info.companions){
@@ -239,7 +239,7 @@ class classEvaluation extends Component {
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar">
-                            <Avatar src={this.state.companion_avatar || "//p579tk2n2.bkt.clouddn.com/logo-image.svg"}/>
+                            <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -261,19 +261,19 @@ class classEvaluation extends Component {
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img
-                                src={this.state.stars >= 1 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                src={this.state.stars >= 1 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="1" alt="star"/>
                             <img
-                                src={this.state.stars >= 2 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                src={this.state.stars >= 2 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="2" alt="star"/>
                             <img
-                                src={this.state.stars >= 3 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                src={this.state.stars >= 3 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="3" alt="star"/>
                             <img
-                                src={this.state.stars >= 4 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                src={this.state.stars >= 4 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="4" alt="star"/>
                             <img
-                                src={this.state.stars >= 5 ? "http://p579tk2n2.bkt.clouddn.com/image/icon_stars_active.png" : "//p579tk2n2.bkt.clouddn.com/image/icon_stars.png"}
+                                src={this.state.stars >= 5 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="5" alt="star"/>
                         </div>
                         <div className="stars-word">

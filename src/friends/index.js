@@ -60,7 +60,7 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <WhiteSpace message={Resources.getInstance().developWord} src="//p579tk2n2.bkt.clouddn.com/icon_blank%20page.png" />
+                    <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" />
                 </div>
                 <Footer/>
             </div>

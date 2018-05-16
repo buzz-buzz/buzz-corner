@@ -102,7 +102,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                    src={this.props.profile.gender === 'm'? '//cdn-corner.resource.buzzbuzzenglish.com/icon_boy_active1.svg' : '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_boy.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -112,7 +112,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <div
                                 className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                 <img
-                                    src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
+                                    src={this.props.profile.gender === 'f'? '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_girl_active.svg' : '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_girl.svg'}
                                     alt=""/>
                             </div>
                             <span
@@ -155,7 +155,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'm' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src={this.props.profile.gender === 'm'? '//p579tk2n2.bkt.clouddn.com/icon_boy_active1.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_boy.svg'}
+                                            src={this.props.profile.gender === 'm'? '//cdn-corner.resource.buzzbuzzenglish.com/icon_boy_active1.svg' : '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_boy.svg'}
                                             alt=""/>
                                     </div>
                                     <span
@@ -165,7 +165,7 @@ export default class ProfileFormStep2 extends React.Component {
                                     <div
                                         className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
                                         <img
-                                            src={this.props.profile.gender === 'f'? '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl_active.svg' : '//p579tk2n2.bkt.clouddn.com/image/icon/icon_girl.svg'}
+                                            src={this.props.profile.gender === 'f'? '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_girl_active.svg' : '//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_girl.svg'}
                                             alt=""/>
                                     </div>
                                     <span

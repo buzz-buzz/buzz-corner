@@ -190,7 +190,7 @@ export default class FacebookLogin extends React.Component {
                               style={{position: 'fixed'}} duration={'long'}/>
                 <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
                                  paddingLeft="60px">
-                    <Image src="//p579tk2n2.bkt.clouddn.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
+                    <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
                     {Resources.getInstance('en-US').signInWith('FACEBOOK')}
                 </BuzzRoundButton>
             </div>

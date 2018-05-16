@@ -250,7 +250,7 @@ class Home extends Component {
                     clonedMessageFromAdvisor.push({
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
-                        message_avatar: '//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg',
+                        message_avatar: '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                         goUrl: '/placement?tab=message',
                         hasRead: ''
                     });
@@ -263,7 +263,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg',
+                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                             goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: ''
                         });
@@ -271,7 +271,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
-                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg',
+                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                             goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: 'read'
                         });
@@ -284,7 +284,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-                            message_avatar: item.companion_avatar || '//p579tk2n2.bkt.clouddn.com/WeChat_use_tutor.jpg',
+                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                             goUrl: '/class/foreign/' + item.class_id + '?tab=message',
                             hasRead: result && result.feedback ? 'read' : ''
                         });
@@ -337,7 +337,7 @@ class Home extends Component {
                 <div className="home-header">
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_booking.png" alt="" style={{
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png" alt="" style={{
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
@@ -347,7 +347,7 @@ class Home extends Component {
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_message.png" alt="" style={{
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png" alt="" style={{
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
@@ -356,11 +356,11 @@ class Home extends Component {
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                         <div className="message-red-new"
                              style={this.state.messageRead ? {} : {display: 'none'}}>
-                            <img src="//p579tk2n2.bkt.clouddn.com/icon_NEW_message.svg" alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_NEW_message.svg" alt=""/>
                         </div>
                     </div>
                     <Link className="consult" onClick={this.signUp}>
-                        <embed src="//p579tk2n2.bkt.clouddn.com/icon_Service.svg" width="24" height="60%"
+                        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Service.svg" width="24" height="60%"
                                type="image/svg+xml"
                                pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                     </Link>
@@ -403,7 +403,7 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/icon_Coursepurchase tips.png" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png" alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
                                     <p>{ this.state.role === MemberType.Student? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>

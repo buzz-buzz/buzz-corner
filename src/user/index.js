@@ -15,7 +15,7 @@ class User extends Component {
         super();
 
         this.state = {
-            avatar: '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
             u_name: 'buzz',
             class_hours: 0,
             country: 'China',
@@ -35,7 +35,7 @@ class User extends Component {
         let profile = await CurrentUser.getProfile();
 
         this.setState({
-            avatar: profile.avatar || '//p579tk2n2.bkt.clouddn.com/logo-image.svg',
+            avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
@@ -67,7 +67,7 @@ class User extends Component {
                             this.state.role === MemberType.Student &&
                             <Link to="class-lessons">
                                 <div className="icon">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/icon_my%20coins.png" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
                                     <div className="name">
                                         {Resources.getInstance().myCoins}
                                     </div>
@@ -98,7 +98,7 @@ class User extends Component {
 
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
-                        {/*<img src="//p579tk2n2.bkt.clouddn.com/icon_language.png" alt=""/>*/}
+                        {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
                         {/*<div className="name">*/}
                         {/*{Resources.getInstance().myLanguage}*/}
                         {/*</div>*/}
