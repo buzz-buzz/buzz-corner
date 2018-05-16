@@ -358,8 +358,8 @@ p{
 
 .message-red-new{
     position: absolute;
-    top: .5em;
-    right: 2em;
+    left: 100%;
+    top: -5px;
     height: 17px;
     width: 25px;
     z-index: 60;
