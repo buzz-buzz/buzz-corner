@@ -94,11 +94,11 @@ class UserShow extends Component {
                             {
                                 this.state.user_profile.role === MemberType.Student &&
                                 <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.city}</span>
-                                    {grade_list[parseInt(this.state.user_profile.grade || 1) - 1].text}</div>
+                                    {grade_list[parseInt(this.state.user_profile.grade || 1, 10) - 1].text}</div>
                             }
                             {
                                 this.state.user_profile.role === MemberType.Companion &&
-                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{grade_list_foreign[parseInt(this.state.user_profile.grade || 1) - 1].text}</div>
+                                <div className="profile-city-grade"><span style={{paddingRight: '20px'}}>{this.state.user_profile.time_zone ? this.state.user_profile.time_zone.split('/')[1] : 'unknown'}</span>{grade_list_foreign[parseInt(this.state.user_profile.grade || 1, 10) - 1].text}</div>
                             }
                         </div>
                     </div>
