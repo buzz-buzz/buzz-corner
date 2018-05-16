@@ -23,7 +23,7 @@
 
 .profile-title{
     text-align: center;
-    margin: 1em 0 !important;
+    margin: 30px 0 20px 0 !important;
     font-weight: normal;
     letter-spacing: 1px;
     font-size: 17px;
@@ -180,14 +180,11 @@ h4{
     flex-direction: column;
 }
 
-.profile-body>div.form-content{
-    /*min-height: 15em;*/
-}
-
 .profile-done-img{
     width: 50%;
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
     display: block;
+    max-width: 200px;
 }
 
 .skip{
