@@ -104,10 +104,13 @@ export const classEvaluationStarsStatus2 = '待提高';
 export const classEvaluationStarsStatus3 = '还行';
 export const classEvaluationStarsStatus4 = '不错';
 export const classEvaluationStarsStatus5 = '很棒';
+export const classEvaluationStarsStatus6 = '等待评价';
 export const classEvaluationUnevaluate = '尚未评价';
 export const classEvaluationEvaluate = '对学伴评价';
 export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
+export const classEvaluationResultTitle = '学伴评价';
+export const classEvaluationResultContent = '学伴对我的评价';
 
 export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';

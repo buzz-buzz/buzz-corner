@@ -131,6 +131,7 @@ router
     .get('/class/:class_id', serveSPA)
     .get('/class/foreign/:class_id', serveSPA)
     .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
+    .get('/evaluation/:from_user_id/:to_user_id/:class_id', serveSPA)
     .get('/consult', serveSPA)
     .get('/class-lessons', serveSPA)
     .get('/consult', serveSPA)
