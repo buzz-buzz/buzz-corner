@@ -487,10 +487,10 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             {  this.state.profile.role === MemberType.Student &&
-                                <span>{grade_list[parseInt(this.state.profile.grade) - 1].text}</span>
+                                <span>{ this.state.profile.grade ? grade_list[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
                             {  this.state.profile.role === MemberType.Companion &&
-                            <span>{grade_list_foreign[parseInt(this.state.profile.grade) - 1].text}</span>
+                            <span>{this.state.profile.grade ? grade_list_foreign[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
                             <i className="icon-icon_back_down"/>
                             <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
