@@ -44,10 +44,10 @@ class videoPlay extends Component {
             <div className="video-play">
                 <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
-                    <EmbedVideo sources={['//p579tk2n2.bkt.clouddn.com/Training%20video_3min.mp4']}
+                    <EmbedVideo sources={['//cdn-corner.resource.buzzbuzzenglish.com/Training%20video_3min.mp4']}
                                 poster={'//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png'} />
                     <div className="video-btn" id="icon-play-video">
-                        <img src="//p579tk2n2.bkt.clouddn.com/icon_play.png" alt=""/>
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_play.png" alt=""/>
                     </div>
                 </div>
                 <div className="video-ad">
@@ -68,7 +68,7 @@ class videoPlay extends Component {
                         <div className="content-list">
                             <a href="https://h5.youzan.com/v2/goods/1y44iz9a3zgsa">
                                 <div className="class-lesson-img">
-                                    <img src="//p579tk2n2.bkt.clouddn.com/banner_buzz_youzan_2.jpg" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/banner_buzz_youzan_2.jpg" alt=""/>
                                 </div>
                                 <div className="class-lesson-info">
                                     <div className="lessons-title">标准学习包</div>

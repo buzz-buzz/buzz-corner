@@ -7,7 +7,7 @@ class Developing extends Component {
         return (
             <div className="developing">
                 <div className="develop-img">
-                    <img src="//p579tk2n2.bkt.clouddn.com/icon_blank%20page.png" alt=""/>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" alt=""/>
                 </div>
                 <div className="develop-word">
                     {Resources.getInstance().developWord}

@@ -18,7 +18,7 @@ class ClassLessons extends Component {
                     price: 280,
                     discount: '4课时',
                     before: '',
-                    img_url: '//p579tk2n2.bkt.clouddn.com/banner_buzz_youzan_2.jpg',
+                    img_url: '//cdn-corner.resource.buzzbuzzenglish.com/banner_buzz_youzan_2.jpg',
                     youzan_url: 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
                 }
             ]

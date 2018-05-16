@@ -41,12 +41,12 @@ class CompanionLoginEntryPoint extends Component {
                             <Divider horizontal/>
                             <Divider horizontal/>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="//p579tk2n2.bkt.clouddn.com/logo_full%20name.png"
+                                <Image src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png"
                                        alt="Buzzbuzz header logo" size="medium" style={{width: '120px'}}/>
                             </Header>
                             <Divider horizontal/>
                             <div className="ui fluid image banner-companion">
-                                <Image src="//p579tk2n2.bkt.clouddn.com/image/jpgpeople-mobile.jpg"
+                                <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/jpgpeople-mobile.jpg"
                                        alt="Buzzbuzz banner" fluid/>
                             </div>
                             <div className="overlay">

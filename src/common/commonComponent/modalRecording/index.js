@@ -24,7 +24,7 @@ export default class RecordingModal extends BuzzModal {
             <div>
                 <div className="welcome-title">
                     <div>
-                        <Image src="http://p579tk2n2.bkt.clouddn.com/icon_Siri%20Mic.png" alt="recording"
+                        <Image src="http://cdn-corner.resource.buzzbuzzenglish.com/icon_Siri%20Mic.png" alt="recording"
                                style={{height: '100px', display: 'inline', textAlign: 'center'}}/>
                     </div>
                     <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}>
