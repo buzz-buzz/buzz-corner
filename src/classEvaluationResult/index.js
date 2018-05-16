@@ -182,7 +182,7 @@ class classEvaluationResult extends Component {
                                     name="5" alt="star"/>
                             </div>
                             <div className="stars-word">
-                                <p>{this.state.evaluation.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.evaluation.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.evaluation.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus6))))}</p>
+                                <p>{this.state.evaluation.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.evaluation.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.evaluation.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.evaluation.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.evaluation.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus6))))}</p>
                             </div>
                         </div>
                         <div className="evaluation-result-show">
