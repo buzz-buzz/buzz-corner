@@ -116,6 +116,8 @@ async function serveSPA(ctx) {
 app.use(serveStatic('build'));
 
 router
+    .get('/%2f', serveSPA)
+    .get('//', serveSPA)
     .get('/profile', serveSPA)
     .get('/login', serveSPA)
     .get('/login/facebook', serveSPA)
