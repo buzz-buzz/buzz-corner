@@ -42,6 +42,8 @@ class App extends Component {
                 `}</style>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
+                    <Route path='//' component={EntryPoint}/>
+                    <Route path='/%2f' component={EntryPoint}/>
                     <Route path='/select-role' component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
                     <Route path='/sign-in' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/tutor' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
