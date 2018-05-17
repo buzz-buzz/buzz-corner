@@ -303,7 +303,13 @@ class classEvaluation extends Component {
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>
                         <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
-                        <p className="result-content">{this.state.evaluation_content}</p>
+                        <Form className="result-content">
+                                        <TextArea autoHeight
+                                                  rows={7}
+                                                  maxLength="200"
+                                                  value={this.state.evaluation_content}
+                                                  disabled={true}/>
+                        </Form>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
                 </div>
