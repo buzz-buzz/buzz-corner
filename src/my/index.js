@@ -259,8 +259,6 @@ class My extends Component {
         try {
             event.stopPropagation();
 
-            console.log('=================');
-
             if (this.state.step < 3) {
                 if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
                     Track.event('注册_联系方式继续-中方');

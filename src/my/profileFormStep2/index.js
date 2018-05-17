@@ -7,6 +7,7 @@ import { countries } from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChineseCityList} from "../../common/systemData/chineseCityListData";
 import QiniuDomain from '../../common/systemData/qiniuUrl';
+import BuzzInput from '../../common/commonComponent/buzzInput';
 
 const grade_list = GradeData.grade_list;
 
@@ -28,14 +29,11 @@ export default class ProfileFormStep2 extends React.Component {
             this.props.role === MemberType.Student
                 ?
                 (<div className="form-content">
-                    <div className="parents-name">
-                        <input type="text"
-                               placeholder={Resources.getInstance().profileChildName}
-                               style={{width: '100%'}}
+                    <BuzzInput type="text" placeholder={Resources.getInstance().profileChildName}
                                value={this.props.profile.student_en_name}
                                onChange={this.props.handleChange}
-                               name='student_en_name'/>
-                    </div>
+                               name='student_en_name'
+                    />
                     <div className="gender">
                         <div className="male" onClick={this.props.changeGenderMale}>
                             <div
@@ -149,13 +147,11 @@ export default class ProfileFormStep2 extends React.Component {
                                           }} value={this.props.profile.country}
                                           options={countryList}/>
                             </div>
-                            <div className="parents-name">
-                                <input type="text" placeholder="School Information"
-                                       style={{width: '100%'}}
+                            <BuzzInput type="text" placeholder="School Information"
                                        value={this.props.profile.school}
                                        onChange={this.props.handleChange}
-                                       name='school'/>
-                            </div>
+                                       name='school'
+                            />
                         </div> : <div></div>
                 )
         )
