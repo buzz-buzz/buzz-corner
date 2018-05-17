@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import {Form, TextArea} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -187,7 +188,13 @@ class classEvaluationResult extends Component {
                         </div>
                         <div className="evaluation-result-show">
                             <p className="result-title">{Resources.getInstance().classEvaluationResultContent}</p>
-                            <p className="result-content">{this.state.evaluation.evaluation_content || Resources.getInstance().classEvaluationUnevaluate}</p>
+                            <Form className="result-content">
+                                        <TextArea autoHeight
+                                                  rows={7}
+                                                  maxLength="200"
+                                                  value={this.state.evaluation_content}
+                                                  disabled={true}/>
+                            </Form>
                         </div>
                         <LoadingModal loadingModal={this.state.loadingModal}/>
                     </div>
