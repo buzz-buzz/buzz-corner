@@ -55,20 +55,12 @@
     background-color: rgb(223, 223, 228) !important;
 }
 .check-number>.ui.button{
-    width: 35%;
+    width: 38%;
     font-weight: normal !important;
     letter-spacing: 1px;
     margin: 0 !important;
     background-image: linear-gradient(143deg, #fad961, #f5b40c);
     color: #ffffff;
-}
-
-.check-number>input, .check-number>button, .phone-number>input, .phone-number>button, .parents-name>input{
-    height: 50px;
-    letter-spacing: 1px;
-    border: none !important;
-    background-color: rgb(244, 245, 249)!important;
-    color: rgba(0,0,0,.6);
 }
 
 .parents-name{
@@ -80,10 +72,16 @@
 }
 
 .phone-number>button{
-    width: 35%;
+    width: 38%;
+    margin-right: 0;
+    padding: 15px !important;
     font-weight: normal !important;
     letter-spacing: 1px;
     text-align: left !important;
+    background-color: rgb(244, 245, 249)!important;
+    color: #666 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-size: 15px !important;
 }
 
 .gender{
@@ -243,4 +241,8 @@ div.dropdown > input.search{
 
 .ui.search.dropdown>.text{
     left: 5px !important;
+}
+
+.ui.input >input{
+    background: rgb(244, 245, 249) !important;
 }
