@@ -313,7 +313,9 @@ class UserUpdate extends Component {
             }
 
             clearTimeout(interval);
-        }, 5000)
+
+            browserHistory.push('/user?refresh=true');
+        }, 2000)
     }
 
     async handleAvatarChange(e) {
@@ -392,7 +394,7 @@ class UserUpdate extends Component {
     getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            phone: userData.Mobile || '',
+            phone: userData.mobile || '',
             student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: getBirthDay(userData.date_of_birth),

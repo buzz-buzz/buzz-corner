@@ -13,8 +13,8 @@ import ServiceProxy from "../service-proxy";
 import QiniuDomain from '../common/systemData/qiniuUrl';
 
 class User extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             avatar: QiniuDomain + '/logo-image.svg',
@@ -22,7 +22,8 @@ class User extends Component {
             class_hours: 0,
             country: 'china',
             switchToUserId: 0,
-            role: ''
+            role: '',
+            refresh: props.location.query.refresh || false
         };
 
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
@@ -44,7 +45,7 @@ class User extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
-        let profile = await CurrentUser.getProfile();
+        let profile = await CurrentUser.getProfile(this.state.refresh);
 
         this.setState({
             avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
