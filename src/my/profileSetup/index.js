@@ -156,7 +156,7 @@ export default class profileSetup extends Component {
             location: userData.location || '',
             avatar: userData.avatar || '',
             description: userData.description || '',
-            mobile: userData.Mobile || '',
+            mobile: userData.mobile || '',
             email: userData.email || '',
             role: userData.role || '',
             language: userData.language || ''
