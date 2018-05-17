@@ -62,12 +62,11 @@ export default class ProfileFormStep2 extends React.Component {
                             value={this.props.profile.date_of_birth || birthdayFrom} type="date"
                             onChange={this.props.handleChange} name='date_of_birth'/>
                         <div className="field birthday-label">
-                            <input type="text"
-                                   placeholder={Resources.getInstance().profileBirth}
-                                   style={{width: '100%'}}
-                                   value={this.props.birthdayLabel || ''}
-                                   onChange={this.props.handleChangeBirthdayLabel}
-                                   name='birthdayLabel'/>
+                            <BuzzInput type="text" placeholder={Resources.getInstance().profileBirth}
+                                       value={this.props.birthdayLabel || ''}
+                                       onChange={this.props.handleChangeBirthdayLabel}
+                                       name='birthdayLabel'
+                            />
                         </div>
                     </Form.Group>
                     <div className="selection-options">
@@ -115,12 +114,11 @@ export default class ProfileFormStep2 extends React.Component {
                                     value={this.props.profile.date_of_birth || birthdayFrom} type="date"
                                     onChange={this.props.handleChange} name='date_of_birth'/>
                                 <div className="field birthday-label">
-                                    <input type="text"
-                                           placeholder="birthday"
-                                           style={{width: '100%'}}
-                                           value={this.props.birthdayLabel || ''}
-                                           onChange={this.props.handleChangeBirthdayLabel}
-                                           name='birthdayLabel'/>
+                                    <BuzzInput type="text" placeholder={Resources.getInstance().profileBirth}
+                                               value={this.props.birthdayLabel || ''}
+                                               onChange={this.props.handleChangeBirthdayLabel}
+                                               name='birthdayLabel'
+                                    />
                                 </div>
                             </Form.Group>
                             <div className="selection-options" style={{height: '50px', boxSizing: 'border-box', marginBottom: '10px'}}>
