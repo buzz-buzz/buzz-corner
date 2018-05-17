@@ -111,6 +111,7 @@ export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
 export const classEvaluationResultTitle = '学伴评价';
 export const classEvaluationResultContent = '学伴对我的评价';
+export const classEvaluationMy = '我的评价';
 
 export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
@@ -260,6 +261,7 @@ export const gradeEig = '八年级';
 export const gradeNin = '九年级';
 
 export const evaluationWord = '课后评价';
+export const evaluationMyWord = '我的评价';
 export const evaluationForStudent = '对学伴评价';
 export const evaluationNo = '未评价';
 export const evaluationTo = '评价:';

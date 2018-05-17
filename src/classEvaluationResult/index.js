@@ -10,6 +10,7 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import TimeHelper from "../common/timeHelper";
+import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
 
@@ -41,10 +42,15 @@ class classEvaluationResult extends Component {
 
         this.back = this.back.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
+        this.goMyFeedback = this.goMyFeedback.bind(this);
     }
 
     back() {
         window.history.back();
+    }
+
+    goMyFeedback(){
+        browserHistory.push(`/class/evaluation/${this.state.from_user_id}/${this.state.class_id}`);
     }
 
     companionCenter(){
@@ -192,9 +198,12 @@ class classEvaluationResult extends Component {
                                         <TextArea autoHeight
                                                   rows={7}
                                                   maxLength="200"
-                                                  value={this.state.evaluation_content}
-                                                  disabled={true}/>
+                                                  value={this.state.evaluation.evaluation_content}
+                                                  readOnly={true}/>
                             </Form>
+                        </div>
+                        <div className="evaluation-submit">
+                            <Button50px  text={Resources.getInstance().classEvaluationMy} submit={this.goMyFeedback} />
                         </div>
                         <LoadingModal loadingModal={this.state.loadingModal}/>
                     </div>
