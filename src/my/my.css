@@ -239,10 +239,10 @@ div.dropdown > input.search{
     line-height: 2em;
 }
 
-.ui.search.dropdown>.text{
-    left: 5px !important;
-}
-
 .ui.input >input{
     background: rgb(244, 245, 249) !important;
+}
+
+input{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
