@@ -112,6 +112,7 @@ export const classEvaluationDone = 'Well done!';
 export const classEvaluationSuggest = 'Share your feelings';
 export const classEvaluationResultTitle = 'Feedback';
 export const classEvaluationResultContent = 'Feedback from classmates';
+export const classEvaluationMy = 'My feedback';
 
 export const classDetailTitle = 'Class Details';
 export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';
@@ -261,6 +262,7 @@ export const gradeEig = 'Grade 8';
 export const gradeNin = 'Grade 9';
 
 export const evaluationWord = 'Feedback after class';
+export const evaluationMyWord = 'My feedback';
 export const evaluationForStudent = 'Feedback for student';
 export const evaluationNo = 'Waiting for your feedback';
 export const evaluationTo = 'Assess:';

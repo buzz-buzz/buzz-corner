@@ -240,7 +240,7 @@ class classEvaluation extends Component {
     render() {
         return (
             <div className="class-detail">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationMyWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar"  onClick={this.companionCenter}>
@@ -308,7 +308,7 @@ class classEvaluation extends Component {
                                                   rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
-                                                  disabled={true}/>
+                                                  readOnly={true}/>
                         </Form>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
