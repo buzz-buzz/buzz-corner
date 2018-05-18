@@ -114,6 +114,7 @@
     background: linear-gradient(to right, rgb(251, 218, 97), rgb(246, 180, 12));
     letter-spacing: 2px;
     color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
 .class-detail-practice-content > div {
