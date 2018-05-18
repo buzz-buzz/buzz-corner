@@ -7,7 +7,6 @@ import TabletAudio from "../wechat/tabletAudio";
 import Track from "../common/track";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import CurrentUser from "../membership/user";
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Client from "../common/client";
 
 export default class Practice extends React.Component {

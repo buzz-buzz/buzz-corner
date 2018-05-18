@@ -6,7 +6,6 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import TimeHelper from "../common/timeHelper";

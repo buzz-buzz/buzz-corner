@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Resources from '../resources';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import './index.css';
 
 class Developing extends Component {

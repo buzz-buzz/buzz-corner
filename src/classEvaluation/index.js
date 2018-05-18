@@ -12,7 +12,6 @@ import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {

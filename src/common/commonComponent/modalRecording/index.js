@@ -1,7 +1,6 @@
 import * as React from "react";
 import BuzzModal from "../buzzModal/index";
 import {Header, Image} from "semantic-ui-react";
-import QiniuDomain from '../../systemData/qiniuUrl';
 import StopWatch from "../StopWatch/index";
 import Resources from "../../../resources";
 

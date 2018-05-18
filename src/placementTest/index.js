@@ -13,7 +13,6 @@ import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";

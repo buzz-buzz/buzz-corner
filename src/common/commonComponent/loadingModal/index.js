@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import QiniuDomain from '../../systemData/qiniuUrl';
 import './index.css';
 
 class LoadingModal extends Component {

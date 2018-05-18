@@ -1,6 +1,5 @@
 import './index.css'
 import React from 'react';
-import QiniuDomain from '../../../common/systemData/qiniuUrl';
 
 export default class Avatar extends React.Component {
     render() {

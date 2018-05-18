@@ -1,6 +1,5 @@
 import React from 'react';
 import Resources from '../../resources';
-import QiniuDomain from '../../common/systemData/qiniuUrl';
 import './index.css';
 
 export default class PlacementQuestion extends React.Component {
