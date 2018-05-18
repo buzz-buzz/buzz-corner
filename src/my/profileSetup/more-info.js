@@ -22,11 +22,7 @@ export default class profileSetup extends Component {
         super();
 
         this.state = {
-<<<<<<< HEAD
-            avatar: QiniuDomain + '/logo-image.svg',
-=======
             avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
->>>>>>> master
             mobile: '',
             email: ''
         };
@@ -81,13 +77,8 @@ export default class profileSetup extends Component {
         let profile = await CurrentUser.getProfile()
 
         this.setState({
-<<<<<<< HEAD
-            avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
-            mobile: profile.Mobile || '',
-=======
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
             mobile: profile.mobile || '',
->>>>>>> master
             email: profile.email || '',
             userId: profile.user_id
         });

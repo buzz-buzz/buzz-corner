@@ -191,11 +191,7 @@ class classEvaluation extends Component {
                 });
 
                 class_info.companion_name = user_profile.name;
-<<<<<<< HEAD
-                class_info.companion_avatar = user_profile.avatar || QiniuDomain + '/logo-image.svg';
-=======
                 class_info.companion_avatar = user_profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg';
->>>>>>> master
                 companion_country = user_profile.country || '';
             }else{
                 if(class_info.companions){
@@ -247,13 +243,8 @@ class classEvaluation extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationMyWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
-<<<<<<< HEAD
                         <div className="booking-item-avatar"  onClick={this.companionCenter}>
-                            <Avatar src={this.state.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
-=======
-                        <div className="booking-item-avatar">
                             <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
->>>>>>> master
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -275,21 +266,6 @@ class classEvaluation extends Component {
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img
-<<<<<<< HEAD
-                                src={this.state.stars >= 1 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                onClick={this.changeStars} name="1" alt="star"/>
-                            <img
-                                src={this.state.stars >= 2 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                onClick={this.changeStars} name="2" alt="star"/>
-                            <img
-                                src={this.state.stars >= 3 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                onClick={this.changeStars} name="3" alt="star"/>
-                            <img
-                                src={this.state.stars >= 4 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                onClick={this.changeStars} name="4" alt="star"/>
-                            <img
-                                src={this.state.stars >= 5 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-=======
                                 src={this.state.stars >= 1 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="1" alt="star"/>
                             <img
@@ -303,7 +279,6 @@ class classEvaluation extends Component {
                                 onClick={this.changeStars} name="4" alt="star"/>
                             <img
                                 src={this.state.stars >= 5 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
->>>>>>> master
                                 onClick={this.changeStars} name="5" alt="star"/>
                         </div>
                         <div className="stars-word">

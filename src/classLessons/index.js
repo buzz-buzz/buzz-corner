@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-<<<<<<< HEAD
 import QiniuDomain from '../common/systemData/qiniuUrl';
-=======
->>>>>>> master
 import Track from "../common/track";
 import './index.css';
 
@@ -22,11 +19,7 @@ class ClassLessons extends Component {
                     price: 280,
                     discount: '4课时',
                     before: '',
-<<<<<<< HEAD
-                    img_url:  QiniuDomain + '/banner_buzz_youzan_2.jpg',
-=======
                     img_url: '//cdn-corner.resource.buzzbuzzenglish.com/banner_buzz_youzan_2.jpg',
->>>>>>> master
                     youzan_url: 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
                 }
             ]

@@ -3,10 +3,7 @@ import Resources from '../resources';
 import Track from "../common/track";
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-<<<<<<< HEAD
 import QiniuDomain from '../common/systemData/qiniuUrl';
-=======
->>>>>>> master
 import {MemberType} from "../membership/member-type";
 import './index.css';
 
@@ -43,22 +40,14 @@ class Consult extends Component {
                     this.state.role === MemberType.Student &&
                     <div className="consult-content">
                         <div className="consult-avatar">
-<<<<<<< HEAD
-                            <img src={ QiniuDomain + "/WeChat_use_tutor.jpg"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
->>>>>>> master
                         </div>
                         <div className="consult-word">
                             <p>{Resources.getInstance().advisorInfo1}</p>
                             <p>{Resources.getInstance().advisorInfo2}</p>
                         </div>
                         <div className="consult-QR-code">
-<<<<<<< HEAD
-                            <img src={QiniuDomain + "/buzz_advisor_code.jpg"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/buzz_advisor_code.jpg" alt=""/>
->>>>>>> master
                             <p>{Resources.getInstance().advisorInfo3}</p>
                         </div>
                     </div>
@@ -67,18 +56,13 @@ class Consult extends Component {
                     this.state.role === MemberType.Companion &&
                     <div className="consult-content">
                         <div className="consult-avatar">
-<<<<<<< HEAD
-                            <img src= { QiniuDomain + "/WeChat_use_tutor.jpg"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
->>>>>>> master
                         </div>
                         <div className="consult-word-foreign">
                             <p>I am your private advisor</p>
                         </div>
                         <div className="email">
                             <p className="email-title">1.  You can send mail to contact us</p>
-<<<<<<< HEAD
                             <div  className="email-address">
                                 <p>
                                     <img style={{height: '15px'}} src= { QiniuDomain + "/icon_mail.svg"} alt=""/>
@@ -88,14 +72,7 @@ class Consult extends Component {
                         </div>
                         <p className="email-title">2. You can use wechat and <span style={{color: '#edae00'}}>scan the QR code</span></p>
                         <div className="consult-QR-code" style={{width: '40%'}}>
-                            <img src={ QiniuDomain + "/companion_advisor.jpg"} alt=""/>
-=======
-                            <div  className="email-address"><p><img style={{height: '15px'}} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_mail.svg" alt=""/><span style={{verticalAlign: 'super', marginLeft: '10px'}}>peertutor@buzzbuzzenglish.com</span></p></div>
-                        </div>
-                        <p className="email-title">2. You can use wechat and <span style={{color: '#edae00'}}>scan the QR code</span></p>
-                        <div className="consult-QR-code" style={{width: '40%'}}>
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/buzz_advisor_code.jpg" alt=""/>
->>>>>>> master
                         </div>
                     </div>
                 }

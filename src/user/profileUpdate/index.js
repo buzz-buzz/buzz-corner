@@ -19,10 +19,6 @@ import './index.css';
 import '../../common/Icon/style.css';
 
 const grade_list = GradeData.grade_list;
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 const grade_list_foreign = GradeData.grade_list_foreign;
 
 const timeZones = Object.keys(zones).map(key=>({
@@ -55,11 +51,7 @@ class UserUpdate extends Component {
             code: '',
             mobileValid: false,
             emailValid: false,
-<<<<<<< HEAD
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-=======
-            email_reg: /^[a-zA-Z0-9._-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
->>>>>>> master
             modifyContactModal: false,
             new_phone: '',
             new_email: ''
@@ -85,11 +77,7 @@ class UserUpdate extends Component {
         const {code} = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-<<<<<<< HEAD
                 json: {mobile: this.state.new_phone},
-=======
-                json: {mobile: this.state.profile.phone},
->>>>>>> master
                 method: 'POST'
             }
         })
@@ -110,11 +98,7 @@ class UserUpdate extends Component {
         await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-<<<<<<< HEAD
                 json: {mail: this.state.new_email, name: this.state.profile.student_en_name},
-=======
-                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
->>>>>>> master
                 method: 'POST'
             }
         });
@@ -264,11 +248,7 @@ class UserUpdate extends Component {
             date_of_birth: getBirthDay(profile.date_of_birth),
             grade: profile.grade,
             time_zone: profile.time_zone,
-<<<<<<< HEAD
             country: profile.country || 'china',
-=======
-            country: profile.country || 'China',
->>>>>>> master
             city: profile.city,
             interests: newTopics,
             email: profile.email,
@@ -333,13 +313,9 @@ class UserUpdate extends Component {
             }
 
             clearTimeout(interval);
-<<<<<<< HEAD
 
             browserHistory.push('/user?refresh=true');
         }, 2000)
-=======
-        }, 5000)
->>>>>>> master
     }
 
     async handleAvatarChange(e) {
@@ -384,12 +360,6 @@ class UserUpdate extends Component {
                     messageContent: Resources.getInstance().errorUpload
                 });
             } else {
-<<<<<<< HEAD
-=======
-                console.log('upload success!');
-                console.log(qiniu_token.resources_url + result.key);
-
->>>>>>> master
                 let clonedProfile = this.state.profile;
                 clonedProfile.avatar = qiniu_token.resources_url + result.key + '?imageView2/1/w/400/h/400';
 
@@ -412,11 +382,6 @@ class UserUpdate extends Component {
             return;
         }
 
-<<<<<<< HEAD
-=======
-        console.log(profile);
-
->>>>>>> master
         this.setState({
             profile: profile,
             mobileValid: profile && profile.phone && profile.phone.length === 11,
@@ -429,11 +394,7 @@ class UserUpdate extends Component {
     getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-<<<<<<< HEAD
             phone: userData.mobile || '',
-=======
-            phone: userData.Mobile || '',
->>>>>>> master
             student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: getBirthDay(userData.date_of_birth),
@@ -527,16 +488,12 @@ class UserUpdate extends Component {
                             <span>{Resources.getInstance().profileGrade}</span>
                         </div>
                         <div className="update-right">
-<<<<<<< HEAD
                             {  this.state.profile.role === MemberType.Student &&
                                 <span>{ this.state.profile.grade ? grade_list[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
                             {  this.state.profile.role === MemberType.Companion &&
                             <span>{this.state.profile.grade ? grade_list_foreign[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
-=======
-                            <span>{this.state.profile.grade}</span>
->>>>>>> master
                             <i className="icon-icon_back_down"/>
                             <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
                                 {

@@ -234,11 +234,6 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
-<<<<<<< HEAD:src/home/Home.js
-=======
-            //TitleSet.setTitle();
-
->>>>>>> master:src/home/StudentHome.js
             this.setState({loadingModal: true, fullModal: true});
 
             //check system
@@ -291,11 +286,7 @@ class Home extends Component {
                     clonedMessageFromAdvisor.push({
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
-<<<<<<< HEAD:src/home/Home.js
-                        message_avatar: `${QiniuDomain}/WeChat_use_tutor.jpg`,
-=======
                         message_avatar: '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
->>>>>>> master:src/home/StudentHome.js
                         goUrl: '/placement?tab=message',
                         hasRead: ''
                     });
@@ -308,11 +299,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-<<<<<<< HEAD:src/home/Home.js
-                            message_avatar: item.companion_avatar || `${QiniuDomain}/WeChat_use_tutor.jpg`,
-=======
                             message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
->>>>>>> master:src/home/StudentHome.js
                             goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: ''
                         });
@@ -320,11 +307,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
-<<<<<<< HEAD:src/home/Home.js
-                            message_avatar: item.companion_avatar || `${QiniuDomain}/WeChat_use_tutor.jpg`,
-=======
                             message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
->>>>>>> master:src/home/StudentHome.js
                             goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
                             hasRead: 'read'
                         });
@@ -337,11 +320,7 @@ class Home extends Component {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-<<<<<<< HEAD:src/home/Home.js
-                            message_avatar: item.companion_avatar || `${QiniuDomain}/WeChat_use_tutor.jpg`,
-=======
                             message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
->>>>>>> master:src/home/StudentHome.js
                             goUrl: '/class/foreign/' + item.class_id + '?tab=message',
                             hasRead: result && result.feedback ? 'read' : ''
                         });
@@ -358,11 +337,7 @@ class Home extends Component {
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
-<<<<<<< HEAD:src/home/Home.js
                 messageRead: messageCheck && messageCheck.length > 0,
-=======
-                messageRead: messageCheck.length > 0,
->>>>>>> master:src/home/StudentHome.js
                 loadingModal: false,
                 role: profile.role
             });
@@ -400,11 +375,7 @@ class Home extends Component {
                     </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-<<<<<<< HEAD:src/home/Home.js
-                        <img src={QiniuDomain + "/icon_booking.png"} alt="" style={{
-=======
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png" alt="" style={{
->>>>>>> master:src/home/StudentHome.js
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
@@ -414,11 +385,7 @@ class Home extends Component {
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-<<<<<<< HEAD:src/home/Home.js
-                        <img src={QiniuDomain + "/icon_message.png"} alt="" style={{
-=======
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png" alt="" style={{
->>>>>>> master:src/home/StudentHome.js
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
@@ -431,20 +398,7 @@ class Home extends Component {
                         </div>
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
-<<<<<<< HEAD:src/home/Home.js
                     </div>
-=======
-                        <div className="message-red-new"
-                             style={this.state.messageRead ? {} : {display: 'none'}}>
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_NEW_message.svg" alt=""/>
-                        </div>
-                    </div>
-                    <Link className="consult" onClick={this.signUp}>
-                        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Service.svg" width="24" height="60%"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
-                    </Link>
->>>>>>> master:src/home/StudentHome.js
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
@@ -485,15 +439,9 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-<<<<<<< HEAD:src/home/Home.js
-                                    <img src={QiniuDomain + "/icon_Coursepurchase tips.png"} alt=""/>
-                                    <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
-=======
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png" alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
                                     <p>{ this.state.role === MemberType.Student? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
->>>>>>> master:src/home/StudentHome.js
                                 </div>
                             </div>)}
                     </div>) :
@@ -555,12 +503,8 @@ class Home extends Component {
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
-<<<<<<< HEAD:src/home/Home.js
                 <div className="offset-footer"
                      style={this.state.tab === 'booking' ? {height: '142px'} : {height: '52px'}}></div>
-=======
-                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '142px'}:{height: '52px'}}></div>
->>>>>>> master:src/home/StudentHome.js
                 <Footer/>
             </div>
         );

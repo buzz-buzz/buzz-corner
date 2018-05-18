@@ -61,11 +61,7 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-<<<<<<< HEAD
-                    <WhiteSpace message={Resources.getInstance().developWord} src= { QiniuDomain + "/icon_blank%20page.png"} />
-=======
                     <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" />
->>>>>>> master
                 </div>
                 <Footer/>
             </div>

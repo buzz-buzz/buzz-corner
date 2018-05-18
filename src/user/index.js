@@ -17,11 +17,7 @@ class User extends Component {
         super(props);
 
         this.state = {
-<<<<<<< HEAD
-            avatar: QiniuDomain + '/logo-image.svg',
-=======
             avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
->>>>>>> master
             u_name: 'buzz',
             class_hours: 0,
             country: 'china',
@@ -52,11 +48,7 @@ class User extends Component {
         let profile = await CurrentUser.getProfile(this.state.refresh);
 
         this.setState({
-<<<<<<< HEAD
-            avatar: profile.avatar || QiniuDomain + '/logo-image.svg',
-=======
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
->>>>>>> master
             userId: profile.user_id,
             u_name: profile.name || profile.display_name || profile.facebook_name || profile.wechat_name || 'buzz',
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
@@ -66,13 +58,6 @@ class User extends Component {
         });
     }
 
-<<<<<<< HEAD
-=======
-    componentWillUnmount(){
-
-    }
-
->>>>>>> master
     render() {
         return (
             <div className="user-page">
@@ -94,11 +79,7 @@ class User extends Component {
                             this.state.role === MemberType.Student &&
                             <Link to="class-lessons">
                                 <div className="icon">
-<<<<<<< HEAD
-                                    <img src={ QiniuDomain + "/icon_my%20coins.png"} alt=""/>
-=======
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
->>>>>>> master
                                     <div className="name">
                                         {Resources.getInstance().myCoins}
                                     </div>
@@ -129,11 +110,7 @@ class User extends Component {
 
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
-<<<<<<< HEAD
-                        {/*<img src={QiniuDomain + "/icon_language.png"} alt=""/>*/}
-=======
                         {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
->>>>>>> master
                         {/*<div className="name">*/}
                         {/*{Resources.getInstance().myLanguage}*/}
                         {/*</div>*/}

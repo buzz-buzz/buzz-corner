@@ -6,11 +6,6 @@ export const ClientType = {
 export default class Client {
 
     static showComponent(mobileView, largeScreenView) {
-<<<<<<< HEAD
-=======
-        return mobileView;
-
->>>>>>> master
         let client = Client.getClient();
 
         if (client === ClientType.Mobile) {
