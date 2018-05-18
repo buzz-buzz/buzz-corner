@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import {Form, TextArea} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
