@@ -5,7 +5,7 @@
   flex-direction: column;
   min-height: 100%;
   .update-body{
-    padding: 0 0 0 20px;
+    padding: 0 0 0 14px;
     background-color: white;
     flex:0 0 auto;
     .avatar-update{
@@ -30,6 +30,7 @@
       overflow: hidden;
       position: relative;
       .update-left{
+        margin-left: 9px;
         span{
           color: #000;
         }

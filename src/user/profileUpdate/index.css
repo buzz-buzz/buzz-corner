@@ -5,7 +5,7 @@
   flex-direction: column;
   min-height: 100%; }
   .profile-update .update-body {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 14px;
     background-color: white;
     flex: 0 0 auto; }
     .profile-update .update-body .avatar-update {
@@ -26,8 +26,10 @@
       height: 50px;
       overflow: hidden;
       position: relative; }
-      .profile-update .update-body div .update-left span {
-        color: #000; }
+      .profile-update .update-body div .update-left {
+        margin-left: 9px; }
+        .profile-update .update-body div .update-left span {
+          color: #000; }
       .profile-update .update-body div .update-right {
         padding-right: 14px;
         position: relative;
@@ -35,7 +37,6 @@
         .profile-update .update-body div .update-right span, .profile-update .update-body div .update-right input.input-show {
           color: #666;
           font-size: 14px;
-          font-weight: lighter;
           padding-right: 10px;
           letter-spacing: 1px; }
         .profile-update .update-body div .update-right input.input-show {
