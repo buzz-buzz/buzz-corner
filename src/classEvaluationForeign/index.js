@@ -116,7 +116,11 @@ class classEvaluationForeign extends Component {
                             url: '/class/evaluation/' + evaluationResult.userInfo[i].userId + '/' + this.state.class_id,
                             score: evaluationResult.userInfo[i].score || 0,
                             user_name: evaluationResult.userInfo[i].userName || 'Buzz',
+<<<<<<< HEAD
                             avatar: evaluationResult.userInfo[i].avatar || QiniuDomain + '/logo-image.svg'
+=======
+                            avatar: evaluationResult.userInfo[i].avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+>>>>>>> master
                         });
                     }
                 }
@@ -143,8 +147,13 @@ class classEvaluationForeign extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
+<<<<<<< HEAD
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
                             <Avatar src={this.state.class_info.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
+=======
+                        <div className="booking-item-avatar">
+                            <Avatar src={this.state.class_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
+>>>>>>> master
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -187,6 +196,7 @@ class classEvaluationForeign extends Component {
                                             :
                                             <div className="result-stars">
                                                 <img
+<<<<<<< HEAD
                                                     src={item.score >= 1 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
                                                     alt="star"/>
                                                 <img
@@ -200,6 +210,21 @@ class classEvaluationForeign extends Component {
                                                     alt="star"/>
                                                 <img
                                                     src={item.score >= 5 ? QiniuDomain + "/image/icon_Stars_active1.png" : QiniuDomain + "/image/icon_Stars1.png"}
+=======
+                                                    src={item.score >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                    alt="star"/>
+                                                <img
+                                                    src={item.score >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+>>>>>>> master
                                                     alt="star"/>
                                             </div>}
                                     </div>

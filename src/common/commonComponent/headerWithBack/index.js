@@ -20,7 +20,11 @@ export default class HeaderWithBack extends React.Component {
                         </div>
                         :
                         <div>
+<<<<<<< HEAD
                             <img src= { QiniuDomain + "/new_buzz_logo.png"} alt="Buzzbuzz"/>
+=======
+                            <img src="http://resource.buzzbuzzenglish.com/new_buzz_logo.png" alt="Buzzbuzz"/>
+>>>>>>> master
                         </div>
                     }
                 </div>

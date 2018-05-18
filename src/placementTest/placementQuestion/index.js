@@ -8,7 +8,11 @@ export default class PlacementQuestion extends React.Component {
         return <div className="first placement-first">
             <div className="first-question">
                 <div>
+<<<<<<< HEAD
                     <img src={QiniuDomain + "/WeChat_use_tutor.jpg"} alt=""/>
+=======
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
+>>>>>>> master
                 </div>
                 <div className="first-title">
                     <p>{ this.props.questions && this.props.questions.length ? this.props.questions[this.props.step - 1].title : ''}</p>

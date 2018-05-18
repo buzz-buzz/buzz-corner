@@ -30,10 +30,11 @@ gulp.task('fundebug', function () {
 });
 
 gulp.task('fonts', () => {
-    const fonts = `http://cdn-admin.buzzbuzzenglish.com/css/css.css`;
+    const fonts = `//cdn-admin.buzzbuzzenglish.com/css/css.css`;
 
     return gulp.src(['node_modules/semantic-ui-css/semantic.css', 'node_modules/semantic-ui-css/semantic.min.css'])
         .pipe(replace('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin', fonts))
+        .pipe(replace('http://cdn-admin.buzzbuzzenglish.com/css/css.css', fonts))
         .pipe(gulp.dest('node_modules/semantic-ui-css/'));
 });
 

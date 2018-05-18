@@ -23,7 +23,7 @@ class Homepage extends Component {
         super(props);
 
         this.state = {
-            avatar: QiniuDomain + '/logo-image.svg',
+            avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
             step: props.location.query.step || 1,
             questions: Placement,
             answers: [],
@@ -81,7 +81,7 @@ class Homepage extends Component {
 
             this.setState({
                 userId: profile.user_id,
-                avatar: profile.avatar || QiniuDomain + '/logo-image.svg'
+                avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
             });
         }
         catch (ex) {
@@ -182,7 +182,7 @@ class Homepage extends Component {
                 if (this.state.step === 7) {
                     let answerSeventh = this.state.answers[6];
 
-                    let audioUrl = answerSeventh === 'A' ? QiniuDomain + '/Placement%201.mp3' : (answerSeventh === 'B' ? QiniuDomain + '/Placement%202.mp3' : QiniuDomain + '/Placement%203.mp3');
+                    let audioUrl = answerSeventh === 'A' ? 'http://cdn-corner.resource.buzzbuzzenglish.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'http://cdn-corner.resource.buzzbuzzenglish.com/Placement%202.mp3' : 'http://cdn-corner.resource.buzzbuzzenglish.com/Placement%203.mp3');
                     let audioQuestionLength = answerSeventh === 'A' ? 5 : (answerSeventh === 'B' ? 13 : 11);
 
                     console.log(audioUrl, audioQuestionLength);
@@ -263,7 +263,7 @@ class Homepage extends Component {
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
                                     <Practice chats={this.state.chats}
-                                              avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", this.state.avatar]}
+                                              avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", this.state.avatar]}
                                               handleUploadUrl={this.handleUploadUrl.bind(this)}
                                               audioUpload={true}
                                               recordingChanged={this.recordingChanged}

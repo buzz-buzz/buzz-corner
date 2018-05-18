@@ -18,7 +18,11 @@ export default class Practice extends React.Component {
             replies: [{
                 recordAudio: /MicroMessenger/.test(navigator.userAgent) ? new WechatAudio() : new TabletAudio()
             }],
+<<<<<<< HEAD
             soundPlaying: QiniuDomain + '/icon_recording.gif',
+=======
+            soundPlaying: '//cdn-corner.resource.buzzbuzzenglish.com/icon_recording.gif',
+>>>>>>> master
             currentReplying: 0,
             currentPlaying: -1,
             repliesPlaying: -1
@@ -255,7 +259,11 @@ export default class Practice extends React.Component {
                                                     <div className="talktext">
                                                         <p style={{paddingLeft: '10px'}}>
                                                             <img className="rotate180" style={{height: '20px'}}
+<<<<<<< HEAD
                                                                  src={this.state.repliesPlaying === i ? this.state.soundPlaying : QiniuDomain + "/icon_recording_new.png"}
+=======
+                                                                 src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
+>>>>>>> master
                                                                  alt=""/>
                                                             <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
                                                         </p>
@@ -291,7 +299,11 @@ export default class Practice extends React.Component {
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
                                     <div className="talktext" style={{padding: '0'}}>
+<<<<<<< HEAD
                                         <embed src={ QiniuDomain + "/icon_information%20cue.svg"}
+=======
+                                        <embed src="http://cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
+>>>>>>> master
                                                width="80"
                                                height="33"
                                                type="image/svg+xml"
@@ -326,7 +338,11 @@ export default class Practice extends React.Component {
                                src={this.state.soundPlaying}
                                alt=""/>
                         : <img
+<<<<<<< HEAD
                             src={QiniuDomain + "/icon_recording_new.png"}
+=======
+                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
+>>>>>>> master
                             style={{height: '20px'}} alt=""/>
                 }
             </p>) :

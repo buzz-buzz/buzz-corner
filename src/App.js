@@ -42,12 +42,19 @@ class App extends Component {
                 `}</style>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
+<<<<<<< HEAD
                     <Route path='//' component={EntryPoint}/>
                     <Route path='/%2f' component={EntryPoint}/>
                     <Route path='/select-role' component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
                     <Route path='/sign-in' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/tutor' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/student' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+=======
+                    <Route path='/select-role' component={Client.showComponent(SelectRole)}/>
+                    <Route path='/sign-in' component={Client.showComponent(LoginEntryPoint)}/>
+                    <Route path='/tutor' component={Client.showComponent(LoginEntryPoint)}/>
+                    <Route path='/student' component={Client.showComponent(LoginEntryPoint)}/>
+>>>>>>> master
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
@@ -73,7 +80,11 @@ class App extends Component {
                     <Route path='/class-lessons' component={ClassLessons}/>
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
+<<<<<<< HEAD
                     <Route path='/video-play' component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
+=======
+                    <Route path='/video-play' component={Client.showComponent(VideoPlay)}/>
+>>>>>>> master
                 </Router>
             </div>
         )
