@@ -87,8 +87,6 @@ class classEvaluationResult extends Component {
         try {
             this.setState({loadingModal: true});
 
-            let userId = await CurrentUser.getUserId();
-
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
@@ -128,7 +126,6 @@ class classEvaluationResult extends Component {
             }
 
             this.setState({
-                userId: userId,
                 class_info: class_info,
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
