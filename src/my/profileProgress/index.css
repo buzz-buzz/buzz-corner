@@ -5,7 +5,7 @@
   flex-shrink: 0;
   display: flex;
   position: relative;
-  padding: 0 1em; }
+  padding: 0 21px; }
 
 .profile-progress-foreign > div {
   flex: 0 0 auto;
