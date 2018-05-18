@@ -6,8 +6,8 @@ export const header = 'Welcome to Buzzbuzz English Corner';
 export const welcomePageIntroductionLineOne = 'Connect English and Chinese speaking teens in a virtual space.';
 export const welcomePageIntroductionLineTwo = '';
 export const welcomePageIntroductionLineThr = '';
-export const welcomePageChineseChild = 'Student';
-export const welcomePageForeignChild = 'Tutor';
+export const welcomePageChineseChild = 'I am a Student';
+export const welcomePageForeignChild = 'I am a Tutor';
 export const welcomePageBtnWord = 'How does this work?';
 
 export const developWord = 'Site in construction, please come back and check later.';
@@ -15,6 +15,7 @@ export const whiteSpaceMessage = 'No message yet.～';
 
 export const loginByWechatInfo = 'SIGN IN WITH WECHAT';
 export const loginByWechatIntroduction = 'Dialogue with native English-speaking teens';
+export const loginTabletWord = 'Connect English and Chinese speaking teens in a virtual space.';
 
 export const footerHome = 'Home';
 export const footerFriends = 'Friends';
@@ -57,7 +58,8 @@ export const profileStep1Info = 'Session information and service notification';
 export const profileParentsName = 'Parent\'s Information';
 export const profilePhoneInfo = 'China(+86)';
 export const profilePhoneHolder = 'Phone number';
-export const profilePhoneCheck = 'Verification Code';
+export const profilePhoneCheck = 'Receive';
+export const profilePhoneLabel = 'Verification code';
 export const profilePhoneCheckError = 'The code you entered is incorrect or expired. Please re-enter or get a new code';
 export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
 export const profileStep2 = 'personal information';
@@ -75,8 +77,8 @@ export const profileDone = 'Well done';
 export const profileSkipNow = 'Skip this step';
 export const profileStep4 = 'Decode the call sign';
 export const profileStep4Info = 'Create user language profile, ';
-export const profileStep4InfoWord1 = 'match the perfect English native speaking';
-export const profileStep4InfoWordBold = ' peer tutor';
+export const profileStep4InfoWord1 = 'Match the perfect English native speaking';
+export const profileStep4InfoWordBold = ' Peer tutor';
 
 export const placementSelectWord = 'Choose the best answer';
 export const placementAudioWord = 'Listen to the question and record your answer.';
@@ -103,10 +105,14 @@ export const classEvaluationStarsStatus2 = 'Needs Improvement';
 export const classEvaluationStarsStatus3 = 'Pretty good';
 export const classEvaluationStarsStatus4 = 'Good';
 export const classEvaluationStarsStatus5 = 'Amazing';
+export const classEvaluationStarsStatus6 = 'Waiting for feedback';
 export const classEvaluationUnevaluate = 'Not yet';
 export const classEvaluationEvaluate = 'Feedback for student';
 export const classEvaluationDone = 'Well done!';
 export const classEvaluationSuggest = 'Share your feelings';
+export const classEvaluationResultTitle = 'Feedback';
+export const classEvaluationResultContent = 'Feedback from classmates';
+export const classEvaluationMy = 'My feedback';
 
 export const classDetailTitle = 'Class Details';
 export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';
@@ -135,6 +141,8 @@ export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
 export const homeAvatar = 'contact information';
 
+export const loginWechatScanQr = 'Use WeChat scan code to login';
+
 export const profileTitle = 'Setup your profile';
 export const profileName = 'Name';
 export const profileNameHolder = 'Your name';
@@ -150,6 +158,8 @@ export const profileInterests = 'Interests';
 export const profileIntroduction = 'Describe your self';
 export const profileIntroductionHolder = 'Write a short introduction about yourself.';
 export const profileSunmitBtn = 'Continue';
+export const profileGradeName = 'Grade';
+export const profileTopicNone = 'Add';
 
 export const avatarTile = 'Contact Information';
 export const avatarLabel = 'Avatar';
@@ -164,6 +174,7 @@ export const emailHolder = 'Your E-mail address';
 export const emailWrong = 'Email is wrong!';
 export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
 export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
+export const emailSendWrong = 'Network error, please try again later!';
 
 export const my = 'My';
 export const toggleLanguage = 'Language selector';
@@ -201,43 +212,6 @@ export const hobbyAnimal = 'Animal';
 export const hobbyMusic = 'Music';
 export const hobbyPeople = 'People';
 export const hobbyPolitics = 'Politics';
-
-export const evaluationWord = 'Feedback after class';
-export const evaluationForStudent = 'Feedback for student';
-export const evaluationNo = 'Waiting for your feedback';
-export const evaluationTo = 'Assess:';
-export const goToClass = 'Enter session';
-export const goToAssess = 'Feedback';
-
-export const errorUpload = 'Upload failed, please try later!';
-export const successUpload = 'Upload successfully!';
-export const connectionError = 'Connection error';
-export const unkownError = 'Connection error';
-export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
-
-
-export function signInWith(method) {
-    return (
-        <span>SIGN IN WITH <strong>{method}</strong></span>
-    )
-}
-
-export function leftDays(start_time, end_time, now_time) {
-    let d = TimeHelper.dateDiff(start_time, now_time);
-
-    if (d > 1) {
-        return `After ${d} days`;
-    }
-
-    if (d === 1) {
-        return 'Start tomorrow';
-    }
-
-    if (d === 0) {
-        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
-    }
-}
-
 
 export const cityQT = 'Others';
 export const cityBJ = 'BeiJing';
@@ -286,3 +260,49 @@ export const gradeSix = 'Grade 6';
 export const gradeSev = 'Grade 7';
 export const gradeEig = 'Grade 8';
 export const gradeNin = 'Grade 9';
+
+export const evaluationWord = 'Feedback after class';
+export const evaluationMyWord = 'My feedback';
+export const evaluationForStudent = 'Feedback for student';
+export const evaluationNo = 'Waiting for your feedback';
+export const evaluationTo = 'Assess:';
+export const goToClass = 'Enter session';
+export const goToAssess = 'Feedback';
+
+export const errorUpload = 'Upload failed, please try later!';
+export const successUpload = 'Upload successfully!';
+export const connectionError = 'Connection error';
+export const unkownError = 'Connection error';
+export const pleaseUseWechatToLogin = 'Please login with Wechat in Wechat App';
+
+export const userCenterTitle = 'Information';
+export const userCenterHobby = 'Hobbies';
+export const userUpdateTitle = 'Information';
+export const userUpdatephone = 'Modify mobile';
+
+export const userProfileGender = 'Gender';
+export const userProfileChange = 'Upload';
+export const userProfileAvatarWrongType = 'Incorrect image format!';
+
+
+export function signInWith(method) {
+    return (
+        <span>SIGN IN WITH <strong>{method}</strong></span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 1) {
+        return `After ${d} days`;
+    }
+
+    if (d === 1) {
+        return 'Start tomorrow';
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+    }
+}

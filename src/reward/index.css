@@ -73,20 +73,18 @@
 
 .reward-page > .miles > .buzz-miles{
     display: flex;
-    margin: 1em auto .5em auto;
+    margin: 15px auto 10px auto;
     align-items: center;
-    justify-content: space-between;
-    height: 3em;
-    width: 40%;
+    justify-content: center;
 }
 
 .reward-page > .miles > .buzz-miles > img{
-    height: 100%;
+    height: 35px;
+    margin-right: 15px;
 }
 
 .reward-page > .miles > .buzz-miles > span{
-    font-size: 3em;
+    font-size: 50px;
     color: #f7b52a;
-    flex: 1 0 auto;
     text-align: center;
 }

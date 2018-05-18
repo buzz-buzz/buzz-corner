@@ -15,7 +15,7 @@ export default class Resources {
         }
 
         if (!resources) {
-            Resources.setCulture(window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US');
+            Resources.setCulture(window.navigator.language.toLowerCase() === 'zh-cn' ? 'zh-CN' : 'en-US');
         }
 
         return resources;

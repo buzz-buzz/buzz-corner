@@ -28,12 +28,12 @@ export default class RecordingModal extends BuzzModal {
                                style={{height: '100px', display: 'inline', textAlign: 'center'}}/>
                     </div>
                     <Header style={{fontWeight: 'normal', fontFamily: 'serif'}}>
-                        <StopWatch start={0} timeout={this.props.timeout} visible={this.props.open}></StopWatch>
+                        <StopWatch start={0} timeout={this.props.timeout} visible={this.props.open} />
                     </Header>
                 </div>
                 <p>&nbsp;</p>
                 <div className="begin">
-                    <div onTouchStart={this.props.onOK}>
+                    <div onClick={this.props.onOK}>
                         <p>{Resources.getInstance().finishRecording}</p>
                     </div>
                 </div>

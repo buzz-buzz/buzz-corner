@@ -4,9 +4,11 @@ import {Divider, Form, Grid, Header, Image} from "semantic-ui-react";
 import {browserHistory} from "react-router";
 import FacebookLogin from "../login/facebook";
 import WeChatLogin from "../login/wechat";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import './companion.css';
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import Resources from "../resources";
+import {MemberTypeChinese} from "../membership/member-type";
 
 class CompanionLoginEntryPoint extends Component {
     constructor() {
@@ -19,7 +21,9 @@ class CompanionLoginEntryPoint extends Component {
     }
 
     signInViaWechat() {
-        Track.event('登录页面_点击微信登录按钮');
+        Track.event('登录页面_点击微信登录按钮', null, {
+            '用户类型': MemberTypeChinese.Companion
+        });
         WeChatLogin.redirectToWechatOAuthPage();
     }
 
@@ -35,9 +39,9 @@ class CompanionLoginEntryPoint extends Component {
     render() {
         return (
             <div style={{height: '100%'}}>
-                <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
+                <Grid textAlign='center' style={{height: '100%', marginLeft: '0', marginRight: '0'}} verticalAlign='middle'>
                     <Grid.Row>
-                        <Grid.Column>
+                        <Grid.Column style={{padding: '0'}}>
                             <Divider horizontal/>
                             <Divider horizontal/>
                             <Header as="h2" color="teal" textAlign="center">
@@ -60,7 +64,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <FacebookLogin/>
                                 <Divider horizontal/>
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
-                                    <Image src="//resource.buzzbuzzenglish.com/image/buzz-corner/button_WeChat.png"
+                                    <Image src={ QiniuDomain + "/button_WeChat.png"}
                                            alt="Wechat login"/>
                                     {Resources.getInstance('en-US').signInWith('WECHAT')}
                                 </BuzzRoundButton>

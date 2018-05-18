@@ -1,0 +1,1 @@
+export default '//cdn-corner.resource.buzzbuzzenglish.com';

@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
+import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import TimeHelper from "../common/timeHelper";
 import {Flag} from "semantic-ui-react";
+import Track from "../common/track";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -23,7 +26,8 @@ class classEvaluationForeign extends Component {
                 show_date: 'tomorrow, is coming',
                 show_time: '00:00 - 00:00',
                 companion_name: '',
-                companion_avatar: ''
+                companion_avatar: '',
+                companions: ''
             },
             evaluation_list: [],
             CURRENT_TIMESTAMP: new Date(),
@@ -31,10 +35,19 @@ class classEvaluationForeign extends Component {
         };
 
         this.back = this.back.bind(this);
+        this.companionCenter = this.companionCenter.bind(this);
     }
 
     back() {
         window.history.back();
+    }
+
+    companionCenter(){
+        Track.event('外籍头像点击');
+
+        if(this.state.class_info.companions){
+            browserHistory.push('/user/' + this.state.class_info.companions);
+        }
     }
 
     transformDay(day) {
@@ -76,6 +89,8 @@ class classEvaluationForeign extends Component {
             let companion_country = '';
             if(class_info.companions){
                 let companion_id = class_info.companions.split(',')[0];
+
+                class_info.companions = companion_id;
 
                 companion_country = (await ServiceProxy.proxyTo({
                     body: {
@@ -124,20 +139,10 @@ class classEvaluationForeign extends Component {
     render() {
         return (
             <div className="class-detail">
-                <div className="class-detail-header">
-                    <div className="arrow">
-                        <img style={{width: '20px'}}
-                             src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_back.png" alt=""
-                             onClick={this.back}/>
-                    </div>
-                    <div className="class-detail-title">{Resources.getInstance().evaluationWord}</div>
-                    <div className="class-order">
-
-                    </div>
-                </div>
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar">
+                        <div className="booking-item-avatar" onClick={this.companionCenter}>
                             <Avatar src={this.state.class_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>

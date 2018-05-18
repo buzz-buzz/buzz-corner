@@ -5,8 +5,8 @@ export const header = 'Buzzbuzz虚拟英语角';
 
 export const welcomePageIntroductionLineOne = '结识英语学伴，对话英美少年！';
 export const welcomePageIntroductionLineTwo = '开启你的国际交流旅程。';
-export const welcomePageChineseChild = '中国少年';
-export const welcomePageForeignChild = '外籍学伴';
+export const welcomePageChineseChild = '我是中国少年';
+export const welcomePageForeignChild = '我是外籍学伴';
 export const welcomePageBtnWord = '快来围观吧!';
 
 export const developWord = '功能开发中, 敬请期待...';
@@ -14,6 +14,7 @@ export const whiteSpaceMessage = '还没有消息提醒哦～';
 
 export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利对话英美优秀少年';
+export const loginTabletWord = '对话英美优秀少年, 轻松提高英语听说';
 
 export const footerHome = '主页';
 export const footerFriends = '好友';
@@ -57,6 +58,7 @@ export const profileParentsName = '家长姓名';
 export const profilePhoneInfo = '中国(+86)';
 export const profilePhoneHolder = '手机号码';
 export const profilePhoneCheck = '获取验证码';
+export const profilePhoneLabel = '输入验证码';
 export const profilePhoneCheckError = '您输入的验证码不正确或过期, 请重新输入或获取新的验证码';
 export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
 export const profileStep2 = '个人信息';
@@ -102,10 +104,14 @@ export const classEvaluationStarsStatus2 = '待提高';
 export const classEvaluationStarsStatus3 = '还行';
 export const classEvaluationStarsStatus4 = '不错';
 export const classEvaluationStarsStatus5 = '很棒';
+export const classEvaluationStarsStatus6 = '等待评价';
 export const classEvaluationUnevaluate = '尚未评价';
 export const classEvaluationEvaluate = '对学伴评价';
 export const classEvaluationDone = '完成';
 export const classEvaluationSuggest = '分享你的真实感受';
+export const classEvaluationResultTitle = '学伴评价';
+export const classEvaluationResultContent = '学伴对我的评价';
+export const classEvaluationMy = '我的评价';
 
 export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
@@ -134,6 +140,8 @@ export const homeLogin = '登录';
 export const homeProfile = '个人资料';
 export const homeAvatar = '联系方式';
 
+export const loginWechatScanQr = '使用微信扫码登录';
+
 export const profileTitle = '填写个人信息';
 export const profileName = '姓名';
 export const profileNameHolder = '你的名字';
@@ -149,6 +157,8 @@ export const profileInterests = '兴趣';
 export const profileIntroduction = '自我介绍';
 export const profileIntroductionHolder = '用简短的话概括你自己';
 export const profileSunmitBtn = '保存';
+export const profileGradeName = '年级';
+export const profileTopicNone = '添加';
 
 export const avatarTile = '联系方式';
 export const avatarLabel = '头像';
@@ -163,6 +173,7 @@ export const emailHolder = '你的邮箱地址';
 export const emailWrong = '邮箱格式不正确!';
 export const emailWrongVerification = '您输入的验证码不正确或过期, 请重新输入或者获取新的验证码!';
 export const emailUnkonwWrong = '若未收到验证码，请查看您的垃圾邮箱中是否存在!';
+export const emailSendWrong = '网络出错, 请稍后重试!';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';
@@ -200,37 +211,6 @@ export const hobbyAnimal = '动物';
 export const hobbyMusic = '音乐';
 export const hobbyPeople = '人';
 export const hobbyPolitics = '政治';
-
-export const evaluationWord = '课后评价';
-export const evaluationForStudent = '对学伴评价';
-export const evaluationNo = '未评价';
-export const evaluationTo = '评价:';
-export const goToClass = '进入课堂';
-export const goToAssess = '课后评价';
-
-export const errorUpload = '上传失败, 请稍后重试!';
-export const successUpload = '上传成功!';
-export const connectionError = '连接异常';
-export const unkownError = '出现错误，请刷新页面重试';
-export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
-
-export function signInWith(method) {
-    return (
-        <span>使用 <strong>{method}</strong> 登录</span>
-    )
-}
-
-export function leftDays(start_time, end_time, now_time) {
-    let d = TimeHelper.dateDiff(start_time, now_time);
-
-    if (d > 0) {
-        return `${d} 天后开始`;
-    }
-
-    if (d === 0) {
-        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
-    }
-}
 
 export const cityQT = '其他';
 export const cityBJ = '北京';
@@ -279,3 +259,45 @@ export const gradeSix = '六年级';
 export const gradeSev = '七年级';
 export const gradeEig = '八年级';
 export const gradeNin = '九年级';
+
+export const evaluationWord = '课后评价';
+export const evaluationMyWord = '我的评价';
+export const evaluationForStudent = '对学伴评价';
+export const evaluationNo = '未评价';
+export const evaluationTo = '评价:';
+export const goToClass = '进入课堂';
+export const goToAssess = '课后评价';
+
+export const errorUpload = '上传失败, 请稍后重试!';
+export const successUpload = '上传成功!';
+export const connectionError = '连接异常';
+export const unkownError = '出现错误，请刷新页面重试';
+export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
+
+export const userCenterTitle = '用户信息';
+export const userCenterHobby = 'TA的兴趣爱好';
+export const userUpdateTitle = '修改信息';
+export const userUpdatephone = '修改手机号';
+
+export const userProfileGender = '性别';
+export const userProfileChange = '更换';
+export const userProfileAvatarWrongType = '图片格式不正确!';
+
+
+export function signInWith(method) {
+    return (
+        <span>使用 <strong>{method}</strong> 登录</span>
+    )
+}
+
+export function leftDays(start_time, end_time, now_time) {
+    let d = TimeHelper.dateDiff(start_time, now_time);
+
+    if (d > 0) {
+        return `${d} 天后开始`;
+    }
+
+    if (d === 0) {
+        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+    }
+}

@@ -10,7 +10,7 @@
     background-color: rgb(255, 244, 191);
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
     padding: 0 20px;
-    z-index: 999;
+    z-index: 2999;
 }
 
 .success{
@@ -25,5 +25,5 @@
     background-color: rgb(185, 248, 233);
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
     padding: 0 20px;
-    z-index: 999;
+    z-index: 2999;
 }

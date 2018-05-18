@@ -29,7 +29,8 @@ class classDetail extends Component {
                 partners: [],
                 status: "",
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00'
+                show_time: '00:00 - 00:00',
+                companions: ''
             },
             companion_name: '',
             companion_avatar: '',
@@ -58,6 +59,7 @@ class classDetail extends Component {
         this.finishRecording = this.finishRecording.bind(this);
         this.sendTrack = this.sendTrack.bind(this);
         this.closeClassBegin = this.closeClassBegin.bind(this);
+        this.companionCenter = this.companionCenter.bind(this);
     }
 
     closeClassBegin(){
@@ -66,7 +68,14 @@ class classDetail extends Component {
 
     back() {
         window.history.back();
-        browserHistory.push('/');
+    }
+
+    companionCenter(){
+        Track.event('外籍头像点击');
+
+        if(this.state.class_info.companions){
+            browserHistory.push('/user/' + this.state.class_info.companions);
+        }
     }
 
     sendTrack(e, eventInfo) {
@@ -173,6 +182,8 @@ class classDetail extends Component {
             if(class_info.companions){
                 let companion_id = class_info.companions.split(',')[0];
 
+                class_info.companions = companion_id;
+
                 companion_country = (await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
@@ -213,6 +224,8 @@ class classDetail extends Component {
 
         if (this.practice) {
             this.practice.cancelReply();
+        }else if(this.tabletPractice){
+            this.tabletPractice.cancelReply();
         }
     }
 
@@ -222,6 +235,8 @@ class classDetail extends Component {
         console.log('end reply');
         if (this.practice) {
             this.practice.endReply();
+        }else if(this.tabletPractice){
+            this.tabletPractice.endReply();
         }
 
     }
@@ -246,7 +261,7 @@ class classDetail extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle} />
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
+                        <div className="booking-item-avatar" onClick={this.companionCenter}>
                             <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>

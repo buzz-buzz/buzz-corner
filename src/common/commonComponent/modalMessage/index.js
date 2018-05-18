@@ -32,7 +32,7 @@ export default class ModalMessage extends Component {
     render() {
         return (
             this.state.modalShow ?
-                <div className={this.props.modalName === 'error' ? 'error' : 'success'} style={this.props.style || {}}>
+                <div className={this.props.modalName === 'success' ? 'success' : 'error'} style={this.props.style || {}}>
                     {this.props.modalContent || Resources.getInstance().unkownError}
                 </div> : ''
         );

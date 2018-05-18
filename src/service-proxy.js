@@ -1,5 +1,4 @@
 async function checkStatus(response) {
-    console.log('response = ', response);
     if (response.status >= 200 && response.status < 300) {
         let signInUrl = `${window.location.origin}/sign-in`;
         if (response.url.indexOf(signInUrl) === 0) {
@@ -48,7 +47,8 @@ export default {
             let mergedOptions = Object.assign({
                 accept: 'application/json',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 credentials: 'include'
             }, options);

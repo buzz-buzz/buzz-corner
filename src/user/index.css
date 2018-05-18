@@ -15,7 +15,16 @@
   background-color: white;
   flex: 0 0 auto;
   min-height: 227px;
-  justify-content: center; }
+  justify-content: center;
+  position: relative; }
+  .user-my .edit-img {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 20px;
+    z-index: 20; }
+    .user-my .edit-img img {
+      width: 100%; }
 
 .user-my > .user-avatar {
   width: 6em;

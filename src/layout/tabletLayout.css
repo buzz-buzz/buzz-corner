@@ -1,0 +1,35 @@
+.tablet-header, .tablet-footer {
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  padding: 0 200px;
+  display: flex;
+  align-items: center; }
+  .tablet-header .tablet-logo-left, .tablet-footer .tablet-logo-left {
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    .tablet-header .tablet-logo-left img, .tablet-footer .tablet-logo-left img {
+      height: 45px;
+      cursor: pointer; }
+  .tablet-header .tablet-middle p, .tablet-footer .tablet-middle p {
+    color: #666;
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer; }
+  .tablet-header .tablet-middle p.footer-word, .tablet-footer .tablet-middle p.footer-word {
+    color: #666;
+    font-size: 1em; }
+  .tablet-header div, .tablet-footer div {
+    flex: 1 1 auto; }
+
+.tablet-header {
+  background-color: white;
+  top: 0;
+  border-bottom: 1px solid #dfdfe4; }
+
+.tablet-footer {
+  background-color: #191919;
+  bottom: 0; }

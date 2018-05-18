@@ -11,7 +11,7 @@ export default class ClassPartners extends React.Component {
                 {
                     this.props.student_avatars.length > 0 &&
                     this.props.student_avatars.map((item, index) => {
-                        return <Link key={index} to="" onClick={event => this.props.sendTrack(event, '中方头像点击')}>
+                        return <Link key={index} to={"/user/" + item.user_id} onClick={event => this.props.sendTrack(event, '中方头像点击')}>
                             <img
                                 src={item.avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}
                                 alt=""/>

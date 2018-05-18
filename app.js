@@ -13,6 +13,7 @@ const fs = require('fs');
 const pug = require('js-koa-pug');
 const qiniu = require('qiniu');
 const config_qiniu = require('./config/qiniu');
+const wechat = require('./service/wechat');
 const mac = new qiniu.auth.digest.Mac(config_qiniu.ACCESS_KEY, config_qiniu.SECRET_KEY);
 const putPolicy = new qiniu.rs.PutPolicy({
     scope: config_qiniu.bucket
@@ -46,55 +47,17 @@ router
 
         console.log('proxing with ...', ctx.request.body);
 
-        ctx.body = await oldRequest(ctx.request.body);
+        ctx.body = await oldRequest(Object.assign({
+            headers: {
+                'X-Requested-With': 'buzz-corner'
+            }
+        }, ctx.request.body));
     })
     .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string', async ctx => {
-        let getCode = function () {
-            ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.buzz_wechat_appid}&redirect_uri=http%3A%2F%2Flive.buzzbuzzenglish.com%2Fwechat%2Foauth%2Fredirect%2F${0}%2F${0}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
-        };
-
-        let code = ctx.query.code;
-        if (!code) {
-            getCode();
-            return;
-        }
-
-        try {
-            let accessTokenResponse = JSON.parse(await request({
-                uri: `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.buzz_wechat_appid}&secret=${process.env.buzz_wechat_secret}&code=${code}&grant_type=authorization_code`
-            }));
-
-            console.log('response = ', accessTokenResponse);
-
-            if (accessTokenResponse.errcode === 40163 && accessTokenResponse.errmsg.startsWith('code been used,')) {
-                getCode();
-                return;
-            }
-
-            // response =  { access_token: '6_l7QIfpUBCn_wnWsFcsb5fP_94GcrPU3lm-aTvk9yhVt43CcxI75aH5Soz1pN5dDbOjaNj-FIVXX6YQApyvqQNg',
-            //     expires_in: 7200,
-            //     refresh_token: '6_1tXQ-GUhbbqUx69UGxQzxKMGygmfBTOHGWNuNoQV48PhqLrBZH5EDYsSz0OSKXmw1MMjjRN5IujlQpR1ZipJfw',
-            //     openid: 'oyjHGw_XuFegDeFmObyFh0uTnHXI',
-            //     scope: 'snsapi_userinfo',
-            //     unionid: 'omVC7woQqmPJnrTQIqzt1PXjnhIk' }
-
-            let userInfoResponse = await request({
-                uri: `https://api.weixin.qq.com/sns/userinfo?access_token=${accessTokenResponse.access_token}&openid=${accessTokenResponse.openid}&lang=zh_CN`
-            });
-
-            console.log('wechat User Response = ', userInfoResponse);
-
-            let json = JSON.parse(userInfoResponse);
-
-            if (json.errcode || json.errmsg) {
-                ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&base64_query_string=${ctx.params.base64_query_string}`)
-            } else {
-                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${ctx.params.base64_callback_origin}&base64_query_string=${ctx.params.base64_query_string}`);
-            }
-        } catch (ex) {
-            console.error(ex);
-            getCode();
-        }
+        await wechat.redirect(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx.redirect)
+    })
+    .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string', async ctx => {
+        await wechat.redirect(false, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx.redirect)
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
@@ -109,7 +72,18 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        ctx.body = ctx.state.user;
+        let options = Object.assign({
+            headers: {
+                'X-Requested-With': 'buzz-corner'
+            },
+            uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
+        }, ctx.request.body);
+
+        let profile = await request(options);
+
+        ctx.body = Object.assign(ctx.state.user, {
+            profile: JSON.parse(profile)
+        });
     })
     .get('/switch-to-user/:user_id', membership.ensureAuthenticated, membership.pretendToBeOtherUser, async ctx => {
         ctx.body = ctx.state.user;
@@ -142,24 +116,24 @@ async function serveSPA(ctx) {
 app.use(serveStatic('build'));
 
 router
+    .get('/%2f', serveSPA)
+    .get('//', serveSPA)
     .get('/profile', serveSPA)
     .get('/login', serveSPA)
     .get('/login/facebook', serveSPA)
     .get('/login/wechat', serveSPA)
     .get('/my/info', serveSPA)
-    .get('/my/profile', serveSPA)
-    .get('/my/profile/avatar', serveSPA)
-    .get('/my/profile/language', serveSPA)
-    .get('/admin', serveSPA)
-    .get('/admin/class', serveSPA)
     .get('/placement', serveSPA)
     .get('/home', serveSPA)
     .get('/friends', serveSPA)
     .get('/reward', serveSPA)
     .get('/user', serveSPA)
+    .get('/user-profile', serveSPA)
+    .get('/user/:user_id', serveSPA)
     .get('/class/:class_id', serveSPA)
     .get('/class/foreign/:class_id', serveSPA)
     .get('/class/evaluation/:to_user_id/:class_id', serveSPA)
+    .get('/evaluation/:from_user_id/:to_user_id/:class_id', serveSPA)
     .get('/consult', serveSPA)
     .get('/class-lessons', serveSPA)
     .get('/consult', serveSPA)

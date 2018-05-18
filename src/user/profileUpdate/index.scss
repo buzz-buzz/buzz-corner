@@ -1,0 +1,94 @@
+.profile-update{
+  width: 100%;
+  background-color: #f4f5f9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  .update-body{
+    padding: 0 0 0 20px;
+    background-color: white;
+    flex:0 0 auto;
+    .avatar-update{
+      height: 90px;
+      width: 100%;
+      .avatar-img{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        border: 2px solid #d0d6db;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      overflow: hidden;
+      position: relative;
+      .update-left{
+        span{
+          color: #000;
+        }
+      }
+      .update-right{
+        padding-right: 14px;
+        position: relative;
+        overflow: hidden;
+        span, input.input-show{
+          color: #666;
+          font-size: 14px;
+          font-weight: lighter;
+          padding-right: 10px;
+          letter-spacing: 1px;
+        }
+        input.input-show{
+          border: none;
+          outline: none;
+          text-align: right;
+          font-weight: 600;
+        }
+        i{
+          color: #666;
+          font-size: 15px;
+          font-weight: 300;
+        }
+        input.hidden, select{
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 20;
+          opacity: 0;
+        }
+      }
+    }
+    div.with-half-border:after{
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 1px;
+      z-index: 20;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px solid  #dfdfe4;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scale(.5,.5);
+      transform: scale(.5,.5);
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  }
+  .update-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex: 1 0 auto;
+  }
+}

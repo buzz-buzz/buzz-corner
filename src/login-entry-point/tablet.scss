@@ -1,0 +1,83 @@
+.login-entry-point{
+  height: 100%;
+  width: 100%;
+  padding: 70px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  .login-entry-content{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background:white url('//p579tk2n2.bkt.clouddn.com/circles.png') top center no-repeat;
+    background-size: 100% 100%;
+    .login-left-word{
+      flex: 1 1 auto;
+      max-width: 600px;
+      padding-right: 30px;
+      .login-word{
+        font-size: 2em;
+        font-weight: 600;
+        line-height: 1.5em;
+        color: #000;
+        margin-bottom: 25px;
+      }
+      .items{
+        justify-content: flex-start;
+        img{
+          height: 30px;
+          width: 30px;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+      }
+    }
+    .login-right-code{
+      flex: 1 1 auto;
+      width: 560px;
+      height: 450px;
+      border-radius: 10px;
+      box-shadow: 0 0.5px 3.5px 0 rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border: solid 0.3px #d0d6db;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .code{
+        height: 380px;
+        width: 300px;
+        border-radius: 10px;
+      }
+      .facebook-logo{
+        height: 120px;
+        width: 120px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+      }
+      .code-word{
+        font-size: 1.5em;
+        margin-bottom: 40px;
+      }
+      .qr-code-img{
+        min-height: 430px;
+      }
+      button{
+        padding: 10px 20px;
+        outline: none;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 1px 3.5px 0 rgba(102, 102, 102, 0.2);
+        color: #666;
+        font-size: 1em;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
+    }
+  }
+}

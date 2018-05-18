@@ -8,6 +8,7 @@ import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import TimeHelper from '../common/timeHelper';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
 import './index.css';
 import {MemberType} from "../membership/member-type";
@@ -54,7 +55,9 @@ class Home extends Component {
     }
 
     clickEventClassDetail(e, item) {
-        window.event.preventDefault();
+        if(window.event){
+            window.event.preventDefault();
+        }
 
         Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
@@ -62,13 +65,15 @@ class Home extends Component {
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isiOS) {
             window.location.href = "/class/" + item.class_id;
-        }else{
+        } else {
             browserHistory.push("/class/" + item.class_id);
         }
     }
 
     clickEventPlacement(e, item) {
-        window.event.preventDefault();
+        if(window.event){
+            window.event.preventDefault();
+        }
 
         let redStatus = item.hasRead === '' ? '未读' : '已读';
 
@@ -195,11 +200,39 @@ class Home extends Component {
         return classList;
     }
 
+    sortClassList(class_list) {
+        //<= 0 >, >0 <
+        let future = [];
+        let past = [];
+
+        for (let i in class_list) {
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time)) / 1000;
+            if (class_list[i].left_time <= 0) {
+                future.push(class_list[i]);
+            } else {
+                past.push(class_list[i]);
+            }
+        }
+
+        future = future.sort(function (a, b) {
+            return b.left_time - a.left_time
+        });
+        past = past.sort(function (a, b) {
+            return a.left_time - b.left_time
+        });
+
+        class_list = future;
+
+        for (let f in past) {
+            class_list.push(past[f]);
+        }
+
+        return class_list;
+    }
+
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
-
-            //TitleSet.setTitle();
 
             this.setState({loadingModal: true, fullModal: true});
 
@@ -224,7 +257,7 @@ class Home extends Component {
                 return;
             }
 
-            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await this.isProfileOK(userId))) {
                 browserHistory.push('/my/info');
                 return;
             }
@@ -240,6 +273,9 @@ class Home extends Component {
             classList = this.handleClassListData(classList);
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
+
+            classList = this.sortClassList(classList);
+
 
             //if this is a student, then check placement test
             if (profile.role && profile.role === MemberType.Student) {
@@ -257,7 +293,7 @@ class Home extends Component {
                 }
             }
 
-            classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
                         clonedMessageFromAdvisor.push({
@@ -292,7 +328,7 @@ class Home extends Component {
                 }
 
                 return item;
-            });
+            }));
 
             let messageCheck = clonedMessageFromAdvisor.filter(function (item) {
                 return item.hasRead !== 'read';
@@ -301,14 +337,11 @@ class Home extends Component {
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
-                messageRead: messageCheck.length > 0,
+                messageRead: messageCheck && messageCheck.length > 0,
                 loadingModal: false,
                 role: profile.role
             });
-
-            //class_list --->  feedback list
         } catch (ex) {
-            console.log('login failed: ' + ex.toString());
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
 
             this.setState({loadingModal: false, fullModal: false});
@@ -324,7 +357,7 @@ class Home extends Component {
 
         this.setState({loadingModal: false, fullModal: false});
 
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }
@@ -335,13 +368,18 @@ class Home extends Component {
                 <LoadingModal loadingModal={this.state.fullModal} fullScreen={true}/>
                 <Welcome/>
                 <div className="home-header">
+                    <a className="consult" onClick={this.signUp}>
+                        <embed src={QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
+                               type="image/svg+xml"
+                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+                    </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png" alt="" style={{
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
-                        <span>{Resources.getInstance().homeTabBooking}</span>
+                        <div>{Resources.getInstance().homeTabBooking}</div>
                         <div className="tab-active"
                              style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                     </div>
@@ -351,19 +389,16 @@ class Home extends Component {
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
-                        <span>{Resources.getInstance().homeTabMessage}</span>
+                        <div style={{position: 'relative'}}>
+                            <span>{Resources.getInstance().homeTabMessage}</span>
+                            <div className="message-red-new"
+                                 style={this.state.messageRead ? {} : {display: 'none'}}>
+                                <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
+                            </div>
+                        </div>
                         <div className="tab-active"
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
-                        <div className="message-red-new"
-                             style={this.state.messageRead ? {} : {display: 'none'}}>
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_NEW_message.svg" alt=""/>
-                        </div>
                     </div>
-                    <Link className="consult" onClick={this.signUp}>
-                        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Service.svg" width="24" height="60%"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
-                    </Link>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
@@ -376,7 +411,8 @@ class Home extends Component {
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
                                             <div className="booking-item-avatar">
                                                 <Avatar src={item.companion_avatar}/>
-                                                <Flag name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'} />
+                                                <Flag
+                                                    name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'}/>
                                             </div>
                                             <div className="booking-item-info">
                                                 <p className="your-name" style={{
@@ -419,7 +455,11 @@ class Home extends Component {
                             <div
                                 className={(this.state.tab === 'message' && this.state.message_tab === 'advisor') ? 'message-advisor active' : 'message-advisor'}
                                 onClick={this.messageTabChangeAdvisor}>
-                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {return ele.hasRead === '';}).length + ')' : '')}</p>
+                                <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
+                                    return ele.hasRead === '';
+                                }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                                 <div className="message-red-circle"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
@@ -427,11 +467,11 @@ class Home extends Component {
                         {
                             this.state.message_tab === 'friends' ?
                                 (<div className="none-items">
-                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
+                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
                                 </div>) :
                                 (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
-                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage} />
+                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
                                         </div>
                                     ) :
                                     (<div className="message-items">
@@ -457,16 +497,26 @@ class Home extends Component {
                         }
                     </div>)
                 }
-                <div className="booking-btn" style={this.state.tab === 'booking' ? {}:{display: 'none'}}>
+                <div className="booking-btn" style={this.state.tab === 'booking' ? {} : {display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.signUp} id="booking-btn"
                                     content={Resources.getInstance().bookingBtnText}/>
                     </Form.Group>
                 </div>
-                <div className="offset-footer" style={this.state.tab === 'booking' ? {height: '142px'}:{height: '52px'}}></div>
+                <div className="offset-footer"
+                     style={this.state.tab === 'booking' ? {height: '142px'} : {height: '52px'}}></div>
                 <Footer/>
             </div>
         );
+    }
+
+    async isProfileOK(userId) {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/is-profile-ok/${userId}`,
+                method: 'GET'
+            }
+        })
     }
 }
 
