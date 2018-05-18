@@ -46,9 +46,9 @@ class Homepage extends Component {
 
     goBack() {
         if (this.state.step === 1) {
-            if(this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message'){
+            if (this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message') {
                 browserHistory.push('/home?tab=message');
-            }else{
+            } else {
                 browserHistory.push('/home');
             }
         } else if (this.state.step <= 8) {
@@ -109,7 +109,7 @@ class Homepage extends Component {
 
             //close messageModal
             this.closeMessageModal();
-        } else{
+        } else {
             Track.event('测试_录音上传过程失败');
 
             let clonedAnswers = this.state.answers;
@@ -249,13 +249,13 @@ class Homepage extends Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
-                <HeaderWithBack goBack={this.goBack} />
-                <PlacementProgress  step={this.state.step} />
+                <HeaderWithBack goBack={this.goBack}/>
+                <PlacementProgress step={this.state.step}/>
                 <Form className='profile-body'>
                     {
                         this.state.step <= 7 ?
                             (<PlacementQuestion step={this.state.step} questions={this.state.questions}
-                                                answering={this.answering} answers={this.state.answers} />)
+                                                answering={this.answering} answers={this.state.answers}/>)
                             :
                             (<div className="placement-second">
                                     <div className="second-title">
@@ -263,21 +263,23 @@ class Homepage extends Component {
                                     </div>
                                     <Practice chats={this.state.chats}
                                               avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", this.state.avatar]}
-                                              handleUploadUrl={this.handleUploadUrl.bind(this)} audioUpload={true}
-                                              recordingChanged={this.recordingChanged} ref={p => this.practice = p}/>
+                                              handleUploadUrl={this.handleUploadUrl.bind(this)}
+                                              audioUpload={true}
+                                              recordingChanged={this.recordingChanged}
+                                              ref={p => this.practice = p}/>
                                 </div>
                             )
                     }
                     <div className="profile-btn">
-                        <Button50px  disabled={!this.state.answers[this.state.step - 1]}
-                                     text={Resources.getInstance().profileContinue} submit={this.submit} />
+                        <Button50px disabled={!this.state.answers[this.state.step - 1]}
+                                    text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
                 <br/>
                 {
                     this.state.step === 8 &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                                            onOK={this.finishRecording} timeout={this.finishRecording}/>
+                                    onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
             </div>
         );

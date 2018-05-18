@@ -3,6 +3,7 @@ import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import Footer from '../layout/footer';
 import Track from "../common/track";
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import './index.css';
 
 class Reward extends Component {
@@ -46,17 +47,17 @@ class Reward extends Component {
                     </div>
                     <div className="badge">
                         <div className="blue-diamond">
-                            <img src="//resource.buzzbuzzenglish.com/Blue.png" alt=""/>
+                            <img src= { QiniuDomain + "/Blue.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardBlueStone.length === 1 ? '' : Resources.getInstance().rewardBlueStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardBlueStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="red-diamond">
-                            <img src="//resource.buzzbuzzenglish.com/Red.png" alt=""/>
+                            <img src= { QiniuDomain + "/Red.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardRedStone.length === 1 ? '' : Resources.getInstance().rewardRedStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardRedStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="yellow-diamond">
-                            <img src="//resource.buzzbuzzenglish.com/Yellow.png" alt=""/>
+                            <img src={ QiniuDomain + "/Yellow.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardYellowStone.length === 1 ? '' : Resources.getInstance().rewardYellowStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardYellowStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
@@ -68,7 +69,7 @@ class Reward extends Component {
                 <div className="miles">
                     <div className="title">{Resources.getInstance().rewardMiles}</div>
                     <div className="buzz-miles">
-                        <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/Bitmap.png" alt="Buzzbuzz"/>
+                        <img src= { QiniuDomain + "/icon_money.svg"} alt="Loading..."/>
                         <span>{this.state.integral}</span>
                     </div>
                 </div>

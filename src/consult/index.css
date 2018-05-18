@@ -94,4 +94,7 @@
     text-align: left;
     padding-bottom: 20px;
     border-bottom: 1px solid #dfdfe4;
+    display: flex;
+    align-items: center;
+    color: #666;
 }

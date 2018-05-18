@@ -17,6 +17,7 @@ import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import { zones } from 'moment-timezone/data/meta/latest.json';
 import { countries } from 'moment-timezone/data/meta/latest.json';
+import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
 import './my.css';
 
@@ -56,7 +57,7 @@ class My extends Component {
             },
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
-            email_reg: /^[a-zA-Z0-9._-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/,
+            email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             placement_topics: Topics
         };
 
@@ -101,23 +102,38 @@ class My extends Component {
     }
 
     async sendEmail() {
-        await ServiceProxy.proxyTo({
+        this.setState({waitSec: 60});
+
+        let emailResult =  await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
                 json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
                 method: 'POST'
             }
         });
-        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
-        this.closeMessageModal();
-        this.setState({waitSec: 60});
-        const interval = setInterval(() => {
-            if (this.state.waitSec) {
-                this.setState({waitSec: this.state.waitSec - 1});
-            } else {
-                clearInterval(interval)
-            }
-        }, 1000)
+
+        if(emailResult && emailResult.error){
+            console.log(emailResult);
+            this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong});
+            this.closeMessageModal();
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
+        }else{
+            this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+            this.closeMessageModal();
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
+        }
     }
 
     handleCodeChange(event) {
@@ -242,8 +258,6 @@ class My extends Component {
     async submit(event) {
         try {
             event.stopPropagation();
-
-            console.log('=================');
 
             if (this.state.step < 3) {
                 if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
@@ -401,7 +415,7 @@ class My extends Component {
             interests: newTopics,
             email: profile.email,
             school_name: profile.school,
-            country: profile.country,
+            country: profile.country || this.state.profile.role === MemberType.Student ? 'china' : 'united States',
             time_zone: profile.time_zone
         };
     }
@@ -474,6 +488,7 @@ class My extends Component {
                         this.state.step === 1 ?
                             (
                                 <ProfileFormStep1 role={this.state.profile.role} profile={this.state.profile} handleChange={this.handleChange}
+                                                  code={this.state.code}
                                                   handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
                                                   waitSec={this.state.waitSec} agreementCheck={this.agreementCheck} agreement={this.state.agreement}
                                                   sendEmail={this.sendEmail} emailValid={this.state.emailValid}
@@ -507,7 +522,7 @@ class My extends Component {
                                                         style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
                                                     </h4>
                                                     <img className="profile-done-img"
-                                                         src="//resource.buzzbuzzenglish.com/image/buzz-corner/friends.png"
+                                                         src={ QiniuDomain + "/friends.png"}
                                                          alt=""/>
                                                 </div>
                                             )

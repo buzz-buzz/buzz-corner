@@ -1,0 +1,36 @@
+.buzz-input{
+  width: 100%;
+  margin-bottom: 10px;
+  input{
+    height: 100%;
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+    text-align: left;
+    letter-spacing: 1px !important;
+    border: 1px solid #f4f5f9 !important;
+    outline: none !important;
+    border-radius: 5px !important;
+    background-color: #f4f5f9 !important;
+    color: #000 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  }
+  input::-webkit-input-placeholder{
+    color: #666;
+  }
+  input:-moz-placeholder{
+    color: #666;
+  }
+  input::-moz-placeholder{
+    color: #666;
+  }
+  input:-ms-input-placeholder{
+    color: #666;
+  }
+  input:focus{
+    border: 1px solid #f7b52a !important;
+    background-color: white !important;
+  }
+}

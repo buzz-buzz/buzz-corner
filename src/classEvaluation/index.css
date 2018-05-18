@@ -96,8 +96,7 @@
 }
 
 #evaluation > .evaluation-submit{
-    background-color: rgb(244, 245, 249);
-    margin: 0 -2em -1em -2em;
+    margin: 0 -1em -1em -1em;
     padding: 2em;
 }
 
@@ -125,4 +124,11 @@
     border-radius: 5px;
     background-color: #f4f5f9;
     min-height: 150px;
+}
+
+.evaluation-result-show > .result-content textarea{
+    padding: 0;
+    background-color: #f4f5f9;
+    border: none;
+    min-height: 140px;
 }

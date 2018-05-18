@@ -52,13 +52,6 @@ class videoPlay extends Component {
                 </div>
                 <div className="video-ad">
                     <div className="ad-word">
-                        {/*<div className="ad-title">在这里你的孩子可以获得</div>*/}
-                        {/*<p className="ad-points">*/}
-                            {/*<img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" alt=""/><span> 摆脱哑巴英语困境, 学以致用。</span>*/}
-                        {/*</p>*/}
-                        {/*<p className="ad-points">*/}
-                            {/*<img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" alt=""/><span> 与国际学伴成为朋友, 打开国际视野。</span>*/}
-                        {/*</p>*/}
                         <p>英美少年学伴, &nbsp;最自然的交流状态</p>
                         <p>哈佛权威研发, &nbsp;有效提高英语口语</p>
                         <p>百种精彩话题, &nbsp;总有属于你的独特</p>

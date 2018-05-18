@@ -14,12 +14,12 @@
   width: 33.3%;
   position: relative; }
   .profile-progress-foreign > div p {
-    padding-top: 2em;
+    padding-top: 17px;
     text-align: center;
     width: 100%;
     letter-spacing: 1px;
     color: #666;
-    font-size: 11px; }
+    font-size: 13px; }
 
 .profile-progress > div {
   flex: 0 0 auto;
@@ -28,12 +28,12 @@
   width: 25%;
   position: relative; }
   .profile-progress > div p {
-    padding-top: 2em;
+    padding-top: 17px;
     text-align: center;
     width: 100%;
     letter-spacing: 1px;
     color: #666;
-    font-size: 11px; }
+    font-size: 13px; }
 
 .dot {
   position: absolute;

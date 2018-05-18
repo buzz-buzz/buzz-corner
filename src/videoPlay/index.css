@@ -117,7 +117,7 @@
     flex-direction: column;
     padding: 1em;
     color: #000;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
  .content-list > a > div{

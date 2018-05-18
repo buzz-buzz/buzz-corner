@@ -3,9 +3,10 @@ import ServiceProxy from '../service-proxy';
 let currentUser;
 
 class User {
-    constructor(userId, isSuper) {
+    constructor(userId, isSuper, profile) {
         this.userId = userId;
         this.isSuper = isSuper;
+        this.profile = profile;
     }
 
     static async getInstance() {
@@ -13,7 +14,12 @@ class User {
             try {
                 let userData = await ServiceProxy.proxy('/user-info');
 
-                currentUser = new User(userData.userId, userData.super);
+                if (typeof userData !== 'object' || !userData.userId) {
+                    await User.signOut();
+                    return;
+                }
+
+                currentUser = new User(userData.userId, userData.super, userData.profile);
             } catch (ex) {
                 await User.signOut();
             }
@@ -49,25 +55,12 @@ export default class CurrentUser {
         return (await User.getInstance()).userId;
     }
 
-    static async getProfile(force) {
-        let userId = await CurrentUser.getUserId();
-
-        if (force || !currentUser.profile) {
-            try {
-                currentUser.profile = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${userId}?t=${new Date().getTime()}`
-                    }
-                });
-            } catch (ex) {
-                if (ex.status === 404) {
-                    await User.signOut();
-                }
-
-                throw ex;
-            }
+    static async getProfile(refresh) {
+        if (refresh) {
+            User.destroy();
         }
 
-        return currentUser.profile;
+        let instance = await User.getInstance();
+        return instance.profile;
     }
 }

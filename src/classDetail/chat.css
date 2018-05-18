@@ -59,7 +59,7 @@
     height: 0;
     left: -19px;
     right: auto;
-    top: 0px;
+    top: 0;
     bottom: auto;
     border: 16px solid;
     border-color: white transparent transparent transparent;
@@ -278,6 +278,10 @@
     -webkit-margin-after: 0em;
 }
 
+.talktext p{
+    cursor: pointer;
+}
+
 .rotate180{
     transform: rotate(180deg);
 }
@@ -323,6 +327,7 @@
     text-align: center;
     position: absolute;
     width: 100%;
+    cursor: pointer;
 }
 
 .chat.message {
