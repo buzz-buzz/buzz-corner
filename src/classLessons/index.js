@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
 import './index.css';
 

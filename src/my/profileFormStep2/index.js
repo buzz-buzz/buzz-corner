@@ -6,7 +6,6 @@ import { zones } from 'moment-timezone/data/meta/latest.json';
 import { countries } from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChineseCityList} from "../../common/systemData/chineseCityListData";
-import QiniuDomain from '../../common/systemData/qiniuUrl';
 import BuzzInput from '../../common/commonComponent/buzzInput';
 
 const grade_list = GradeData.grade_list;

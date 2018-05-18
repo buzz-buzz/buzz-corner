@@ -4,7 +4,6 @@ import './avatar.css';
 import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
-import QiniuDomain from '../../common/systemData/qiniuUrl';
 
 export default class profileSetup extends Component {
     handlePhoneChange = (e, {value}) => {

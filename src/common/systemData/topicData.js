@@ -1,5 +1,4 @@
 import Resources from '../../resources';
-import QiniuDomain from './qiniuUrl';
 
 export const Topics = [
     {

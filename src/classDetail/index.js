@@ -12,7 +12,6 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';

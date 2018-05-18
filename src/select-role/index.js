@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import './index.css';
 import Track from "../common/track";
 import {Message} from "semantic-ui-react";

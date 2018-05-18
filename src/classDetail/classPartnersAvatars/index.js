@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Resources from '../../resources';
-import QiniuDomain from '../../common/systemData/qiniuUrl';
 import './index.css';
 
 export default class ClassPartners extends React.Component {

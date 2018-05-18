@@ -1,1 +1,1 @@
-export default '//p579tk2n2.bkt.clouddn.com';
+export default '//cdn-corner.resource.buzzbuzzenglish.com';
