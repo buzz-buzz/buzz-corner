@@ -1,9 +1,9 @@
 const request = require('request-promise-native');
 
 module.exports = {
-    async redirect(isMobile, code, base64_callback_origin, base64_query_string, ctxRedirect) {
+    async redirect(isMobile, code, base64_callback_origin, base64_query_string, ctx) {
         function redirectFail(msg) {
-            ctxRedirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`)
+            ctx.redirect(`/wechat/oauth/fail/${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`)
         }
 
         try {
@@ -38,7 +38,7 @@ module.exports = {
             if (json.errcode || json.errmsg) {
                 redirectFail(userInfoResponse)
             } else {
-                ctxRedirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`);
+                ctx.redirect(`/wechat/oauth/success/${encodeURIComponent(new Buffer(encodeURIComponent(userInfoResponse)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`);
             }
         } catch (e) {
             console.error(e);
