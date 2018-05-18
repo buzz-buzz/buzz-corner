@@ -3,10 +3,7 @@ import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import Footer from '../layout/footer';
 import Track from "../common/track";
-<<<<<<< HEAD
 import QiniuDomain from '../common/systemData/qiniuUrl';
-=======
->>>>>>> master
 import './index.css';
 
 class Reward extends Component {

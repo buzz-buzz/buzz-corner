@@ -117,11 +117,7 @@
     flex-direction: column;
     padding: 1em;
     color: #000;
-<<<<<<< HEAD
     justify-content: space-around;
-=======
-    justify-content: space-between;
->>>>>>> master
 }
 
  .content-list > a > div{

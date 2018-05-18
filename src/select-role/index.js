@@ -53,11 +53,7 @@ class SelectRole extends Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div className="entrance-logo">
                     <div className="logo">
-<<<<<<< HEAD
-                        <img src= { QiniuDomain + "/logo_full%20name.png"} alt="Buzzbuzz Logo"/>
-=======
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png" alt="Buzzbuzz Logo"/>
->>>>>>> master
                     </div>
                     <div className="entrance-word">
                         <p>{Resources.getInstance().welcomePageIntroductionLineOne}</p>
@@ -67,21 +63,13 @@ class SelectRole extends Component {
                 <div className="entrance-choose">
                     <div onClick={this.foreignChildEntrance}>
                         <div className="image">
-<<<<<<< HEAD
-                            <img src= { QiniuDomain + "/icon_girl.png"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_girl.png" alt=""/>
->>>>>>> master
                         </div>
                         <div className="choseBtn">{Resources.getInstance().welcomePageForeignChild}</div>
                     </div>
                     <div onClick={this.chineseChildEntrance}>
                         <div className="image">
-<<<<<<< HEAD
-                            <img src= { QiniuDomain + "/icon_boy.png"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_boy.png" alt=""/>
->>>>>>> master
                         </div>
                         <div className="choseBtn">{Resources.getInstance().welcomePageChineseChild}</div>
                     </div>
@@ -90,11 +78,7 @@ class SelectRole extends Component {
                     <p>{Resources.getInstance().welcomePageBtnWord}</p>
                     <div className="preview-video-btn" onClick={this.goVideoPlayPage}>
                         <div className="btn-circle">
-<<<<<<< HEAD
-                            <img src= { QiniuDomain + "/icon_play.png"} alt=""/>
-=======
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_play.png" alt=""/>
->>>>>>> master
                         </div>
                     </div>
                 </div>

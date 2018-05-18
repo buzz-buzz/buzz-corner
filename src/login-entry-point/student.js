@@ -24,11 +24,7 @@ class StudentLoginEntryPoint extends Component {
         return (
             <div className="wechat-login">
                 <div className="login-logo">
-<<<<<<< HEAD
-                    <img src={QiniuDomain + "/logo_full%20name.png"} alt="loading..."/>
-=======
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png" alt="loading..."/>
->>>>>>> master
                 </div>
                 <div className="login-wechat-img">
                     <img src={ QiniuDomain + '/banner-inland.png'} alt="loading..."/>

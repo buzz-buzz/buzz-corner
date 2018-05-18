@@ -8,11 +8,7 @@ class Developing extends Component {
         return (
             <div className="developing">
                 <div className="develop-img">
-<<<<<<< HEAD
-                    <img src={QiniuDomain + "/icon_blank%20page.png"} alt=""/>
-=======
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" alt=""/>
->>>>>>> master
                 </div>
                 <div className="develop-word">
                     {Resources.getInstance().developWord}

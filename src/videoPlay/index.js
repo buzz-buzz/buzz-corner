@@ -45,31 +45,14 @@ class videoPlay extends Component {
             <div className="video-play">
                 <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
-<<<<<<< HEAD
-                    <EmbedVideo sources={[QiniuDomain + '/Training%20video_3min.mp4']}
-                                poster={QiniuDomain + '/banner-inland.png'} />
-                    <div className="video-btn" id="icon-play-video">
-                        <img src={QiniuDomain + "/icon_play.png"} alt=""/>
-=======
                     <EmbedVideo sources={['//cdn-corner.resource.buzzbuzzenglish.com/Training%20video_3min.mp4']}
                                 poster={'//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png'} />
                     <div className="video-btn" id="icon-play-video">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_play.png" alt=""/>
->>>>>>> master
                     </div>
                 </div>
                 <div className="video-ad">
                     <div className="ad-word">
-<<<<<<< HEAD
-=======
-                        {/*<div className="ad-title">在这里你的孩子可以获得</div>*/}
-                        {/*<p className="ad-points">*/}
-                            {/*<img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" alt=""/><span> 摆脱哑巴英语困境, 学以致用。</span>*/}
-                        {/*</p>*/}
-                        {/*<p className="ad-points">*/}
-                            {/*<img src="//resource.buzzbuzzenglish.com/image/buzz-corner/icon_select_active.png" alt=""/><span> 与国际学伴成为朋友, 打开国际视野。</span>*/}
-                        {/*</p>*/}
->>>>>>> master
                         <p>英美少年学伴, &nbsp;最自然的交流状态</p>
                         <p>哈佛权威研发, &nbsp;有效提高英语口语</p>
                         <p>百种精彩话题, &nbsp;总有属于你的独特</p>
@@ -79,11 +62,7 @@ class videoPlay extends Component {
                         <div className="content-list">
                             <a href="https://h5.youzan.com/v2/goods/1y44iz9a3zgsa">
                                 <div className="class-lesson-img">
-<<<<<<< HEAD
-                                    <img src={QiniuDomain + "/banner_buzz_youzan_2.jpg"} alt=""/>
-=======
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/banner_buzz_youzan_2.jpg" alt=""/>
->>>>>>> master
                                 </div>
                                 <div className="class-lesson-info">
                                     <div className="lessons-title">标准学习包</div>
