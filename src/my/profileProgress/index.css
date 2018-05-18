@@ -33,7 +33,11 @@
     width: 100%;
     letter-spacing: 1px;
     color: #666;
+<<<<<<< HEAD
     font-size: 13px; }
+=======
+    font-size: 11px; }
+>>>>>>> master
 
 .dot {
   position: absolute;

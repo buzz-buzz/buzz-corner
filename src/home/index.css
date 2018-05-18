@@ -51,8 +51,13 @@ p{
 .my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
     position: absolute;
     width: 40%;
+<<<<<<< HEAD
     bottom: 1px;
     left: 30%;
+=======
+    bottom: 0;
+    left: calc(30% + .5em);
+>>>>>>> master
 }
 
 .my-home > .home-header > .consult{
@@ -254,7 +259,11 @@ p{
     width: 1px;
     top: 0;
     right: 0;
+<<<<<<< HEAD
     z-index: 3;
+=======
+    z-index: -1;
+>>>>>>> master
     border-right: 1px solid  #dfdfe4;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
@@ -358,8 +367,13 @@ p{
 
 .message-red-new{
     position: absolute;
+<<<<<<< HEAD
     left: 100%;
     top: -5px;
+=======
+    top: .5em;
+    right: 2em;
+>>>>>>> master
     height: 17px;
     width: 25px;
     z-index: 60;

@@ -262,8 +262,13 @@ class classDetail extends Component {
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle} />
                 <div className="class-detail-info">
                     <div className="class-info">
+<<<<<<< HEAD
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
                             <Avatar src={this.state.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
+=======
+                        <div className="booking-item-avatar" onClick={event => this.sendTrack(event, '外籍头像点击')}>
+                            <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
+>>>>>>> master
                             <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
                         </div>
                         <div className="booking-item-info">
@@ -298,7 +303,11 @@ class classDetail extends Component {
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
+<<<<<<< HEAD
                                   avatars={[QiniuDomain + "/WeChat_use_tutor.jpg", QiniuDomain + "/WeChat_use_tutor.jpg"]}/>
+=======
+                                  avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", "//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg"]}/>
+>>>>>>> master
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>

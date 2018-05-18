@@ -458,7 +458,7 @@ class My extends Component {
     getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            phone: userData.mobile || '',
+            phone: userData.Mobile || '',
             student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: getBirthDay(userData.date_of_birth),

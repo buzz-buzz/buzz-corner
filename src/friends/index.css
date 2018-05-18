@@ -12,6 +12,23 @@
     position: relative;
 }
 
+.friends-tab:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    z-index: -1;
+    bottom: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
 .friends-tab > div{
     width: 50%;
     height: 100%;

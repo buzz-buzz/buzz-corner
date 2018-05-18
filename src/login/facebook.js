@@ -192,8 +192,13 @@ export default class FacebookLogin extends React.Component {
                               style={{position: 'fixed'}} duration={'long'}/>
                 <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
                                  paddingLeft="60px">
+<<<<<<< HEAD
                     <Image src= { QiniuDomain +"/image/svg/icon_facebook.svg"} alt="Facebook login"/>
                     {this.props.btnText || Resources.getInstance('en-US').signInWith('FACEBOOK')}
+=======
+                    <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
+                    {Resources.getInstance('en-US').signInWith('FACEBOOK')}
+>>>>>>> master
                 </BuzzRoundButton>
             </div>
         );

@@ -45,12 +45,20 @@ class CompanionLoginEntryPoint extends Component {
                             <Divider horizontal/>
                             <Divider horizontal/>
                             <Header as="h2" color="teal" textAlign="center">
+<<<<<<< HEAD
                                 <Image src={QiniuDomain + "/logo_full%20name.png"}
+=======
+                                <Image src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png"
+>>>>>>> master
                                        alt="Buzzbuzz header logo" size="medium" style={{width: '120px'}}/>
                             </Header>
                             <Divider horizontal/>
                             <div className="ui fluid image banner-companion">
+<<<<<<< HEAD
                                 <Image src={ QiniuDomain + "/image/jpgpeople-mobile.jpg"}
+=======
+                                <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/jpgpeople-mobile.jpg"
+>>>>>>> master
                                        alt="Buzzbuzz banner" fluid/>
                             </div>
                             <div className="overlay">

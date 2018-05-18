@@ -4,6 +4,10 @@ import {browserHistory} from 'react-router';
 import Track from "../common/track";
 import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
+<<<<<<< HEAD
+=======
+import URLHelper from "../common/url-helper";
+>>>>>>> master
 import FacebookLogin from "../login/facebook";
 import './tablet.css';
 import TabletHeader from '../layout/tabletHeader';
@@ -49,17 +53,29 @@ class LoginRole extends Component {
     }
 
     changeWechatLogin() {
+<<<<<<< HEAD
         if (this.state.active !== MemberType.Student) {
             this.setState({
                 active: MemberType.Student
+=======
+        if (this.state.active !== 's') {
+            this.setState({
+                active: 's'
+>>>>>>> master
             }, this.createCode);
         }
     }
 
     changeFacebookLogin() {
+<<<<<<< HEAD
         if (this.state.active !== MemberType.Companion) {
             this.setState({
                 active: MemberType.Companion
+=======
+        if (this.state.active !== 'c') {
+            this.setState({
+                active: 'c'
+>>>>>>> master
             });
         }
     }
@@ -84,18 +100,30 @@ class LoginRole extends Component {
                             Resources.getInstance().loginTabletWord : 'Make friends, earn cool rewards, learn new languages, be a leader!'}</div>
                         <div className="items">
                             <img
+<<<<<<< HEAD
                                 src={this.state.active === MemberType.Student ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
+=======
+                                src={this.state.active === 's' ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
+>>>>>>> master
                                 alt="" onClick={this.changeWechatLogin}/>
                             {
                                 this.state.role === MemberType.Companion &&
                                 <img
+<<<<<<< HEAD
                                     src={this.state.active === MemberType.Companion ? QiniuDomain + "/tablet/icon_facebook_active.png" : QiniuDomain + "/tablet/icon_facebook.png"}
+=======
+                                    src={this.state.active === 'c' ? QiniuDomain + "/tablet/icon_facebook_active.png" : QiniuDomain + "/tablet/icon_facebook.png"}
+>>>>>>> master
                                     alt="" onClick={this.changeFacebookLogin}/>
                             }
                         </div>
                     </div>
                     {
+<<<<<<< HEAD
                         this.state.active === MemberType.Companion &&
+=======
+                        this.state.active === 'c' &&
+>>>>>>> master
                         <div className="login-right-code">
                             <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
                             <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
@@ -103,7 +131,11 @@ class LoginRole extends Component {
                         </div>
                     }
                     {
+<<<<<<< HEAD
                         this.state.active === MemberType.Student &&
+=======
+                        this.state.active === 's' &&
+>>>>>>> master
                         <div className="login-right-code">
                             <div className="code" id="qrcode-wechat"></div>
                             <div className="code-word">{Resources.getInstance().loginWechatScanQr}</div>
