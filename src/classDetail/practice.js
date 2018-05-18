@@ -253,7 +253,7 @@ export default class Practice extends React.Component {
                                                     className="student-word talk-bubble tri-left right-bottom border round">
                                                     <div className="talktext">
                                                         <p style={{paddingLeft: '10px'}}>
-                                                            <img className="rotate180" style={{height: '20px'}}
+                                                            <img className="rotate180" style={{height: '15px'}}
                                                                  src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
                                                                  alt=""/>
                                                             <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
@@ -321,12 +321,12 @@ export default class Practice extends React.Component {
 
                 {
                     this.state.currentPlaying === i
-                        ? <img style={{height: '20px'}}
+                        ? <img style={{height: '15px'}}
                                src={this.state.soundPlaying}
                                alt=""/>
                         : <img
                             src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
-                            style={{height: '20px'}} alt=""/>
+                            style={{height: '15px'}} alt=""/>
                 }
             </p>) :
             (
