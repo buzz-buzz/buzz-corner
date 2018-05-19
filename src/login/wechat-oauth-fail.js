@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
+import URLHelper from "../common/url-helper";
 
 export default class WechatOAuthFail extends React.Component {
 
@@ -8,7 +9,7 @@ export default class WechatOAuthFail extends React.Component {
 
         this.state = {
             loading: true,
-            wechatErrorInfo: JSON.parse(decodeURIComponent(atob(props.params.wechatErrorInfo)))
+            wechatErrorInfo: decodeURIComponent(atob(decodeURIComponent(props.params.wechatErrorInfo)))
         };
     }
 
@@ -17,15 +18,17 @@ export default class WechatOAuthFail extends React.Component {
         this.setState({loading: false})
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
+        URLHelper.handleOrigin();
     }
 
     render() {
         return (
             <Container textAlign="center">
-                <Segment loading={this.state.loading}
-                         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 888}}>
-                    {JSON.stringify(this.state.wechatErroInfo)}
+                <Segment loading={this.state.loading}>
+                    <p>微信登录过程中出错了，</p>
+                    <p>请返回重试。</p>
+                    <p>{this.state.wechatErrorInfo}</p>
                 </Segment>
             </Container>
         );
