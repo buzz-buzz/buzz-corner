@@ -21,4 +21,25 @@ export default class URLHelper {
 
         return '';
     }
+
+    static handleOrigin() {
+        try {
+            let callbackOrigin = URLHelper.getSearchParam(window.location.search, 'callback_origin');
+
+            if (callbackOrigin) {
+                callbackOrigin = atob(callbackOrigin);
+            }
+
+            if (callbackOrigin !== window.location.origin) {
+                window.location = callbackOrigin + window.location.pathname + window.location.search;
+
+                return true;
+            }
+
+            return false;
+        } catch (ex) {
+            // alert(JSON.stringify(ex));
+            console.error(ex);
+        }
+    }
 }
