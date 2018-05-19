@@ -12,6 +12,7 @@ import TimeHelper from "../common/timeHelper";
 import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
+import WechatShare from '../wechat/wechatShare';
 
 class classEvaluationResult extends Component {
     constructor(props) {
@@ -123,6 +124,13 @@ class classEvaluationResult extends Component {
                     evaluation.evaluation_content = feed_back[0].comment;
                 }
             }
+
+            let wechatSahreResult = await WechatShare.init({
+                title: 'Buzzbuzz虚拟英语角',
+                desc: 'hank在buzzbuzz表现很棒，获得了五颗星评价哦',
+                link: window.location.href,
+                imgUrl: 'https://cdn-corner.resource.buzzbuzzenglish.com/new_buzz_logo.png'
+            });
 
             this.setState({
                 class_info: class_info,
