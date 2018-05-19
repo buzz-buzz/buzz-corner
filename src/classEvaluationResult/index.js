@@ -12,7 +12,6 @@ import TimeHelper from "../common/timeHelper";
 import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
-import WechatShare from '../wechat/wechatShare';
 
 class classEvaluationResult extends Component {
     constructor(props) {
@@ -42,15 +41,23 @@ class classEvaluationResult extends Component {
 
         this.back = this.back.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
-        this.goMyFeedback = this.goMyFeedback.bind(this);
+        this.createPostersOfAchievement = this.createPostersOfAchievement.bind(this);
+        this.closePosterModal = this.closePosterModal.bind(this);
     }
 
     back() {
         window.history.back();
     }
 
-    goMyFeedback(){
-        browserHistory.push(`/class/evaluation/${this.state.from_user_id}/${this.state.class_id}`);
+    closePosterModal(){
+        this.setState({
+            posterModal: false
+        });
+    }
+
+    createPostersOfAchievement(){
+        //todo
+        browserHistory.push(`/poster/${this.state.from_user_id}/${this.state.to_user_id}/${this.state.class_id}`);
     }
 
     companionCenter(){
@@ -125,19 +132,13 @@ class classEvaluationResult extends Component {
                 }
             }
 
-            let wechatSahreResult = await WechatShare.init({
-                title: 'Buzzbuzz虚拟英语角',
-                desc: 'hank在buzzbuzz表现很棒，获得了五颗星评价哦',
-                link: window.location.href,
-                imgUrl: 'https://cdn-corner.resource.buzzbuzzenglish.com/new_buzz_logo.png'
-            });
-
             this.setState({
                 class_info: class_info,
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 companion_country: companion_country,
-                evaluation: evaluation
+                evaluation: evaluation,
+                posterModal: true
             });
         } catch (ex) {
             //login error
@@ -206,10 +207,41 @@ class classEvaluationResult extends Component {
                                                   readOnly={true}/>
                             </Form>
                         </div>
-                        <div className="evaluation-submit">
-                            <Button50px  text={Resources.getInstance().classEvaluationMy} submit={this.goMyFeedback} />
+                        <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
+                            <Button50px  text={Resources.getInstance().createPostersOfAchievement} submit={this.createPostersOfAchievement} />
                         </div>
                         <LoadingModal loadingModal={this.state.loadingModal}/>
+                    </div>
+                </div>
+                <div className="modal" style={this.state.posterModal ? {display: 'flex'} : {display: 'none'}} onClick={this.closePosterModal}>
+                    <div className="content">
+                        <div>
+                            <div className="welcome-title">
+                                <p>{Resources.getInstance().posterModalTitle}</p>
+                            </div>
+                            {
+                                window.navigator.language === 'zh-CN' ?
+                                    (
+                                        <div className="welcome-info">
+                                            <p>{Resources.getInstance().posterModalContent1}</p>
+                                            <p>{Resources.getInstance().posterModalContent2}</p>
+                                        </div>
+                                    ):
+                                    (
+                                        <div className="welcome-info">
+                                            <p>{Resources.getInstance().posterModalContent1 + Resources.getInstance().posterModalContent1}</p>
+                                        </div>
+                                    )
+                            }
+                            <div className="begin">
+                                <div onClick={this.createPostersOfAchievement}>
+                                    <p>{Resources.getInstance().createPostersOfAchievement}</p>
+                                </div>
+                            </div>
+                            {/*<div className="skip" onClick={this.closeWelcome}>*/}
+                            {/*<p>{Resources.getInstance().welcomePageSkip}</p>*/}
+                            {/*</div>*/}
+                        </div>
                     </div>
                 </div>
             </div>

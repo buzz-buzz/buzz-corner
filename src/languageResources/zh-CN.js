@@ -112,6 +112,7 @@ export const classEvaluationSuggest = '分享你的真实感受';
 export const classEvaluationResultTitle = '学伴评价';
 export const classEvaluationResultContent = '学伴对我的评价';
 export const classEvaluationMy = '我的评价';
+export const createPostersOfAchievement = '生成我的成就海报';
 
 export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
@@ -283,6 +284,9 @@ export const userProfileGender = '性别';
 export const userProfileChange = '更换';
 export const userProfileAvatarWrongType = '图片格式不正确!';
 
+export const posterModalTitle = '恭喜';
+export const posterModalContent1 = '你的学伴对你本次';
+export const posterModalContent2 = '课程给予了很高的评价';
 
 export function signInWith(method) {
     return (

@@ -1,0 +1,207 @@
+.class-poster{
+  .poster-content{
+    position: relative;
+    padding: 45px 10px 21px 10px;
+    .avatars{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-right: 24px;
+      margin-bottom: 18px;
+      background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
+      background-size: contain;
+      .chinese-avatar, .companion-avatar{
+        position: relative;
+        .avatar-image{
+          width: 93px;
+          height: 93px;
+          border-radius: 50%;
+          z-index: 10;
+        }
+        .bg-image{
+          width: 93px;
+          height: 93px;
+          position: absolute;
+          top: 0;
+          left: 5px;
+          z-index: 5;
+          border-radius: 50%;
+          background: rgba(246, 180, 12, 0.2);
+        }
+        .country-word{
+          position: absolute;
+          width: 70px;
+          height: 18px;
+          line-height: 18px;
+          left: 50%;
+          bottom: 0;
+          z-index: 12;
+          background: #ffd200;
+          color: white;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+    }
+    .introduce-word-image{
+      margin-bottom: 13px;
+      div.introduce{
+        margin: 0 44px;
+        color: #2f2f2f;
+        font-size: 14px;
+        font-weight: 500;
+        span{
+          color: #f6b40c;
+        }
+      }
+      div.image{
+        width: 100%;
+        margin-left: 28px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .feedback-show{
+      margin-left: 28px;
+      padding-right: 23px;
+      position: relative;
+      .feedback-info{
+        border: 1px solid #dfdfe4;
+        padding: 14px;
+        max-width: 240px;
+        margin-bottom: 15px;
+        position: relative;
+        background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
+        background-size: contain;
+        .name{
+          font-size: 13px;
+          font-weight: 500;
+          color: #f6b40c;
+        }
+        .city-grade{
+          font-size: 10px;
+          color: #666;
+        }
+        .comment{
+          margin-top: 13px;
+          font-size: 10px;
+          font-weight: 600;
+          color: #2f2f2f;
+        }
+        .image-float{
+          position: absolute;
+          width: 30px;
+          right: 7px;
+          bottom: 7px;
+          img{
+            width: 100%;
+          }
+        }
+        .image-float-left{
+          position: absolute;
+          width: 30px;
+          left: 7px;
+          bottom: 7px;
+          img{
+            width: 100%;
+          }
+        }
+      }
+      .reverse{
+        margin-left: 42px;
+      }
+      .feedback-label{
+        position: absolute;
+        top: 0;
+        right: 23px;
+        div{
+          padding-right: 10px;
+          border-right: 5px solid #ffd200;
+          font-size: 15px;
+          font-weight: 600;
+          color: #2f2f2f;
+        }
+      }
+    }
+    .class-contact{
+      margin-top: 26px;
+      .how-btn{
+        height: 35px;
+        line-height: 31px;
+        border-radius: 5px;
+        background-color: #ffd200;
+        border: solid 2px rgba(246, 180, 12, 0.2);
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(247, 116, 33, 0.5);
+        margin-bottom: 10px;
+      }
+      .video-buzz{
+        width: 100%;
+        min-height: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+        border: solid 1.5px #ffffff;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 20px;
+        img{
+          width: 100%;
+        }
+        .video-btn{
+          position: absolute;
+          top:0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 100;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img{
+            width: 60px;
+            height: 60px;
+          }
+        }
+      }
+      .contact-info{
+        .contact-title{
+          height: 21px;
+          line-height: 21px;
+          font-size: 15px;
+          font-weight: 500;
+          color: #2f2f2f;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        .contact-two-qrcode{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          margin-bottom: 15px;
+          padding: 0 50px;
+          img:first-child{
+            width: 90px;
+          }
+          img:last-child{
+            width: 100px;
+            height: 100px;
+          }
+        }
+        .contact-footer{
+          height: 14px;
+          line-height: 14px;
+          font-size: 10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
