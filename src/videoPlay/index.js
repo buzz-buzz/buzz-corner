@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import EmbedVideo from '../common/commonComponent/EmbedVideo';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import {browserHistory} from 'react-router';
 import './index.css';
 
 class videoPlay extends Component {
@@ -12,7 +11,7 @@ class videoPlay extends Component {
     }
 
     goBack() {
-        browserHistory.push('/');
+        window.history.back();
     }
 
     componentDidMount(){

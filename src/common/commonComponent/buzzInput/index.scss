@@ -1,7 +1,9 @@
 .buzz-input{
   width: 100%;
   margin-bottom: 10px;
+  position: relative;
   input{
+    position: relative;
     height: 100%;
     width: 100% !important;
     padding: 15px !important;
@@ -33,4 +35,15 @@
     border: 1px solid #f7b52a !important;
     background-color: white !important;
   }
+}
+
+.buzz-input.pressing:after{
+  content: '';
+  border-radius: 5px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .1);
 }

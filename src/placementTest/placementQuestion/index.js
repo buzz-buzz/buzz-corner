@@ -3,6 +3,28 @@ import Resources from '../../resources';
 import './index.css';
 
 export default class PlacementQuestion extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pressing: false,
+        };
+
+        this.touchEnd = this.touchEnd.bind(this);
+    }
+
+    touchStart(index){
+        this.setState({
+            pressing: index
+        });
+    }
+
+    touchEnd(){
+        this.setState({
+            pressing: "no"
+        });
+    }
+
     render() {
         return <div className="first placement-first">
             <div className="first-question">
@@ -21,7 +43,7 @@ export default class PlacementQuestion extends React.Component {
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].items &&
                     this.props.questions[this.props.step - 1].items.length &&
                     this.props.questions[this.props.step - 1].items.map((item, index) => {
-                        return <div className="answer-item" key={index}
+                        return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"} key={index} onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
                                     style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {
                                             color: 'rgb(246, 180, 12)',
                                             border: '1px solid rgb(246, 180, 12)'
@@ -34,7 +56,8 @@ export default class PlacementQuestion extends React.Component {
                             </div>
                             <button className="click-event"
                                     name={this.props.step + '' + (index === 0 ? 'A' : (index === 1 ? 'B' : 'C'))}
-                                    onClick={this.props.answering}>hidden
+                                    onClick={this.props.answering}
+                            >hidden
                             </button>
                         </div>
                     })

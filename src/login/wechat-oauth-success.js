@@ -50,7 +50,7 @@ export default class WechatOAuthSuccess extends React.Component {
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
                 method: 'PUT',
-                json: { user_id }
+                json: {user_id}
             }
         });
 
@@ -70,9 +70,16 @@ export default class WechatOAuthSuccess extends React.Component {
     }
 
     async componentWillMount() {
-        this.handleOrigin();
+        if (URLHelper.handleOrigin()) {
+            return;
+        }
 
         try {
+            let base64QueryString = URLHelper.getSearchParam(window.location.search, 'base64_query_string');
+            if (base64QueryString) {
+                base64QueryString = atob(base64QueryString);
+            }
+            this.setState({role: URLHelper.getSearchParam(base64QueryString, 'role')});
             await this.loginOldUser(this.state.wechatUserInfo);
         } catch (ex) {
             await this.loginNewUser(ex, this.state.wechatUserInfo);
@@ -101,34 +108,6 @@ export default class WechatOAuthSuccess extends React.Component {
             console.log('login failed: ' + ex.toString());
         } finally {
             //console.log('login failed');
-        }
-    }
-
-    handleOrigin() {
-        try {
-            let callbackOrigin = URLHelper.getSearchParam(window.location.search, 'callback_origin');
-
-            if (callbackOrigin) {
-                callbackOrigin = atob(callbackOrigin);
-            }
-
-            if (callbackOrigin !== window.location.origin) {
-                window.location = callbackOrigin + window.location.pathname + window.location.search;
-                return;
-            } else {
-                let base64QueryString = URLHelper.getSearchParam(window.location.search, 'base64_query_string');
-                if (base64QueryString) {
-                    base64QueryString = atob(base64QueryString);
-                }
-
-                let role = URLHelper.getSearchParam(base64QueryString, 'role');
-                this.setState({
-                    role: role
-                });
-            }
-        } catch (ex) {
-            // alert(JSON.stringify(ex));
-            console.error(ex);
         }
     }
 
