@@ -36,7 +36,7 @@ class classEvaluationPoster extends Component {
                 title: 'BuzzBuzz English',
                 desc: '分享一个学英语的秘诀我与英美同学的对话日常',
                 link: window.location.href,
-                imgUrl: 'https://cdn-corner.resource.buzzbuzzenglish.com/logo-1024px.jpg'
+                imgUrl: 'https://cdn-corner.resource.buzzbuzzenglish.com/logo-1024px.png'
             });
 
             //get data
