@@ -117,6 +117,8 @@ export default class Practice extends React.Component {
             });
         }
 
+        window.scrollTo(0, 1000);
+
         this.setState({replies});
     }
 
