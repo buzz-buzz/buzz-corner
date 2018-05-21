@@ -1,7 +1,15 @@
 .class-poster{
+  background-color: black;
+  padding: 80px 30px;
+  height: auto !important;
+  position: relative;
+  overflow: hidden;
   .poster-content{
     position: relative;
     padding: 45px 10px 21px 10px;
+    background-color: white;
+    z-index: 200;
+    overflow: hidden;
     .avatars{
       display: flex;
       align-items: center;
@@ -97,8 +105,9 @@
       position: relative;
       .feedback-info{
         border: 1px solid #dfdfe4;
+        border-radius: 5px;
         padding: 14px;
-        max-width: 240px;
+        max-width: 180px;
         margin-bottom: 15px;
         position: relative;
         background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
@@ -232,5 +241,93 @@
         }
       }
     }
+  }
+  .share-btn{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p{
+      color: #d0d6db;
+      font-size: 10px;
+      padding-right: 8px;
+    }
+    img{
+      height: 14px;
+    }
+  }
+  .share-img{
+    position: absolute;
+    top: 41px;
+    left: 0;
+    width: 100%;
+    img{
+      width: 100%;
+    }
+  }
+  .yellow-background{
+     position: absolute;
+     top: 267px;
+     left: 0;
+     width: 100%;
+   }
+  .yellow-background:before{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: transparent #f6b40c #f6b40c transparent;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: -70px;
+    left: 0;
+    color: transparent;
+  }
+  .yellow-background:after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: #f6b40c transparent transparent #f6b40c;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: 70px;
+    left: 0;
+    color: transparent;
+  }
+  .yellow-background-reverse{
+    position: absolute;
+    left: 0;
+    width: 100%;
+  }
+  .yellow-background-reverse:before{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: transparent transparent #f6b40c #f6b40c;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: -70px;
+    left: 0;
+    color: transparent;
+  }
+  .yellow-background-reverse:after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: #f6b40c #f6b40c transparent transparent;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: 70px;
+    left: 0;
+    color: transparent;
   }
 }
