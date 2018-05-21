@@ -15,7 +15,10 @@
         width: 93px;
         height: 93px;
         border-radius: 50%;
-        z-index: 10; }
+        z-index: 10;
+        overflow: hidden; }
+        .class-poster .poster-content .avatars .chinese-avatar .avatar-image img, .class-poster .poster-content .avatars .companion-avatar .avatar-image img {
+          width: 100%; }
       .class-poster .poster-content .avatars .chinese-avatar .bg-image, .class-poster .poster-content .avatars .companion-avatar .bg-image {
         width: 93px;
         height: 93px;
@@ -27,16 +30,39 @@
         background: rgba(246, 180, 12, 0.2); }
       .class-poster .poster-content .avatars .chinese-avatar .country-word, .class-poster .poster-content .avatars .companion-avatar .country-word {
         position: absolute;
-        width: 70px;
+        padding: 0 10px;
         height: 18px;
         line-height: 18px;
-        left: 50%;
+        left: calc(50% + 6px);
         bottom: 0;
         z-index: 12;
         background: #ffd200;
         color: white;
         font-size: 12px;
-        font-weight: 500; }
+        font-weight: 500;
+        text-align: center; }
+      .class-poster .poster-content .avatars .chinese-avatar .country-word:before, .class-poster .poster-content .avatars .companion-avatar .country-word:before {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-color: transparent #ffd200 #ffd200 transparent;
+        border-style: solid;
+        border-width: 9px 6px;
+        top: 0;
+        left: -12px; }
+      .class-poster .poster-content .avatars .chinese-avatar .country-word:after, .class-poster .poster-content .avatars .companion-avatar .country-word:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-color: #ffd200 transparent transparent #ffd200;
+        border-style: solid;
+        border-width: 9px 6px;
+        top: 0;
+        right: -12px; }
   .class-poster .poster-content .introduce-word-image {
     margin-bottom: 13px; }
     .class-poster .poster-content .introduce-word-image div.introduce {

@@ -49,7 +49,7 @@ export default class WechatShare {
         });
 
         wx.error(err => {
-            alert('与微信 SDK 连接出现问题：' + JSON.stringify(err));
+            //alert('与微信 SDK 连接出现问题：' + JSON.stringify(err));
             throw err
         });
 
