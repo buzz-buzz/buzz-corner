@@ -1,195 +1,282 @@
-.class-poster .poster-content {
+.class-poster {
+  background-color: black;
+  padding: 80px 30px;
+  height: auto !important;
   position: relative;
-  padding: 45px 10px 21px 10px; }
-  .class-poster .poster-content .avatars {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-right: 24px;
-    margin-bottom: 18px;
-    background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
-    background-size: contain; }
-    .class-poster .poster-content .avatars .chinese-avatar, .class-poster .poster-content .avatars .companion-avatar {
-      position: relative; }
-      .class-poster .poster-content .avatars .chinese-avatar .avatar-image, .class-poster .poster-content .avatars .companion-avatar .avatar-image {
-        width: 93px;
-        height: 93px;
-        border-radius: 50%;
-        z-index: 10;
-        overflow: hidden; }
-        .class-poster .poster-content .avatars .chinese-avatar .avatar-image img, .class-poster .poster-content .avatars .companion-avatar .avatar-image img {
-          width: 100%; }
-      .class-poster .poster-content .avatars .chinese-avatar .bg-image, .class-poster .poster-content .avatars .companion-avatar .bg-image {
-        width: 93px;
-        height: 93px;
-        position: absolute;
-        top: 0;
-        left: 5px;
-        z-index: 5;
-        border-radius: 50%;
-        background: rgba(246, 180, 12, 0.2); }
-      .class-poster .poster-content .avatars .chinese-avatar .country-word, .class-poster .poster-content .avatars .companion-avatar .country-word {
-        position: absolute;
-        padding: 0 10px;
-        height: 18px;
-        line-height: 18px;
-        left: calc(50% + 6px);
-        bottom: 0;
-        z-index: 12;
-        background: #ffd200;
-        color: white;
-        font-size: 12px;
-        font-weight: 500;
-        text-align: center; }
-      .class-poster .poster-content .avatars .chinese-avatar .country-word:before, .class-poster .poster-content .avatars .companion-avatar .country-word:before {
-        content: '';
-        display: block;
-        width: 0;
-        height: 0;
-        position: absolute;
-        border-color: transparent #ffd200 #ffd200 transparent;
-        border-style: solid;
-        border-width: 9px 6px;
-        top: 0;
-        left: -12px; }
-      .class-poster .poster-content .avatars .chinese-avatar .country-word:after, .class-poster .poster-content .avatars .companion-avatar .country-word:after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 0;
-        position: absolute;
-        border-color: #ffd200 transparent transparent #ffd200;
-        border-style: solid;
-        border-width: 9px 6px;
-        top: 0;
-        right: -12px; }
-  .class-poster .poster-content .introduce-word-image {
-    margin-bottom: 13px; }
-    .class-poster .poster-content .introduce-word-image div.introduce {
-      margin: 0 44px;
-      color: #2f2f2f;
-      font-size: 14px;
-      font-weight: 500; }
-      .class-poster .poster-content .introduce-word-image div.introduce span {
-        color: #f6b40c; }
-    .class-poster .poster-content .introduce-word-image div.image {
-      width: 100%;
-      margin-left: 28px; }
-      .class-poster .poster-content .introduce-word-image div.image img {
-        width: 100%; }
-  .class-poster .poster-content .feedback-show {
-    margin-left: 28px;
-    padding-right: 23px;
-    position: relative; }
-    .class-poster .poster-content .feedback-show .feedback-info {
-      border: 1px solid #dfdfe4;
-      padding: 14px;
-      max-width: 240px;
-      margin-bottom: 15px;
-      position: relative;
+  overflow: hidden; }
+  .class-poster .poster-content {
+    position: relative;
+    padding: 45px 10px 21px 10px;
+    background-color: white;
+    z-index: 200;
+    overflow: hidden; }
+    .class-poster .poster-content .avatars {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-right: 24px;
+      margin-bottom: 18px;
       background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
       background-size: contain; }
-      .class-poster .poster-content .feedback-show .feedback-info .name {
-        font-size: 13px;
-        font-weight: 500;
-        color: #f6b40c; }
-      .class-poster .poster-content .feedback-show .feedback-info .city-grade {
-        font-size: 10px;
-        color: #666; }
-      .class-poster .poster-content .feedback-show .feedback-info .comment {
-        margin-top: 13px;
-        font-size: 10px;
-        font-weight: 600;
-        color: #2f2f2f; }
-      .class-poster .poster-content .feedback-show .feedback-info .image-float {
-        position: absolute;
-        width: 30px;
-        right: 7px;
-        bottom: 7px; }
-        .class-poster .poster-content .feedback-show .feedback-info .image-float img {
+      .class-poster .poster-content .avatars .chinese-avatar, .class-poster .poster-content .avatars .companion-avatar {
+        position: relative; }
+        .class-poster .poster-content .avatars .chinese-avatar .avatar-image, .class-poster .poster-content .avatars .companion-avatar .avatar-image {
+          width: 93px;
+          height: 93px;
+          border-radius: 50%;
+          z-index: 10;
+          overflow: hidden; }
+          .class-poster .poster-content .avatars .chinese-avatar .avatar-image img, .class-poster .poster-content .avatars .companion-avatar .avatar-image img {
+            width: 100%; }
+        .class-poster .poster-content .avatars .chinese-avatar .bg-image, .class-poster .poster-content .avatars .companion-avatar .bg-image {
+          width: 93px;
+          height: 93px;
+          position: absolute;
+          top: 0;
+          left: 5px;
+          z-index: 5;
+          border-radius: 50%;
+          background: rgba(246, 180, 12, 0.2); }
+        .class-poster .poster-content .avatars .chinese-avatar .country-word, .class-poster .poster-content .avatars .companion-avatar .country-word {
+          position: absolute;
+          padding: 0 10px;
+          height: 18px;
+          line-height: 18px;
+          left: calc(50% + 6px);
+          bottom: 0;
+          z-index: 12;
+          background: #ffd200;
+          color: white;
+          font-size: 12px;
+          font-weight: 500;
+          text-align: center; }
+        .class-poster .poster-content .avatars .chinese-avatar .country-word:before, .class-poster .poster-content .avatars .companion-avatar .country-word:before {
+          content: '';
+          display: block;
+          width: 0;
+          height: 0;
+          position: absolute;
+          border-color: transparent #ffd200 #ffd200 transparent;
+          border-style: solid;
+          border-width: 9px 6px;
+          top: 0;
+          left: -12px; }
+        .class-poster .poster-content .avatars .chinese-avatar .country-word:after, .class-poster .poster-content .avatars .companion-avatar .country-word:after {
+          content: '';
+          display: block;
+          width: 0;
+          height: 0;
+          position: absolute;
+          border-color: #ffd200 transparent transparent #ffd200;
+          border-style: solid;
+          border-width: 9px 6px;
+          top: 0;
+          right: -12px; }
+    .class-poster .poster-content .introduce-word-image {
+      margin-bottom: 13px; }
+      .class-poster .poster-content .introduce-word-image div.introduce {
+        margin: 0 44px;
+        color: #2f2f2f;
+        font-size: 14px;
+        font-weight: 500; }
+        .class-poster .poster-content .introduce-word-image div.introduce span {
+          color: #f6b40c; }
+      .class-poster .poster-content .introduce-word-image div.image {
+        width: 100%;
+        margin-left: 28px; }
+        .class-poster .poster-content .introduce-word-image div.image img {
           width: 100%; }
-      .class-poster .poster-content .feedback-show .feedback-info .image-float-left {
-        position: absolute;
-        width: 30px;
-        left: 7px;
-        bottom: 7px; }
-        .class-poster .poster-content .feedback-show .feedback-info .image-float-left img {
-          width: 100%; }
-    .class-poster .poster-content .feedback-show .reverse {
-      margin-left: 42px; }
-    .class-poster .poster-content .feedback-show .feedback-label {
-      position: absolute;
-      top: 0;
-      right: 23px; }
-      .class-poster .poster-content .feedback-show .feedback-label div {
-        padding-right: 10px;
-        border-right: 5px solid #ffd200;
-        font-size: 15px;
-        font-weight: 600;
-        color: #2f2f2f; }
-  .class-poster .poster-content .class-contact {
-    margin-top: 26px; }
-    .class-poster .poster-content .class-contact .how-btn {
-      height: 35px;
-      line-height: 31px;
-      border-radius: 5px;
-      background-color: #ffd200;
-      border: solid 2px rgba(246, 180, 12, 0.2);
-      font-size: 15px;
-      font-weight: 600;
-      text-align: center;
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(247, 116, 33, 0.5);
-      margin-bottom: 10px; }
-    .class-poster .poster-content .class-contact .video-buzz {
-      width: 100%;
-      min-height: 180px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 5px;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-      background-color: #ffffff;
-      border: solid 1.5px #ffffff;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 20px; }
-      .class-poster .poster-content .class-contact .video-buzz img {
-        width: 100%; }
-      .class-poster .poster-content .class-contact .video-buzz .video-btn {
+    .class-poster .poster-content .feedback-show {
+      margin-left: 28px;
+      padding-right: 23px;
+      position: relative; }
+      .class-poster .poster-content .feedback-show .feedback-info {
+        border: 1px solid #dfdfe4;
+        border-radius: 5px;
+        padding: 14px;
+        max-width: 180px;
+        margin-bottom: 15px;
+        position: relative;
+        background: white url("//cdn-corner.resource.buzzbuzzenglish.com/BUZZBUZZENGLISH.png") center center no-repeat;
+        background-size: contain; }
+        .class-poster .poster-content .feedback-show .feedback-info .name {
+          font-size: 13px;
+          font-weight: 500;
+          color: #f6b40c; }
+        .class-poster .poster-content .feedback-show .feedback-info .city-grade {
+          font-size: 10px;
+          color: #666; }
+        .class-poster .poster-content .feedback-show .feedback-info .comment {
+          margin-top: 13px;
+          font-size: 10px;
+          font-weight: 600;
+          color: #2f2f2f; }
+        .class-poster .poster-content .feedback-show .feedback-info .image-float {
+          position: absolute;
+          width: 30px;
+          right: 7px;
+          bottom: 7px; }
+          .class-poster .poster-content .feedback-show .feedback-info .image-float img {
+            width: 100%; }
+        .class-poster .poster-content .feedback-show .feedback-info .image-float-left {
+          position: absolute;
+          width: 30px;
+          left: 7px;
+          bottom: 7px; }
+          .class-poster .poster-content .feedback-show .feedback-info .image-float-left img {
+            width: 100%; }
+      .class-poster .poster-content .feedback-show .reverse {
+        margin-left: 42px; }
+      .class-poster .poster-content .feedback-show .feedback-label {
         position: absolute;
         top: 0;
-        left: 0;
+        right: 23px; }
+        .class-poster .poster-content .feedback-show .feedback-label div {
+          padding-right: 10px;
+          border-right: 5px solid #ffd200;
+          font-size: 15px;
+          font-weight: 600;
+          color: #2f2f2f; }
+    .class-poster .poster-content .class-contact {
+      margin-top: 26px; }
+      .class-poster .poster-content .class-contact .how-btn {
+        height: 35px;
+        line-height: 31px;
+        border-radius: 5px;
+        background-color: #ffd200;
+        border: solid 2px rgba(246, 180, 12, 0.2);
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(247, 116, 33, 0.5);
+        margin-bottom: 10px; }
+      .class-poster .poster-content .class-contact .video-buzz {
         width: 100%;
-        height: 100%;
-        z-index: 100;
+        min-height: 180px;
         display: flex;
         justify-content: center;
-        align-items: center; }
-        .class-poster .poster-content .class-contact .video-buzz .video-btn img {
-          width: 60px;
-          height: 60px; }
-    .class-poster .poster-content .class-contact .contact-info .contact-title {
-      height: 21px;
-      line-height: 21px;
-      font-size: 15px;
-      font-weight: 500;
-      color: #2f2f2f;
-      text-align: center;
-      margin-bottom: 10px; }
-    .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-bottom: 15px;
-      padding: 0 50px; }
-      .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode img:first-child {
-        width: 90px; }
-      .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode img:last-child {
-        width: 100px;
-        height: 100px; }
-    .class-poster .poster-content .class-contact .contact-info .contact-footer {
-      height: 14px;
-      line-height: 14px;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+        border: solid 1.5px #ffffff;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 20px; }
+        .class-poster .poster-content .class-contact .video-buzz img {
+          width: 100%; }
+        .class-poster .poster-content .class-contact .video-buzz .video-btn {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 100;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          .class-poster .poster-content .class-contact .video-buzz .video-btn img {
+            width: 60px;
+            height: 60px; }
+      .class-poster .poster-content .class-contact .contact-info .contact-title {
+        height: 21px;
+        line-height: 21px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #2f2f2f;
+        text-align: center;
+        margin-bottom: 10px; }
+      .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 15px;
+        padding: 0 50px; }
+        .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode img:first-child {
+          width: 90px; }
+        .class-poster .poster-content .class-contact .contact-info .contact-two-qrcode img:last-child {
+          width: 100px;
+          height: 100px; }
+      .class-poster .poster-content .class-contact .contact-info .contact-footer {
+        height: 14px;
+        line-height: 14px;
+        font-size: 10px;
+        text-align: center; }
+  .class-poster .share-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .class-poster .share-btn p {
+      color: #d0d6db;
       font-size: 10px;
-      text-align: center; }
+      padding-right: 8px; }
+    .class-poster .share-btn img {
+      height: 14px; }
+  .class-poster .share-img {
+    position: absolute;
+    top: 41px;
+    left: 0;
+    width: 100%; }
+    .class-poster .share-img img {
+      width: 100%; }
+  .class-poster .yellow-background {
+    position: absolute;
+    top: 267px;
+    left: 0;
+    width: 100%; }
+  .class-poster .yellow-background:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: transparent #f6b40c #f6b40c transparent;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: -70px;
+    left: 0;
+    color: transparent; }
+  .class-poster .yellow-background:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: #f6b40c transparent transparent #f6b40c;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: 70px;
+    left: 0;
+    color: transparent; }
+  .class-poster .yellow-background-reverse {
+    position: absolute;
+    left: 0;
+    width: 100%; }
+  .class-poster .yellow-background-reverse:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: transparent transparent #f6b40c #f6b40c;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: -70px;
+    left: 0;
+    color: transparent; }
+  .class-poster .yellow-background-reverse:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: #f6b40c #f6b40c transparent transparent;
+    border-style: solid;
+    border-width: 70px 200px;
+    top: 70px;
+    left: 0;
+    color: transparent; }

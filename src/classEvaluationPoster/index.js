@@ -148,6 +148,18 @@ class classEvaluationPoster extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="share-btn">
+                    <p>点击这里分享</p>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/Triangle_2.png" alt=""/>
+                </div>
+                <div className="share-img">
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/BUZZ.png" alt=""/>
+                </div>
+                <div className="yellow-background"></div>
+                <div className="share-img" style={{top: '550px'}}>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/BUZZ.png" alt=""/>
+                </div>
+                <div className="yellow-background-reverse" style={{top: '800px'}}></div>
             </div>
         );
     }
