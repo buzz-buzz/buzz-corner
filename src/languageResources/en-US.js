@@ -113,6 +113,7 @@ export const classEvaluationSuggest = 'Share your feelings';
 export const classEvaluationResultTitle = 'Feedback';
 export const classEvaluationResultContent = 'Feedback from classmates';
 export const classEvaluationMy = 'My feedback';
+export const createPostersOfAchievement = 'Generate my achievements poster';
 
 export const classDetailTitle = 'Class Details';
 export const classDetailBeforeWord1 = '1.Before the session class is open starts, please practice.';
@@ -284,6 +285,9 @@ export const userProfileGender = 'Gender';
 export const userProfileChange = 'Upload';
 export const userProfileAvatarWrongType = 'Incorrect image format!';
 
+export const posterModalTitle = 'Congratulation';
+export const posterModalContent1 = '你的学伴对你本次';
+export const posterModalContent2 = '课程给予了很高的评价';
 
 export function signInWith(method) {
     return (

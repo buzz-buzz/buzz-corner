@@ -9,7 +9,7 @@ class TabletFooter extends Component {
 
                 </div>
                 <div className="tablet-middle">
-                    <p className="footer-word">© 2017  Copyrigts are Creative Commons</p>
+                    <p className="footer-word">Copyright © 2016-2018 BuzzBuzzEnglish 沪ICP备16053785号-1</p>
                 </div>
                 <div className="tablet-language-right">
 

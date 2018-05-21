@@ -87,6 +87,7 @@
 .gender{
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .gender > div{
@@ -159,13 +160,14 @@ h4{
 
 .topic>p{
     letter-spacing: 2px;
+    color: #666;
 }
 
 .profile-body{
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 0 1em;
+    padding: 0 21px;
 }
 
 .profile-body > .fields{

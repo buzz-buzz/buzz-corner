@@ -22,7 +22,7 @@ gulp.task('track', function () {
 });
 
 gulp.task('fundebug', function () {
-    const url = `https://js.fundebug.cn/fundebug.0.3.6.min.js`;
+    const url = `https://js.fundebug.cn/fundebug.1.0.1.min.js`;
 
     return gulp.src(['build/index.html'])
         .pipe(replace('/fundebug.js', url))

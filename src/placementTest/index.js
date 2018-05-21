@@ -214,9 +214,6 @@ class Homepage extends Component {
                         })
                     };
 
-                    console.log('已完成.........');
-                    console.log(this.state.answers);
-
                     await ServiceProxy.proxyTo({
                         body: {
                             uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
