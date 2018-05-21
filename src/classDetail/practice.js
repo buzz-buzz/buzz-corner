@@ -117,9 +117,9 @@ export default class Practice extends React.Component {
             });
         }
 
-        window.scrollTo(0, 1000);
-
-        this.setState({replies});
+        this.setState({replies}, ()=> {
+            window.scrollTo(0, document.documentElement.clientHeight);
+        });
     }
 
     async cancelReply() {
