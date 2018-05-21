@@ -59,6 +59,7 @@ export default class StopWatch extends React.Component {
 
     stopTick() {
         if (this.state.timerId) {
+            this.setState({timer: false});
             clearInterval(this.state.timerId);
         }
     }
