@@ -27,7 +27,7 @@ export default class WechatOAuthFail extends React.Component {
             <Container textAlign="center">
                 <Segment loading={this.state.loading}>
                     <p>微信登录过程中出错了，</p>
-                    <p>请返回重试。</p>
+                    <p>请<a href="/select-role">返回重试</a>。</p>
                     <p>{this.state.wechatErrorInfo}</p>
                 </Segment>
             </Container>

@@ -42,7 +42,7 @@ class LoginRole extends Component {
             id: "qrcode-wechat",
             appid: "wx46e3b4c2a399d748",
             scope: "snsapi_login",
-            redirect_uri: encodeURIComponent(`http://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+            redirect_uri: encodeURIComponent(`https://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
             state: "123",
             style: "white"
         });
