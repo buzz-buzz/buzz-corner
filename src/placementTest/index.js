@@ -13,6 +13,7 @@ import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
+import Client from "../common/client";
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
@@ -70,6 +71,13 @@ class Homepage extends Component {
 
     async skip() {
         browserHistory.push('/home');
+    }
+
+    componentWillMount(){
+        //如果是tablet 并且不在微信中  跳转至https
+        if(Client.getClient === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+            window.location.href = window.location.href.replace('http', 'https');
+        }
     }
 
     async componentDidMount() {
