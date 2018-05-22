@@ -48,7 +48,7 @@ class classEvaluation extends Component {
     }
 
     back() {
-        window.history.back();
+        window.history.go(-1);
     }
 
     companionCenter(){

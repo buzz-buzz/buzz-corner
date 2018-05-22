@@ -4,6 +4,7 @@ import './index.css';
 import ServiceProxy from '../service-proxy';
 import WechatShare from '../wechat/wechatShare';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Track from "../common/track";
 
 class classEvaluationPoster extends Component {
     constructor(props) {
@@ -36,7 +37,13 @@ class classEvaluationPoster extends Component {
                 title: 'BuzzBuzz English',
                 desc: '分享一个学英语的秘诀我与英美同学的对话日常',
                 link: window.location.href,
-                imgUrl: '//cdn-corner.resource.buzzbuzzenglish.com/logo-1024px.png'
+                imgUrl: 'https://cdn-corner.resource.buzzbuzzenglish.com/logo-1024px.png',
+                success: function(){
+                    Track.event('中方分享成就海报', '微信分享', { '分享状态': '成功', '分享数据': window.location.href});
+                },
+                cancel: function(){
+                    Track.event('中方分享成就海报', '微信分享', { '分享状态': '取消', '分享数据': window.location.href});
+                }
             });
 
             //get data

@@ -92,7 +92,7 @@
 }
 
 .login-entrance > .preview-video > .preview-video-btn{
-    width: 333px;
+    width: 100%;
     height: 100px;
     display: flex;
     justify-content: center;
