@@ -11,7 +11,7 @@ class videoPlay extends Component {
     }
 
     goBack() {
-        window.history.back();
+        window.history.go(-1);
     }
 
     componentDidMount(){

@@ -29,7 +29,7 @@ class ClassLessons extends Component {
     }
 
     back() {
-        window.history.back();
+        window.history.go(-1);
     }
 
     goYouzanUrl(event) {
