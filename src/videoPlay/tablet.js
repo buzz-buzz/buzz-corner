@@ -36,7 +36,7 @@ class VideoPlayTablet extends Component {
                 <TabletHeader />
                 <div className="video-content">
                     <div className="tablet-video-player">
-                        <EmbedVideo sources={[QiniuDomain + '/Training%20video_3min.mp4']}
+                        <EmbedVideo sources={[QiniuDomain + '/interviewcollection....mp4']}
                                     poster={QiniuDomain + '/banner-inland.png'} />
                         <div className="video-btn" id="icon-play-video">
                             <img src={QiniuDomain + "/icon_play.png"} alt=""/>
