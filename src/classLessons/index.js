@@ -19,7 +19,7 @@ class ClassLessons extends Component {
                     discount: '4课时',
                     before: '',
                     img_url: '//cdn-corner.resource.buzzbuzzenglish.com/banner_buzz_youzan_2.jpg',
-                    youzan_url: 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
+                    youzan_url: '#'  || 'https://h5.youzan.com/v2/goods/1y44iz9a3zgsa'
                 }
             ]
         };
@@ -36,7 +36,7 @@ class ClassLessons extends Component {
         event.stopPropagation();
 
         Track.event('购买课时_商品' + (event.target.name + 1) + '点击');
-        window.location.href = this.state.buy_list[event.target.name].youzan_url;
+        //window.location.href = this.state.buy_list[event.target.name].youzan_url;
     }
 
     async componentDidMount() {
