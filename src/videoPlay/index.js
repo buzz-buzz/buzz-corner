@@ -43,7 +43,7 @@ class videoPlay extends Component {
             <div className="video-play">
                 <HeaderWithBack goBack={this.goBack}/>
                 <div className="video">
-                    <EmbedVideo sources={['//cdn-corner.resource.buzzbuzzenglish.com/Training%20video_3min.mp4']}
+                    <EmbedVideo sources={['//cdn-corner.resource.buzzbuzzenglish.com/interviewcollection....mp4']}
                                 poster={'//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png'} />
                     <div className="video-btn" id="icon-play-video">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_play.png" alt=""/>
