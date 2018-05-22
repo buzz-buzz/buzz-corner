@@ -21,7 +21,8 @@ class Consult extends Component {
     back() {
         Track.event('顾问_顾问页面返回');
 
-        window.history.back();
+        //window.history.go(-1);
+        window.history.go(-1);
     }
 
     async componentDidMount() {

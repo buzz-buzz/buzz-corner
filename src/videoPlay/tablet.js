@@ -51,7 +51,7 @@ class VideoPlayTablet extends Component {
                         <div className="class-link">
                             <div className="link-title" style={{fontSize: '17px', color: '#000'}}>立刻加入我们吧</div>
                             <div className="content-list">
-                                <a href="https://h5.youzan.com/v2/goods/1y44iz9a3zgsa">
+                                <a href={ "/" || "https://h5.youzan.com/v2/goods/1y44iz9a3zgsa"}>
                                     <div className="class-lesson-img">
                                         <img src={QiniuDomain + "/banner_buzz_youzan_2.jpg"} alt=""/>
                                     </div>

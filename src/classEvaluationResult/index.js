@@ -46,7 +46,7 @@ class classEvaluationResult extends Component {
     }
 
     back() {
-        window.history.back();
+        window.history.go(-1);
     }
 
     closePosterModal(){
@@ -56,7 +56,8 @@ class classEvaluationResult extends Component {
     }
 
     createPostersOfAchievement(){
-        //todo
+        Track.event('中方点击成就海报');
+
         browserHistory.push(`/poster/${this.state.from_user_id}/${this.state.to_user_id}/${this.state.class_id}`);
     }
 
@@ -92,6 +93,8 @@ class classEvaluationResult extends Component {
 
     async componentDidMount() {
         try {
+            Track.event('查看学伴的评价');
+
             this.setState({loadingModal: true});
 
             let class_info = await  ServiceProxy.proxyTo({

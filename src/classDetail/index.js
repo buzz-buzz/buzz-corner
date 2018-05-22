@@ -16,6 +16,7 @@ import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
+import Client from "../common/client";
 
 class classDetail extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class classDetail extends Component {
     }
 
     back() {
-        window.history.back();
+        window.history.go(-1);
     }
 
     companionCenter(){
@@ -139,6 +140,13 @@ class classDetail extends Component {
     componentWillUnmount() {
         if (this.state.interval) {
             clearInterval(this.state.interval);
+        }
+    }
+
+    componentWillMount(){
+        //如果是tablet 并且不在微信中  跳转至https
+        if(Client.getClient === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+            window.location.href = window.location.href.replace('http', 'https');
         }
     }
 
