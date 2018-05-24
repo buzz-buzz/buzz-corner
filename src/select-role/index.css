@@ -42,19 +42,35 @@
 .login-entrance > .entrance-choose{
     min-height: 30%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
     padding: 0 2em;
 }
 
-.login-entrance > .entrance-choose > div {
+.login-entrance > .entrance-choose > div:first-child{
+    display: flex;
+    justify-content: space-around;
+    flex: 1 0 auto;
+}
+
+.login-entrance > .entrance-choose > .login-forgotten{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-entrance > .entrance-choose > .login-forgotten > span{
+    font-size: 10px;
+    color: #666;
+    text-decoration: underline;
+}
+
+.login-entrance > .entrance-choose > div > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
 
-.login-entrance > .entrance-choose > div > .image {
+.login-entrance > .entrance-choose > div > div > .image {
     width: 100px;
     flex: 1 1 auto;
     height: 100px;
@@ -65,12 +81,12 @@
     margin-bottom: 1em;
 }
 
-.login-entrance > .entrance-choose > div > .image > img{
+.login-entrance > .entrance-choose > div > div > .image > img{
     width: 100%;
     border-radius: 50%;
 }
 
-.login-entrance > .entrance-choose > div > .choseBtn{
+.login-entrance > .entrance-choose > div > div > .choseBtn{
     background-image: linear-gradient(143deg, rgb(250, 217, 97), rgb(245, 180, 12));
     padding: 0 10px;
     height: 25px;

@@ -17,6 +17,7 @@ class SelectRole extends Component {
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
         this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
         this.goVideoPlayPage = this.goVideoPlayPage.bind(this);
+        this.loginAccount = this.loginAccount.bind(this);
     }
 
     async chineseChildEntrance() {
@@ -40,6 +41,10 @@ class SelectRole extends Component {
         Track.event('注册/登录_欢迎页');
     }
 
+    loginAccount(){
+        browserHistory.push('/login/account');
+    }
+
     render() {
         return (
             <div className="login-entrance">
@@ -60,17 +65,22 @@ class SelectRole extends Component {
                     </div>
                 </div>
                 <div className="entrance-choose">
-                    <div onClick={this.foreignChildEntrance}>
-                        <div className="image">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_girl.png" alt=""/>
+                    <div>
+                        <div onClick={this.foreignChildEntrance}>
+                            <div className="image">
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_girl.png" alt=""/>
+                            </div>
+                            <div className="choseBtn">{Resources.getInstance().welcomePageForeignChild}</div>
                         </div>
-                        <div className="choseBtn">{Resources.getInstance().welcomePageForeignChild}</div>
+                        <div onClick={this.chineseChildEntrance}>
+                            <div className="image">
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_boy.png" alt=""/>
+                            </div>
+                            <div className="choseBtn">{Resources.getInstance().welcomePageChineseChild}</div>
+                        </div>
                     </div>
-                    <div onClick={this.chineseChildEntrance}>
-                        <div className="image">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_boy.png" alt=""/>
-                        </div>
-                        <div className="choseBtn">{Resources.getInstance().welcomePageChineseChild}</div>
+                    <div className="login-forgotten">
+                        <span onClick={this.loginAccount} >账号密码登录</span>
                     </div>
                 </div>
                 <div className="preview-video">

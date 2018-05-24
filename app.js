@@ -147,6 +147,9 @@ router
     .get('/video-play', serveSPA)
     .get('/tutor', serveSPA)
     .get('/student', serveSPA)
+    .get('/account/set', serveSPA)
+    .get('/account/about', serveSPA)
+    .get('/login/account', serveSPA)
 ;
 
 app

@@ -1,0 +1,48 @@
+.account-login {
+  display: flex;
+  flex-direction: column;
+  position: relative; }
+  .account-login .set-word {
+    flex: 1 0 auto;
+    padding: 32px 21px;
+    display: flex;
+    flex-direction: column;
+    position: relative; }
+    .account-login .set-word .user-count, .account-login .set-word .user-password {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      margin-bottom: 20px; }
+      .account-login .set-word .user-count p, .account-login .set-word .user-password p {
+        text-align: left;
+        font-size: 14px;
+        color: #666;
+        height: 20px;
+        line-height: 20px;
+        width: 100%;
+        padding-left: 15px; }
+      .account-login .set-word .user-count img, .account-login .set-word .user-password img {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px; }
+      .account-login .set-word .user-count div, .account-login .set-word .user-password div {
+        margin-bottom: 0 !important; }
+    .account-login .set-word .update-btn {
+      margin-top: 50px; }
+    .account-login .set-word .forgotten {
+      text-align: center;
+      margin: 15px auto;
+      font-size: 11px;
+      font-weight: 300;
+      color: #666; }
+    .account-login .set-word .flex-end {
+      text-align: center;
+      margin: 18px auto;
+      font-size: 11px;
+      font-weight: 300;
+      color: #666;
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; }
