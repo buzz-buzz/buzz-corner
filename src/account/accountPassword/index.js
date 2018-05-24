@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Resources from '../../resources';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import BuzzInput from '../../common/commonComponent/buzzInput';
 import CurrentUser from "../../membership/user";

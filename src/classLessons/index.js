@@ -67,27 +67,6 @@ class ClassLessons extends Component {
                         </div>
                         <div className="content-numbers">{this.state.class_hours || 0}</div>
                     </div>
-                    <div className="content-list">
-                        {
-                            this.state.buy_list.length &&
-                            this.state.buy_list.map((item, index) => {
-                                return <a key={index}>
-                                    <div className="class-lesson-img">
-                                        <img src={item.img_url} alt=""/>
-                                    </div>
-                                    <div className="class-lesson-info">
-                                        <div className="lessons-title">{item.title}</div>
-                                        <div className="lessons-price">
-                                            <div className="price">{item.price}</div>
-                                            <div className="yuan">元</div>
-                                            <div className="discount">{item.discount}</div>
-                                        </div>
-                                    </div>
-                                    <input className="clickEvent" onClick={this.goYouzanUrl} name={index}/>
-                                </a>
-                            })
-                        }
-                    </div>
                 </div>
             </div>
         );
