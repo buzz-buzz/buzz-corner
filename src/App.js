@@ -27,8 +27,8 @@ import User from './user';
 import Booking from './booking';
 import VideoPlay from './videoPlay';
 import VideoPlayTablet from './videoPlay/tablet';
-import AccountPassword from './account/accountPassword';
-import AccountAbout from './account/getAccountInfo';
+import SetAccount from './account/setAccount';
+import AccountAbout from './account/accountAbout';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
@@ -68,7 +68,7 @@ class App extends Component {
                     <Route path='/user' component={User}/>
                     <Route path='/user-profile' component={UserUpdate}/>
                     <Route path='/user/:user_id' component={UserShow}/>
-                    <Route path='/account/password' component={AccountPassword}/>
+                    <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>

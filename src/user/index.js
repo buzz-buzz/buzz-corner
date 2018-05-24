@@ -77,7 +77,7 @@ class User extends Component {
                     <div className="user-menu">
                         {
                             this.state.role === MemberType.Student &&
-                            <Link to="class-lessons">
+                            <Link to="class-lessons" className="after-line">
                                 <div className="icon">
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
                                     <div className="name">
@@ -107,7 +107,20 @@ class User extends Component {
                                 </div>
                             </Link>
                         }
-
+                        <Link to="account/set">
+                            <div className="icon">
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
+                                <div className="name">
+                                    {Resources.getInstance().myAccount}
+                                </div>
+                            </div>
+                            <div className="link">
+                                <div className="class-numbers">未设置</div>
+                                <div className="right-icon">
+                                    <i className="icon-icon_back_down"/>
+                                </div>
+                            </div>
+                        </Link>
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
                         {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}

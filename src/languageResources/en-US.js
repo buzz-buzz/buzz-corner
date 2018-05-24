@@ -50,6 +50,7 @@ export const rewardRules = 'See the rules';
 
 export const myCoins = 'My Sessions';
 export const myLanguage = 'Language';
+export const myAccount = 'Set Account';
 export const classLessons = 'Available sessions';
 export const sessions = 'Sessions';
 
