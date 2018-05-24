@@ -29,6 +29,7 @@ import VideoPlay from './videoPlay';
 import VideoPlayTablet from './videoPlay/tablet';
 import SetAccount from './account/setAccount';
 import AccountAbout from './account/accountAbout';
+import LoginByAccount from './accountLogin';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
@@ -70,6 +71,7 @@ class App extends Component {
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>
+                    <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
