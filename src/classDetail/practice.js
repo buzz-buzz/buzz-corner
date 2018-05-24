@@ -100,10 +100,14 @@ export default class Practice extends React.Component {
             // 等待 2 秒，形成一种对方正在回复的感觉
             this.setState({
                 replying: true
+            }, () => {
+                window.scrollTo(0, document.documentElement.clientHeight);
             });
             await new Promise(resolve => window.setTimeout(resolve, 2000));
             this.setState({
                 replying: false
+            }, () => {
+                window.scrollTo(0, document.documentElement.clientHeight);
             })
         }
 
