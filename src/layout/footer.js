@@ -36,7 +36,7 @@ class Footer extends Component {
                     <img
                         src={this.state.url.indexOf('/home') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/Icon_home_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/Icon_home.png"}
                         alt=""/>
-                    <p>
+                    <p  style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerHome}
                     </p>
                 </Link>
@@ -44,7 +44,7 @@ class Footer extends Component {
                     <img
                         src={this.state.url.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Friend_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Friend.png"}
                         alt=""/>
-                    <p>
+                    <p style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerFriends}
                     </p>
                 </Link>
@@ -52,7 +52,7 @@ class Footer extends Component {
                     <img
                         src={this.state.url.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/Icon_Reward_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/Icon_Reward.png"}
                         alt=""/>
-                    <p>
+                    <p  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerReward}
                     </p>
                 </Link>
@@ -61,7 +61,7 @@ class Footer extends Component {
                     <img
                         src={this.state.url.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_user_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_user.png"}
                         alt=""/>
-                    <p>
+                    <p style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerUser}
                     </p>
                 </Link>
