@@ -18,6 +18,11 @@ class SelectRoleTablet extends Component {
         this.chineseChildEntrance = this.chineseChildEntrance.bind(this);
         this.foreignChildEntrance = this.foreignChildEntrance.bind(this);
         this.goVideoPlayPage = this.goVideoPlayPage.bind(this);
+        this.loginAccount = this.loginAccount.bind(this);
+    }
+
+    loginAccount(){
+        browserHistory.push('/login/account');
     }
 
     async chineseChildEntrance() {
@@ -52,6 +57,8 @@ class SelectRoleTablet extends Component {
                             <div className="btns">
                                 <button onClick={this.foreignChildEntrance}>{Resources.getInstance().welcomePageForeignChild}</button>
                                 <button onClick={this.chineseChildEntrance}>{Resources.getInstance().welcomePageChineseChild}</button>
+                                <span style={{ color: '#4a90e2', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer'}}
+                                      onClick={this.loginAccount} >账号密码登录</span>
                             </div>
                         </div>
                     </div>
