@@ -121,6 +121,7 @@ export const classDetailBeforeWord1 = '1.Before the session class is open starts
 export const classDetailBeforeWord2 = '2.Before your first session, you must install "zoom".';
 export const classDetailBeforeWord3 = 'Click here to install.';
 export const classDetailBeforeClassExercise = 'Exercise before class';
+export const classDetailBeforeClassContent = 'Class file';
 export const classDetailBeforeClassNotice = 'Course announcement';
 export const classDetailClassPartners = 'Other partners';
 export const classDetailLeft = 'From the start of the course';
