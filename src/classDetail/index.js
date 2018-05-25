@@ -49,7 +49,8 @@ class classDetail extends Component {
                     let left_new = this.state.left - 1;
                     this.setState({left: left_new});
                 }
-            }, 1000)
+            }, 1000),
+            class_content_tab: ''
         };
 
         this.back = this.back.bind(this);
@@ -61,6 +62,9 @@ class classDetail extends Component {
         this.sendTrack = this.sendTrack.bind(this);
         this.closeClassBegin = this.closeClassBegin.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
+        this.classContentOne = this.classContentOne.bind(this);
+        this.classContentTwo = this.classContentTwo.bind(this);
+        this.lookFile = this.lookFile.bind(this);
     }
 
     closeClassBegin(){
@@ -76,6 +80,26 @@ class classDetail extends Component {
 
         if(this.state.class_info.companions){
             browserHistory.push('/user/' + this.state.class_info.companions);
+        }
+    }
+
+    classContentOne(){
+        if(this.state.class_content_tab !== 'practice'){
+            this.setState({class_content_tab: 'practice'});
+        }
+    }
+
+    classContentTwo(){
+        if(this.state.class_content_tab !== 'class_file'){
+            this.setState({class_content_tab: 'class_file'});
+        }
+    }
+
+    lookFile(e, item){
+        if(item.indexOf('.pdf') <= -1){
+            window.location.href = item;
+        }else{
+            window.location.href = 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
         }
     }
 
@@ -219,7 +243,9 @@ class classDetail extends Component {
                 role: profile.role || '',
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 classBeginModal: classBegin,
-                companion_country: companion_country
+                companion_country: companion_country,
+                class_content_tab: profile.role === MemberType.Student ?  'practice' :  'class_file',
+                class_content: class_content
             });
         }
         catch (ex) {
@@ -303,16 +329,58 @@ class classDetail extends Component {
                     {
                         this.state.role === MemberType.Student &&
                         <div>
-                            <div className="s-title">{Resources.getInstance().classDetailBeforeClassExercise}</div>
-                            <div className="line-middle" style={{margin: '0 20px 0 20px'}}></div>
+                            <div className="class-detail-tab">
+                                <div className={this.state.class_content_tab === 'practice' ? "active" : ""}
+                                     onClick={this.classContentOne} >{Resources.getInstance().classDetailBeforeClassExercise}</div>
+                                <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
+                                     onClick={this.classContentTwo} >{Resources.getInstance().classDetailBeforeClassContent}</div>
+                            </div>
+                            <div className="line-middle"></div>
                         </div>
                     }
                     {
-                        this.state.role === MemberType.Student &&
+                        this.state.role === MemberType.Companion &&
+                        <div>
+                            <div className="class-detail-tab">
+                                <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
+                                     >{Resources.getInstance().classDetailBeforeClassContent}</div>
+                            </div>
+                            <div className="line-middle"></div>
+                        </div>
+                    }
+                    {
+                        this.state.role === MemberType.Student && this.state.class_content_tab === 'practice' &&
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p}
                                   avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", "//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg"]}/>
+                    }
+                    {
+                        this.state.class_content_tab === 'class_file' &&
+                        <div className="class_content_file">
+                            {
+                                this.state.role ===  MemberType.Student &&
+                                this.state.class_content && this.state.class_content.student_textbook &&
+                                this.state.class_content.student_textbook.length &&
+                                this.state.class_content.student_textbook.map((item, index) => {
+                                    return <div className="class_content_file_item" key={index}  onClick={event => this.lookFile(event, item)}>
+                                        <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
+                                        <span className="file_name">{item.split('buzzbuzzenglish.com/')[1].split('.')[0]}</span>
+                                    </div>
+                                })
+                            }
+                            {
+                                this.state.role ===  MemberType.Companion &&
+                                this.state.class_content && this.state.class_content.tutor_textbook &&
+                                this.state.class_content.tutor_textbook.length &&
+                                this.state.class_content.tutor_textbook.map((item, index) => {
+                                    return <div className="class_content_file_item" key={index} onClick={event => this.lookFile(event, item)} >
+                                        <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
+                                        <span className="file_name">{item.split('buzzbuzzenglish.com/')[1].split('.')[0]}</span>
+                                    </div>
+                                })
+                            }
+                        </div>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>

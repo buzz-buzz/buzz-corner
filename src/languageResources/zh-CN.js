@@ -120,6 +120,7 @@ export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话�
 export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
 export const classDetailBeforeWord3 = '下载安装';
 export const classDetailBeforeClassExercise = '课前练习';
+export const classDetailBeforeClassContent = '课程教材';
 export const classDetailBeforeClassNotice = '课程公告';
 export const classDetailClassPartners = '其他伙伴';
 export const classDetailLeft = '距离开课还有';

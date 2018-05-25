@@ -1,4 +1,8 @@
 /* CSS talk bubble */
+.ui.basic.segment{
+    background: white;
+}
+
 .talk-bubble {
     display: inline-block;
     position: relative;
