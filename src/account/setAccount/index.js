@@ -4,6 +4,7 @@ import BuzzInput from '../../common/commonComponent/buzzInput';
 import CurrentUser from "../../membership/user";
 import Track from "../../common/track";
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
+import LoadingModal from '../../common/commonComponent/loadingModal';
 import './index.css';
 
 class UpdatePassword extends Component {
@@ -38,7 +39,8 @@ class UpdatePassword extends Component {
     }
 
     async submit(){
-
+        //buzz-service
+        this.setState({loadingModal: true});
     }
 
     async componentDidMount() {
@@ -46,12 +48,16 @@ class UpdatePassword extends Component {
 
         let profile = await CurrentUser.getProfile(true);
 
-        this.setState({role: profile.role});
+        let clonedData = this.state.data;
+        clonedData.user_account = profile.mobile || profile.email;
+
+        this.setState({data: clonedData});
     }
 
     render() {
         return (
             <div className="update-password">
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.back} title='设置密码' />
                 <div className="set-word">
                     <div className="user-count">
