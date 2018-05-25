@@ -36,6 +36,9 @@ import UnderConstruction from "./common/commonComponent/under-construction/index
 import EntryPoint from "./home/EntryPoint";
 import SignOut from "./login/sign-out";
 import Client from "./common/client";
+import WechatShare from './wechat/wechatShare';
+
+WechatShare.init();
 
 class App extends Component {
     render() {
