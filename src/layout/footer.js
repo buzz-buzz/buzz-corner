@@ -34,7 +34,7 @@ class Footer extends Component {
             <div className="footer">
                 <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
                     <img
-                        src={this.state.url.indexOf('/home') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/Icon_home_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/Icon_home.png"}
+                        src={this.state.url.indexOf('/home') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home.svg"}
                         alt=""/>
                     <p  style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerHome}
@@ -42,7 +42,7 @@ class Footer extends Component {
                 </Link>
                 <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                     <img
-                        src={this.state.url.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Friend_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Friend.png"}
+                        src={this.state.url.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}
                         alt=""/>
                     <p style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerFriends}
@@ -50,7 +50,7 @@ class Footer extends Component {
                 </Link>
                 <Link to="reward" style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
                     <img
-                        src={this.state.url.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/Icon_Reward_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/Icon_Reward.png"}
+                        src={this.state.url.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward.svg"}
                         alt=""/>
                     <p  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerReward}
@@ -59,7 +59,7 @@ class Footer extends Component {
 
                 <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
                     <img
-                        src={this.state.url.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_user_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_user.png"}
+                        src={this.state.url.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user.svg"}
                         alt=""/>
                     <p style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerUser}
