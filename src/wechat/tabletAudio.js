@@ -150,8 +150,6 @@ export default class TabletAudio {
             url = qiniu_token.resources_url + result.key;
         }
 
-        alert(url);
-
         this.status = TabletAudioStatus.doneRecording;
         return url || ''
     }
