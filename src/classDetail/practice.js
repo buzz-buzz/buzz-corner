@@ -156,9 +156,9 @@ export default class Practice extends React.Component {
 
     async componentDidMount() {
         let audioReady = false;
+        this.setState({loadingModal: true});
 
         if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({loadingModal: true});
             try {
                 await WechatAudio.init();
                 audioReady = true;
