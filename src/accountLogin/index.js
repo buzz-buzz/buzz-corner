@@ -3,6 +3,7 @@ import Button50px from '../common/commonComponent/submitButton50px';
 import BuzzInput from '../common/commonComponent/buzzInput';
 import Track from "../common/track";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import LoadingModal from '../common/commonComponent/loadingModal';
 import {browserHistory} from "react-router";
 import './index.css';
 
@@ -12,7 +13,7 @@ class AccountLogin extends Component {
 
         this.state = {
             data: {
-                user_account: '13061710755',
+                user_account: '',
                 user_password: ''
             }
         };
@@ -43,7 +44,7 @@ class AccountLogin extends Component {
     }
 
     async submit(){
-
+        //buzz-service login
     }
 
     async componentDidMount() {
@@ -53,6 +54,7 @@ class AccountLogin extends Component {
     render() {
         return (
             <div className="account-login">
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.back} title='账号密码登录' />
                 <div className="set-word">
                     <div className="user-password">
