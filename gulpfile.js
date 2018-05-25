@@ -5,7 +5,8 @@ var pkg = require('./package.json');
 gulp.task('cdn', function () {
     let cdnifiedUrl = '//cdn-corner.buzzbuzzenglish.com/static/';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner-test.buzzbuzzenglish.com/static/';
+        // cdnifiedUrl = '//cdn-corner-test.buzzbuzzenglish.com/static/';
+        cdnifiedUrl = '/static/'
     }
 
     return gulp.src(['build/index.html'])

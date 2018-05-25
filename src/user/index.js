@@ -109,7 +109,7 @@ class User extends Component {
                         }
                         <Link to="account/set">
                             <div className="icon">
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_account_user.png" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_account_user.svg" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myAccount}
                                 </div>
