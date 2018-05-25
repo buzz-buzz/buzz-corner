@@ -264,3 +264,7 @@ div.help-modal > .help-content > img{
     width: 100%;
     margin-bottom: 2em;
 }
+
+.placement-second .ui.segment{
+    padding: 0;
+}
