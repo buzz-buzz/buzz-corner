@@ -39,7 +39,7 @@
     width: 100%;
     margin-bottom: .5em;
     background-color: white;
-    padding: 2em;
+    padding: 20px 24px;
     flex: none;
     position: relative;
     align-items: center;
@@ -204,11 +204,11 @@
 .class_content_file > .class_content_file_item:after{
     content: '';
     position: absolute;
-    width: 190%;
+    width: 194%;
     height: 1px;
     z-index: 1;
     bottom: 0;
-    left: 2%;
+    left: 3%;
     border-bottom: 1px solid  #dfdfe4;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
