@@ -398,7 +398,7 @@ class classDetail extends Component {
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
                                     content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft +  '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {color: 'white', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', borderRadius: '0', fontSize: '17px', fontWeight: 'bold'} : {color: 'white', background: '#dfdfe4', borderRadius: '0', fontSize: '17px', fontWeight: 'bold'}}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {color: 'white', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', borderRadius: '0', fontSize: '15px', fontWeight: '600', letterSpacing: '1px'} : {color: 'white', background: '#dfdfe4', borderRadius: '0', fontSize: '15px', fontWeight: '600', letterSpacing: '1px'}}
                         />
                     </Form.Group>
                 </div>
