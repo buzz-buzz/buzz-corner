@@ -356,6 +356,17 @@ p{
     z-index: 60;
 }
 
+.message-red-circle-spe{
+    background-color: #fc4e52;
+    border: 1px solid rgba(252, 78, 82, 0.1);
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    height: 10px;
+    width: 10px;
+    z-index: 60;
+}
+
 .message-red-new{
     position: absolute;
     right: 0;
