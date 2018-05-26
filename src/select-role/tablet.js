@@ -58,7 +58,7 @@ class SelectRoleTablet extends Component {
                                 <button onClick={this.foreignChildEntrance}>{Resources.getInstance().welcomePageForeignChild}</button>
                                 <button onClick={this.chineseChildEntrance}>{Resources.getInstance().welcomePageChineseChild}</button>
                                 <span style={{ color: '#4a90e2', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer'}}
-                                      onClick={this.loginAccount} >账号密码登录</span>
+                                      onClick={this.loginAccount} >{Resources.getInstance().accountPasswordLogin}</span>
                             </div>
                         </div>
                     </div>
