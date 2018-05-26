@@ -288,8 +288,17 @@ export const userProfileChange = 'Upload';
 export const userProfileAvatarWrongType = 'Incorrect image format!';
 
 export const posterModalTitle = 'Congratulation';
-export const posterModalContent1 = '你的学伴对你本次';
-export const posterModalContent2 = '课程给予了很高的评价';
+export const posterModalContent1 = 'Your partner gave you';
+export const posterModalContent2 = 'a high feedback about last class';
+
+export const accountAboutTitle = 'Get account';
+export const accountSetTitle = 'Set password';
+export const accountInputPassword = 'Please enter password';
+export const accountInputAccount = 'Please enter account';
+export const accountLogin = 'Login';
+export const accountPasswordLogin = 'Account login';
+export const accountForgotten = 'Forgotten？';
+export const accountHow = 'How to get my account？';
 
 export function signInWith(method) {
     return (
