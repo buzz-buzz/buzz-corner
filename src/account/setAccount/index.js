@@ -5,6 +5,7 @@ import CurrentUser from "../../membership/user";
 import Track from "../../common/track";
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import LoadingModal from '../../common/commonComponent/loadingModal';
+import Resources from '../../resources';
 import './index.css';
 
 class UpdatePassword extends Component {
@@ -58,7 +59,7 @@ class UpdatePassword extends Component {
         return (
             <div className="update-password">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title='设置密码' />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSetTitle} />
                 <div className="set-word">
                     <div className="user-count">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
@@ -67,7 +68,7 @@ class UpdatePassword extends Component {
                     <div className="user-password">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
                         <BuzzInput
-                            type="text" placeholder='请输入密码'
+                            type="text" placeholder={Resources.getInstance().accountInputPassword}
                             value={this.state.data.user_password}
                             onChange={this.handleChange}
                             name='user_password'
@@ -75,7 +76,7 @@ class UpdatePassword extends Component {
                     </div>
                     <div className="update-btn">
                         <Button50px disabled={ !this.state.data.user_password }
-                                    text="登录" submit={this.submit} />
+                                    text={Resources.getInstance().accountLogin} submit={this.submit} />
                     </div>
                 </div>
             </div>

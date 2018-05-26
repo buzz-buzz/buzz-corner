@@ -5,6 +5,7 @@ import Track from "../common/track";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import {browserHistory} from "react-router";
+import Resources from '../resources';
 import './index.css';
 
 class AccountLogin extends Component {
@@ -55,12 +56,12 @@ class AccountLogin extends Component {
         return (
             <div className="account-login">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title='账号密码登录' />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin} />
                 <div className="set-word">
                     <div className="user-password">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
                         <BuzzInput
-                            type="text" placeholder='请输入账号'
+                            type="text" placeholder={Resources.getInstance().accountInputAccount}
                             value={this.state.data.user_account}
                             onChange={this.handleChange}
                             name='user_account'
@@ -69,7 +70,7 @@ class AccountLogin extends Component {
                     <div className="user-password">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
                         <BuzzInput
-                            type="password" placeholder='请输入密码'
+                            type="password" placeholder={Resources.getInstance().accountInputPassword}
                             value={this.state.data.user_password}
                             onChange={this.handleChange}
                             name='user_password'
@@ -77,13 +78,13 @@ class AccountLogin extends Component {
                     </div>
                     <div className="update-btn">
                         <Button50px disabled={ !this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6 }
-                                    text="登录" submit={this.submit} />
+                                    text={Resources.getInstance().accountLogin} submit={this.submit} />
                     </div>
                     <div className="forgotten" onClick={this.forgottenPassword}>
-                        忘记账号密码？
+                        {Resources.getInstance().accountForgotten}
                     </div>
                     <div className="flex-end">
-                        <div  onClick={this.forgottenPassword}>如何获得账号密码登录？</div>
+                        <div  onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
                     </div>
                 </div>
             </div>

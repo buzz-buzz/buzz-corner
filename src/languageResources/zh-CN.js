@@ -290,6 +290,15 @@ export const posterModalTitle = '恭喜';
 export const posterModalContent1 = '你的学伴对你本次';
 export const posterModalContent2 = '课程给予了很高的评价';
 
+export const accountAboutTitle = '获得账号密码';
+export const accountSetTitle = '设置密码';
+export const accountInputPassword = '请输入密码';
+export const accountInputAccount = '请输入账号';
+export const accountLogin = '登录';
+export const accountPasswordLogin = '账号密码登录';
+export const accountForgotten = '忘记账号密码？';
+export const accountHow = '如何获得账号密码登录？';
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>

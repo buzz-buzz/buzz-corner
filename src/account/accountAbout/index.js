@@ -21,7 +21,7 @@ class UpdatePassword extends Component {
     render() {
         return (
             <div className="account-info">
-                <HeaderWithBack goBack={this.back} title='获得账号密码' />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountAboutTitle} />
                 <div className="title">{Resources.getInstance().profileStep1Info}</div>
                 <div className="picture-show">
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/account_show.png" alt=""/>
