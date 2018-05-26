@@ -75,7 +75,7 @@ class Homepage extends Component {
 
     componentWillMount(){
         //如果是tablet 并且不在微信中  跳转至https
-        if(Client.getClient === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+        if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
             window.location.href = window.location.href.replace('http', 'https');
         }
     }
