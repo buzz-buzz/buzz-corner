@@ -382,9 +382,7 @@ class Home extends Component {
                 <Welcome/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
-                        <embed src={QiniuDomain + "/icon_Service.svg"} width="24" height="60%"
-                               type="image/svg+xml"
-                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+                        <img src={QiniuDomain + "/icon_Service.svg"} style={{width: '25px'}} alt=""/>
                     </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
