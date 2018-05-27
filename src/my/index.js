@@ -19,6 +19,7 @@ import { zones } from 'moment-timezone/data/meta/latest.json';
 import { countries } from 'moment-timezone/data/meta/latest.json';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
+import Client from "../common/client";
 import './my.css';
 
 function getBirthDay(date_of_birth) {
@@ -372,7 +373,12 @@ class My extends Component {
             } else if (this.state.step === 4) {
                 Track.event('注册_对暗号页面-继续');
 
-               window.location.href = '/placement';
+                //if http,then go https
+                if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+                    window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement');
+                }else{
+                    window.location.href = '/placement';
+                }
             }
 
             //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
