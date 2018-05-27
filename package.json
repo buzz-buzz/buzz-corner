@@ -2,7 +2,7 @@
   "name": "buzz-corner",
   "version": "0.1.2",
   "private": true,
-  "proxy": "http://localhost:16111/",
+  "proxy": "http://127.0.0.1:16111/",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
