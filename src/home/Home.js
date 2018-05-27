@@ -291,7 +291,7 @@ class Home extends Component {
                 if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
                     let new_url;
                     if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
-                        new_url = window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message')
+                        new_url = window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
                     }else{
                         new_url = '/placement?tab=message';
                     }
@@ -300,8 +300,8 @@ class Home extends Component {
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
                         message_avatar: '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                        goUrl: '',
-                        hasRead: new_url
+                        goUrl: new_url,
+                        hasRead: ''
                     });
                 }
             }
