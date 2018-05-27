@@ -14,14 +14,13 @@ class UpdatePassword extends Component {
     back() {
         Track.event('设置密码页面返回');
 
-        //window.history.go(-1);
         window.history.go(-1);
     }
 
     render() {
         return (
             <div className="account-info">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountAboutTitle} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountAboutTitle}/>
                 <div className="title">{Resources.getInstance().profileStep1Info}</div>
                 <div className="picture-show">
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/account_show.png" alt=""/>
