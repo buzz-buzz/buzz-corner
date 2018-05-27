@@ -11,6 +11,8 @@ export default class WechatOAuthFail extends React.Component {
             loading: true,
             wechatErrorInfo: decodeURIComponent(atob(decodeURIComponent(props.params.wechatErrorInfo)))
         };
+
+        this.goBack = this.goBack.bind(this);
     }
 
     async componentDidMount() {
@@ -22,12 +24,22 @@ export default class WechatOAuthFail extends React.Component {
         URLHelper.handleOrigin();
     }
 
+    goBack(event) {
+        if (window.parent) {
+            event.preventDefault();
+
+            window.parent.location.reload();
+        }
+
+        return true;
+    }
+
     render() {
         return (
             <Container textAlign="center">
                 <Segment loading={this.state.loading}>
                     <p>微信登录过程中出错了，</p>
-                    <p>请<a href="/select-role">返回重试</a>。</p>
+                    <p>请<a href="/select-role" onClick={this.goBack}>返回重试</a>。</p>
                     <p>{this.state.wechatErrorInfo}</p>
                 </Segment>
             </Container>
