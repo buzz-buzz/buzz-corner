@@ -103,14 +103,33 @@ export default class WechatOAuthSuccess extends React.Component {
             let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
             if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
-                browserHistory.push(`/my/info?return_url=${returnUrl}`);
+                this.completeProfile(returnUrl);
             } else {
-                browserHistory.push(returnUrl || '/home');
+                this.goto(returnUrl);
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
         } finally {
-            //console.log('login failed');
+        }
+    }
+
+    goto(returnUrl) {
+        let path = returnUrl || '/home';
+
+        if (!window.parent) {
+            browserHistory.push(path);
+        } else {
+            window.parent.location.href = path;
+        }
+    }
+
+    completeProfile(returnUrl) {
+        let url = `/my/info?return_url=${returnUrl}`;
+
+        if (!window.parent) {
+            browserHistory.push(url);
+        } else {
+            window.parent.location.href = url;
         }
     }
 
