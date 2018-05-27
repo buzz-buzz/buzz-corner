@@ -40,9 +40,9 @@ class LoginRole extends Component {
         new window.WxLogin({
             self_redirect: true,
             id: "qrcode-wechat",
-            appid: "wx46e3b4c2a399d748",
+            appid: "wx7f1051697b7fab6d",
             scope: "snsapi_login",
-            redirect_uri: encodeURIComponent(`https://live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+            redirect_uri: encodeURIComponent(`${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/qr-redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
             state: "123",
             style: "white"
         });
