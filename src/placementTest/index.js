@@ -189,7 +189,7 @@ class Homepage extends Component {
                 if (this.state.step === 7) {
                     let answerSeventh = this.state.answers[6];
 
-                    let audioUrl = answerSeventh === 'A' ? 'https://cdn-corner.resource.buzzbuzzenglish.com/Placement%201.mp3' : (answerSeventh === 'B' ? 'https://cdn-corner.resource.buzzbuzzenglish.com/Placement%202.mp3' : 'https://cdn-corner.resource.buzzbuzzenglish.com/Placement%203.mp3');
+                    let audioUrl = answerSeventh === 'A' ? 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%201' : (answerSeventh === 'B' ? 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%202' : 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%203');
                     let audioQuestionLength = answerSeventh === 'A' ? 5 : (answerSeventh === 'B' ? 13 : 11);
 
                     console.log(audioUrl, audioQuestionLength);

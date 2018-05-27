@@ -14,6 +14,7 @@ import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
+import Client from "../common/client";
 
 class Home extends Component {
     constructor(props) {
@@ -55,19 +56,23 @@ class Home extends Component {
     }
 
     clickEventClassDetail(e, item) {
-        if(window.event){
-            window.event.preventDefault();
+        try{
+            if(window.event){
+                window.event.preventDefault();
+            }
+
+            Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
+
+            if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+                 window.location.href = window.location.href.replace('http', 'https').replace('/home', "/class/" + item.class_id);
+            }else{
+                window.location.href = "/class/" + item.class_id;
+            }
+        }
+        catch (e){
+
         }
 
-        Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
-
-        let u = window.navigator.userAgent;
-        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isiOS) {
-            window.location.href = "/class/" + item.class_id;
-        } else {
-            browserHistory.push("/class/" + item.class_id);
-        }
     }
 
     clickEventPlacement(e, item) {
@@ -78,6 +83,8 @@ class Home extends Component {
         let redStatus = item.hasRead === '' ? '未读' : '已读';
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
+
+        //todo
 
         let u = window.navigator.userAgent;
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -282,13 +289,19 @@ class Home extends Component {
                 let placementResult = await this.getPlacementResult(userId);
 
                 if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
+                    let new_url;
+                    if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+                        new_url = window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message')
+                    }else{
+                        new_url = '/placement?tab=message';
+                    }
 
                     clonedMessageFromAdvisor.push({
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
                         message_avatar: '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                        goUrl: '/placement?tab=message',
-                        hasRead: ''
+                        goUrl: '',
+                        hasRead: new_url
                     });
                 }
             }
