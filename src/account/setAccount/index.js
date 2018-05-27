@@ -6,6 +6,7 @@ import Track from "../../common/track";
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Resources from '../../resources';
+import MessageModal from '../../common/commonComponent/modalMessage';
 import './index.css';
 import ServiceProxy from "../../service-proxy";
 
@@ -15,9 +16,10 @@ class UpdatePassword extends Component {
 
         this.state = {
             data: {
-                user_account: '13061710755',
+                user_account: '',
                 user_password: ''
-            }
+            },
+            update: false
         };
 
         this.back = this.back.bind(this);
@@ -35,25 +37,36 @@ class UpdatePassword extends Component {
         let clonedData = this.state.data;
         clonedData.user_password = event.target.value;
 
-        this.setState({data: clonedData});
+        this.setState({data: clonedData, update: true});
+    }
+
+    closeMessageModal() {
+        const interval = setTimeout(() => {
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 5000)
     }
 
     async submit() {
         this.setState({loadingModal: true});
         try {
-            let result = await ServiceProxy.proxy('/user-info', {
+            await ServiceProxy.proxy('/user-info', {
                 body: {
                     account: this.state.data.user_account,
                     password: this.state.data.user_password
                 },
                 method: 'PUT'
             });
-            console.log('====');
-            console.log(result);
+
+            this.setState({messageModal: true, messageContent: Resources.getInstance().saveSuccess, loadingModal: false, update: false});
+            this.closeMessageModal();
         } catch (ex) {
             console.error(ex);
-        } finally {
-            this.setState({loadingModal: false});
+            this.setState({messageModal: true, messageContent: Resources.getInstance().saveFailed, loadingModal: false, update: false});
+            this.closeMessageModal();
         }
     }
 
@@ -71,6 +84,8 @@ class UpdatePassword extends Component {
     render() {
         return (
             <div className="update-password">
+                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                              modalShow={this.state.messageModal}/>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSetTitle}/>
                 <div className="set-word">
@@ -88,7 +103,7 @@ class UpdatePassword extends Component {
                         />
                     </div>
                     <div className="update-btn">
-                        <Button50px disabled={!this.state.data.user_password}
+                        <Button50px disabled={!this.state.data.user_password || this.state.data.user_password.length < 6 || !this.state.update }
                                     text={Resources.getInstance().accountLogin} submit={this.submit}/>
                     </div>
                 </div>

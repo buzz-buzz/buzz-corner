@@ -23,7 +23,8 @@ class User extends Component {
             country: 'china',
             switchToUserId: 0,
             role: '',
-            refresh: props.location.query.refresh || false
+            refresh: props.location.query.refresh || false,
+            password: false
         };
 
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
@@ -54,7 +55,8 @@ class User extends Component {
             class_hours: (profile.class_hours || 0) + (profile.booked_class_hours || 0),
             country: profile.country || 'china',
             isSuper: await CurrentUser.isSuper(),
-            role: profile.role || ''
+            role: profile.role || '',
+            password: !!profile.password
         });
     }
 
@@ -115,7 +117,7 @@ class User extends Component {
                                 </div>
                             </div>
                             <div className="link">
-                                <div className="class-numbers">未设置</div>
+                                <div className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
                                 <div className="right-icon">
                                     <i className="icon-icon_back_down"/>
                                 </div>
