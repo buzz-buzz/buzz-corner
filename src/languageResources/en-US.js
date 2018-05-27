@@ -294,7 +294,8 @@ export const posterModalContent2 = 'a high feedback about last class';
 export const accountAboutTitle = 'Get account';
 export const accountSetTitle = 'Set password';
 export const accountInputPassword = 'Not less than 6';
-export const accountInputAccount = 'Please enter account';
+export const accountInputPasswordLogin = 'Only you know it';
+export const accountInputAccount = 'Mobile/Email';
 export const accountLogin = 'Login';
 export const accountUpdateBtn = 'Done';
 export const accountPasswordLogin = 'Account login';
@@ -302,6 +303,7 @@ export const accountForgotten = 'Forgotten？';
 export const accountHow = 'How to get my account？';
 export const accountUnset = 'Unset';
 export const accountSet = 'Set';
+export const accountLoginFailed = 'Login failed: Incorrect account or password!';
 
 export function signInWith(method) {
     return (

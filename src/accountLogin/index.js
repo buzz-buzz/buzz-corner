@@ -7,6 +7,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import {browserHistory} from "react-router";
 import Resources from '../resources';
 import './index.css';
+import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 
 class AccountLogin extends Component {
@@ -57,13 +58,16 @@ class AccountLogin extends Component {
                     },
                     method: 'PUT'
                 }
-            })
+            });
+
+            this.setState({loadingModal: false});
+
+            browserHistory.push('/');
 
             console.log(result);
         } catch (ex) {
             console.error(ex);
-        } finally {
-            this.setState({loadingModal: false});
+            this.setState({messageModal: true, messageContent: Resources.getInstance().accountLoginFailed, loadingModal: false});
         }
     }
 
@@ -74,6 +78,8 @@ class AccountLogin extends Component {
     render() {
         return (
             <div className="account-login">
+                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                              modalShow={this.state.messageModal}/>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin}/>
                 <div className="set-word">
@@ -89,7 +95,7 @@ class AccountLogin extends Component {
                     <div className="user-password">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
                         <BuzzInput
-                            type="password" placeholder={Resources.getInstance().accountInputPassword}
+                            type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
                             value={this.state.data.user_password}
                             onChange={this.handleChange}
                             name='user_password'
