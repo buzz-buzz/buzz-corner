@@ -9,21 +9,21 @@ import URLHelper from "../common/url-helper";
 
 export default class WechatOAuthSuccess extends React.Component {
     loginOldUser = async (wechatUserInfo) => {
-        let buzzUserData = await this.getUserByOpenid(wechatUserInfo.openid);
-        await this.signInByUserId(buzzUserData.user_id);
+        let buzzUserData = await this.getBuzzUserData(wechatUserInfo.unionid);
+        await this.loginByWechat(wechatUserInfo.unionid, buzzUserData.user_id);
     };
     loginNewUser = async (error, wechatUserData) => {
         if (BuzzServiceApiErrorParser.isNewUser(error)) {
             let newUserId = await this.registerByWechat(wechatUserData);
-            await this.signInByUserId(newUserId);
+            await this.loginByWechat(wechatUserData.unionid, newUserId);
         } else {
             throw error;
         }
     };
-    getUserByOpenid = async (openid) => {
+    getBuzzUserData = async (wechatUnionId) => {
         return await ServiceProxy.proxyTo({
             body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/by-wechat?openid=${openid}`
+                uri: `{config.endPoints.buzzService}/api/v1/users/by-wechat?unionid=${wechatUnionId}`
             }
         });
     };
@@ -45,12 +45,15 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         });
     };
-    signInByUserId = async user_id => {
+    loginByWechat = async (wechatUnionId, userId) => {
         let res = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
                 method: 'PUT',
-                json: {user_id}
+                json: {
+                    user_id: userId,
+                    wechat_unionid: wechatUnionId
+                }
             }
         });
 
