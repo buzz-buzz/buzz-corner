@@ -7,6 +7,7 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Resources from '../../resources';
 import './index.css';
+import ServiceProxy from "../../service-proxy";
 
 class UpdatePassword extends Component {
     constructor() {
@@ -27,21 +28,33 @@ class UpdatePassword extends Component {
     back() {
         Track.event('设置密码页面返回');
 
-        //window.history.go(-1);
         window.history.go(-1);
     }
 
-    handleChange(event){
+    handleChange(event) {
         let clonedData = this.state.data;
         clonedData.user_password = event.target.value;
-
 
         this.setState({data: clonedData});
     }
 
-    async submit(){
-        //buzz-service
+    async submit() {
         this.setState({loadingModal: true});
+        try {
+            let result = await ServiceProxy.proxy('/user-info', {
+                body: {
+                    account: this.state.data.user_account,
+                    password: this.state.data.user_password
+                },
+                method: 'PUT'
+            });
+            console.log('====');
+            console.log(result);
+        } catch (ex) {
+            console.error(ex);
+        } finally {
+            this.setState({loadingModal: false});
+        }
     }
 
     async componentDidMount() {
@@ -59,7 +72,7 @@ class UpdatePassword extends Component {
         return (
             <div className="update-password">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSetTitle} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSetTitle}/>
                 <div className="set-word">
                     <div className="user-count">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
@@ -75,8 +88,8 @@ class UpdatePassword extends Component {
                         />
                     </div>
                     <div className="update-btn">
-                        <Button50px disabled={ !this.state.data.user_password }
-                                    text={Resources.getInstance().accountLogin} submit={this.submit} />
+                        <Button50px disabled={!this.state.data.user_password}
+                                    text={Resources.getInstance().accountLogin} submit={this.submit}/>
                     </div>
                 </div>
             </div>

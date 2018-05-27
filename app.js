@@ -1,3 +1,4 @@
+const BasicAuth = require('./secure/basic-auth');
 const Koa = require('koa');
 const app = new Koa();
 const request = require('request-promise-native');
@@ -70,13 +71,8 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        const auth = `Basic ${new Buffer(process.env.BASIC_NAME + ':' + process.env.BASIC_PASS).toString('base64')}`;
-
         let options = Object.assign({
-            headers: {
-                'X-Requested-With': 'buzz-corner',
-                Authorization: auth
-            },
+            headers: BasicAuth.authHeader(),
             uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
         }, ctx.request.body);
 
@@ -84,6 +80,22 @@ router
 
         ctx.body = Object.assign(ctx.state.user, {
             profile: JSON.parse(profile)
+        });
+    })
+    .put('/user-info', membership.ensureAuthenticated, async ctx => {
+        let options = {
+            headers: BasicAuth.authHeader(),
+            uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`,
+            method: 'PUT',
+            json: ctx.request.body
+        };
+
+        console.log('options = ', options);
+        let updatedProfile = await request(options);
+        console.log('updated profile = ', updatedProfile);
+
+        ctx.body = Object.assign(ctx.state.user, {
+            profile: updatedProfile
         });
     })
     .get('/switch-to-user/:user_id', membership.ensureAuthenticated, membership.pretendToBeOtherUser, async ctx => {
