@@ -45,8 +45,6 @@ router
             ;
         }
 
-        console.log('proxing with ...', ctx.request.body);
-
         ctx.body = await oldRequest(Object.assign({
             headers: {
                 'X-Requested-With': 'buzz-corner'
@@ -72,9 +70,12 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
+        const auth = `Basic ${new Buffer(process.env.BASIC_NAME + ':' + process.env.BASIC_PASS).toString('base64')}`;
+
         let options = Object.assign({
             headers: {
-                'X-Requested-With': 'buzz-corner'
+                'X-Requested-With': 'buzz-corner',
+                Authorization: auth
             },
             uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
         }, ctx.request.body);
