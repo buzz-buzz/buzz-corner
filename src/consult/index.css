@@ -48,7 +48,9 @@
 
 .consult-page > .consult-content > .consult-QR-code > img{
     width: 100%;
-    margin: 1em 0;
+    max-width: 300px;
+    display: block;
+    margin: 1em auto;
 }
 
 .consult-content p{
