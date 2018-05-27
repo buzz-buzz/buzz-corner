@@ -218,6 +218,8 @@ h4{
 
 .position-relative{
     position: relative !important;
+    height: 50px !important;
+    margin-bottom: 10px !important;
 }
 
 div.dropdown{
@@ -225,7 +227,7 @@ div.dropdown{
     height: 50px;
     background: rgb(244, 245, 249) !important;
     border: 1px solid transparent !important;
-    margin-bottom: .5em;
+    margin-bottom: 10px;
 }
 
 div.dropdown > div.text, div.dropdown > i{

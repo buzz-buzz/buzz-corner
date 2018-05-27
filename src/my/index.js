@@ -59,12 +59,16 @@ class My extends Component {
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            placement_topics: Topics
+            placement_topics: Topics,
+            tabletBirth: {}
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
         this.handleGradeChange = this.handleGradeChange.bind(this);
+        this.handleTabletYear = this.handleTabletYear.bind(this);
+        this.handleTabletMonth = this.handleTabletMonth.bind(this);
+        this.handleTabletDate = this.handleTabletDate.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleChangeBirthdayLabel = this.handleChangeBirthdayLabel.bind(this);
         this.handleTimeZoneChange = this.handleTimeZoneChange.bind(this);
@@ -79,6 +83,7 @@ class My extends Component {
         this.skipPlacement = this.skipPlacement.bind(this);
         this.sms = this.sms.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
+        this.handleBirthdayChange = this.handleBirthdayChange.bind(this);
     }
 
     async sms() {
@@ -220,6 +225,45 @@ class My extends Component {
         this.setState({profile: clonedProfile});
     }
 
+    handleTabletYear(event, data){
+        let clonedTabletBirth = this.state.tabletBirth;
+        clonedTabletBirth.year = data.value;
+
+        if(clonedTabletBirth.year && clonedTabletBirth.month && clonedTabletBirth.date){
+            let clonedProfile = this.state.profile;
+            clonedProfile.date_of_birth = getBirthDay(clonedTabletBirth.year + '-' + clonedTabletBirth.month + '-' +  clonedTabletBirth.date);
+            this.setState({tabletBirth: clonedTabletBirth, profile: clonedProfile});
+        }else{
+            this.setState({tabletBirth: clonedTabletBirth});
+        }
+    }
+
+    handleTabletMonth(event, data){
+        let clonedTabletBirth = this.state.tabletBirth;
+        clonedTabletBirth.month = data.value;
+
+        if(clonedTabletBirth.year && clonedTabletBirth.month && clonedTabletBirth.date){
+            let clonedProfile = this.state.profile;
+            clonedProfile.date_of_birth = getBirthDay(clonedTabletBirth.year + '-' + clonedTabletBirth.month + '-' +  clonedTabletBirth.date);
+            this.setState({tabletBirth: clonedTabletBirth, profile: clonedProfile});
+        }else{
+            this.setState({tabletBirth: clonedTabletBirth});
+        }
+    }
+
+    handleTabletDate(event, data){
+        let clonedTabletBirth = this.state.tabletBirth;
+        clonedTabletBirth.date = data.value;
+
+        if(clonedTabletBirth.year && clonedTabletBirth.month && clonedTabletBirth.date){
+            let clonedProfile = this.state.profile;
+            clonedProfile.date_of_birth = getBirthDay(clonedTabletBirth.year + '-' + clonedTabletBirth.month + '-' +  clonedTabletBirth.date);
+            this.setState({tabletBirth: clonedTabletBirth, profile: clonedProfile});
+        }else{
+            this.setState({tabletBirth: clonedTabletBirth});
+        }
+    }
+
     handleTimeZoneChange(event, data){
         let clonedProfile = Object.assign({}, this.state.profile);
 
@@ -243,6 +287,12 @@ class My extends Component {
 
         clonedProfile[event.target.name] = event.target.value;
         this.setState({profile: clonedProfile, mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11, emailValid: clonedProfile.email && this.state.email_reg.test(clonedProfile.email) && clonedProfile.student_en_name});
+    }
+
+    handleBirthdayChange(event){
+        console.log(event._i);
+        console.log(event);
+        //this.setState({tablet_birth: event});
     }
 
     handleChangeBirthdayLabel(event) {
@@ -442,11 +492,20 @@ class My extends Component {
                 profile.country = countries[countryCode].name;
             }
 
+            let tabletBirth = {};
+
+            if(profile.date_of_birth && profile.date_of_birth.length === 10){
+                tabletBirth.year =  profile.date_of_birth.substring(0, 4);
+                tabletBirth.month =  profile.date_of_birth.substring(5, 7);
+                tabletBirth.date =  profile.date_of_birth.substring(8);
+            }
+
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
                 mobileValid: profile && profile.phone && profile.phone.length === 11,
-                emailValid: profile &&profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name
+                emailValid: profile &&profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
+                tabletBirth: tabletBirth
             })
         }
         catch (ex) {
@@ -506,6 +565,10 @@ class My extends Component {
                                                           handleChangeBirthdayLabel={this.handleChangeBirthdayLabel} handleCityChange={this.handleCityChange}
                                                           handleGradeChange={this.handleGradeChange} handleTimeZoneChange={this.handleTimeZoneChange}
                                                           time_zone={this.state.profile.time_zone} handleCountryChange={this.handleCountryChange}
+                                                          handleBirthdayChange={this.handleBirthdayChange} tabletBirth={this.state.tabletBirth}
+                                                          handleTabletDate={this.handleTabletDate}
+                                                          handleTabletMonth={this.handleTabletMonth}
+                                                          handleTabletYear={this.handleTabletYear}
                                         />
                                     ) : (
                                         this.state.step === 3 ?
