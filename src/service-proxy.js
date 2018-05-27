@@ -58,9 +58,7 @@ export default {
             let textResult = typeof res.text === 'function' ? await res.text() : res.body;
             if (mergedOptions.accept === 'application/json') {
                 try {
-                    let result = JSON.parse(textResult);
-                    console.log('result of json = ', result);
-                    return result;
+                    return JSON.parse(textResult);
                 } catch (ex) {
                     return textResult;
                 }

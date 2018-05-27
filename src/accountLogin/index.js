@@ -7,6 +7,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import {browserHistory} from "react-router";
 import Resources from '../resources';
 import './index.css';
+import ServiceProxy from "../service-proxy";
 
 class AccountLogin extends Component {
     constructor() {
@@ -32,11 +33,11 @@ class AccountLogin extends Component {
         window.history.go(-1);
     }
 
-    forgottenPassword(){
+    forgottenPassword() {
         browserHistory.push('/account/about');
     }
 
-    handleChange(event){
+    handleChange(event) {
         let clonedData = this.state.data;
 
         clonedData[event.target.name] = event.target.value;
@@ -44,8 +45,26 @@ class AccountLogin extends Component {
         this.setState({data: clonedData});
     }
 
-    async submit(){
-        //buzz-service login
+    async submit() {
+        this.setState({loadingModal: true});
+        try {
+            let result = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
+                    json: {
+                        account: this.state.data.user_account,
+                        password: this.state.data.user_password
+                    },
+                    method: 'PUT'
+                }
+            })
+
+            console.log(result);
+        } catch (ex) {
+            console.error(ex);
+        } finally {
+            this.setState({loadingModal: false});
+        }
     }
 
     async componentDidMount() {
@@ -56,7 +75,7 @@ class AccountLogin extends Component {
         return (
             <div className="account-login">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin}/>
                 <div className="set-word">
                     <div className="user-password">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
@@ -77,14 +96,15 @@ class AccountLogin extends Component {
                         />
                     </div>
                     <div className="update-btn">
-                        <Button50px disabled={ !this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6 }
-                                    text={Resources.getInstance().accountLogin} submit={this.submit} />
+                        <Button50px
+                            disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
+                            text={Resources.getInstance().accountLogin} submit={this.submit}/>
                     </div>
                     <div className="forgotten" onClick={this.forgottenPassword}>
                         {Resources.getInstance().accountForgotten}
                     </div>
                     <div className="flex-end">
-                        <div  onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
+                        <div onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
                     </div>
                 </div>
             </div>
