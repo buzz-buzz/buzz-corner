@@ -133,13 +133,6 @@ export default class ProfileFormStep2 extends React.Component {
                                 {/*showYearDropdown*/}
                                 {/*dropdownMode="select" />*/}
                         {/*</div>*/}
-                        {/*<div className="field birthday-label">*/}
-                            {/*<BuzzInput type="text" placeholder={Resources.getInstance().profileBirth}*/}
-                                       {/*value={this.props.birthdayLabel || ''}*/}
-                                       {/*onChange={this.props.handleChangeBirthdayLabel}*/}
-                                       {/*name='birthdayLabel' height="50px"*/}
-                            {/*/>*/}
-                        {/*</div>*/}
                     {/*</Form.Group>*/}
                     <div className="selection-options">
                         <Dropdown placeholder={Resources.getInstance().profileCity} search
