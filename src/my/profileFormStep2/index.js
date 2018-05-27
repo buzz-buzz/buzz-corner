@@ -88,21 +88,6 @@ export default class ProfileFormStep2 extends React.Component {
                                 {this.renderDatePicker()}
                             </div>
                     }
-<<<<<<< HEAD
-                    {/*<Form.Group widths='equal' className="position-relative">*/}
-                        {/*<div className="field birthday-label-style">*/}
-                            {/*<DatePicker*/}
-                                {/*selected={this.props.profile.date_of_birth ? moment(this.props.tablet_birth) : null}*/}
-                                {/*onChange={this.props.handleBirthdayChange} syle={{height: '50px'}}*/}
-                                {/*dateFormat={"YYYY-MM-DD"} placeholderText={Resources.getInstance().profileBirth}*/}
-                                {/*isClearable={false} peekNextMonth*/}
-                                {/*showMonthDropdown*/}
-                                {/*showYearDropdown*/}
-                                {/*dropdownMode="select" />*/}
-                        {/*</div>*/}
-                    {/*</Form.Group>*/}
-=======
->>>>>>> tablet birthday
                     <div className="selection-options">
                         <Dropdown placeholder={Resources.getInstance().profileCity} search
                                   selection noResultsMessage="no result"
