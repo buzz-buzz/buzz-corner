@@ -267,7 +267,7 @@ class Homepage extends Component {
                                         <p>{Resources.getInstance().placementAudioWord}</p>
                                     </div>
                                     <Practice chats={this.state.chats}
-                                              avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", this.state.avatar]}
+                                              avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg']}
                                               handleUploadUrl={this.handleUploadUrl.bind(this)}
                                               audioUpload={true}
                                               recordingChanged={this.recordingChanged}

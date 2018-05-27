@@ -91,7 +91,6 @@ export default class WechatOAuthSuccess extends React.Component {
         //check if profile is Done or not
         //Done go home page, unDone go my/info
         try {
-            //await CurrentUser.getUserId();
             let userId = await CurrentUser.getUserId();
 
             let profile = (await ServiceProxy.proxyTo({

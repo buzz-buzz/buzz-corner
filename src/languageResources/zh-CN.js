@@ -292,12 +292,15 @@ export const posterModalContent2 = '课程给予了很高的评价';
 
 export const accountAboutTitle = '获得账号密码';
 export const accountSetTitle = '设置密码';
-export const accountInputPassword = '请输入密码';
+export const accountInputPassword = '不小于6位哦';
 export const accountInputAccount = '请输入账号';
 export const accountLogin = '登录';
+export const accountUpdateBtn = '保存';
 export const accountPasswordLogin = '账号密码登录';
 export const accountForgotten = '忘记账号密码？';
 export const accountHow = '如何获得账号密码登录？';
+export const accountUnset = '未设置';
+export const accountSet = '已设置';
 
 export function signInWith(method) {
     return (
