@@ -212,7 +212,7 @@ export default class Practice extends React.Component {
                                             <div className="practise-advisor chat message">
                                                 <div>
                                                     <Image avatar
-                                                           src={this.props.avatars[0]}
+                                                           src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                            alt="avatar"/>
                                                 </div>
                                                 <div
@@ -251,7 +251,7 @@ export default class Practice extends React.Component {
 
                                                 <div>
                                                     <Image avatar
-                                                           src={this.state.avatar}
+                                                           src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                            alt="avatar"/>
                                                 </div>
 
@@ -291,7 +291,7 @@ export default class Practice extends React.Component {
 
                             < div className="practise-advisor chat message">
                                 <div>
-                                    <Image avatar src={this.props.avatars[0]} alt="avatar"/>
+                                    <Image avatar src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt="avatar"/>
                                 </div>
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
