@@ -190,7 +190,8 @@ export default class ProfileFormStep2 extends React.Component {
 
         return <DatePicker placeholderText={Resources.getInstance().profileBirth}
                            onChange={this.handleDateChange} name='date_of_birth'
-                           selected={moment(this.props.profile.date_of_birth)} openToDate={moment(birthdayFrom)}
+                           selected={this.props.profile.date_of_birth ? moment(this.props.profile.date_of_birth) : null}
+                           openToDate={this.props.profile.date_of_birth ? moment(this.props.profile.date_of_birth) : moment(birthdayFrom)}
                            showMonthDropdown showYearDropdown dropdownMode="select"
         />;
     }
