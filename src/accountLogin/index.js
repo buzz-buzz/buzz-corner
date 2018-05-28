@@ -59,7 +59,7 @@ class AccountLogin extends Component {
     async submit() {
         this.setState({loadingModal: true});
         try {
-            let result = await ServiceProxy.proxyTo({
+            await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {

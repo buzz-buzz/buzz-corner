@@ -77,6 +77,7 @@ class UpdatePassword extends Component {
 
         let clonedData = this.state.data;
         clonedData.user_account = profile.mobile || profile.email;
+        clonedData.user_password = profile.password;
 
         this.setState({data: clonedData});
     }
@@ -104,7 +105,7 @@ class UpdatePassword extends Component {
                     </div>
                     <div className="update-btn">
                         <Button50px disabled={!this.state.data.user_password || this.state.data.user_password.length < 6 || !this.state.update }
-                                    text={Resources.getInstance().accountLogin} submit={this.submit}/>
+                                    text={Resources.getInstance().accountUpdateBtn} submit={this.submit}/>
                     </div>
                 </div>
             </div>
