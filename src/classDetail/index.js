@@ -365,7 +365,7 @@ class classDetail extends Component {
                                 this.state.class_content.student_textbook.map((item, index) => {
                                     return <div className="class_content_file_item" key={index}  onClick={event => this.lookFile(event, item)}>
                                         <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
-                                        <span className="file_name">{item.split('buzzbuzzenglish.com/')[1].split('.')[0]}</span>
+                                        <span className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
                                     </div>
                                 })
                             }
@@ -376,7 +376,7 @@ class classDetail extends Component {
                                 this.state.class_content.tutor_textbook.map((item, index) => {
                                     return <div className="class_content_file_item" key={index} onClick={event => this.lookFile(event, item)} >
                                         <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
-                                        <span className="file_name">{decodeURIComponent(item).split('buzzbuzzenglish.com/')[1].split('.')[0]}</span>
+                                        <span className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
                                     </div>
                                 })
                             }
