@@ -1,21 +1,30 @@
 let resources;
+let savedCulture;
 
 export default class Resources {
     static setCulture(culture) {
-        try {
-            resources = require(`./languageResources/${culture}`);
-        } catch (ex) {
-            resources = require(`./languageResources/zh-CN`);
+        savedCulture = culture;
+    }
+
+    static getCulture() {
+        if (!savedCulture) {
+            savedCulture = window.navigator.language.toLowerCase();
         }
+
+        return savedCulture;
     }
 
     static getInstance(culture) {
         if (culture) {
-            return require(`./languageResources/${culture}`);
+            Resources.setCulture(culture);
         }
 
         if (!resources) {
-            Resources.setCulture(window.navigator.language.toLowerCase() === 'zh-cn' ? 'zh-CN' : 'en-US');
+            try {
+                resources = require(`./languageResources/${Resources.getCulture()}`);
+            } catch (ex) {
+                resources = require(`./languageResources/zh-cn`);
+            }
         }
 
         return resources;
