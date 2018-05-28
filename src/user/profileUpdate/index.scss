@@ -39,6 +39,10 @@
         padding-right: 14px;
         position: relative;
         overflow: hidden;
+        cursor: pointer;
+        select{
+          cursor: pointer;
+        }
         span, input.input-show{
           color: #666;
           font-size: 14px;
@@ -64,6 +68,7 @@
           height: 100%;
           z-index: 20;
           opacity: 0;
+          cursor: pointer;
         }
       }
     }

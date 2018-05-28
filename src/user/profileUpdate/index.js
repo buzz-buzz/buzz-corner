@@ -314,7 +314,7 @@ class UserUpdate extends Component {
 
             clearTimeout(interval);
 
-            browserHistory.push('/user?refresh=true');
+            //browserHistory.push('/user?refresh=true');
         }, 2000)
     }
 
