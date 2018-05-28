@@ -200,7 +200,7 @@ export default class ProfileFormStep2 extends React.Component {
         this.props.handleChange({
             target: {
                 name: 'date_of_birth',
-                value: date.toISOString().substr(0, 10)
+                value: moment(date).format('YYYY-MM-DD')
             }
         })
     }
