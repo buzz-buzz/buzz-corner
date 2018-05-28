@@ -74,6 +74,7 @@
     height: 100%;
     z-index: 99;
     opacity: 0;
+    cursor: pointer;
 }
 
 .answer-item.pressing:after{
