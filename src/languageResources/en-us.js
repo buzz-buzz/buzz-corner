@@ -163,6 +163,7 @@ export const profileIntroductionHolder = 'Write a short introduction about yours
 export const profileSunmitBtn = 'Continue';
 export const profileGradeName = 'Grade';
 export const profileTopicNone = 'Add';
+export const profileSendSuccess = 'Send successfully!';
 
 export const avatarTile = 'Contact Information';
 export const avatarLabel = 'Avatar';
@@ -178,6 +179,7 @@ export const emailWrong = 'Email is wrong!';
 export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
 export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
 export const emailSendWrong = 'Network error, please try again later!';
+export const phoneSendWrong = 'Please try again later!';
 
 export const my = 'My';
 export const toggleLanguage = 'Language selector';

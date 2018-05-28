@@ -162,6 +162,7 @@ export const profileIntroductionHolder = '用简短的话概括你自己';
 export const profileSunmitBtn = '保存';
 export const profileGradeName = '年级';
 export const profileTopicNone = '添加';
+export const profileSendSuccess = '发送成功!';
 
 export const avatarTile = '联系方式';
 export const avatarLabel = '头像';
@@ -177,6 +178,7 @@ export const emailWrong = '邮箱格式不正确!';
 export const emailWrongVerification = '您输入的验证码不正确或过期, 请重新输入或者获取新的验证码!';
 export const emailUnkonwWrong = '若未收到验证码，请查看您的垃圾邮箱中是否存在!';
 export const emailSendWrong = '网络出错, 请稍后重试!';
+export const phoneSendWrong = '发送太过频繁哦, 请稍后重试!';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';
