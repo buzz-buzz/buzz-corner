@@ -16,7 +16,7 @@ class LoginRole extends Component {
 
         this.state = {
             role: RoleDesider.getRole(),
-            active: MemberType.Companion
+            active: RoleDesider.getRole()
         };
 
         this.facebookLogin = this.facebookLogin.bind(this);
@@ -65,6 +65,9 @@ class LoginRole extends Component {
     }
 
     componentDidMount() {
+        if (this.state.active === MemberType.Student) {
+            this.createCode();
+        }
     }
 
     facebookLogin() {
