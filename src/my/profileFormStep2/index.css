@@ -1,4 +1,4 @@
-.birthday-label-style{
+.birthday-label-style {
     position: absolute;
     width: 100%;
     height: 50px;
@@ -9,22 +9,15 @@
     padding: 0 0.5em;
 }
 
-.react-datepicker-wrapper, .react-datepicker__input-container{
-    display: block !important;
+.tablet-birth > div {
+    margin-bottom: 10px;
 }
 
-.react-datepicker-wrapper input{
-    height: 50px !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+.tablet-birth .react-datepicker-wrapper,
+.tablet-birth .react-datepicker__input-container {
+    width: 100%;
 }
 
-.tablet-birth{
-    display: flex;
-}
-
-.tablet-birth > div:first-child{
-    margin-right: 10px;
-}
-.tablet-birth > div:last-child{
-    margin-left: 10px;
+.tablet-birth input[name="date_of_birth"] {
+    background-color: #f4f5f9 !important;
 }

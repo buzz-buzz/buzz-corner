@@ -1,3 +1,5 @@
+import moment from 'moment';
+import 'moment/min/locales';
 import Resources from '../../resources';
 import React from 'react';
 import {Dropdown, Form} from 'semantic-ui-react';
@@ -12,7 +14,7 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.css';
-import moment from "moment";
+
 
 const grade_list = GradeData.grade_list;
 
@@ -184,11 +186,13 @@ export default class ProfileFormStep2 extends React.Component {
     }
 
     renderDatePicker() {
+        moment.locale(Resources.getCulture());
+
         return <DatePicker placeholderText={Resources.getInstance().profileBirth}
                            onChange={this.handleDateChange} name='date_of_birth'
                            selected={moment(this.props.profile.date_of_birth)} openToDate={moment(birthdayFrom)}
                            showMonthDropdown showYearDropdown dropdownMode="select"
-                           locale={window.navigator.language.toLowerCase()}/>;
+        />;
     }
 
     handleDateChange(date) {
