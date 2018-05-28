@@ -46,6 +46,16 @@ class AccountLogin extends Component {
         this.setState({data: clonedData});
     }
 
+    closeMessageModal() {
+        const interval = setTimeout(() => {
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 5000)
+    }
+
     async submit() {
         this.setState({loadingModal: true});
         try {
@@ -68,6 +78,7 @@ class AccountLogin extends Component {
         } catch (ex) {
             console.error(ex);
             this.setState({messageModal: true, messageContent: Resources.getInstance().accountLoginFailed, loadingModal: false});
+            this.closeMessageModal();
         }
     }
 
