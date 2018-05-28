@@ -27,6 +27,7 @@
   .go-back>div.arrow-left{
     width: 20%;
     height: 30px;
+    cursor: pointer;
   }
 
   .go-back>div.circle-border{
@@ -37,6 +38,7 @@
     border-top-right-radius: 50%;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   .go-back>div.circle-border>img{

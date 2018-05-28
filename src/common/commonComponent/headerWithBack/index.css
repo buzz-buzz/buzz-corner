@@ -21,7 +21,8 @@
     background-color: #eee; }
   .header-with-go-back .go-back > div.arrow-left {
     width: 20%;
-    height: 30px; }
+    height: 30px;
+    cursor: pointer; }
   .header-with-go-back .go-back > div.circle-border {
     width: 30px;
     height: 30px;
@@ -29,7 +30,8 @@
     border-bottom-right-radius: 50%;
     border-top-right-radius: 50%;
     display: flex;
-    align-items: center; }
+    align-items: center;
+    cursor: pointer; }
   .header-with-go-back .go-back > div.circle-border > img {
     height: 40%; }
   .header-with-go-back .logo:nth-child(2) {
