@@ -70,11 +70,9 @@ class AccountLogin extends Component {
                 }
             });
 
-            this.setState({loadingModal: false});
-
-            browserHistory.push('/');
-
-            console.log(result);
+            this.setState({loadingModal: false}, () => {
+                browserHistory.push('/');
+            });
         } catch (ex) {
             console.error(ex);
             this.setState({messageModal: true, messageContent: Resources.getInstance().accountLoginFailed, loadingModal: false});
