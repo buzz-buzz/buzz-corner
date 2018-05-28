@@ -381,3 +381,8 @@ p{
 .message-red-new > img{
     width: 100%;
 }
+
+#booking-btn.ui.button:hover{
+    color: white;
+    background-color: rgb(106, 225, 8);
+}
