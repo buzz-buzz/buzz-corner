@@ -329,7 +329,7 @@ class classDetail extends Component {
                     {
                         this.state.role === MemberType.Student &&
                         <div>
-                            <div className="class-detail-tab">
+                            <div className="class-detail-tab" style={this.state.class_content && (this.state.class_content.student_textbook || this.state.class_content.tutor_textbook) ? {} : {display: 'none'}}>
                                 <div className={this.state.class_content_tab === 'practice' ? "active" : ""}
                                      onClick={this.classContentOne} >{Resources.getInstance().classDetailBeforeClassExercise}</div>
                                 <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
