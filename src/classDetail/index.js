@@ -224,9 +224,17 @@ class classDetail extends Component {
             }
 
             //get exercise
+            let params = {
+                module: class_info.module,
+                topic: class_info.topic,
+                topic_level: class_info.topic_level,
+                level: profile.level
+            };
+
             let class_content =  await ServiceProxy.proxyTo({
                     body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser?module=${class_info.module}&topic=${class_info.topic}&topic_level=${class_info.topic_level}&level=${profile.level}`
+                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
+                        qs: params
                     }
                 }) || {};
 
