@@ -165,12 +165,17 @@ class classDetail extends Component {
         if (this.state.interval) {
             clearInterval(this.state.interval);
         }
+
+        this.setState({loadingModal: false});
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     componentWillMount(){
         //如果是tablet 并且不在微信中  跳转至https
         if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
-            window.location.href = window.location.href.replace('http', 'https');
+            //window.location.href = window.location.href.replace('http', 'https');
         }
     }
 
@@ -194,6 +199,13 @@ class classDetail extends Component {
 
             for (let i in class_info.students) {
                 studentsList.push(class_info.students[i].id);
+            }
+
+            //auth check
+            if(class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1){
+                alert(Resources.getInstance().classInfoNoAuth);
+                browserHistory.push('/');
+                return;
             }
 
             let avatars = await ServiceProxy.proxyTo({

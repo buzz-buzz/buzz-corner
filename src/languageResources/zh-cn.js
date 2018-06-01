@@ -128,6 +128,7 @@ export const classBeginModalTitle = '课程已开始';
 export const classBeginModalContent1 = '马上开始与你的';
 export const classBeginModalContent2 = '小伙伴开始见面吧';
 export const classBeginModalBtn = '立即进入';
+export const classInfoNoAuth = '抱歉，你没有参与此课程哦!';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';

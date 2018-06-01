@@ -92,6 +92,12 @@ class classEvaluationForeign extends Component {
 
                 class_info.companions = companion_id;
 
+                if((userId + '') !== class_info.companions){
+                    alert(Resources.getInstance().classInfoNoAuth);
+                    browserHistory.push('/');
+                    return;
+                }
+
                 companion_country = (await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`

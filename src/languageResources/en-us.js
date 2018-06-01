@@ -129,6 +129,7 @@ export const classBeginModalTitle = 'Session starts';
 export const classBeginModalContent1 = 'Let\'s talk';
 export const classBeginModalContent2 = 'with your peers';
 export const classBeginModalBtn = 'Enter session';
+export const classInfoNoAuth = 'Sorry，you have no access to this class!';
 
 export const advisorInfo1 = 'Hi, I am your private advisor.';
 export const advisorInfo2 = 'Please scan the QR code to contact me.';
