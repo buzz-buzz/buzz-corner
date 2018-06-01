@@ -272,19 +272,19 @@ class classEvaluation extends Component {
                     <div className="evaluation-stars">
                         <div className="img-stars">
                             <img
-                                src={this.state.stars >= 1 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="1" alt="star"/>
                             <img
-                                src={this.state.stars >= 2 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="2" alt="star"/>
                             <img
-                                src={this.state.stars >= 3 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="3" alt="star"/>
                             <img
-                                src={this.state.stars >= 4 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="4" alt="star"/>
                             <img
-                                src={this.state.stars >= 5 ? "http://cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                 onClick={this.changeStars} name="5" alt="star"/>
                         </div>
                         <div className="stars-word">
