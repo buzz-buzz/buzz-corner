@@ -49,7 +49,7 @@ export const rewardRules = '查看获取规则';
 
 export const myCoins = '我的课时';
 export const myLanguage = '系统语言';
-export const myAccount = '设置账号';
+export const myAccount = '设置密码';
 export const classLessons = '现有课时数';
 export const sessions = '我的课时';
 
