@@ -163,6 +163,7 @@ router
     .get('/account/set', serveSPA)
     .get('/account/about', serveSPA)
     .get('/login/account', serveSPA)
+    .get('/zoom', serveSPA)
 ;
 
 app
