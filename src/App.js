@@ -30,6 +30,7 @@ import VideoPlayTablet from './videoPlay/tablet';
 import SetAccount from './account/setAccount';
 import AccountAbout from './account/accountAbout';
 import LoginByAccount from './accountLogin';
+import ZoomDownLoad from './classDetail/zoomDownLoad';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
@@ -85,6 +86,7 @@ class App extends Component {
                     <Route path='/under-construction' component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
                     <Route path='/video-play' component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
+                    <Route path='/zoom' component={ZoomDownLoad}/>
                 </Router>
             </div>
         )
