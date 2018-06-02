@@ -9,9 +9,8 @@ export default class ZoomDownLoad extends React.Component {
         this.state = {};
     }
 
-    componentDidMount(){
+    componentWillMount(){
         if(!/MicroMessenger/.test(navigator.userAgent)){
-            console.log('jump');
             window.location.href = 'https://zoom.us/download';
         }
     }
