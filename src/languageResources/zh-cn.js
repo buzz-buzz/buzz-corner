@@ -309,6 +309,11 @@ export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
 
+export const refreshStatus1 = '下拉刷新...';
+export const refreshStatus2 = '释放刷新...';
+export const refreshStatus3 = '正在更新...';
+export const refreshStatus4 = '更新完毕...';
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>
