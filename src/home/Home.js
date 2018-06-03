@@ -392,7 +392,7 @@ class Home extends Component {
                     classListItem.addEventListener('touchmove', function(e) {
                         _transitionHeight = e.touches[0].pageY - _startPos;
 
-                        if (_transitionHeight > 0 && _transitionHeight < 40) {
+                        if (_transitionHeight > 0 && _transitionHeight < 80) {
                             _refreshText.innerText = Resources.getInstance().refreshStatus1;
                             classListItem.style.transform = 'translateY('+_transitionHeight+'px)';
                             if (_transitionHeight > 35) {
@@ -401,6 +401,7 @@ class Home extends Component {
                         }
                     }, false);
                     classListItem.addEventListener('touchend', async (e)=> {
+                        classListItem.style.transform = 'translateY(40px)';
                         _refreshText.innerText = Resources.getInstance().refreshStatus3;
                         await this.refreshClassList();
                     }, false);
