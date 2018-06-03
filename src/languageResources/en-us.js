@@ -310,6 +310,11 @@ export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
 
+export const refreshStatus1 = 'Pull down refresh......';
+export const refreshStatus2 = 'Release refresh...';
+export const refreshStatus3 = 'Updating...';
+export const refreshStatus4 = 'Updated...';
+
 export function signInWith(method) {
     return (
         <span>SIGN IN WITH <strong>{method}</strong></span>

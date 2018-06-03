@@ -2,6 +2,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 p{
@@ -73,6 +74,17 @@ p{
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
+}
+
+.my-home .pull-status{
+    background: white;
+    color: #666;
+    text-align: center;
+    line-height: 40px;
+    width: 100%;
+    left: 0;
+    top: 50px;
+    position: absolute;
 }
 
 .my-home > .home-content > .items, .my-home > .home-content > .none-items{

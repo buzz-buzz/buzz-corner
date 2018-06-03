@@ -237,6 +237,28 @@ class Home extends Component {
         return class_list;
     }
 
+    async refreshClassList(){
+        this.setState({loadingModalRefresh: true})
+
+        let classList = await this.getUserClassList(this.state.userId, this.state.role);
+
+        classList = classList.filter(function (ele) {
+            return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
+        });
+
+        classList = this.sortClassList(this.handleClassListData(classList));
+
+        this.setState({
+            booking: classList,
+            loadingModalRefresh: false
+        }, ()=>{
+            let classListItem = document.getElementById('refreshContainer');
+            document.querySelector('.pull-status').innerText = Resources.getInstance().refreshStatus4;
+            classListItem.style.transition = 'transform 0.5s ease 1s';
+            classListItem.style.transform = 'translateY(0px)';
+        });
+    }
+
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
@@ -352,7 +374,37 @@ class Home extends Component {
                 booking: classList,
                 messageRead: messageCheck && messageCheck.length > 0,
                 loadingModal: false,
-                role: profile.role
+                role: profile.role,
+                userId: userId
+            }, async ()=>{
+                //add listener event
+                if(classList && classList.length > 0){
+                    let classListItem = document.getElementById('refreshContainer'),
+                        _refreshText = document.querySelector('.pull-status'),
+                        _startPos = 0,
+                        _transitionHeight = 0;
+                    classListItem.addEventListener('touchstart', function(e) {
+                        _startPos = e.touches[0].pageY;
+                        classListItem.style.position = 'relative';
+                        classListItem.style.transition = 'transform 0s';
+                    }, false);
+
+                    classListItem.addEventListener('touchmove', function(e) {
+                        _transitionHeight = e.touches[0].pageY - _startPos;
+
+                        if (_transitionHeight > 0 && _transitionHeight < 40) {
+                            _refreshText.innerText = Resources.getInstance().refreshStatus1;
+                            classListItem.style.transform = 'translateY('+_transitionHeight+'px)';
+                            if (_transitionHeight > 35) {
+                                _refreshText.innerText = Resources.getInstance().refreshStatus2;
+                            }
+                        }
+                    }, false);
+                    classListItem.addEventListener('touchend', async (e)=> {
+                        _refreshText.innerText = Resources.getInstance().refreshStatus3;
+                        await this.refreshClassList();
+                    }, false);
+                }
             });
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
@@ -412,9 +464,14 @@ class Home extends Component {
                              style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
                     </div>
                 </div>
-                <LoadingModal loadingModal={this.state.loadingModal}/>
+                <LoadingModal loadingModal={this.state.loadingModalRefresh}/>
+                {
+                    this.state.tab === 'booking' && this.state.booking &&
+                    this.state.booking.length > 0 &&
+                    <p className="pull-status"></p>
+                }
                 {this.state.tab === 'booking' ?
-                    (<div className="home-content">
+                    (<div id="refreshContainer" className="home-content">
                         {this.state.booking.length > 0 ?
                             (<div className="items">
                                 {
