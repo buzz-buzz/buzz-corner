@@ -86,7 +86,7 @@ class My extends Component {
     }
 
     async sms() {
-        try{
+        try {
             const phoneResult = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
@@ -96,7 +96,11 @@ class My extends Component {
             });
 
             if (phoneResult && phoneResult.error) {
-                this.setState({messageModal: true, messageContent: Resources.getInstance().phoneSendWrong, waitSec: 30}, () => {
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().phoneSendWrong,
+                    waitSec: 30
+                }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
                             this.setState({waitSec: this.state.waitSec - 1});
@@ -106,7 +110,11 @@ class My extends Component {
                     }, 1000)
                 });
             } else {
-                this.setState({messageModal: true, messageContent: Resources.getInstance().profileSendSuccess, waitSec: 60}, () =>{
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().profileSendSuccess,
+                    waitSec: 60
+                }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
                             this.setState({waitSec: this.state.waitSec - 1});
@@ -117,8 +125,12 @@ class My extends Component {
                 });
             }
         }
-        catch (e){
-            this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong, waitSec: 10}, () => {
+        catch (e) {
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailSendWrong,
+                waitSec: 10
+            }, () => {
                 const interval = setInterval(() => {
                     if (this.state.waitSec) {
                         this.setState({waitSec: this.state.waitSec - 1});
@@ -134,7 +146,7 @@ class My extends Component {
     }
 
     async sendEmail() {
-        try{
+        try {
             this.setState({waitSec: 60});
 
             let emailResult = await ServiceProxy.proxyTo({
@@ -146,7 +158,11 @@ class My extends Component {
             });
 
             if (emailResult && emailResult.error) {
-                this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong, waitSec: 10}, () => {
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailSendWrong,
+                    waitSec: 10
+                }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
                             this.setState({waitSec: this.state.waitSec - 1});
@@ -156,7 +172,11 @@ class My extends Component {
                     }, 1000)
                 });
             } else {
-                this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong, waitSec: 60}, () =>{
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailUnkonwWrong,
+                    waitSec: 60
+                }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
                             this.setState({waitSec: this.state.waitSec - 1});
@@ -167,8 +187,12 @@ class My extends Component {
                 });
             }
         }
-        catch (e){
-            this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong, waitSec: 10}, () =>{
+        catch (e) {
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailSendWrong,
+                waitSec: 10
+            }, () => {
                 const interval = setInterval(() => {
                     if (this.state.waitSec) {
                         this.setState({waitSec: this.state.waitSec - 1});
@@ -426,12 +450,9 @@ class My extends Component {
                 let profileData = this.validateForm();
 
                 if (this.state.userId) {
-                    await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                            json: profileData,
-                            method: 'PUT'
-                        }
+                    await ServiceProxy.proxy(`/user-info`, {
+                        body: profileData,
+                        method: 'PUT'
                     });
 
                     //check if placement is done
