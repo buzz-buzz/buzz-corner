@@ -35,6 +35,7 @@ export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
 export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
 export const bookingPlacementInfoTitle = '建立能力档案';
 export const bookingPlacementInfoContent = '请建立能力档案，完成后可以为你安排更合适的课程。';
+export const bookingFeedbackToMe = '你的小伙伴赞了你的表现， 快去看看吧。课程主题: ';
 
 export const friendsTabChinese = '中方';
 export const friendsTabForeign = '外籍';
@@ -49,7 +50,7 @@ export const rewardRules = '查看获取规则';
 
 export const myCoins = '我的课时';
 export const myLanguage = '系统语言';
-export const myAccount = '设置账号';
+export const myAccount = '设置密码';
 export const classLessons = '现有课时数';
 export const sessions = '我的课时';
 
@@ -128,6 +129,9 @@ export const classBeginModalTitle = '课程已开始';
 export const classBeginModalContent1 = '马上开始与你的';
 export const classBeginModalContent2 = '小伙伴开始见面吧';
 export const classBeginModalBtn = '立即进入';
+export const classInfoNoAuth = '抱歉，你没有参与此课程哦!';
+export const classZoomDownLoadCenter = '下载中心';
+export const classZoomDownLoadInfo = '点击右上角，选择"在浏览器打开", 下载最新版ZOOM客户端。';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
@@ -162,6 +166,7 @@ export const profileIntroductionHolder = '用简短的话概括你自己';
 export const profileSunmitBtn = '保存';
 export const profileGradeName = '年级';
 export const profileTopicNone = '添加';
+export const profileSendSuccess = '发送成功!';
 
 export const avatarTile = '联系方式';
 export const avatarLabel = '头像';
@@ -177,6 +182,7 @@ export const emailWrong = '邮箱格式不正确!';
 export const emailWrongVerification = '您输入的验证码不正确或过期, 请重新输入或者获取新的验证码!';
 export const emailUnkonwWrong = '若未收到验证码，请查看您的垃圾邮箱中是否存在!';
 export const emailSendWrong = '网络出错, 请稍后重试!';
+export const phoneSendWrong = '发送太过频繁哦, 请稍后重试!';
 
 export const my = '我的';
 export const toggleLanguage = '语言选项';
@@ -303,6 +309,11 @@ export const accountHow = '如何获得账号密码登录？';
 export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
+
+export const refreshStatus1 = '下拉刷新...';
+export const refreshStatus2 = '释放刷新...';
+export const refreshStatus3 = '正在更新...';
+export const refreshStatus4 = '更新完毕...';
 
 export function signInWith(method) {
     return (

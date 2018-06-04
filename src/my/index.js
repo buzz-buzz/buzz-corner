@@ -86,58 +86,124 @@ class My extends Component {
     }
 
     async sms() {
-        const {code} = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-                json: {mobile: this.state.profile.phone},
-                method: 'POST'
-            }
-        })
-        if (code) {
-            this.setState({code});
-        }
-        this.setState({waitSec: 60});
-        const interval = setInterval(() => {
-            if (this.state.waitSec) {
-                this.setState({waitSec: this.state.waitSec - 1});
+        try {
+            const phoneResult = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
+                    json: {mobile: this.state.profile.phone},
+                    method: 'POST'
+                }
+            });
+
+            if (phoneResult && phoneResult.error) {
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().phoneSendWrong,
+                    waitSec: 30
+                }, () => {
+                    const interval = setInterval(() => {
+                        if (this.state.waitSec) {
+                            this.setState({waitSec: this.state.waitSec - 1});
+                        } else {
+                            clearInterval(interval)
+                        }
+                    }, 1000)
+                });
             } else {
-                clearInterval(interval)
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().profileSendSuccess,
+                    waitSec: 60
+                }, () => {
+                    const interval = setInterval(() => {
+                        if (this.state.waitSec) {
+                            this.setState({waitSec: this.state.waitSec - 1});
+                        } else {
+                            clearInterval(interval)
+                        }
+                    }, 1000)
+                });
             }
-        }, 1000)
+        }
+        catch (e) {
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailSendWrong,
+                waitSec: 10
+            }, () => {
+                const interval = setInterval(() => {
+                    if (this.state.waitSec) {
+                        this.setState({waitSec: this.state.waitSec - 1});
+                    } else {
+                        clearInterval(interval)
+                    }
+                }, 1000)
+            });
+        }
+        finally {
+            this.closeMessageModal();
+        }
     }
 
     async sendEmail() {
-        this.setState({waitSec: 60});
+        try {
+            this.setState({waitSec: 60});
 
-        let emailResult = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-                json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
-                method: 'POST'
+            let emailResult = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
+                    json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                    method: 'POST'
+                }
+            });
+
+            if (emailResult && emailResult.error) {
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailSendWrong,
+                    waitSec: 10
+                }, () => {
+                    const interval = setInterval(() => {
+                        if (this.state.waitSec) {
+                            this.setState({waitSec: this.state.waitSec - 1});
+                        } else {
+                            clearInterval(interval)
+                        }
+                    }, 1000)
+                });
+            } else {
+                this.setState({
+                    messageModal: true,
+                    messageContent: Resources.getInstance().emailUnkonwWrong,
+                    waitSec: 60
+                }, () => {
+                    const interval = setInterval(() => {
+                        if (this.state.waitSec) {
+                            this.setState({waitSec: this.state.waitSec - 1});
+                        } else {
+                            clearInterval(interval)
+                        }
+                    }, 1000)
+                });
             }
-        });
-
-        if (emailResult && emailResult.error) {
-            console.log(emailResult);
-            this.setState({messageModal: true, messageContent: Resources.getInstance().emailSendWrong});
+        }
+        catch (e) {
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailSendWrong,
+                waitSec: 10
+            }, () => {
+                const interval = setInterval(() => {
+                    if (this.state.waitSec) {
+                        this.setState({waitSec: this.state.waitSec - 1});
+                    } else {
+                        clearInterval(interval)
+                    }
+                }, 1000)
+            });
+        }
+        finally {
             this.closeMessageModal();
-            const interval = setInterval(() => {
-                if (this.state.waitSec) {
-                    this.setState({waitSec: this.state.waitSec - 1});
-                } else {
-                    clearInterval(interval)
-                }
-            }, 1000)
-        } else {
-            this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
-            this.closeMessageModal();
-            const interval = setInterval(() => {
-                if (this.state.waitSec) {
-                    this.setState({waitSec: this.state.waitSec - 1});
-                } else {
-                    clearInterval(interval)
-                }
-            }, 1000)
         }
     }
 
@@ -384,12 +450,9 @@ class My extends Component {
                 let profileData = this.validateForm();
 
                 if (this.state.userId) {
-                    await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                            json: profileData,
-                            method: 'PUT'
-                        }
+                    await ServiceProxy.proxy(`/user-info`, {
+                        body: profileData,
+                        method: 'PUT'
                     });
 
                     //check if placement is done

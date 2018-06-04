@@ -165,6 +165,11 @@ class classDetail extends Component {
         if (this.state.interval) {
             clearInterval(this.state.interval);
         }
+
+        this.setState({loadingModal: false});
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     componentWillMount(){
@@ -196,6 +201,13 @@ class classDetail extends Component {
                 studentsList.push(class_info.students[i].id);
             }
 
+            //auth check
+            if(class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1){
+                alert(Resources.getInstance().classInfoNoAuth);
+                browserHistory.push('/');
+                return;
+            }
+
             let avatars = await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
@@ -224,9 +236,17 @@ class classDetail extends Component {
             }
 
             //get exercise
+            let params = {
+                module: class_info.module,
+                topic: class_info.topic,
+                topic_level: class_info.topic_level,
+                level: profile.level
+            };
+
             let class_content =  await ServiceProxy.proxyTo({
                     body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser?module=${class_info.module}&topic=${class_info.topic}&topic_level=${class_info.topic_level}&level=${profile.level}`
+                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
+                        qs: params
                     }
                 }) || {};
 
