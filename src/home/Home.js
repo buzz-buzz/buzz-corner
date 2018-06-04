@@ -178,6 +178,14 @@ class Home extends Component {
         });
     }
 
+    async getClassFeedbackNotice(user_id) {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/msg/user/${user_id}?type=advisor`
+            }
+        });
+    }
+
     transformDay(day) {
         return TimeHelper.getWeekdayNameByIndex(day);
     }
@@ -332,7 +340,7 @@ class Home extends Component {
 
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
-                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
+                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'BuzzBuzz'),
                             message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                             goUrl: '/class/foreign/' + item.class_id + '?tab=message',
                             hasRead: result && result.feedback ? 'read' : ''
@@ -343,9 +351,25 @@ class Home extends Component {
                 return item;
             }));
 
+            let classFeedbackNotice = await this.getClassFeedbackNotice(userId);
+
+            classFeedbackNotice.map((item, index) => {
+                clonedMessageFromAdvisor.push({
+                    message_title: item.from_name || 'Advisor',
+                    message_content: Resources.getInstance().bookingFeedbackToMe + (item.class_topic || 'BuzzBuzz'),
+                    message_avatar: item.from_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
+                    goUrl:  `/evaluation/${item.from_user_id}/${item.to_user_id}/${item.class_id}?tab=message&msg_id=${item.msg_id}`,
+                    hasRead: item.read? 'read' : ''
+                });
+
+                return item;
+            });
+
             let messageCheck = clonedMessageFromAdvisor.filter(function (item) {
                 return item.hasRead !== 'read';
             });
+
+            //sort clonedMessageFromAdvisor
 
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
@@ -355,7 +379,7 @@ class Home extends Component {
                 role: profile.role,
                 userId: userId
             }, ()=>{
-                //滚动条到页面底部加载更多code  单页专用
+                //滚动条到页面底部加载more
                 function getClientHeight() {
                     if(document.body.clientHeight&&document.documentElement.clientHeight)
                     {
@@ -378,10 +402,6 @@ class Home extends Component {
                         console.log('到底了');
                     }else{
                         //滚动条距离顶部的高度小于等于0 TODO
-                        //alert("下拉刷新，要在这调用啥方法？");
-                        console.log('滚动条距离顶部', scrollTop);
-                        console.log('可视的高度', clientHeight);
-                        console.log('页面总高度', scrollHeight);
                     }
                 }
 
