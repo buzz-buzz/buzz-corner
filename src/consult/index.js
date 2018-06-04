@@ -4,6 +4,7 @@ import Track from "../common/track";
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import QiniuDomain from '../common/systemData/qiniuUrl';
+import {browserHistory} from 'react-router';
 import {MemberType} from "../membership/member-type";
 import './index.css';
 
@@ -21,8 +22,7 @@ class Consult extends Component {
     back() {
         Track.event('顾问_顾问页面返回');
 
-        //window.history.go(-1);
-        window.history.go(-1);
+        browserHistory.push('/home');
     }
 
     async componentDidMount() {

@@ -265,12 +265,9 @@ class UserUpdate extends Component {
 
             let profileData = this.validateForm();
 
-            await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.profile.user_id}`,
-                    json: profileData,
-                    method: 'PUT'
-                }
+            await ServiceProxy.proxy(`/user-info`, {
+                body: profileData,
+                method: 'PUT'
             });
         }
 
