@@ -35,6 +35,7 @@ export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
 export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
 export const bookingPlacementInfoTitle = '建立能力档案';
 export const bookingPlacementInfoContent = '请建立能力档案，完成后可以为你安排更合适的课程。';
+export const bookingFeedbackToMe = '你的小伙伴赞了你的表现， 快去看看吧。课程主题: ';
 
 export const friendsTabChinese = '中方';
 export const friendsTabForeign = '外籍';

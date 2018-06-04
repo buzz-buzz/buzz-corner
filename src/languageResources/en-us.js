@@ -36,6 +36,7 @@ export const bookingFeedbackNotice = 'Finish the feedback for ';
 export const bookingFeedbackInfo = 'Finished the feedback for ';
 export const bookingPlacementInfoTitle = 'Placement test';
 export const bookingPlacementInfoContent = 'Finish the test for free';
+export const bookingFeedbackToMe = 'Your partner gives you a feedback, go and have a look. the topic is : ';
 
 export const friendsTabChinese = 'Student';
 export const friendsTabForeign = 'Tutor';

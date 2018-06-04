@@ -18,6 +18,7 @@ class classEvaluationResult extends Component {
         super(props);
 
         this.state = {
+            msg_id: props.location.query.msg_id,
             class_id: props.params.class_id,
             from_user_id: props.params.from_user_id,
             to_user_id: props.params.to_user_id,
@@ -143,6 +144,16 @@ class classEvaluationResult extends Component {
                 evaluation: evaluation,
                 posterModal: true
             });
+
+            if(this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null'){
+                ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/msg`,
+                        json: {msg_id: this.state.msg_id, read: 1},
+                        method: 'POST'
+                    }
+                });
+            }
         } catch (ex) {
             //login error
             console.log("evaluation:" + ex.toString());
