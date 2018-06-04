@@ -56,27 +56,27 @@ class Home extends Component {
     }
 
     clickEventClassDetail(e, item) {
-        try{
-            if(window.event){
+        try {
+            if (window.event) {
                 window.event.preventDefault();
             }
 
             Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
-            if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
-                 window.location.href = window.location.href.replace('http', 'https').replace('/home', "/class/" + item.class_id);
-            }else{
+            if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
+                window.location.href = window.location.href.replace('http', 'https').replace('/home', "/class/" + item.class_id);
+            } else {
                 window.location.href = "/class/" + item.class_id;
             }
         }
-        catch (e){
+        catch (e) {
 
         }
 
     }
 
     clickEventPlacement(e, item) {
-        if(window.event){
+        if (window.event) {
             window.event.preventDefault();
         }
 
@@ -174,6 +174,14 @@ class Home extends Component {
         return ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/class-feedback/evaluate/${class_id}`
+            }
+        });
+    }
+
+    async getClassFeedbackNotice(user_id) {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/msg/user/${user_id}?type=advisor`
             }
         });
     }
@@ -290,9 +298,9 @@ class Home extends Component {
 
                 if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
                     let new_url;
-                    if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+                    if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
                         new_url = window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
-                    }else{
+                    } else {
                         new_url = '/placement?tab=message';
                     }
 
@@ -306,7 +314,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async(item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
                         clonedMessageFromAdvisor.push({
@@ -332,7 +340,7 @@ class Home extends Component {
 
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
-                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
+                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'BuzzBuzz'),
                             message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
                             goUrl: '/class/foreign/' + item.class_id + '?tab=message',
                             hasRead: result && result.feedback ? 'read' : ''
@@ -343,16 +351,61 @@ class Home extends Component {
                 return item;
             }));
 
+            let classFeedbackNotice = await this.getClassFeedbackNotice(userId);
+
+            classFeedbackNotice.map((item, index) => {
+                clonedMessageFromAdvisor.push({
+                    message_title: item.from_name || 'Advisor',
+                    message_content: Resources.getInstance().bookingFeedbackToMe + (item.class_topic || 'BuzzBuzz'),
+                    message_avatar: item.from_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
+                    goUrl:  `/evaluation/${item.from_user_id}/${item.to_user_id}/${item.class_id}?tab=message&msg_id=${item.msg_id}`,
+                    hasRead: item.read? 'read' : ''
+                });
+
+                return item;
+            });
+
             let messageCheck = clonedMessageFromAdvisor.filter(function (item) {
                 return item.hasRead !== 'read';
             });
+
+            //sort clonedMessageFromAdvisor
 
             this.setState({
                 messageFromAdvisor: clonedMessageFromAdvisor,
                 booking: classList,
                 messageRead: messageCheck && messageCheck.length > 0,
                 loadingModal: false,
-                role: profile.role
+                role: profile.role,
+                userId: userId
+            }, ()=>{
+                //滚动条到页面底部加载more
+                function getClientHeight() {
+                    if(document.body.clientHeight&&document.documentElement.clientHeight)
+                    {
+                        return (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+                    } else {
+                        return (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+                    }
+                }
+
+                function winScroll (){
+                    let scrollTop = document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;    //滚动条距离顶部的高度
+                    let scrollHeight = getClientHeight();   //当前页面的总高度
+                    let clientHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);    //当前可视的页面高度
+                    // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
+                    if(scrollTop +  scrollHeight>= clientHeight){   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;
+                        //获取下一页 todo
+                        console.log('滚动条距离顶部', scrollTop);
+                        console.log('可视的高度', clientHeight);
+                        console.log('页面总高度', scrollHeight);
+                        console.log('到底了');
+                    }else{
+                        //滚动条距离顶部的高度小于等于0 TODO
+                    }
+                }
+
+                window.addEventListener('scroll', winScroll);
             });
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
@@ -402,7 +455,10 @@ class Home extends Component {
                         }}/>
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
-                            <div style={this.state.messageRead ? {width: '25px', display: 'inline-block'} : {display: 'none'}}></div>
+                            <div style={this.state.messageRead ? {
+                                    width: '25px',
+                                    display: 'inline-block'
+                                } : {display: 'none'}}></div>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
@@ -414,7 +470,7 @@ class Home extends Component {
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
-                    (<div className="home-content">
+                    (<div id="refreshContainer" className="home-content">
                         {this.state.booking.length > 0 ?
                             (<div className="items">
                                 {
@@ -451,9 +507,10 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png"
+                                         alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{ this.state.role === MemberType.Student? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
+                                    <p>{ this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
                     </div>) :
@@ -470,8 +527,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                    return ele.hasRead === '';
-                                }).length + ')' : '')}</p>
+                                        return ele.hasRead === '';
+                                    }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
@@ -503,6 +560,10 @@ class Home extends Component {
                                                         </div>
                                                     </Link>
                                                 })
+                                            }
+                                            {
+                                                this.state.messageFromAdvisor.length &&
+                                                <div className="loadmore"></div>
                                             }
                                         </div>
                                     ))

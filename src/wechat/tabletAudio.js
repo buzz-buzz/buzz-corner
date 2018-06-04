@@ -1,28 +1,8 @@
-import ServiceProxy from '../service-proxy'
+import ServiceProxy from '../service-proxy';
 
-export const TabletAudioStatus = {
-    notStarted: 'not started',
-    startingRecording: 'starting recording',
-    stoppingRecording: 'stopping recording',
-    uploadingRecording: 'uploading recording',
-    uploadingToQiniu: 'uploading to qiniu',
-    doneRecording: 'done recording',
-    playingSound: 'playing sound',
-    stoppingSound: 'stopping sound'
-};
-
-//window.MediaSource = window.MediaSource || window.WebKitMediaSource;
-// let mediaSource = new MediaSource();
-// mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs = [];
 let recordReadyStatus = false;
-
-
-// function handleSourceOpen(event) {
-//     mediaSource.addSourceBuffer('audio/webm');
-// }
-
 
 function handleSuccess(stream) {
     window.stream = stream;
@@ -45,12 +25,7 @@ function handleStop(event) {
 }
 
 export default class TabletAudio {
-    status = TabletAudioStatus.notStarted;
-
-
     constructor() {
-        this.status = TabletAudioStatus.notStarted;
-        this.localId = null;
         this.validBlobs = [];
     }
 
@@ -60,13 +35,9 @@ export default class TabletAudio {
     }
 
     async stopRecording() {
-        this.status = TabletAudioStatus.stoppingRecording;
-
         await mediaRecorder.stop();
 
         this.validBlobs = recordedBlobs;
-
-        console.log('stop record...');
 
         return this.validBlobs;
     }
@@ -74,15 +45,14 @@ export default class TabletAudio {
 
     async startRecording() {
         if(recordReadyStatus){
-            this.status = TabletAudioStatus.startingRecording;
             recordedBlobs = [];
             let options = {mimeType: 'audio/webm'};
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
-                options = {mimeType: 'video/webm;codecs=vp8'};
+                options = {mimeType: 'audio/webm;codecs=vp8'};
                 if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                     console.log(options.mimeType + ' is not Supported');
-                    options = {mimeType: 'video/webm'};
+                    options = {mimeType: 'audio/webm'};
                     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                         console.log(options.mimeType + ' is not Supported');
                         options = {mimeType: ''};
@@ -108,15 +78,12 @@ export default class TabletAudio {
     play(){
         let audioNow = document.createElement('audio');
         let superBuffer = new Blob(this.validBlobs, {type: 'audio/mp3'});
-        //recordedVideo.src = window.URL.createObjectURL(superBuffer);
         audioNow.muted = false;
         audioNow.src = window.URL.createObjectURL(superBuffer);
         audioNow.play();
     }
 
     async getQiniuLink() {
-        this.status = TabletAudioStatus.uploadingToQiniu;
-
         //qiniu upload
         let qiniu_token = await ServiceProxy.proxyTo({
             body: {
@@ -150,7 +117,6 @@ export default class TabletAudio {
             url = qiniu_token.resources_url + result.key;
         }
 
-        this.status = TabletAudioStatus.doneRecording;
         return url || ''
     }
 

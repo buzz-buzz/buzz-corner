@@ -296,7 +296,7 @@ export default class Practice extends React.Component {
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
                                     <div className="talktext" style={{padding: '0'}}>
-                                        <embed src="http://cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
+                                        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
                                                width="80"
                                                height="33"
                                                type="image/svg+xml"

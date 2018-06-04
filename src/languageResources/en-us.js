@@ -36,6 +36,7 @@ export const bookingFeedbackNotice = 'Finish the feedback for ';
 export const bookingFeedbackInfo = 'Finished the feedback for ';
 export const bookingPlacementInfoTitle = 'Placement test';
 export const bookingPlacementInfoContent = 'Finish the test for free';
+export const bookingFeedbackToMe = 'Your partner gives you a feedback, go and have a look. the topic is : ';
 
 export const friendsTabChinese = 'Student';
 export const friendsTabForeign = 'Tutor';
@@ -50,7 +51,7 @@ export const rewardRules = 'See the rules';
 
 export const myCoins = 'My Sessions';
 export const myLanguage = 'Language';
-export const myAccount = 'Set Account';
+export const myAccount = 'Set Password';
 export const classLessons = 'Available sessions';
 export const sessions = 'Sessions';
 
@@ -129,6 +130,9 @@ export const classBeginModalTitle = 'Session starts';
 export const classBeginModalContent1 = 'Let\'s talk';
 export const classBeginModalContent2 = 'with your peers';
 export const classBeginModalBtn = 'Enter session';
+export const classInfoNoAuth = 'Sorry，you have no access to this class!';
+export const classZoomDownLoadCenter = 'Download center';
+export const classZoomDownLoadInfo = 'Click on the upper right corner and select "Open in Browser" to download the latest version of the ZOOM client.';
 
 export const advisorInfo1 = 'Hi, I am your private advisor.';
 export const advisorInfo2 = 'Please scan the QR code to contact me.';
@@ -163,6 +167,7 @@ export const profileIntroductionHolder = 'Write a short introduction about yours
 export const profileSunmitBtn = 'Continue';
 export const profileGradeName = 'Grade';
 export const profileTopicNone = 'Add';
+export const profileSendSuccess = 'Send successfully!';
 
 export const avatarTile = 'Contact Information';
 export const avatarLabel = 'Avatar';
@@ -178,6 +183,7 @@ export const emailWrong = 'Email is wrong!';
 export const emailWrongVerification = 'The verification code is incorrect. Please re-enter or get a new one.';
 export const emailUnkonwWrong = 'If you have not received the verification code, please check your spam.';
 export const emailSendWrong = 'Network error, please try again later!';
+export const phoneSendWrong = 'Please try again later!';
 
 export const my = 'My';
 export const toggleLanguage = 'Language selector';
@@ -304,6 +310,11 @@ export const accountHow = 'How to get my account？';
 export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
+
+export const refreshStatus1 = 'Pull down refresh......';
+export const refreshStatus2 = 'Release refresh...';
+export const refreshStatus3 = 'Updating...';
+export const refreshStatus4 = 'Updated...';
 
 export function signInWith(method) {
     return (
