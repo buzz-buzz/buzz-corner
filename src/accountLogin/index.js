@@ -9,6 +9,7 @@ import Resources from '../resources';
 import './index.css';
 import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
+import URLHelper from "../common/url-helper";
 
 class AccountLogin extends Component {
     constructor() {
@@ -70,7 +71,13 @@ class AccountLogin extends Component {
             });
 
             this.setState({loadingModal: false}, () => {
-                browserHistory.push('/');
+                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
+
+                if (returnUrl) {
+                    window.location.href = returnUrl;
+                } else {
+                    browserHistory.push('/');
+                }
             });
         } catch (ex) {
             console.error(ex);
