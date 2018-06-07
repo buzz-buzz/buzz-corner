@@ -34,7 +34,8 @@ export default class Practice extends React.Component {
     }
 
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        console.log('reReply', buttonIndex ,this.state.replies.length - 1, this.state.replies.length);
+        Track.event(this.props.audioUpload ? '测试_点击音频重新录制' : '课程详情_点击音频重新录制');
+
         this.setState({recording: true, currentReplying: buttonIndex, recordingStartTime: new Date().getTime()}, () => {
             this.props.recordingChanged(this.state.recording);
         });
@@ -121,7 +122,7 @@ export default class Practice extends React.Component {
             });
         }
 
-        this.setState({replies}, ()=> {
+        this.setState({replies}, () => {
             window.scrollTo(0, document.documentElement.clientHeight);
         });
     }
@@ -165,9 +166,9 @@ export default class Practice extends React.Component {
             } catch (ex) {
                 audioReady = false;
             }
-        }else{
+        } else {
             try {
-                audioReady  = await TabletAudio.init();
+                audioReady = await TabletAudio.init();
             } catch (ex) {
                 audioReady = false;
             }
@@ -228,10 +229,10 @@ export default class Practice extends React.Component {
                                                             :
                                                             Client.showComponent(<div className="talktext"
                                                                                       onTouchStart={() => this.play(i)}>
-                                                                {
-                                                                    this.renderAudio(i)
-                                                                }
-                                                            </div>,
+                                                                    {
+                                                                        this.renderAudio(i)
+                                                                    }
+                                                                </div>,
                                                                 <div className="talktext"
                                                                      onClick={() => this.play(i)}>
                                                                     {
@@ -291,16 +292,19 @@ export default class Practice extends React.Component {
 
                             < div className="practise-advisor chat message">
                                 <div>
-                                    <Image avatar src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt="avatar"/>
+                                    <Image avatar
+                                           src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                                           alt="avatar"/>
                                 </div>
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
                                     <div className="talktext" style={{padding: '0'}}>
-                                        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
-                                               width="80"
-                                               height="33"
-                                               type="image/svg+xml"
-                                               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+                                        <embed
+                                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
+                                            width="80"
+                                            height="33"
+                                            type="image/svg+xml"
+                                            pluginspage="http://www.adobe.com/svg/viewer/install/"/>
                                     </div>
                                 </div>
                             </div>
