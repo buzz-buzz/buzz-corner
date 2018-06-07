@@ -54,7 +54,6 @@ class classDetail extends Component {
         };
 
         this.back = this.back.bind(this);
-        this.getCompanionInfo = this.getCompanionInfo.bind(this);
         this.checkStatusAndTime = this.checkStatusAndTime.bind(this);
         this.recordingChanged = this.recordingChanged.bind(this);
         this.cancelRecording = this.cancelRecording.bind(this);
@@ -139,10 +138,6 @@ class classDetail extends Component {
         return classInfo;
     }
 
-    getCompanionInfo(userId) {
-
-    }
-
     checkStatusAndTime() {
         if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             this.showZoom();
@@ -187,21 +182,17 @@ class classDetail extends Component {
 
             let profile = await CurrentUser.getProfile(true);
 
-            let class_info = await  ServiceProxy.proxyTo({
+            let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
                 }
-            });
-
-            class_info = this.handleClassInfoData(class_info[0]);
-
-            let studentsList = [];
+            }))[0]), studentsList = [], classBegin = false;
 
             for (let i in class_info.students) {
                 studentsList.push(class_info.students[i].id);
             }
 
-            //auth check
+            //if User is not in this class
             if(class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1){
                 alert(Resources.getInstance().classInfoNoAuth);
                 browserHistory.push('/');
@@ -216,37 +207,31 @@ class classDetail extends Component {
                     }
                 }) || [];
 
-            let classBegin = false;
-
             if((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0){
                 classBegin = true;
             }
 
             let companion_country = '';
             if(class_info.companions){
-                let companion_id = class_info.companions.split(',')[0];
-
-                class_info.companions = companion_id;
+                class_info.companions = class_info.companions.split(',')[0];
 
                 companion_country = (await ServiceProxy.proxyTo({
                     body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                        uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
                     }
-                })).country;
+                })).country || 'untied states';
             }
 
             //get exercise
-            let params = {
-                module: class_info.module,
-                topic: class_info.topic,
-                topic_level: class_info.topic_level,
-                level: profile.level
-            };
-
             let class_content =  await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
-                        qs: params
+                        qs: {
+                            module: class_info.module || null,
+                            topic: class_info.topic || null,
+                            topic_level: class_info.topic_level || null,
+                            level: profile.level || null
+                        }
                     }
                 }) || {};
 

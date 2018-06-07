@@ -7,6 +7,7 @@ import Resources from '../resources';
 import Footer from '../layout/footer';
 import Welcome from '../common/commonComponent/modalWelcome';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import LoadingMore from '../common/commonComponent/loadingMore';
 import TimeHelper from '../common/timeHelper';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
@@ -526,6 +527,7 @@ class Home extends Component {
                                     <p>{ this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
+                        <LoadingMore loadingMore={false} />
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
