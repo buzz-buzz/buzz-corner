@@ -245,6 +245,22 @@ class Home extends Component {
         return class_list;
     }
 
+    RemoveTouchEventIfAndroid(){
+        let u = window.navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
+        if (isAndroid) {
+            document.getElementById('booking-btn').addEventListener('touchstart', this.state.touchEvent, false);
+        }
+    }
+
+    checkHttpsIfNeed(){
+        if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
+            return  window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
+        } else {
+            return  '/placement?tab=message';
+        }
+    }
+
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
@@ -252,11 +268,7 @@ class Home extends Component {
             this.setState({loadingModal: true, fullModal: true});
 
             //check system
-            let u = window.navigator.userAgent;
-            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
-            if (isAndroid) {
-                document.getElementById('booking-btn').addEventListener('touchstart', this.state.touchEvent, false);
-            }
+            this.RemoveTouchEventIfAndroid();
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);
@@ -279,36 +291,22 @@ class Home extends Component {
 
             this.setState({fullModal: false});
 
-            let classList = await this.getUserClassList(userId, profile.role);
-
-            classList = classList.filter(function (ele) {
+            let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
                 return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
-            });
-
-            classList = this.handleClassListData(classList);
+            })));
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
-
-            classList = this.sortClassList(classList);
-
 
             //if this is a student, then check placement test
             if (profile.role && profile.role === MemberType.Student) {
                 let placementResult = await this.getPlacementResult(userId);
 
                 if (!placementResult || !placementResult.detail || placementResult.detail.length < 20) {
-                    let new_url;
-                    if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
-                        new_url = window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
-                    } else {
-                        new_url = '/placement?tab=message';
-                    }
-
                     clonedMessageFromAdvisor.push({
                         message_title: Resources.getInstance().bookingPlacementInfoTitle,
                         message_content: Resources.getInstance().bookingPlacementInfoContent,
                         message_avatar: '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                        goUrl: new_url,
+                        goUrl: this.checkHttpsIfNeed(),
                         hasRead: ''
                     });
                 }
@@ -358,32 +356,8 @@ class Home extends Component {
                 userId: userId,
                 messageFromAdvisor: clonedMessageFromAdvisor,
             }, async() => {
-                //滚动条到页面底部加载more
-                function getClientHeight() {
-                    if (document.body.clientHeight && document.documentElement.clientHeight) {
-                        return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-                    } else {
-                        return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-                    }
-                }
-
-                function winScroll() {
-                    let scrollTop = document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;    //滚动条距离顶部的高度
-                    let scrollHeight = getClientHeight();   //当前页面的总高度
-                    let clientHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);    //当前可视的页面高度
-                    // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
-                    if (scrollTop + scrollHeight >= clientHeight) {   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;
-                        //获取下一页 todo
-                        console.log('滚动条距离顶部', scrollTop);
-                        console.log('可视的高度', clientHeight);
-                        console.log('页面总高度', scrollHeight);
-                        console.log('到底了');
-                    } else {
-                        //滚动条距离顶部的高度小于等于0 TODO
-                    }
-                }
-
-                window.addEventListener('scroll', winScroll);
+                //TODO 滚动条到页面底部加载more 分頁api
+                this.loadMoreEvent();
             });
 
             await this.handleFeedbackNotifications(userId, clonedMessageFromAdvisor);
@@ -423,6 +397,34 @@ class Home extends Component {
             messageFromAdvisor: clonedMessageFromAdvisor,
             messageRead: messageCheck && messageCheck.length > 0,
         })
+    }
+
+    loadMoreEvent(){
+        function getClientHeight() {
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            } else {
+                return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            }
+        }
+
+        function winScroll() {
+            let scrollTop = document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;    //滚动条距离顶部的高度
+            let scrollHeight = getClientHeight();   //当前页面的总高度
+            let clientHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);    //当前可视的页面高度
+            // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
+            if (scrollTop + scrollHeight >= clientHeight) {   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;
+                //获取下一页 todo
+                //console.log('滚动条距离顶部', scrollTop);
+                //console.log('可视的高度', clientHeight);
+                //console.log('页面总高度', scrollHeight);
+                console.log('到底了');
+            } else {
+                //滚动条距离顶部的高度小于等于0 TODO
+            }
+        }
+
+        window.addEventListener('scroll', winScroll);
     }
 
     componentWillUnmount() {

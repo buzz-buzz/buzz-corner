@@ -334,6 +334,7 @@
     position: absolute;
     width: 100%;
     cursor: pointer;
+    display: none;
 }
 
 .chat.message {
@@ -365,6 +366,7 @@
     padding-right: 60px;
     text-align: right;
     margin: -10px 0 5px 0;
+    cursor: pointer;
 }
 
 .talktext > p{
