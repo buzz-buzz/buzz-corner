@@ -52,10 +52,10 @@ router
             }
         }, ctx.request.body));
     })
-    .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string', async ctx => {
+    .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
     })
-    .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string', async ctx => {
+    .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         await wechat.login(false, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)

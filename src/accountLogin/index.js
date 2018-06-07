@@ -30,7 +30,6 @@ class AccountLogin extends Component {
     back() {
         Track.event('账号密码登录页面返回');
 
-        //window.history.go(-1);
         window.history.go(-1);
     }
 
@@ -75,7 +74,11 @@ class AccountLogin extends Component {
             });
         } catch (ex) {
             console.error(ex);
-            this.setState({messageModal: true, messageContent: Resources.getInstance().accountLoginFailed, loadingModal: false});
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().accountLoginFailed,
+                loadingModal: false
+            });
             this.closeMessageModal();
         }
     }

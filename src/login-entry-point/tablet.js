@@ -16,7 +16,7 @@ class LoginRole extends Component {
 
         this.state = {
             role: RoleDesider.getRole(),
-            active: MemberType.Student
+            active: RoleDesider.getRole()
         };
 
         this.facebookLogin = this.facebookLogin.bind(this);
@@ -65,7 +65,7 @@ class LoginRole extends Component {
     }
 
     componentDidMount() {
-        if (window.WxLogin) {
+        if (this.state.active === MemberType.Student) {
             this.createCode();
         }
     }
@@ -84,7 +84,7 @@ class LoginRole extends Component {
                             Resources.getInstance().loginTabletWord : 'Make friends, earn cool rewards, learn new languages, be a leader!'}</div>
                         <div className="items">
                             <img
-                                src={this.state.active === 's' ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
+                                src={this.state.active === MemberType.Student ? QiniuDomain + "/tablet/icon_WeChat_active.png" : QiniuDomain + "/tablet/icon_WeChat.png"}
                                 alt="" onClick={this.changeWechatLogin}/>
                             {
                                 this.state.role === MemberType.Companion &&

@@ -1,5 +1,3 @@
-const config = require('../config');
-
 let clearCookieOption = {
     expires: new Date(1970, 1, 1),
     path: '/',

@@ -53,8 +53,6 @@ module.exports = {
         try {
             let accessTokenResponse = await getAccessToken(isMobile, code);
 
-            ctx.body = accessTokenResponse;
-            return;
             await handleAccessTokenResult(accessTokenResponse, ctx, base64_callback_origin, base64_query_string);
         } catch (e) {
             console.error(e);
