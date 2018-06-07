@@ -34,6 +34,7 @@ export default class Practice extends React.Component {
     }
 
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
+        console.log('reReply', buttonIndex ,this.state.replies.length - 1, this.state.replies.length);
         this.setState({recording: true, currentReplying: buttonIndex, recordingStartTime: new Date().getTime()}, () => {
             this.props.recordingChanged(this.state.recording);
         });
@@ -53,7 +54,6 @@ export default class Practice extends React.Component {
         } else {
             this.state.replies[buttonIndex].recordAudio.play();
             //is playing && and the ended event
-            console.log(this.state.recordingEndTime - this.state.recordingStartTime);
             this.setState({repliesPlaying: buttonIndex});
             window.setTimeout(() => {
                 this.setState({repliesPlaying: -1});
@@ -71,7 +71,7 @@ export default class Practice extends React.Component {
         })
 
         if (this.state.currentReplying < this.state.replies.length - 1) {
-            await this.state.replies[this.state.replies.length - 1].recordAudio.stopRecording();
+            await this.state.replies[this.state.currentReplying].recordAudio.stopRecording();
             return;
         }
 
@@ -95,7 +95,7 @@ export default class Practice extends React.Component {
 
         } else {
 
-            await this.state.replies[this.state.replies.length - 1].recordAudio.stopRecording()
+            await this.state.replies[this.state.currentReplying].recordAudio.stopRecording()
 
             // 等待 2 秒，形成一种对方正在回复的感觉
             this.setState({
@@ -112,8 +112,8 @@ export default class Practice extends React.Component {
         }
 
         let replies = this.state.replies;
-        replies[replies.length - 1].text = 'replying';
-        replies[replies.length - 1].answered = true;
+        replies[this.state.currentReplying].text = 'replying';
+        replies[this.state.currentReplying].answered = true;
 
         if (this.props.chats.length > this.state.replies.length) {
             replies.push({
