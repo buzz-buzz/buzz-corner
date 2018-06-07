@@ -28,13 +28,13 @@ class SelectRoleTablet extends Component {
     async chineseChildEntrance() {
         this.setState({loadingModal: true});
         Track.event('注册/登录_点击中方');
-        browserHistory.push(`/sign-in?role=${MemberType.Student}&return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
+        browserHistory.push(`/sign-in?role=${MemberType.Student}&return_url=${encodeURIComponent(URLHelper.getSearchParam(window.location.search, 'return_url'))}`);
     }
 
     foreignChildEntrance() {
         this.setState({loadingModal: true});
         Track.event('注册/登录_点击外籍');
-        browserHistory.push(`/sign-in?role=${MemberType.Companion}&return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`)
+        browserHistory.push(`/sign-in?role=${MemberType.Companion}&return_url=${encodeURIComponent(URLHelper.getSearchParam(window.location.search, 'return_url'))}`)
     }
 
     goVideoPlayPage() {
