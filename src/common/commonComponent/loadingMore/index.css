@@ -1,0 +1,8 @@
+.loading-more {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .loading-more img {
+    height: 30px; }
