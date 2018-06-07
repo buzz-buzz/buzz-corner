@@ -41,8 +41,8 @@ class SelectRole extends Component {
         Track.event('注册/登录_欢迎页');
     }
 
-    loginAccount(){
-        browserHistory.push('/login/account');
+    loginAccount() {
+        browserHistory.push(`/login/account?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
     }
 
     render() {
@@ -80,7 +80,7 @@ class SelectRole extends Component {
                         </div>
                     </div>
                     <div className="login-forgotten">
-                        <span onClick={this.loginAccount} >账号密码登录</span>
+                        <span onClick={this.loginAccount}>账号密码登录</span>
                     </div>
                 </div>
                 <div className="preview-video">

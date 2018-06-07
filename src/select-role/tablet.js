@@ -21,8 +21,8 @@ class SelectRoleTablet extends Component {
         this.loginAccount = this.loginAccount.bind(this);
     }
 
-    loginAccount(){
-        browserHistory.push('/login/account');
+    loginAccount() {
+        browserHistory.push(`/login/account?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
     }
 
     async chineseChildEntrance() {
@@ -49,27 +49,34 @@ class SelectRoleTablet extends Component {
     render() {
         return (
             <div className="login-entrance-tablet">
-                <TabletHeader />
+                <TabletHeader/>
                 <div className="entrance-tablet">
                     <div className="role-choose-tablet">
                         <div className="btn-content">
                             <div className="btn-title">{Resources.getInstance().welcomePageIntroductionLineOne}</div>
                             <div className="btns">
-                                <button onClick={this.foreignChildEntrance}>{Resources.getInstance().welcomePageForeignChild}</button>
-                                <button onClick={this.chineseChildEntrance}>{Resources.getInstance().welcomePageChineseChild}</button>
-                                <span style={{ color: '#4a90e2', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer'}}
-                                      onClick={this.loginAccount} >{Resources.getInstance().accountPasswordLogin}</span>
+                                <button
+                                    onClick={this.foreignChildEntrance}>{Resources.getInstance().welcomePageForeignChild}</button>
+                                <button
+                                    onClick={this.chineseChildEntrance}>{Resources.getInstance().welcomePageChineseChild}</button>
+                                <span style={{
+                                    color: '#4a90e2',
+                                    fontSize: '10px',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer'
+                                }}
+                                      onClick={this.loginAccount}>{Resources.getInstance().accountPasswordLogin}</span>
                             </div>
                         </div>
                     </div>
                     <div className="role-choose-video">
-                        <img src={ QiniuDomain + "/tablet/header-bg.png"} alt=""/>
+                        <img src={QiniuDomain + "/tablet/header-bg.png"} alt=""/>
                         <div className="icon-play" onClick={this.goVideoPlayPage}>
-                            <img src={ QiniuDomain + "/tablet/icon_video.png"} alt=""/>
+                            <img src={QiniuDomain + "/tablet/icon_video.png"} alt=""/>
                         </div>
                     </div>
                 </div>
-                <TabletFooter />
+                <TabletFooter/>
             </div>
         );
     }
