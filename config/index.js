@@ -12,7 +12,8 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [532]
+        superUsers: [532],
+
     },
 
     staging: {
@@ -34,7 +35,9 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [56]
+        superUsers: [56],
+
+        rootDomain: '.buzzbuzzenglish.com'
     },
     production: {
         endPoints: {
@@ -47,7 +50,8 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [3]
+        superUsers: [3],
+        rootDomain: '.buzzbuzzenglish.com'
     }
 };
 

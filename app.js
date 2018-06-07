@@ -19,6 +19,7 @@ const mac = new qiniu.auth.digest.Mac(config_qiniu.ACCESS_KEY, config_qiniu.SECR
 const putPolicy = new qiniu.rs.PutPolicy({
     scope: config_qiniu.bucket
 });
+const setCookieParser = require('set-cookie-parser');
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -46,11 +47,34 @@ router
             ;
         }
 
-        ctx.body = await oldRequest(Object.assign({
-            headers: {
-                'X-Requested-With': 'buzz-corner'
-            }
-        }, ctx.request.body));
+        let response = await new Promise((resolve, reject) => {
+            oldRequest(Object.assign({
+                headers: {
+                    'X-Requested-With': 'buzz-corner',
+                    resolveWithFullResponse: true
+                }
+            }, ctx.request.body), (err, response, body) => {
+                if (err) {
+                    reject(err);
+                } else if (response.statusCode !== 200) {
+                    reject(body);
+                } else {
+                    resolve(response)
+                }
+            })
+        });
+
+        setCookieParser.parse(response, {
+            decodeValues: true
+        }).map(cookie => {
+            cookie.domain = config.rootDomain;
+            return cookie;
+        }).map(cookie => {
+            ctx.cookies.set(cookie.name, cookie.value, cookie);
+            return cookie;
+        });
+
+        ctx.body = response.body;
     })
     .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
