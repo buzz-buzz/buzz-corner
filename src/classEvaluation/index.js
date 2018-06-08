@@ -219,13 +219,11 @@ class classEvaluation extends Component {
                 companion_country = user_profile.country || '';
             }else{
                 if(class_info.companions){
-                    let companion_id = class_info.companions.split(',')[0];
-
-                    class_info.companions = companion_id;
+                    class_info.companions = class_info.companions.split(',')[0];
 
                     companion_country = (await ServiceProxy.proxyTo({
                         body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/users/${companion_id}?t=${new Date().getTime()}`
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
                         }
                     })).country;
                 }
