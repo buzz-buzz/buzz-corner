@@ -12,6 +12,7 @@ import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
+import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
 import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
@@ -128,10 +129,22 @@ class classEvaluation extends Component {
         }];
     }
 
+    closeModalSubmitInfo(){
+        if(this.state.modalSubmit){
+            const interval = setTimeout(() => {
+                if (this.state.modalSubmit) {
+                    this.setState({modalSubmit: false});
+                }
+
+                clearTimeout(interval);
+            }, 2000)
+        }
+    }
+
     async submitEvaluation() {
         try {
             if (!(!this.state.stars || !this.state.evaluation_content)) {
-                this.setState({loadingModal: true});
+                this.setState({modalSubmit: true, modalSubmitStatus: 1});
 
                 //post data
                 let evaluationData = this.validateForm();
@@ -145,12 +158,15 @@ class classEvaluation extends Component {
                 });
 
                 Track.event('课后评价_课后评价完成点击');
-                this.setState({evaluation_status: true, loadingModal: false});
+                this.setState({evaluation_status: true, modalSubmit: true, modalSubmitStatus: 3});
             }
         }
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
-            this.setState({loadingModal: false});
+            this.setState({modalSubmit: true, modalSubmitStatus: 2}, () => {
+                this.closeModalSubmitInfo();
+            });
+
             Track.event('错误_课后评价完成点击后提交出错', null, {"类型": "错误", "错误内容": ex.toString()});
         }
     }
@@ -318,6 +334,7 @@ class classEvaluation extends Component {
                         </Form>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
+                    <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit} />
                 </div>
             </div>
         );

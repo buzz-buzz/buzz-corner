@@ -315,6 +315,10 @@ export const refreshStatus2 = '释放刷新...';
 export const refreshStatus3 = '正在更新...';
 export const refreshStatus4 = '更新完毕...';
 
+export const submitModalSuccess = '提交成功';
+export const submitModalLoading = '加载中...';
+export const submitModalFailed = '提交失败';
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>

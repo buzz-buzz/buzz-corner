@@ -316,6 +316,10 @@ export const refreshStatus2 = 'Release refresh...';
 export const refreshStatus3 = 'Updating...';
 export const refreshStatus4 = 'Updated...';
 
+export const submitModalSuccess = 'Success!';
+export const submitModalLoading = 'Loading...';
+export const submitModalFailed = 'Failed!';
+
 export function signInWith(method) {
     return (
         <span>SIGN IN WITH <strong>{method}</strong></span>
