@@ -77,12 +77,10 @@ export default class WechatOAuthSuccess extends React.Component {
             return;
         }
 
+        let base64QueryString = this.decodeBase64QueryString();
+        this.setState({role: URLHelper.getSearchParam(base64QueryString, 'role')});
+
         try {
-            let base64QueryString = URLHelper.getSearchParam(window.location.search, 'base64_query_string');
-            if (base64QueryString) {
-                base64QueryString = atob(base64QueryString);
-            }
-            this.setState({role: URLHelper.getSearchParam(base64QueryString, 'role')});
             await this.loginOldUser(this.state.wechatUserInfo);
         } catch (ex) {
             await this.loginNewUser(ex, this.state.wechatUserInfo);
@@ -99,7 +97,7 @@ export default class WechatOAuthSuccess extends React.Component {
                 }
             }));
 
-            let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+            let returnUrl = URLHelper.getSearchParam(base64QueryString, 'return_url');
 
             if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
                 this.completeProfile(returnUrl);
@@ -108,7 +106,19 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         } catch (ex) {
             console.log('login failed: ' + ex.toString());
-        } finally {
+        }
+    }
+
+    decodeBase64QueryString() {
+        try {
+            let base64QueryString = URLHelper.getSearchParam(window.location.search, 'base64_query_string');
+            if (base64QueryString) {
+                base64QueryString = atob(base64QueryString);
+            }
+            return base64QueryString;
+        }catch(ex){
+            console.error(ex);
+            return '';
         }
     }
 
