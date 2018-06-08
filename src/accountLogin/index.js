@@ -74,7 +74,7 @@ class AccountLogin extends Component {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
 
                 if (returnUrl) {
-                    window.location.href = returnUrl;
+                    window.location.href = decodeURIComponent(returnUrl);
                 } else {
                     browserHistory.push('/');
                 }
