@@ -158,12 +158,14 @@ class classEvaluation extends Component {
                 });
 
                 Track.event('课后评价_课后评价完成点击');
-                this.setState({evaluation_status: true, modalSubmit: true, modalSubmitStatus: 3});
+                this.setState({evaluation_status: true, modalSubmit: true, modalSubmitStatus: 2}, () => {
+                    this.closeModalSubmitInfo();
+                });
             }
         }
         catch (ex) {
             console.log('post evaluation data err:' + ex.toString());
-            this.setState({modalSubmit: true, modalSubmitStatus: 2}, () => {
+            this.setState({modalSubmit: true, modalSubmitStatus: 3}, () => {
                 this.closeModalSubmitInfo();
             });
 
