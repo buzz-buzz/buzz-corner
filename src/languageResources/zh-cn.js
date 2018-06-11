@@ -132,6 +132,8 @@ export const classBeginModalBtn = '立即进入';
 export const classInfoNoAuth = '抱歉，你没有参与此课程哦!';
 export const classZoomDownLoadCenter = '下载中心';
 export const classZoomDownLoadInfo = '点击右上角，选择"在浏览器打开", 下载最新版ZOOM客户端。';
+export const classZoomJoin = '加入Zoom会议';
+export const classZoomJoinInfo = '点击右上角，选择"在浏览器打开", 即可马上加入Zoom会议。';
 
 export const advisorInfo1 = '我是你的私人课程助教';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
