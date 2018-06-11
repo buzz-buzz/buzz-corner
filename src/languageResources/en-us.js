@@ -133,6 +133,8 @@ export const classBeginModalBtn = 'Enter session';
 export const classInfoNoAuth = 'Sorry，you have no access to this class!';
 export const classZoomDownLoadCenter = 'Download center';
 export const classZoomDownLoadInfo = 'Click on the upper right corner and select "Open in Browser" to download the latest version of the ZOOM client.';
+export const classZoomJoin = 'Join in a Zoom meeting';
+export const classZoomJoinInfo = 'Click on the upper right corner and select "Open in Browser" to join in the Zoom meeting.';
 
 export const advisorInfo1 = 'Hi, I am your private advisor.';
 export const advisorInfo2 = 'Please scan the QR code to contact me.';

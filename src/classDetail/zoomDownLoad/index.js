@@ -3,12 +3,6 @@ import Resources from '../../resources';
 import './index.css';
 
 export default class ZoomDownLoad extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
     componentWillMount(){
         if(!/MicroMessenger/.test(navigator.userAgent)){
             window.location.href = 'https://zoom.us/download';

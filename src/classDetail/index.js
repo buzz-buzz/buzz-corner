@@ -153,7 +153,25 @@ class classDetail extends Component {
     }
 
     showZoom() {
-        window.location.href = this.state.class_info.room_url;
+        //URL Scheme
+        const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
+        let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
+
+        if(/MicroMessenger/.test(navigator.userAgent)){
+            //提示在浏览器中打开
+            browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
+        }else if(ua_info && ua_info.platform === 'mobile'){
+            //window.location.href = this.state.class_info.room_url;
+            window.location.href = `zoomus://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
+            setTimeout(function() {
+                window.location.href = 'https://zoom.us/download';
+            }, 2000);
+        }else{
+            window.location.href = `zoommtg://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
+            setTimeout(function() {
+                window.location.href = 'https://zoom.us/download';
+            }, 2000);
+        }
     }
 
     componentWillUnmount() {
@@ -250,7 +268,8 @@ class classDetail extends Component {
                 classBeginModal: classBegin,
                 companion_country: companion_country,
                 class_content_tab: profile.role === MemberType.Student ?  'practice' :  'class_file',
-                class_content: class_content
+                class_content: class_content,
+                user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz'
             });
         }
         catch (ex) {

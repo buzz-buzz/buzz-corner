@@ -188,6 +188,7 @@ router
     .get('/account/about', membership.ensureAuthenticated, serveSPA)
     .get('/login/account', serveSPA)
     .get('/zoom', serveSPA)
+    .get('/zoom-join', serveSPA)
 ;
 
 app
