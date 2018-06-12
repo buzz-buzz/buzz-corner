@@ -48,35 +48,40 @@ router
             ;
         }
 
-        let response = await new Promise((resolve, reject) => {
-            oldRequest(Object.assign({
-                headers: {
-                    'X-Requested-With': 'buzz-corner',
-                    resolveWithFullResponse: true
-                }
-            }, ctx.request.body), (err, response, body) => {
-                if (err) {
-                    reject(err);
-                } else if (response.statusCode !== 200) {
-                    reject(body);
-                } else {
-                    resolve(response)
-                }
-            })
-        });
+        try {
+            let response = await new Promise((resolve, reject) => {
+                oldRequest(Object.assign({
+                    headers: {
+                        'X-Requested-With': 'buzz-corner',
+                        resolveWithFullResponse: true
+                    }
+                }, ctx.request.body), (err, response, body) => {
+                    if (err) {
+                        reject(err);
+                    } else if (response.statusCode >= 300 || response.statusCode < 200) {
+                        reject(response);
+                    } else {
+                        resolve(response)
+                    }
+                })
+            });
 
-        setCookieParser.parse(response, {
-            decodeValues: true
-        }).map(cookie => {
-            cookie.domain = config.rootDomain;
-            
-            return cookie;
-        }).map(cookie => {
-            ctx.cookies.set(cookie.name, cookie.value, cookie);
-            return cookie;
-        });
+            setCookieParser.parse(response, {
+                decodeValues: true
+            }).map(cookie => {
+                cookie.domain = config.rootDomain;
 
-        ctx.body = response.body;
+                return cookie;
+            }).map(cookie => {
+                ctx.cookies.set(cookie.name, cookie.value, cookie);
+                return cookie;
+            });
+
+            ctx.body = response.body;
+        } catch (ex) {
+            console.error(ex.statusCode, ex.body)
+            ctx.throw(ex.statusCode, ex.body)
+        }
     })
     .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
