@@ -69,7 +69,21 @@ router
             setCookieParser.parse(response, {
                 decodeValues: true
             }).map(cookie => {
-                cookie.domain = config.rootDomain;
+                if (ctx.headers.referer) {
+                    let parsed = url.parse(ctx.headers.referer, true);
+                    console.log('parsed referer = ', parsed);
+
+                    let returnUrl = decodeURIComponent(parsed.query.return_url);
+                    console.log('return url = ', returnUrl);
+
+                    if (returnUrl) {
+                        let parsedReturnUrl = url.parse(returnUrl);
+                        console.log('parsed return url = ', parsedReturnUrl);
+                        if (parsedReturnUrl.hostname) {
+                            cookie.domain = parsedReturnUrl.hostname;
+                        }
+                    }
+                }
 
                 return cookie;
             }).map(cookie => {
