@@ -73,10 +73,19 @@ router
                     let parsed = url.parse(ctx.headers.referer, true);
                     console.log('parsed referer = ', parsed);
 
-                    let returnUrl = decodeURIComponent(parsed.query.return_url);
-                    console.log('return url = ', returnUrl);
+                    let encodedReturnURL = parsed.query.return_url;
 
-                    if (returnUrl) {
+                    if (!encodedReturnURL && parsed.query.base64_query_string) {
+                        let qs = new Buffer(parsed.query.base64_query_string, 'base64').toString('ascii');
+                        parsed = url.parse(qs);
+
+                        encodedReturnURL = parsed.query.return_url;
+                    }
+
+                    if (encodedReturnURL) {
+                        let returnUrl = decodeURIComponent(encodedReturnURL);
+                        console.log('return url = ', returnUrl);
+
                         let parsedReturnUrl = url.parse(returnUrl);
                         console.log('parsed return url = ', parsedReturnUrl);
                         if (parsedReturnUrl.hostname) {
