@@ -20,6 +20,7 @@ const putPolicy = new qiniu.rs.PutPolicy({
     scope: config_qiniu.bucket
 });
 const setCookieParser = require('set-cookie-parser');
+const url = require('url');
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -68,6 +69,19 @@ router
             decodeValues: true
         }).map(cookie => {
             cookie.domain = config.rootDomain;
+
+            if (ctx.headers.referer) {
+                let parsed = url.parse(ctx.headers.referer, true);
+                let returnUrl = decodeURIComponent(parsed.query.return_url);
+
+                if (returnUrl) {
+                    let parsedReturnUrl = url.parse(returnUrl);
+                    if (parsedReturnUrl.hostname) {
+                        cookie.domain = parsedReturnUrl.hostname
+                    }
+                }
+            }
+
             return cookie;
         }).map(cookie => {
             ctx.cookies.set(cookie.name, cookie.value, cookie);
