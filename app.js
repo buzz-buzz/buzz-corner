@@ -77,7 +77,7 @@ router
 
                     if (!encodedReturnURL && parsed.query.base64_query_string) {
                         let qs = new Buffer(parsed.query.base64_query_string, 'base64').toString('ascii');
-                        parsed = url.parse(qs);
+                        parsed = url.parse(qs, true);
 
                         encodedReturnURL = parsed.query.return_url;
                     }
@@ -88,8 +88,8 @@ router
 
                         let parsedReturnUrl = url.parse(returnUrl);
                         console.log('parsed return url = ', parsedReturnUrl);
-                        if (parsedReturnUrl.hostname) {
-                            cookie.domain = parsedReturnUrl.hostname;
+                        if (parsedReturnUrl.host) {
+                            cookie.domain = parsedReturnUrl.host;
                         }
                     }
                 }
@@ -97,6 +97,13 @@ router
                 return cookie;
             }).map(cookie => {
                 ctx.cookies.set(cookie.name, cookie.value, cookie);
+
+                let option = Object.assign({}, cookie, {domain: config.rootDomain});
+                ctx.cookies.set(cookie.name, cookie.value, option);
+
+                option = Object.assign({}, cookie, {domain: undefined});
+                ctx.cookies.set(cookie.name, cookie.value, option);
+
                 return cookie;
             });
 
