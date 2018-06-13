@@ -30,11 +30,18 @@ class User extends Component {
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.switchToOtherUser = this.switchToOtherUser.bind(this);
         this.showUserInfo = this.showUserInfo.bind(this);
+        this.signOut = this.signOut.bind(this);
         this.goUpdateProfile = this.goUpdateProfile.bind(this);
     }
 
     showUserInfo(){
         browserHistory.push('/user/' + this.state.userId);
+    }
+
+    signOut(){
+        this.setState({signOutModal: true}, () => {
+            browserHistory.push('/sign-out');
+        });
     }
 
     goUpdateProfile(){
@@ -75,6 +82,7 @@ class User extends Component {
                         <div className="edit-img" onClick={this.goUpdateProfile}>
                             <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
                         </div>
+                        <div className="sign-out" onClick={this.signOut}>切换账号</div>
                     </div>
                     <div className="user-menu">
                         {
