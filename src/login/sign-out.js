@@ -1,6 +1,7 @@
 import * as React from "react";
 import ServiceProxy from "../service-proxy";
 import {browserHistory} from "react-router";
+import LoadingModal from '../common/commonComponent/loadingModal';
 
 export default class SignOut extends React.Component {
     async componentWillMount() {
@@ -13,6 +14,6 @@ export default class SignOut extends React.Component {
     }
 
     render() {
-        return <div>Signing out...</div>
+        return <LoadingModal loadingModal={true} fullScreen={true}/>
     }
 }
