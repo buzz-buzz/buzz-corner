@@ -322,6 +322,11 @@ export const submitModalSuccess = 'Success!';
 export const submitModalLoading = 'Loading...';
 export const submitModalFailed = 'Failed!';
 
+export const popTitle = 'Attention';
+export const popInfo = 'Do you want to sign out of this account?';
+export const popCancel = 'Cancel';
+export const popSure = 'Sure';
+
 export function signInWith(method) {
     return (
         <span>SIGN IN WITH <strong>{method}</strong></span>

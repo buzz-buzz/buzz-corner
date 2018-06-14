@@ -321,6 +321,11 @@ export const submitModalSuccess = '提交成功';
 export const submitModalLoading = '加载中...';
 export const submitModalFailed = '提交失败';
 
+export const popTitle = '注意';
+export const popInfo = '确认要退出此账号吗？';
+export const popCancel = '取消';
+export const popSure = '确认';
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>

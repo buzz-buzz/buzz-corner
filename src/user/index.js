@@ -11,6 +11,7 @@ import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
 import QiniuDomain from '../common/systemData/qiniuUrl';
+import PopModal from '../common/commonComponent/popModal';
 
 class User extends Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class User extends Component {
         this.switchToOtherUser = this.switchToOtherUser.bind(this);
         this.showUserInfo = this.showUserInfo.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.closePopModal = this.closePopModal.bind(this);
+        this.openPopModal = this.openPopModal.bind(this);
         this.goUpdateProfile = this.goUpdateProfile.bind(this);
     }
 
@@ -39,9 +42,17 @@ class User extends Component {
     }
 
     signOut(){
-        this.setState({signOutModal: true}, () => {
+        this.setState({signOutModal: false}, () => {
             browserHistory.push('/sign-out');
         });
+    }
+
+    closePopModal(){
+        this.setState({signOutModal: false});
+    }
+
+    openPopModal(){
+        this.setState({signOutModal: true});
     }
 
     goUpdateProfile(){
@@ -70,6 +81,7 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
+                <PopModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal} />
                 <div className="user-content">
                     <div className="user-my">
                         <div className="user-avatar" onClick={this.showUserInfo}>
@@ -82,7 +94,7 @@ class User extends Component {
                         <div className="edit-img" onClick={this.goUpdateProfile}>
                             <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
                         </div>
-                        <div className="sign-out" onClick={this.signOut}>切换账号</div>
+                        <div className="sign-out" onClick={this.openPopModal}>切换账号</div>
                     </div>
                     <div className="user-menu">
                         {
