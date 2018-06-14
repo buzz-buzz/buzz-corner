@@ -9,6 +9,7 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
+import PopModal from '../../common/commonComponent/popModal';
 import ModifyContact from '../modifyContact';
 import UpdateTopicModal from '../updateModal';
 import {browserHistory} from 'react-router';
@@ -67,6 +68,8 @@ class UserUpdate extends Component {
         this.sendEmail = this.sendEmail.bind(this);
         this.modifyCheck = this.modifyCheck.bind(this);
         this.handleContactChange = this.handleContactChange.bind(this);
+        this.checkIfSetAccount = this.checkIfSetAccount.bind(this);
+        this.closePopModal = this.closePopModal.bind(this);
     }
 
     back(){
@@ -201,10 +204,28 @@ class UserUpdate extends Component {
         }
     }
 
+
+
     showModifyContact(){
         let clonedContact = this.state.modifyContactModal;
 
-        this.setState({modifyContactModal: !clonedContact});
+        if(this.state.popModal){
+            this.setState({modifyContactModal: !clonedContact, popModal: false});
+        }else{
+            this.setState({modifyContactModal: !clonedContact});
+        }
+    }
+
+    checkIfSetAccount(){
+        if(this.state.profile.password && (this.state.profile.phone || this.state.profile.email)){
+            this.setState({popModal: true});
+        }else{
+            this.showModifyContact();
+        }
+    }
+
+    closePopModal(){
+        this.setState({popModal: false});
     }
 
     topicChange(event) {
@@ -404,13 +425,18 @@ class UserUpdate extends Component {
             school: userData.school_name || '',
             country: userData.country || '',
             time_zone: userData.time_zone || '',
-            avatar: userData.avatar || QiniuDomain + '/logo-image.svg'
+            avatar: userData.avatar || QiniuDomain + '/logo-image.svg',
+            password: userData.password
         };
     }
 
     render() {
         return (
             <div className="profile-update">
+                <PopModal cancel={this.closePopModal} sure={this.showModifyContact} modal={this.state.popModal}
+                          sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                          info={Resources.getInstance().popUserUpdateAccountInfo} title={Resources.getInstance().popTitle}
+                />
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
@@ -578,7 +604,7 @@ class UserUpdate extends Component {
                         <div className="update-left">
                             <span>{ this.state.profile.role === MemberType.Student?  Resources.getInstance().phoneLabel : 'Email'}</span>
                         </div>
-                        <div className="update-right"  onClick={this.showModifyContact}>
+                        <div className="update-right"  onClick={this.checkIfSetAccount}>
                             <span>{ this.state.profile.role === MemberType.Student ? this.state.profile.phone : this.state.profile.email}</span>
                             <i className="icon-icon_back_down"/>
                         </div>

@@ -326,6 +326,8 @@ export const popInfo = '确认要退出此账号吗？';
 export const popCancel = '取消';
 export const popSure = '确认';
 
+export const popUserUpdateAccountInfo = '该绑定手机/邮箱已设置账号密码，若更换绑定，则会自动以新的手机号为登录账号';
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>
