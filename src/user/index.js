@@ -81,7 +81,10 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
-                <PopModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal} />
+                <PopModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                          sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                          info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
+                />
                 <div className="user-content">
                     <div className="user-my">
                         <div className="user-avatar" onClick={this.showUserInfo}>
