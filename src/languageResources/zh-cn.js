@@ -321,6 +321,8 @@ export const submitModalSuccess = '提交成功';
 export const submitModalLoading = '加载中...';
 export const submitModalFailed = '提交失败';
 
+export const checkoutAccount = '切换账号';
+
 export const popTitle = '注意';
 export const popInfo = '确认要退出此账号吗？';
 export const popCancel = '取消';

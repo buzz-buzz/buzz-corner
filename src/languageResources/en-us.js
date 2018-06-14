@@ -322,6 +322,8 @@ export const submitModalSuccess = 'Success!';
 export const submitModalLoading = 'Loading...';
 export const submitModalFailed = 'Failed!';
 
+export const checkoutAccount = 'Switch account';
+
 export const popTitle = 'Attention';
 export const popInfo = 'Do you want to sign out of this account?';
 export const popCancel = 'Cancel';

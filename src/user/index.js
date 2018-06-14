@@ -97,7 +97,7 @@ class User extends Component {
                         <div className="edit-img" onClick={this.goUpdateProfile}>
                             <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
                         </div>
-                        <div className="sign-out" onClick={this.openPopModal}>切换账号</div>
+                        <div className="sign-out" onClick={this.openPopModal}>{Resources.getInstance().checkoutAccount}</div>
                     </div>
                     <div className="user-menu">
                         {
