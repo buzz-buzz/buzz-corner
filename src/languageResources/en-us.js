@@ -327,7 +327,8 @@ export const popInfo = 'Do you want to sign out of this account?';
 export const popCancel = 'Cancel';
 export const popSure = 'Sure';
 
-export const popUserUpdateAccountInfo = 'The binding phone/e-mail has been set up with an account and password. If the phone/e-mail changed, the new phone/e-mail will be used as the login account automatically.';
+export const popUserUpdateAccountInfo = 'The binding phone number has been set up with an account and password. If the phone changed, the new phone number will be used as the login account automatically.';
+export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up with an account and password. If the e-mail changed, the new e-mail address will be used as the login account automatically.';
 
 export function signInWith(method) {
     return (
