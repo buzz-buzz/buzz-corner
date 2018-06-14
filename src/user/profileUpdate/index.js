@@ -435,7 +435,8 @@ class UserUpdate extends Component {
             <div className="profile-update">
                 <PopModal cancel={this.closePopModal} sure={this.showModifyContact} modal={this.state.popModal}
                           sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
-                          info={Resources.getInstance().popUserUpdateAccountInfo} title={Resources.getInstance().popTitle}
+                          info={ this.state.profile.phone ?  Resources.getInstance().popUserUpdateAccountInfo : Resources.getInstance().popUserUpdateAccountInfoEmail }
+                          title={Resources.getInstance().popTitle}
                 />
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
