@@ -42,6 +42,8 @@ class User extends Component {
     }
 
     signOut(){
+        Track.event('我的_点击切换账号');
+
         this.setState({signOutModal: false}, () => {
             browserHistory.push('/sign-out');
         });
@@ -56,6 +58,8 @@ class User extends Component {
     }
 
     goUpdateProfile(){
+        Track.event('我的_编辑个人信息按钮点击');
+
         browserHistory.push('/user-profile');
     }
 

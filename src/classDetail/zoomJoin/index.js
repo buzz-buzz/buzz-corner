@@ -1,5 +1,6 @@
 import React from 'react';
 import Resources from '../../resources';
+import Track from "../../common/track";
 import './index.css';
 
 export default class ZoomDownJoin extends React.Component {
@@ -7,6 +8,8 @@ export default class ZoomDownJoin extends React.Component {
         const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
 
         if(!/MicroMessenger/.test(navigator.userAgent)){
+            Track.event('课程详情_进入教室唤醒Zoom客户端');
+
             if(ua_info && ua_info.platform === 'mobile'){
                 //window.location.href = this.state.class_info.room_url;
                 window.location.href = `zoomus://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;

@@ -75,7 +75,7 @@ class classDetail extends Component {
     }
 
     companionCenter(){
-        Track.event('外籍头像点击');
+        Track.event('课程详情_外籍头像点击');
 
         if(this.state.class_info.companions){
             browserHistory.push('/user/' + this.state.class_info.companions);
@@ -140,9 +140,13 @@ class classDetail extends Component {
 
     checkStatusAndTime() {
         if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
+            Track.event('课程详情_进入课程点击');
+
             this.showZoom();
         } else {
             if (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) {
+                Track.event('课程详情_课后评价点击');
+
                 if (this.state.role === MemberType.Student) {
                     browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
                 } else if (this.state.role === MemberType.Companion) {

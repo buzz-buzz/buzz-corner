@@ -6,6 +6,7 @@ import {GradeData} from "../../common/systemData/gradeData";
 import Hobby from '../../my/hobby';
 import {Topics} from "../../common/systemData/topicData";
 import {MemberType} from "../../membership/member-type";
+import Track from "../../common/track";
 import './index.css';
 import ServiceProxy from "../../service-proxy";
 
@@ -45,6 +46,8 @@ class UserShow extends Component {
     }
 
     async componentWillMount(){
+        Track.event('用户中心_用户中心展示');
+
         //topics
         let user_profile = await ServiceProxy.proxyTo({
             body: {
