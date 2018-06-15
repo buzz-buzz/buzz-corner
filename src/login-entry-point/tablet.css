@@ -48,7 +48,8 @@
       .login-entry-point .login-entry-content .login-right-code .code {
         height: 380px;
         width: 300px;
-        border-radius: 10px; }
+        border-radius: 10px;
+        overflow: hidden; }
       .login-entry-point .login-entry-content .login-right-code .facebook-logo {
         height: 120px;
         width: 120px;
