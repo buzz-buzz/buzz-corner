@@ -157,7 +157,7 @@ class classEvaluation extends Component {
                     }
                 });
 
-                Track.event('课后评价_课后评价完成点击');
+                Track.event( this.state.role === MemberType.Student ?  '课后评价_中方课后评价完成点击' : '课后评价_外籍课后评价完成点击');
                 this.setState({evaluation_status: true, modalSubmit: true, modalSubmitStatus: 2}, () => {
                     this.closeModalSubmitInfo();
                 });
@@ -176,12 +176,12 @@ class classEvaluation extends Component {
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
-            Track.event('课后评价_课后评价页面');
-
             this.setState({loadingModal: true});
 
             let profile = await CurrentUser.getProfile(true);
             let userId = profile.user_id;
+
+            Track.event( profile.role === MemberType.Student ?  '课后评价_中方课后评价页面' : '课后评价_外籍课后评价页面');
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -240,7 +240,8 @@ class classEvaluation extends Component {
                     evaluation_status: true,
                     userId: userId,
                     loadingModal: false,
-                    companion_country: companion_country
+                    companion_country: companion_country,
+                    role: profile.role
                 });
             } else {
                 //set state
@@ -250,7 +251,8 @@ class classEvaluation extends Component {
                     companion_avatar: class_info.companion_avatar || '',
                     userId: userId,
                     loadingModal: false,
-                    companion_country: companion_country
+                    companion_country: companion_country,
+                    role: profile.role
                 });
             }
         } catch (ex) {

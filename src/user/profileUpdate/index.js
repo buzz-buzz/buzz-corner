@@ -16,6 +16,7 @@ import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
 import CurrentUser from "../../membership/user";
 import ServiceProxy from '../../service-proxy';
+import Track from "../../common/track";
 import './index.css';
 import '../../common/Icon/style.css';
 
@@ -394,6 +395,8 @@ class UserUpdate extends Component {
     };
 
     async componentWillMount(){
+        Track.event('我的_修改资料页面展示');
+
         let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
         if (!profile.role) {
             browserHistory.push('/select-role');

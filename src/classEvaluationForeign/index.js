@@ -36,14 +36,19 @@ class classEvaluationForeign extends Component {
 
         this.back = this.back.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
+        this.track = this.track.bind(this);
     }
 
     back() {
         window.history.go(-1);
     }
 
+    track(){
+        Track.event('课后评价_点击任意中方进行评价');
+    }
+
     companionCenter(){
-        Track.event('外籍头像点击');
+        Track.event('课后评价_外籍头像点击');
 
         if(this.state.class_info.companions){
             browserHistory.push('/user/' + this.state.class_info.companions);
@@ -74,6 +79,8 @@ class classEvaluationForeign extends Component {
 
     async componentDidMount() {
         try {
+            Track.event('课后评价_外籍课后评价列表页面');
+
             this.setState({loadingModal: true});
 
             let userId = await CurrentUser.getUserId();
@@ -176,7 +183,7 @@ class classEvaluationForeign extends Component {
                     <div className="chinese-student-evaluation-list">
                         {this.state.evaluation_list && this.state.evaluation_list.length &&
                         this.state.evaluation_list.map((item, index) => {
-                            return <Link to={item.url} key={index}>
+                            return <Link to={item.url} key={index} onClick={this.track}>
                                 <div className="evaluation-avatar">
                                     <img src={item.avatar}
                                          alt="loading"/>
