@@ -66,7 +66,7 @@ class classDetail extends Component {
         this.lookFile = this.lookFile.bind(this);
     }
 
-    closeClassBegin(){
+    closeClassBegin() {
         this.setState({classBeginModal: false});
     }
 
@@ -74,30 +74,38 @@ class classDetail extends Component {
         window.history.go(-1);
     }
 
-    companionCenter(){
+    companionCenter() {
         Track.event('课程详情_外籍头像点击');
 
-        if(this.state.class_info.companions){
+        if (this.state.class_info.companions) {
             browserHistory.push('/user/' + this.state.class_info.companions);
         }
     }
 
-    classContentOne(){
-        if(this.state.class_content_tab !== 'practice'){
+    classContentOne() {
+        if (this.state.class_content_tab !== 'practice') {
             this.setState({class_content_tab: 'practice'});
         }
     }
 
-    classContentTwo(){
-        if(this.state.class_content_tab !== 'class_file'){
+    classContentTwo() {
+        if (this.state.class_content_tab !== 'class_file') {
             this.setState({class_content_tab: 'class_file'});
         }
     }
 
-    lookFile(e, item){
-        if(item.indexOf('.pdf') <= -1){
+    fileLink(item) {
+        if (item.indexOf('.pdf') <= -1) {
+            return item;
+        } else {
+            return 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
+        }
+    }
+
+    lookFile(e, item) {
+        if (item.indexOf('.pdf') <= -1) {
             window.location.href = item;
-        }else{
+        } else {
             window.location.href = 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
         }
     }
@@ -120,8 +128,8 @@ class classDetail extends Component {
             + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
         classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
             + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
+            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours()) + ' : '
+            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes());
         classInfo.companions = classInfo.companions ? classInfo.companions.split(',')[0] : '';
 
         let students = classInfo.students ? classInfo.students.split(',') : [];
@@ -161,18 +169,18 @@ class classDetail extends Component {
         const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
         let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-        if(/MicroMessenger/.test(navigator.userAgent)){
+        if (/MicroMessenger/.test(navigator.userAgent)) {
             //提示在浏览器中打开
             browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
-        }else if(ua_info && ua_info.platform === 'mobile'){
+        } else if (ua_info && ua_info.platform === 'mobile') {
             //window.location.href = this.state.class_info.room_url;
             window.location.href = `zoomus://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.href = 'https://zoom.us/download';
             }, 2000);
-        }else{
+        } else {
             window.location.href = `zoommtg://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.href = 'https://zoom.us/download';
             }, 2000);
         }
@@ -184,14 +192,14 @@ class classDetail extends Component {
         }
 
         this.setState({loadingModal: false});
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         //如果是tablet 并且不在微信中  跳转至https
-        if(Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 ){
+        if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
             window.location.href = window.location.href.replace('http', 'https');
         }
     }
@@ -215,47 +223,47 @@ class classDetail extends Component {
             }
 
             //if User is not in this class
-            if(class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1){
+            if (class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1) {
                 alert(Resources.getInstance().classInfoNoAuth);
                 browserHistory.push('/');
                 return;
             }
 
             let avatars = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
-                        json: {userIdList: studentsList},
-                        method: 'POST'
-                    }
-                }) || [];
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
+                    json: {userIdList: studentsList},
+                    method: 'POST'
+                }
+            }) || [];
 
-            if((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0){
+            if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
                 classBegin = true;
             }
 
             let companion_country = '';
-            if(class_info.companions){
+            if (class_info.companions) {
                 class_info.companions = class_info.companions.split(',')[0];
 
                 companion_country = (await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
                     }
-                })).country || 'untied states';
+                })).country || 'united states';
             }
 
             //get exercise
-            let class_content =  await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
-                        qs: {
-                            module: class_info.module || null,
-                            topic: class_info.topic || null,
-                            topic_level: class_info.topic_level || null,
-                            level: profile.level || null
-                        }
+            let class_content = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
+                    qs: {
+                        module: class_info.module || null,
+                        topic: class_info.topic || null,
+                        topic_level: class_info.topic_level || null,
+                        level: profile.level || null
                     }
-                }) || {};
+                }
+            }) || {};
 
             this.setState({
                 class_info: class_info,
@@ -271,7 +279,7 @@ class classDetail extends Component {
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 classBeginModal: classBegin,
                 companion_country: companion_country,
-                class_content_tab: profile.role === MemberType.Student ?  'practice' :  'class_file',
+                class_content_tab: profile.role === MemberType.Student ? 'practice' : 'class_file',
                 class_content: class_content,
                 user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz'
             });
@@ -293,7 +301,7 @@ class classDetail extends Component {
 
         if (this.practice) {
             this.practice.cancelReply();
-        }else if(this.tabletPractice){
+        } else if (this.tabletPractice) {
             this.tabletPractice.cancelReply();
         }
     }
@@ -304,7 +312,7 @@ class classDetail extends Component {
         console.log('end reply');
         if (this.practice) {
             this.practice.endReply();
-        }else if(this.tabletPractice){
+        } else if (this.tabletPractice) {
             this.tabletPractice.endReply();
         }
 
@@ -317,9 +325,9 @@ class classDetail extends Component {
         minutes = Math.floor((this.state.left - days * 3600 * 24 - hours * 3600) / 60);
         seconds = Math.floor(this.state.left - days * 3600 * 24 - hours * 3600 - minutes * 60);
 
-        if(days === 0){
-            return   (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes) + ':' + (seconds > 9 ? seconds : '0' + seconds);
-        }else{
+        if (days === 0) {
+            return (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes) + ':' + (seconds > 9 ? seconds : '0' + seconds);
+        } else {
             return '';
         }
     }
@@ -327,12 +335,14 @@ class classDetail extends Component {
     render() {
         return (
             <div className="class-detail">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle}/>
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
+                            <Avatar
+                                src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
+                            <Flag
+                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -351,17 +361,19 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
-                    <ClassAd />
+                    <ClassAd/>
                 </div>
-                <div className="class-detail-practice" style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60*24 ? {marginBottom: '50px'} : {}}>
+                <div className="class-detail-practice"
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {marginBottom: '50px'} : {}}>
                     {
                         this.state.role === MemberType.Student &&
                         <div>
-                            <div className="class-detail-tab" style={this.state.class_content && (this.state.class_content.student_textbook || this.state.class_content.tutor_textbook) ? {} : {display: 'none'}}>
+                            <div className="class-detail-tab"
+                                 style={this.state.class_content && (this.state.class_content.student_textbook || this.state.class_content.tutor_textbook) ? {} : {display: 'none'}}>
                                 <div className={this.state.class_content_tab === 'practice' ? "active" : ""}
-                                     onClick={this.classContentOne} >{Resources.getInstance().classDetailBeforeClassExercise}</div>
+                                     onClick={this.classContentOne}>{Resources.getInstance().classDetailBeforeClassExercise}</div>
                                 <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
-                                     onClick={this.classContentTwo} >{Resources.getInstance().classDetailBeforeClassContent}</div>
+                                     onClick={this.classContentTwo}>{Resources.getInstance().classDetailBeforeClassContent}</div>
                             </div>
                             <div className="line-middle"></div>
                         </div>
@@ -371,7 +383,7 @@ class classDetail extends Component {
                         <div>
                             <div className="class-detail-tab">
                                 <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
-                                     >{Resources.getInstance().classDetailBeforeClassContent}</div>
+                                >{Resources.getInstance().classDetailBeforeClassContent}</div>
                             </div>
                             <div className="line-middle"></div>
                         </div>
@@ -387,46 +399,69 @@ class classDetail extends Component {
                         this.state.class_content_tab === 'class_file' &&
                         <div className="class_content_file">
                             {
-                                this.state.role ===  MemberType.Student &&
+                                this.state.role === MemberType.Student &&
                                 this.state.class_content && this.state.class_content.student_textbook &&
                                 this.state.class_content.student_textbook.length &&
                                 this.state.class_content.student_textbook.map((item, index) => {
-                                    return <div className="class_content_file_item" key={index}  onClick={event => this.lookFile(event, item)}>
-                                        <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
-                                        <span className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
-                                    </div>
+                                    return <a className="class_content_file_item" key={index}
+                                              href={this.fileLink(item)} target="_blank" rel="noopener noreferrer">
+                                        <img
+                                            src={item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"}
+                                            alt=""/>
+                                        <span
+                                            className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
+                                    </a>
                                 })
                             }
                             {
-                                this.state.role ===  MemberType.Companion &&
+                                this.state.role === MemberType.Companion &&
                                 this.state.class_content && this.state.class_content.tutor_textbook &&
                                 this.state.class_content.tutor_textbook.length &&
                                 this.state.class_content.tutor_textbook.map((item, index) => {
-                                    return <div className="class_content_file_item" key={index} onClick={event => this.lookFile(event, item)} >
-                                        <img src={ item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg"  : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"} alt=""/>
-                                        <span className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
-                                    </div>
+                                    return <a className="class_content_file_item" key={index}
+                                              href={this.fileLink(item)} rel="noopener noreferrer">
+                                        <img
+                                            src={item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"}
+                                            alt=""/>
+                                        <span
+                                            className="file_name">{decodeURIComponent(item).split('/')[decodeURIComponent(item).split('/').length - 1].split('.')[0]}</span>
+                                    </a>
                                 })
                             }
                         </div>
                     }
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <ClassBeginModal modal={this.state.classBeginModal} closeModal={this.closeClassBegin} title={Resources.getInstance().classBeginModalTitle}
+                <ClassBeginModal modal={this.state.classBeginModal} closeModal={this.closeClassBegin}
+                                 title={Resources.getInstance().classBeginModalTitle}
                                  content1={Resources.getInstance().classBeginModalContent1}
                                  content2={Resources.getInstance().classBeginModalContent2}
-                                 begin={this.checkStatusAndTime} btnWord={Resources.getInstance().classBeginModalBtn} />
+                                 begin={this.checkStatusAndTime} btnWord={Resources.getInstance().classBeginModalBtn}/>
                 {
                     this.state.role === MemberType.Student &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
                 <div className="class-detail-button"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60*24 ? {} : {display: 'none'}}>
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {} : {display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft +  '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {color: 'white', background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))', borderRadius: '0', fontSize: '15px', fontWeight: '600', letterSpacing: '1px'} : {color: 'white', background: '#dfdfe4', borderRadius: '0', fontSize: '15px', fontWeight: '600', letterSpacing: '1px'}}
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {
+                                        color: 'white',
+                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                        borderRadius: '0',
+                                        fontSize: '15px',
+                                        fontWeight: '600',
+                                        letterSpacing: '1px'
+                                    } : {
+                                        color: 'white',
+                                        background: '#dfdfe4',
+                                        borderRadius: '0',
+                                        fontSize: '15px',
+                                        fontWeight: '600',
+                                        letterSpacing: '1px'
+                                    }}
                         />
                     </Form.Group>
                 </div>
