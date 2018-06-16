@@ -450,7 +450,7 @@ class My extends Component {
                 Track.event('注册_对暗号页面-继续');
 
                 //if http,then go https
-                if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
+                if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
                     window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement');
                 } else {
                     window.location.href = '/placement';
