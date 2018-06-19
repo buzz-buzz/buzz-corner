@@ -280,7 +280,6 @@ class Homepage extends Component {
                                     text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
-                <br/>
                 {
                     this.state.step === 8 &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
