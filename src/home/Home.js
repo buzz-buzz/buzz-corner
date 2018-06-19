@@ -64,7 +64,7 @@ class Home extends Component {
 
             Track.event('首页_课程点击', '课程点击', {'课程状态': item.class_status_show_word || ''});
 
-            if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
+            if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
                 window.location.href = window.location.href.replace('http', 'https').replace('/home', "/class/" + item.class_id);
             } else {
                 window.location.href = "/class/" + item.class_id;

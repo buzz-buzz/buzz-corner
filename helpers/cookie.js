@@ -1,3 +1,5 @@
+let config = require('../config')
+
 let clearCookieOption = {
     expires: new Date(1970, 1, 1),
     path: '/',
@@ -19,6 +21,8 @@ let o = {
     },
     deleteUserId: function () {
         this.cookies.set('user_id', '', clearCookieOption);
+        let options = {...clearCookieOption, domain: config.rootDomain};
+        this.cookies.set('user_id', '', options);
     }
 };
 
