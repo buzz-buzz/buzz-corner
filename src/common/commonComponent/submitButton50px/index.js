@@ -25,6 +25,8 @@ export default class Button extends React.Component {
         if(!this.props.disabled){
             this.setState({
                 pressing: false
+            }, () => {
+                this.props.submit();
             });
         }
     }
@@ -33,7 +35,7 @@ export default class Button extends React.Component {
         return (
             <div className="submit-button">
                 <button className={this.state.pressing ? 'pressing' : ''}
-                        onClick={this.props.submit} onTouchStart={this.touchStart}
+                        onTouchStart={this.touchStart}
                         onTouchEnd={this.touchEnd} disabled={this.props.disabled}
                         style={ this.props.disabled ? {background: '#dfdfe4'} : {background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))'}}>
                     {this.props.text || 'Continue'}

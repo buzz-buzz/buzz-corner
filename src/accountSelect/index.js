@@ -35,7 +35,7 @@ export default class AccountSelect extends Component{
                 </div>
                 <div className="account-btn">
                     <Button50px disabled={!this.state.active}
-                                text="以该身份登录" submit={this.login}/>
+                                text={Resources.getInstance().accountSelectLoginSubmit} submit={this.login}/>
                 </div>
             </div>
         )
