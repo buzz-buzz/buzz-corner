@@ -29,6 +29,7 @@ import VideoPlay from './videoPlay';
 import VideoPlayTablet from './videoPlay/tablet';
 import SetAccount from './account/setAccount';
 import AccountAbout from './account/accountAbout';
+import AccountSelect from './accountSelect';
 import LoginByAccount from './accountLogin';
 import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
@@ -76,6 +77,7 @@ class App extends Component {
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>
+                    <Route path='/account/select' component={AccountSelect}/>
                     <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
