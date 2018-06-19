@@ -21,6 +21,10 @@ const putPolicy = new qiniu.rs.PutPolicy({
 });
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
+const fundebug = require('fundebug-nodejs');
+fundebug.apikey = '8c45e06094dda3c9b553e509b0ed7b6f2033f2135f72d98313e61301f123e8eb';
+
+fundebug.notify("Test", "Fundebug started!");
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -132,16 +136,27 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        let options = Object.assign({
-            headers: BasicAuth.authHeader(),
-            uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
-        }, ctx.request.body);
+        if (isFinite(ctx.state.user.userId)) {
+            let options = Object.assign({
+                headers: BasicAuth.authHeader(),
+                uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
+            }, ctx.request.body);
 
-        let profile = await request(options);
+            try {
+                let profile = await request(options);
+                console.log('profile is ', profile);
 
-        ctx.body = Object.assign(ctx.state.user, {
-            profile: JSON.parse(profile)
-        });
+                ctx.body = Object.assign(ctx.state.user, {
+                    profile: JSON.parse(profile)
+                });
+            } catch (ex) {
+                await membership.signOut(ctx, () => {
+                });
+                ctx.throw(ex.statusCode, `Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
+            }
+        } else {
+            ctx.redirect(`/select-role?return_url=${ctx.request.headers.referer}`);
+        }
     })
     .put('/user-info', membership.ensureAuthenticated, async ctx => {
         let options = {
@@ -231,6 +246,8 @@ router
 app
     .use(router.routes())
     .use(router.allowedMethods());
+
+app.on('error', fundebug.KoaErrorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
     let port = process.env.PORT || 16111;
