@@ -1,4 +1,5 @@
 const request = require('request-promise-native');
+const fundebug = require('../common/error-handler');
 
 function getParameters(msg, base64_callback_origin, base64_query_string) {
     return `${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
@@ -42,6 +43,7 @@ let handleAccessTokenResult = async function (accessTokenResponse, ctx, base64_c
         if (!(json.errcode || json.errmsg)) {
             success(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
         } else {
+            fundebug.notify('获取微信用户信息出错', userInfoResponse);
             fail(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
         }
     } else {
@@ -55,6 +57,7 @@ module.exports = {
 
             await handleAccessTokenResult(accessTokenResponse, ctx, base64_callback_origin, base64_query_string);
         } catch (e) {
+            fundebug.notify('获取微信 access token 出错', e);
             console.error(e);
             fail(ctx, e, base64_callback_origin, base64_query_string);
         }
