@@ -50,7 +50,7 @@ export default class ZoomDownJoin extends React.Component {
             }
             {
                 !/MicroMessenger/.test(navigator.userAgent) &&
-                    <div className="content">
+                    <div className="content-no-wechat">
                         <div className="buzz-title">
                             <p className="title">加入BuzzBuzz教室</p>
                             <span>点击“提示框”打开链接，即可马上加入教室</span>
