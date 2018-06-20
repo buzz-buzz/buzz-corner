@@ -32,10 +32,25 @@
     background-size: contain;
     display: flex;
     flex-direction: column; }
-    .zoom-join .content .content-info p {
+    .zoom-join .content .content-info div {
+      height: 28px;
       font-size: 15px;
       color: #000;
-      line-height: 28px; }
+      line-height: 28px;
+      display: inline-block;
+      position: relative;
+      z-index: 200; }
+      .zoom-join .content .content-info div .shadow {
+        position: absolute;
+        z-index: 2;
+        height: 14px;
+        width: 100%;
+        top: 8px;
+        left: -20px;
+        background-color: #f4f5f9; }
+      .zoom-join .content .content-info div .word {
+        position: relative;
+        z-index: 200; }
     .zoom-join .content .content-img {
       padding: 30px 25px 0 25px; }
       .zoom-join .content .content-img .android {
@@ -64,6 +79,7 @@
     .zoom-join .content .right-img {
       position: absolute;
       right: 25px;
-      top: 2px; }
+      top: 2px;
+      height: auto; }
       .zoom-join .content .right-img img {
         width: 135px; }

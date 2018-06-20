@@ -32,8 +32,14 @@ export default class ZoomDownJoin extends React.Component {
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/zoom/icon_arrows.svg" alt=""/>
                     </div>
                     <div className="content-info">
-                        <p>1：轻触右上方的菜单</p>
-                        <p>2：点击“在游览器中打开”，然后您将加入教室</p>
+                        <div>
+                           <div className="word">1：轻触右上方的菜单</div>
+                           <div className="shadow"></div>
+                        </div>
+                        <div>
+                            <div className="word">2：点击“在游览器中打开”，然后您将加入教室</div>
+                            <div className="shadow"></div>
+                        </div>
                     </div>
                     <div className="content-img">
                         <div className="android">
