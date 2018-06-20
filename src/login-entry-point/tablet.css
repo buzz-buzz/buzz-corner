@@ -46,7 +46,6 @@
       justify-content: center;
       align-items: center; }
       .login-entry-point .login-entry-content .login-right-code .code {
-        height: 380px;
         width: 300px;
         border-radius: 10px;
         overflow: hidden; }
