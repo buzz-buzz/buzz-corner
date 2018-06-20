@@ -21,8 +21,7 @@ const putPolicy = new qiniu.rs.PutPolicy({
 });
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
-const fundebug = require('fundebug-nodejs');
-fundebug.apikey = '8c45e06094dda3c9b553e509b0ed7b6f2033f2135f72d98313e61301f123e8eb';
+const fundebug = require('./common/error-handler').fundebug;
 
 fundebug.notify("Test", "Fundebug started!");
 
