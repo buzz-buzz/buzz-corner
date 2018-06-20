@@ -16,6 +16,10 @@ export default class ZoomDownJoin extends React.Component {
             }else{
                 window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;
             }
+
+            setTimeout(function () {
+                window.location.href = 'https://zoom.us/download';
+            }, 5000);
         }
     }
 
