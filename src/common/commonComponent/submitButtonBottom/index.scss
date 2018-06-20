@@ -1,4 +1,4 @@
-.submit-button{
+.submit-button-bottom{
   width: 100%;
   padding: 0;
   position: relative;
@@ -6,7 +6,6 @@
     outline: none;
     width: 100%;
     height: 50px;
-    border-radius: 30px;
     border: none;
     font-weight: 500;
     letter-spacing: 1px;
@@ -19,7 +18,6 @@
   }
   button.pressing:after{
     content: '';
-    border-radius: 30px;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -30,7 +28,6 @@
   .press{
     width: 100%;
     height: 50px;
-    border-radius: 30px;
     z-index: 20;
     background: rgba(0, 0, 0, .1);
     position: absolute;

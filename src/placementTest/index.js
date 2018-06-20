@@ -7,7 +7,7 @@ import Practice from "../classDetail/practice";
 import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import Button50px from '../common/commonComponent/submitButton50px';
+import ButtonBottom from '../common/commonComponent/submitButtonBottom';
 import PlacementProgress from './placementProgress';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
@@ -276,11 +276,10 @@ class Homepage extends Component {
                             )
                     }
                     <div className="profile-btn">
-                        <Button50px disabled={!this.state.answers[this.state.step - 1]}
+                        <ButtonBottom disabled={!this.state.answers[this.state.step - 1]}
                                     text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
-                <br/>
                 {
                     this.state.step === 8 &&
                     <RecordingModal open={this.state.recording} onClose={this.cancelRecording}

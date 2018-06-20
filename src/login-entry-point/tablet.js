@@ -44,7 +44,7 @@ class LoginRole extends Component {
             scope: "snsapi_login",
             redirect_uri: encodeURIComponent(`${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/qr-redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
             state: "123",
-            style: "white"
+            style: "black"
         });
     }
 
@@ -106,7 +106,6 @@ class LoginRole extends Component {
                         this.state.active === MemberType.Student &&
                         <div className="login-right-code">
                             <div className="code" id="qrcode-wechat"></div>
-                            <div className="code-word">{Resources.getInstance().loginWechatScanQr}</div>
                         </div>
                     }
                 </div>
