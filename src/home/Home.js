@@ -415,11 +415,10 @@ class Home extends Component {
             let clientHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);    //当前可视的页面高度
             // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
             if (scrollTop + scrollHeight >= clientHeight) {   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;
-                //获取下一页 todo
-                //console.log('滚动条距离顶部', scrollTop);
-                //console.log('可视的高度', clientHeight);
-                //console.log('页面总高度', scrollHeight);
                 console.log('到底了');
+                //get data if not the last page
+
+                //then "no more"
             } else {
                 //滚动条距离顶部的高度小于等于0 TODO
             }

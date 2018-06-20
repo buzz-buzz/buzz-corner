@@ -12,6 +12,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
+import ModalClassPractiseWord from '../common/commonComponent/modalClassPractiseWord';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
@@ -64,6 +65,8 @@ class classDetail extends Component {
         this.classContentOne = this.classContentOne.bind(this);
         this.classContentTwo = this.classContentTwo.bind(this);
         this.lookFile = this.lookFile.bind(this);
+        this.closePractiseWord = this.closePractiseWord.bind(this);
+        this.openPractiseWord = this.openPractiseWord.bind(this);
     }
 
     closeClassBegin() {
@@ -108,6 +111,14 @@ class classDetail extends Component {
         } else {
             window.location.href = 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
         }
+    }
+
+    closePractiseWord(){
+        this.setState({practiseModal: false});
+    }
+
+    openPractiseWord(){
+        this.setState({practiseModal: true});
     }
 
     sendTrack(e, eventInfo) {
@@ -166,24 +177,10 @@ class classDetail extends Component {
 
     showZoom() {
         //URL Scheme
-        const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
+        //const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
         let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            //提示在浏览器中打开
-            browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
-        } else if (ua_info && ua_info.platform === 'mobile') {
-            //window.location.href = this.state.class_info.room_url;
-            window.location.href = `zoomus://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-            setTimeout(function () {
-                window.location.href = 'https://zoom.us/download';
-            }, 2000);
-        } else {
-            window.location.href = `zoommtg://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-            setTimeout(function () {
-                window.location.href = 'https://zoom.us/download';
-            }, 2000);
-        }
+        window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
     }
 
     componentWillUnmount() {
@@ -336,6 +333,8 @@ class classDetail extends Component {
         return (
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle}/>
+                <ModalClassPractiseWord modal={this.state.practiseModal} closeModal={this.closePractiseWord}
+                                        title="你可以说" content="I have a good friend" btnText="我知道啦" />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>

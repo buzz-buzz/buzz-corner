@@ -7,7 +7,7 @@ import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import Button50px from '../common/commonComponent/submitButton50px';
+import ButtonBottom from '../common/commonComponent/submitButtonBottom';
 import ProfileProgress from './profileProgress/index';
 import ProfileFormStep1 from './profileFormStep1/index';
 import ProfileFormStep2 from './profileFormStep2/index';
@@ -621,7 +621,7 @@ class My extends Component {
                             )
                     }
                     <div className="profile-btn">
-                        <Button50px
+                        <ButtonBottom
                             disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code) : (this.state.step === 2 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' : !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
                             text={Resources.getInstance().profileContinue} submit={this.submit}/>
                         {
@@ -632,7 +632,6 @@ class My extends Component {
                         }
                     </div>
                 </Form>
-                <br/>
             </div>
         );
     }

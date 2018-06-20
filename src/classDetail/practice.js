@@ -350,6 +350,10 @@ export default class Practice extends React.Component {
         if (chat) {
             if (chat.startsWith('http') || chat.startsWith('//')) {
                 chat = chat.replace('http://', '//');
+                if(chat.indexOf('|') > -1 || chat.indexOf('｜') > -1){
+                    chat = chat.replace('｜', '|');
+                    chat = chat.split('|')[0];
+                }
                 return <audio type="audio/mpeg" src={chat} ref={(audio) => {
                     this.audios[index] = audio
 
