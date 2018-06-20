@@ -1,0 +1,63 @@
+.zoom-join {
+  display: flex;
+  flex-direction: column; }
+  .zoom-join .content {
+    position: relative;
+    flex: 1 0 auto;
+    padding: 20px;
+    background: white url("//cdn-corner.resource.buzzbuzzenglish.com/circles.png") center center no-repeat;
+    background-size: contain;
+    display: flex;
+    flex-direction: column; }
+    .zoom-join .content .content-info p {
+      font-size: 15px;
+      color: #000;
+      line-height: 28px; }
+    .zoom-join .content .content-img {
+      padding: 30px 25px 0 25px; }
+      .zoom-join .content .content-img .android {
+        padding: 0 5px; }
+        .zoom-join .content .content-img .android img {
+          margin-bottom: 12px;
+          width: 120px; }
+        .zoom-join .content .content-img .android p {
+          font-size: 12px;
+          color: #666;
+          line-height: 16px;
+          text-align: left;
+          margin-bottom: 15px; }
+      .zoom-join .content .content-img .ios {
+        padding: 0 5px; }
+        .zoom-join .content .content-img .ios img {
+          margin: 17px 0 12px 0;
+          width: 250px; }
+        .zoom-join .content .content-img .ios p {
+          font-size: 12px;
+          color: #666;
+          line-height: 16px;
+          text-align: left; }
+      .zoom-join .content .content-img .line {
+        border-bottom: 1px solid #dfdfe4; }
+    .zoom-join .content .right-img {
+      position: absolute;
+      right: 25px;
+      top: 2px; }
+      .zoom-join .content .right-img img {
+        width: 135px; }
+    .zoom-join .content .buzz-title p {
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 32px;
+      color: #000;
+      margin-bottom: 8px; }
+    .zoom-join .content .buzz-title span {
+      font-size: 12px;
+      color: #666; }
+    .zoom-join .content .buzz-img {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .zoom-join .content .buzz-img img {
+        width: 80%;
+        max-width: 600px; }
