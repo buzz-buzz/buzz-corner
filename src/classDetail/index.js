@@ -12,6 +12,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
+import ModalClassPractiseWord from '../common/commonComponent/modalClassPractiseWord';
 import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
@@ -64,6 +65,8 @@ class classDetail extends Component {
         this.classContentOne = this.classContentOne.bind(this);
         this.classContentTwo = this.classContentTwo.bind(this);
         this.lookFile = this.lookFile.bind(this);
+        this.closePractiseWord = this.closePractiseWord.bind(this);
+        this.openPractiseWord = this.openPractiseWord.bind(this);
     }
 
     closeClassBegin() {
@@ -108,6 +111,14 @@ class classDetail extends Component {
         } else {
             window.location.href = 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
         }
+    }
+
+    closePractiseWord(){
+        this.setState({practiseModal: false});
+    }
+
+    openPractiseWord(){
+        this.setState({practiseModal: true});
     }
 
     sendTrack(e, eventInfo) {
@@ -322,6 +333,8 @@ class classDetail extends Component {
         return (
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle}/>
+                <ModalClassPractiseWord modal={this.state.practiseModal} closeModal={this.closePractiseWord}
+                                        title="你可以说" content="I have a good friend" btnText="我知道啦" />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
