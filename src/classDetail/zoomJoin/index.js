@@ -1,6 +1,6 @@
 import React from 'react';
-import Resources from '../../resources';
 import Track from "../../common/track";
+import HeaderWithLogo from '../../common/commonComponent/headerWithLogo';
 import './index.css';
 
 export default class ZoomDownJoin extends React.Component {
@@ -11,7 +11,6 @@ export default class ZoomDownJoin extends React.Component {
             Track.event('课程详情_进入教室唤醒Zoom客户端');
 
             if(ua_info && ua_info.platform === 'pc'){
-                //window.location.href = this.state.class_info.room_url;
                 window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;
             }else{
                 window.location.href = `zoomus://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;
@@ -24,16 +23,43 @@ export default class ZoomDownJoin extends React.Component {
     }
 
     render() {
-        return <div className="zoom-download">
-            <div className="zoom-header">
-                <img src="https://ruanshi2.8686c.com/static/90981/image/new/ZoomLogo.png" alt=""/>
-            </div>
-            <div className="zoom-title">
-                {Resources.getInstance().classZoomJoin}
-            </div>
-            <div className="modal-download">
-                {Resources.getInstance().classZoomJoinInfo}
-            </div>
+        return <div className="zoom-join">
+            <HeaderWithLogo />
+            {
+                /MicroMessenger/.test(navigator.userAgent) &&
+                <div className="content">
+                    <div className="right-img">
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/zoom/icon_arrows.svg" alt=""/>
+                    </div>
+                    <div className="content-info">
+                        <p>1：轻触右上方的菜单</p>
+                        <p>2：点击“在游览器中打开”，然后您将加入教室</p>
+                    </div>
+                    <div className="content-img">
+                        <div className="android">
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/zoom/bg_link_Android.png" alt=""/>
+                            <p>Android用户参考上图</p>
+                        </div>
+                        <div className="line"></div>
+                        <div className="ios">
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/zoom/bg_link_ios.png" alt=""/>
+                            <p>IOS用户参考上图</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            {
+                !/MicroMessenger/.test(navigator.userAgent) &&
+                    <div className="content">
+                        <div className="buzz-title">
+                            <p className="title">加入BuzzBuzz教室</p>
+                            <span>点击“提示框”打开链接，即可马上加入教室</span>
+                        </div>
+                        <div className="buzz-img">
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/zoom/PC_bg_link.png" alt=""/>
+                        </div>
+                    </div>
+            }
         </div>
     }
 }
