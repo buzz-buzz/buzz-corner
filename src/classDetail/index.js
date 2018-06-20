@@ -170,21 +170,6 @@ class classDetail extends Component {
         let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
         window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
-
-        // if (/MicroMessenger/.test(navigator.userAgent)) {
-        //     //提示在浏览器中打开
-        //     browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
-        // } else if (ua_info && ua_info.platform === 'mobile') {
-        //     //window.location.href = this.state.class_info.room_url;
-        //     window.location.href = `zoomus://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-        //     // setTimeout(function () {
-        //     //     window.location.href = 'https://zoom.us/download';
-        //     // }, 2000);
-        // } else {
-        //     //window.location.href = `zoommtg://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`;
-        //     window.open(`zoommtg://zoom.us/join?confno=${zoom_number}&zc=0&uname=${this.state.user_name}`);
-        //
-        // }
     }
 
     componentWillUnmount() {
