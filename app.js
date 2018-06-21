@@ -124,7 +124,12 @@ router
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', async ctx => {
-        await send(ctx, 'public/wechat-oauth-success.html')
+        if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
+            await send(ctx, 'build/wechat-oauth-success.html')
+        } else {
+            await send(ctx, 'public/wechat-oauth-success.html')
+
+        }
     })
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
