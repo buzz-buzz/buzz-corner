@@ -126,6 +126,10 @@
     }
 
     function fail(reason) {
+        if (typeof reason === 'object') {
+            reason = reason.message || reason.toString() || JSON.stringify(reason);
+        }
+
         window.location.href = '/wechat/oauth/fail/' + encodeURIComponent(btoa(reason));
     }
 
@@ -206,7 +210,7 @@
             var qs = decodeBase64QueryString();
             var role = getSearchParam(qs, 'role');
         } catch (ex) {
-            fail(ex.message || JSON.stringify(ex));
+            fail(ex);
         }
 
         getOldUserOrCreatedOne(wechatUserInfo, role)
@@ -224,7 +228,7 @@
             })
             .catch(function (error) {
                 console.error(error);
-                alert(error.message || error.toString() || JSON.stringify(error));
+                fail(error);
             });
     }
 
