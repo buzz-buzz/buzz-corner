@@ -37,6 +37,19 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
             -webkit-tap-highlight-color: transparent;
         }
+
+        .loadingModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 888;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.85);
+        }
     </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -56,6 +69,12 @@
 <div id="root" style="height: 100%; max-width: 1200px; margin: 0 auto;">
     <p>微信授权成功，正在登录 BuzzBuzz，请耐心等待……</p>
     <p>Wechat authenticated, signing in to BuzzBuzz, please be wait for a moment...</p>
+
+    <div class='loadingModal' style="display: flex; zIndex: 9999; background: white;">
+        <embed src="//cdn-corner.resource.buzzbuzzenglish.com/index.earth-globe-map-spinner.svg" width="240" height="80"
+               type="image/svg+xml"
+               pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+    </div>
 </div>
 <!--
   This HTML file is a template.
