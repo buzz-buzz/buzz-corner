@@ -86,7 +86,7 @@ export default class AudioTest extends React.Component{
     test(){
         this.setState({status: '录音测试'});
 
-        alert(MediaRecorder);
+        alert(window.MediaRecorder || 'MediaRecorder no supported');
 
         recordedBlobs = [];
         let options = {mimeType: 'audio/webm'};
