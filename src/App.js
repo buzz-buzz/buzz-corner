@@ -33,6 +33,7 @@ import AccountSelect from './accountSelect';
 import LoginByAccount from './accountLogin';
 import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
+import AudioTest from './test/audio';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction from "./common/commonComponent/under-construction/index";
@@ -91,6 +92,7 @@ class App extends Component {
                     <Route path='/video-play' component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
                     <Route path='/zoom' component={ZoomDownLoad}/>
                     <Route path='/zoom-join' component={ZoomJoin}/>
+                    <Route path='/audio-test' component={AudioTest}/>
                 </Router>
             </div>
         )
