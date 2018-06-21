@@ -68,7 +68,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
         this.state = {
             loading: true,
-            wechatUserInfo: JSON.parse(decodeURIComponent(atob(props.params.wechatUserInfo)))
+            wechatUserInfo: JSON.parse(decodeURIComponent(atob(decodeURIComponent(props.params.wechatUserInfo))))
         };
     }
 
@@ -86,26 +86,24 @@ export default class WechatOAuthSuccess extends React.Component {
             await this.loginNewUser(ex, this.state.wechatUserInfo);
         }
 
-        //check if profile is Done or not
-        //Done go home page, unDone go my/info
-        try {
-            let userId = await CurrentUser.getUserId();
+        await this.gotoAfterLoginPage(base64QueryString);
+    }
 
-            let profile = (await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-                }
-            }));
+    async gotoAfterLoginPage(base64QueryString) {
+        let userId = await CurrentUser.getUserId();
 
-            let returnUrl = URLHelper.getSearchParam(base64QueryString, 'return_url');
-
-            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
-                this.completeProfile(returnUrl);
-            } else {
-                this.goto(returnUrl);
+        let profile = (await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
             }
-        } catch (ex) {
-            console.log('login failed: ' + ex.toString());
+        }));
+
+        let returnUrl = URLHelper.getSearchParam(base64QueryString, 'return_url');
+
+        if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name) {
+            this.completeProfile(returnUrl);
+        } else {
+            this.goto(returnUrl);
         }
     }
 
@@ -116,7 +114,7 @@ export default class WechatOAuthSuccess extends React.Component {
                 base64QueryString = atob(base64QueryString);
             }
             return base64QueryString;
-        }catch(ex){
+        } catch (ex) {
             console.error(ex);
             return '';
         }

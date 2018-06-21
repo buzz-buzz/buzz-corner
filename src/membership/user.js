@@ -22,6 +22,8 @@ class User {
                 currentUser = new User(userData.userId, userData.super, userData.profile);
             } catch (ex) {
                 await User.signOut();
+
+                return {};
             }
         }
 
