@@ -448,7 +448,8 @@ class Home extends Component {
                 <Welcome/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
-                        <img src={QiniuDomain + "/icon_Service.svg"} style={{width: '25px'}} alt=""/>
+                        <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
+                        <span style={{color: '#000', fontSize: '10px'}}>{Resources.getInstance().homeHelp}</span>
                     </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
