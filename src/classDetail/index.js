@@ -404,6 +404,7 @@ class classDetail extends Component {
                     }
                     {
                         this.state.role === MemberType.Student && this.state.class_content_tab === 'practice' &&
+                        this.state.chats && this.state.chats.length &&
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
                                   ref={p => this.practice = p} openPractiseWord={this.openPractiseWord}
