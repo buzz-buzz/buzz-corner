@@ -117,8 +117,21 @@ class classDetail extends Component {
         this.setState({practiseModal: false});
     }
 
-    openPractiseWord(){
-        this.setState({practiseModal: true});
+    openPractiseWord(event, i){
+        if(i !== undefined && this.state.chats.length && this.state.chats[i]){
+            let chat = this.state.chats[i].replace('｜', '|'),
+                chat_word = '';
+
+            if(chat.indexOf('|') > -1 && chat.split('|').length >= 3){
+                chat_word = chat.split('|')[2];
+            }
+
+            if(chat_word){
+                this.setState({practiseModal: true, practiseWord: chat_word});
+            }
+        }else{
+            this.setState({practiseModal: true, practiseWord: 'Too easy...'});
+        }
     }
 
     sendTrack(e, eventInfo) {
@@ -176,11 +189,13 @@ class classDetail extends Component {
     }
 
     showZoom() {
-        //URL Scheme
-        //const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
-        let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
+        if(this.state.class_info.room_url){
+            let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-        window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
+            window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
+        }else{
+            alert('缺少Zoom教室链接');
+        }
     }
 
     componentWillUnmount() {
@@ -334,7 +349,7 @@ class classDetail extends Component {
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle}/>
                 <ModalClassPractiseWord modal={this.state.practiseModal} closeModal={this.closePractiseWord}
-                                        title="你可以说" content="I have a good friend" btnText="我知道啦" />
+                                        title="你可以说" content={this.state.practiseWord} btnText="我知道啦" />
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
@@ -391,7 +406,7 @@ class classDetail extends Component {
                         this.state.role === MemberType.Student && this.state.class_content_tab === 'practice' &&
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
-                                  ref={p => this.practice = p}
+                                  ref={p => this.practice = p} openPractiseWord={this.openPractiseWord}
                                   avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", "//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg"]}/>
                     }
                     {
@@ -442,7 +457,7 @@ class classDetail extends Component {
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
                 <div className="class-detail-button"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {} : {display: 'none'}}>
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 && this.state.class_info.room_url ? {} : {display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
                                     content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}

@@ -211,7 +211,7 @@ export default class Practice extends React.Component {
                                     return (
                                         <div key={i}>
                                             <div className="practise-advisor chat message">
-                                                <div>
+                                                <div style={{flex: '0 0 auto'}}>
                                                     <Image avatar
                                                            src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                            alt="avatar"/>
@@ -243,23 +243,16 @@ export default class Practice extends React.Component {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="practise-student chat message reverse"
-                                                 onClick={() => this.replyButtonClicked(i)}
-                                                // onTouchEnd={this.endReply}
-                                                //  onTouchMoveCapture={this.reply}
-                                            >
-
-
-                                                <div>
+                                            <div className="practise-student chat message reverse">
+                                                <div style={{flex: '0 0 auto'}}>
                                                     <Image avatar
                                                            src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                            alt="avatar"/>
                                                 </div>
-
-                                                <div
-                                                    className="student-word talk-bubble tri-left right-bottom border round">
+                                                <div onClick={() => this.replyButtonClicked(i)}
+                                                     className="student-word talk-bubble tri-left right-bottom border round">
                                                     <div className="talktext">
-                                                        <p style={{paddingLeft: '10px'}}>
+                                                        <p style={{paddingLeft: '10px', display: 'flex', alignItems: 'center'}}>
                                                             <img className="rotate180" style={{height: '15px'}}
                                                                  src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
                                                                  alt=""/>
@@ -272,7 +265,11 @@ export default class Practice extends React.Component {
                                                         <p className="tip">&nbsp;&nbsp;</p>
                                                     }
                                                 </div>
-
+                                                <div style={this.props.openPractiseWord ? {} : {display: 'none'}}
+                                                     onClick={(event) => this.props.openPractiseWord(event, i)}
+                                                     className="practise-word">
+                                                    <span>提示</span>
+                                                </div>
                                             </div>
                                             {
                                                 this.state.replies[i].answered &&
@@ -323,25 +320,36 @@ export default class Practice extends React.Component {
     }
 
     renderAudio(i) {
+        let chat = this.props.chats[i].replace('｜', '|'),
+            chat_url = '',
+            chat_word = '';
+
+        if(chat.indexOf('|') > -1 && chat.split('|').length >= 2){
+            chat_url = chat.split('|')[0];
+            chat_word = chat.split('|')[1];
+        }else{
+            chat_url = chat;
+        }
+
         return this.props.chats &&
-        (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
+        (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
             (<p>
-                {Resources.getInstance().placementListeningAudio}
-                {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                {chat_word || Resources.getInstance().placementListeningAudio}
+                {this.renderChat(chat_url ? chat_url : null, i)}
 
                 {
                     this.state.currentPlaying === i
-                        ? <img style={{height: '15px'}}
+                        ? <img style={{height: '15px', verticalAlign: 'sub'}}
                                src={this.state.soundPlaying}
                                alt=""/>
                         : <img
                             src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
-                            style={{height: '15px'}} alt=""/>
+                            style={{height: '15px', verticalAlign: 'sub'}} alt=""/>
                 }
             </p>) :
             (
                 <p>
-                    {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                    {this.renderChat(chat_url ? chat_url : null, i)}
                 </p>
             );
     }
@@ -349,13 +357,8 @@ export default class Practice extends React.Component {
     renderChat(chat, index) {
         if (chat) {
             if (chat.startsWith('http') || chat.startsWith('//')) {
-                chat = chat.replace('http://', '//');
-                if(chat.indexOf('|') > -1 || chat.indexOf('｜') > -1){
-                    chat = chat.replace('｜', '|');
-                    chat = chat.split('|')[0];
-                }
                 return <audio type="audio/mpeg" src={chat} ref={(audio) => {
-                    this.audios[index] = audio
+                    this.audios[index] = audio;
 
                     if (audio) {
                         audio.addEventListener('ended', () => {
