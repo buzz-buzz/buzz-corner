@@ -123,7 +123,9 @@ router
         await wechat.login(false, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
-    .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
+    .get('/wechat/oauth/success/:wechatUserInfo', async ctx => {
+        await send(ctx, 'public/wechat-oauth-success.html')
+    })
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
