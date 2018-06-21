@@ -123,6 +123,8 @@ class Homepage extends Component {
             let clonedAnswers = this.state.answers;
             clonedAnswers[this.state.step - 1] = '';
 
+            alert(url.err);
+
             this.setState({
                 answers: clonedAnswers,
                 messageModal: true,

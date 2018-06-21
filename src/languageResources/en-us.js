@@ -327,7 +327,7 @@ export const checkoutAccount = 'Switch account';
 export const popTitle = 'Attention';
 export const popInfo = 'Do you want to sign out of this account?';
 export const popCancel = 'Cancel';
-export const popSure = 'Sure';
+export const popSure = 'Ok';
 
 export const accountSelectLogin = 'Account select';
 export const accountSelectLoginSubmit = 'Login with this account';
