@@ -34,8 +34,12 @@ export default class TabletAudio {
     }
 
     static async init(){
-        await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
-        return recordReadyStatus;
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+            await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
+            return recordReadyStatus;
+        }else{
+            return false
+        }
     }
 
     async stopRecording() {
