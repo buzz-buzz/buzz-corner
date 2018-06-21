@@ -272,7 +272,7 @@
     padding: 10px 0.5em 10px 1em;
     text-align: left;
     line-height: 1.5em;
-    word-break: break-all;
+    word-wrap: break-word;
     height: 100%;
     display: flex;
     justify-content: center;
