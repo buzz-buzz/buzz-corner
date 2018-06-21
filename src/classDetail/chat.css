@@ -6,8 +6,8 @@
 .talk-bubble {
     display: inline-block;
     position: relative;
-    height: 42px;
     background-color: white;
+    align-self: center;
 }
 
 .border {
@@ -269,11 +269,10 @@
 
 /* talk bubble contents */
 .talktext {
-    padding: 0.5em 0.5em 0.5em 1em;
+    padding: 10px 0.5em 10px 1em;
     text-align: left;
     line-height: 1.5em;
     word-break: break-all;
-    max-width: 180px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -287,6 +286,7 @@
 
 .talktext p{
     cursor: pointer;
+    word-wrap: break-word;
 }
 
 .rotate180{
@@ -338,7 +338,6 @@
 }
 
 .chat.message {
-    margin-bottom: 1.2em;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -348,6 +347,7 @@
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
     align-items: flex-start;
+    margin-top: 15px;
 }
 
 .chat.message .avatar {
@@ -365,15 +365,27 @@
     color: #666;
     padding-right: 60px;
     text-align: right;
-    margin: -10px 0 5px 0;
+    margin: 0 0 15px 0;
     cursor: pointer;
 }
 
-.talktext > p{
-    display: flex;
+.talktext > p > span{
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
 }
 
 .talktext > p > img{
     margin: 0 5px;
+}
+
+.practise-word{
+    margin-right: 15px;
+    align-self: center;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #edae00;
+    text-decoration: underline;
 }
