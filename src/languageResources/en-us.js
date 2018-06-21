@@ -26,6 +26,7 @@ export const homeTabBooking = 'Bookings';
 export const homeTabMessage = 'Messages';
 export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
+export const homeHelp = 'Help';
 
 export const bookingBtnText = 'Booking';
 export const bookingNoItemText1 = 'Oops, you have not booked any session yet.';

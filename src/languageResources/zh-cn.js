@@ -25,6 +25,7 @@ export const homeTabBooking = '课程预约';
 export const homeTabMessage = '消息通知';
 export const homeTabFriends = '伙伴';
 export const homeTabAdvisor = '助教';
+export const homeHelp = '帮助';
 
 export const bookingBtnText = '预约';
 export const bookingNoItemText1 = '你还没开始预约课程';
