@@ -23,7 +23,7 @@ const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
 
-fundebug.notify("Test", "Fundebug started!");
+fundebug.notify("buzz-corner", "Fundebug started!");
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -191,6 +191,13 @@ router
     })
     .get('/fundebug.js', async ctx => {
         ctx.body = 'function doNothing(){}'
+    })
+    .put('/error', async ctx => {
+        fundebug.notify('微信登录失败了', ctx.request.body.error, {
+            user: Object.assign({}, ctx.state.user, {}),
+            metaData: ctx.request.body.meta
+        });
+        ctx.body = 'noted'
     })
 ;
 
