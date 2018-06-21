@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
 import URLHelper from "../common/url-helper";
+import ServiceProxy from "../service-proxy";
 
 export default class WechatOAuthFail extends React.Component {
 
@@ -17,6 +18,13 @@ export default class WechatOAuthFail extends React.Component {
 
     async componentDidMount() {
         console.error(this.state.wechatErrorInfo)
+        await ServiceProxy.proxy('/error', {
+            body: {
+                error: this.state.wechatErrorInfo,
+                meta: window.location.href
+            },
+            method: "PUT"
+        })
         this.setState({loading: false})
     }
 
