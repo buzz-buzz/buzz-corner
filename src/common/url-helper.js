@@ -29,7 +29,7 @@ export default class URLHelper {
             callbackOrigin = atob(callbackOrigin);
         }
 
-        if (callbackOrigin !== window.location.origin) {
+        if (callbackOrigin && callbackOrigin !== window.location.origin) {
             window.location = callbackOrigin + window.location.pathname + window.location.search;
 
             return true;

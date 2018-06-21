@@ -31,7 +31,7 @@ export default class WechatOAuthFail extends React.Component {
             window.parent.location.reload();
         }
 
-        return true;
+        window.location.href = '/select-role';
     }
 
     render() {
