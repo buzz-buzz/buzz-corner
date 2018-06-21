@@ -6,7 +6,11 @@ let recordReadyStatus = false;
 
 function handleSuccess(stream) {
     window.stream = stream;
-    recordReadyStatus = true;
+    if(window.MediaRecorder){
+        recordReadyStatus = true;
+    }else{
+        recordReadyStatus = false;
+    }
 }
 
 function handleError(error) {

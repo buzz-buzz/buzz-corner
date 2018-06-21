@@ -6,6 +6,7 @@ import WechatAudio from "../wechat/audio";
 import TabletAudio from "../wechat/tabletAudio";
 import Track from "../common/track";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import MessageModal from '../common/commonComponent/modalMessage';
 import CurrentUser from "../membership/user";
 import Client from "../common/client";
 
@@ -20,7 +21,8 @@ export default class Practice extends React.Component {
             soundPlaying: '//cdn-corner.resource.buzzbuzzenglish.com/icon_recording.gif',
             currentReplying: 0,
             currentPlaying: -1,
-            repliesPlaying: -1
+            repliesPlaying: -1,
+            support: false
         };
 
         this.audios = {};
@@ -43,22 +45,28 @@ export default class Practice extends React.Component {
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
+        if(this.state.support){
+            Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
-        this.setState({currentReplying: buttonIndex});
+            this.setState({currentReplying: buttonIndex});
 
-        if (!this.state.replies[buttonIndex].answered) {
-            this.setState({recording: true, recordingStartTime: new Date().getTime()}, () => {
-                this.props.recordingChanged(this.state.recording);
+            if (!this.state.replies[buttonIndex].answered) {
+                this.setState({recording: true, recordingStartTime: new Date().getTime()}, () => {
+                    this.props.recordingChanged(this.state.recording);
+                });
+                await this.state.replies[buttonIndex].recordAudio.startRecording();
+            } else {
+                this.state.replies[buttonIndex].recordAudio.play();
+                //is playing && and the ended event
+                this.setState({repliesPlaying: buttonIndex});
+                window.setTimeout(() => {
+                    this.setState({repliesPlaying: -1});
+                }, this.state.recordingEndTime - this.state.recordingStartTime)
+            }
+        }else{
+            this.setState({messageModal: true}, () => {
+                this.closeMessageModal();
             });
-            await this.state.replies[buttonIndex].recordAudio.startRecording();
-        } else {
-            this.state.replies[buttonIndex].recordAudio.play();
-            //is playing && and the ended event
-            this.setState({repliesPlaying: buttonIndex});
-            window.setTimeout(() => {
-                this.setState({repliesPlaying: -1});
-            }, this.state.recordingEndTime - this.state.recordingStartTime)
         }
     }
 
@@ -177,8 +185,19 @@ export default class Practice extends React.Component {
         let userInfo = await CurrentUser.getProfile();
         this.setState({
             avatar: userInfo.avatar,
-            loadingModal: !audioReady
+            loadingModal: false,
+            support: audioReady
         })
+    }
+
+    closeMessageModal() {
+        const interval = setTimeout(() => {
+            if (this.state.messageModal) {
+                this.setState({messageModal: false});
+            }
+
+            clearTimeout(interval);
+        }, 5000)
     }
 
     componentWillUnmount() {
@@ -205,6 +224,8 @@ export default class Practice extends React.Component {
                 <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                     <Divider horizontal></Divider>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
+                    <MessageModal modalName="error" modalContent="抱歉，你的浏览器不支持录音功能，请使用最新版Chrome浏览器/Firefox浏览器, 或在微信客户端中体验。"
+                                  modalShow={this.state.messageModal}/>
                     <div>
                         {
                             this.state.replies.map((r, i) => {
