@@ -127,7 +127,7 @@ class classDetail extends Component {
             }
 
             if(chat_word){
-                this.setState({practiseModal: true, practiseWord: chat_word});
+                this.setState({practiseModal: true, practiseWord: chat_word || 'Too easy...'});
             }
         }else{
             this.setState({practiseModal: true, practiseWord: 'Too easy...'});
