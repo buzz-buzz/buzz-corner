@@ -42,13 +42,16 @@ let handleAccessTokenResult = async function (accessTokenResponse, ctx, base64_c
 
         if (!(json.errcode || json.errmsg)) {
             success(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
+            return true;
         } else {
             fundebug.notify('获取微信用户信息出错', json.errmsg, {json, userInfoResponse});
             fail(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
+            return false;
         }
     } else {
         fundebug.notify('code 已使用错误', accessTokenResponse.errmsg, accessTokenResponse);
         fail(ctx, accessTokenResponse.errmsg, base64_callback_origin, base64_query_string);
+        return false;
     }
 };
 module.exports = {
@@ -56,11 +59,12 @@ module.exports = {
         try {
             let accessTokenResponse = await getAccessToken(isMobile, code);
 
-            await handleAccessTokenResult(accessTokenResponse, ctx, base64_callback_origin, base64_query_string);
+            return await handleAccessTokenResult(accessTokenResponse, ctx, base64_callback_origin, base64_query_string);
         } catch (e) {
             fundebug.notify('获取微信 access token 出错', e.message, e);
-            console.error(e);
             fail(ctx, e, base64_callback_origin, base64_query_string);
+
+            return false;
         }
     },
 }
