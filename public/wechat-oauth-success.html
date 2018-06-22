@@ -48,7 +48,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.5);
         }
     </style>
     <!--
@@ -70,7 +70,7 @@
     <p>微信授权成功，正在登录 BuzzBuzz，请耐心等待……</p>
     <p>Wechat authenticated, signing in to BuzzBuzz, please be wait for a moment...</p>
 
-    <div class='loadingModal' style="display: flex; zIndex: 9999; background: white;">
+    <div class='loadingModal' style="display: flex; zIndex: 9999; background: transparent;">
         <embed src="//cdn-corner.resource.buzzbuzzenglish.com/index.earth-globe-map-spinner.svg" width="240" height="80"
                type="image/svg+xml"
                pluginspage="http://www.adobe.com/svg/viewer/install/"/>
@@ -86,150 +86,6 @@
   To begin the development, run `npm start` or `yarn start`.
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
-<script type="text/javascript">!function (e, n) {
-    "object" == typeof exports && "undefined" != typeof module ? n() : "function" == typeof define && define.amd ? define(n) : n()
-}(0, function () {
-    "use strict";
-
-    function e() {
-    }
-
-    function n(e) {
-        if (!(this instanceof n)) throw new TypeError("Promises must be constructed via new");
-        if ("function" != typeof e) throw new TypeError("not a function");
-        this._state = 0, this._handled = !1, this._value = undefined, this._deferreds = [], f(e, this)
-    }
-
-    function t(e, t) {
-        for (; 3 === e._state;) e = e._value;
-        0 !== e._state ? (e._handled = !0, n._immediateFn(function () {
-            var n = 1 === e._state ? t.onFulfilled : t.onRejected;
-            if (null !== n) {
-                var i;
-                try {
-                    i = n(e._value)
-                } catch (f) {
-                    return void r(t.promise, f)
-                }
-                o(t.promise, i)
-            } else (1 === e._state ? o : r)(t.promise, e._value)
-        })) : e._deferreds.push(t)
-    }
-
-    function o(e, t) {
-        try {
-            if (t === e) throw new TypeError("A promise cannot be resolved with itself.");
-            if (t && ("object" == typeof t || "function" == typeof t)) {
-                var o = t.then;
-                if (t instanceof n) return e._state = 3, e._value = t, void i(e);
-                if ("function" == typeof o) return void f(function (e, n) {
-                    return function () {
-                        e.apply(n, arguments)
-                    }
-                }(o, t), e)
-            }
-            e._state = 1, e._value = t, i(e)
-        } catch (u) {
-            r(e, u)
-        }
-    }
-
-    function r(e, n) {
-        e._state = 2, e._value = n, i(e)
-    }
-
-    function i(e) {
-        2 === e._state && 0 === e._deferreds.length && n._immediateFn(function () {
-            e._handled || n._unhandledRejectionFn(e._value)
-        });
-        for (var o = 0, r = e._deferreds.length; r > o; o++) t(e, e._deferreds[o]);
-        e._deferreds = null
-    }
-
-    function f(e, n) {
-        var t = !1;
-        try {
-            e(function (e) {
-                t || (t = !0, o(n, e))
-            }, function (e) {
-                t || (t = !0, r(n, e))
-            })
-        } catch (i) {
-            if (t) return;
-            t = !0, r(n, i)
-        }
-    }
-
-    var u = function (e) {
-        var n = this.constructor;
-        return this.then(function (t) {
-            return n.resolve(e()).then(function () {
-                return t
-            })
-        }, function (t) {
-            return n.resolve(e()).then(function () {
-                return n.reject(t)
-            })
-        })
-    }, c = setTimeout;
-    n.prototype["catch"] = function (e) {
-        return this.then(null, e)
-    }, n.prototype.then = function (n, o) {
-        var r = new this.constructor(e);
-        return t(this, new function (e, n, t) {
-            this.onFulfilled = "function" == typeof e ? e : null, this.onRejected = "function" == typeof n ? n : null, this.promise = t
-        }(n, o, r)), r
-    }, n.prototype["finally"] = u, n.all = function (e) {
-        return new n(function (n, t) {
-            function o(e, f) {
-                try {
-                    if (f && ("object" == typeof f || "function" == typeof f)) {
-                        var u = f.then;
-                        if ("function" == typeof u) return void u.call(f, function (n) {
-                            o(e, n)
-                        }, t)
-                    }
-                    r[e] = f, 0 == --i && n(r)
-                } catch (c) {
-                    t(c)
-                }
-            }
-
-            if (!e || "undefined" == typeof e.length) throw new TypeError("Promise.all accepts an array");
-            var r = Array.prototype.slice.call(e);
-            if (0 === r.length) return n([]);
-            for (var i = r.length, f = 0; r.length > f; f++) o(f, r[f])
-        })
-    }, n.resolve = function (e) {
-        return e && "object" == typeof e && e.constructor === n ? e : new n(function (n) {
-            n(e)
-        })
-    }, n.reject = function (e) {
-        return new n(function (n, t) {
-            t(e)
-        })
-    }, n.race = function (e) {
-        return new n(function (n, t) {
-            for (var o = 0, r = e.length; r > o; o++) e[o].then(n, t)
-        })
-    }, n._immediateFn = "function" == typeof setImmediate && function (e) {
-        setImmediate(e)
-    } || function (e) {
-        c(e, 0)
-    }, n._unhandledRejectionFn = function (e) {
-        void 0 !== console && console && console.warn("Possible Unhandled Promise Rejection:", e)
-    };
-    var l = function () {
-        if ("undefined" != typeof self) return self;
-        if ("undefined" != typeof window) return window;
-        if ("undefined" != typeof global) return global;
-        throw Error("unable to locate global object")
-    }();
-    l.Promise ? l.Promise.prototype["finally"] || (l.Promise.prototype["finally"] = u) : l.Promise = n
-});
-</script>
-<script type="text/javascript">!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.fetch=e():t.fetch=e()}(this,function(){return function(t){var e={};function r(o){if(e[o])return e[o].exports;var n=e[o]={exports:{},id:o,loaded:!1};return t[o].call(n.exports,n,n.exports,r),n.loaded=!0,n.exports}return r.m=t,r.c=e,r.p="",r(0)}([function(t,e,r){var o,n=r(1),i=r(5),s=r(2),a=r(6);if([].forEach||(Array.prototype.forEach=function(t,e){"use strict";var r,o;for(r=0,o=this.length;r<o;++r)r in this&&t.call(e,this[r],r,this)}),!"司徒正美".trim){var u=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;String.prototype.trim=function(){return this.replace(u,"")}}function c(t,e){return new Promise(function(r,o){var u;u=!e&&e instanceof n?t:new n(t,e);var c=new a(u);c.on("load",function(t){var e={status:t.status,statusText:t.statusText,headers:function(t){var e=new s;if(t.getAllResponseHeaders){var r=t.getAllResponseHeaders()||"";if(/\S/.test(r))for(var o=r.split("\r\n"),n=0;n<o.length;n++){var i=o[n],a=i.indexOf(": ");if(a>0){var u=i.substring(0,a).trim(),c=i.substring(a+2).trim();e.append(u,c)}}}return e}(t),url:"responseURL"in c?c.responseURL:c.getResponseHeader&&/^X-Request-URL:/m.test(c.getAllResponseHeaders())?c.getResponseHeader("X-Request-URL"):void 0},o="response"in t?t.response:t.responseText;r(new i(o,e))}),c.on("error",function(){o(new TypeError("Network request failed"))}),c.on("timeout",function(){o(new TypeError("Network request timeout"))}),c.open(u.method,u.url,!0),u.headers.forEach(function(t,e){c.setRequestHeader(e,t)}),c.send(void 0===u._body?null:u._body)})}o=window.fetch,/\scode\]\s+\}$/.test(o)||(window.fetch=c),"function"==typeof avalon&&(avalon.fetch=c),t.exports=c},function(t,e,r){var o=r(2),n=r(4);function i(t,e){var r=(e=e||{}).body;if(t instanceof i){if(t.bodyUsed)throw new TypeError("Already read");if(this.url=t.url,this.credentials=t.credentials,!e.headers){var n=this.headers=new o(t.headers);n.map["x-requested-with"]||n.set("X-Requested-With","XMLHttpRequest")}this.method=t.method,this.mode=t.mode,r||(r=t._body,t.bodyUsed=!0)}else this.url=t;if(this.credentials=e.credentials||this.credentials||"omit",!e.headers&&this.headers||(this.headers=new o(e.headers)),this.method=(e.method||this.method||"GET").toUpperCase(),this.mode=e.mode||this.mode||null,this.referrer=null,("GET"===this.method||"HEAD"===this.method)&&r)throw new TypeError("Body not allowed for GET or HEAD requests");this._initBody(r)}i.prototype.clone=function(){return new i(this)};var s=function(){};s.prototype=n.prototype,i.prototype=new s,t.exports=i},function(t,e,r){var o=r(3);function n(t){if(this.map={},t instanceof n)t.forEach(function(t,e){this.append(e,t)},this);else if(t)for(var e in t)t.hasOwnProperty(e)&&this.append(e,t[e])}function i(t){if("string"!=typeof t&&(t=String(t)),/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(t))throw new TypeError("Invalid character in header field name");return t.toLowerCase()}function s(t){return"string"!=typeof t&&(t=String(t)),t}n.prototype.append=function(t,e){t=i(t),e=s(e);var r=this.map[t];r||(r=[],this.map[t]=r),r.push(e)},n.prototype.delete=function(t){delete this.map[i(t)]},n.prototype.get=function(t){var e=this.map[i(t)];return e?e[0]:null},n.prototype.getAll=function(t){return this.map[i(t)]||[]},n.prototype.has=function(t){return this.map.hasOwnProperty(i(t))},n.prototype.set=function(t,e){this.map[i(t)]=[s(e)]},n.prototype.forEach=function(t,e){for(var r in this.map)this.map.hasOwnProperty(r)&&this.map[r].forEach(function(o){t.call(e,o,r,this)},this)},n.prototype.keys=function(){var t=[];return this.forEach(function(e,r){t.push(r)}),iteratorFor(t)},n.prototype.values=function(){var t=[];return this.forEach(function(e){t.push(e)}),iteratorFor(t)},n.prototype.entries=function(){var t=[];return this.forEach(function(e,r){t.push([r,e])}),iteratorFor(t)},o.iterable&&(n.prototype[Symbol.iterator]=n.prototype.entries),t.exports=n},function(t,e){t.exports={searchParams:"URLSearchParams"in window,iterable:"Symbol"in window&&"iterator"in window,blob:"FileReader"in window&&"Blob"in window&&function(){try{return new Blob,!0}catch(t){return!1}}(),formData:"FormData"in window,arrayBuffer:"ArrayBuffer"in window}},function(t,e,r){var o=r(3);function n(){this.bodyUsed=!1}var i=n.prototype;"text,blob,formData,json,arrayBuffer".replace(/\w+/g,function(t){i[t]=function(){return(e=this,e.bodyUsed?Promise.reject(new TypeError("Already read")):(e.bodyUsed=!0,Promise.resolve(e._body))).then(function(e){return o=t,n=a(r=e),null!==r&&void 0!==r&&n&&n!==o?s[o]&&s[o][n]?s[o][n](r):Promise.reject(new Error("Convertion from "+n+" to "+o+" not supported")):Promise.resolve(r);var r,o,n});var e}}),i._initBody=function(t){if(this._body=t,!this.headers.get("content-type"))switch(a(t)){case"text":this.headers.set("content-type","text/plain;charset=UTF-8");break;case"blob":t&&t.type&&this.headers.set("content-type",t.type);break;case"searchParams":this.headers.set("content-type","application/x-www-form-urlencoded;charset=UTF-8")}};var s={text:{json:function(t){return Promise.resolve(JSON.stringify(t))},blob:function(t){return c(t)},searchParams:function(t){return Promise.resolve(t.toString())}},json:{text:function(t){return Promise.resolve(f(t))},blob:function(t){return c(t).then(f)}},formData:{text:function(t){return e=t,r=new FormData,e.trim().split("&").forEach(function(t){if(t){var e=t.split("="),o=e.shift().replace(/\+/g," "),n=e.join("=").replace(/\+/g," ");r.append(decodeURIComponent(o),decodeURIComponent(n))}}),Promise.resolve(r);var e,r}},blob:{text:function(t){return Promise.resolve(new Blob([t]))},json:function(t){return Promise.resolve(new Blob([JSON.stringify(t)]))}},arrayBuffer:{blob:function(t){return e=t,(r=new FileReader).readAsArrayBuffer(e),u(r);var e,r}}};function a(t){return"string"==typeof t?"text":o.blob&&t instanceof Blob?"blob":o.formData&&t instanceof FormData?"formData":o.searchParams&&t instanceof URLSearchParams?"searchParams":t&&"object"==typeof t?"json":null}function u(t){return new Promise(function(e,r){t.onload=function(){e(t.result)},t.onerror=function(){r(t.error)}})}function c(t){var e=new FileReader;return e.readAsText(t),u(e)}function f(t){try{return JSON.parse(t)}catch(t){throw"Invalid JSON"}}t.exports=n},function(t,e,r){var o=r(2),n=r(4);function i(t,e){e||(e={}),this.type="default",this.status=e.status,1223===this.status&&(this.status=204),this.ok=this.status>=200&&this.status<300,this.statusText=e.statusText,this.headers=e.headers instanceof o?e.headers:new o(e.headers),this.url=e.url||"",this._initBody(t)}var s=function(){};s.prototype=n.prototype,i.prototype=new s,i.prototype.clone=function(){return new i(this._bodyInit,{status:this.status,statusText:this.statusText,headers:new o(this.headers),url:this.url})},i.error=function(){var t=new i(null,{status:0,statusText:""});return t.type="error",t};var a=[301,302,303,307,308];i.redirect=function(t,e){if(-1===a.indexOf(e))throw new RangeError("Invalid status code");return new i(null,{status:e,headers:{location:t}})},t.exports=i},function(t,e,r){var o=r(7),n=r(8),i=r(9),s=r(10),a=0;function u(t){8===a||9===a?this.core=new i(t):a?a<=7&&("include"===t.credentials?this.core=new n(t):this.core=new o(t)):this.core=new s(t)}window.VBArray&&(a=document.documentMode||(window.XMLHttpRequest?7:6));var c=u.prototype;c.on=function(t,e){this.core.on(t,e)},c.setRequestHeader=function(t,e){this.core.setRequestHeader&&this.core.setRequestHeader(t,e)},c.open=function(t,e,r,o,n){this.core.open&&this.core.open(t,e,r,o,n)},c.send=function(t){this.core.send&&this.core.send(t)},c.abort=function(){this.core.abort&&this.core.abort()},t.exports=u},function(t,e){t.exports=function(t){var e=new ActiveXObject("Microsoft.XMLHTTP");e.onreadystatechange=function(){4===e.readyState&&(/^2\d\d|1224/.test(e.status)?r.load&&r.load(e):r.error&&r.error())};var r={};return e.on=function(t,e){r[t]=e},e.abort=function(){r={}},"number"===t.timeout&&setTimeout(function(){r.timeout&&r.timeout(),e.abort()},t.timeout),e}},function(t,e){function r(t){try{delete window[t]}catch(e){window[t]=void 0}}var o=document.createDocumentFragment(),n="textContent"in document;t.exports=function(t){var e=t.jsonpCallbackFunction||("jsonp"+Math.random()).replace(/0\./,""),i=t.jsonpCallback||"callback",s=document.createElement("script");s.charset&&(s.charset=t.charset),s.onerror=s[n?"onload":"onreadystatechange"]=function(t){var e=/loaded|complete|undefined/i.test(s.readyState);t&&"error"===t.type?a.error&&a.error():e&&setTimeout(function(){s.abort()},0)};var a={};s.on=function(t,e){a[t]=e},s.abort=function(){var t;a={},t=s,o.appendChild(t),o.removeChild(t),t.onload=onerror=onreadystatechange=function(){},r(e)},s.open=function(o,n){window[e]=function(t){a.load&&a.load({status:200,statusText:"ok",response:t}),r(e)};var u=document.getElementsTagName("head")[0];n+=-1===n.indexOf("?")?"?":"&",s.setAttribute("src",n+i+"="+e),u.insertBefore(s,u.firstChild),"number"==typeof t.timeout&&setTimeout(function(){a.timeout&&a.timeout(),s.abort()},t.timeout)}}},function(t,e){t.exports=function(t){var e=new XDomainRequest;"load,error,timeout".replace(/\w+/g,function(t){e["on"+t]=function(){r[t]&&r[t](e)}});var r={};return e.on=function(t,e){r[t]=e},e.onabort=function(){r={}},"number"==typeof t.timeout&&(e.timeout=t.timeout),e}},function(t,e){t.exports=function(t){var e=new XMLHttpRequest;"load,error,timeout".replace(/\w+/g,function(t){e["on"+t]=function(){r[t]&&r[t](e)}});var r={};return e.on=function(t,e){r[t]=e},e.onabort=function(){r={}},"include"===t.credentials&&(e.withCredentials=!0),"responseType"in e&&"Blob"in window&&(e.responseType="blob"),e}}])});
-</script>
 <script type="text/javascript">
     function getSearchParam(search, name) {
         if (window.URLSearchParams) {
