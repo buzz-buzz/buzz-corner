@@ -22,6 +22,7 @@ const putPolicy = new qiniu.rs.PutPolicy({
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
+const moment = require('moment');
 
 fundebug.notify("buzz-corner", "Fundebug started!");
 
@@ -117,10 +118,26 @@ router
         }
     })
     .get('/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
-        await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
+        const meta = {
+            query: ctx.query,
+            params: ctx.params
+        };
+        let start = new Date()
+        fundebug.notify('微信扫码登录开始', `${ctx.query.code}@${start}`, meta)
+        let result = await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
+        let end = new Date()
+        fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
     .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
-        await wechat.login(false, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
+        const meta = {
+            query: ctx.query,
+            params: ctx.params
+        };
+        let start = new Date()
+        fundebug.notify('微信扫码登录开始', `${ctx.query.code}@${start}`, meta)
+        let result = await wechat.login(false, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
+        let end = new Date()
+        fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', async ctx => {
