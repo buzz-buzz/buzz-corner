@@ -211,7 +211,7 @@
 }
 
 .placement-test > div{
-    width: 12.5% !important;
+    flex: 1;
 }
 
 div.help-modal{

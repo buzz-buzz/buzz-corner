@@ -83,7 +83,7 @@ class AccountLogin extends Component {
             console.error(ex);
             this.setState({
                 messageModal: true,
-                messageContent: Resources.getInstance().accountLoginFailed,
+                messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
                 loadingModal: false
             });
             this.closeMessageModal();
