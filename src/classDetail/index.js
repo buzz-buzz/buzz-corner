@@ -226,7 +226,7 @@ class classDetail extends Component {
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
+                    uri: this.state.class_id !== 'rookie' ?  `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id : `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
                 }
             }))[0]), studentsList = [], classBegin = false;
 
