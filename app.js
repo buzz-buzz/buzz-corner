@@ -74,7 +74,6 @@ router
             }).map(cookie => {
                 if (ctx.headers.referer) {
                     let parsed = url.parse(ctx.headers.referer, true);
-                    console.log('parsed referer = ', parsed);
 
                     let encodedReturnURL = parsed.query.return_url;
 
@@ -87,10 +86,8 @@ router
 
                     if (encodedReturnURL) {
                         let returnUrl = decodeURIComponent(encodedReturnURL);
-                        console.log('return url = ', returnUrl);
 
                         let parsedReturnUrl = url.parse(returnUrl);
-                        console.log('parsed return url = ', parsedReturnUrl);
                         if (parsedReturnUrl.host) {
                             cookie.domain = parsedReturnUrl.host;
                         }
