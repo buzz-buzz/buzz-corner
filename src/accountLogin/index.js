@@ -72,7 +72,7 @@ class AccountLogin extends Component {
 
 
             if (result instanceof Array) {
-                console.log(result);
+                browserHistory.push(`/account/select${window.location.search}`);
                 return;
             }
 
