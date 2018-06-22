@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
-import './index.css';
 import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
 import Track from "../common/track";
@@ -18,6 +17,7 @@ import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
 import Client from "../common/client";
+import './index.css';
 
 class classDetail extends Component {
     constructor(props) {
