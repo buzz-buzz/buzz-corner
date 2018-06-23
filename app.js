@@ -74,7 +74,6 @@ router
             }).map(cookie => {
                 if (ctx.headers.referer) {
                     let parsed = url.parse(ctx.headers.referer, true);
-                    console.log('parsed referer = ', parsed);
 
                     let encodedReturnURL = parsed.query.return_url;
 
@@ -87,10 +86,8 @@ router
 
                     if (encodedReturnURL) {
                         let returnUrl = decodeURIComponent(encodedReturnURL);
-                        console.log('return url = ', returnUrl);
 
                         let parsedReturnUrl = url.parse(returnUrl);
-                        console.log('parsed return url = ', parsedReturnUrl);
                         if (parsedReturnUrl.host) {
                             cookie.domain = parsedReturnUrl.host;
                         }
@@ -139,14 +136,7 @@ router
         fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
-    .get('/wechat/oauth/success/:wechatUserInfo', async ctx => {
-        if (['production', 'uat', 'qa'].indexOf(process.env.NODE_ENV) >= 0) {
-            await send(ctx, 'build/wechat-oauth-success.html')
-        } else {
-            await send(ctx, 'public/wechat-oauth-success.html')
-
-        }
-    })
+    .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
     .get('/sign-in', membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
