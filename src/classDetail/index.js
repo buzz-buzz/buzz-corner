@@ -171,7 +171,7 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
+        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             Track.event('课程详情_进入课程点击');
 
             this.showZoom();
@@ -461,8 +461,8 @@ class classDetail extends Component {
                      style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 && this.state.class_info.room_url ? {} : {display: 'none'}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? {
                                         color: 'white',
                                         background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
                                         borderRadius: '0',
