@@ -21,8 +21,11 @@ class User {
 
                 currentUser = new User(userData.userId, userData.super, userData.profile);
             } catch (ex) {
-                await User.signOut();
+                if(ex.status !== 500 && ex.statusText !== 'Internal Server Error'){
+                    await User.signOut();
+                }
 
+                console.log(ex);
                 return {};
             }
         }

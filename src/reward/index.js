@@ -24,7 +24,7 @@ class Reward extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerReward);
 
-        let profile = await CurrentUser.getProfile(true);
+        let profile = await CurrentUser.getProfile(true) || {};
 
         this.setState({
             integral: profile.integral || 0
