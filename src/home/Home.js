@@ -266,7 +266,7 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
-            this.setState({loadingModal: true, fullModal: true});
+            this.setState({loadingModal: true});
 
             //check system
             this.RemoveTouchEventIfAndroid();
@@ -289,8 +289,6 @@ class Home extends Component {
                 browserHistory.push('/my/info');
                 return;
             }
-
-            this.setState({fullModal: false});
 
             let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
                 return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
@@ -365,7 +363,7 @@ class Home extends Component {
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
 
-            this.setState({loadingModal: false, fullModal: false});
+            this.setState({loadingModal: false});
         }
     }
 
@@ -434,7 +432,7 @@ class Home extends Component {
             document.addEventListener('removeEventListener', this.state.touchEvent, false);
         }
 
-        this.setState({loadingModal: false, fullModal: false});
+        this.setState({loadingModal: false});
 
         this.setState = (state, callback) => {
             return;
@@ -444,7 +442,6 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
-                <LoadingModal loadingModal={this.state.fullModal} fullScreen={true}/>
                 <Welcome/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
