@@ -9,7 +9,28 @@ export default class AccountSelect extends Component{
     constructor(){
         super();
 
-        this.state = {active: ''};
+        this.state = {
+            active: '',
+            userList: [
+                {
+                    user_id: 1,
+                    name: 'hank',
+                    gender: 'f',
+                    birthday: '1992-01-29',
+                    city: '上海',
+                    grade: '2',
+                    country: 'china'
+                },
+                {
+                    user_id: 2,
+                    name: 'hanks',
+                    gender: 'm',
+                    birthday: '1993-01-29',
+                    city: '北京',
+                    grade: '11'
+                }
+            ]
+        };
 
         this.selectUser = this.selectUser.bind(this);
         this.login = this.login.bind(this);
@@ -22,16 +43,19 @@ export default class AccountSelect extends Component{
     }
 
     login(){
-
-
+        console.log(this.state.active);
     }
     render(){
         return (
             <div className="account-select">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSelectLogin}/>
                 <div className="account-item">
-                    <UserItem active={this.state.active} selectUser={this.selectUser} user_id={1} />
-                    <UserItem active={this.state.active} selectUser={this.selectUser} user_id={2} />
+                    {
+                        this.state.userList.map((item, index) => {
+                            return <UserItem active={this.state.active}  data={item}
+                                             selectUser={this.selectUser} user_id={item.user_id} key={index}/>
+                        })
+                    }
                 </div>
                 <div className="account-btn">
                     <Button50px disabled={!this.state.active}
