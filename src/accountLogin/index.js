@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Button50px from '../common/commonComponent/submitButton50px';
 import BuzzInput from '../common/commonComponent/buzzInput';
 import Track from "../common/track";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import LoadingModal from '../common/commonComponent/loadingModal';
-import {browserHistory} from "react-router";
+import { browserHistory } from "react-router";
 import Resources from '../resources';
 import './index.css';
 import MessageModal from '../common/commonComponent/modalMessage';
@@ -43,13 +43,13 @@ class AccountLogin extends Component {
 
         clonedData[event.target.name] = event.target.value;
 
-        this.setState({data: clonedData});
+        this.setState({ data: clonedData });
     }
 
     closeMessageModal() {
         const interval = setTimeout(() => {
             if (this.state.messageModal) {
-                this.setState({messageModal: false});
+                this.setState({ messageModal: false });
             }
 
             clearTimeout(interval);
@@ -57,9 +57,9 @@ class AccountLogin extends Component {
     }
 
     async submit() {
-        this.setState({loadingModal: true});
+        this.setState({ loadingModal: true });
         try {
-            await ServiceProxy.proxyTo({
+            let result = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {
@@ -70,7 +70,14 @@ class AccountLogin extends Component {
                 }
             });
 
-            this.setState({loadingModal: false}, () => {
+
+            if (result instanceof Array) {
+                browserHistory.push(`/account/select${window.location.search}`);
+                return;
+            }
+
+
+            this.setState({ loadingModal: false }, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
 
                 if (returnUrl) {
@@ -83,7 +90,7 @@ class AccountLogin extends Component {
             console.error(ex);
             this.setState({
                 messageModal: true,
-                messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
+                messageContent: Resources.getInstance().accountLoginFailed,
                 loadingModal: false
             });
             this.closeMessageModal();
@@ -98,12 +105,12 @@ class AccountLogin extends Component {
         return (
             <div className="account-login">
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
-                              modalShow={this.state.messageModal}/>
-                <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin}/>
+                    modalShow={this.state.messageModal} />
+                <LoadingModal loadingModal={this.state.loadingModal} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin} />
                 <div className="set-word">
                     <div className="user-password">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt="" />
                         <BuzzInput
                             type="text" placeholder={Resources.getInstance().accountInputAccount}
                             value={this.state.data.user_account}
@@ -112,7 +119,7 @@ class AccountLogin extends Component {
                         />
                     </div>
                     <div className="user-password">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt="" />
                         <BuzzInput
                             type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
                             value={this.state.data.user_password}
@@ -123,7 +130,7 @@ class AccountLogin extends Component {
                     <div className="update-btn">
                         <Button50px
                             disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
-                            text={Resources.getInstance().accountLogin} submit={this.submit}/>
+                            text={Resources.getInstance().accountLogin} submit={this.submit} />
                     </div>
                     <div className="forgotten" onClick={this.forgottenPassword}>
                         {Resources.getInstance().accountForgotten}
