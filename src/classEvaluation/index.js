@@ -13,6 +13,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
+import CapacityRating from './capacityRating';
 import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
@@ -337,6 +338,7 @@ class classEvaluation extends Component {
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
                     <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit} />
+                    <CapacityRating modal={false} />
                 </div>
             </div>
         );

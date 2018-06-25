@@ -128,7 +128,7 @@ export default class CapacityRating extends Component{
 
     render(){
         return (
-            <div className="rating-map">
+            <div className="rating-map" style={this.props.modal ? {}:{display: 'none'}}>
                 <div className="rating-content">
                     <div className="title">能力评分</div>
                     <div className="title-intro">相当于美国1年级小学水平</div>
