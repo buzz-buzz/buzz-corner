@@ -6,11 +6,8 @@ let recordReadyStatus = false;
 
 function handleSuccess(stream) {
     window.stream = stream;
-    if(window.MediaRecorder){
-        recordReadyStatus = true;
-    }else{
-        recordReadyStatus = false;
-    }
+
+    recordReadyStatus = true;
 }
 
 function handleError(error) {
@@ -34,7 +31,7 @@ export default class TabletAudio {
     }
 
     static async init(){
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder){
             await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
             return recordReadyStatus;
         }else{

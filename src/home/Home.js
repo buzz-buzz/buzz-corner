@@ -313,7 +313,7 @@ class Home extends Component {
 
             await window.Promise.all(classList.map(async(item, index) => {
                 if (profile.role === MemberType.Student) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),

@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import './index.css';
 
 export default class CapacityRating extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
-            rating: {
+            rating: this.props.rating || {
                 Fluency: 1,
                 Vocabulary: 2,
                 Grammar: 3,
@@ -32,6 +32,7 @@ export default class CapacityRating extends Component{
         ctx.beginPath();
         Object.keys(this.state.rating).map((key) => {
             ctx.lineTo(this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).x, this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).y);
+            return key;
         });
         ctx.closePath();
         ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
@@ -68,23 +69,25 @@ export default class CapacityRating extends Component{
 
     getLocationByScore(score, key, width, height){
         let radius = Number(score*20);
-        let length = Math.sqrt(radius*radius/2);
+        let length = Math.sqrt(radius*radius/2), location;
 
         switch (key){
             case 'Fluency':
-                return {x: width/2 - length, y: height/2 - length};
+                location = {x: width/2 - length, y: height/2 - length};
                 break;
             case 'Vocabulary':
-                return {x: width/2 - length, y: height/2 + length};
+                location = {x: width/2 - length, y: height/2 + length};
                 break;
             case 'Grammar':
-                return {x: width/2 + length, y: height/2 + length};
+                location = {x: width/2 + length, y: height/2 + length};
                 break;
             case 'Pronunciation':
-                return {x: width/2 + length, y: height/2 - length};
+                location = {x: width/2 + length, y: height/2 - length};
                 break;
             default: break;
         }
+
+        return location;
     }
 
     drawRegion(ctx, width, height){
