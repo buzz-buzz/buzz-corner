@@ -20,16 +20,8 @@ import {countries} from 'moment-timezone/data/meta/latest.json';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
 import Client from "../common/client";
+import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-    } else {
-        return ''
-    }
-}
 
 class My extends Component {
     constructor() {
@@ -492,7 +484,7 @@ class My extends Component {
             name: profile.student_en_name,
             gender: profile.gender,
             city: profile.city,
-            date_of_birth: getBirthDay(profile.date_of_birth),
+            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
             grade: profile.grade,
             interests: newTopics,
             email: profile.email,
@@ -543,7 +535,7 @@ class My extends Component {
             phone: userData.mobile || '',
             student_en_name: userData.name || '',
             gender: userData.gender,
-            date_of_birth: getBirthDay(userData.date_of_birth),
+            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
             city: userData.city || '',
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),

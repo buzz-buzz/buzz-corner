@@ -2,17 +2,9 @@ import React, {Component} from 'react';
 import {Flag} from 'semantic-ui-react';
 import Avatar from '../avatar';
 import Resources from '../../../resources';
-import {GradeData} from "../../../common/systemData/gradeData";
+import {GradeData} from "../../systemData/gradeData";
+import BirthdayHelper from '../../birthdayFormat';
 import './index.css';
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-    } else {
-        return ''
-    }
-}
 
 export default class UserItem extends Component{
     getGradeName(grade){
@@ -56,7 +48,7 @@ export default class UserItem extends Component{
                     <p className="gender-birthday" style={{
                         color: '#666',
                         fontSize: '11px'
-                    }}>{this.props.data.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{getBirthDay(this.props.data.date_of_birth)}</p>
+                    }}>{this.props.data.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{BirthdayHelper.getBirthdayFromDbFormat(this.props.data.date_of_birth)}</p>
                     <p className="city-grade"
                        style={{fontSize: '11px', color: '#666'}}>{this.props.data.city || this.props.data.country}&nbsp;&nbsp;&nbsp;&nbsp;{this.getGradeName(this.props.data.grade)}</p>
                 </div>
