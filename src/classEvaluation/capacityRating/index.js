@@ -7,10 +7,10 @@ export default class CapacityRating extends Component{
 
         this.state = {
             rating: {
-                Fluency: 4,
-                Vocabulary: 1,
-                Grammar: 5,
-                Pronunciation: 2
+                Fluency: 1,
+                Vocabulary: 2,
+                Grammar: 3,
+                Pronunciation: 4
             }
         };
     }
@@ -90,13 +90,8 @@ export default class CapacityRating extends Component{
     drawRegion(ctx, width, height){
         let Fluency = this.getLocationByScore(this.state.rating.Fluency, 'Fluency', width, height);
         let Vocabulary = this.getLocationByScore(this.state.rating.Vocabulary, 'Vocabulary', width, height);
-        let Grammar = this.getLocationByScore(this.state.rating.Grammar, 'Grammar', width, height);
         let Pronunciation = this.getLocationByScore(this.state.rating.Pronunciation, 'Pronunciation', width, height);
-
-        console.log(Fluency);
-        console.log(Vocabulary);
-        console.log(Grammar);
-        console.log(Pronunciation);
+        let Grammar = this.getLocationByScore(this.state.rating.Grammar, 'Grammar', width, height);
 
         this.drawCircle(ctx, '#fff', 3, Fluency.x, Fluency.y, '#000');
         this.drawCircle(ctx, '#fff', 3, Vocabulary.x, Vocabulary.y, '#000');
