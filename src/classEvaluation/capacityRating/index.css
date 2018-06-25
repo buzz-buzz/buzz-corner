@@ -58,10 +58,10 @@
         bottom: 0; }
       .rating-map .rating-content .canvas .tab-grammar {
         right: -40px;
-        top: 0; }
+        bottom: 0; }
       .rating-map .rating-content .canvas .tab-pronunciation {
         right: -40px;
-        bottom: 0; }
+        top: 0; }
     .rating-map .rating-content .score-intro {
       margin-top: 20px;
       font-size: 12px;
