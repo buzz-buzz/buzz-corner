@@ -11,29 +11,19 @@ export default class AccountSelect extends Component{
 
         this.state = {
             active: '',
-            userList: [
-                {
-                    user_id: 1,
-                    name: 'hank',
-                    gender: 'f',
-                    birthday: '1992-01-29',
-                    city: '上海',
-                    grade: '2',
-                    country: 'china'
-                },
-                {
-                    user_id: 2,
-                    name: 'hanks',
-                    gender: 'm',
-                    birthday: '1993-01-29',
-                    city: '北京',
-                    grade: '11'
-                }
-            ]
+            userList: []
         };
 
         this.selectUser = this.selectUser.bind(this);
         this.login = this.login.bind(this);
+    }
+
+    componentWillMount(){
+        this.setState({
+            userList: JSON.parse(sessionStorage.getItem('userList')) || []
+        }, () => {
+            sessionStorage.clear();
+        });
     }
 
     selectUser(event, user_id){
