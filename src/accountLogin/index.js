@@ -10,6 +10,10 @@ import './index.css';
 import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 import URLHelper from "../common/url-helper";
+import AccountSelect from '../accountSelect/index';
+
+import { connect } from 'react-redux';
+import { addUser, addUsers } from '../actions/index';
 
 class AccountLogin extends Component {
     constructor() {
@@ -71,9 +75,9 @@ class AccountLogin extends Component {
             });
 
 
-            if (result instanceof Array && result.length >= 2) {
-                sessionStorage.setItem('userList', JSON.stringify(result));
-                browserHistory.push(`/account/select${window.location.search}`);
+            if (result instanceof Array) {
+                this.props.addUsers(result)
+                this.setState({ loadingModal: false })
                 return;
             }
 
@@ -140,9 +144,19 @@ class AccountLogin extends Component {
                         <div onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
                     </div>
                 </div>
+                <AccountSelect />
             </div>
         );
     }
 }
 
-export default AccountLogin;
+export default connect(null, dispatch => {
+    return {
+        addUser: user => {
+            dispatch(addUser(user));
+        },
+        addUsers: users => {
+            dispatch(addUsers(users));
+        }
+    }
+})(AccountLogin);
