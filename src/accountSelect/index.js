@@ -24,14 +24,13 @@ class AccountSelect extends Component {
     }
 
     login() {
-
-
+        console.log(this.state.active);
+        this.props.onSelectUser(this.state.active);
     }
 
     render() {
         return (
             <div className="account-select">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSelectLogin} />
                 <div className="account-item">
                     {
                         this.props.users && this.props.users.map(u =>
