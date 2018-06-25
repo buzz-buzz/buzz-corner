@@ -48,7 +48,7 @@ export default class UserItem extends Component{
                     <p className="gender-birthday" style={{
                         color: '#666',
                         fontSize: '11px'
-                    }}>{this.props.data.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{BirthdayHelper.getBirthdayFromDbFormat(this.props.data.date_of_birth)}</p>
+                    }}>{this.props.user.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{BirthdayHelper.getBirthdayFromDbFormat(this.props.user.date_of_birth)}</p>
                     <p className="city-grade"
                         style={{ fontSize: '11px', color: '#666' }}>{this.props.user.city || this.props.user.country}&nbsp;&nbsp;&nbsp;&nbsp;{this.getGradeName(this.props.user.grade)}</p>
                 </div>
