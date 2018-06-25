@@ -10,6 +10,10 @@ import './index.css';
 import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 import URLHelper from "../common/url-helper";
+import AccountSelect from '../accountSelect/index';
+
+import { connect } from 'react-redux';
+import { addUser, addUsers } from '../actions/index';
 
 class AccountLogin extends Component {
     constructor() {
@@ -18,7 +22,8 @@ class AccountLogin extends Component {
         this.state = {
             data: {
                 user_account: '',
-                user_password: ''
+                user_password: '',
+                user_id: null
             }
         };
 
@@ -64,16 +69,17 @@ class AccountLogin extends Component {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {
                         account: this.state.data.user_account,
-                        password: this.state.data.user_password
+                        password: this.state.data.user_password,
+                        user_id: this.state.data.user_id
                     },
                     method: 'PUT'
                 }
             });
 
 
-            if (result instanceof Array && result.length >= 2) {
-                sessionStorage.setItem('userList', JSON.stringify(result));
-                browserHistory.push(`/account/select${window.location.search}`);
+            if (result instanceof Array) {
+                this.props.addUsers(result)
+                this.setState({ loadingModal: false, multipleUsers: true })
                 return;
             }
 
@@ -102,6 +108,17 @@ class AccountLogin extends Component {
         Track.event('设置密码页面展示');
     }
 
+    selectUser = (userId) => {
+        this.setState({
+            data: {
+                ...this.state.data,
+                user_id: userId
+            }
+        }, async () => {
+            await this.submit();
+        });
+    }
+
     render() {
         return (
             <div className="account-login">
@@ -109,40 +126,58 @@ class AccountLogin extends Component {
                     modalShow={this.state.messageModal} />
                 <LoadingModal loadingModal={this.state.loadingModal} />
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin} />
-                <div className="set-word">
-                    <div className="user-password">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt="" />
-                        <BuzzInput
-                            type="text" placeholder={Resources.getInstance().accountInputAccount}
-                            value={this.state.data.user_account}
-                            onChange={this.handleChange}
-                            name='user_account'
-                        />
+                {
+                    !this.state.multipleUsers &&
+                    <div className="set-word">
+                        <div className="user-password">
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt="" />
+                            <BuzzInput
+                                type="text" placeholder={Resources.getInstance().accountInputAccount}
+                                value={this.state.data.user_account}
+                                onChange={this.handleChange}
+                                name='user_account'
+                            />
+                        </div>
+                        <div className="user-password">
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt="" />
+                            <BuzzInput
+                                type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
+                                value={this.state.data.user_password}
+                                onChange={this.handleChange}
+                                name='user_password'
+                            />
+                        </div>
+                        <div className="update-btn">
+                            <Button50px
+                                disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
+                                text={Resources.getInstance().accountLogin} submit={this.submit} />
+                        </div>
+                        <div className="forgotten" onClick={this.forgottenPassword}>
+                            {Resources.getInstance().accountForgotten}
+                        </div>
+                        <div className="flex-end">
+                            <div onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
+                        </div>
                     </div>
-                    <div className="user-password">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt="" />
-                        <BuzzInput
-                            type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
-                            value={this.state.data.user_password}
-                            onChange={this.handleChange}
-                            name='user_password'
-                        />
+                }
+                {
+                    this.state.multipleUsers &&
+                    <div>
+                        <AccountSelect onSelectUser={this.selectUser} />
                     </div>
-                    <div className="update-btn">
-                        <Button50px
-                            disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
-                            text={Resources.getInstance().accountLogin} submit={this.submit} />
-                    </div>
-                    <div className="forgotten" onClick={this.forgottenPassword}>
-                        {Resources.getInstance().accountForgotten}
-                    </div>
-                    <div className="flex-end">
-                        <div onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
-                    </div>
-                </div>
+                }
             </div>
         );
     }
 }
 
-export default AccountLogin;
+export default connect(null, dispatch => {
+    return {
+        addUser: user => {
+            dispatch(addUser(user));
+        },
+        addUsers: users => {
+            dispatch(addUsers(users));
+        }
+    }
+})(AccountLogin);

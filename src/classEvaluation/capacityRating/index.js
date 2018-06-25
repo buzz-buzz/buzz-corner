@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './index.css';
 
-export default class CapacityRating extends Component{
-    constructor(props){
+export default class CapacityRating extends Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -15,25 +15,24 @@ export default class CapacityRating extends Component{
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         //get score from DB
         let canvas = document.getElementById('rating-map');
         let ctx = canvas.getContext('2d');
         let centerX = canvas.width / 2;
         let centerY = canvas.height / 2;
 
-        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.2)', canvas.width*.5, centerX, centerY);
-        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.4)', canvas.width*.4, centerX, centerY);
-        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.6)', canvas.width*.3, centerX, centerY);
-        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.8)', canvas.width*.2, centerX, centerY);
-        this.drawCircle(ctx, 'rgb(255, 210, 0)', canvas.width*.1, centerX, centerY);
+        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.2)', canvas.width * .5, centerX, centerY);
+        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.4)', canvas.width * .4, centerX, centerY);
+        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.6)', canvas.width * .3, centerX, centerY);
+        this.drawCircle(ctx, 'rgba(255, 210, 0, 0.8)', canvas.width * .2, centerX, centerY);
+        this.drawCircle(ctx, 'rgb(255, 210, 0)', canvas.width * .1, centerX, centerY);
         this.drawLines(ctx, canvas.width, canvas.height);
 
         ctx.beginPath();
-        Object.keys(this.state.rating).map((key) => {
-            ctx.lineTo(this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).x, this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).y);
-            return key;
-        });
+        Object.keys(this.state.rating).map((key) =>
+            ctx.lineTo(this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).x, this.getLocationByScore(this.state.rating[key], key, canvas.width, canvas.height).y)
+        );
         ctx.closePath();
         ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
         ctx.fill();
@@ -41,7 +40,7 @@ export default class CapacityRating extends Component{
         this.drawRegion(ctx, canvas.width, canvas.height);
     }
 
-    drawCircle(context, color, radius, centerX, centerY, lineColor){
+    drawCircle(context, color, radius, centerX, centerY, lineColor) {
         context.beginPath();
         context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
         context.fillStyle = color;
@@ -51,46 +50,42 @@ export default class CapacityRating extends Component{
         context.stroke();
     }
 
-    drawLines(context, width, height){
+    drawLines(context, width, height) {
         context.beginPath();
-        context.moveTo(0, width/2);
-        context.lineTo(height, width/2);
+        context.moveTo(0, width / 2);
+        context.lineTo(height, width / 2);
         context.strokeStyle = '#fff';
         context.lineWidth = 1;
         context.stroke();
 
         context.beginPath();
-        context.moveTo(height/2, 0);
-        context.lineTo(height/2, width);
+        context.moveTo(height / 2, 0);
+        context.lineTo(height / 2, width);
         context.strokeStyle = '#fff';
         context.lineWidth = 1;
         context.stroke();
     }
 
-    getLocationByScore(score, key, width, height){
-        let radius = Number(score*20);
-        let length = Math.sqrt(radius*radius/2), location;
+    getLocationByScore(score, key, width, height) {
+        let radius = Number(score * 20);
+        let length = Math.sqrt(radius * radius / 2), location;
 
-        switch (key){
+        switch (key) {
             case 'Fluency':
-                location = {x: width/2 - length, y: height/2 - length};
-                break;
+                return { x: width / 2 - length, y: height / 2 - length };
             case 'Vocabulary':
-                location = {x: width/2 - length, y: height/2 + length};
-                break;
+                return { x: width / 2 - length, y: height / 2 + length };
             case 'Grammar':
-                location = {x: width/2 + length, y: height/2 + length};
-                break;
+                return { x: width / 2 + length, y: height / 2 + length };
             case 'Pronunciation':
-                location = {x: width/2 + length, y: height/2 - length};
-                break;
+                return { x: width / 2 + length, y: height / 2 - length };
             default: break;
         }
 
         return location;
     }
 
-    drawRegion(ctx, width, height){
+    drawRegion(ctx, width, height) {
         let Fluency = this.getLocationByScore(this.state.rating.Fluency, 'Fluency', width, height);
         let Vocabulary = this.getLocationByScore(this.state.rating.Vocabulary, 'Vocabulary', width, height);
         let Pronunciation = this.getLocationByScore(this.state.rating.Pronunciation, 'Pronunciation', width, height);
@@ -110,17 +105,17 @@ export default class CapacityRating extends Component{
         this.drawDashLine(ctx, Pronunciation.x, Pronunciation.y, Fluency.x, Fluency.y);
     }
 
-    drawDashLine(ctx, x1, y1, x2, y2, dashLen){
+    drawDashLine(ctx, x1, y1, x2, y2, dashLen) {
         dashLen = dashLen === undefined ? 2 : dashLen;
         let xpos = x2 - x1,
             ypos = y2 - y1,
-            numDashes = Math.floor(Math.sqrt(xpos*xpos + ypos*ypos)/dashLen);
+            numDashes = Math.floor(Math.sqrt(xpos * xpos + ypos * ypos) / dashLen);
 
-        for(let i = 2; i < numDashes; i++){
-            if(i % 2 === 0){
-                ctx.moveTo(x1+(xpos/numDashes)*i, y1+(ypos/numDashes)*i);
-            }else{
-                ctx.lineTo(x1+(xpos/numDashes)*i, y1+(ypos/numDashes)*i);
+        for (let i = 2; i < numDashes; i++) {
+            if (i % 2 === 0) {
+                ctx.moveTo(x1 + (xpos / numDashes) * i, y1 + (ypos / numDashes) * i);
+            } else {
+                ctx.lineTo(x1 + (xpos / numDashes) * i, y1 + (ypos / numDashes) * i);
             }
         }
 
@@ -129,9 +124,9 @@ export default class CapacityRating extends Component{
         ctx.stroke();
     }
 
-    render(){
+    render() {
         return (
-            <div className="rating-map" style={this.props.modal ? {}:{display: 'none'}}>
+            <div className="rating-map" style={this.props.modal ? {} : { display: 'none' }}>
                 <div className="rating-content">
                     <div className="title">能力评分</div>
                     <div className="title-intro">相当于美国1年级小学水平</div>
