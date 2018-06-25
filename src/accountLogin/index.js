@@ -71,7 +71,8 @@ class AccountLogin extends Component {
             });
 
 
-            if (result instanceof Array) {
+            if (result instanceof Array && result.length >= 2) {
+                sessionStorage.setItem('userList', JSON.stringify(result));
                 browserHistory.push(`/account/select${window.location.search}`);
                 return;
             }

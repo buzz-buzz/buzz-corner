@@ -5,6 +5,15 @@ import Resources from '../../../resources';
 import {GradeData} from "../../../common/systemData/gradeData";
 import './index.css';
 
+function getBirthDay(date_of_birth) {
+    if (date_of_birth) {
+        let date = new Date(date_of_birth);
+        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+    } else {
+        return ''
+    }
+}
+
 export default class UserItem extends Component{
     getGradeName(grade){
         let result = '';
@@ -34,9 +43,9 @@ export default class UserItem extends Component{
                  onClick={(event) => this.props.selectUser(event, this.props.user_id)} >
                 <div className="user-item-avatar">
                     <Avatar width="70px" height="70px"
-                        src="https://buzz-corner.user.resource.buzzbuzzenglish.com/Fkg6KH2vB8Eu1Hnl7rH9cNP14CAq?imageView2/1/w/400/h/400"/>
+                        src={this.props.data.avatar ||  '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}/>
                     <Flag
-                        name={this.props.data.country || 'united states'}/>
+                        name={this.props.data.country ? this.props.data.country.toLowerCase() : 'united states'}/>
                 </div>
                 <div className="user-item-info">
                     <p className="your-name" style={{
@@ -47,9 +56,9 @@ export default class UserItem extends Component{
                     <p className="gender-birthday" style={{
                         color: '#666',
                         fontSize: '11px'
-                    }}>{this.props.data.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{this.props.data.birthday}</p>
+                    }}>{this.props.data.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}&nbsp;&nbsp;&nbsp;&nbsp;{getBirthDay(this.props.data.date_of_birth)}</p>
                     <p className="city-grade"
-                       style={{fontSize: '11px', color: '#666'}}>{this.props.data.city || ''}&nbsp;&nbsp;&nbsp;&nbsp;{this.getGradeName(this.props.data.grade)}</p>
+                       style={{fontSize: '11px', color: '#666'}}>{this.props.data.city || this.props.data.country}&nbsp;&nbsp;&nbsp;&nbsp;{this.getGradeName(this.props.data.grade)}</p>
                 </div>
             </div>
         )
