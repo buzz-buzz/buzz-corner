@@ -19,7 +19,7 @@ class User {
                     return;
                 }
 
-                currentUser = new User(userData.userId, userData.super, userData.profile);
+                currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
             } catch (ex) {
                 await User.signOut();
 
@@ -37,7 +37,7 @@ class User {
         } catch (ex) {
             console.error(ex);
         } finally {
-            window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || '')) }`;
+            window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
         }
     }
 
