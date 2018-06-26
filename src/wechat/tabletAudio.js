@@ -29,9 +29,14 @@ export default class TabletAudio {
         this.validBlobs = [];
     }
 
-    static async init(){
-        await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
-        return recordReadyStatus;
+    static init(callback) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(handleSuccess)
+            .catch(handleError)
+            .finally(() => {
+                callback(recordReadyStatus);
+            })
+            ;
     }
 
     async stopRecording() {
@@ -44,18 +49,18 @@ export default class TabletAudio {
 
 
     async startRecording() {
-        if(recordReadyStatus){
+        if (recordReadyStatus) {
             recordedBlobs = [];
-            let options = {mimeType: 'audio/webm'};
+            let options = { mimeType: 'audio/webm' };
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
-                options = {mimeType: 'audio/webm;codecs=vp8'};
+                options = { mimeType: 'audio/webm;codecs=vp8' };
                 if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                     console.log(options.mimeType + ' is not Supported');
-                    options = {mimeType: 'audio/webm'};
+                    options = { mimeType: 'audio/webm' };
                     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                         console.log(options.mimeType + ' is not Supported');
-                        options = {mimeType: ''};
+                        options = { mimeType: '' };
                     }
                 }
             }
@@ -70,14 +75,14 @@ export default class TabletAudio {
             mediaRecorder.ondataavailable = handleDataAvailable;
             mediaRecorder.start(10); // collect 10ms of data
             console.log('recording...');
-        }else{
+        } else {
             alert('navigator.mediaDevices.getUserMedia didn\'t work!');
         }
     }
 
-    play(){
+    play() {
         let audioNow = document.createElement('audio');
-        let superBuffer = new Blob(this.validBlobs, {type: 'audio/mp3'});
+        let superBuffer = new Blob(this.validBlobs, { type: 'audio/mp3' });
         audioNow.muted = false;
         audioNow.src = window.URL.createObjectURL(superBuffer);
         audioNow.play();
@@ -99,7 +104,7 @@ export default class TabletAudio {
         let fileForm = new FormData();
 
         fileForm.append("name", new Date().getTime() + 'audio');
-        fileForm.append("file", new Blob(this.validBlobs, {type: 'audio/mp3'}));
+        fileForm.append("file", new Blob(this.validBlobs, { type: 'audio/mp3' }));
         fileForm.append("token", qiniu_token.uptoken);
 
         let result = await ServiceProxy.proxy(qiniu_token.upload_url, {
@@ -113,7 +118,7 @@ export default class TabletAudio {
 
         if (!result.key || !result.hash) {
             url = '';
-        }else{
+        } else {
             url = qiniu_token.resources_url + result.key;
         }
 
