@@ -250,14 +250,14 @@ export const cityFZ = 'FuZhou';
 export const cityZZ = 'ZhengZhou';
 export const citySJZ = 'ShiJiaZhuang';
 export const citySZ1 = 'SuZhou';
-export const cityFS ='FoShan';
+export const cityFS = 'FoShan';
 export const cityDG = 'DongGuan';
 export const cityWX = 'WuXi';
 export const cityYT = 'YanTai';
 export const cityTY = 'TaiYuan';
 export const cityHF = 'HeFei';
-export const cityNC ='NanChang';
-export const cityNN ='NanNing';
+export const cityNC = 'NanChang';
+export const cityNN = 'NanNing';
 export const cityKM = 'KunMing';
 export const cityWZ = 'WenZhou';
 export const cityZB = 'ZiBo';
@@ -335,6 +335,7 @@ export const accountSelectLoginSubmit = 'Login with this account';
 
 export const popUserUpdateAccountInfo = 'The binding phone number has been set up with an account and password. If the phone changed, the new phone number will be used as the login account automatically.';
 export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up with an account and password. If the e-mail changed, the new e-mail address will be used as the login account automatically.';
+export const audioDisabled = "Need the permission for recording, but you denied it. Please authorize the permission and come back here to try again...";
 
 export function signInWith(method) {
     return (
@@ -354,6 +355,6 @@ export function leftDays(start_time, end_time, now_time) {
     }
 
     if (d === 0) {
-        return (start_time - now_time > 0 ? 'Start today' : ( end_time - now_time > 0 ? 'Started' : 'Ended' ))
+        return (start_time - now_time > 0 ? 'Start today' : (end_time - now_time > 0 ? 'Started' : 'Ended'))
     }
 }
