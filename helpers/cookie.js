@@ -18,10 +18,14 @@ let sessionCookieOption = {
 let o = {
     setUserId: function (user_id) {
         this.cookies.set('user_id', user_id, sessionCookieOption);
+
+        if (config.rootDomain) {
+            this.cookies.set('user_id', user_id, Object.assign({}, sessionCookieOption, { domain: config.rootDomain }));
+        }
     },
     deleteUserId: function () {
         this.cookies.set('user_id', '', clearCookieOption);
-        let options = {...clearCookieOption, domain: config.rootDomain};
+        let options = { ...clearCookieOption, domain: config.rootDomain };
         this.cookies.set('user_id', '', options);
     }
 };

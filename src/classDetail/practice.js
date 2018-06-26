@@ -1,11 +1,10 @@
 import * as React from "react";
-import {Dimmer, Divider, Header, Icon, Image, Segment} from "semantic-ui-react";
+import { Dimmer, Divider, Header, Icon, Image, Segment } from "semantic-ui-react";
 import Resources from '../resources';
 import './chat.css';
 import WechatAudio from "../wechat/audio";
 import TabletAudio from "../wechat/tabletAudio";
 import Track from "../common/track";
-import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import CurrentUser from "../membership/user";
 import Client from "../common/client";
@@ -22,7 +21,7 @@ export default class Practice extends React.Component {
             currentReplying: 0,
             currentPlaying: -1,
             repliesPlaying: -1,
-            support: false
+            support: (navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) && window.MediaRecorder
         };
 
         this.audios = {};
@@ -38,35 +37,36 @@ export default class Practice extends React.Component {
     async reReplyButtonClicked(buttonIndex = this.state.replies.length - 1) {
         Track.event(this.props.audioUpload ? '测试_点击音频重新录制' : '课程详情_点击音频重新录制');
 
-        this.setState({recording: true, currentReplying: buttonIndex, recordingStartTime: new Date().getTime()}, () => {
+        this.setState({ recording: true, currentReplying: buttonIndex, recordingStartTime: new Date().getTime() }, () => {
             this.props.recordingChanged(this.state.recording);
         });
         await this.state.replies[buttonIndex].recordAudio.startRecording();
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        if(this.state.support){
+        if (this.state.support) {
             Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
-            this.setState({currentReplying: buttonIndex});
+            if (this.state.loadingAudio) {
+                alert(Resources.getInstance().audioDisabled);
+                return;
+            }
+
+            this.setState({ currentReplying: buttonIndex });
 
             if (!this.state.replies[buttonIndex].answered) {
-                this.setState({recording: true, recordingStartTime: new Date().getTime()}, () => {
+                this.setState({ recording: true, recordingStartTime: new Date().getTime() }, () => {
                     this.props.recordingChanged(this.state.recording);
                 });
                 await this.state.replies[buttonIndex].recordAudio.startRecording();
             } else {
                 this.state.replies[buttonIndex].recordAudio.play();
                 //is playing && and the ended event
-                this.setState({repliesPlaying: buttonIndex});
+                this.setState({ repliesPlaying: buttonIndex });
                 window.setTimeout(() => {
-                    this.setState({repliesPlaying: -1});
+                    this.setState({ repliesPlaying: -1 });
                 }, this.state.recordingEndTime - this.state.recordingStartTime)
             }
-        }else{
-            this.setState({messageModal: true}, () => {
-                this.closeMessageModal();
-            });
         }
     }
 
@@ -75,7 +75,7 @@ export default class Practice extends React.Component {
             return;
         }
 
-        this.setState({recording: false, recordingEndTime: new Date().getTime()}, () => {
+        this.setState({ recording: false, recordingEndTime: new Date().getTime() }, () => {
             this.props.recordingChanged(this.state.recording);
         })
 
@@ -130,13 +130,13 @@ export default class Practice extends React.Component {
             });
         }
 
-        this.setState({replies}, () => {
+        this.setState({ replies }, () => {
             window.scrollTo(0, document.documentElement.clientHeight);
         });
     }
 
     async cancelReply() {
-        this.setState({recording: false}, () => {
+        this.setState({ recording: false }, () => {
             this.props.recordingChanged(this.state.recording);
         });
         await this.state.replies[this.state.replies.length - 1].recordAudio.stopRecording();
@@ -156,7 +156,7 @@ export default class Practice extends React.Component {
         if (this.audios[index]) {
             try {
                 await this.audios[index].play()
-                this.setState({currentPlaying: index});
+                this.setState({ currentPlaying: index });
             } catch (ex) {
                 alert(ex);
             }
@@ -165,7 +165,6 @@ export default class Practice extends React.Component {
 
     async componentDidMount() {
         let audioReady = false;
-        this.setState({loadingModal: true});
 
         if (/MicroMessenger/.test(navigator.userAgent)) {
             try {
@@ -175,25 +174,23 @@ export default class Practice extends React.Component {
                 audioReady = false;
             }
         } else {
-            try {
-                audioReady = await TabletAudio.init();
-            } catch (ex) {
-                audioReady = false;
-            }
+            TabletAudio.init((readyStatus) => {
+                audioReady = readyStatus
+                this.setState({ loadingAudio: !readyStatus })
+            });
         }
 
         let userInfo = await CurrentUser.getProfile();
         this.setState({
             avatar: userInfo.avatar,
-            loadingModal: false,
-            support: audioReady
+            loadingAudio: !audioReady
         })
     }
 
     closeMessageModal() {
         const interval = setTimeout(() => {
             if (this.state.messageModal) {
-                this.setState({messageModal: false});
+                this.setState({ messageModal: false });
             }
 
             clearTimeout(interval);
@@ -202,7 +199,7 @@ export default class Practice extends React.Component {
 
     componentWillUnmount() {
         //stop playing record
-        if (this.audios && this.audios.length) {
+        if (this.audios && this.aloadingAudioudios.length) {
             for (let i in this.audios) {
                 if (this.audios[i]) {
                     this.audios[i].pause();
@@ -211,7 +208,7 @@ export default class Practice extends React.Component {
         }
 
         this.setState({
-            loadingModal: false
+            loadingAudio: false
         })
     }
 
@@ -223,84 +220,96 @@ export default class Practice extends React.Component {
             this.props.chats.length ?
                 <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                     <Divider horizontal></Divider>
-                    <LoadingModal loadingModal={this.state.loadingModal}/>
                     <MessageModal modalName="error" modalContent="抱歉，你的浏览器不支持录音功能，请使用最新版Chrome浏览器/Firefox浏览器, 或在微信客户端中体验。"
-                                  modalShow={this.state.messageModal}/>
+                        modalShow={!this.state.support} />
                     <div>
                         {
                             this.state.replies.map((r, i) => {
-                                    return (
-                                        <div key={i}>
-                                            <div className="practise-advisor chat message">
-                                                <div style={{flex: '0 0 auto'}}>
-                                                    <Image avatar
-                                                           src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
-                                                           alt="avatar"/>
-                                                </div>
-                                                <div
-                                                    className="advisor-word talk-bubble tri-right left-bottom border round">
-                                                    {
-                                                        isAndroid ?
+                                return (
+                                    <div key={i}>
+                                        <div className="practise-advisor chat message">
+                                            <div>
+                                                <Image avatar
+                                                    src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                                                    alt="avatar" />
+                                            </div>
+                                            <div
+                                                className="advisor-word talk-bubble tri-right left-bottom border round">
+                                                {
+                                                    isAndroid ?
+                                                        <div className="talktext"
+                                                            onMouseDown={() => this.play(i)}>
+                                                            {
+                                                                this.renderAudio(i)
+                                                            }
+                                                        </div>
+                                                        :
+                                                        Client.showComponent(<div className="talktext"
+                                                            onTouchStart={() => this.play(i)}>
+                                                            {
+                                                                this.renderAudio(i)
+                                                            }
+                                                        </div>,
                                                             <div className="talktext"
-                                                                 onMouseDown={() => this.play(i)}>
+                                                                onClick={() => this.play(i)}>
                                                                 {
                                                                     this.renderAudio(i)
                                                                 }
-                                                            </div>
-                                                            :
-                                                            Client.showComponent(<div className="talktext"
-                                                                                      onTouchStart={() => this.play(i)}>
-                                                                    {
-                                                                        this.renderAudio(i)
-                                                                    }
-                                                                </div>,
-                                                                <div className="talktext"
-                                                                     onClick={() => this.play(i)}>
-                                                                    {
-                                                                        this.renderAudio(i)
-                                                                    }
-                                                                </div>)
+                                                            </div>)
 
-                                                    }
-                                                </div>
+                                                }
                                             </div>
-                                            <div className="practise-student chat message reverse">
-                                                <div style={{flex: '0 0 auto'}}>
-                                                    <Image avatar
-                                                           src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
-                                                           alt="avatar"/>
-                                                </div>
-                                                <div onClick={() => this.replyButtonClicked(i)}
-                                                     className="student-word talk-bubble tri-left right-bottom border round">
-                                                    <div className="talktext">
-                                                        <p style={{paddingLeft: '10px', display: 'flex', alignItems: 'center'}}>
-                                                            <img className="rotate180" style={{height: '15px'}}
-                                                                 src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
-                                                                 alt=""/>
-                                                            <span>{this.state.replies[i].answered ? Resources.getInstance().placementListeningAudio : Resources.getInstance().placementRecordAudio}</span>
-                                                        </p>
-                                                    </div>
-
-                                                    {
-                                                        i === this.state.replies.length - 1 &&
-                                                        <p className="tip">&nbsp;&nbsp;</p>
-                                                    }
-                                                </div>
-                                                <div style={this.props.openPractiseWord ? {} : {display: 'none'}}
-                                                     onClick={(event) => this.props.openPractiseWord(event, i)}
-                                                     className="practise-word">
-                                                    <span>提示</span>
-                                                </div>
-                                            </div>
-                                            {
-                                                this.state.replies[i].answered &&
-
-                                                <div onClick={() => this.reReplyButtonClicked(i)}
-                                                     className="recordAgain">{Resources.getInstance().practiceAgain}</div>
-                                            }
                                         </div>
-                                    );
-                                }
+                                        <div className="practise-student chat message reverse"
+                                            onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
+                                        >
+                                            <div>
+                                                <Image avatar
+                                                    src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                                                    alt="avatar" />
+                                            </div>
+
+                                            <div
+                                                className="student-word talk-bubble tri-left right-bottom border round">
+                                                <div className="talktext">
+                                                    <p style={{ paddingLeft: '10px' }}>
+                                                        {
+                                                            this.state.loadingAudio ?
+                                                                <Icon loading name="spinner" /> :
+                                                                <img className="rotate180" style={{ height: '15px' }}
+                                                                    src={this.state.repliesPlaying === i ? this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
+                                                                    alt="" />
+                                                        }
+                                                        <span>
+                                                            {
+                                                                this.state.replies[i].answered ?
+                                                                    Resources.getInstance().placementListeningAudio :
+                                                                    (
+                                                                        this.state.loadingAudio ?
+                                                                            '' :
+                                                                            Resources.getInstance().placementRecordAudio
+                                                                    )
+                                                            }
+                                                        </span>
+                                                    </p>
+                                                </div>
+
+                                                {
+                                                    i === this.state.replies.length - 1 &&
+                                                    <p className="tip">&nbsp;&nbsp;</p>
+                                                }
+                                            </div>
+
+                                        </div>
+                                        {
+                                            this.state.replies[i].answered &&
+
+                                            <div onClick={() => this.reReplyButtonClicked(i)} disabled={this.state.loadingAudio}
+                                                className="recordAgain">{Resources.getInstance().practiceAgain}</div>
+                                        }
+                                    </div>
+                                );
+                            }
                             )
                         }
 
@@ -311,27 +320,27 @@ export default class Practice extends React.Component {
                             < div className="practise-advisor chat message">
                                 <div>
                                     <Image avatar
-                                           src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
-                                           alt="avatar"/>
+                                        src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                                        alt="avatar" />
                                 </div>
                                 <div
                                     className="advisor-word talk-bubble tri-right left-bottom border round">
-                                    <div className="talktext" style={{padding: '0'}}>
+                                    <div className="talktext" style={{ padding: '0' }}>
                                         <embed
                                             src="//cdn-corner.resource.buzzbuzzenglish.com/icon_information%20cue.svg"
                                             width="80"
                                             height="33"
                                             type="image/svg+xml"
-                                            pluginspage="http://www.adobe.com/svg/viewer/install/"/>
+                                            pluginspage="http://www.adobe.com/svg/viewer/install/" />
                                     </div>
                                 </div>
                             </div>
                         }
                     </div>
-                    <Divider horizontal/>
+                    <Divider horizontal />
                     <Dimmer active={this.state.recording} onClickOutside={this.cancelReply} inverted>
                         <Header as='h2' icon inverted>
-                            <Icon name="unmute"/>
+                            <Icon name="unmute" />
                             Recording!
                         </Header>
                     </Dimmer>
@@ -345,27 +354,27 @@ export default class Practice extends React.Component {
             chat_url = '',
             chat_word = '';
 
-        if(chat.indexOf('|') > -1 && chat.split('|').length >= 2){
+        if (chat.indexOf('|') > -1 && chat.split('|').length >= 2) {
             chat_url = chat.split('|')[0];
             chat_word = chat.split('|')[1];
-        }else{
+        } else {
             chat_url = chat;
         }
 
         return this.props.chats &&
-        (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
+            (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
             (<p>
                 {chat_word || Resources.getInstance().placementListeningAudio}
                 {this.renderChat(chat_url ? chat_url : null, i)}
 
                 {
                     this.state.currentPlaying === i
-                        ? <img style={{height: '15px', verticalAlign: 'sub'}}
-                               src={this.state.soundPlaying}
-                               alt=""/>
+                        ? <img style={{ height: '15px', verticalAlign: 'sub' }}
+                            src={this.state.soundPlaying}
+                            alt="" />
                         : <img
                             src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
-                            style={{height: '15px', verticalAlign: 'sub'}} alt=""/>
+                            style={{ height: '15px', verticalAlign: 'sub' }} alt="" />
                 }
             </p>) :
             (
@@ -383,11 +392,11 @@ export default class Practice extends React.Component {
 
                     if (audio) {
                         audio.addEventListener('ended', () => {
-                            this.setState({currentPlaying: -1});
+                            this.setState({ currentPlaying: -1 });
                         });
                     }
                 }}>
-                    <source src={chat} type="audio/mpeg"/>
+                    <source src={chat} type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
 
