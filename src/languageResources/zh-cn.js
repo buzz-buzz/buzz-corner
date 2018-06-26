@@ -248,16 +248,16 @@ export const cityFZ = '福州';
 export const cityZZ = '郑州';
 export const citySJZ = '石家庄';
 export const citySZ1 = '苏州';
-export const cityFS ='佛山';
+export const cityFS = '佛山';
 export const cityDG = '东莞';
 export const cityWX = '无锡';
 export const cityYT = '烟台';
 export const cityTY = '太原';
 export const cityHF = '合肥';
-export const cityNC ='南昌';
-export const cityNN ='南宁';
+export const cityNC = '南昌';
+export const cityNN = '南宁';
 export const cityKM = '昆明';
-export const cityWZ ='温州';
+export const cityWZ = '温州';
 export const cityZB = '淄博';
 export const cityTS = '唐山';
 
@@ -334,6 +334,8 @@ export const accountSelectLoginSubmit = '以该身份登录';
 export const popUserUpdateAccountInfo = '该绑定手机号已设置账号密码。若更换绑定，则会自动以新的手机号为登录账号。';
 export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密码。若更换绑定，则会自动以新的邮箱为登录账号。';
 
+export const audioDisabled = "需要录音权限，但是你没有给予，请先允许录音后再试……";
+
 export function signInWith(method) {
     return (
         <span>使用 <strong>{method}</strong> 登录</span>
@@ -348,6 +350,6 @@ export function leftDays(start_time, end_time, now_time) {
     }
 
     if (d === 0) {
-        return (start_time - now_time > 0 ? '今天开始' : ( end_time - now_time > 0 ? '已开始' : '已结束' ))
+        return (start_time - now_time > 0 ? '今天开始' : (end_time - now_time > 0 ? '已开始' : '已结束'))
     }
 }
