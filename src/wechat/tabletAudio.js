@@ -31,7 +31,7 @@ export default class TabletAudio {
     }
 
     static init(callback) {
-        let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : navigator.mediaDevices);
 
         getUserMedia({ audio: true })
             .then(handleSuccess)

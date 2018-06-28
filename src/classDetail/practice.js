@@ -187,16 +187,6 @@ export default class Practice extends React.Component {
         })
     }
 
-    closeMessageModal() {
-        const interval = setTimeout(() => {
-            if (this.state.messageModal) {
-                this.setState({ messageModal: false });
-            }
-
-            clearTimeout(interval);
-        }, 5000)
-    }
-
     componentWillUnmount() {
         //stop playing record
         if (this.audios && this.aloadingAudioudios.length) {
@@ -266,7 +256,6 @@ export default class Practice extends React.Component {
                                                     src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
                                             </div>
-
                                             <div onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
                                                 className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
