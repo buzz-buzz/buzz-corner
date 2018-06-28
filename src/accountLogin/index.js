@@ -77,7 +77,6 @@ class AccountLogin extends Component {
                 }
             });
 
-
             if (result instanceof Array) {
                 this.props.addUsers(result)
                 this.setState({ loadingModal: false, multipleUsers: true, title: Resources.getInstance().accountSelectLogin})
@@ -163,9 +162,7 @@ class AccountLogin extends Component {
                 }
                 {
                     this.state.multipleUsers &&
-                    <div>
-                        <AccountSelect onSelectUser={this.selectUser} />
-                    </div>
+                    <AccountSelect onSelectUser={this.selectUser} />
                 }
             </div>
         );
