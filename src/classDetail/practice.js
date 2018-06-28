@@ -174,10 +174,14 @@ export default class Practice extends React.Component {
                 audioReady = false;
             }
         } else {
-            TabletAudio.init((readyStatus) => {
-                audioReady = readyStatus
-                this.setState({ loadingAudio: !readyStatus })
-            });
+            if(this.state.support){
+                TabletAudio.init((readyStatus) => {
+                    audioReady = readyStatus
+                    this.setState({ loadingAudio: !readyStatus })
+                });
+            }else{
+                audioReady = false;
+            }
         }
 
         let userInfo = await CurrentUser.getProfile();

@@ -31,14 +31,18 @@ export default class TabletAudio {
     }
 
     static init(callback) {
-        let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : navigator.mediaDevices);
+        let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false);
 
-        getUserMedia({ audio: true })
-            .then(handleSuccess)
-            .catch(handleError)
-            .finally(() => {
-                callback(recordReadyStatus);
-            });
+        if(getUserMedia){
+            getUserMedia({ audio: true })
+                .then(handleSuccess)
+                .catch(handleError)
+                .finally(() => {
+                    callback(recordReadyStatus);
+                });
+        }else{
+            callback(false);
+        }
     }
 
     async stopRecording() {
