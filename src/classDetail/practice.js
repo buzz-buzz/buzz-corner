@@ -299,7 +299,11 @@ export default class Practice extends React.Component {
                                                     <p className="tip">&nbsp;&nbsp;</p>
                                                 }
                                             </div>
-
+                                            {   this.props.openPractiseWord &&
+                                                <div className="practise-word" onClick= {event => this.props.openPractiseWord(event, i)}>
+                                                提示
+                                                </div>
+                                            }
                                         </div>
                                         {
                                             this.state.replies[i].answered &&
