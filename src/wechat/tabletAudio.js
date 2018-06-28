@@ -30,11 +30,11 @@ export default class TabletAudio {
         this.validBlobs = [];
     }
 
-    static init(callback) {
+    static async  init(callback) {
         let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false);
 
         if(getUserMedia){
-            getUserMedia({ audio: true })
+             await getUserMedia({ audio: true })
                 .then(handleSuccess)
                 .catch(handleError)
                 .finally(() => {
