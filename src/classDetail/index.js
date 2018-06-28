@@ -228,7 +228,7 @@ class classDetail extends Component {
                 body: {
                     uri: this.state.class_id !== 'rookie' ?  `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id : `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
                 }
-            }))[0]), studentsList = [], classBegin = false;
+            }))[0]), studentsList = [];
 
             for (let i in class_info.students) {
                 studentsList.push(class_info.students[i].id);
