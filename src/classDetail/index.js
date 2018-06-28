@@ -249,9 +249,9 @@ class classDetail extends Component {
                 }
             }) || [];
 
-            if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
-                classBegin = true;
-            }
+            // if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
+            //     classBegin = true;
+            // }
 
             let companion_country = '';
             if (class_info.companions) {
@@ -289,7 +289,7 @@ class classDetail extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: profile.role || '',
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
-                classBeginModal: classBegin,
+                classBeginModal: false,
                 companion_country: companion_country,
                 class_content_tab: profile.role === MemberType.Student ? 'practice' : 'class_file',
                 class_content: class_content,

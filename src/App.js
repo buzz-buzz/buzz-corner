@@ -29,7 +29,6 @@ import VideoPlay from './videoPlay';
 import VideoPlayTablet from './videoPlay/tablet';
 import SetAccount from './account/setAccount';
 import AccountAbout from './account/accountAbout';
-import AccountSelect from './accountSelect';
 import LoginByAccount from './accountLogin';
 import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';

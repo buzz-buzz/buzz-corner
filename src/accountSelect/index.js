@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import UserItem from '../common/commonComponent/userItem';
 import Resources from '../resources';

@@ -24,7 +24,8 @@ class AccountLogin extends Component {
                 user_account: '',
                 user_password: '',
                 user_id: null
-            }
+            },
+            title: Resources.getInstance().accountPasswordLogin
         };
 
         this.back = this.back.bind(this);
@@ -79,7 +80,7 @@ class AccountLogin extends Component {
 
             if (result instanceof Array) {
                 this.props.addUsers(result)
-                this.setState({ loadingModal: false, multipleUsers: true })
+                this.setState({ loadingModal: false, multipleUsers: true, title: Resources.getInstance().accountSelectLogin})
                 return;
             }
 
@@ -125,7 +126,7 @@ class AccountLogin extends Component {
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                     modalShow={this.state.messageModal} />
                 <LoadingModal loadingModal={this.state.loadingModal} />
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountPasswordLogin} />
+                <HeaderWithBack goBack={this.back} title={this.state.title} />
                 {
                     !this.state.multipleUsers &&
                     <div className="set-word">
