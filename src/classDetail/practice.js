@@ -215,7 +215,7 @@ export default class Practice extends React.Component {
                 <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                     <Divider horizontal></Divider>
                     <MessageModal modalName="error" modalContent="抱歉，你的浏览器不支持录音功能，请使用最新版Chrome浏览器/Firefox浏览器, 或在微信客户端中体验。"
-                        modalShow={!this.state.support} />
+                        modalShow={!this.state.support} style={{top: '0'}} />
                     <div>
                         {
                             this.state.replies.map((r, i) => {
