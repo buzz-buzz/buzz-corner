@@ -31,7 +31,8 @@ export default class TabletAudio {
     }
 
     static async  init(callback) {
-        let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false);
+        //let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        let getUserMedia = navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false;
 
         if(getUserMedia){
              await getUserMedia({ audio: true })
