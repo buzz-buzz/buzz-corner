@@ -260,16 +260,14 @@ export default class Practice extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="practise-student chat message reverse"
-                                            onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
-                                        >
+                                        <div className="practise-student chat message reverse">
                                             <div>
                                                 <Image avatar
                                                     src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
                                             </div>
 
-                                            <div
+                                            <div onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
                                                 className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
                                                     <p style={{ paddingLeft: '10px' }}>
