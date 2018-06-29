@@ -52,4 +52,5 @@
           border-radius: 2em;
           display: flex;
           justify-content: center;
-          align-items: center; }
+          align-items: center;
+          cursor: pointer; }
