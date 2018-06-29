@@ -21,7 +21,7 @@ export default class Practice extends React.Component {
             currentReplying: 0,
             currentPlaying: -1,
             repliesPlaying: -1,
-            support:  /MicroMessenger/.test(navigator.userAgent) ? true : (navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) && window.MediaRecorder
+            support:  /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder
         };
 
         this.audios = {};
