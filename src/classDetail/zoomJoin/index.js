@@ -37,7 +37,7 @@ export default class ZoomDownJoin extends React.Component {
                            <div className="shadow"></div>
                         </div>
                         <div>
-                            <div className="word">2：点击“在游览器中打开”，然后您将加入教室</div>
+                            <div className="word">2：点击“在浏览器中打开”，然后您将加入教室</div>
                             <div className="shadow"></div>
                         </div>
                     </div>
