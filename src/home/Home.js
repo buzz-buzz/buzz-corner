@@ -32,7 +32,8 @@ class Home extends Component {
                 e.preventDefault();
 
                 browserHistory.push('/consult');
-            }
+            },
+            scroll_event: false
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -417,6 +418,7 @@ class Home extends Component {
                 //get data if not the last page
 
                 //then "no more"
+               // window.removeEventListener('scroll', function(){}, false);
             } else {
                 //滚动条距离顶部的高度小于等于0 TODO
             }
