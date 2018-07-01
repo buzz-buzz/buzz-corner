@@ -1,7 +1,6 @@
 import React from 'react';
 import Track from "../../common/track";
 import HeaderWithLogo from '../../common/commonComponent/headerWithLogo';
-import Client from "../../common/client";
 import './index.css';
 
 export default class ZoomDownJoin extends React.Component {
