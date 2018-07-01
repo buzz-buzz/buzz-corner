@@ -1,6 +1,7 @@
 import React from 'react';
 import Track from "../../common/track";
 import HeaderWithLogo from '../../common/commonComponent/headerWithLogo';
+import Client from "../../common/client";
 import './index.css';
 
 export default class ZoomDownJoin extends React.Component {
@@ -11,13 +12,13 @@ export default class ZoomDownJoin extends React.Component {
             Track.event('课程详情_进入教室唤醒Zoom客户端');
 
             if(ua_info && ua_info.platform === 'pc'){
-                window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;
+                window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=${this.props.location.query.zc}&uname=${this.props.location.query.user_name}`;
             }else{
-                window.location.href = `zoomus://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=0&uname=${this.props.location.query.user_name}`;
+                window.location.href = `zoomus://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=${this.props.location.query.zc}&uname=${this.props.location.query.user_name}`;
             }
 
             setTimeout(function () {
-                window.location.href = 'https://zoom.us/download';
+                window.location.href = Client.getClient() === 'phone' ? "/zoom" : ( (navigator.platform === "Mac68K") || (navigator.platform === "MacPPC") || (navigator.platform === "Macintosh") || (navigator.platform === "MacIntel") ? "https://cdn-corner.resource.buzzbuzzenglish.com/zoom/download/zoomusInstaller.pkg" : ( (navigator.platform === "Win32") || (navigator.platform === "Windows") ? "https://cdn-corner.resource.buzzbuzzenglish.com/zoom/download/ZoomInstaller.exe" : "https://zoom.us/download") );
             }, 5000);
         }
     }

@@ -192,7 +192,7 @@ class classDetail extends Component {
         if(this.state.class_info.room_url){
             let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-            window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
+            window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}$zc=${this.state.class_info.zc || '0'}`);
         }else{
             alert('缺少Zoom教室链接');
         }
