@@ -18,7 +18,7 @@ export default class ZoomDownJoin extends React.Component {
             }
 
             setTimeout(function () {
-                window.location.href = Client.getClient() === 'phone' ? "/zoom" : ( (navigator.platform === "Mac68K") || (navigator.platform === "MacPPC") || (navigator.platform === "Macintosh") || (navigator.platform === "MacIntel") ? "https://cdn-corner.resource.buzzbuzzenglish.com/zoom/download/zoomusInstaller.pkg" : ( (navigator.platform === "Win32") || (navigator.platform === "Windows") ? "https://cdn-corner.resource.buzzbuzzenglish.com/zoom/download/ZoomInstaller.exe" : "https://zoom.us/download") );
+                window.location.href = 'http://www.buzzbuzzenglish.com/2';
             }, 5000);
         }
     }
