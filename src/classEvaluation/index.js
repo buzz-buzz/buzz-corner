@@ -46,7 +46,7 @@ class classEvaluation extends Component {
         this.back = this.back.bind(this);
         this.submitEvaluation = this.submitEvaluation.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
-
+        this.openRating = this.openRating.bind(this);
     }
 
     back() {
@@ -75,6 +75,10 @@ class classEvaluation extends Component {
                 evaluation_content: data.value
             });
         }
+    }
+
+    openRating(){
+        //open the rating map
     }
 
     evaluationItemsChange(event) {
@@ -284,6 +288,15 @@ class classEvaluation extends Component {
                             <p className="class-time"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
                         </div>
+                        {
+                            0 === 1 &&
+                            <div className="medal" onClick={this.openRating}>
+                                <div className="medal-img">
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
+                                </div>
+                                <span className="medal-score">老师评分:2分</span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="class-detail-practice" id="evaluation"

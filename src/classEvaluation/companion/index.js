@@ -47,7 +47,7 @@ export default class CompanionEvaluation extends React.Component{
         if(this.state.step === 1){
             this.setState({step: 2});
         }else if(this.state.step === 2){
-            //post 提交
+            //post 提交 props.submit
         }
     }
 

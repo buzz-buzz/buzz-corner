@@ -70,6 +70,38 @@
     flex-direction: column;
 }
 
+.class-detail > .class-detail-info > .class-info > .medal{
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    cursor: pointer;
+}
+
+.class-detail > .class-detail-info > .class-info > .medal > span{
+    color: #edae00;
+    font-size: 11px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.class-detail > .class-detail-info > .class-info > .medal > .medal-img{
+    height: 66px;
+    width: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.class-detail > .class-detail-info > .class-info > .medal > .medal-img > img{
+    height: 100%;
+}
+
 .class-detail > .class-detail-info > .class-info > .booking-item-info > p {
     text-align: left;
 }
