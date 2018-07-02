@@ -263,7 +263,7 @@ export default class Practice extends React.Component {
                                             <div onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
                                                 className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
-                                                    <p style={{ paddingLeft: '10px' }}>
+                                                    <p style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
                                                         {
                                                             this.state.loadingAudio ?
                                                                 <Icon loading name="spinner" /> :
@@ -358,19 +358,14 @@ export default class Practice extends React.Component {
 
         return this.props.chats &&
             (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
-            (<p>
+            (<p style={{display: 'flex'}}>
                 {chat_word || Resources.getInstance().placementListeningAudio}
                 {this.renderChat(chat_url ? chat_url : null, i)}
-
-                {
-                    this.state.currentPlaying === i
-                        ? <img style={{ height: '15px', verticalAlign: 'sub' }}
-                            src={this.state.soundPlaying}
-                            alt="" />
-                        : <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
-                            style={{ height: '15px', verticalAlign: 'sub' }} alt="" />
-                }
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 3px 2px 0'}}>
+                    <img style={{ height: '15px', verticalAlign: 'sub'}}
+                         src={this.state.currentPlaying === i ? this.state.soundPlaying: "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
+                         alt="" />
+                </div>
             </p>) :
             (
                 <p>
