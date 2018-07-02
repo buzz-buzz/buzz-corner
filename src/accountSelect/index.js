@@ -10,7 +10,9 @@ class AccountSelect extends Component {
     constructor() {
         super();
 
-        this.state = { active: '' };
+        this.state = {
+            active: ''
+        };
 
         this.selectUser = this.selectUser.bind(this);
         this.login = this.login.bind(this);
@@ -30,6 +32,9 @@ class AccountSelect extends Component {
     render() {
         return (
             <div className="account-select">
+                <div className='success' style={{top: '0', position: 'relative'}}>
+                    {Resources.getInstance().accountSelectLoginInfo}
+                </div>
                 <div className="account-item">
                     {
                         this.props.users && this.props.users.map(u =>
