@@ -222,7 +222,7 @@ export default class Practice extends React.Component {
                                 return (
                                     <div key={i}>
                                         <div className="practise-advisor chat message">
-                                            <div>
+                                            <div  style={{flex: '0 0 auto'}}>
                                                 <Image avatar
                                                     src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
@@ -255,7 +255,7 @@ export default class Practice extends React.Component {
                                             </div>
                                         </div>
                                         <div className="practise-student chat message reverse">
-                                            <div>
+                                            <div style={{flex: '0 0 auto'}}>
                                                 <Image avatar
                                                     src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
