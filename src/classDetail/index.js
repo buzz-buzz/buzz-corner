@@ -17,6 +17,7 @@ import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
 import Client from "../common/client";
+import moment from 'moment';
 import './index.css';
 
 class classDetail extends Component {
@@ -138,22 +139,10 @@ class classDetail extends Component {
         Track.event('课程详情_' + eventInfo);
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day);
-    }
-
-    transformMonth(monthIndex) {
-        return TimeHelper.getMonthNameByIndex(monthIndex);
-    }
-
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
-        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours()) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes());
+        classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
+        classInfo.show_time = moment(dateClone).format("HH:mm") + ' - ' + moment(new Date(classInfo.end_time)).format("HH:mm");
         classInfo.companions = classInfo.companions ? classInfo.companions.split(',')[0] : '';
 
         let students = classInfo.students ? classInfo.students.split(',') : [];
