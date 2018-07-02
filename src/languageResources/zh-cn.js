@@ -331,6 +331,7 @@ export const popSure = '确认';
 
 export const accountSelectLogin = '账号选择';
 export const accountSelectLoginSubmit = '以该身份登录';
+export const accountSelectLoginInfo = '系统检测到有相同账号密码的用户信息, 请选择登陆';
 
 export const popUserUpdateAccountInfo = '该绑定手机号已设置账号密码。若更换绑定，则会自动以新的手机号为登录账号。';
 export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密码。若更换绑定，则会自动以新的邮箱为登录账号。';
