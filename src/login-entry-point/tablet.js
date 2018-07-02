@@ -8,6 +8,7 @@ import FacebookLogin from "../login/facebook";
 import './tablet.css';
 import TabletHeader from '../layout/tabletHeader';
 import TabletFooter from '../layout/tabletFooter';
+import WeChatLogin from "../login/wechat";
 import RoleDesider from "./RoleDesider";
 
 class LoginRole extends Component {
@@ -50,9 +51,13 @@ class LoginRole extends Component {
 
     changeWechatLogin() {
         if (this.state.active !== MemberType.Student) {
-            this.setState({
-                active: MemberType.Student
-            }, this.createCode);
+            if(/MicroMessenger/.test(navigator.userAgent)){
+                WeChatLogin.redirectToWechatOAuthPage();
+            }else{
+                this.setState({
+                    active: MemberType.Student
+                }, this.createCode);
+            }
         }
     }
 
