@@ -42,7 +42,7 @@
 .user-my > .user-info > p {
   text-align: center;
   margin: 0;
-  letter-spacing: 1px; }
+  letter-spacing: 0; }
 
 .user-my > .user-info > p.name {
   font-size: 20px;
@@ -93,7 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  letter-spacing: 1px; }
+  letter-spacing: 0; }
 
 .user-menu > a > div {
   display: flex;

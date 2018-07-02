@@ -20,7 +20,7 @@
 .reward-page > .my-badge > .badge-rule{
     text-align: center;
     font-size: .8em;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #666;
 }
 
