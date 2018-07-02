@@ -83,7 +83,7 @@
     flex: 1 0 auto;
     line-height: 4em;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     padding-right: 25px;
 }
 

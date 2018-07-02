@@ -41,7 +41,7 @@
           color: #666;
           font-size: 14px;
           padding-right: 10px;
-          letter-spacing: 1px; }
+          letter-spacing: 0; }
         .profile-update .update-body div .update-right input.input-show {
           border: none;
           outline: none;

@@ -115,7 +115,7 @@
 
 .class-detail > .class-detail-practice > .class-detail-notice {
     flex-shrink: 0;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .class-detail > .class-detail-practice > .class-detail-practice-content {
