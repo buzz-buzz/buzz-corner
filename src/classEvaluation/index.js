@@ -8,12 +8,12 @@ import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
-import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
 import CapacityRating from './capacityRating';
+import moment from 'moment';
 import {Flag} from "semantic-ui-react";
 
 class classEvaluation extends Component {
@@ -102,22 +102,10 @@ class classEvaluation extends Component {
         });
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day)
-    }
-
-    transformMonth(day) {
-        return TimeHelper.getMonthNameByIndex(day);
-    }
-
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
-        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classInfo.end_time).getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
+        classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
+        classInfo.show_time = moment(dateClone).format("HH:mm") + ' - ' + moment(new Date(classInfo.end_time)).format("HH:mm");
         classInfo.companions = classInfo.companions.split(',')[0];
 
         return classInfo;

@@ -15,6 +15,7 @@ import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
+import moment from 'moment';
 import Client from "../common/client";
 
 class Home extends Component {
@@ -188,26 +189,14 @@ class Home extends Component {
         });
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day);
-    }
-
-    transformMonth(day) {
-        return TimeHelper.getMonthNameByIndex(day);
-    }
-
     handleClassListData(classList) {
 
         if (classList && classList.length > 0) {
             for (let i in classList) {
                 let dateClone = new Date(classList[i].class_start_time);
 
-                classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
-                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].class_end_time).getFullYear();
-                classList[i].show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-                    + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-                    + (new Date(classList[i].class_end_time).getHours() > 9 ? new Date(classList[i].class_end_time).getHours() : '0' + new Date(classList[i].class_end_time).getHours() ) + ' : '
-                    + (new Date(classList[i].class_end_time).getMinutes() > 9 ? new Date(classList[i].class_end_time).getMinutes() : '0' + new Date(classList[i].class_end_time).getMinutes() );
+                classList[i].show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
+                classList[i].show_time = moment(dateClone).format("HH:mm") + ' - ' + moment(new Date(classList[i].class_end_time)).format("HH:mm");
 
                 classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
                 classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()), window.navigator.language);
