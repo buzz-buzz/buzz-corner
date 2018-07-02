@@ -1,4 +1,5 @@
 import React from 'react';
+import ServiceProxy from '../../../service-proxy';
 import './index.css';
 
 export default class UserGuide extends React.Component{
@@ -32,8 +33,13 @@ export default class UserGuide extends React.Component{
                 step: newStep
             });
         }else{
-            this.setState({
-                end: true
+            this.setState({end: true},async () => {
+                await ServiceProxy.proxy(`/user-info`, {
+                    body: {
+                        intro_done: 1
+                    },
+                    method: 'PUT'
+                });
             });
         }
     }
