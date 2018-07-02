@@ -15,6 +15,7 @@ import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
+import UserGuide from '../common/commonComponent/modalUserGuide';
 import moment from 'moment';
 import Client from "../common/client";
 
@@ -252,6 +253,14 @@ class Home extends Component {
         }
     }
 
+    checkUserGuideDone(intro_done){
+        if(intro_done === 0){
+            this.setState({
+                intro_done: true
+            })
+        }
+    }
+
     async componentDidMount() {
         try {
             Track.event('首页_首页Home页面');
@@ -278,6 +287,10 @@ class Home extends Component {
             if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await this.isProfileOK(userId))) {
                 browserHistory.push('/my/info');
                 return;
+            }
+
+            if(this.props.location.query.intro){
+                //this.checkUserGuideDone(profile.intro_done);
             }
 
             let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
@@ -434,6 +447,7 @@ class Home extends Component {
         return (
             <div className="my-home">
                 <Welcome/>
+                <UserGuide modal={this.state.intro_done} />
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
                         <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>

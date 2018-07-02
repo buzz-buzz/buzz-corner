@@ -415,7 +415,7 @@ class My extends Component {
                         if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
                             this.setState({loadingModal: false});
 
-                            browserHistory.push('/home');
+                            browserHistory.push('/home?intro=1');
                         } else {
                             let newStep = this.state.step + 1;
                             let newTitle = Resources.getInstance().profileStep4Info;
@@ -428,7 +428,7 @@ class My extends Component {
                     } else {
                         this.setState({loadingModal: false});
 
-                        browserHistory.push('/home');
+                        browserHistory.push('/home?intro=1');
                     }
                 } else {
                     this.setState({
@@ -443,9 +443,9 @@ class My extends Component {
 
                 //if http,then go https
                 if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
-                    window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement');
+                    window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement?intro=1');
                 } else {
-                    window.location.href = '/placement';
+                    window.location.href = '/placement?intro=1';
                 }
             }
 
