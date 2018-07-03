@@ -194,11 +194,6 @@ class Home extends Component {
 
         if (classList && classList.length > 0) {
             for (let i in classList) {
-                let dateClone = new Date(classList[i].class_start_time);
-
-                classList[i].show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
-                classList[i].show_time = moment(dateClone).format("HH:mm") + ' - ' + moment(new Date(classList[i].class_end_time)).format("HH:mm");
-
                 classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
                 classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()), window.navigator.language);
             }
@@ -237,7 +232,7 @@ class Home extends Component {
         return class_list;
     }
 
-    RemoveTouchEventIfAndroid(){
+    RemoveTouchEventIfAndroid() {
         let u = window.navigator.userAgent;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
         if (isAndroid) {
@@ -245,16 +240,16 @@ class Home extends Component {
         }
     }
 
-    checkHttpsIfNeed(){
+    checkHttpsIfNeed() {
         if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
-            return  window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
+            return window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
         } else {
-            return  '/placement?tab=message';
+            return '/placement?tab=message';
         }
     }
 
-    checkUserGuideDone(intro_done){
-        if(intro_done === 0){
+    checkUserGuideDone(intro_done) {
+        if (intro_done === 0) {
             this.setState({
                 intro_done: true
             })
@@ -289,7 +284,7 @@ class Home extends Component {
                 return;
             }
 
-            if(this.props.location.query.intro){
+            if (this.props.location.query.intro) {
                 //this.checkUserGuideDone(profile.intro_done);
             }
 
@@ -314,7 +309,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async(item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -357,7 +352,7 @@ class Home extends Component {
                 role: profile.role,
                 userId: userId,
                 messageFromAdvisor: clonedMessageFromAdvisor,
-            }, async() => {
+            }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
                 this.loadMoreEvent();
             });
@@ -401,7 +396,7 @@ class Home extends Component {
         })
     }
 
-    loadMoreEvent(){
+    loadMoreEvent() {
         function getClientHeight() {
             if (document.body.clientHeight && document.documentElement.clientHeight) {
                 return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
@@ -420,7 +415,7 @@ class Home extends Component {
                 //get data if not the last page
 
                 //then "no more"
-               // window.removeEventListener('scroll', function(){}, false);
+                // window.removeEventListener('scroll', function(){}, false);
             } else {
                 //滚动条距离顶部的高度小于等于0 TODO
             }
@@ -447,7 +442,7 @@ class Home extends Component {
         return (
             <div className="my-home">
                 <Welcome/>
-                <UserGuide modal={this.state.intro_done} />
+                <UserGuide modal={this.state.intro_done}/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
                         <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
@@ -472,9 +467,9 @@ class Home extends Component {
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
                             <div style={this.state.messageRead ? {
-                                    width: '25px',
-                                    display: 'inline-block'
-                                } : {display: 'none'}}></div>
+                                width: '25px',
+                                display: 'inline-block'
+                            } : {display: 'none'}}></div>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
@@ -510,9 +505,15 @@ class Home extends Component {
                                                     fontSize: '13px'
                                                 }}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date"
-                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_date}</p>
+                                                   style={{
+                                                       fontSize: '11px',
+                                                       color: '#868686'
+                                                   }}>{moment(item.class_start_time).format("dddd, MMMM Do YYYY")}</p>
                                                 <p className="class-time"
-                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_time}</p>
+                                                   style={{
+                                                       fontSize: '11px',
+                                                       color: '#868686'
+                                                   }}>{moment(item.class_start_time).format("HH:mm")} - {moment(item.class_start_time).add(25, 'minutes').format('HH:mm')}</p>
                                             </div>
                                             <div className="booking-item-status">
                                                 <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>
@@ -526,10 +527,10 @@ class Home extends Component {
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png"
                                          alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{ this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
+                                    <p>{this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
-                        <LoadingMore loadingMore={false} />
+                        <LoadingMore loadingMore={false}/>
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
@@ -544,8 +545,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                        return ele.hasRead === '';
-                                    }).length + ')' : '')}</p>
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>
