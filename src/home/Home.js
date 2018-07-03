@@ -18,6 +18,7 @@ import WhiteSpace from '../common/commonComponent/whiteSpace';
 import UserGuide from '../common/commonComponent/modalUserGuide';
 import moment from 'moment';
 import Client from "../common/client";
+import ClassEndTime from "../classDetail/class-end-time";
 
 class Home extends Component {
     constructor(props) {
@@ -513,7 +514,9 @@ class Home extends Component {
                                                    style={{
                                                        fontSize: '11px',
                                                        color: '#868686'
-                                                   }}>{moment(item.class_start_time).format("HH:mm")} - {moment(item.class_start_time).add(25, 'minutes').format('HH:mm')}</p>
+                                                   }}>{moment(item.class_start_time).format("HH:mm")} - <ClassEndTime
+                                                    classInfo={item}></ClassEndTime>
+                                                </p>
                                             </div>
                                             <div className="booking-item-status">
                                                 <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>

@@ -12,6 +12,7 @@ import Button50px from '../common/commonComponent/submitButton50px';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
 import moment from 'moment';
+import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluationResult extends Component {
     constructor(props) {
@@ -29,7 +30,6 @@ class classEvaluationResult extends Component {
                 partners: [1, 2, 3],
                 status: 2,
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00',
                 companion_name: '',
                 companion_avatar: '',
                 companions: ''
@@ -50,22 +50,22 @@ class classEvaluationResult extends Component {
         window.history.go(-1);
     }
 
-    closePosterModal(){
+    closePosterModal() {
         this.setState({
             posterModal: false
         });
     }
 
-    createPostersOfAchievement(){
+    createPostersOfAchievement() {
         Track.event('中方点击成就海报');
 
         browserHistory.push(`/poster/${this.state.from_user_id}/${this.state.to_user_id}/${this.state.class_id}`);
     }
 
-    companionCenter(){
+    companionCenter() {
         Track.event('外籍头像点击');
 
-        if(this.state.class_info.companions){
+        if (this.state.class_info.companions) {
             browserHistory.push('/user/' + this.state.class_info.companions);
         }
     }
@@ -73,7 +73,6 @@ class classEvaluationResult extends Component {
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
         classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
-        classInfo.show_time = moment(dateClone).format("HH:mm") + ' - ' + moment(new Date(classInfo.end_time)).format("HH:mm");
         classInfo.companions = classInfo.companions.split(',')[0];
         classInfo.partners = classInfo.students.split(',');
 
@@ -95,7 +94,7 @@ class classEvaluationResult extends Component {
             class_info = this.handleClassInfoData(class_info[0]);
 
             let companion_country = '';
-            if(this.state.from_user_id){
+            if (this.state.from_user_id) {
                 class_info.companions = this.state.from_user_id;
 
                 let companion_info = (await ServiceProxy.proxyTo({
@@ -111,14 +110,14 @@ class classEvaluationResult extends Component {
 
             //get evaluation result
             let evaluation = {};
-            if(this.state.from_user_id && this.state.to_user_id && this.state.class_id){
+            if (this.state.from_user_id && this.state.to_user_id && this.state.class_id) {
                 let feed_back = await  ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.from_user_id}/evaluate/${this.state.to_user_id}`
                     }
                 });
 
-                if(feed_back.length && feed_back[0].comment && feed_back[0].score){
+                if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
                     evaluation.stars = parseInt(feed_back[0].score, 10) || 0;
                     evaluation.evaluation_content = feed_back[0].comment;
                 }
@@ -133,7 +132,7 @@ class classEvaluationResult extends Component {
                 posterModal: true
             });
 
-            if(this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null'){
+            if (this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null') {
                 ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/msg`,
@@ -152,12 +151,13 @@ class classEvaluationResult extends Component {
     render() {
         return (
             <div className="class-detail">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().classEvaluationResultTitle} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().classEvaluationResultTitle}/>
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
                             <Avatar src={this.state.class_info.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
+                            <Flag
+                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -172,7 +172,11 @@ class classEvaluationResult extends Component {
                             <p className="class-date"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
                             <p className="class-time"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
+                               style={{
+                                   fontSize: '.8em',
+                                   color: '#aaa'
+                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
+                                classInfo={this.state.class_info}></ClassEndTime></p>
                         </div>
                     </div>
                     <div className="class-detail-practice" id="evaluation"
@@ -210,12 +214,14 @@ class classEvaluationResult extends Component {
                             </Form>
                         </div>
                         <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
-                            <Button50px  text={Resources.getInstance().createPostersOfAchievement} submit={this.createPostersOfAchievement} />
+                            <Button50px text={Resources.getInstance().createPostersOfAchievement}
+                                        submit={this.createPostersOfAchievement}/>
                         </div>
                         <LoadingModal loadingModal={this.state.loadingModal}/>
                     </div>
                 </div>
-                <div className="modal" style={this.state.posterModal ? {display: 'flex'} : {display: 'none'}} onClick={this.closePosterModal}>
+                <div className="modal" style={this.state.posterModal ? {display: 'flex'} : {display: 'none'}}
+                     onClick={this.closePosterModal}>
                     <div className="content">
                         <div>
                             <div className="welcome-title">
@@ -228,7 +234,7 @@ class classEvaluationResult extends Component {
                                             <p>{Resources.getInstance().posterModalContent1}</p>
                                             <p>{Resources.getInstance().posterModalContent2}</p>
                                         </div>
-                                    ):
+                                    ) :
                                     (
                                         <div className="welcome-info">
                                             <p>{Resources.getInstance().posterModalContent1 + Resources.getInstance().posterModalContent1}</p>
