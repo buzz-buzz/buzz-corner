@@ -22,7 +22,7 @@ class User {
                 currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
             } catch (ex) {
                 await User.signOut();
-
+                console.log(ex);
                 return {};
             }
         }

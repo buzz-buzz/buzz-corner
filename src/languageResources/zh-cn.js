@@ -25,6 +25,7 @@ export const homeTabBooking = '课程预约';
 export const homeTabMessage = '消息通知';
 export const homeTabFriends = '伙伴';
 export const homeTabAdvisor = '助教';
+export const homeHelp = '帮助';
 
 export const bookingBtnText = '预约';
 export const bookingNoItemText1 = '你还没开始预约课程';
@@ -119,7 +120,7 @@ export const createPostersOfAchievement = '生成我的成就海报';
 export const classDetailTitle = '课程详情';
 export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
 export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
-export const classDetailBeforeWord3 = '下载安装';
+export const classDetailBeforeWord3 = '下载视频教室';
 export const classDetailBeforeClassExercise = '课前练习';
 export const classDetailBeforeClassContent = '课程教材';
 export const classDetailBeforeClassNotice = '课程公告';
@@ -330,6 +331,7 @@ export const popSure = '确认';
 
 export const accountSelectLogin = '账号选择';
 export const accountSelectLoginSubmit = '以该身份登录';
+export const accountSelectLoginInfo = '系统检测到有相同账号密码的用户信息, 请选择登陆';
 
 export const popUserUpdateAccountInfo = '该绑定手机号已设置账号密码。若更换绑定，则会自动以新的手机号为登录账号。';
 export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密码。若更换绑定，则会自动以新的邮箱为登录账号。';

@@ -1,0 +1,137 @@
+.companion-evaluation {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column; }
+  .companion-evaluation .tabs {
+    height: 50px;
+    display: flex;
+    position: relative;
+    flex: 0 0 auto; }
+    .companion-evaluation .tabs div {
+      flex: 1 1 auto;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 15px;
+      color: #666;
+      border-bottom: 2px solid transparent; }
+    .companion-evaluation .tabs div.active {
+      color: #f6b40c;
+      border-bottom: 2px solid #ffd200; }
+  .companion-evaluation .tabs:after, .companion-evaluation .class-behavior:after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+  .companion-evaluation .class-behavior {
+    height: 50px;
+    flex: 0 0 auto;
+    padding: 0 21px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; }
+    .companion-evaluation .class-behavior .stars-word {
+      display: flex;
+      align-items: center;
+      height: 100%; }
+      .companion-evaluation .class-behavior .stars-word .word {
+        height: 50px;
+        line-height: 50px;
+        font-size: 15px;
+        color: #868686; }
+    .companion-evaluation .class-behavior .behavior {
+      height: 50px;
+      line-height: 50px;
+      color: #000;
+      font-size: 15px;
+      display: flex;
+      align-items: center; }
+      .companion-evaluation .class-behavior .behavior .stars {
+        margin-left: 20px;
+        display: flex;
+        align-items: center; }
+        .companion-evaluation .class-behavior .behavior .stars img {
+          width: 20px;
+          margin-right: 10px; }
+    .companion-evaluation .class-behavior .stars-word {
+      font-size: 15px;
+      color: #868686; }
+  .companion-evaluation .companion-word {
+    padding: 0 21px; }
+    .companion-evaluation .companion-word .title {
+      height: 50px;
+      line-height: 50px;
+      font-size: 15px;
+      color: #000; }
+    .companion-evaluation .companion-word textarea {
+      background-color: #f4f5f9;
+      border: solid 01px #dfdfe4;
+      font-size: 13px;
+      color: #000; }
+    .companion-evaluation .companion-word textarea:focus {
+      border-color: #f6b40c; }
+  .companion-evaluation .companion-submit {
+    flex: 1 0 auto;
+    padding: 0 21px 50px 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; }
+  .companion-evaluation .step_two_stars {
+    padding: 0 0 0 12px; }
+    .companion-evaluation .step_two_stars .star-item {
+      position: relative;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 9px;
+      padding-right: 21px; }
+      .companion-evaluation .step_two_stars .star-item .item-left {
+        display: flex;
+        align-items: center; }
+        .companion-evaluation .step_two_stars .star-item .item-left .item-name {
+          width: 120px;
+          color: #000;
+          font-size: 15px; }
+        .companion-evaluation .step_two_stars .star-item .item-left .item-stars {
+          display: flex;
+          align-items: center; }
+          .companion-evaluation .step_two_stars .star-item .item-left .item-stars img {
+            width: 20px;
+            margin-right: 10px; }
+      .companion-evaluation .step_two_stars .star-item .item-score {
+        color: #f6b40c;
+        font-size: 15px;
+        text-align: right; }
+    .companion-evaluation .step_two_stars .star-item:after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 1px;
+      z-index: 20;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px solid  #dfdfe4;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scale(0.5, 0.5);
+      transform: scale(0.5, 0.5);
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+  .companion-evaluation .score-introduction {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #666666;
+    text-decoration: underline; }

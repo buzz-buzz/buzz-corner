@@ -26,6 +26,7 @@ export const homeTabBooking = 'Bookings';
 export const homeTabMessage = 'Messages';
 export const homeTabFriends = 'Friends';
 export const homeTabAdvisor = 'Advisor';
+export const homeHelp = 'Help';
 
 export const bookingBtnText = 'Booking';
 export const bookingNoItemText1 = 'Oops, you have not booked any session yet.';
@@ -327,10 +328,11 @@ export const checkoutAccount = 'Switch account';
 export const popTitle = 'Attention';
 export const popInfo = 'Do you want to sign out of this account?';
 export const popCancel = 'Cancel';
-export const popSure = 'Sure';
+export const popSure = 'Ok';
 
 export const accountSelectLogin = 'Account select';
 export const accountSelectLoginSubmit = 'Login with this account';
+export const accountSelectLoginInfo = 'The system detected the user information with the same account and password, please chose your account';
 
 export const popUserUpdateAccountInfo = 'The binding phone number has been set up with an account and password. If the phone changed, the new phone number will be used as the login account automatically.';
 export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up with an account and password. If the e-mail changed, the new e-mail address will be used as the login account automatically.';

@@ -5,6 +5,7 @@ import './chat.css';
 import WechatAudio from "../wechat/audio";
 import TabletAudio from "../wechat/tabletAudio";
 import Track from "../common/track";
+import MessageModal from '../common/commonComponent/modalMessage';
 import CurrentUser from "../membership/user";
 import Client from "../common/client";
 
@@ -19,7 +20,8 @@ export default class Practice extends React.Component {
             soundPlaying: '//cdn-corner.resource.buzzbuzzenglish.com/icon_recording.gif',
             currentReplying: 0,
             currentPlaying: -1,
-            repliesPlaying: -1
+            repliesPlaying: -1,
+            support:  /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder
         };
 
         this.audios = {};
@@ -42,27 +44,29 @@ export default class Practice extends React.Component {
     }
 
     async replyButtonClicked(buttonIndex = this.state.replies.length - 1) {
-        Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
+        if (this.state.support) {
+            Track.event(this.props.audioUpload ? '测试_点击音频录制' : '课程详情_点击音频录制');
 
-        if (this.state.loadingAudio) {
-            alert(Resources.getInstance().audioDisabled);
-            return;
-        }
+            if (this.state.loadingAudio) {
+                alert(Resources.getInstance().audioDisabled);
+                return;
+            }
 
-        this.setState({ currentReplying: buttonIndex });
+            this.setState({ currentReplying: buttonIndex });
 
-        if (!this.state.replies[buttonIndex].answered) {
-            this.setState({ recording: true, recordingStartTime: new Date().getTime() }, () => {
-                this.props.recordingChanged(this.state.recording);
-            });
-            await this.state.replies[buttonIndex].recordAudio.startRecording();
-        } else {
-            this.state.replies[buttonIndex].recordAudio.play();
-            //is playing && and the ended event
-            this.setState({ repliesPlaying: buttonIndex });
-            window.setTimeout(() => {
-                this.setState({ repliesPlaying: -1 });
-            }, this.state.recordingEndTime - this.state.recordingStartTime)
+            if (!this.state.replies[buttonIndex].answered) {
+                this.setState({ recording: true, recordingStartTime: new Date().getTime() }, () => {
+                    this.props.recordingChanged(this.state.recording);
+                });
+                await this.state.replies[buttonIndex].recordAudio.startRecording();
+            } else {
+                this.state.replies[buttonIndex].recordAudio.play();
+                //is playing && and the ended event
+                this.setState({ repliesPlaying: buttonIndex });
+                window.setTimeout(() => {
+                    this.setState({ repliesPlaying: -1 });
+                }, this.state.recordingEndTime - this.state.recordingStartTime)
+            }
         }
     }
 
@@ -170,10 +174,14 @@ export default class Practice extends React.Component {
                 audioReady = false;
             }
         } else {
-            TabletAudio.init((readyStatus) => {
-                audioReady = readyStatus
-                this.setState({ loadingAudio: !readyStatus })
-            });
+            if(this.state.support){
+                TabletAudio.init((readyStatus) => {
+                    audioReady = readyStatus
+                    this.setState({ loadingAudio: !readyStatus })
+                });
+            }else{
+                audioReady = false;
+            }
         }
 
         let userInfo = await CurrentUser.getProfile();
@@ -206,13 +214,15 @@ export default class Practice extends React.Component {
             this.props.chats.length ?
                 <Dimmer.Dimmable as={Segment} className="basic" dimmed={this.state.recording}>
                     <Divider horizontal></Divider>
+                    <MessageModal modalName="error" modalContent="抱歉，你的浏览器不支持录音功能，请使用最新版Chrome浏览器/Firefox浏览器, 或在微信客户端中体验。"
+                        modalShow={!this.state.support} style={{top: '0'}} />
                     <div>
                         {
                             this.state.replies.map((r, i) => {
                                 return (
                                     <div key={i}>
                                         <div className="practise-advisor chat message">
-                                            <div>
+                                            <div  style={{flex: '0 0 auto'}}>
                                                 <Image avatar
                                                     src={this.props.avatars[0] || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
@@ -244,19 +254,16 @@ export default class Practice extends React.Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="practise-student chat message reverse"
-                                            onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
-                                        >
-                                            <div>
+                                        <div className="practise-student chat message reverse">
+                                            <div style={{flex: '0 0 auto'}}>
                                                 <Image avatar
                                                     src={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                                     alt="avatar" />
                                             </div>
-
-                                            <div
+                                            <div onClick={() => this.replyButtonClicked(i)} disabled={this.state.loadingAudio}
                                                 className="student-word talk-bubble tri-left right-bottom border round">
                                                 <div className="talktext">
-                                                    <p style={{ paddingLeft: '10px' }}>
+                                                    <p style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center' }}>
                                                         {
                                                             this.state.loadingAudio ?
                                                                 <Icon loading name="spinner" /> :
@@ -283,7 +290,11 @@ export default class Practice extends React.Component {
                                                     <p className="tip">&nbsp;&nbsp;</p>
                                                 }
                                             </div>
-
+                                            {   this.props.openPractiseWord &&
+                                                <div className="practise-word" onClick= {event => this.props.openPractiseWord(event, i)}>
+                                                提示
+                                                </div>
+                                            }
                                         </div>
                                         {
                                             this.state.replies[i].answered &&
@@ -334,25 +345,31 @@ export default class Practice extends React.Component {
     }
 
     renderAudio(i) {
-        return this.props.chats &&
-            (this.props.chats[i].indexOf('http') > -1 || this.props.chats[i].indexOf('//') > -1) ?
-            (<p>
-                {Resources.getInstance().placementListeningAudio}
-                {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+        let chat = this.props.chats[i].replace('｜', '|'),
+            chat_url = '',
+            chat_word = '';
 
-                {
-                    this.state.currentPlaying === i
-                        ? <img style={{ height: '15px' }}
-                            src={this.state.soundPlaying}
-                            alt="" />
-                        : <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"
-                            style={{ height: '15px' }} alt="" />
-                }
-            </p>) :
+        if (chat.indexOf('|') > -1 && chat.split('|').length >= 2) {
+            chat_url = chat.split('|')[0];
+            chat_word = chat.split('|')[1];
+        } else {
+            chat_url = chat;
+        }
+
+        return this.props.chats &&
+            (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
+            (<div style={{display: 'flex'}}>
+                {chat_word || Resources.getInstance().placementListeningAudio}
+                {this.renderChat(chat_url ? chat_url : null, i)}
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 3px 2px 10px'}}>
+                    <img style={{ height: '15px', verticalAlign: 'sub'}}
+                         src={this.state.currentPlaying === i ? this.state.soundPlaying: "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
+                         alt="" />
+                </div>
+            </div>) :
             (
                 <p>
-                    {this.renderChat(this.props.chats ? this.props.chats[i] : null, i)}
+                    {this.renderChat(chat_url ? chat_url : null, i)}
                 </p>
             );
     }
@@ -360,13 +377,8 @@ export default class Practice extends React.Component {
     renderChat(chat, index) {
         if (chat) {
             if (chat.startsWith('http') || chat.startsWith('//')) {
-                chat = chat.replace('http://', '//');
-                if (chat.indexOf('|') > -1 || chat.indexOf('｜') > -1) {
-                    chat = chat.replace('｜', '|');
-                    chat = chat.split('|')[0];
-                }
                 return <audio type="audio/mpeg" src={chat} ref={(audio) => {
-                    this.audios[index] = audio
+                    this.audios[index] = audio;
 
                     if (audio) {
                         audio.addEventListener('ended', () => {

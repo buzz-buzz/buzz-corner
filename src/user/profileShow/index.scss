@@ -27,7 +27,7 @@
           text-align: left;
           color: #f6b40c;
           margin-bottom: 6px;
-          letter-spacing: 1px;
+          letter-spacing: 0;
         }
         .profile-gender-birthday, .profile-city-grade{
           font-size: 13px;
@@ -57,7 +57,7 @@
       position: relative;
       font-size: 15px;
       color: #000;
-      letter-spacing: 1px;
+      letter-spacing: 0;
     }
     .hobby-title:after{
       content: '';

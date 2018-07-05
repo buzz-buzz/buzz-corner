@@ -7,21 +7,12 @@ import Hobby from '../../my/hobby';
 import {Topics} from "../../common/systemData/topicData";
 import {MemberType} from "../../membership/member-type";
 import Track from "../../common/track";
+import BirthdayHelper from '../../common/birthdayFormat';
 import './index.css';
 import ServiceProxy from "../../service-proxy";
 
 const grade_list = GradeData.grade_list;
 const grade_list_foreign = GradeData.grade_list_foreign;
-
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-    } else {
-        return ''
-    }
-}
 
 class UserShow extends Component {
     constructor(props) {
@@ -73,7 +64,7 @@ class UserShow extends Component {
             }
         }
 
-        user_profile.date_of_birth = getBirthDay(user_profile.date_of_birth);
+        user_profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(user_profile.date_of_birth);
 
         this.setState({
             user_profile: user_profile,

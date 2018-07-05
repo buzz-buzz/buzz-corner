@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
-import './index.css';
 import TimeHelper from "../common/timeHelper";
 import Practice from "./practice";
 import Track from "../common/track";
@@ -18,6 +17,9 @@ import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
 import Client from "../common/client";
+import moment from 'moment';
+import './index.css';
+import ClassEndTime from "./class-end-time";
 
 class classDetail extends Component {
     constructor(props) {
@@ -31,7 +33,6 @@ class classDetail extends Component {
                 partners: [],
                 status: "",
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00',
                 companions: ''
             },
             companion_name: '',
@@ -113,34 +114,34 @@ class classDetail extends Component {
         }
     }
 
-    closePractiseWord(){
+    closePractiseWord() {
         this.setState({practiseModal: false});
     }
 
-    openPractiseWord(){
-        this.setState({practiseModal: true});
+    openPractiseWord(event, i) {
+        if (i !== undefined && this.state.chats.length && this.state.chats[i]) {
+            let chat = this.state.chats[i].replace('｜', '|'),
+                chat_word = '';
+
+            if (chat.indexOf('|') > -1 && chat.split('|').length >= 3) {
+                chat_word = chat.split('|')[2];
+            }
+
+            if (chat_word) {
+                this.setState({practiseModal: true, practiseWord: chat_word || 'Too easy...'});
+            }
+        } else {
+            this.setState({practiseModal: true, practiseWord: 'Too easy...'});
+        }
     }
 
     sendTrack(e, eventInfo) {
         Track.event('课程详情_' + eventInfo);
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day);
-    }
-
-    transformMonth(monthIndex) {
-        return TimeHelper.getMonthNameByIndex(monthIndex);
-    }
-
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
-        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + dateClone.getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours()) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes());
+        classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
         classInfo.companions = classInfo.companions ? classInfo.companions.split(',')[0] : '';
 
         let students = classInfo.students ? classInfo.students.split(',') : [];
@@ -158,7 +159,7 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
+        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
             Track.event('课程详情_进入课程点击');
 
             this.showZoom();
@@ -176,11 +177,13 @@ class classDetail extends Component {
     }
 
     showZoom() {
-        //URL Scheme
-        //const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
-        let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
+        if (this.state.class_info.room_url) {
+            let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-        window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}`);
+            window.open(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}&zc=${this.state.class_info.zc || '0'}`);
+        } else {
+            alert('缺少Zoom教室链接');
+        }
     }
 
     componentWillUnmount() {
@@ -211,9 +214,9 @@ class classDetail extends Component {
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
+                    uri: this.state.class_id !== 'rookie' ? `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id : `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
                 }
-            }))[0]), studentsList = [], classBegin = false;
+            }))[0]), studentsList = [];
 
             for (let i in class_info.students) {
                 studentsList.push(class_info.students[i].id);
@@ -234,9 +237,9 @@ class classDetail extends Component {
                 }
             }) || [];
 
-            if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
-                classBegin = true;
-            }
+            // if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
+            //     classBegin = true;
+            // }
 
             let companion_country = '';
             if (class_info.companions) {
@@ -274,7 +277,7 @@ class classDetail extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: profile.role || '',
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
-                classBeginModal: classBegin,
+                classBeginModal: false,
                 companion_country: companion_country,
                 class_content_tab: profile.role === MemberType.Student ? 'practice' : 'class_file',
                 class_content: class_content,
@@ -334,7 +337,7 @@ class classDetail extends Component {
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classDetailTitle}/>
                 <ModalClassPractiseWord modal={this.state.practiseModal} closeModal={this.closePractiseWord}
-                                        title="你可以说" content="I have a good friend" btnText="我知道啦" />
+                                        title="你可以说" content={this.state.practiseWord} btnText="我知道啦"/>
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
@@ -353,7 +356,11 @@ class classDetail extends Component {
                             <p className="class-date"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
                             <p className="class-time"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
+                               style={{
+                                   fontSize: '.8em',
+                                   color: '#aaa'
+                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
+                                classInfo={this.state.class_info}/></p>
                         </div>
                         <div className="booking-item-status">
                             <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
@@ -389,9 +396,10 @@ class classDetail extends Component {
                     }
                     {
                         this.state.role === MemberType.Student && this.state.class_content_tab === 'practice' &&
+                        this.state.chats && this.state.chats.length > 0 &&
                         <Practice chats={this.state.chats.filter(c => c !== '')}
                                   recordingChanged={this.recordingChanged}
-                                  ref={p => this.practice = p}
+                                  ref={p => this.practice = p} openPractiseWord={this.openPractiseWord}
                                   avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", "//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg"]}/>
                     }
                     {
@@ -442,11 +450,11 @@ class classDetail extends Component {
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
                 <div className="class-detail-button"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {} : {display: 'none'}}>
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) ? {display: 'none'} : {}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 15 ? {
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? {
                                         color: 'white',
                                         background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
                                         borderRadius: '0',
