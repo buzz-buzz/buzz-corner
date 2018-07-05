@@ -20,13 +20,13 @@
   .modify-contact .form-title {
     font-size: 21px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     text-align: center;
     margin-bottom: 20px; }
   .modify-contact .full-input {
     height: 50px;
     width: 100%;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     padding: 0 15px;
     line-height: 50px;
     font-size: 14px;
@@ -56,7 +56,7 @@
       border-radius: 5px;
       background-color: #f4f5f9; }
     .modify-contact .two-items input {
-      letter-spacing: 1px;
+      letter-spacing: 0;
       padding: 0 15px; }
     .modify-contact .two-items input:focus {
       border: 1px solid #f7b52a !important;

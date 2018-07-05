@@ -3,20 +3,12 @@ import {Button, Checkbox, Container, Form, Header, Icon, Modal, TextArea} from '
 import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
+import BirthdayHelper from '../../common/birthdayFormat';
 
 const genderOptions = [
     {key: 'm', text: 'Male', value: 'm'},
     {key: 'f', text: 'Female', value: 'f'},
 ];
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-    } else {
-        return ''
-    }
-}
 
 export default class profileSetup extends Component {
     handleProfileChange = (e, {name, value}) => {
@@ -115,7 +107,7 @@ export default class profileSetup extends Component {
 
         //data check if could save to db
         if (profile.date_of_birth) {
-            profile.date_of_birth = getBirthDay(profile.date_of_birth);
+            profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth);
         } else {
             throw new Error('Please tell me your birthday!');
         }
@@ -139,7 +131,7 @@ export default class profileSetup extends Component {
             }
         }));
 
-        profile.date_of_birth = getBirthDay(profile.date_of_birth);
+        profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth);
 
         this.setState({
             profile: profile,
@@ -151,7 +143,7 @@ export default class profileSetup extends Component {
         return {
             interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             display_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            date_of_birth: getBirthDay(userData.date_of_birth),
+            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
             gender: userData.gender || '',
             location: userData.location || '',
             avatar: userData.avatar || '',

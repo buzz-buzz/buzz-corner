@@ -8,12 +8,14 @@ import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
-import TimeHelper from "../common/timeHelper";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
+import CapacityRating from './capacityRating';
+import moment from 'moment';
 import {Flag} from "semantic-ui-react";
+import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -26,7 +28,6 @@ class classEvaluation extends Component {
                 partners: [1, 2, 3],
                 status: 2,
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00',
                 companions: ''
             },
             user_type: 2,
@@ -45,17 +46,17 @@ class classEvaluation extends Component {
         this.back = this.back.bind(this);
         this.submitEvaluation = this.submitEvaluation.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
-
+        this.openRating = this.openRating.bind(this);
     }
 
     back() {
         window.history.go(-1);
     }
 
-    companionCenter(){
+    companionCenter() {
         Track.event('外籍头像点击');
 
-        if(this.state.class_info.companions){
+        if (this.state.class_info.companions) {
             browserHistory.push('/user/' + this.state.class_info.companions);
         }
     }
@@ -74,6 +75,10 @@ class classEvaluation extends Component {
                 evaluation_content: data.value
             });
         }
+    }
+
+    openRating() {
+        //open the rating map
     }
 
     evaluationItemsChange(event) {
@@ -97,22 +102,9 @@ class classEvaluation extends Component {
         });
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day)
-    }
-
-    transformMonth(day) {
-        return TimeHelper.getMonthNameByIndex(day);
-    }
-
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
-        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classInfo.end_time).getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
+        classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
         classInfo.companions = classInfo.companions.split(',')[0];
 
         return classInfo;
@@ -129,8 +121,8 @@ class classEvaluation extends Component {
         }];
     }
 
-    closeModalSubmitInfo(){
-        if(this.state.modalSubmit){
+    closeModalSubmitInfo() {
+        if (this.state.modalSubmit) {
             const interval = setTimeout(() => {
                 if (this.state.modalSubmit) {
                     this.setState({modalSubmit: false});
@@ -157,7 +149,7 @@ class classEvaluation extends Component {
                     }
                 });
 
-                Track.event( this.state.role === MemberType.Student ?  '课后评价_中方课后评价完成点击' : '课后评价_外籍课后评价完成点击');
+                Track.event(this.state.role === MemberType.Student ? '课后评价_中方课后评价完成点击' : '课后评价_外籍课后评价完成点击');
                 this.setState({evaluation_status: true, modalSubmit: true, modalSubmitStatus: 2}, () => {
                     this.closeModalSubmitInfo();
                 });
@@ -181,7 +173,7 @@ class classEvaluation extends Component {
             let profile = await CurrentUser.getProfile(true);
             let userId = profile.user_id;
 
-            Track.event( profile.role === MemberType.Student ?  '课后评价_中方课后评价页面' : '课后评价_外籍课后评价页面');
+            Track.event(profile.role === MemberType.Student ? '课后评价_中方课后评价页面' : '课后评价_外籍课后评价页面');
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {
@@ -192,7 +184,7 @@ class classEvaluation extends Component {
             class_info = this.handleClassInfoData(class_info[0]);
 
             //auth check
-            if(class_info.companions && class_info.students && class_info.companions !== (userId + '') && class_info.students.indexOf(userId + '') <= -1){
+            if (class_info.companions && class_info.students && class_info.companions !== (userId + '') && class_info.students.indexOf(userId + '') <= -1) {
                 alert(Resources.getInstance().classInfoNoAuth);
                 browserHistory.push('/');
                 return;
@@ -206,7 +198,7 @@ class classEvaluation extends Component {
             });
 
             let companion_country = '';
-            if(profile.role === MemberType.Companion){
+            if (profile.role === MemberType.Companion) {
                 //get to_user_id info
                 let user_profile = await ServiceProxy.proxyTo({
                     body: {
@@ -217,8 +209,8 @@ class classEvaluation extends Component {
                 class_info.companion_name = user_profile.name;
                 class_info.companion_avatar = user_profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg';
                 companion_country = user_profile.country || '';
-            }else{
-                if(class_info.companions){
+            } else {
+                if (class_info.companions) {
                     class_info.companions = class_info.companions.split(',')[0];
 
                     companion_country = (await ServiceProxy.proxyTo({
@@ -264,12 +256,14 @@ class classEvaluation extends Component {
     render() {
         return (
             <div className="class-detail">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationMyWord} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationMyWord}/>
                 <div className="class-detail-info">
                     <div className="class-info">
-                        <div className="booking-item-avatar"  onClick={this.companionCenter}>
-                            <Avatar src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
+                        <div className="booking-item-avatar" onClick={this.companionCenter}>
+                            <Avatar
+                                src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
+                            <Flag
+                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -281,8 +275,22 @@ class classEvaluation extends Component {
                             <p className="class-date"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
                             <p className="class-time"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
+                               style={{
+                                   fontSize: '.8em',
+                                   color: '#aaa'
+                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
+                                classInfo={this.state.class_info}></ClassEndTime>
+                            </p>
                         </div>
+                        {
+                            0 === 1 &&
+                            <div className="medal" onClick={this.openRating}>
+                                <div className="medal-img">
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
+                                </div>
+                                <span className="medal-score">老师评分:2分</span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="class-detail-practice" id="evaluation"
@@ -321,8 +329,8 @@ class classEvaluation extends Component {
                     </div>
                     <div className="evaluation-submit"
                          style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
-                        <Button50px  disabled={!this.state.stars || !this.state.evaluation_content}
-                                     text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation} />
+                        <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
+                                    text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
                     </div>
                     <div className="evaluation-result-show"
                          style={!this.state.evaluation_status ? {display: 'none'} : {}}>
@@ -336,7 +344,8 @@ class classEvaluation extends Component {
                         </Form>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
-                    <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit} />
+                    <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
+                    <CapacityRating modal={false}/>
                 </div>
             </div>
         );

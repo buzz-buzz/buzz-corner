@@ -16,6 +16,7 @@ import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
 import CurrentUser from "../../membership/user";
 import ServiceProxy from '../../service-proxy';
+import BirthdayHelper from '../../common/birthdayFormat';
 import Track from "../../common/track";
 import './index.css';
 import '../../common/Icon/style.css';
@@ -30,15 +31,6 @@ const timeZones = Object.keys(zones).map(key=>({
 const countryList = Object.keys(countries).map(key=>({
     key, value: countries[key].name, text: countries[key].name
 }));
-
-function getBirthDay(date_of_birth) {
-    if (date_of_birth) {
-        let date = new Date(date_of_birth);
-        return String(date.getFullYear()) + '-' + String(date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + String(date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-    } else {
-        return ''
-    }
-}
 
 class UserUpdate extends Component {
     constructor(props) {
@@ -267,7 +259,7 @@ class UserUpdate extends Component {
         return {
             name: profile.student_en_name,
             gender: profile.gender,
-            date_of_birth: getBirthDay(profile.date_of_birth),
+            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
             grade: profile.grade,
             time_zone: profile.time_zone,
             country: profile.country || 'china',
@@ -418,7 +410,7 @@ class UserUpdate extends Component {
             phone: userData.mobile || '',
             student_en_name: userData.name || '',
             gender: userData.gender,
-            date_of_birth: getBirthDay(userData.date_of_birth),
+            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
             city: userData.city || '',
             grade: userData.grade || '',
             topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),

@@ -4,17 +4,21 @@ import 'semantic-ui-css/semantic.min.css';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import users from './reducers';
+
 let fundebug = require('fundebug-javascript');
 fundebug.apikey = "88fb903ec9494854c02ec05416ed92da15d15660037ff08dd4ffa50378cf95e4";
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {hasError: false};
+        this.state = { hasError: false };
     }
 
     componentDidCatch(error, info) {
-        this.setState({hasError: true});
+        this.setState({ hasError: true });
 
         fundebug.notifyError(error, {
             metaData: {
@@ -29,6 +33,13 @@ class ErrorBoundary extends React.Component {
 }
 
 
-ReactDOM.render(<ErrorBoundary><App/></ErrorBoundary>
+const store = createStore(users);
+window.store = store;
+
+ReactDOM.render(<ErrorBoundary>
+    <Provider store={store}>
+        <App />
+    </Provider>
+</ErrorBoundary>
     , document.getElementById('root'));
 registerServiceWorker();

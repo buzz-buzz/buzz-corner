@@ -22,7 +22,6 @@ const putPolicy = new qiniu.rs.PutPolicy({
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
-const moment = require('moment');
 
 fundebug.notify("buzz-corner", "Fundebug started!");
 

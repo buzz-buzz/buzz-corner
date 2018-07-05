@@ -39,7 +39,7 @@
     margin: 1em 0;
     font-size: 1.2em;
     color: #f7b52a;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .class-detail-practice > .evaluation-list{
@@ -79,7 +79,7 @@
     padding: 0 2em;
     border-left: 4px solid #f7b52a;
     flex: 0 0 auto;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     color: #000;
 }
 
@@ -111,7 +111,7 @@
 .evaluation-result-show > .result-title{
     font-size: 15px;
     color: #000;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     margin:35px -1em 20px -1em;
     padding-left: calc(2em - 4px);
     border-left: 4px solid #f6b40c;

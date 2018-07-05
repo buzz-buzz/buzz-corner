@@ -7,6 +7,7 @@ import Track from "../common/track";
 import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 import TabletHeader from '../layout/tabletHeader';
+import WeChatLogin from "../login/wechat";
 import TabletFooter from '../layout/tabletFooter';
 
 class SelectRoleTablet extends Component {
@@ -26,10 +27,14 @@ class SelectRoleTablet extends Component {
     }
 
     chineseChildEntrance() {
-        this.setState({loadingModal: true});
-        Track.event('注册/登录_点击中方');
-        const returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
-        browserHistory.push(`/sign-in?role=${MemberType.Student}&return_url=${returnUrl}`);
+        if(/MicroMessenger/.test(navigator.userAgent)){
+            WeChatLogin.redirectToWechatOAuthPage();
+        }else{
+            this.setState({loadingModal: true});
+            Track.event('注册/登录_点击中方');
+            const returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+            browserHistory.push(`/sign-in?role=${MemberType.Student}&return_url=${returnUrl}`);
+        }
     }
 
     foreignChildEntrance() {

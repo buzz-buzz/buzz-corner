@@ -1,0 +1,85 @@
+.zoom-join {
+  display: flex;
+  flex-direction: column; }
+  .zoom-join .content-no-wechat {
+    position: relative;
+    flex: 1 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; }
+    .zoom-join .content-no-wechat .buzz-title p {
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 32px;
+      color: #000;
+      margin-bottom: 8px; }
+    .zoom-join .content-no-wechat .buzz-title span {
+      font-size: 12px;
+      color: #666; }
+    .zoom-join .content-no-wechat .buzz-img {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .zoom-join .content-no-wechat .buzz-img img {
+        width: 80%;
+        max-width: 600px; }
+  .zoom-join .content {
+    position: relative;
+    flex: 1 0 auto;
+    padding: 20px;
+    background: white url("//cdn-corner.resource.buzzbuzzenglish.com/zoom/zoom_bg_earth.png") center center no-repeat;
+    background-size: contain;
+    display: flex;
+    flex-direction: column; }
+    .zoom-join .content .content-info div {
+      height: 28px;
+      font-size: 15px;
+      color: #000;
+      line-height: 28px;
+      display: inline-block;
+      position: relative;
+      z-index: 200; }
+      .zoom-join .content .content-info div .shadow {
+        position: absolute;
+        z-index: 2;
+        height: 14px;
+        width: 100%;
+        top: 8px;
+        left: -20px;
+        background-color: #f4f5f9; }
+      .zoom-join .content .content-info div .word {
+        position: relative;
+        z-index: 200; }
+    .zoom-join .content .content-img {
+      padding: 30px 25px 0 25px; }
+      .zoom-join .content .content-img .android {
+        padding: 0 5px; }
+        .zoom-join .content .content-img .android img {
+          margin-bottom: 12px;
+          width: 120px; }
+        .zoom-join .content .content-img .android p {
+          font-size: 12px;
+          color: #666;
+          line-height: 16px;
+          text-align: left;
+          margin-bottom: 15px; }
+      .zoom-join .content .content-img .ios {
+        padding: 0 5px; }
+        .zoom-join .content .content-img .ios img {
+          margin: 17px 0 12px 0;
+          width: 250px; }
+        .zoom-join .content .content-img .ios p {
+          font-size: 12px;
+          color: #666;
+          line-height: 16px;
+          text-align: left; }
+      .zoom-join .content .content-img .line {
+        border-bottom: 1px solid #dfdfe4; }
+    .zoom-join .content .right-img {
+      position: absolute;
+      right: 25px;
+      top: 2px;
+      height: auto; }
+      .zoom-join .content .right-img img {
+        width: 135px; }

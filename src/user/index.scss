@@ -53,7 +53,7 @@ $grey-background: rgb(244, 245, 249);
 .user-my > .user-info > p{
     text-align: center;
     margin: 0;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .user-my > .user-info > p.name{
@@ -111,7 +111,7 @@ $grey-background: rgb(244, 245, 249);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 

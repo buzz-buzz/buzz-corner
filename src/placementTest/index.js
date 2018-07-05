@@ -126,7 +126,7 @@ class Homepage extends Component {
             this.setState({
                 answers: clonedAnswers,
                 messageModal: true,
-                messageContent: Resources.getInstance().errorUpload,
+                messageContent: Resources.getInstance().errorUpload + ':' + url.err,
                 messageName: 'error'
             });
 
@@ -231,7 +231,12 @@ class Homepage extends Component {
                     });
 
                     this.setState({loadingModal: false});
-                    browserHistory.push('/home');
+
+                    if(this.props.location.query.intro){
+                        browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
+                    }else{
+                        browserHistory.push('/home');
+                    }
                 } else {
                     //show error
                     this.setState({loadingModal: false});
@@ -244,7 +249,12 @@ class Homepage extends Component {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
             this.setState({loadingModal: false});
-            browserHistory.push('/home');
+
+            if(this.props.location.query.intro){
+                browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
+            }else{
+                browserHistory.push('/home');
+            }
         }
     }
 

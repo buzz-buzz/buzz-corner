@@ -15,7 +15,10 @@ import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
+import UserGuide from '../common/commonComponent/modalUserGuide';
+import moment from 'moment';
 import Client from "../common/client";
+import ClassEndTime from "../classDetail/class-end-time";
 
 class Home extends Component {
     constructor(props) {
@@ -32,7 +35,8 @@ class Home extends Component {
                 e.preventDefault();
 
                 browserHistory.push('/consult');
-            }
+            },
+            scroll_event: false
         };
 
         this.tabChangeBook = this.tabChangeBook.bind(this);
@@ -187,27 +191,10 @@ class Home extends Component {
         });
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day);
-    }
-
-    transformMonth(day) {
-        return TimeHelper.getMonthNameByIndex(day);
-    }
-
     handleClassListData(classList) {
 
         if (classList && classList.length > 0) {
             for (let i in classList) {
-                let dateClone = new Date(classList[i].class_start_time);
-
-                classList[i].show_date = this.transformDay(dateClone.getDay()) + ', '
-                    + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classList[i].class_end_time).getFullYear();
-                classList[i].show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-                    + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-                    + (new Date(classList[i].class_end_time).getHours() > 9 ? new Date(classList[i].class_end_time).getHours() : '0' + new Date(classList[i].class_end_time).getHours() ) + ' : '
-                    + (new Date(classList[i].class_end_time).getMinutes() > 9 ? new Date(classList[i].class_end_time).getMinutes() : '0' + new Date(classList[i].class_end_time).getMinutes() );
-
                 classList[i].class_status_show_style = TimeHelper.timeDiffStyle(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()));
                 classList[i].class_status_show_word = TimeHelper.timeDiff(new Date(classList[i].class_start_time), new Date(classList[i].class_end_time), new Date(classList[i].CURRENT_TIMESTAMP || new Date()), window.navigator.language);
             }
@@ -246,7 +233,7 @@ class Home extends Component {
         return class_list;
     }
 
-    RemoveTouchEventIfAndroid(){
+    RemoveTouchEventIfAndroid() {
         let u = window.navigator.userAgent;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
         if (isAndroid) {
@@ -254,11 +241,19 @@ class Home extends Component {
         }
     }
 
-    checkHttpsIfNeed(){
+    checkHttpsIfNeed() {
         if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
-            return  window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
+            return window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
         } else {
-            return  '/placement?tab=message';
+            return '/placement?tab=message';
+        }
+    }
+
+    checkUserGuideDone(intro_done) {
+        if (intro_done === 0) {
+            this.setState({
+                intro_done: true
+            })
         }
     }
 
@@ -266,7 +261,7 @@ class Home extends Component {
         try {
             Track.event('首页_首页Home页面');
 
-            this.setState({loadingModal: true, fullModal: true});
+            this.setState({loadingModal: true});
 
             //check system
             this.RemoveTouchEventIfAndroid();
@@ -290,7 +285,9 @@ class Home extends Component {
                 return;
             }
 
-            this.setState({fullModal: false});
+            if (this.props.location.query.intro) {
+                //this.checkUserGuideDone(profile.intro_done);
+            }
 
             let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
                 return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
@@ -313,9 +310,9 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async(item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score)) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
                             message_title: item.companion_name || 'Advisor',
                             message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
@@ -356,7 +353,7 @@ class Home extends Component {
                 role: profile.role,
                 userId: userId,
                 messageFromAdvisor: clonedMessageFromAdvisor,
-            }, async() => {
+            }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
                 this.loadMoreEvent();
             });
@@ -365,7 +362,7 @@ class Home extends Component {
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
 
-            this.setState({loadingModal: false, fullModal: false});
+            this.setState({loadingModal: false});
         }
     }
 
@@ -400,7 +397,7 @@ class Home extends Component {
         })
     }
 
-    loadMoreEvent(){
+    loadMoreEvent() {
         function getClientHeight() {
             if (document.body.clientHeight && document.documentElement.clientHeight) {
                 return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
@@ -419,6 +416,7 @@ class Home extends Component {
                 //get data if not the last page
 
                 //then "no more"
+                // window.removeEventListener('scroll', function(){}, false);
             } else {
                 //滚动条距离顶部的高度小于等于0 TODO
             }
@@ -434,7 +432,7 @@ class Home extends Component {
             document.addEventListener('removeEventListener', this.state.touchEvent, false);
         }
 
-        this.setState({loadingModal: false, fullModal: false});
+        this.setState({loadingModal: false});
 
         this.setState = (state, callback) => {
             return;
@@ -444,11 +442,12 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
-                <LoadingModal loadingModal={this.state.fullModal} fullScreen={true}/>
                 <Welcome/>
+                <UserGuide modal={this.state.intro_done}/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
-                        <img src={QiniuDomain + "/icon_Service.svg"} style={{width: '25px'}} alt=""/>
+                        <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
+                        <span style={{color: '#000', fontSize: '10px'}}>{Resources.getInstance().homeHelp}</span>
                     </a>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
@@ -469,9 +468,9 @@ class Home extends Component {
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
                             <div style={this.state.messageRead ? {
-                                    width: '25px',
-                                    display: 'inline-block'
-                                } : {display: 'none'}}></div>
+                                width: '25px',
+                                display: 'inline-block'
+                            } : {display: 'none'}}></div>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
@@ -507,9 +506,17 @@ class Home extends Component {
                                                     fontSize: '13px'
                                                 }}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date"
-                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_date}</p>
+                                                   style={{
+                                                       fontSize: '11px',
+                                                       color: '#868686'
+                                                   }}>{moment(item.class_start_time).format("dddd, MMMM Do YYYY")}</p>
                                                 <p className="class-time"
-                                                   style={{fontSize: '11px', color: '#868686'}}>{item.show_time}</p>
+                                                   style={{
+                                                       fontSize: '11px',
+                                                       color: '#868686'
+                                                   }}>{moment(item.class_start_time).format("HH:mm")} - <ClassEndTime
+                                                    classInfo={item}></ClassEndTime>
+                                                </p>
                                             </div>
                                             <div className="booking-item-status">
                                                 <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>
@@ -523,10 +530,10 @@ class Home extends Component {
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png"
                                          alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
-                                    <p>{ this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
+                                    <p>{this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
                             </div>)}
-                        <LoadingMore loadingMore={false} />
+                        <LoadingMore loadingMore={false}/>
                     </div>) :
                     (<div className="home-content">
                         <div className="message-tab">
@@ -541,8 +548,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                        return ele.hasRead === '';
-                                    }).length + ')' : '')}</p>
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}></div>
                             </div>

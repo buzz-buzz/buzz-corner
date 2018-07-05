@@ -95,7 +95,7 @@
     color: white;
     border-radius: 12.5px;
     font-size: 11px;
-    letter-spacing: 1px;
+    letter-spacing: 0;
 }
 
 .login-entrance > .preview-video{

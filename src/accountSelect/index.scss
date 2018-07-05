@@ -1,16 +1,17 @@
 .account-select{
   width: 100%;
-  min-height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   background-color: #f4f5f9;
+  flex: 1 0 auto;
+  position: relative;
   .account-item{
     flex: 1 0 auto;
     padding: 10px 12px;
   }
   .account-btn{
     flex: 0 0 auto;
-    padding: 0 9px 50px 9px;
+    padding: 50px 9px 50px 9px;
   }
 }

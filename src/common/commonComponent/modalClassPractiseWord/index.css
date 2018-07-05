@@ -13,14 +13,14 @@
   z-index: 9991;
   background-color: rgba(0, 0, 0, 0.3); }
   .class-practise-word .class-practise-content {
-    padding: 0 15px;
+    padding: 50px 15px 0 15px;
     border-radius: 5px;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     min-height: 50%;
     background: white url("//cdn-corner.resource.buzzbuzzenglish.com/circles.png") top center no-repeat;
-    background-size: 100% 100%;
+    background-size: contain;
     display: flex;
     justify-content: center;
     align-items: center; }
@@ -37,7 +37,7 @@
         font-size: 15px;
         font-weight: normal;
         margin-bottom: 34px;
-        letter-spacing: 1px;
+        letter-spacing: 0;
         color: #666; }
       .class-practise-word .class-practise-content div .btn {
         width: 100%;
@@ -48,8 +48,9 @@
           font-size: 17px;
           color: white;
           background: linear-gradient(to right, #fbda61, #f6b40c);
-          letter-spacing: 1px;
+          letter-spacing: 0;
           border-radius: 2em;
           display: flex;
           justify-content: center;
-          align-items: center; }
+          align-items: center;
+          cursor: pointer; }

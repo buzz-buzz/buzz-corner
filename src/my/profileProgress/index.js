@@ -1,7 +1,7 @@
-import './index.css'
 import Resources from '../../resources';
 import React from 'react';
 import {MemberType} from "../../membership/member-type";
+import './index.css'
 
 export default class ProfileProgress extends React.Component {
     render() {

@@ -68,7 +68,7 @@ class User extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
-        let profile = await CurrentUser.getProfile(this.state.refresh);
+        let profile = await CurrentUser.getProfile(this.state.refresh) || {};
 
         this.setState({
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',

@@ -8,9 +8,10 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
-import TimeHelper from "../common/timeHelper";
 import {Flag} from "semantic-ui-react";
+import moment from 'moment';
 import Track from "../common/track";
+import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -24,7 +25,6 @@ class classEvaluationForeign extends Component {
                 partners: [1, 2, 3],
                 status: 2,
                 show_date: 'tomorrow, is coming',
-                show_time: '00:00 - 00:00',
                 companion_name: '',
                 companion_avatar: '',
                 companions: ''
@@ -43,34 +43,21 @@ class classEvaluationForeign extends Component {
         window.history.go(-1);
     }
 
-    track(){
+    track() {
         Track.event('课后评价_点击任意中方进行评价');
     }
 
-    companionCenter(){
+    companionCenter() {
         Track.event('课后评价_外籍头像点击');
 
-        if(this.state.class_info.companions){
+        if (this.state.class_info.companions) {
             browserHistory.push('/user/' + this.state.class_info.companions);
         }
     }
 
-    transformDay(day) {
-        return TimeHelper.getWeekdayNameByIndex(day);
-    }
-
-    transformMonth(month) {
-        return TimeHelper.getMonthNameByIndex(month);
-    }
-
     handleClassInfoData(classInfo) {
         let dateClone = new Date(classInfo.start_time);
-        classInfo.show_date = this.transformDay(dateClone.getDay()) + ', '
-            + dateClone.getDate() + ' ' + this.transformMonth(dateClone.getMonth()) + ', ' + new Date(classInfo.end_time).getFullYear();
-        classInfo.show_time = (dateClone.getHours() > 9 ? dateClone.getHours() : '0' + dateClone.getHours()) + ':'
-            + (dateClone.getMinutes() > 9 ? dateClone.getMinutes() : '0' + dateClone.getMinutes()) + ' - '
-            + (new Date(classInfo.end_time).getHours() > 9 ? new Date(classInfo.end_time).getHours() : '0' + new Date(classInfo.end_time).getHours() ) + ' : '
-            + (new Date(classInfo.end_time).getMinutes() > 9 ? new Date(classInfo.end_time).getMinutes() : '0' + new Date(classInfo.end_time).getMinutes() );
+        classInfo.show_date = moment(dateClone).format("dddd, MMMM Do YYYY");
         classInfo.companions = classInfo.companions.split(',')[0];
         classInfo.partners = classInfo.students.split(',');
 
@@ -94,12 +81,12 @@ class classEvaluationForeign extends Component {
             class_info = this.handleClassInfoData(class_info[0]);
 
             let companion_country = '';
-            if(class_info.companions){
+            if (class_info.companions) {
                 let companion_id = class_info.companions.split(',')[0];
 
                 class_info.companions = companion_id;
 
-                if((userId + '') !== class_info.companions){
+                if ((userId + '') !== class_info.companions) {
                     alert(Resources.getInstance().classInfoNoAuth);
                     browserHistory.push('/');
                     return;
@@ -122,8 +109,8 @@ class classEvaluationForeign extends Component {
                     }
                 });
 
-                if(evaluationResult && evaluationResult.userInfo && evaluationResult.userInfo.length > 0){
-                    for(let i in evaluationResult.userInfo){
+                if (evaluationResult && evaluationResult.userInfo && evaluationResult.userInfo.length > 0) {
+                    for (let i in evaluationResult.userInfo) {
                         clonedEvaluationList.push({
                             url: '/class/evaluation/' + evaluationResult.userInfo[i].userId + '/' + this.state.class_id,
                             score: evaluationResult.userInfo[i].score || 0,
@@ -152,12 +139,14 @@ class classEvaluationForeign extends Component {
     render() {
         return (
             <div className="class-detail">
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord} />
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord}/>
                 <div className="class-detail-info">
                     <div className="class-info">
                         <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar src={this.state.class_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'} />
+                            <Avatar
+                                src={this.state.class_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
+                            <Flag
+                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
                         </div>
                         <div className="booking-item-info">
                             <p className="your-name"
@@ -172,7 +161,12 @@ class classEvaluationForeign extends Component {
                             <p className="class-date"
                                style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
                             <p className="class-time"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_time}</p>
+                               style={{
+                                   fontSize: '.8em',
+                                   color: '#aaa'
+                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
+                                classInfo={this.state.class_info}></ClassEndTime>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -189,7 +183,8 @@ class classEvaluationForeign extends Component {
                                          alt="loading"/>
                                 </div>
                                 <div className="evaluation-content-show">
-                                    <div className="chinese-name" style={{color: '#000', fontWeight: 'bold'}}>{item.user_name}</div>
+                                    <div className="chinese-name"
+                                         style={{color: '#000', fontWeight: 'bold'}}>{item.user_name}</div>
                                     <div className="evaluation-result">
                                         <p style={{color: '#868686'}}>{Resources.getInstance().evaluationTo}</p>
                                         {item.score === 0 ?

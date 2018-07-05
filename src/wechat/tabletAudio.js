@@ -6,6 +6,7 @@ let recordReadyStatus = false;
 
 function handleSuccess(stream) {
     window.stream = stream;
+
     recordReadyStatus = true;
 }
 
@@ -29,14 +30,26 @@ export default class TabletAudio {
         this.validBlobs = [];
     }
 
-    static init(callback) {
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(handleSuccess)
-            .catch(handleError)
-            .finally(() => {
-                callback(recordReadyStatus);
-            })
-            ;
+    static async  init(callback) {
+        //let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        // let getUserMedia = navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false;
+        //
+        // if(getUserMedia){
+        //      await getUserMedia({ audio: true })
+        //         .then(handleSuccess)
+        //         .catch(handleError)
+        //         .finally(() => {
+        //             callback(recordReadyStatus);
+        //         });
+        // }else{
+        //     callback(false);
+        // }
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder){
+            await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
+            callback(recordReadyStatus);
+        }else{
+            callback(false);
+        }
     }
 
     async stopRecording() {
