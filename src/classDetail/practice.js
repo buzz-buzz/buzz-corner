@@ -358,7 +358,7 @@ export default class Practice extends React.Component {
 
         return this.props.chats &&
             (chat_url.indexOf('http') > -1 || chat_url.indexOf('//') > -1) ?
-            (<p style={{display: 'flex'}}>
+            (<div style={{display: 'flex'}}>
                 {chat_word || Resources.getInstance().placementListeningAudio}
                 {this.renderChat(chat_url ? chat_url : null, i)}
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 3px 2px 10px'}}>
@@ -366,7 +366,7 @@ export default class Practice extends React.Component {
                          src={this.state.currentPlaying === i ? this.state.soundPlaying: "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
                          alt="" />
                 </div>
-            </p>) :
+            </div>) :
             (
                 <p>
                     {this.renderChat(chat_url ? chat_url : null, i)}
