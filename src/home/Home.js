@@ -286,7 +286,7 @@ class Home extends Component {
             }
 
             if (this.props.location.query.intro) {
-                //this.checkUserGuideDone(profile.intro_done);
+                this.checkUserGuideDone(profile.intro_done);
             }
 
             let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
