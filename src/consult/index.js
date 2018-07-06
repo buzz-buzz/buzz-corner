@@ -38,6 +38,7 @@ class Consult extends Component {
         return (
             <div className="consult-page">
                 <HeaderWithBack goBack={this.back} title='none' />
+                <YunyingModal/>
                 {
                     this.state.role === MemberType.Student &&
                     <div className="consult-content">

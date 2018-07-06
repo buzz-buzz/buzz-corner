@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-let touchStartX, canTouched, cancelTouched;
+let touchStartX, canTouched, cancelTouched, swipe;
 
 export default class YunyingModal extends React.Component {
     constructor() {
@@ -49,7 +49,7 @@ export default class YunyingModal extends React.Component {
         canTouched = false;
         this.setState({touched: false}, () => {
             if(cancelTouched){
-               //.3s回到原地
+               //回到原地
                document.getElementById('yunying-container').style.left = '-375px';
             }
         });
@@ -120,6 +120,7 @@ export default class YunyingModal extends React.Component {
                     }
                     document.getElementById('yunying-container').style.left = '-375px';
                     window.clearInterval(updateArray);
+                    swipe = true;
                 });
             }, 300);
         }else{
@@ -147,31 +148,42 @@ export default class YunyingModal extends React.Component {
                     }
                     document.getElementById('yunying-container').style.left = '-375px';
                     window.clearInterval(updateArray);
+                    swipe = true;
                 });
             }, 300);
         }
     }
 
     componentWillMount() {
+        this.beginPlaying();
+    }
+
+    beginPlaying(){
         if (!this.state.interval) {
             this.setState({
                 interval: window.setInterval(() => {
-                    if (!this.state.touched) {
+                    if (!this.state.touched && !swipe) {
                         if (this.state.direction === 'right') {
                             this.moveRightOnce();
                         } else {
                             this.moveLeftOnce();
                         }
+                    }else{
+                        swipe = false;
                     }
                 }, 6000)
             });
         }
     }
 
-    componentWillUnmount() {
+    cancelPlaying(){
         if (this.state.interval) {
             window.clearInterval(this.state.interval);
         }
+    }
+
+    componentWillUnmount() {
+        this.cancelPlaying();
     }
 
     render() {
