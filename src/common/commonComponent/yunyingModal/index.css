@@ -18,7 +18,8 @@
       font-size: 60px;
       text-align: center;
       line-height: 160px;
-      border: 1px solid red; }
+      border: 1px solid red;
+      box-sizing: border-box; }
   .main-div .images-active {
     position: absolute;
     z-index: 50;
