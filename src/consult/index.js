@@ -6,6 +6,7 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../membership/member-type";
+import YunyingModal from '../common/commonComponent/yunyingModal';
 import './index.css';
 
 class Consult extends Component {

@@ -408,8 +408,8 @@ class classDetail extends Component {
                             {
                                 this.state.role === MemberType.Student &&
                                 this.state.class_content && this.state.class_content.student_textbook &&
-                                this.state.class_content.student_textbook.length &&
-                                this.state.class_content.student_textbook.map((item, index) => {
+                                this.state.class_content.student_textbook.filter(function(item){return item && item !== '' && item.length > 5}).length &&
+                                this.state.class_content.student_textbook.filter(function(item){return item && item !== '' && item.length > 5}).map((item, index) => {
                                     return <a className="class_content_file_item" key={index}
                                               href={this.fileLink(item)} target="_blank" rel="noopener noreferrer">
                                         <img
