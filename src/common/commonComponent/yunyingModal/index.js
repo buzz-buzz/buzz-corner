@@ -1,8 +1,6 @@
 import React from 'react';
 import './index.css';
 
-let touchStartX, canTouched, cancelTouched, swipe;
-
 export default class YunyingModal extends React.Component {
     constructor() {
         super();
@@ -12,7 +10,11 @@ export default class YunyingModal extends React.Component {
             new_images: ['4', '1', '2', '3'],
             active: '1',
             direction: 'right',
-            touched: false
+            touched: false,
+            touchStartX: undefined,
+            canTouched: undefined,
+            cancelTouched: undefined,
+            swipe: undefined
         };
 
         this.moveImage = this.moveImage.bind(this);
@@ -21,18 +23,16 @@ export default class YunyingModal extends React.Component {
     }
 
     moveImage(event) {
-        if(canTouched){
-            let moveLength = event.touches[0].clientX - touchStartX;
+        if(this.state.canTouched){
+            let moveLength = event.touches[0].clientX - this.state.touchStartX;
 
             if(moveLength < 100 && moveLength > -100){
                 document.getElementById('yunying-container').style.left = -375 + moveLength + 'px';
                 //拖动距离不够 视为放弃
-                cancelTouched = true;
+                this.setState({cancelTouched: true});
             }else{
                 //直接移动到对应的位置 相当于触发touchEnd事件
-                cancelTouched = false;
-                canTouched = false;
-                this.setState({touched: false}, () => {
+                this.setState({touched: false, cancelTouched: false, canTouched: false}, () => {
                     this.moveToSuitable();
                 });
             }
@@ -40,15 +40,12 @@ export default class YunyingModal extends React.Component {
     }
 
     touchStart(event) {
-        canTouched = true;
-        touchStartX = event.touches[0].clientX;
-        this.setState({touched: true});
+        this.setState({touched: true, canTouched: true, touchStartX: event.touches[0].clientX});
     }
 
     touchEnd(event) {
-        canTouched = false;
-        this.setState({touched: false}, () => {
-            if(cancelTouched){
+        this.setState({touched: false, canTouched: false}, () => {
+            if(this.state.cancelTouched){
                //回到原地
                document.getElementById('yunying-container').style.left = '-375px';
             }
@@ -114,13 +111,12 @@ export default class YunyingModal extends React.Component {
                 newImages.pop();
                 newImages.unshift(cut);
 
-                this.setState({new_images: newImages, active: newImages[1]}, () => {
+                this.setState({new_images: newImages, active: newImages[1], swipe: true}, () => {
                     if(moveRight){
                         window.clearInterval(moveRight);
                     }
                     document.getElementById('yunying-container').style.left = '-375px';
                     window.clearInterval(updateArray);
-                    swipe = true;
                 });
             }, 300);
         }else{
@@ -142,13 +138,12 @@ export default class YunyingModal extends React.Component {
                 cut = newImages.shift();
                 newImages.push(cut);
 
-                this.setState({new_images: newImages, active: newImages[1]}, () => {
+                this.setState({new_images: newImages, active: newImages[1], swipe: true}, () => {
                     if(moveLeft){
                         window.clearInterval(moveLeft);
                     }
                     document.getElementById('yunying-container').style.left = '-375px';
                     window.clearInterval(updateArray);
-                    swipe = true;
                 });
             }, 300);
         }
@@ -162,14 +157,14 @@ export default class YunyingModal extends React.Component {
         if (!this.state.interval) {
             this.setState({
                 interval: window.setInterval(() => {
-                    if (!this.state.touched && !swipe) {
+                    if (!this.state.touched && !this.state.swipe) {
                         if (this.state.direction === 'right') {
                             this.moveRightOnce();
                         } else {
                             this.moveLeftOnce();
                         }
                     }else{
-                        swipe = false;
+                        this.setState({swipe: false});
                     }
                 }, 6000)
             });
