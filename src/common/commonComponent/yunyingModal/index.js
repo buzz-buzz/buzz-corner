@@ -26,7 +26,7 @@ export default class YunyingModal extends React.Component {
         if(this.state.canTouched){
             let moveLength = event.touches[0].clientX - this.state.touchStartX;
 
-            if(moveLength < 100 && moveLength > -100){
+            if(moveLength < 80 && moveLength > -80){
                 document.getElementById('yunying-container').style.left = -375 + moveLength + 'px';
                 //拖动距离不够 视为放弃
                 this.setState({cancelTouched: true});
