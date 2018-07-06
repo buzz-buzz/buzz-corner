@@ -1,0 +1,71 @@
+.main-div{
+  width: 375px;
+  height: 160px;
+  margin: 0 auto;
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  .images-container{
+    position: absolute;
+    left: -375px;
+    top: 0;
+    width: 400%;
+    height: 100%;
+    .img-container{
+      width: 25%;
+      height: 100%;
+      display: inline-block;
+      font-size: 60px;
+      text-align: center;
+      line-height: 160px;
+      border: 1px solid red;
+    }
+  }
+  .images-active{
+    position: absolute;
+    z-index: 50;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .images-dot{
+      width: 5px;
+      height: 5px;
+      background-color: #d0d6db;
+      border-radius: 50%;
+      margin: 0 4px;
+    }
+    .images-dot.active{
+      width: 10px;
+      border-radius: 3px;
+      background-color: #f6b40c;
+    }
+
+  }
+}
+
+@keyframes modal-swipe-right
+{
+  from {left: -375px;}
+  to {left: -750px;}
+}
+
+@-webkit-keyframes modal-swipe-right /*Safari and Chrome*/
+{
+  from {left: -375px;}
+  to {left: -750px;}
+}
+
+@keyframes modal-swipe-left
+{
+  from {left: -375px;}
+  to {left: 0;}
+}
+
+@-webkit-keyframes modal-swipe-left /*Safari and Chrome*/
+{
+  from {left: -375px;}
+  to {left: 0;}
+}
