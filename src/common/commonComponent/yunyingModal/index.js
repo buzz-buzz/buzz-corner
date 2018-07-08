@@ -87,7 +87,7 @@ export default class YunyingModal extends React.Component {
     }
 
     moveRightOnce(){
-        document.getElementById('yunying-container').style.animation = 'modal-swipe-right 1s linear';
+        document.getElementById('yunying-container').style.animation = 'modal-swipe-right .5s linear';
 
         let updateArray = window.setTimeout(() => {
             let newImages = this.state.new_images.slice();
@@ -100,11 +100,11 @@ export default class YunyingModal extends React.Component {
                 document.getElementById('yunying-container').style.animation = '';
                 window.clearInterval(updateArray);
             });
-        }, 1000);
+        }, 500);
     }
 
     moveLeftOnce(){
-        document.getElementById('yunying-container').style.animation = 'modal-swipe-left 1s linear';
+        document.getElementById('yunying-container').style.animation = 'modal-swipe-left .5s linear';
 
         let updateArray = window.setTimeout(() => {
             let newImages = this.state.new_images.slice();
@@ -118,7 +118,7 @@ export default class YunyingModal extends React.Component {
                 document.getElementById('yunying-container').style.animation = '';
                 window.clearInterval(updateArray);
             });
-        }, 1000);
+        }, 500);
     }
 
     moveToSuitable(){
