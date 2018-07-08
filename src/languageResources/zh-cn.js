@@ -144,7 +144,7 @@ export const welcomePageTitle1 = '欢迎加入';
 export const welcomePageTitle2 = 'BuzzBuzz虚拟英语角';
 export const welcomePageWord1 = '结识英语学伴';
 export const welcomePageWord2 = '对话英美少年';
-export const welcomePageBooking = '开始预定课程';
+export const welcomePageBooking = '好的';
 
 export const homeLogin = '登录';
 export const homeProfile = '个人资料';

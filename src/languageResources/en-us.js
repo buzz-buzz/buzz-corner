@@ -145,7 +145,7 @@ export const welcomePageTitle1 = 'Welcome to BuzzBuzz!';
 export const welcomePageTitle2 = '';
 export const welcomePageWord1 = 'Connect English and Chinese speaking teens!';
 export const welcomePageWord2 = '';
-export const welcomePageBooking = 'Start booking';
+export const welcomePageBooking = 'Ok';
 
 export const homeLogin = 'login';
 export const homeProfile = 'profile setup';
