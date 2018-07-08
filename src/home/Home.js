@@ -259,6 +259,16 @@ class Home extends Component {
         });
     }
 
+    handleBannerData(banner_data, role){
+        if(banner_data && banner_data.length){
+            return banner_data.filter(function(item){
+                return item.user_role && item.user_role.indexOf(role) > -1
+            });
+        }else{
+            return [];
+        }
+    }
+
     checkUserGuideDone(intro_done) {
         if (intro_done === 0) {
             this.setState({
@@ -339,8 +349,8 @@ class Home extends Component {
                 }
             }
 
-            let bannerData = await this.getBannerData();
-            console.log(bannerData && bannerData.length);
+            let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
+
 
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
@@ -388,8 +398,6 @@ class Home extends Component {
                 bannerData: bannerData
             }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
-                console.log('state');
-                console.log(this.state.bannerData);
                 this.loadMoreEvent();
             });
 

@@ -16,8 +16,6 @@ export default class YunyingModal extends React.Component {
             swipe: undefined
         };
 
-        console.log(this.state.new_images);
-
         this.moveImage = this.moveImage.bind(this);
         this.touchEnd = this.touchEnd.bind(this);
         this.touchStart = this.touchStart.bind(this);
@@ -27,8 +25,6 @@ export default class YunyingModal extends React.Component {
     resetBannerData(){
         //handle the arr
         let clonedBanner = this.props.bannerData.slice();
-        console.log('props');
-        console.log(this.props.bannerData);
 
         if(clonedBanner.length > 0){
             switch (clonedBanner.length) {
@@ -124,7 +120,6 @@ export default class YunyingModal extends React.Component {
     moveToSuitable(){
         let nowLocation = document.getElementById('yunying-container').style.left;
         nowLocation = parseInt(nowLocation.replace('px', ''), 10);
-        console.log(nowLocation);
         if(nowLocation > -375){
             //move right
             let moveRight = window.setInterval(() => {
