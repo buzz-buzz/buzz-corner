@@ -20,6 +20,7 @@ import moment from 'moment';
 import Client from "../common/client";
 import ClassEndTime from "../classDetail/class-end-time";
 import './index.css';
+import {fundebug} from '../common/logger';
 
 class Home extends Component {
     constructor(props) {
@@ -277,7 +278,7 @@ class Home extends Component {
         }
     }
 
-    closeWelcome(){
+    closeWelcome() {
         this.setState({
             welcome: false,
             intro_done: true
@@ -290,8 +291,8 @@ class Home extends Component {
                     method: 'PUT'
                 });
             }
-            catch (e){
-                console.log('err:' + e);
+            catch (e) {
+                fundebug.notifyError(e);
             }
         });
     }
@@ -319,7 +320,7 @@ class Home extends Component {
                 return;
             }
 
-            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await this.isProfileOK(userId))) {
+            if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await Home.isProfileOK(userId))) {
                 browserHistory.push('/my/info');
                 return;
             }
@@ -485,8 +486,8 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
-                <Welcome welcome={this.state.welcome} closeWelcome={this.closeWelcome} />
-                <UserGuide modal={this.state.intro_done && this.state.role === MemberType.Student }/>
+                <Welcome welcome={this.state.welcome} closeWelcome={this.closeWelcome}/>
+                <UserGuide modal={this.state.intro_done && this.state.role === MemberType.Student}/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
                         <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
@@ -500,7 +501,7 @@ class Home extends Component {
                         }}/>
                         <div>{Resources.getInstance().homeTabBooking}</div>
                         <div className="tab-active"
-                             style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
+                             style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}/>
                     </div>
                     <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
@@ -513,14 +514,14 @@ class Home extends Component {
                             <div style={this.state.messageRead ? {
                                 width: '25px',
                                 display: 'inline-block'
-                            } : {display: 'none'}}></div>
+                            } : {display: 'none'}}/>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
                             </div>
                         </div>
                         <div className="tab-active"
-                             style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}></div>
+                             style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}/>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
@@ -566,7 +567,7 @@ class Home extends Component {
                                                        fontSize: '11px',
                                                        color: '#868686'
                                                    }}>{moment(item.class_start_time).format("HH:mm")} - <ClassEndTime
-                                                    classInfo={item}></ClassEndTime>
+                                                    classInfo={item}/>
                                                 </p>
                                             </div>
                                             <div className="booking-item-status">
@@ -602,7 +603,7 @@ class Home extends Component {
                                     return ele.hasRead === '';
                                 }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
-                                     style={this.state.messageRead ? {} : {display: 'none'}}></div>
+                                     style={this.state.messageRead ? {} : {display: 'none'}}/>
                             </div>
                         </div>
                         {
@@ -623,7 +624,7 @@ class Home extends Component {
                                                         <div className="message-item-avatar">
                                                             <Avatar src={item.message_avatar}/>
                                                             <div className="message-red-circle"
-                                                                 style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}></div>
+                                                                 style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}/>
                                                         </div>
                                                         <div className="message-body">
                                                             <div className="message-title">{item.message_title}</div>
@@ -635,7 +636,7 @@ class Home extends Component {
                                             }
                                             {
                                                 this.state.messageFromAdvisor.length &&
-                                                <div className="loadmore"></div>
+                                                <div className="loadmore"/>
                                             }
                                         </div>
                                     ))
@@ -643,13 +644,13 @@ class Home extends Component {
                     </div>)
                 }
                 <div className="offset-footer"
-                     style={{height: '52px'}}></div>
+                     style={{height: '52px'}}/>
                 <Footer/>
             </div>
         );
     }
 
-    async isProfileOK(userId) {
+    static async isProfileOK(userId) {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/is-profile-ok/${userId}`,
