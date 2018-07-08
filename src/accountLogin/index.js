@@ -37,7 +37,11 @@ class AccountLogin extends Component {
     back() {
         Track.event('账号密码登录页面返回');
 
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     forgottenPassword() {

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import QiniuDomain from '../../common/systemData/qiniuUrl';
@@ -33,7 +34,11 @@ class UserShow extends Component {
     topicChange(){}
 
     back(){
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     async componentWillMount(){

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import BuzzInput from '../../common/commonComponent/buzzInput';
 import CurrentUser from "../../membership/user";
@@ -30,7 +31,11 @@ class UpdatePassword extends Component {
     back() {
         Track.event('设置密码页面返回');
 
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     handleChange(event) {

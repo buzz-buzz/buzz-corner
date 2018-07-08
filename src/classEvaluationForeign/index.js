@@ -40,7 +40,11 @@ class classEvaluationForeign extends Component {
     }
 
     back() {
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     track() {
