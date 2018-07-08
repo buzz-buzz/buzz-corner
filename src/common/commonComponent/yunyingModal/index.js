@@ -215,15 +215,19 @@ export default class YunyingModal extends React.Component {
     render() {
         return (
             <div className="main-div">
+                {
+                    this.state.new_images && this.state.new_images.length ?
+                        <img src={this.state.new_images[0].img_url} alt=""/> : ''
+                }
                 <div id="yunying-container" className="images-container" style={{width: this.state.new_images.length * 100 + '%'}}>
                     {
                         this.state.new_images && this.state.new_images.length ?
                             this.state.new_images.map((item, index) => {
                                 return <div className="img-container" key={index}
                                             onTouchMove={this.moveImage} onTouchStart={this.touchStart}
-                                            onTouchEnd={this.touchEnd} onClick={this.goBannerPage(item.url)}
+                                            onTouchEnd={this.touchEnd} onClick={ () => this.goBannerPage(item.url)}
                                 >
-                                    <img src={item.img_url + '?imageView2/1/w/375/h/160'} alt=""/>
+                                    <img src={item.img_url} alt=""/>
                                 </div>
                             })
                             : ''
