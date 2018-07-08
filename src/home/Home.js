@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, Flag} from 'semantic-ui-react';
+import {Flag} from 'semantic-ui-react';
 import {browserHistory, Link} from "react-router";
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
@@ -11,14 +11,15 @@ import LoadingMore from '../common/commonComponent/loadingMore';
 import TimeHelper from '../common/timeHelper';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
-import './index.css';
 import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import UserGuide from '../common/commonComponent/modalUserGuide';
+import YunyingModal from '../common/commonComponent/yunyingModal';
 import moment from 'moment';
 import Client from "../common/client";
 import ClassEndTime from "../classDetail/class-end-time";
+import './index.css';
 
 class Home extends Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class Home extends Component {
         this.messageTabChangeAdvisor = this.messageTabChangeAdvisor.bind(this);
         this.signUp = this.signUp.bind(this);
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
+        this.closeWelcome = this.closeWelcome.bind(this);
     }
 
     signUp() {
@@ -252,9 +254,28 @@ class Home extends Component {
     checkUserGuideDone(intro_done) {
         if (intro_done === 0) {
             this.setState({
-                intro_done: true
+                welcome: true
             })
         }
+    }
+
+    closeWelcome(){
+        this.setState({
+            welcome: false,
+            intro_done: true
+        }, async () => {
+            try {
+                await ServiceProxy.proxy(`/user-info`, {
+                    body: {
+                        intro_done: 1
+                    },
+                    method: 'PUT'
+                });
+            }
+            catch (e){
+                console.log('err:' + e);
+            }
+        });
     }
 
     async componentDidMount() {
@@ -442,8 +463,8 @@ class Home extends Component {
     render() {
         return (
             <div className="my-home">
-                <Welcome/>
-                <UserGuide modal={this.state.intro_done}/>
+                <Welcome welcome={this.state.welcome} closeWelcome={this.closeWelcome} />
+                <UserGuide modal={this.state.intro_done && this.state.role === MemberType.Student }/>
                 <div className="home-header">
                     <a className="consult" onClick={this.signUp}>
                         <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
@@ -483,6 +504,7 @@ class Home extends Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
                     (<div id="refreshContainer" className="home-content">
+                        <YunyingModal/>
                         {this.state.booking.length > 0 ?
                             (<div className="items">
                                 {
@@ -591,14 +613,8 @@ class Home extends Component {
                         }
                     </div>)
                 }
-                <div className="booking-btn" style={this.state.tab === 'booking' ? {} : {display: 'none'}}>
-                    <Form.Group widths='equal'>
-                        <Form.Field control={Button} onClick={this.signUp} id="booking-btn"
-                                    content={Resources.getInstance().bookingBtnText}/>
-                    </Form.Group>
-                </div>
                 <div className="offset-footer"
-                     style={this.state.tab === 'booking' ? {height: '142px'} : {height: '52px'}}></div>
+                     style={{height: '52px'}}></div>
                 <Footer/>
             </div>
         );
