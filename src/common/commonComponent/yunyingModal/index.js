@@ -78,7 +78,7 @@ export default class YunyingModal extends React.Component {
         this.setState({touched: false, canTouched: false}, () => {
             if(this.state.cancelTouched){
                //回到原地
-               document.getElementById('yunying-container').style.left = '-375px';
+               document.getElementById('yunying-container').style.left = '-100%';
             }
         });
     }
@@ -145,7 +145,7 @@ export default class YunyingModal extends React.Component {
                     if(moveRight){
                         window.clearInterval(moveRight);
                     }
-                    document.getElementById('yunying-container').style.left = '-375px';
+                    document.getElementById('yunying-container').style.left = '-100%';
                     window.clearInterval(updateArray);
                 });
             }, 300);
@@ -156,7 +156,7 @@ export default class YunyingModal extends React.Component {
                 if(latestLocation > -750){
                     document.getElementById('yunying-container').style.left = latestLocation - (-nowLocation)/10 + 'px';
                 }else{
-                    document.getElementById('yunying-container').style.left = '-750px';
+                    document.getElementById('yunying-container').style.left = '-200%';
                     window.clearInterval(moveLeft);
                 }
             }, 28);
@@ -172,7 +172,7 @@ export default class YunyingModal extends React.Component {
                     if(moveLeft){
                         window.clearInterval(moveLeft);
                     }
-                    document.getElementById('yunying-container').style.left = '-375px';
+                    document.getElementById('yunying-container').style.left = '-100%';
                     window.clearInterval(updateArray);
                 });
             }, 300);
