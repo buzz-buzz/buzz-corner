@@ -2,13 +2,12 @@ import React from 'react';
 import './index.css';
 
 export default class YunyingModal extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            images: ['1', '2', '3', '4'],
-            new_images: ['4', '1', '2', '3'],
-            active: '1',
+            new_images: this.resetBannerData(),
+            active: this.props.bannerData[0].banner_id || 1,
             direction: 'right',
             touched: false,
             touchStartX: undefined,
@@ -17,9 +16,44 @@ export default class YunyingModal extends React.Component {
             swipe: undefined
         };
 
+        console.log(this.state.new_images);
+
         this.moveImage = this.moveImage.bind(this);
         this.touchEnd = this.touchEnd.bind(this);
         this.touchStart = this.touchStart.bind(this);
+        this.goBannerPage = this.goBannerPage.bind(this);
+    }
+
+    resetBannerData(){
+        //handle the arr
+        let clonedBanner = this.props.bannerData.slice();
+        console.log('props');
+        console.log(this.props.bannerData);
+
+        if(clonedBanner.length > 0){
+            switch (clonedBanner.length) {
+                case 1:
+                    clonedBanner.push(clonedBanner[0]);
+                    clonedBanner.push(clonedBanner[0]);
+                    clonedBanner.push(clonedBanner[0]);
+                    return clonedBanner;
+                case 2:
+                    clonedBanner.unshift(clonedBanner[1]);
+                    clonedBanner.push(clonedBanner[1]);
+                    return clonedBanner;
+                default:
+                    let cut = clonedBanner[clonedBanner.length - 1];
+                    clonedBanner.pop();
+                    clonedBanner.unshift(cut);
+                    return clonedBanner;
+            }
+        }else{
+            return [];
+        }
+    }
+
+    goBannerPage(url){
+        window.open(url);
     }
 
     moveImage(event) {
@@ -62,7 +96,7 @@ export default class YunyingModal extends React.Component {
             cut = newImages.shift();
             newImages.push(cut);
 
-            this.setState({new_images: newImages, active: newImages[1]}, () => {
+            this.setState({new_images: newImages, active: newImages[1].banner_id}, () => {
                 document.getElementById('yunying-container').style.animation = '';
                 window.clearInterval(updateArray);
             });
@@ -80,7 +114,7 @@ export default class YunyingModal extends React.Component {
             newImages.pop();
             newImages.unshift(cut);
 
-            this.setState({new_images: newImages, active: newImages[1]}, () => {
+            this.setState({new_images: newImages, active: newImages[1].banner_id}, () => {
                 document.getElementById('yunying-container').style.animation = '';
                 window.clearInterval(updateArray);
             });
@@ -111,7 +145,7 @@ export default class YunyingModal extends React.Component {
                 newImages.pop();
                 newImages.unshift(cut);
 
-                this.setState({new_images: newImages, active: newImages[1], swipe: true}, () => {
+                this.setState({new_images: newImages, active: newImages[1].banner_id, swipe: true}, () => {
                     if(moveRight){
                         window.clearInterval(moveRight);
                     }
@@ -138,7 +172,7 @@ export default class YunyingModal extends React.Component {
                 cut = newImages.shift();
                 newImages.push(cut);
 
-                this.setState({new_images: newImages, active: newImages[1], swipe: true}, () => {
+                this.setState({new_images: newImages, active: newImages[1].banner_id, swipe: true}, () => {
                     if(moveLeft){
                         window.clearInterval(moveLeft);
                     }
@@ -150,7 +184,9 @@ export default class YunyingModal extends React.Component {
     }
 
     componentWillMount() {
-        this.beginPlaying();
+        if(this.props.bannerData && this.props.bannerData.length && this.props.bannerData.length > 1){
+            this.beginPlaying();
+        }
     }
 
     beginPlaying(){
@@ -184,23 +220,25 @@ export default class YunyingModal extends React.Component {
     render() {
         return (
             <div className="main-div">
-                <div id="yunying-container" className="images-container">
+                <div id="yunying-container" className="images-container" style={{width: this.state.new_images.length * 100 + '%'}}>
                     {
-                        this.state.images && this.state.images.length ?
+                        this.state.new_images && this.state.new_images.length ?
                             this.state.new_images.map((item, index) => {
                                 return <div className="img-container" key={index}
                                             onTouchMove={this.moveImage} onTouchStart={this.touchStart}
-                                            onTouchEnd={this.touchEnd}
-                                >{item}</div>
+                                            onTouchEnd={this.touchEnd} onClick={this.goBannerPage(item.url)}
+                                >
+                                    <img src={item.img_url + '?imageView2/1/w/375/h/160'} alt=""/>
+                                </div>
                             })
                             : ''
                     }
                 </div>
                 <div className="images-active">
                     {
-                        this.state.images && this.state.images.length ?
-                            this.state.images.map((item, index) => {
-                                return <div className={ this.state.active === item ? "images-dot active" : "images-dot"}
+                        this.props.bannerData && this.props.bannerData.length ?
+                            this.props.bannerData.map((item, index) => {
+                                return <div className={ this.state.active === item.banner_id ? "images-dot active" : "images-dot"}
                                             key={index}
                                 ></div>
                             })
