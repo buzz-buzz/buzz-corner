@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import Resources from '../../resources';
 import Track from "../../common/track";
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
@@ -14,7 +15,11 @@ class UpdatePassword extends Component {
     back() {
         Track.event('设置密码页面返回');
 
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     render() {

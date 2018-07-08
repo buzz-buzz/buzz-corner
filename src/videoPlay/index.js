@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import EmbedVideo from '../common/commonComponent/EmbedVideo';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import './index.css';
@@ -11,7 +12,11 @@ class videoPlay extends Component {
     }
 
     goBack() {
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     componentDidMount(){

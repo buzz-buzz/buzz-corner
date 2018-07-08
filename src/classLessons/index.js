@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
@@ -29,7 +30,11 @@ class ClassLessons extends Component {
     }
 
     back() {
-        window.history.go(-1);
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
+            browserHistory.push('/');
+        }
     }
 
     goYouzanUrl(event) {
