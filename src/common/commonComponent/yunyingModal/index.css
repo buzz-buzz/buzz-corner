@@ -1,27 +1,26 @@
 .main-div {
   width: 375px;
-  height: 160px;
   margin: 0 auto;
   position: relative;
-  flex: 0 0 auto;
+  flex: 1 0 auto;
   overflow: hidden; }
+  .main-div img {
+    opacity: 0;
+    width: 100%; }
   .main-div .images-container {
     position: absolute;
+    z-index: 20;
     left: -375px;
     top: 0;
-    display: flex;
-    height: 100%; }
+    display: flex; }
     .main-div .images-container .img-container {
       flex: 1;
-      height: 100%;
       display: inline-block;
-      font-size: 60px;
-      text-align: center;
-      line-height: 160px;
       box-sizing: border-box;
       overflow: hidden; }
       .main-div .images-container .img-container img {
-        width: 100%; }
+        width: 100%;
+        opacity: 1; }
   .main-div .images-active {
     position: absolute;
     z-index: 50;
