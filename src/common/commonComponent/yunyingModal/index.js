@@ -1,4 +1,5 @@
 import React from 'react';
+import Client from "../../../common/client";
 import './index.css';
 
 export default class YunyingModal extends React.Component {
@@ -214,10 +215,10 @@ export default class YunyingModal extends React.Component {
 
     render() {
         return (
-            <div className="main-div">
+            <div className="main-div" style={{width: this.props.width || '375px'}}>
                 {
                     this.state.new_images && this.state.new_images.length ?
-                        <img src={this.state.new_images[0].img_url} alt=""/> : ''
+                        <img src={  Client.getClient() === 'phone' ? this.state.new_images[0].img_url : this.state.new_images[0].img_url_tablet} alt=""/> : ''
                 }
                 <div id="yunying-container" className="images-container" style={{width: this.state.new_images.length * 100 + '%'}}>
                     {
@@ -227,7 +228,7 @@ export default class YunyingModal extends React.Component {
                                             onTouchMove={this.moveImage} onTouchStart={this.touchStart}
                                             onTouchEnd={this.touchEnd} onClick={ () => this.goBannerPage(item.url)}
                                 >
-                                    <img src={item.img_url} alt=""/>
+                                    <img src={ Client.getClient() === 'phone' ? item.img_url : item.img_url_tablet} alt=""/>
                                 </div>
                             })
                             : ''
