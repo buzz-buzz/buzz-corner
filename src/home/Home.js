@@ -251,6 +251,14 @@ class Home extends Component {
         }
     }
 
+    async getBannerData() {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/banner/available?position=index`
+            }
+        });
+    }
+
     checkUserGuideDone(intro_done) {
         if (intro_done === 0) {
             this.setState({
@@ -331,6 +339,9 @@ class Home extends Component {
                 }
             }
 
+            let bannerData = await this.getBannerData();
+            console.log(bannerData && bannerData.length);
+
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
@@ -374,8 +385,11 @@ class Home extends Component {
                 role: profile.role,
                 userId: userId,
                 messageFromAdvisor: clonedMessageFromAdvisor,
+                bannerData: bannerData
             }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
+                console.log('state');
+                console.log(this.state.bannerData);
                 this.loadMoreEvent();
             });
 
@@ -504,7 +518,13 @@ class Home extends Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 {this.state.tab === 'booking' ?
                     (<div id="refreshContainer" className="home-content">
-                        <YunyingModal/>
+                        {
+                            this.state.bannerData && this.state.bannerData.length ?
+                                <YunyingModal
+                                    bannerData={this.state.bannerData}
+                                />
+                                : ''
+                        }
                         {this.state.booking.length > 0 ?
                             (<div className="items">
                                 {
