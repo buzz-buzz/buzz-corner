@@ -530,6 +530,7 @@ class Home extends Component {
                             this.state.bannerData && this.state.bannerData.length ?
                                 <YunyingModal
                                     bannerData={this.state.bannerData}
+                                    width={document.body.clientWidth}
                                 />
                                 : ''
                         }

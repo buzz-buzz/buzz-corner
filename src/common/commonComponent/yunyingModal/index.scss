@@ -1,8 +1,8 @@
 .main-div{
-  width: 375px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   overflow: hidden;
   img{
     opacity: 0;
@@ -11,7 +11,7 @@
   .images-container{
     position: absolute;
     z-index: 20;
-    left: -375px;
+    left: -100%;
     top: 0;
     display: flex;
     .img-container{
@@ -20,6 +20,7 @@
       box-sizing: border-box;
       overflow: hidden;
       img{
+        max-width: 1200px;
         width: 100%;
         opacity: 1;
       }
@@ -52,24 +53,24 @@
 
 @keyframes modal-swipe-right
 {
-  from {left: -375px;}
-  to {left: -750px;}
+  from {left: -100%;}
+  to {left: -200%;}
 }
 
 @-webkit-keyframes modal-swipe-right /*Safari and Chrome*/
 {
-  from {left: -375px;}
-  to {left: -750px;}
+  from {left: -100%;}
+  to {left: -200%;}
 }
 
 @keyframes modal-swipe-left
 {
-  from {left: -375px;}
+  from {left: -100%;}
   to {left: 0;}
 }
 
 @-webkit-keyframes modal-swipe-left /*Safari and Chrome*/
 {
-  from {left: -375px;}
+  from {left: -100%;}
   to {left: 0;}
 }
