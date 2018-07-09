@@ -350,6 +350,9 @@ class Home extends Component {
                 }
             }
 
+            let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
+
+
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
@@ -392,18 +395,18 @@ class Home extends Component {
                 loadingModal: false,
                 role: profile.role,
                 userId: userId,
-                messageFromAdvisor: clonedMessageFromAdvisor
-
+                messageFromAdvisor: clonedMessageFromAdvisor,
+                bannerData: bannerData
             }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
-                let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
-                this.setState({bannerData: bannerData});
                 this.loadMoreEvent();
             });
 
             await this.handleFeedbackNotifications(userId, clonedMessageFromAdvisor);
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
+
+            alert('发生错误:' + ex);
 
             this.setState({loadingModal: false});
         }
