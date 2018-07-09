@@ -49,10 +49,16 @@ class classDetail extends Component {
             interval: setInterval(() => {
                 if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
                     let left_new = this.state.left - 1;
-                    this.setState({left: left_new});
+                    if(left_new > 300){
+                        this.setState({left: left_new});
+                    }else{
+                        this.setState({classBeginNow: true});
+                        clearInterval(this.state.interval);
+                    }
                 }
             }, 1000),
-            class_content_tab: ''
+            class_content_tab: '',
+            classBeginNow: false
         };
 
         this.back = this.back.bind(this);
@@ -163,7 +169,7 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if ((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0) {
+        if (((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0)  || this.state.classBeginNow) {
             Track.event('课程详情_进入课程点击');
 
             this.showZoom();
@@ -457,8 +463,8 @@ class classDetail extends Component {
                      style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) ? {display: 'none'} : {}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 ? {
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? {
                                         color: 'white',
                                         background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
                                         borderRadius: '0',
