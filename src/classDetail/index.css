@@ -261,3 +261,9 @@
     color: #666;
     font-size: 13px;
 }
+
+.class-detail .offset-footer{
+    flex: 0 0 auto;
+    background-color: #f4f5f9;
+    height: 50px;
+}

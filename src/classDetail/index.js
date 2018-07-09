@@ -49,16 +49,20 @@ class classDetail extends Component {
             interval: setInterval(() => {
                 if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
                     let left_new = this.state.left - 1;
+                    let end_left_new = this.state.end_left - 1;
                     if(left_new > 300){
-                        this.setState({left: left_new});
-                    }else{
-                        this.setState({classBeginNow: true});
+                        this.setState({left: left_new, end_left: end_left_new});
+                    }else if(left_new <= 300 && end_left_new > 0){
+                        this.setState({classBeginNow: true, end_left: end_left_new, left: left_new});
+                    }else if(end_left_new <= 0){
+                        this.setState({classBeginNow: false, end_left: end_left_new, left: left_new, classEndNow: true});
                         clearInterval(this.state.interval);
                     }
                 }
             }, 1000),
             class_content_tab: '',
-            classBeginNow: false
+            classBeginNow: false,
+            classEndNow: false,
         };
 
         this.back = this.back.bind(this);
@@ -165,12 +169,12 @@ class classDetail extends Component {
     }
 
     checkStatusAndTime() {
-        if (((new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 && (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0)  || this.state.classBeginNow) {
+        if (this.state.classBeginNow && !this.state.classEndNow) {
             Track.event('课程详情_进入课程点击');
 
             this.showZoom();
-        } else {
-            if (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) {
+        } else{
+            if (this.state.classEndNow) {
                 Track.event('课程详情_课后评价点击');
 
                 if (this.state.role === MemberType.Student) {
@@ -283,6 +287,9 @@ class classDetail extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: profile.role || '',
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
+                end_left: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
+                classBeginNow: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 300 && Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) > 0,
+                classEndNow: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 0,
                 classBeginModal: false,
                 companion_country: companion_country,
                 class_content_tab: profile.role === MemberType.Student ? 'practice' : 'class_file',
@@ -375,8 +382,7 @@ class classDetail extends Component {
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
                     <ClassAd/>
                 </div>
-                <div className="class-detail-practice"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {marginBottom: '50px'} : {}}>
+                <div className="class-detail-practice">
                     {
                         this.state.role === MemberType.Student &&
                         <div>
@@ -459,8 +465,8 @@ class classDetail extends Component {
                      style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) ? {display: 'none'} : {}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? {
+                                    content={this.state.classBeginNow || this.state.classEndNow ? (this.state.classBeginNow && !this.state.classEndNow ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={this.state.classBeginNow || this.state.classEndNow ? {
                                         color: 'white',
                                         background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
                                         borderRadius: '0',
@@ -478,6 +484,7 @@ class classDetail extends Component {
                         />
                     </Form.Group>
                 </div>
+                <div className="offset-footer"></div>
             </div>
         );
     }
