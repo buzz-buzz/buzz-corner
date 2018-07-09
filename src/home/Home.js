@@ -52,9 +52,9 @@ class Home extends Component {
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
         if (isiOS) {
-            window.location.href = '/consult';
+            window.location.href = this.state.role === MemberType.Student ? '/help' : '/consult';
         } else {
-            browserHistory.push('/consult');
+            browserHistory.push(this.state.role === MemberType.Student ? '/help' : '/consult');
         }
     }
 
