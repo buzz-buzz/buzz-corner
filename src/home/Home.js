@@ -350,9 +350,6 @@ class Home extends Component {
                 }
             }
 
-            let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
-
-
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
@@ -395,10 +392,12 @@ class Home extends Component {
                 loadingModal: false,
                 role: profile.role,
                 userId: userId,
-                messageFromAdvisor: clonedMessageFromAdvisor,
-                bannerData: bannerData
+                messageFromAdvisor: clonedMessageFromAdvisor
+
             }, async () => {
                 //TODO 滚动条到页面底部加载more 分頁api
+                let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
+                this.setState({bannerData: bannerData});
                 this.loadMoreEvent();
             });
 
