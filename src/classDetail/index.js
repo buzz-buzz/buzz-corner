@@ -383,8 +383,7 @@ class classDetail extends Component {
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
                     <ClassAd/>
                 </div>
-                <div className="class-detail-practice"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 60 * 24 ? {marginBottom: '50px'} : {}}>
+                <div className="class-detail-practice">
                     {
                         this.state.role === MemberType.Student &&
                         <div>
@@ -486,6 +485,7 @@ class classDetail extends Component {
                         />
                     </Form.Group>
                 </div>
+                <div className="offset-footer"></div>
             </div>
         );
     }
