@@ -62,8 +62,7 @@ export default class HelpCenter extends React.Component{
     }
 
     showHtml(content){
-        let html = {__html: content};
-        return   <div dangerouslySetInnerHTML={html}></div> ;
+        return   <div dangerouslySetInnerHTML={{__html: content}}></div> ;
     }
 
     render(){
