@@ -72,10 +72,7 @@ class Home extends Component {
                 window.location.href = "/class/" + item.class_id;
             }
         }
-        catch (e) {
-
-        }
-
+        catch (e) {}
     }
 
     clickEventPlacement(e, item) {
@@ -86,8 +83,6 @@ class Home extends Component {
         let redStatus = item.hasRead === '' ? '未读' : '已读';
 
         Track.event('首页_消息点击', '消息点击', {'消息状态': redStatus, '消息类型': '助教'});
-
-        //todo
 
         let u = window.navigator.userAgent;
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -239,24 +234,6 @@ class Home extends Component {
         }
     }
 
-    async getBannerData() {
-        return ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/banner/available?position=index`
-            }
-        });
-    }
-
-    handleBannerData(banner_data, role){
-        if(banner_data && banner_data.length){
-            return banner_data.filter(function(item){
-                return item.user_role && item.user_role.indexOf(role) > -1
-            });
-        }else{
-            return [];
-        }
-    }
-
     checkUserGuideDone(intro_done) {
         if (intro_done === 0) {
             this.setState({
@@ -334,9 +311,6 @@ class Home extends Component {
                 }
             }
 
-            let bannerData = this.handleBannerData(await this.getBannerData(), profile.role);
-
-
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
@@ -379,18 +353,12 @@ class Home extends Component {
                 loadingModal: false,
                 role: profile.role,
                 userId: userId,
-                messageFromAdvisor: clonedMessageFromAdvisor,
-                bannerData: bannerData
-            }, async () => {
-                //TODO 滚动条到页面底部加载more 分頁api
-                this.loadMoreEvent();
+                messageFromAdvisor: clonedMessageFromAdvisor
             });
 
             await this.handleFeedbackNotifications(userId, clonedMessageFromAdvisor);
         } catch (ex) {
             Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
-
-            alert('发生错误:' + ex);
 
             this.setState({loadingModal: false});
         }
@@ -419,40 +387,10 @@ class Home extends Component {
             return item.hasRead !== 'read';
         });
 
-        //sort clonedMessageFromAdvisor
-
         this.setState({
             messageFromAdvisor: clonedMessageFromAdvisor,
             messageRead: messageCheck && messageCheck.length > 0,
         })
-    }
-
-    loadMoreEvent() {
-        function getClientHeight() {
-            if (document.body.clientHeight && document.documentElement.clientHeight) {
-                return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-            } else {
-                return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-            }
-        }
-
-        function winScroll() {
-            let scrollTop = document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;    //滚动条距离顶部的高度
-            let scrollHeight = getClientHeight();   //当前页面的总高度
-            let clientHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);    //当前可视的页面高度
-            // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
-            if (scrollTop + scrollHeight >= clientHeight) {   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;
-                console.log('到底了');
-                //get data if not the last page
-
-                //then "no more"
-                // window.removeEventListener('scroll', function(){}, false);
-            } else {
-                //滚动条距离顶部的高度小于等于0 TODO
-            }
-        }
-
-        //window.addEventListener('scroll', winScroll);
     }
 
     componentWillUnmount() {
@@ -508,12 +446,11 @@ class Home extends Component {
                 {this.state.tab === 'booking' ?
                     (<div id="refreshContainer" className="home-content">
                         {
-                            this.state.bannerData && this.state.bannerData.length ?
+                            this.state.role &&
                                 <YunyingModal
-                                    bannerData={this.state.bannerData}
+                                    role={this.state.role}
                                     width={document.body.clientWidth}
                                 />
-                                : ''
                         }
                         {this.state.booking.length > 0 ?
                             (<div className="items">

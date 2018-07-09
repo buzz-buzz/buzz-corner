@@ -1,5 +1,6 @@
 import React from 'react';
 import Client from "../../../common/client";
+import ServiceProxy from '../../../service-proxy';
 import './index.css';
 
 export default class YunyingModal extends React.Component {
@@ -7,8 +8,8 @@ export default class YunyingModal extends React.Component {
         super(props);
 
         this.state = {
-            new_images: this.resetBannerData(),
-            active: this.props.bannerData[0].banner_id || 1,
+            new_images: [],
+            active: 1,
             direction: 'right',
             touched: false,
             touchStartX: undefined,
@@ -23,9 +24,27 @@ export default class YunyingModal extends React.Component {
         this.goBannerPage = this.goBannerPage.bind(this);
     }
 
-    resetBannerData(){
+    async getBannerData() {
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/banner/available?position=index`
+            }
+        });
+    }
+
+    handleBannerData(banner_data, role){
+        if(banner_data && banner_data.length){
+            return banner_data.filter(function(item){
+                return item.user_role && item.user_role.indexOf(role) > -1
+            });
+        }else{
+            return [];
+        }
+    }
+
+    resetBannerData(data){
         //handle the arr
-        let clonedBanner = this.props.bannerData.slice();
+        let clonedBanner = data.slice();
 
         if(clonedBanner.length > 0){
             switch (clonedBanner.length) {
@@ -179,9 +198,18 @@ export default class YunyingModal extends React.Component {
         }
     }
 
-    componentWillMount() {
-        if(this.props.bannerData && this.props.bannerData.length && this.props.bannerData.length > 1){
-            this.beginPlaying();
+    async componentWillMount() {
+        let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
+
+        if(bannerData && bannerData.length && bannerData.length > 0){
+            this.setState({
+                bannerData: bannerData,
+                new_images:this.resetBannerData(bannerData)
+            }, () => {
+                if( bannerData.length > 1){
+                    this.beginPlaying();
+                }
+            });
         }
     }
 
@@ -236,8 +264,8 @@ export default class YunyingModal extends React.Component {
                 </div>
                 <div className="images-active">
                     {
-                        this.props.bannerData && this.props.bannerData.length ?
-                            this.props.bannerData.map((item, index) => {
+                        this.state.bannerData && this.state.bannerData.length ?
+                            this.state.bannerData.map((item, index) => {
                                 return <div className={ this.state.active === item.banner_id ? "images-dot active" : "images-dot"}
                                             key={index}
                                 ></div>
