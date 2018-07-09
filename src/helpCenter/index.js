@@ -6,6 +6,16 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import './index.css';
 
 export default class HelpCenter extends React.Component{
+    constructor(){
+        super();
+
+        this.state = {
+            faq: {
+                title: '帮助中心'
+            }
+        };
+    }
+
     async componentWillMount(){
         //get data from service
         await this.updateFaq('student_index');
@@ -23,27 +33,43 @@ export default class HelpCenter extends React.Component{
         });
     }
 
+    async faqDetail(event, faq_id){
+        await this.updateFaq(faq_id);
+    }
+
     back(){
-        if(window.history.length > 2){
-            window.history.go(-1);
-        }else{
+        if(this.state.faq && ( this.state.faq.type === 'student_index' ||  this.state.faq.type === 'companion_index' )){
             browserHistory.push('/');
+        }else{
+            //back last faq
         }
     }
 
     render(){
         return (
             <div className="help-center">
-                <HeaderWithBack goBack={this.back} title='help center' />
+                <HeaderWithBack goBack={this.back} title={this.state.faq.title} />
                 <div className="help-list">
-                    <div className="help-title">常见问题</div>
-                    <div className="help-item">
-                        <div className="item-name">如何上课</div>
-                        <div className="item-btn">
-                            <span className="btn-word">支持mac</span>
-                            <i className="icon-icon_back_down"/>
-                        </div>
-                    </div>
+                    {
+                        this.state.faq && this.state.faq.related_faqs &&
+                        this.state.faq.related_faqs.length &&
+                        <div className="help-title">相关问题</div>
+                    }
+                    {
+                        this.state.faq && this.state.faq.related_faqs &&
+                        this.state.faq.related_faqs.length &&
+                            this.state.faq.related_faqs.map((item, index) => {
+                                return <div className="help-item" key={index}
+                                            onClick={ (event) => this.faqDetail(event, item.faq_id)}
+                                >
+                                    <div className="item-name">{item.title}</div>
+                                    <div className="item-btn">
+                                        <span className="btn-word">{item.sub_title}</span>
+                                        <i className="icon-icon_back_down"/>
+                                    </div>
+                                </div>
+                            })
+                    }
                 </div>
             </div>
         )
