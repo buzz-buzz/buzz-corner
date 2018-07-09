@@ -17,6 +17,7 @@ export default class HelpCenter extends React.Component{
         };
 
         this.back = this.back.bind(this);
+        this.showHtml = this.showHtml.bind(this);
     }
 
     async componentWillMount(){
@@ -60,10 +61,16 @@ export default class HelpCenter extends React.Component{
         }
     }
 
+    showHtml(content){
+        let html = {__html: content};
+        return   <div dangerouslySetInnerHTML={html}></div> ;
+    }
+
     render(){
         return (
             <div className="help-center">
                 <HeaderWithBack goBack={this.back} title={this.state.faq.title} />
+                <div className="help-content">{ this.state.faq && this.state.faq.content ? this.showHtml(this.state.faq.content) : ''}</div>
                 <div className="help-list">
                     {
                         this.state.faq && this.state.faq.related_faqs &&
