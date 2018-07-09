@@ -33,11 +33,6 @@ class Home extends Component {
             messageFromAdvisor: [],
             messageRead: false,
             role: '',
-            touchEvent: function (e) {
-                e.preventDefault();
-
-                browserHistory.push('/consult');
-            },
             scroll_event: false
         };
 
@@ -236,14 +231,6 @@ class Home extends Component {
         return class_list;
     }
 
-    RemoveTouchEventIfAndroid() {
-        let u = window.navigator.userAgent;
-        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
-        if (isAndroid) {
-            document.getElementById('booking-btn').addEventListener('touchstart', this.state.touchEvent, false);
-        }
-    }
-
     checkHttpsIfNeed() {
         if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0) {
             return window.location.href.replace('http', 'https').replace('/home', '/placement?tab=message');
@@ -302,9 +289,6 @@ class Home extends Component {
             Track.event('首页_首页Home页面');
 
             this.setState({loadingModal: true});
-
-            //check system
-            this.RemoveTouchEventIfAndroid();
 
             //check if placement is Done await CurrentUser.getUserId()
             let profile = await CurrentUser.getProfile(true);
@@ -468,16 +452,10 @@ class Home extends Component {
             }
         }
 
-        window.addEventListener('scroll', winScroll);
+        //window.addEventListener('scroll', winScroll);
     }
 
     componentWillUnmount() {
-        let u = window.navigator.userAgent;
-        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android
-        if (isAndroid) {
-            document.addEventListener('removeEventListener', this.state.touchEvent, false);
-        }
-
         this.setState({loadingModal: false});
 
         this.setState = (state, callback) => {
