@@ -17,6 +17,8 @@ export default class YunyingModal extends React.Component {
             cancelTouched: undefined,
             swipe: undefined
         };
+        
+        this.bannerContainer = {};
 
         this.moveImage = this.moveImage.bind(this);
         this.touchEnd = this.touchEnd.bind(this);
@@ -77,7 +79,7 @@ export default class YunyingModal extends React.Component {
             let moveLength = event.touches[0].clientX - this.state.touchStartX;
 
             if(moveLength < 80 && moveLength > -80){
-                document.getElementById('yunying-container').style.left = -375 + moveLength + 'px';
+                this.bannerContainer.style.left = -375 + moveLength + 'px';
                 //拖动距离不够 视为放弃
                 this.setState({cancelTouched: true});
             }else{
@@ -97,13 +99,13 @@ export default class YunyingModal extends React.Component {
         this.setState({touched: false, canTouched: false}, () => {
             if(this.state.cancelTouched){
                //回到原地
-               document.getElementById('yunying-container').style.left = '-100%';
+               this.bannerContainer.style.left = '-100%';
             }
         });
     }
 
     moveRightOnce(){
-        document.getElementById('yunying-container').style.animation = 'modal-swipe-right .5s linear';
+        this.bannerContainer.style.animation = 'modal-swipe-right .5s linear';
 
         let updateArray = window.setTimeout(() => {
             let newImages = this.state.new_images.slice();
@@ -113,14 +115,14 @@ export default class YunyingModal extends React.Component {
             newImages.push(cut);
 
             this.setState({new_images: newImages, active: newImages[1].banner_id}, () => {
-                document.getElementById('yunying-container').style.animation = '';
+                this.bannerContainer.style.animation = '';
                 window.clearInterval(updateArray);
             });
         }, 500);
     }
 
     moveLeftOnce(){
-        document.getElementById('yunying-container').style.animation = 'modal-swipe-left .5s linear';
+        this.bannerContainer.style.animation = 'modal-swipe-left .5s linear';
 
         let updateArray = window.setTimeout(() => {
             let newImages = this.state.new_images.slice();
@@ -131,23 +133,23 @@ export default class YunyingModal extends React.Component {
             newImages.unshift(cut);
 
             this.setState({new_images: newImages, active: newImages[1].banner_id}, () => {
-                document.getElementById('yunying-container').style.animation = '';
+                this.bannerContainer.style.animation = '';
                 window.clearInterval(updateArray);
             });
         }, 500);
     }
 
     moveToSuitable(){
-        let nowLocation = document.getElementById('yunying-container').style.left;
+        let nowLocation = this.bannerContainer.style.left;
         nowLocation = parseInt(nowLocation.replace('px', ''), 10);
         if(nowLocation > -375){
             //move right
             let moveRight = window.setInterval(() => {
-                let latestLocation = parseInt(document.getElementById('yunying-container').style.left.replace('px', ''), 10);
+                let latestLocation = parseInt(this.bannerContainer.style.left.replace('px', ''), 10);
                 if(latestLocation < 0){
-                    document.getElementById('yunying-container').style.left = latestLocation + (-nowLocation)/10 + 'px';
+                    this.bannerContainer.style.left = latestLocation + (-nowLocation)/10 + 'px';
                 }else{
-                    document.getElementById('yunying-container').style.left = '0px';
+                    this.bannerContainer.style.left = '0px';
                     window.clearInterval(moveRight);
                 }
             }, 28);
@@ -164,18 +166,18 @@ export default class YunyingModal extends React.Component {
                     if(moveRight){
                         window.clearInterval(moveRight);
                     }
-                    document.getElementById('yunying-container').style.left = '-100%';
+                    this.bannerContainer.style.left = '-100%';
                     window.clearInterval(updateArray);
                 });
             }, 300);
         }else{
             //move left
             let moveLeft = window.setInterval(() => {
-                let latestLocation = parseInt(document.getElementById('yunying-container').style.left.replace('px', ''), 10);
+                let latestLocation = parseInt(this.bannerContainer.style.left.replace('px', ''), 10);
                 if(latestLocation > -750){
-                    document.getElementById('yunying-container').style.left = latestLocation - (-nowLocation)/10 + 'px';
+                    this.bannerContainer.style.left = latestLocation - (-nowLocation)/10 + 'px';
                 }else{
-                    document.getElementById('yunying-container').style.left = '-200%';
+                    this.bannerContainer.style.left = '-200%';
                     window.clearInterval(moveLeft);
                 }
             }, 28);
@@ -191,7 +193,7 @@ export default class YunyingModal extends React.Component {
                     if(moveLeft){
                         window.clearInterval(moveLeft);
                     }
-                    document.getElementById('yunying-container').style.left = '-100%';
+                    this.bannerContainer.style.left = '-100%';
                     window.clearInterval(updateArray);
                 });
             }, 300);
@@ -248,11 +250,12 @@ export default class YunyingModal extends React.Component {
                     this.state.new_images && this.state.new_images.length ?
                         <img src={  Client.getClient() === 'phone' ? this.state.new_images[0].img_url : this.state.new_images[0].img_url_tablet} alt=""/> : ''
                 }
-                <div id="yunying-container" className="images-container" style={{width: this.state.new_images.length * 100 + '%'}}>
+                <div ref={div => {this.bannerContainer = div;}}
+                     className="images-container" style={{width: this.state.new_images.length * 100 + '%'}}>
                     {
                         this.state.new_images && this.state.new_images.length ?
                             this.state.new_images.map((item, index) => {
-                                return <div className="img-container" key={index}
+                                return <div className="img-container" key={index} 
                                             onTouchMove={this.moveImage} onTouchStart={this.touchStart}
                                             onTouchEnd={this.touchEnd} onClick={ () => this.goBannerPage(item.url)}
                                 >
