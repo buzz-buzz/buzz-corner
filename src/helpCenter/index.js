@@ -15,6 +15,8 @@ export default class HelpCenter extends React.Component{
             },
             history: []
         };
+
+        this.back = this.back.bind(this);
     }
 
     async componentWillMount(){
