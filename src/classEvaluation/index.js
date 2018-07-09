@@ -321,32 +321,39 @@ class classEvaluation extends Component {
                             <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
                         </div>
                     </div>
-                    <div className="evaluation-input" style={this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <Form>
+                    {
+                        this.state.evaluation_status !== true &&
+                        <div className="evaluation-input">
+                            <Form>
                                         <TextArea autoHeight
                                                   placeholder={Resources.getInstance().classEvaluationSuggest} rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
-                            <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
-                        </Form>
-                    </div>
-                    <div className="evaluation-submit"
-                         style={this.state.evaluation_status === true ? {display: 'none'} : {}}>
-                        <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
-                                    text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
-                    </div>
-                    <div className="evaluation-result-show"
-                         style={!this.state.evaluation_status ? {display: 'none'} : {}}>
-                        <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
-                        <Form className="result-content">
+                                <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
+                            </Form>
+                        </div>
+                    }
+                    {
+                        this.state.evaluation_status !== true &&
+                        <div className="evaluation-submit">
+                            <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
+                                        text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
+                        </div>
+                    }
+                    {
+                        this.state.evaluation_status &&
+                        <div className="evaluation-result-show">
+                            <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
+                            <Form className="result-content">
                                         <TextArea autoHeight
                                                   rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   readOnly={true}/>
-                        </Form>
-                    </div>
+                            </Form>
+                        </div>
+                    }
                     <LoadingModal loadingModal={this.state.loadingModal}/>
                     <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
                     <CapacityRating modal={false}/>
