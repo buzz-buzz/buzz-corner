@@ -49,16 +49,20 @@ class classDetail extends Component {
             interval: setInterval(() => {
                 if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
                     let left_new = this.state.left - 1;
+                    console.log(this.state.left);
                     if(left_new > 300){
                         this.setState({left: left_new});
-                    }else{
-                        this.setState({classBeginNow: true});
+                    }else if(left_new  <= 300 &&  left_new > -1800){
+                        this.setState({classBeginNow: true, left: left_new});
+                    }else if(left_new <= -1800){
+                        this.setState({classEndNow: true, left: left_new});
                         clearInterval(this.state.interval);
                     }
                 }
             }, 1000),
             class_content_tab: '',
-            classBeginNow: false
+            classBeginNow: false,
+            classEndNow: false
         };
 
         this.back = this.back.bind(this);
@@ -174,7 +178,7 @@ class classDetail extends Component {
 
             this.showZoom();
         } else {
-            if (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) {
+            if (new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0 || this.state.classEndNow) {
                 Track.event('课程详情_课后评价点击');
 
                 if (this.state.role === MemberType.Student) {
@@ -463,8 +467,8 @@ class classDetail extends Component {
                      style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) ? {display: 'none'} : {}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
-                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
-                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? {
+                                    content={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow ? ((new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP)) > 0 && !this.state.classEndNow ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
+                                    style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 <= 5 || this.state.classBeginNow || this.state.classEndNow ? {
                                         color: 'white',
                                         background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
                                         borderRadius: '0',
