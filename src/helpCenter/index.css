@@ -33,7 +33,8 @@
     line-height: 50px;
     font-size: 15px;
     color: #000;
-    position: relative; }
+    position: relative;
+    cursor: pointer; }
     .help-center .help-list .help-item .item-name {
       font-size: 15px;
       color: #000;

@@ -1,19 +1,21 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
+import {MemberType} from "../membership/member-type";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 
 import './index.css';
 
 export default class HelpCenter extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
             faq: {
                 title: '帮助中心'
             },
-            history: []
+            history: [],
+            role: props.location.query.role
         };
 
         this.back = this.back.bind(this);
@@ -22,7 +24,7 @@ export default class HelpCenter extends React.Component{
 
     async componentWillMount(){
         //get data from service
-        await this.updateFaq('student_index');
+        await this.updateFaq( this.state.role === MemberType.Student ? 'student_index' : 'companion_index');
     }
 
     async updateFaq(faq_id){
