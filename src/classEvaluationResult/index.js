@@ -52,9 +52,9 @@ class classEvaluationResult extends Component {
     }
 
     back() {
-        if(window.history.length > 2){
+        if (window.history.length > 2) {
             window.history.go(-1);
-        }else{
+        } else {
             browserHistory.push('/');
         }
     }
@@ -195,7 +195,7 @@ class classEvaluationResult extends Component {
                                    fontSize: '.8em',
                                    color: '#aaa'
                                }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info} /></p>
+                                classInfo={this.state.class_info}/></p>
                         </div>
                         {
                             <div className="medal" onClick={this.openRating}>
@@ -209,27 +209,39 @@ class classEvaluationResult extends Component {
                     <div className="companion-evaluation" style={{background: 'white'}}>
                         <div className="class-behavior">
                             <div className="behavior">
-                                <div className="word">课堂表现: </div>
+                                <div className="word">课堂表现:</div>
                                 <div className="stars">
-                                    <img src={this.state.evaluation.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
-                                    <img src={this.state.evaluation.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
-                                    <img src={this.state.evaluation.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
-                                    <img src={this.state.evaluation.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
-                                    <img src={this.state.evaluation.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                    <img
+                                        src={this.state.evaluation.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                        alt=""/>
+                                    <img
+                                        src={this.state.evaluation.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                        alt=""/>
+                                    <img
+                                        src={this.state.evaluation.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                        alt=""/>
+                                    <img
+                                        src={this.state.evaluation.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                        alt=""/>
+                                    <img
+                                        src={this.state.evaluation.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                        alt=""/>
                                 </div>
                             </div>
-                            <div className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
+                            <div
+                                className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
                         <div className="companion-word">
                             <div className="title">语伴寄语:</div>
                             <div className="evaluation-input">
                                 <Form>
-                                            <TextArea autoHeight
-                                                      placeholder={Resources.getInstance().classEvaluationSuggest} rows={7}
-                                                      maxLength="200"
-                                                      value={this.state.evaluation.evaluation_content}
-                                                      readOnly={true}
-                                            />
+                                    <TextArea autoHeight
+                                              placeholder={Resources.getInstance().classEvaluationSuggest}
+                                              rows={7}
+                                              maxLength="200"
+                                              value={this.state.evaluation.evaluation_content}
+                                              readOnly={true}
+                                    />
                                 </Form>
                             </div>
                         </div>
@@ -269,7 +281,7 @@ class classEvaluationResult extends Component {
                         </div>
                     </div>
                 </div>
-                <CapacityRating modal={this.state.ratingModal} close={this.closeRating} />
+                <CapacityRating modal={this.state.ratingModal} close={this.closeRating}/>
             </div>
         );
     }
