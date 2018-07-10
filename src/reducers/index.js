@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { ADD_USER, ADD_USERS } from '../actions'
+import {combineReducers} from 'redux'
+import {ADD_USER, ADD_USERS, TOAST} from '../actions'
 
 function multipleUsers(state = [], action) {
     switch (action.type) {
@@ -20,6 +20,16 @@ function multipleUsers(state = [], action) {
     }
 }
 
+function toastMessage(state = {show: false, message: ''}, action) {
+    switch (action.type) {
+        case TOAST:
+            return {show: true, message: action.payload};
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
-    users: multipleUsers
+    users: multipleUsers,
+    toast: toastMessage
 })

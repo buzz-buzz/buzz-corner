@@ -13,10 +13,11 @@ export default class ModalMessage extends Component {
         this.state = {}
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        this.setup(this.props);
     }
 
-    componentWillReceiveProps(props) {
+    setup(props) {
         this.setState({
             modalShow: props.modalShow,
             duration: props.duration
@@ -29,12 +30,28 @@ export default class ModalMessage extends Component {
         });
     }
 
+    componentWillReceiveProps(props) {
+        this.setup(props);
+    }
+
+    componentWillUpdate() {
+    }
+
+    show(message, duration = ToastDuration.long) {
+        this.setup({
+            modalShow: true,
+            duration: duration
+        });
+    }
+
     render() {
         return (
-            this.state.modalShow ?
-                <div className={this.props.modalName === 'success' ? 'success' : 'error'} style={this.props.style || {}}>
-                    {this.props.modalContent || Resources.getInstance().unkownError}
-                </div> : ''
+            <div className={this.props.modalName === 'success' ? 'success' : 'error'}
+                 style={{...this.props.style, display: this.state.modalShow ? 'block' : 'none'}} ref={toast => {
+                window.toast = this
+            }}>
+                {this.props.modalContent || Resources.getInstance().unkownError}
+            </div>
         );
     }
 }

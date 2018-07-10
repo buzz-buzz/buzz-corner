@@ -40,6 +40,7 @@ import EntryPoint from "./home/EntryPoint";
 import SignOut from "./login/sign-out";
 import Client from "./common/client";
 import WechatShare from './wechat/wechatShare';
+import ToastMessage from './common/commonComponent/modalMessage/toast-message';
 
 WechatShare.init();
 
@@ -50,6 +51,10 @@ class App extends Component {
                 <style>{`
                     .content > div {height: 100%;}
                 `}</style>
+
+                <div style={{height: 'auto'}}>
+                    <ToastMessage/>
+                </div>
                 <Router history={browserHistory} style={{height: '100%'}}>
                     <Route path='/' component={EntryPoint}/>
                     <Route path='//' component={EntryPoint}/>

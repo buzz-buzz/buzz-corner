@@ -184,8 +184,6 @@ export default class FacebookLogin extends React.Component {
                 <ModalMessage modalName="error" modalShow={this.state.modalShow}
                               modalContent={Resources.getInstance().connectionError}
                               style={{position: 'fixed'}} duration={'long'}/>
-
-
                 <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
                               modalContent={Resources.getInstance().pleaseUseWechatToLogin}
                               style={{position: 'fixed'}} duration={'long'}/>
