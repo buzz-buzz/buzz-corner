@@ -169,6 +169,24 @@ p{
     font-size: .8em;
 }
 
+.my-home > .home-content > .items > .booking-item > .status-active{
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 12px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+}
+
 .items, .my-home > .home-content > .none-items {
     height: 100%;
     display: flex;

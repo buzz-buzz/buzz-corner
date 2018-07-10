@@ -223,6 +223,10 @@ class Home extends Component {
             class_list.push(past[f]);
         }
 
+        if(class_list && class_list.length){
+            class_list[0].highLight = 1;
+        }
+
         return class_list;
     }
 
@@ -487,8 +491,9 @@ class Home extends Component {
                                                     classInfo={item}/>
                                                 </p>
                                             </div>
-                                            <div className="booking-item-status">
-                                                <p style={{color: item.class_status_show_style}}>{item.class_status_show_word}</p>
+                                            <div className={ item.highLight ? "status-active" : "booking-item-status"}
+                                                 style={ item.highLight ? {backgroundColor: item.class_status_show_style} : {}}>
+                                                <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
                                             </div>
                                         </Link>
                                     })
