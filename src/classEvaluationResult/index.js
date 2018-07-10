@@ -9,6 +9,7 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Button50px from '../common/commonComponent/submitButton50px';
+import CapacityRating from './capacityRating';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
 import moment from 'moment';
@@ -37,13 +38,16 @@ class classEvaluationResult extends Component {
             evaluation: {
                 stars: 0,
                 evaluation_content: ''
-            }
+            },
+            ratingModal: false
         };
 
         this.back = this.back.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
         this.createPostersOfAchievement = this.createPostersOfAchievement.bind(this);
         this.closePosterModal = this.closePosterModal.bind(this);
+        this.openRating = this.openRating.bind(this);
+        this.closeRating = this.closeRating.bind(this);
     }
 
     back() {
@@ -52,6 +56,16 @@ class classEvaluationResult extends Component {
         }else{
             browserHistory.push('/');
         }
+    }
+
+    openRating() {
+        //open the rating map
+        this.setState({ratingModal: true});
+    }
+
+    closeRating() {
+        //open the rating map
+        this.setState({ratingModal: false});
     }
 
     closePosterModal() {
@@ -182,6 +196,15 @@ class classEvaluationResult extends Component {
                                }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
                                 classInfo={this.state.class_info}></ClassEndTime></p>
                         </div>
+                        {
+                            1 === 1 &&
+                            <div className="medal" onClick={this.openRating}>
+                                <div className="medal-img">
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
+                                </div>
+                                <span className="medal-score">老师评分:2分</span>
+                            </div>
+                        }
                     </div>
                     <div className="class-detail-practice" id="evaluation"
                          style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
@@ -256,6 +279,7 @@ class classEvaluationResult extends Component {
                         </div>
                     </div>
                 </div>
+                <CapacityRating modal={this.state.ratingModal} close={this.closeRating} />
             </div>
         );
     }

@@ -12,7 +12,6 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
-import CapacityRating from './capacityRating';
 import moment from 'moment';
 import {Flag} from "semantic-ui-react";
 import ClassEndTime from "../classDetail/class-end-time";
@@ -46,7 +45,6 @@ class classEvaluation extends Component {
         this.back = this.back.bind(this);
         this.submitEvaluation = this.submitEvaluation.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
-        this.openRating = this.openRating.bind(this);
     }
 
     back() {
@@ -79,10 +77,6 @@ class classEvaluation extends Component {
                 evaluation_content: data.value
             });
         }
-    }
-
-    openRating() {
-        //open the rating map
     }
 
     evaluationItemsChange(event) {
@@ -286,15 +280,6 @@ class classEvaluation extends Component {
                                 classInfo={this.state.class_info}></ClassEndTime>
                             </p>
                         </div>
-                        {
-                            0 === 1 &&
-                            <div className="medal" onClick={this.openRating}>
-                                <div className="medal-img">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
-                                </div>
-                                <span className="medal-score">老师评分:2分</span>
-                            </div>
-                        }
                     </div>
                 </div>
                 <div className="class-detail-practice" id="evaluation"
@@ -356,7 +341,6 @@ class classEvaluation extends Component {
                     }
                     <LoadingModal loadingModal={this.state.loadingModal}/>
                     <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
-                    <CapacityRating modal={false}/>
                 </div>
             </div>
         );
