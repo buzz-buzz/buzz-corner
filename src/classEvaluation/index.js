@@ -64,10 +64,10 @@ class classEvaluation extends Component {
         }
     }
 
-    changeStars(event) {
+    changeStars(event, score) {
         if (!this.state.evaluation_status) {
             this.setState({
-                stars: Number(event.target.name)
+                stars: score
             });
         }
     }
@@ -291,19 +291,19 @@ class classEvaluation extends Component {
                             <div className="img-stars">
                                 <img
                                     src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={this.changeStars} name="1" alt="star"/>
+                                    onClick={(event) => this.changeStars(event, 1)} alt="star"/>
                                 <img
                                     src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={this.changeStars} name="2" alt="star"/>
+                                    onClick={(event) => this.changeStars(event, 2)} alt="star"/>
                                 <img
                                     src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={this.changeStars} name="3" alt="star"/>
+                                    onClick={(event) => this.changeStars(event, 3)} alt="star"/>
                                 <img
                                     src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={this.changeStars} name="4" alt="star"/>
+                                    onClick={(event) => this.changeStars(event, 4)} alt="star"/>
                                 <img
                                     src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={this.changeStars} name="5" alt="star"/>
+                                    onClick={(event) => this.changeStars(event, 5)} alt="star"/>
                             </div>
                             <div className="stars-word">
                                 <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
