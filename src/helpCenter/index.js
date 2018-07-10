@@ -12,7 +12,7 @@ export default class HelpCenter extends React.Component{
 
         this.state = {
             faq: {
-                title: '帮助中心'
+                title: ''
             },
             history: [],
             role: props.location.query.role,
@@ -70,8 +70,8 @@ export default class HelpCenter extends React.Component{
                 <div className="help-list">
                     {
                         this.state.faq && this.state.faq.related_faqs &&
-                        this.state.faq.related_faqs.length && this.state.faq.show_related &&
-                        <div className="help-title">相关问题</div>
+                        this.state.faq.related_faqs.length && this.state.faq.show_related && this.state.faq.related_title &&
+                        <div className="help-title">{this.state.faq.related_title}</div>
                     }
                     {
                         this.state.faq && this.state.faq.related_faqs &&
