@@ -15,7 +15,8 @@ export default class HelpCenter extends React.Component{
                 title: '帮助中心'
             },
             history: [],
-            role: props.location.query.role
+            role: props.location.query.role,
+            faq_id: props.params.faq_id
         };
 
         this.back = this.back.bind(this);
@@ -24,7 +25,7 @@ export default class HelpCenter extends React.Component{
 
     async componentWillMount(){
         //get data from service
-        await this.updateFaq( this.state.role === MemberType.Student ? 'student_index' : 'companion_index');
+        await this.updateFaq(this.state.faq_id);
     }
 
     async updateFaq(faq_id){
@@ -44,22 +45,16 @@ export default class HelpCenter extends React.Component{
     }
 
     async faqDetail(event, faq_id){
-        await this.updateFaq(faq_id);
+        // browserHistory.push(`/help/${faq_id}`);
+        window.location.href = `/help/${faq_id}`;
+        //await this.updateFaq(faq_id);
     }
 
-    back(){
-        if(this.state.faq && ( this.state.faq.type === 'student_index' ||  this.state.faq.type === 'companion_index' )){
+    back() {
+        if(window.history.length > 2){
+            window.history.go(-1);
+        }else{
             browserHistory.push('/');
-        }else if(this.state.history.length && this.state.history.length > 1){
-            //back last faq
-            let clonedHistory = this.state.history.slice();
-            let new_faq = clonedHistory[clonedHistory.length - 2];
-            clonedHistory.pop();
-
-            this.setState({
-                faq: new_faq,
-                history: clonedHistory
-            });
         }
     }
 
