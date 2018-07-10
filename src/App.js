@@ -80,7 +80,7 @@ class App extends Component {
                     <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
-                    <Route path='/help' component={HelpCenter}/>
+                    <Route path='/help/:faq_id' component={HelpCenter}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
                     <Route path='/evaluation/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationResult}/>
                     <Route path='/poster/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationPoster}/>
