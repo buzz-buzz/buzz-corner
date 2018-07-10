@@ -72,7 +72,8 @@ class Home extends Component {
                 window.location.href = "/class/" + item.class_id;
             }
         }
-        catch (e) {}
+        catch (e) {
+        }
     }
 
     clickEventPlacement(e, item) {
@@ -223,7 +224,7 @@ class Home extends Component {
             class_list.push(past[f]);
         }
 
-        if(class_list && class_list.length){
+        if (class_list && class_list.length) {
             class_list[0].highLight = 1;
         }
 
@@ -250,7 +251,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async () => {
+        }, async() => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -315,7 +316,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async(item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -434,9 +435,9 @@ class Home extends Component {
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
                             <div style={this.state.messageRead ? {
-                                width: '25px',
-                                display: 'inline-block'
-                            } : {display: 'none'}}/>
+                                    width: '25px',
+                                    display: 'inline-block'
+                                } : {display: 'none'}}/>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
@@ -451,10 +452,10 @@ class Home extends Component {
                     (<div id="refreshContainer" className="home-content">
                         {
                             this.state.role &&
-                                <YunyingModal
-                                    role={this.state.role}
-                                    width={document.body.clientWidth}
-                                />
+                            <YunyingModal
+                                role={this.state.role}
+                                width={document.body.clientWidth}
+                            />
                         }
                         {this.state.booking.length > 0 ?
                             (<div className="items">
@@ -522,8 +523,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                    return ele.hasRead === '';
-                                }).length + ')' : '')}</p>
+                                        return ele.hasRead === '';
+                                    }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}/>
                             </div>
