@@ -12,6 +12,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
+import CompanionModal from './companion';
 import moment from 'moment';
 import {Flag} from "semantic-ui-react";
 import ClassEndTime from "../classDetail/class-end-time";
@@ -282,66 +283,73 @@ class classEvaluation extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="class-detail-practice" id="evaluation"
-                     style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
-                    <div className="evaluation-stars">
-                        <div className="img-stars">
-                            <img
-                                src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                onClick={this.changeStars} name="1" alt="star"/>
-                            <img
-                                src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                onClick={this.changeStars} name="2" alt="star"/>
-                            <img
-                                src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                onClick={this.changeStars} name="3" alt="star"/>
-                            <img
-                                src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                onClick={this.changeStars} name="4" alt="star"/>
-                            <img
-                                src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                onClick={this.changeStars} name="5" alt="star"/>
+                {
+                    this.state.role === MemberType.Student &&
+                    <div className="class-detail-practice" id="evaluation"
+                         style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
+                        <div className="evaluation-stars">
+                            <div className="img-stars">
+                                <img
+                                    src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                    onClick={this.changeStars} name="1" alt="star"/>
+                                <img
+                                    src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                    onClick={this.changeStars} name="2" alt="star"/>
+                                <img
+                                    src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                    onClick={this.changeStars} name="3" alt="star"/>
+                                <img
+                                    src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                    onClick={this.changeStars} name="4" alt="star"/>
+                                <img
+                                    src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                    onClick={this.changeStars} name="5" alt="star"/>
+                            </div>
+                            <div className="stars-word">
+                                <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
+                            </div>
                         </div>
-                        <div className="stars-word">
-                            <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
-                        </div>
-                    </div>
-                    {
-                        this.state.evaluation_status !== true &&
-                        <div className="evaluation-input">
-                            <Form>
+                        {
+                            this.state.evaluation_status !== true &&
+                            <div className="evaluation-input">
+                                <Form>
                                         <TextArea autoHeight
                                                   placeholder={Resources.getInstance().classEvaluationSuggest} rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   onChange={(event, data) => this.evaluationContentChange(event, data)}/>
-                                <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
-                            </Form>
-                        </div>
-                    }
-                    {
-                        this.state.evaluation_status !== true &&
-                        <div className="evaluation-submit">
-                            <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
-                                        text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
-                        </div>
-                    }
-                    {
-                        this.state.evaluation_status &&
-                        <div className="evaluation-result-show">
-                            <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
-                            <Form className="result-content">
+                                    <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
+                                </Form>
+                            </div>
+                        }
+                        {
+                            this.state.evaluation_status !== true &&
+                            <div className="evaluation-submit">
+                                <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
+                                            text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
+                            </div>
+                        }
+                        {
+                            this.state.evaluation_status &&
+                            <div className="evaluation-result-show">
+                                <p className="result-title">{Resources.getInstance().classEvaluationEvaluate}</p>
+                                <Form className="result-content">
                                         <TextArea autoHeight
                                                   rows={7}
                                                   maxLength="200"
                                                   value={this.state.evaluation_content}
                                                   readOnly={true}/>
-                            </Form>
-                        </div>
-                    }
-                    <LoadingModal loadingModal={this.state.loadingModal}/>
-                    <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
-                </div>
+                                </Form>
+                            </div>
+                        }
+                        <LoadingModal loadingModal={this.state.loadingModal}/>
+                        <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
+                    </div>
+                }
+                {
+                    this.state.role === MemberType.Companion &&
+                        <CompanionModal />
+                }
             </div>
         );
     }

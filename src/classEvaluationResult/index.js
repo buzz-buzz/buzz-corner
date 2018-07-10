@@ -273,9 +273,6 @@ class classEvaluationResult extends Component {
                                     <p>{Resources.getInstance().createPostersOfAchievement}</p>
                                 </div>
                             </div>
-                            {/*<div className="skip" onClick={this.closeWelcome}>*/}
-                            {/*<p>{Resources.getInstance().welcomePageSkip}</p>*/}
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
