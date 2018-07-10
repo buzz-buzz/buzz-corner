@@ -13,10 +13,10 @@ export default class CompanionEvaluation extends React.Component{
             step: 1,
             evaluation_content: '',
             step2: {
-                Fluency: 1,
-                Vocabulary: 2,
-                Grammar: 3,
-                Pronunciation: 1.5
+                Fluency: 0,
+                Vocabulary: 0,
+                Grammar: 0,
+                Pronunciation: 0
             }
         };
 
@@ -55,9 +55,7 @@ export default class CompanionEvaluation extends React.Component{
 
     getScore(event, score, key){
         if(key === 'stars'){
-            if(this.state.stars !== score - 0.5){
-                this.setState({stars: score - 0.5});
-            }else{
+            if(this.state.stars !== score ){
                 this.setState({stars: score});
             }
         }else{
@@ -78,7 +76,7 @@ export default class CompanionEvaluation extends React.Component{
     submitEvaluation(){
         if(this.state.step === 1){
             this.setState({step: 2});
-        }else if(this.state.step === 2){
+        }else if(this.state.step === 2 && this.state.step2.Fluency && this.state.step2.Vocabulary && this.state.step2.Grammar && this.state.step2.Pronunciation){
             //post 提交 props.submit
         }
     }
