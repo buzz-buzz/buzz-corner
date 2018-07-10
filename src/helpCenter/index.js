@@ -1,7 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
-import {MemberType} from "../membership/member-type";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 
 import './index.css';

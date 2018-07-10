@@ -9,6 +9,7 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Button50px from '../common/commonComponent/submitButton50px';
+import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import CapacityRating from './capacityRating';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
@@ -147,7 +148,7 @@ class classEvaluationResult extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 companion_country: companion_country,
                 evaluation: evaluation,
-                posterModal: true
+                posterModal: evaluation.stars >= 4
             });
 
             if (this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null') {
@@ -197,7 +198,6 @@ class classEvaluationResult extends Component {
                                 classInfo={this.state.class_info}></ClassEndTime></p>
                         </div>
                         {
-                            1 === 1 &&
                             <div className="medal" onClick={this.openRating}>
                                 <div className="medal-img">
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
@@ -206,39 +206,32 @@ class classEvaluationResult extends Component {
                             </div>
                         }
                     </div>
-                    <div className="class-detail-practice" id="evaluation"
-                         style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
-                        <div className="evaluation-stars">
-                            <div className="img-stars">
-                                <img
-                                    src={this.state.evaluation.stars >= 1 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                    name="1" alt="star"/>
-                                <img
-                                    src={this.state.evaluation.stars >= 2 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                    name="2" alt="star"/>
-                                <img
-                                    src={this.state.evaluation.stars >= 3 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                    name="3" alt="star"/>
-                                <img
-                                    src={this.state.evaluation.stars >= 4 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                    name="4" alt="star"/>
-                                <img
-                                    src={this.state.evaluation.stars >= 5 ? QiniuDomain + "/image/icon_stars_active.png" : QiniuDomain + "/image/icon_stars.png"}
-                                    name="5" alt="star"/>
+                    <div className="companion-evaluation" style={{background: 'white'}}>
+                        <div className="class-behavior">
+                            <div className="behavior">
+                                <div className="word">课堂表现: </div>
+                                <div className="stars">
+                                    <img src={this.state.evaluation.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                    <img src={this.state.evaluation.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                    <img src={this.state.evaluation.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                    <img src={this.state.evaluation.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                    <img src={this.state.evaluation.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"} alt=""/>
+                                </div>
                             </div>
-                            <div className="stars-word">
-                                <p>{this.state.evaluation.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.evaluation.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.evaluation.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.evaluation.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.evaluation.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus6))))}</p>
-                            </div>
+                            <div className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
-                        <div className="evaluation-result-show">
-                            <p className="result-title">{Resources.getInstance().classEvaluationResultContent}</p>
-                            <Form className="result-content">
-                                        <TextArea autoHeight
-                                                  rows={7}
-                                                  maxLength="200"
-                                                  value={this.state.evaluation.evaluation_content}
-                                                  readOnly={true}/>
-                            </Form>
+                        <div className="companion-word">
+                            <div className="title">语伴寄语:</div>
+                            <div className="evaluation-input">
+                                <Form>
+                                            <TextArea autoHeight
+                                                      placeholder={Resources.getInstance().classEvaluationSuggest} rows={7}
+                                                      maxLength="200"
+                                                      value={this.state.evaluation.evaluation_content}
+                                                      readOnly={true}
+                                            />
+                                </Form>
+                            </div>
                         </div>
                         <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
                             <Button50px text={Resources.getInstance().createPostersOfAchievement}

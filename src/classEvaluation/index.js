@@ -12,6 +12,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
+import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import CompanionModal from './companion';
 import moment from 'moment';
 import {Flag} from "semantic-ui-react";
@@ -306,7 +307,7 @@ class classEvaluation extends Component {
                                     onClick={(event) => this.changeStars(event, 5)} alt="star"/>
                             </div>
                             <div className="stars-word">
-                                <p>{this.state.stars === 1 ? Resources.getInstance().classEvaluationStarsStatus1 : (this.state.stars === 2 ? Resources.getInstance().classEvaluationStarsStatus2 : (this.state.stars === 3 ? Resources.getInstance().classEvaluationStarsStatus3 : (this.state.stars === 4 ? Resources.getInstance().classEvaluationStarsStatus4 : (this.state.stars === 5 ? Resources.getInstance().classEvaluationStarsStatus5 : Resources.getInstance().classEvaluationStarsStatus0))))}</p>
+                                <p>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</p>
                             </div>
                         </div>
                         {
