@@ -20,7 +20,8 @@ export default class ModalMessage extends Component {
     setup(props) {
         this.setState({
             modalShow: props.modalShow,
-            duration: props.duration
+            duration: props.duration,
+            modalContent: props.modalContent
         }, () => {
             if (this.state.duration) {
                 setTimeout(() => {
@@ -40,7 +41,8 @@ export default class ModalMessage extends Component {
     show(message, duration = ToastDuration.long) {
         this.setup({
             modalShow: true,
-            duration: duration
+            duration: duration,
+            modalContent: message
         });
     }
 
@@ -50,7 +52,7 @@ export default class ModalMessage extends Component {
                  style={{...this.props.style, display: this.state.modalShow ? 'block' : 'none'}} ref={toast => {
                 window.toast = this
             }}>
-                {this.props.modalContent || Resources.getInstance().unkownError}
+                {this.state.modalContent || Resources.getInstance().unkownError}
             </div>
         );
     }
