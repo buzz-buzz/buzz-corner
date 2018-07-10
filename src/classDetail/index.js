@@ -383,7 +383,7 @@ class classDetail extends Component {
                             <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
                         </div>
                     </div>
-                    <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
+                    <ClassPartners student_avatars={this.state.student_avatars}/>
                     <ClassAd/>
                 </div>
                 <div className="class-detail-practice">
