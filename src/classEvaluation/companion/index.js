@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, TextArea} from 'semantic-ui-react';
 import Resources from '../../resources';
+import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import './index.css';
 
@@ -101,7 +102,7 @@ export default class CompanionEvaluation extends React.Component{
                                 <img onClick={(event) => this.getScore(event, 5, 'stars')} src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 4.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")} alt=""/>
                             </div>
                         </div>
-                        <div className="stars-word">非常棒</div>
+                        <div className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</div>
                     </div>
                 }
                 {
