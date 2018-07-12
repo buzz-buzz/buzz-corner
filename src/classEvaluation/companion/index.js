@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, TextArea} from 'semantic-ui-react';
+import {browserHistory} from 'react-router';
 import Resources from '../../resources';
 import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
 import Button50px from '../../common/commonComponent/submitButton50px';
@@ -28,6 +29,11 @@ export default class CompanionEvaluation extends React.Component {
         this.backStepOne = this.backStepOne.bind(this);
         this.goStepTwo = this.goStepTwo.bind(this);
         this.getScore = this.getScore.bind(this);
+        this.evaluationStandards = this.evaluationStandards.bind(this);
+    }
+
+    evaluationStandards(){
+        browserHistory.push('/evaluation/standards');
     }
 
     componentWillMount() {
@@ -201,7 +207,7 @@ export default class CompanionEvaluation extends React.Component {
                 }
                 {
                     this.state.step === 2 &&
-                    <div className="score-introduction">
+                    <div className="score-introduction" onClick={this.evaluationStandards}>
                         评分标准说明
                     </div>
                 }

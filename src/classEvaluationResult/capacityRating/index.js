@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import './index.css';
 
 export default class CapacityRating extends Component {
@@ -13,6 +14,12 @@ export default class CapacityRating extends Component {
                 Pronunciation: 4
             }
         };
+
+        this.evaluationStandards = this.evaluationStandards.bind(this);
+    }
+
+    evaluationStandards(){
+        browserHistory.push('/evaluation/standards');
     }
 
     stop(e) {
@@ -155,7 +162,7 @@ export default class CapacityRating extends Component {
                             <span>Pronunciation</span>
                         </div>
                     </div>
-                    <div className="score-intro">
+                    <div className="score-intro" onClick={this.evaluationStandards}>
                         评分标准说明
                     </div>
                 </div>
