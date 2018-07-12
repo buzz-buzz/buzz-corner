@@ -50,9 +50,9 @@ class classEvaluation extends Component {
     }
 
     back() {
-        if(window.history.length > 2){
+        if (window.history.length > 2) {
             window.history.go(-1);
-        }else{
+        } else {
             browserHistory.push('/');
         }
     }
@@ -327,7 +327,8 @@ class classEvaluation extends Component {
                             this.state.evaluation_status !== true &&
                             <div className="evaluation-submit">
                                 <Button50px disabled={!this.state.stars || !this.state.evaluation_content}
-                                            text={Resources.getInstance().classEvaluationDone} submit={this.submitEvaluation}/>
+                                            text={Resources.getInstance().classEvaluationDone}
+                                            submit={this.submitEvaluation}/>
                             </div>
                         }
                         {
@@ -349,7 +350,7 @@ class classEvaluation extends Component {
                 }
                 {
                     this.state.role === MemberType.Companion &&
-                        <CompanionModal />
+                    <CompanionModal parentProps={this.props}/>
                 }
             </div>
         );
