@@ -39,7 +39,12 @@ class classEvaluation extends Component {
             class_id: props.params.class_id,
             evaluation_status: false,
             CURRENT_TIMESTAMP: new Date(),
-            companion_country: ''
+            companion_country: '',
+            evaluationContent: {
+                stars: 0,
+                evaluation_content: ''
+            },
+            types: []
         };
 
         this.changeStars = this.changeStars.bind(this);
@@ -47,6 +52,18 @@ class classEvaluation extends Component {
         this.back = this.back.bind(this);
         this.submitEvaluation = this.submitEvaluation.bind(this);
         this.companionCenter = this.companionCenter.bind(this);
+        this.setModalSubmitStatus = this.setModalSubmitStatus.bind(this);
+    }
+
+    setModalSubmitStatus(event, status) {
+        this.setState({
+            modalSubmitStatus: status,
+            modalSubmit: true
+        });
+
+        if (status !== 1) {
+            this.closeModalSubmitInfo();
+        }
     }
 
     back() {
@@ -165,6 +182,23 @@ class classEvaluation extends Component {
         }
     }
 
+    handleFeedBack(feedback){
+        let result = [];
+
+        for(let i in feedback){
+            if(!feedback[i].type){
+                result.push(feedback[i]);
+                break;
+            }
+        }
+
+        for(let i in feedback){
+            feedback[i].type && result.push(feedback[i]);
+        }
+
+        return result;
+    }
+
     async componentDidMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
@@ -221,8 +255,10 @@ class classEvaluation extends Component {
                 }
             }
 
-            if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
+            if (feed_back.length && feed_back[0].score) {
                 //set state
+                feed_back = this.handleFeedBack(feed_back);
+
                 this.setState({
                     class_info: class_info,
                     companion_name: class_info.companion_name || '',
@@ -233,7 +269,12 @@ class classEvaluation extends Component {
                     userId: userId,
                     loadingModal: false,
                     companion_country: companion_country,
-                    role: profile.role
+                    role: profile.role,
+                    evaluationContent: {
+                        stars: parseFloat(feed_back[0].score),
+                        evaluation_content: feed_back[0].comment
+                    },
+                    types: feed_back.filter(function(item){return item.type})
                 });
             } else {
                 //set state
@@ -244,7 +285,8 @@ class classEvaluation extends Component {
                     userId: userId,
                     loadingModal: false,
                     companion_country: companion_country,
-                    role: profile.role
+                    role: profile.role,
+                    types: []
                 });
             }
         } catch (ex) {
@@ -344,14 +386,17 @@ class classEvaluation extends Component {
                                 </Form>
                             </div>
                         }
-                        <LoadingModal loadingModal={this.state.loadingModal}/>
-                        <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
                     </div>
                 }
                 {
                     this.state.role === MemberType.Companion &&
-                    <CompanionModal parentProps={this.props}/>
+                    <CompanionModal parentProps={this.props}
+                                    setModalSubmitStatus={this.setModalSubmitStatus} evaluationContent={this.state.evaluationContent}
+                                    evaluation_status={this.state.evaluation_status} types={this.state.types}
+                    />
                 }
+                <LoadingModal loadingModal={this.state.loadingModal}/>
+                <ModalSubmit status={this.state.modalSubmitStatus} modal={this.state.modalSubmit}/>
             </div>
         );
     }
