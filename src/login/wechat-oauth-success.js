@@ -15,7 +15,7 @@ export default class WechatOAuthSuccess extends React.Component {
         } catch (ex) {
             buzzUserData = await this.getBuzzUserDataByOpenId(wechatUserInfo.openid);
         } finally {
-            if (buzzUserData) {
+            if (buzzUserData && buzzUserData.user_id) {
                 await this.loginByWechat(wechatUserInfo.unionid, wechatUserInfo.openid, buzzUserData.user_id);
             }
         }
