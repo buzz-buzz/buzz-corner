@@ -10,6 +10,7 @@ import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Button50px from '../common/commonComponent/submitButton50px';
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
+import ErrorHandler from '../common/error-handler';
 import CapacityRating from './capacityRating';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
@@ -162,6 +163,8 @@ class classEvaluationResult extends Component {
             }
         } catch (ex) {
             //login error
+            ErrorHandler.notify('获取评价结果出错：', ex);
+
             console.log("evaluation:" + ex.toString());
             this.setState({loadingModal: false});
         }

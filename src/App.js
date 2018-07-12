@@ -19,6 +19,7 @@ import ClassEvaluationResult from './classEvaluationResult';
 import ClassEvaluationPoster from './classEvaluationPoster';
 import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
+import EvaluationStandards from './classEvaluationResult/evaluationStandards';
 import Consult from './consult';
 import HelpCenter from './helpCenter';
 import Home from './home/Home';
@@ -88,6 +89,7 @@ class App extends Component {
                     <Route path='/help/:faq_id' component={HelpCenter}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
                     <Route path='/evaluation/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationResult}/>
+                    <Route path='/evaluation/standards' component={EvaluationStandards}/>
                     <Route path='/poster/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationPoster}/>
                     <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>

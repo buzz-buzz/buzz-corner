@@ -1,0 +1,72 @@
+.evaluation-standard{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #f4f5f9;
+  .standard-big-title{
+    padding: 0 21px;
+    height: 85px;
+    width: 100%;
+    margin-bottom: 5px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .main-title{
+      font-size: 17px;
+      font-weight: 500;
+      color: #666;
+    }
+    .little-title{
+      font-size: 13px;
+      color: #f6b40c;
+    }
+  }
+  .standard-item{
+    background: white;
+    flex: 0 0 auto;
+    margin-bottom: 5px;
+    .standard-title{
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 21px;
+      align-items: center;
+      .tab-name{
+        font-size: 17px;
+        font-weight: 500;
+        color: #000;
+        line-height: 50px;
+        height: 50px;
+      }
+      .tab-status{
+        height: 0;
+        width: 0;
+        border-top: 6px solid #909399;
+        border-bottom: 6px solid transparent;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        position: relative;
+        top: 3px;
+      }
+      .tab-status-active{
+        height: 0;
+        width: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid #909399;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        position: relative;
+        top: -3px;
+      }
+    }
+    .standard-content{
+      height: 0;
+      overflow: hidden;
+      transition: height .5s linear;
+      -moz-transition: height .5s linear; /* Firefox 4 */
+      -webkit-transition: height .5s linear; /* Safari and Chrome */
+      -o-transition: height .5s linear; /* Opera */
+    }
+  }
+}

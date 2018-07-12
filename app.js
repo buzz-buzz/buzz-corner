@@ -246,6 +246,7 @@ router
     .get('/class/foreign/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/class/evaluation/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/evaluation/:from_user_id/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)
+    .get('/evaluation/standards', serveSPA)
     .get('/poster/:from_user_id/:to_user_id/:class_id', serveSPA)
     .get('/consult', serveSPA)
     .get('/class-lessons', membership.ensureAuthenticated, serveSPA)
