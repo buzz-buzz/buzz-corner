@@ -14,15 +14,11 @@ export default class CompanionEvaluation extends React.Component {
         super(props);
 
         this.state = {
-            stars: 0,
+            stars: this.props.evaluationContent.stars || 0,
             step: 1,
-            evaluation_content: '',
-            step2: {
-                Fluency: 0,
-                Vocabulary: 0,
-                Grammar: 0,
-                Pronunciation: 0
-            }
+            evaluation_content: this.props.evaluationContent.evaluation_content || '',
+            step2: this.handleTypes(this.props.types),
+            evaluation_status: this.props.evaluation_status
         };
 
         this.submitEvaluation = this.submitEvaluation.bind(this);
@@ -30,6 +26,24 @@ export default class CompanionEvaluation extends React.Component {
         this.goStepTwo = this.goStepTwo.bind(this);
         this.getScore = this.getScore.bind(this);
         this.evaluationStandards = this.evaluationStandards.bind(this);
+    }
+
+    handleTypes(types){
+        if(types.length){
+            let result = {};
+            for(let i in types){
+                result[types[i].type] = types[i].score;
+            }
+
+            return result;
+        }else{
+            return {
+                Fluency: 0,
+                Vocabulary: 0,
+                Grammar: 0,
+                Pronunciation: 0
+            };
+        }
     }
 
     evaluationStandards(){
@@ -64,6 +78,10 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     getScore(event, score, key) {
+        if(this.state.evaluation_status){
+          return;
+        }
+
         if (key === 'stars') {
             if (this.state.stars !== score) {
                 this.setState({stars: score});
@@ -105,8 +123,8 @@ export default class CompanionEvaluation extends React.Component {
             }
         } else if (this.state.step === 2 && this.state.step2.Fluency && this.state.step2.Vocabulary && this.state.step2.Grammar && this.state.step2.Pronunciation) {
             try {
-                console.log(feedbackUrl);
-                debugger;
+                this.props.setModalSubmitStatus('a', 1);
+
                 await ServiceProxy.proxyTo({
                     body: {
                         uri: feedbackUrl,
@@ -117,9 +135,15 @@ export default class CompanionEvaluation extends React.Component {
                             comment: ''
                         }))
                     }
-                })
+                });
+
+                this.setState({evaluation_status: true}, () => {
+                    this.props.setModalSubmitStatus('a', 2);
+                });
             } catch (ex) {
                 ErrorHandler.notify('保存能力打分出错：', ex);
+
+                this.props.setModalSubmitStatus('a', 3);
             }
         }
     }
@@ -168,6 +192,7 @@ export default class CompanionEvaluation extends React.Component {
                                                       rows={7}
                                                       maxLength="200"
                                                       value={this.state.evaluation_content}
+                                                      readOnly={this.state.evaluation_status}
                                                       onChange={(event, data) => this.evaluationContentChange(event, data)}/>
                             </Form>
                         </div>
@@ -211,7 +236,7 @@ export default class CompanionEvaluation extends React.Component {
                         评分标准说明
                     </div>
                 }
-                <div className="companion-submit">
+                <div className="companion-submit" style={this.state.evaluation_status ? {display: 'none'} : {}}>
                     <Button50px
                         disabled={this.state.step === 1 ? !(this.state.evaluation_content && this.state.stars) : !(this.state.step2.Fluency && this.state.step2.Vocabulary && this.state.step2.Grammar && this.state.step2.Pronunciation)}
                         text={this.state.step === 1 ? Resources.getInstance().profileContinue : Resources.getInstance().profileSunmitBtn}
