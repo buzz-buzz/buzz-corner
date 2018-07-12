@@ -5,10 +5,12 @@ import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
 import Button50px from '../../common/commonComponent/submitButton50px';
 import './index.css';
 import ErrorHandler from "../../common/error-handler";
+import ServiceProxy from "../../service-proxy";
+import CurrentUser from "../../membership/user";
 
 export default class CompanionEvaluation extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             stars: 0,
@@ -76,8 +78,19 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     async submitEvaluation() {
+        const {to_user_id, class_id} = this.props.parentProps.params;
+        const from_user_id = await CurrentUser.getUserId();
+
         if (this.state.step === 1) {
             try {
+                await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`,
+                        method: 'POST',
+                        json: {score: this.state.stars, comment: this.state.evaluation_content}
+                    }
+
+                });
                 this.setState({step: 2});
             } catch (ex) {
                 ErrorHandler.notify('保存课堂表现出错', ex.message, ex);
