@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './index.css';
 
 export default class CapacityRating extends Component {
@@ -15,7 +15,7 @@ export default class CapacityRating extends Component {
         };
     }
 
-    stop(e){
+    stop(e) {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
     }
@@ -77,14 +77,15 @@ export default class CapacityRating extends Component {
 
         switch (key) {
             case 'Fluency':
-                return { x: width / 2 - length, y: height / 2 - length };
+                return {x: width / 2 - length, y: height / 2 - length};
             case 'Vocabulary':
-                return { x: width / 2 - length, y: height / 2 + length };
+                return {x: width / 2 - length, y: height / 2 + length};
             case 'Grammar':
-                return { x: width / 2 + length, y: height / 2 + length };
+                return {x: width / 2 + length, y: height / 2 + length};
             case 'Pronunciation':
-                return { x: width / 2 + length, y: height / 2 - length };
-            default: break;
+                return {x: width / 2 + length, y: height / 2 - length};
+            default:
+                break;
         }
 
         return location;
@@ -131,7 +132,7 @@ export default class CapacityRating extends Component {
 
     render() {
         return (
-            <div className="rating-map" style={this.props.modal ? {} : { display: 'none' }} onClick={this.props.close}>
+            <div className="rating-map" style={this.props.modal ? {} : {display: 'none'}} onClick={this.props.close}>
                 <div className="rating-content" onClick={this.stop}>
                     <div className="title">能力评分</div>
                     <div className="title-intro">相当于美国1年级小学水平</div>

@@ -279,7 +279,7 @@ class classEvaluation extends Component {
                                    fontSize: '.8em',
                                    color: '#aaa'
                                }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}></ClassEndTime>
+                                classInfo={this.state.class_info}/>
                             </p>
                         </div>
                     </div>

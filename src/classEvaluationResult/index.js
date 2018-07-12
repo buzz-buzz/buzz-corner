@@ -198,6 +198,7 @@ class classEvaluationResult extends Component {
                                 classInfo={this.state.class_info}/></p>
                         </div>
                         {
+                            this.state.class_info && this.state.class_info.type &&
                             <div className="medal" onClick={this.openRating}>
                                 <div className="medal-img">
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
