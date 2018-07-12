@@ -80,23 +80,41 @@ export default class CompanionEvaluation extends React.Component {
     async submitEvaluation() {
         const {to_user_id, class_id} = this.props.parentProps.params;
         const from_user_id = await CurrentUser.getUserId();
+        let feedbackUrl = `{config.endPoints.buzzService}/api/v2/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`;
 
         if (this.state.step === 1) {
             try {
                 await ServiceProxy.proxyTo({
                     body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`,
+                        uri: feedbackUrl,
                         method: 'POST',
                         json: {score: this.state.stars, comment: this.state.evaluation_content}
                     }
 
                 });
-                this.setState({step: 2});
             } catch (ex) {
-                ErrorHandler.notify('保存课堂表现出错', ex.message, ex);
+                ErrorHandler.notify('保存课堂表现出错：', ex);
+            } finally {
+                this.setState({step: 2});
             }
         } else if (this.state.step === 2 && this.state.step2.Fluency && this.state.step2.Vocabulary && this.state.step2.Grammar && this.state.step2.Pronunciation) {
-            //post 提交 props.submit
+            try {
+                console.log(feedbackUrl);
+                debugger;
+                await ServiceProxy.proxyTo({
+                    body: {
+                        uri: feedbackUrl,
+                        method: 'POST',
+                        json: Object.keys(this.state.step2).map(dimension => ({
+                            score: this.state.step2[dimension],
+                            type: dimension,
+                            comment: ''
+                        }))
+                    }
+                })
+            } catch (ex) {
+                ErrorHandler.notify('保存能力打分出错：', ex);
+            }
         }
     }
 
