@@ -67,6 +67,6 @@ export default class TimeHelper {
     static timeDiffStyle(start_time, end_time, now_time) {
         let leftDays = TimeHelper.dateDiff(start_time, now_time);
 
-        return leftDays >= 1 ? 'rgb(0, 216, 90)' : (start_time - now_time > 0 ? 'rgb(0, 216, 90)' : ( end_time - now_time > 0 ? 'rgb(246, 180, 12)' : 'rgb(102, 102, 102)' ));
+        return leftDays >= 1 ? 'rgb(246, 180, 12)' : (start_time - now_time > 0 ? 'rgb(0, 216, 90)' : ( end_time - now_time > 0 ? 'rgb(0, 216, 90)' : 'rgb(102, 102, 102)' ));
     }
 }

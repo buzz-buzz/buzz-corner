@@ -43,6 +43,7 @@ class Home extends Component {
         this.signUp = this.signUp.bind(this);
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
         this.closeWelcome = this.closeWelcome.bind(this);
+        this.colorHelper = this.colorHelper.bind(this);
     }
 
     signUp() {
@@ -406,6 +407,15 @@ class Home extends Component {
         };
     }
 
+    colorHelper(color){
+        switch(color){
+            case 'rgb(246, 180, 12)' : return '#ffd200';
+            case 'rgb(0, 216, 90)' : return 'rgb(0, 216, 90)';
+            case 'rgb(102, 102, 102)' : return '#DFDFE4';
+            default : break;
+        }
+    }
+
     render() {
         return (
             <div className="my-home">
@@ -493,7 +503,7 @@ class Home extends Component {
                                                 </p>
                                             </div>
                                             <div className={ item.highLight ? "status-active" : "booking-item-status"}
-                                                 style={ item.highLight ? {backgroundColor: item.class_status_show_style !== 'rgb(102, 102, 102)' ? item.class_status_show_style : '#DFDFE4'} : {}}>
+                                                 style={ item.highLight ? {backgroundColor: this.colorHelper(item.class_status_show_style)} : {}}>
                                                 <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
                                             </div>
                                         </Link>
