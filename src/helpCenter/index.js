@@ -1,6 +1,10 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import ServiceProxy from '../service-proxy';
+import CurrentUser from "../membership/user";
+import {MemberType} from "../membership/member-type";
+import LoadingModal from '../common/commonComponent/loadingModal';
+import UserGuide from '../common/commonComponent/modalUserGuide';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 
 import './index.css';
@@ -14,8 +18,9 @@ export default class HelpCenter extends React.Component{
                 title: ''
             },
             history: [],
-            role: props.location.query.role,
-            faq_id: props.params.faq_id
+            guide: props.location.query.guide || '',
+            faq_id: props.params.faq_id,
+            loadingModal: true
         };
 
         this.back = this.back.bind(this);
@@ -24,7 +29,23 @@ export default class HelpCenter extends React.Component{
 
     async componentWillMount(){
         //get data from service
-        await this.updateFaq(this.state.faq_id);
+        if(this.state.faq_id === 'student_index' || this.state.faq_id === 'companion_index'){
+            let profile = await CurrentUser.getProfile(true);
+            let userId = profile.user_id;
+
+            if (!profile.role) {
+                browserHistory.push('/select-role');
+                return;
+            }else{
+                if(profile.role === MemberType.Student){
+                    await this.updateFaq('student_index');
+                }else{
+                    await this.updateFaq('companion_index');
+                }
+            }
+        }else{
+            await this.updateFaq(this.state.faq_id);
+        }
     }
 
     async updateFaq(faq_id){
@@ -39,7 +60,8 @@ export default class HelpCenter extends React.Component{
 
         this.setState({
             faq: updatedFaq,
-            history: clonedHistory
+            history: clonedHistory,
+            loadingModal: false
         });
     }
 
@@ -65,6 +87,8 @@ export default class HelpCenter extends React.Component{
         return (
             <div className="help-center">
                 <HeaderWithBack goBack={this.back} title={this.state.faq.title} />
+                <LoadingModal loadingModal={this.state.loadingModal}/>
+                <UserGuide modal={this.state.guide} />
                 <div className="help-content">{ this.state.faq && this.state.faq.content ? this.showHtml(this.state.faq.content) : ''}</div>
                 <div className="help-list">
                     {
