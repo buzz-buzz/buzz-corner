@@ -89,15 +89,12 @@ export default class CompanionEvaluation extends React.Component {
         } else {
             let clonedRating = Object.assign({}, this.state.step2);
 
-            if (clonedRating[key] !== score - 0.5) {
-                clonedRating[key] = score - 0.5;
-            } else {
+            if (clonedRating[key] !== score ) {
                 clonedRating[key] = score;
+                this.setState({
+                    step2: clonedRating
+                });
             }
-
-            this.setState({
-                step2: clonedRating
-            });
         }
     }
 
@@ -148,21 +145,13 @@ export default class CompanionEvaluation extends React.Component {
                         <div className="behavior">
                             <div className="word">课堂表现:</div>
                             <div className="stars">
-                                <img onClick={(event) => this.getScore(event, 1, 'stars')}
-                                     src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                     alt=""/>
-                                <img onClick={(event) => this.getScore(event, 2, 'stars')}
-                                     src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 1.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                     alt=""/>
-                                <img onClick={(event) => this.getScore(event, 3, 'stars')}
-                                     src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 2.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                     alt=""/>
-                                <img onClick={(event) => this.getScore(event, 4, 'stars')}
-                                     src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 3.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                     alt=""/>
-                                <img onClick={(event) => this.getScore(event, 5, 'stars')}
-                                     src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === 4.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                     alt=""/>
+                                {
+                                    [1, 2, 3, 4, 5].map((item, index) => {
+                                        return <img onClick={(event) => this.getScore(event, item, 'stars')} key={index}
+                                                    src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === item - 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
+                                                    alt=""/>
+                                    })
+                                }
                             </div>
                         </div>
                         <div className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</div>
@@ -194,21 +183,16 @@ export default class CompanionEvaluation extends React.Component {
                                     <div className="item-left">
                                         <div className="item-name">{key}:</div>
                                         <div className="item-stars">
-                                            <img onClick={(event) => this.getScore(event, 1, key)}
-                                                 src={this.state.step2[key] >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.step2[key] === 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                                 alt=""/>
-                                            <img onClick={(event) => this.getScore(event, 2, key)}
-                                                 src={this.state.step2[key] >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.step2[key] === 1.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                                 alt=""/>
-                                            <img onClick={(event) => this.getScore(event, 3, key)}
-                                                 src={this.state.step2[key] >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.step2[key] === 2.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                                 alt=""/>
-                                            <img onClick={(event) => this.getScore(event, 4, key)}
-                                                 src={this.state.step2[key] >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.step2[key] === 3.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                                 alt=""/>
-                                            <img onClick={(event) => this.getScore(event, 5, key)}
-                                                 src={this.state.step2[key] >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.step2[key] === 4.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
-                                                 alt=""/>
+                                            {
+                                                [1, 2, 3, 4 ,5].map((item, index) => {
+                                                    return <div className="img-container" key={index}>
+                                                        <img src={this.state.step2[key] >= item - 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_yellow_left.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_none_left.svg"}
+                                                             onClick={(event) => this.getScore(event, item - 0.5, key)} alt=""/>
+                                                        <img src={this.state.step2[key] >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_yellow_right.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_none_right.svg"}
+                                                             onClick={(event) => this.getScore(event, item, key)} alt=""/>
+                                                    </div>
+                                                })
+                                            }
                                         </div>
                                     </div>
                                     <div className="item-score">{this.state.step2[key]}</div>
