@@ -39,7 +39,7 @@
       margin: 0 4px; }
     .main-div .images-active .images-dot.active {
       width: 10px;
-      border-radius: 3px;
+      border-radius: 6px;
       background-color: #f6b40c; }
 
 @keyframes modal-swipe-right {
