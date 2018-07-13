@@ -106,9 +106,12 @@
         .companion-evaluation .step_two_stars .star-item .item-left .item-stars {
           display: flex;
           align-items: center; }
-          .companion-evaluation .step_two_stars .star-item .item-left .item-stars img {
+          .companion-evaluation .step_two_stars .star-item .item-left .item-stars .img-container {
             width: 20px;
+            height: 20px;
             margin-right: 10px; }
+            .companion-evaluation .step_two_stars .star-item .item-left .item-stars .img-container img {
+              width: 10px; }
       .companion-evaluation .step_two_stars .star-item .item-score {
         color: #f6b40c;
         font-size: 15px;
