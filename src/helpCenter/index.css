@@ -52,3 +52,10 @@
         color: #666; }
         .help-center .help-list .help-item .item-btn span {
           margin-right: 10px; }
+  .help-center .help-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; }
+    .help-center .help-content img {
+      width: 100%;
+      max-width: 600px; }
