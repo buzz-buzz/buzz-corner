@@ -51,8 +51,7 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     componentWillMount() {
-        //evaluate fro companion
-
+        //todo 获取名次
     }
 
     evaluationContentChange(event, data) {
