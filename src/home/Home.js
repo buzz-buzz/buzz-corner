@@ -493,7 +493,7 @@ class Home extends Component {
                                                 </p>
                                             </div>
                                             <div className={ item.highLight ? "status-active" : "booking-item-status"}
-                                                 style={ item.highLight ? {backgroundColor: item.class_status_show_style} : {}}>
+                                                 style={ item.highLight ? {backgroundColor: item.class_status_show_style !== 'rgb(102, 102, 102)' ? item.class_status_show_style : '#DFDFE4'} : {}}>
                                                 <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
                                             </div>
                                         </Link>
