@@ -7,7 +7,7 @@ export default class CapacityRating extends Component {
         super(props);
 
         this.state = {
-            rating: this.props.rating || {
+            rating: {
                 Fluency: 1,
                 Vocabulary: 2,
                 Grammar: 3,
@@ -27,10 +27,33 @@ export default class CapacityRating extends Component {
         e.nativeEvent.stopImmediatePropagation();
     }
 
-    componentDidMount() {
+    componentWillReceiveProps(nextProps){
+        let newRating = nextProps.rating;
+
+        if(newRating && newRating.Fluency){
+            this.setState({
+                rating: {
+                    Fluency: newRating.Fluency,
+                    Vocabulary: newRating.Vocabulary,
+                    Grammar: newRating.Grammar,
+                    Pronunciation: newRating.Pronunciation
+                }
+            }, () => {
+                this.draw();
+            });
+        }
+    }
+
+    componentDidMount(){
+        this.draw();
+    }
+
+    draw() {
         //get score from DB
         let canvas = document.getElementById('rating-map');
         let ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         let centerX = canvas.width / 2;
         let centerY = canvas.height / 2;
 

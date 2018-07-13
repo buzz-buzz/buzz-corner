@@ -49,6 +49,7 @@ class classEvaluationResult extends Component {
         this.createPostersOfAchievement = this.createPostersOfAchievement.bind(this);
         this.closePosterModal = this.closePosterModal.bind(this);
         this.openRating = this.openRating.bind(this);
+        this.getScore = this.getScore.bind(this);
         this.closeRating = this.closeRating.bind(this);
     }
 
@@ -58,6 +59,27 @@ class classEvaluationResult extends Component {
         } else {
             browserHistory.push('/');
         }
+    }
+
+    getScore(arr){
+        return (arr.Fluency + arr.Grammar + arr.Vocabulary + arr.Pronunciation)/4;
+    }
+
+    handleFeedBack(feedback){
+        let result = [];
+
+        for(let i in feedback){
+            if(!feedback[i].type){
+                result.push(feedback[i]);
+                break;
+            }
+        }
+
+        for(let i in feedback){
+            feedback[i].type && result.push(feedback[i]);
+        }
+
+        return result;
     }
 
     openRating() {
@@ -99,6 +121,29 @@ class classEvaluationResult extends Component {
         return classInfo;
     }
 
+    handleTypes(types) {
+        console.log('handle');
+        console.log(types.length);
+        console.log(types);
+
+        if (types.length) {
+            let result = {};
+            for (let i in types) {
+                result[types[i].type] = types[i].score;
+            }
+
+            console.log(result);
+            return result;
+        } else {
+            return {
+                Fluency: 0,
+                Vocabulary: 0,
+                Grammar: 0,
+                Pronunciation: 0
+            };
+        }
+    }
+
     async componentDidMount() {
         try {
             Track.event('查看学伴的评价');
@@ -129,19 +174,23 @@ class classEvaluationResult extends Component {
             }
 
             //get evaluation result
-            let evaluation = {};
+            let evaluation = {}, feed_back = [];
             if (this.state.from_user_id && this.state.to_user_id && this.state.class_id) {
-                let feed_back = await  ServiceProxy.proxyTo({
+                feed_back = await  ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.from_user_id}/evaluate/${this.state.to_user_id}`
                     }
                 });
 
-                if (feed_back.length && feed_back[0].comment && feed_back[0].score) {
+                if(feed_back && feed_back.length){
+                    feed_back = this.handleFeedBack(feed_back);
                     evaluation.stars = parseInt(feed_back[0].score, 10) || 0;
-                    evaluation.evaluation_content = feed_back[0].comment;
+                    evaluation.evaluation_content = feed_back[0].comment || '';
                 }
             }
+
+            console.log('feed_back');
+            console.log(feed_back);
 
             this.setState({
                 class_info: class_info,
@@ -149,7 +198,8 @@ class classEvaluationResult extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 companion_country: companion_country,
                 evaluation: evaluation,
-                posterModal: evaluation.stars >= 4
+                posterModal: evaluation.stars >= 4,
+                types: this.handleTypes(feed_back.filter(function(item){return item.type}))
             });
 
             if (this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null') {
@@ -201,12 +251,12 @@ class classEvaluationResult extends Component {
                                 classInfo={this.state.class_info}/></p>
                         </div>
                         {
-                            this.state.class_info && this.state.class_info.type &&
+                            this.state.types && this.state.types.Fluency &&
                             <div className="medal" onClick={this.openRating}>
                                 <div className="medal-img">
                                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
                                 </div>
-                                <span className="medal-score">老师评分:2分</span>
+                                <span className="medal-score">老师评分:{this.getScore(this.state.types)}分</span>
                             </div>
                         }
                     </div>
@@ -285,7 +335,7 @@ class classEvaluationResult extends Component {
                         </div>
                     </div>
                 </div>
-                <CapacityRating modal={this.state.ratingModal} close={this.closeRating}/>
+                <CapacityRating modal={this.state.ratingModal} close={this.closeRating} rating={this.state.types} />
             </div>
         );
     }

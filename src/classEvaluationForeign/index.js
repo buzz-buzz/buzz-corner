@@ -40,9 +40,9 @@ class classEvaluationForeign extends Component {
     }
 
     back() {
-        if(window.history.length > 2){
+        if (window.history.length > 2) {
             window.history.go(-1);
-        }else{
+        } else {
             browserHistory.push('/');
         }
     }
@@ -107,22 +107,28 @@ class classEvaluationForeign extends Component {
             let clonedEvaluationList = this.state.evaluation_list;
 
             if (class_info.companions && class_info.partners && class_info.partners.length > 0) {
-                let evaluationResult = await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/feedback/${this.state.class_id}`
-                    }
-                });
+                await window.Promise.all(class_info.partners.map(async(item, index) => {
+                    let evaluationResult = (await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${userId}/evaluate/${item}`
+                        }
+                    })).filter(function (item) {
+                        return !item.type;
+                    });
 
-                if (evaluationResult && evaluationResult.userInfo && evaluationResult.userInfo.length > 0) {
-                    for (let i in evaluationResult.userInfo) {
-                        clonedEvaluationList.push({
-                            url: '/class/evaluation/' + evaluationResult.userInfo[i].userId + '/' + this.state.class_id,
-                            score: evaluationResult.userInfo[i].score || 0,
-                            user_name: evaluationResult.userInfo[i].userName || 'Buzz',
-                            avatar: evaluationResult.userInfo[i].avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
-                        });
-                    }
-                }
+                    let user_info = await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${item}?t=${new Date().getTime()}`
+                        }
+                    });
+
+                    clonedEvaluationList.push({
+                        url: '/class/evaluation/' + item + '/' + this.state.class_id,
+                        score: evaluationResult && evaluationResult[0] && evaluationResult[0].score ? evaluationResult[0].score : 0,
+                        user_name: user_info.name || 'Buzz',
+                        avatar: user_info.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                    });
+                }));
             }
 
             this.setState({

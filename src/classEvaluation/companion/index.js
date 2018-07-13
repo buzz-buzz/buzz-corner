@@ -28,15 +28,15 @@ export default class CompanionEvaluation extends React.Component {
         this.evaluationStandards = this.evaluationStandards.bind(this);
     }
 
-    handleTypes(types){
-        if(types.length){
+    handleTypes(types) {
+        if (types.length) {
             let result = {};
-            for(let i in types){
+            for (let i in types) {
                 result[types[i].type] = types[i].score;
             }
 
             return result;
-        }else{
+        } else {
             return {
                 Fluency: 0,
                 Vocabulary: 0,
@@ -46,7 +46,7 @@ export default class CompanionEvaluation extends React.Component {
         }
     }
 
-    evaluationStandards(){
+    evaluationStandards() {
         browserHistory.push('/evaluation/standards');
     }
 
@@ -78,8 +78,8 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     getScore(event, score, key) {
-        if(this.state.evaluation_status){
-          return;
+        if (this.state.evaluation_status) {
+            return;
         }
 
         if (key === 'stars') {
@@ -107,20 +107,7 @@ export default class CompanionEvaluation extends React.Component {
         let feedbackUrl = `{config.endPoints.buzzService}/api/v2/class-feedback/${class_id}/${from_user_id}/evaluate/${to_user_id}`;
 
         if (this.state.step === 1) {
-            try {
-                await ServiceProxy.proxyTo({
-                    body: {
-                        uri: feedbackUrl,
-                        method: 'POST',
-                        json: {score: this.state.stars, comment: this.state.evaluation_content}
-                    }
-
-                });
-            } catch (ex) {
-                ErrorHandler.notify('保存课堂表现出错：', ex);
-            } finally {
-                this.setState({step: 2});
-            }
+            this.setState({step: 2});
         } else if (this.state.step === 2 && this.state.step2.Fluency && this.state.step2.Vocabulary && this.state.step2.Grammar && this.state.step2.Pronunciation) {
             try {
                 this.props.setModalSubmitStatus('a', 1);
@@ -133,7 +120,7 @@ export default class CompanionEvaluation extends React.Component {
                             score: this.state.step2[dimension],
                             type: dimension,
                             comment: ''
-                        }))
+                        })).concat([{score: this.state.stars, comment: this.state.evaluation_content}])
                     }
                 });
 
