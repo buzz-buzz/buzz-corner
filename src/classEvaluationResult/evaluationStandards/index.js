@@ -55,8 +55,7 @@ export default class EvaluationStandards extends React.Component {
                         <div className="line-middle"></div>
                     }
                     <div className="standard-content" style={{height: this.state.active === 1 ? 'auto' : 0}}>
-                        <div className="title">Fluency and coherence</div>
-                        <div className="content">
+                        <div className="content" style={{margin: '20px 0'}}>
                             <p>• No communication possible</p>
                             <p>• No rateable language</p>
                         </div>
