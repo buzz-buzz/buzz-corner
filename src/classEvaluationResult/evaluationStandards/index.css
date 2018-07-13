@@ -1,7 +1,7 @@
 .evaluation-standard {
-  display: flex;
-  flex-direction: column;
   width: 100%;
+  height: auto;
+  min-height: 100%;
   background-color: #f4f5f9; }
   .evaluation-standard .standard-big-title {
     padding: 0 21px;
@@ -55,11 +55,18 @@
         top: -3px; }
     .evaluation-standard .standard-item .standard-content {
       height: 0;
+      padding: 0 21px;
       overflow: hidden;
-      transition: height .5s linear;
-      -moz-transition: height .5s linear;
+      transition: height 1s linear;
+      -moz-transition: height 1s linear;
       /* Firefox 4 */
-      -webkit-transition: height .5s linear;
+      -webkit-transition: height 1s linear;
       /* Safari and Chrome */
-      -o-transition: height .5s linear;
+      -o-transition: height 1s linear;
       /* Opera */ }
+      .evaluation-standard .standard-item .standard-content .title {
+        color: #f6b40c;
+        margin-top: 15px; }
+      .evaluation-standard .standard-item .standard-content .content {
+        margin: 10px 0 20px 0;
+        color: #666; }
