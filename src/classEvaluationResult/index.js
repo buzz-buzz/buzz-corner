@@ -61,21 +61,21 @@ class classEvaluationResult extends Component {
         }
     }
 
-    getScore(arr){
-        return (arr.Fluency + arr.Grammar + arr.Vocabulary + arr.Pronunciation)/4;
+    getScore(arr) {
+        return (arr.Fluency + arr.Grammar + arr.Vocabulary + arr.Pronunciation) / 4;
     }
 
-    handleFeedBack(feedback){
+    handleFeedBack(feedback) {
         let result = [];
 
-        for(let i in feedback){
-            if(!feedback[i].type){
+        for (let i in feedback) {
+            if (!feedback[i].type) {
                 result.push(feedback[i]);
                 break;
             }
         }
 
-        for(let i in feedback){
+        for (let i in feedback) {
             feedback[i].type && result.push(feedback[i]);
         }
 
@@ -122,17 +122,12 @@ class classEvaluationResult extends Component {
     }
 
     handleTypes(types) {
-        console.log('handle');
-        console.log(types.length);
-        console.log(types);
-
         if (types.length) {
             let result = {};
             for (let i in types) {
                 result[types[i].type] = types[i].score;
             }
 
-            console.log(result);
             return result;
         } else {
             return {
@@ -142,6 +137,36 @@ class classEvaluationResult extends Component {
                 Pronunciation: 0
             };
         }
+    }
+
+    async sortFeedback(class_info) {
+        let result = [];
+        await window.Promise.all(class_info.partners.map(
+            async(item, index) => {
+                let feed_back = (await  ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${class_info.companions}/evaluate/${item}`
+                    }
+                })).filter(function (item) {
+                    return item.type
+                });
+
+                let sum = 0;
+
+                for (let i in feed_back) {
+                    sum = sum + feed_back[i].score
+                }
+
+                result.push({
+                    user_id: item,
+                    score: sum / 4
+                });
+            }
+        ));
+
+        return result.sort(function (a, b) {
+            return a.score - b.score;
+        });
     }
 
     async componentDidMount() {
@@ -157,6 +182,8 @@ class classEvaluationResult extends Component {
             });
 
             class_info = this.handleClassInfoData(class_info[0]);
+
+            let sortResult = await this.sortFeedback(class_info);
 
             let companion_country = '';
             if (this.state.from_user_id) {
@@ -182,15 +209,17 @@ class classEvaluationResult extends Component {
                     }
                 });
 
-                if(feed_back && feed_back.length){
+                if (feed_back && feed_back.length) {
                     feed_back = this.handleFeedBack(feed_back);
                     evaluation.stars = parseInt(feed_back[0].score, 10) || 0;
                     evaluation.evaluation_content = feed_back[0].comment || '';
                 }
             }
 
-            console.log('feed_back');
-            console.log(feed_back);
+            let types = this.handleTypes(feed_back.filter(function (item) {
+                return item.type
+            }));
+            let argScore = this.getScore(types);
 
             this.setState({
                 class_info: class_info,
@@ -199,7 +228,10 @@ class classEvaluationResult extends Component {
                 companion_country: companion_country,
                 evaluation: evaluation,
                 posterModal: evaluation.stars >= 4,
-                types: this.handleTypes(feed_back.filter(function(item){return item.type}))
+                types: types,
+                sortNum: (sortResult.filter(function (item) {
+                    return item.score > argScore;
+                })).length + 1
             });
 
             if (this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null') {
@@ -251,13 +283,16 @@ class classEvaluationResult extends Component {
                                 classInfo={this.state.class_info}/></p>
                         </div>
                         {
-                            this.state.types && this.state.types.Fluency &&
-                            <div className="medal" onClick={this.openRating}>
-                                <div className="medal-img">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" alt=""/>
-                                </div>
-                                <span className="medal-score">老师评分:{this.getScore(this.state.types)}分</span>
-                            </div>
+                            this.state.types && this.state.types.Fluency && this.state.sortNum ?
+                                <div className="medal" onClick={this.openRating}>
+                                    <div className="medal-img">
+                                        <img
+                                            src={this.state.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" : (
+                                                    this.state.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal/number3.svg"
+                                                )} alt=""/>
+                                    </div>
+                                    <span className="medal-score">老师评分:{this.getScore(this.state.types)}分</span>
+                                </div> : ''
                         }
                     </div>
                     <div className="companion-evaluation" style={{background: 'white'}}>
@@ -335,7 +370,7 @@ class classEvaluationResult extends Component {
                         </div>
                     </div>
                 </div>
-                <CapacityRating modal={this.state.ratingModal} close={this.closeRating} rating={this.state.types} />
+                <CapacityRating modal={this.state.ratingModal} close={this.closeRating} rating={this.state.types}/>
             </div>
         );
     }
