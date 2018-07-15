@@ -485,7 +485,7 @@ class classDetail extends Component {
                         />
                     </Form.Group>
                 </div>
-                <div className="offset-footer"></div>
+                <div className="offset-footer" style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) ? {display: 'none'} : {}}></div>
             </div>
         );
     }
