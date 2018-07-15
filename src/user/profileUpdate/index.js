@@ -16,6 +16,7 @@ import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
 import CurrentUser from "../../membership/user";
 import ServiceProxy from '../../service-proxy';
+import Back from '../../common/back';
 import BirthdayHelper from '../../common/birthdayFormat';
 import Track from "../../common/track";
 import './index.css';
@@ -66,11 +67,7 @@ class UserUpdate extends Component {
     }
 
     back(){
-        if(window.history.length > 2){
-            window.history.go(-1);
-        }else{
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     async sms() {

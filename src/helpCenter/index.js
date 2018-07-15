@@ -6,6 +6,7 @@ import {MemberType} from "../membership/member-type";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import UserGuide from '../common/commonComponent/modalUserGuide';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Back from '../common/back';
 
 import './index.css';
 
@@ -64,18 +65,16 @@ export default class HelpCenter extends React.Component{
         });
     }
 
-    async faqDetail(event, faq_id){
-        // browserHistory.push(`/help/${faq_id}`);
-        window.location.href = `/help/${faq_id}`;
-        //await this.updateFaq(faq_id);
+    async faqDetail(event, link, faq_id){
+        if(link){
+            browserHistory.push(link);
+        }else if(faq_id){
+            window.location.href = `/help/${faq_id}`;
+        }
     }
 
     back() {
-        if(window.history.length > 2){
-            window.history.go(-1);
-        }else{
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     showHtml(content){
@@ -100,7 +99,7 @@ export default class HelpCenter extends React.Component{
                         this.state.faq.related_faqs.length && this.state.faq.show_related &&
                             this.state.faq.related_faqs.map((item, index) => {
                                 return <div className="help-item" key={index}
-                                            onClick={ (event) => this.faqDetail(event, item.faq_id)}
+                                            onClick={ (event) => this.faqDetail(event, item.link, item.faq_id)}
                                 >
                                     <div className="item-name">{item.title}</div>
                                     <div className="item-btn">

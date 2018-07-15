@@ -12,7 +12,7 @@ class videoPlay extends Component {
     }
 
     goBack() {
-        if(window.history.length > 2){
+        if(window.history.length > 1){
             window.history.go(-1);
         }else{
             browserHistory.push('/');

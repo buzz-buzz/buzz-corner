@@ -11,6 +11,7 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 import URLHelper from "../common/url-helper";
 import AccountSelect from '../accountSelect/index';
+import Back from '../common/back';
 
 import { connect } from 'react-redux';
 import { addUser, addUsers } from '../actions/index';
@@ -37,11 +38,7 @@ class AccountLogin extends Component {
     back() {
         Track.event('账号密码登录页面返回');
 
-        if(window.history.length > 2){
-            window.history.go(-1);
-        }else{
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     forgottenPassword() {

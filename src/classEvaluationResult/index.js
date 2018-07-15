@@ -14,6 +14,7 @@ import ErrorHandler from '../common/error-handler';
 import CapacityRating from './capacityRating';
 import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
+import Back from '../common/back';
 import moment from 'moment';
 import ClassEndTime from "../classDetail/class-end-time";
 
@@ -54,11 +55,7 @@ class classEvaluationResult extends Component {
     }
 
     back() {
-        if (window.history.length > 2) {
-            window.history.go(-1);
-        } else {
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     getScore(arr) {
