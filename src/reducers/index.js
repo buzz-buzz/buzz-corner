@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {ADD_USER, ADD_USERS, TOAST} from '../actions'
+import {ADD_USER, ADD_USERS, CLEAR_USERS, TOAST} from '../actions'
 
 function multipleUsers(state = [], action) {
     switch (action.type) {
@@ -14,6 +14,9 @@ function multipleUsers(state = [], action) {
                 ...state,
                 ...action.payload
             ]
+
+        case CLEAR_USERS:
+            return []
 
         default:
             return state
