@@ -26,6 +26,7 @@ import Home from './home/Home';
 import Friends from './friends';
 import Reward from './reward';
 import User from './user';
+import UserGuide from './helpCenter/userGuide';
 import Booking from './booking';
 import VideoPlay from './videoPlay';
 import VideoPlayTablet from './videoPlay/tablet';
@@ -80,6 +81,7 @@ class App extends Component {
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
                     <Route path='/user-profile' component={UserUpdate}/>
+                    <Route path='/user-guide' component={UserGuide}/>
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>

@@ -263,6 +263,7 @@ router
     .get('/zoom', serveSPA)
     .get('/zoom-join', serveSPA)
     .get('/help/:faq_id', serveSPA)
+    .get('/user-guide', serveSPA)
 ;
 
 app

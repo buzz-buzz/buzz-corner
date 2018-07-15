@@ -1,4 +1,5 @@
 import React from 'react';
+import Back from '../../back';
 import './index.css';
 
 export default class UserGuide extends React.Component{
@@ -32,12 +33,10 @@ export default class UserGuide extends React.Component{
                 step: newStep
             });
         }else{
-            this.setState({end: true});
+            this.setState({end: true}, () => {
+                if(this.props.back) Back.back();
+            });
         }
-    }
-    
-    componentWillMount(){
-        
     }
     
     render(){

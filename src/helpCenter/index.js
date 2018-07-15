@@ -4,7 +4,6 @@ import ServiceProxy from '../service-proxy';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import LoadingModal from '../common/commonComponent/loadingModal';
-import UserGuide from '../common/commonComponent/modalUserGuide';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Back from '../common/back';
 
@@ -19,7 +18,6 @@ export default class HelpCenter extends React.Component{
                 title: ''
             },
             history: [],
-            guide: props.location.query.guide || '',
             faq_id: props.params.faq_id,
             loadingModal: true
         };
@@ -67,7 +65,7 @@ export default class HelpCenter extends React.Component{
 
     async faqDetail(event, link, faq_id){
         if(link){
-            browserHistory.push(link);
+            window.location.href = link;
         }else if(faq_id){
             window.location.href = `/help/${faq_id}`;
         }
@@ -86,7 +84,6 @@ export default class HelpCenter extends React.Component{
             <div className="help-center">
                 <HeaderWithBack goBack={this.back} title={this.state.faq.title} />
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <UserGuide modal={this.state.guide} />
                 <div className="help-content">{ this.state.faq && this.state.faq.content ? this.showHtml(this.state.faq.content) : ''}</div>
                 <div className="help-list">
                     {
