@@ -1,5 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import './index.css';
 
@@ -38,7 +39,7 @@ export default class EvaluationStandards extends React.Component {
     render() {
         return (
             <div className="evaluation-standard">
-                <HeaderWithBack goBack={this.back} title='评分标准说明'/>
+                <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationStandard}/>
                 <div className="standard-big-title">
                     <p className="main-title">IELTS Speaking assessment criteria</p>
                     <p className="little-title">(band descriptors – public version)</p>

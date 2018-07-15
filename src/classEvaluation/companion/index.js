@@ -50,10 +50,6 @@ export default class CompanionEvaluation extends React.Component {
         browserHistory.push('/evaluation/standards');
     }
 
-    componentWillMount() {
-        //todo 获取名次
-    }
-
     evaluationContentChange(event, data) {
         this.setState({
             evaluation_content: data.value
@@ -135,14 +131,14 @@ export default class CompanionEvaluation extends React.Component {
         return (
             <div className="companion-evaluation">
                 <div className="tabs">
-                    <div className={this.state.step === 1 ? "active" : ""} onClick={this.backStepOne}>第一步: 课堂表现</div>
-                    <div className={this.state.step === 2 ? "active" : ""} onClick={this.goStepTwo}>第二步: 能力打分</div>
+                    <div className={this.state.step === 1 ? "active" : ""} onClick={this.backStepOne}>{Resources.getInstance().evaluationStandardStep1}</div>
+                    <div className={this.state.step === 2 ? "active" : ""} onClick={this.goStepTwo}>{Resources.getInstance().evaluationStandardStep2}</div>
                 </div>
                 {
                     this.state.step === 1 &&
                     <div className="class-behavior">
                         <div className="behavior">
-                            <div className="word">课堂表现:</div>
+                            <div className="word">{Resources.getInstance().classPerformance}</div>
                             <div className="stars">
                                 {
                                     [1, 2, 3, 4, 5].map((item, index) => {
@@ -159,7 +155,7 @@ export default class CompanionEvaluation extends React.Component {
                 {
                     this.state.step === 1 &&
                     <div className="companion-word">
-                        <div className="title">语伴寄语:</div>
+                        <div className="title">{Resources.getInstance().partnersWord}</div>
                         <div className="evaluation-input">
                             <Form>
                                             <TextArea autoHeight
@@ -203,7 +199,7 @@ export default class CompanionEvaluation extends React.Component {
                 {
                     this.state.step === 2 &&
                     <div className="score-introduction" onClick={this.evaluationStandards}>
-                        评分标准说明
+                        {Resources.getInstance().evaluationStandard}
                     </div>
                 }
                 <div className="companion-submit" style={this.state.evaluation_status ? {display: 'none'} : {}}>

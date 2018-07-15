@@ -422,10 +422,10 @@ class Home extends Component {
                 <Welcome welcome={this.state.welcome} closeWelcome={this.closeWelcome}/>
                 <UserGuide modal={this.state.intro_done && this.state.role === MemberType.Student}/>
                 <div className="home-header">
-                    <a className="consult" onClick={this.signUp}>
+                    <div className="consult" onClick={this.signUp}>
                         <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
                         <span style={{color: '#000', fontSize: '10px'}}>{Resources.getInstance().homeHelp}</span>
-                    </a>
+                    </div>
                     <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png" alt="" style={{
