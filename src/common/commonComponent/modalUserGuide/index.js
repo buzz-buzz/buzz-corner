@@ -1,9 +1,16 @@
 import React from 'react';
 import Back from '../../back';
+import Client from "../../../common/client";
 import './index.css';
 
-export default class UserGuide extends React.Component{
-    constructor(){
+const tabletStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+};
+
+export default class UserGuide extends React.Component {
+    constructor() {
         super();
 
         this.state = {
@@ -25,24 +32,25 @@ export default class UserGuide extends React.Component{
         this.nextStep = this.nextStep.bind(this);
     }
 
-    nextStep(){
+    nextStep() {
         let newStep = this.state.step + 1;
 
-        if( newStep <= 8 ){
+        if (newStep <= 8) {
             this.setState({
                 step: newStep
             });
-        }else{
+        } else {
             this.setState({end: true}, () => {
-                if(this.props.back) Back.back();
+                if (this.props.back) Back.back();
             });
         }
     }
-    
-    render(){
+
+    render() {
         return (
             <div className="user-guide" onClick={this.nextStep}
-                 style={ this.props.modal && !this.state.end ? {} : {display: 'none'}}>
+                 style={ this.props.modal && !this.state.end ?
+                     ( Client.getClient() === 'phone' ? {} : tabletStyle) : {display: 'none'}}>
                 <img src={this.state.steps[this.state.step]} alt="Loading..."/>
             </div>
         )
