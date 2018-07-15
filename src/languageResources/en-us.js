@@ -280,6 +280,13 @@ export const evaluationNo = 'Waiting for your feedback';
 export const evaluationTo = 'Assess:';
 export const goToClass = 'Enter session';
 export const goToAssess = 'Feedback';
+export const classPerformance = '课堂表现:';
+export const partnersWord = '语伴寄语:';
+export const evaluationStandard = '评分标准说明';
+export const evaluationStandardStep1 = '第一步: 课堂表现';
+export const evaluationStandardStep2 = '第二步: 能力打分';
+export const evaluationTeacherScore = '老师评分:';
+export const evaluationEnglishScore = '能力评分';
 
 export const errorUpload = 'Upload failed, please try later!';
 export const successUpload = 'Upload successfully!';

@@ -291,14 +291,14 @@ class classEvaluationResult extends Component {
                                                     this.state.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal/number3.svg"
                                                 )} alt=""/>
                                     </div>
-                                    <span className="medal-score">老师评分:{this.getScore(this.state.types)}分</span>
+                                    <span className="medal-score">{Resources.getInstance().evaluationTeacherScore}{this.getScore(this.state.types)}</span>
                                 </div> : ''
                         }
                     </div>
                     <div className="companion-evaluation" style={{background: 'white'}}>
                         <div className="class-behavior">
                             <div className="behavior">
-                                <div className="word">课堂表现:</div>
+                                <div className="word">{Resources.getInstance().classPerformance}</div>
                                 <div className="stars">
                                     <img
                                         src={this.state.evaluation.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
@@ -321,7 +321,7 @@ class classEvaluationResult extends Component {
                                 className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
                         <div className="companion-word">
-                            <div className="title">语伴寄语:</div>
+                            <div className="title">{Resources.getInstance().partnersWord}</div>
                             <div className="evaluation-input">
                                 <Form>
                                     <TextArea autoHeight

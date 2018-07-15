@@ -279,6 +279,13 @@ export const evaluationNo = '未评价';
 export const evaluationTo = '评价:';
 export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
+export const classPerformance = '课堂表现:';
+export const partnersWord = '语伴寄语:';
+export const evaluationStandard = '评分标准说明';
+export const evaluationStandardStep1 = '第一步: 课堂表现';
+export const evaluationStandardStep2 = '第二步: 能力打分';
+export const evaluationTeacherScore = '老师评分:';
+export const evaluationEnglishScore = '能力评分';
 
 export const errorUpload = '上传失败, 请稍后重试!';
 export const successUpload = '上传成功!';

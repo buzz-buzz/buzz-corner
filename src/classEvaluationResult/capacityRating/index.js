@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
+import Resources from '../../resources';
 import './index.css';
 
 export default class CapacityRating extends Component {
@@ -164,8 +165,7 @@ export default class CapacityRating extends Component {
         return (
             <div className="rating-map" style={this.props.modal ? {} : {display: 'none'}} onClick={this.props.close}>
                 <div className="rating-content" onClick={this.stop}>
-                    <div className="title">能力评分</div>
-                    <div className="title-intro">相当于美国1年级小学水平</div>
+                    <div className="title">{Resources.getInstance().evaluationEnglishScore}</div>
                     <div className="canvas">
                         <canvas id="rating-map" width={200} height={200}>sorry, Canvas not supported</canvas>
                         <div className="tab tab-fluency">
@@ -186,7 +186,7 @@ export default class CapacityRating extends Component {
                         </div>
                     </div>
                     <div className="score-intro" onClick={this.evaluationStandards}>
-                        评分标准说明
+                        {Resources.getInstance().evaluationStandard}
                     </div>
                 </div>
             </div>
