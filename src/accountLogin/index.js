@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Button50px from '../common/commonComponent/submitButton50px';
 import BuzzInput from '../common/commonComponent/buzzInput';
 import Track from "../common/track";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import LoadingModal from '../common/commonComponent/loadingModal';
-import { browserHistory } from "react-router";
+import {browserHistory} from "react-router";
 import Resources from '../resources';
 import './index.css';
 import MessageModal from '../common/commonComponent/modalMessage';
@@ -13,8 +13,8 @@ import URLHelper from "../common/url-helper";
 import AccountSelect from '../accountSelect/index';
 import Back from '../common/back';
 
-import { connect } from 'react-redux';
-import { addUser, addUsers } from '../actions/index';
+import {connect} from 'react-redux';
+import {addUser, addUsers, clearUsers} from '../actions/index';
 
 class AccountLogin extends Component {
     constructor() {
@@ -33,6 +33,8 @@ class AccountLogin extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
         this.forgottenPassword = this.forgottenPassword.bind(this);
+
+        console.log('constructing...');
     }
 
     back() {
@@ -50,13 +52,13 @@ class AccountLogin extends Component {
 
         clonedData[event.target.name] = event.target.value;
 
-        this.setState({ data: clonedData });
+        this.setState({data: clonedData});
     }
 
     closeMessageModal() {
         const interval = setTimeout(() => {
             if (this.state.messageModal) {
-                this.setState({ messageModal: false });
+                this.setState({messageModal: false});
             }
 
             clearTimeout(interval);
@@ -64,7 +66,9 @@ class AccountLogin extends Component {
     }
 
     async submit() {
-        this.setState({ loadingModal: true });
+        this.setState({loadingModal: true});
+        this.props.clearUsers();
+
         try {
             let result = await ServiceProxy.proxyTo({
                 body: {
@@ -80,12 +84,15 @@ class AccountLogin extends Component {
 
             if (result instanceof Array) {
                 this.props.addUsers(result)
-                this.setState({ loadingModal: false, multipleUsers: true, title: Resources.getInstance().accountSelectLogin})
+                this.setState({
+                    loadingModal: false,
+                    multipleUsers: true,
+                    title: Resources.getInstance().accountSelectLogin
+                })
                 return;
             }
 
-
-            this.setState({ loadingModal: false }, () => {
+            this.setState({loadingModal: false}, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
 
                 if (returnUrl) {
@@ -118,20 +125,21 @@ class AccountLogin extends Component {
         }, async () => {
             await this.submit();
         });
-    }
+    };
 
     render() {
+        console.log('renderring...');
         return (
             <div className="account-login">
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
-                    modalShow={this.state.messageModal} />
-                <LoadingModal loadingModal={this.state.loadingModal} />
-                <HeaderWithBack goBack={this.back} title={this.state.title} />
+                              modalShow={this.state.messageModal}/>
+                <LoadingModal loadingModal={this.state.loadingModal}/>
+                <HeaderWithBack goBack={this.back} title={this.state.title}/>
                 {
                     !this.state.multipleUsers &&
                     <div className="set-word">
                         <div className="user-password">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt="" />
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
                             <BuzzInput
                                 type="text" placeholder={Resources.getInstance().accountInputAccount}
                                 value={this.state.data.user_account}
@@ -140,7 +148,7 @@ class AccountLogin extends Component {
                             />
                         </div>
                         <div className="user-password">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt="" />
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
                             <BuzzInput
                                 type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
                                 value={this.state.data.user_password}
@@ -151,7 +159,7 @@ class AccountLogin extends Component {
                         <div className="update-btn">
                             <Button50px
                                 disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
-                                text={Resources.getInstance().accountLogin} submit={this.submit} />
+                                text={Resources.getInstance().accountLogin} submit={this.submit}/>
                         </div>
                         <div className="forgotten" onClick={this.forgottenPassword}>
                             {Resources.getInstance().accountForgotten}
@@ -163,7 +171,7 @@ class AccountLogin extends Component {
                 }
                 {
                     this.state.multipleUsers &&
-                    <AccountSelect onSelectUser={this.selectUser} />
+                    <AccountSelect onSelectUser={this.selectUser}/>
                 }
             </div>
         );
@@ -177,6 +185,9 @@ export default connect(null, dispatch => {
         },
         addUsers: users => {
             dispatch(addUsers(users));
+        },
+        clearUsers: () => {
+            dispatch(clearUsers());
         }
     }
 })(AccountLogin);
