@@ -67,7 +67,7 @@ class classEvaluation extends Component {
     }
 
     back() {
-        if (window.history.length > 2) {
+        if (window.history.length > 1) {
             window.history.go(-1);
         } else {
             browserHistory.push('/');

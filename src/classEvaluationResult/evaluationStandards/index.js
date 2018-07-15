@@ -1,5 +1,5 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
+import Back from '../../common/back';
 import Resources from '../../resources';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import './index.css';
@@ -17,11 +17,7 @@ export default class EvaluationStandards extends React.Component {
     }
 
     back() {
-        if (window.history.length > 2) {
-            window.history.go(-1);
-        } else {
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     openLevel(event, index) {

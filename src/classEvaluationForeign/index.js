@@ -11,6 +11,7 @@ import './index.css';
 import {Flag} from "semantic-ui-react";
 import moment from 'moment';
 import Track from "../common/track";
+import Back from '../common/back';
 import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluationForeign extends Component {
@@ -40,11 +41,7 @@ class classEvaluationForeign extends Component {
     }
 
     back() {
-        if (window.history.length > 2) {
-            window.history.go(-1);
-        } else {
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     track() {

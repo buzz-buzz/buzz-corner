@@ -16,6 +16,7 @@ import Avatar from '../common/commonComponent/avatar';
 import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
+import Back from '../common/back';
 import Client from "../common/client";
 import moment from 'moment';
 import './index.css';
@@ -85,11 +86,7 @@ class classDetail extends Component {
     }
 
     back() {
-        if(window.history.length > 2){
-            window.history.go(-1);
-        }else{
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     companionCenter() {
