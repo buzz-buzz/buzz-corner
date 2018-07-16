@@ -47,7 +47,7 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     evaluationStandards() {
-        browserHistory.push('/evaluation/standards');
+        window.open('/evaluation/standards');
     }
 
     evaluationContentChange(event, data) {
