@@ -165,6 +165,7 @@ export default class CompanionEvaluation extends React.Component {
                                                       value={this.state.evaluation_content}
                                                       readOnly={this.state.evaluation_status}
                                                       onChange={(event, data) => this.evaluationContentChange(event, data)}/>
+                                <p className="text-length-notice">{this.state.evaluation_content.length + '/200'}</p>
                             </Form>
                         </div>
                     </div>
