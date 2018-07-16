@@ -20,7 +20,8 @@ export default class CapacityRating extends Component {
     }
 
     evaluationStandards(){
-        browserHistory.push('/evaluation/standards');
+        //browserHistory.push('/evaluation/standards');
+        window.open('/evaluation/standards');
     }
 
     stop(e) {
