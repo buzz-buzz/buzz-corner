@@ -28,7 +28,7 @@ export default class ClassAd extends React.Component {
                                 color: '#f7b52a',
                                 textDecoration: 'underline'
                             }}>下载安装</ a>。</p>
-                        <p>2. 本课程为免费的入门指导课, 将由你的班主任带你进行说明与指导。</p>
+                        <p>2. 本次为免费的入门指导课, 将由你的班主任带你进行说明与指导。</p>
                     </div>
                     :
                     <div className="class-before-content">
