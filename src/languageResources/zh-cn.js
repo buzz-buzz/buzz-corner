@@ -101,7 +101,7 @@ export const placementQuestion7Answer1 = '需要翻译听懂常用指令,能简�
 export const placementQuestion7Answer2 = '能听懂常用指令对话并做出反应，能清楚地介绍自己，能简单描述一件事';
 export const placementQuestion7Answer3 = '能比较有条理地描述个人体验和表达个人想法';
 
-export const classEvaluationStarsStatus0 = '等待你的评价';
+export const classEvaluationStarsStatus0 = '未评价';
 export const classEvaluationStarsStatus1 = '比较弱';
 export const classEvaluationStarsStatus2 = '待提高';
 export const classEvaluationStarsStatus3 = '还行';
