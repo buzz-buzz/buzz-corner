@@ -21,8 +21,8 @@ export const footerFriends = '好友';
 export const footerReward = '奖励';
 export const footerUser = '我的';
 
-export const homeTabBooking = '课程预约';
-export const homeTabMessage = '消息通知';
+export const homeTabBooking = '预约';
+export const homeTabMessage = '消息';
 export const homeTabFriends = '伙伴';
 export const homeTabAdvisor = '助教';
 export const homeHelp = '帮助';
@@ -32,11 +32,11 @@ export const bookingNoItemText1 = '你还没开始预约课程';
 export const bookingNoItemText2 = '马上进行预约，对话英美少年！';
 export const bookingNoItemText3 = '马上进行预约，对话中国少年！';
 export const bookingNoMessage = '你还没有收到消息哦';
-export const bookingFeedbackNotice = '请完成以下课程的评价:  ';
-export const bookingFeedbackInfo = '点击查看。已完成的课程评价: ';
+export const bookingFeedbackNotice = '请完成以下评价:  ';
+export const bookingFeedbackInfo = '点击查看。已完成的评价: ';
 export const bookingPlacementInfoTitle = '建立能力档案';
-export const bookingPlacementInfoContent = '请建立能力档案，完成后可以为你安排更合适的课程。';
-export const bookingFeedbackToMe = '你的小伙伴赞了你的表现， 快去看看吧。课程主题: ';
+export const bookingPlacementInfoContent = '请建立能力档案，完成后可以为你安排更合适的语伴。';
+export const bookingFeedbackToMe = '你的小伙伴赞了你的表现， 快去看看吧。主题: ';
 
 export const friendsTabChinese = '中方';
 export const friendsTabForeign = '外籍';
@@ -56,7 +56,7 @@ export const classLessons = '现有课时数';
 export const sessions = '我的课时';
 
 export const profileStep1 = '联系方式';
-export const profileStep1Info = '仅用于课程学习相关通知与服务';
+export const profileStep1Info = '仅用于学习相关通知与服务';
 export const profileParentsName = '家长姓名';
 export const profilePhoneInfo = '中国(+86)';
 export const profilePhoneHolder = '手机号码';
@@ -117,16 +117,16 @@ export const classEvaluationResultContent = '学伴对我的评价';
 export const classEvaluationMy = '我的评价';
 export const createPostersOfAchievement = '生成我的成就海报';
 
-export const classDetailTitle = '课程详情';
-export const classDetailBeforeWord1 = '1.在课程开始前, 你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
-export const classDetailBeforeWord2 = '2.下载课程必备软件ZOOM，点击';
+export const classDetailTitle = '详情';
+export const classDetailBeforeWord1 = '1.你可以进行话题的模拟对话训练帮助你为今天的话题做准备。';
+export const classDetailBeforeWord2 = '2.下载必备软件，点击';
 export const classDetailBeforeWord3 = '下载视频教室';
-export const classDetailBeforeClassExercise = '课前练习';
-export const classDetailBeforeClassContent = '课程教材';
-export const classDetailBeforeClassNotice = '课程公告';
+export const classDetailBeforeClassExercise = '会话练习';
+export const classDetailBeforeClassContent = '参考教材';
+export const classDetailBeforeClassNotice = '公告';
 export const classDetailClassPartners = '其他伙伴';
 export const classDetailLeft = '距离开课还有';
-export const classBeginModalTitle = '课程已开始';
+export const classBeginModalTitle = '已开始';
 export const classBeginModalContent1 = '马上开始与你的';
 export const classBeginModalContent2 = '小伙伴开始见面吧';
 export const classBeginModalBtn = '立即进入';
@@ -136,7 +136,7 @@ export const classZoomDownLoadInfo = '点击右上角，选择"在浏览器打�
 export const classZoomJoin = '加入Zoom会议';
 export const classZoomJoinInfo = '点击右上角，选择"在浏览器打开", 即可马上加入Zoom会议。';
 
-export const advisorInfo1 = '我是你的私人课程助教';
+export const advisorInfo1 = '我是你的班主任';
 export const advisorInfo2 = '请扫描下方微信二位码, 我会立即为你预约外籍学伴。';
 export const advisorInfo3 = '长按二维码联系"BuzzBuzz导师"';
 
@@ -304,7 +304,7 @@ export const userProfileAvatarWrongType = '图片格式不正确!';
 
 export const posterModalTitle = '恭喜';
 export const posterModalContent1 = '你的学伴对你本次';
-export const posterModalContent2 = '课程给予了很高的评价';
+export const posterModalContent2 = '表现给予了很高的评价';
 
 export const accountAboutTitle = '获得账号密码';
 export const accountSetTitle = '设置密码';
