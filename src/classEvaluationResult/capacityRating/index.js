@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
 import Resources from '../../resources';
 import './index.css';
 

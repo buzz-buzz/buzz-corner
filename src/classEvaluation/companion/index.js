@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, TextArea} from 'semantic-ui-react';
-import {browserHistory} from 'react-router';
 import Resources from '../../resources';
 import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
 import Button50px from '../../common/commonComponent/submitButton50px';
