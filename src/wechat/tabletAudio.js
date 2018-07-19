@@ -30,7 +30,7 @@ export default class TabletAudio {
         this.validBlobs = [];
     }
 
-    static async  init(callback) {
+    static async init(callback) {
         //let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
         // let getUserMedia = navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false;
         //
@@ -44,10 +44,10 @@ export default class TabletAudio {
         // }else{
         //     callback(false);
         // }
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder){
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder) {
             await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
             callback(recordReadyStatus);
-        }else{
+        } else {
             callback(false);
         }
     }
@@ -64,16 +64,16 @@ export default class TabletAudio {
     async startRecording() {
         if (recordReadyStatus) {
             recordedBlobs = [];
-            let options = { mimeType: 'audio/webm' };
+            let options = {mimeType: 'audio/webm'};
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
-                options = { mimeType: 'audio/webm;codecs=vp8' };
+                options = {mimeType: 'audio/webm;codecs=vp8'};
                 if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                     console.log(options.mimeType + ' is not Supported');
-                    options = { mimeType: 'audio/webm' };
+                    options = {mimeType: 'audio/webm'};
                     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                         console.log(options.mimeType + ' is not Supported');
-                        options = { mimeType: '' };
+                        options = {mimeType: ''};
                     }
                 }
             }
@@ -95,7 +95,7 @@ export default class TabletAudio {
 
     play() {
         let audioNow = document.createElement('audio');
-        let superBuffer = new Blob(this.validBlobs, { type: 'audio/mp3' });
+        let superBuffer = new Blob(this.validBlobs, {type: 'audio/mp3'});
         audioNow.muted = false;
         audioNow.src = window.URL.createObjectURL(superBuffer);
         audioNow.play();
@@ -117,7 +117,7 @@ export default class TabletAudio {
         let fileForm = new FormData();
 
         fileForm.append("name", new Date().getTime() + 'audio');
-        fileForm.append("file", new Blob(this.validBlobs, { type: 'audio/mp3' }));
+        fileForm.append("file", new Blob(this.validBlobs, {type: 'audio/mp3'}));
         fileForm.append("token", qiniu_token.uptoken);
 
         let result = await ServiceProxy.proxy(qiniu_token.upload_url, {

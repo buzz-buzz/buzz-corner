@@ -1,5 +1,6 @@
 .placement-first, .placement-second, .placement-third,  .placement-fourth {
     min-height: 15em;
+    flex: 1 0 auto;
 }
 
 .first-question{
@@ -49,11 +50,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    padding: 20px 10px;
 }
 
 .answer-item > div.item-content{
-    width: 70%;
+    width: 100%;
 }
 
 .answer-item > div.item-content > p{

@@ -35,6 +35,19 @@ export default class TimeHelper {
         return `${hours}:${minutes}:${seconds}`;
     }
 
+    static formatSecondsToMMSS(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        seconds = Math.floor(seconds - minutes * 60);
+
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        return `${minutes}:${seconds}`;
+    }
+
 
     static dateDiff(start_time, now_time) {
         let theDate = new Date(start_time.getFullYear(), start_time.getMonth(), start_time.getDate()).getTime();
