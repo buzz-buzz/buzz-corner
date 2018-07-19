@@ -16,7 +16,7 @@ import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
 
-class Placement extends React.Component {
+export default class PlacementModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -279,5 +279,3 @@ class Placement extends React.Component {
         );
     }
 }
-
-export default Placement;
