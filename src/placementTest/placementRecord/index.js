@@ -27,6 +27,7 @@ export default class PlacementRecorder extends React.Component {
         this.recordAgain = this.recordAgain.bind(this);
         this.getTime = this.getTime.bind(this);
         this.stopRecord = this.stopRecord.bind(this);
+        this.reReplyAudio = this.reReplyAudio.bind(this);
     }
 
     async recordAgain() {
@@ -34,11 +35,12 @@ export default class PlacementRecorder extends React.Component {
             //调用停止录音方法
             await this.state.recordAudio.stopRecording();
             recordingTime = 0;
-            this.setState({recording: false, recordingModal: false});
-            this.setState({recording: true, recordingModal: true}, async() => {
-                await this.state.recordAudio.startRecording();
-            });
         }
+
+        this.setState({recording: false});
+        this.setState({recording: true}, async() => {
+            await this.state.recordAudio.startRecording();
+        });
     }
 
     getTime(time) {
@@ -46,21 +48,24 @@ export default class PlacementRecorder extends React.Component {
     }
 
     recordAnswer() {
-        if (!this.state.recording) {
+        if (!this.state.recording && !this.props.answers[this.props.step - 1]) {
             console.log('开始录音');
 
-            this.setState({recording: true, recordingModal: true}, async() => {
+            this.setState({recording: true}, async() => {
                 await this.state.recordAudio.startRecording();
             });
-        } else {
+        } else if (this.state.recording) {
             console.log('warning, 录音中...');
+        } else if (this.props.answers[this.props.step - 1]) {
+            console.log('播放...');
+            this.reReplyAudio(this.props.answers[this.props.step - 1]);
         }
     }
 
     async stopRecord() {
         console.log('完成录音');
 
-        this.setState({recording: false, recordingModal: false}, async() => {
+        this.setState({recording: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
                 console.log('录制时间满足条件， 可保存结果' + recordingTime);
 
@@ -94,7 +99,7 @@ export default class PlacementRecorder extends React.Component {
     async closeRecord() {
         console.log('关闭录音操作窗口， 录制时间清除为0');
 
-        this.setState({recording: false, recordingModal: false}, async() => {
+        this.setState({recording: false}, async() => {
             await this.state.recordAudio.stopRecording();
             recordingTime = 0;
         });
@@ -128,6 +133,17 @@ export default class PlacementRecorder extends React.Component {
         })
     }
 
+    async componentWillUnmount() {
+        if (this.state.recording) {
+            await this.closeRecord();
+        }
+    }
+
+    reReplyAudio(url) {
+        console.log('play:');
+        console.log(url);
+    }
+
     render() {
         return (
             <div className="placement-record">
@@ -158,7 +174,7 @@ export default class PlacementRecorder extends React.Component {
                                     }
                                     <span>
                                         {
-                                            this.state.answered ?
+                                            this.props.answers[this.props.step - 1] ?
                                                 Resources.getInstance().placementListeningAudio :
                                                 (
                                                     this.state.loadingAudio ?
@@ -171,6 +187,13 @@ export default class PlacementRecorder extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {
+                        this.props.answers[this.props.step - 1] ?
+                            <div onClick={this.recordAgain}
+                                 disabled={this.state.loadingAudio}
+                                 className="recordAgain">{Resources.getInstance().practiceAgain}</div>
+                            : ''
+                    }
                     {
                         this.props.step > 4 && this.state.recording && <RecordModal
                             open={this.state.recording}
