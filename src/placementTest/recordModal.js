@@ -63,7 +63,10 @@ export default class RecordModal extends React.Component {
                     </span>
                 </div>
                 <div className="button-record-done" onClick={this.stopRecord}
-                     style={this.state.done ? {} : {borderColor: '#d0d6db', color: '#d0d6db'}}>
+                     style={this.state.done ? {borderColor: '#6ae108', color: '#6ae108'} : {
+                             borderColor: '#d0d6db',
+                             color: '#d0d6db'
+                         }}>
                     完成
                 </div>
                 <div className="close" onClick={this.onClose}>

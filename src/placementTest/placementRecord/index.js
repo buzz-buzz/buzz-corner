@@ -18,7 +18,8 @@ export default class PlacementRecorder extends React.Component {
         this.state = {
             soundPlaying: '//cdn-corner.resource.buzzbuzzenglish.com/icon_recording.gif',
             recordingTime: 0,
-            recordAudio: /MicroMessenger/.test(navigator.userAgent) ? new WechatAudio() : new TabletAudio()
+            recordAudio: /MicroMessenger/.test(navigator.userAgent) ? new WechatAudio() : new TabletAudio(),
+            isPlaying: false
         };
 
         recordingTime = 0;
@@ -90,7 +91,7 @@ export default class PlacementRecorder extends React.Component {
                     });
                 }
 
-                this.setState({loadingModal: false});
+                this.setState({loadingModal: false, recordingTime: recordingTime});
             } else {
                 console.log('录制时间不满足条件， 不可继续' + recordingTime);
             }
@@ -145,6 +146,11 @@ export default class PlacementRecorder extends React.Component {
     reReplyAudio(url) {
         console.log('play:');
         console.log(url);
+        this.setState({isPlaying: true});
+        this.state.recordAudio.play();
+        window.setTimeout(() => {
+            this.setState({isPlaying: false});
+        }, this.state.recordingTime * 1000)
     }
 
     render() {
@@ -172,7 +178,7 @@ export default class PlacementRecorder extends React.Component {
                                         this.state.loadingAudio ?
                                             <Icon loading name="spinner"/> :
                                             <img className="rotate180" style={{height: '15px'}}
-                                                 src={this.state.repliesPlaying === 0 ?
+                                                 src={this.state.isPlaying ?
                                                      this.state.soundPlaying : "//cdn-corner.resource.buzzbuzzenglish.com/icon_recording_new.png"}
                                                  alt=""/>
                                     }
