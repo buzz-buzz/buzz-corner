@@ -1,0 +1,38 @@
+.record-control {
+  position: fixed;
+  background: white;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 82px;
+  display: flex;
+  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.08);
+  justify-content: space-around;
+  align-items: center; }
+  .record-control .button-record-status {
+    display: flex;
+    align-items: center;
+    flex-direction: column; }
+    .record-control .button-record-status img {
+      width: 32px; }
+    .record-control .button-record-status span {
+      text-align: center;
+      font-size: 14px;
+      color: #000; }
+  .record-control .button-record-again, .record-control .button-record-done {
+    border-radius: 5px;
+    border: solid 0.5px #666666;
+    padding: 10px 20px;
+    color: #666;
+    font-size: 15px; }
+  .record-control .close {
+    position: absolute;
+    top: -30px;
+    right: -2px;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px; }
+    .record-control .close .img-close {
+      width: 32px;
+      height: 32px; }

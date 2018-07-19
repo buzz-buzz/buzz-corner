@@ -1,0 +1,22 @@
+.placement-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .placement-images .placement-image-item {
+    display: inline-block;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 7px; }
+    .placement-images .placement-image-item img {
+      width: 160px; }
+    .placement-images .placement-image-item .select-status {
+      position: absolute;
+      height: 35px;
+      width: 35px;
+      padding: 10px;
+      top: 0;
+      right: 0;
+      z-index: 5; }
+      .placement-images .placement-image-item .select-status img {
+        width: 100%; }

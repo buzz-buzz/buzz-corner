@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Form} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
-import Practice from "../classDetail/practice";
-import RecordingModal from "../common/commonComponent/modalRecording/index";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ButtonBottom from '../common/commonComponent/submitButtonBottom';
@@ -18,13 +16,13 @@ import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
 
-class Homepage extends Component {
+class Placement extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
-            step: props.location.query.step || 1,
+            step: 1,
             questions: Placement,
             answers: [],
             audioAnsweringStatus: false,
@@ -52,7 +50,7 @@ class Homepage extends Component {
             } else {
                 browserHistory.push('/home');
             }
-        } else if (this.state.step <= 8) {
+        } else if (this.state.step <= 6) {
             let newStep = this.state.step - 1;
             this.setState({
                 step: newStep
@@ -60,9 +58,30 @@ class Homepage extends Component {
         }
     }
 
-    answering(event) {
+    answering(event, qNum, answer) {
         let answers = this.state.answers;
-        answers[parseFloat(event.target.name[0]) - 1] = event.target.name[1];
+        if(qNum === 3){
+            if(!answers[qNum] ){
+                answers[qNum] = [answer];
+            }else if(answers[qNum] && answers[qNum].length &&  answers[qNum].indexOf(answer) === -1){
+                if(answers[qNum].length === 2 && !this.state.messageModal){
+                    //提示最多选两张 再次点击取消
+                    this.setState({
+                        messageModal: true,
+                        messageContent: '最多选取两张图片哦，再次点击已选中图片"取消"选中。',
+                        messageName: 'error'
+                    });
+
+                    this.closeMessageModal();
+                }
+
+                answers[qNum].length < 2 && answers[qNum].push(answer);
+            }else if(answers[qNum] && answers[qNum].length &&  answers[qNum].indexOf(answer) > -1){
+                answers[qNum] = answers[qNum].filter(item => {return item !== answer;});
+            }
+        }else{
+            answers[qNum] = answer;
+        }
 
         this.setState({
             answers: answers
@@ -73,17 +92,15 @@ class Homepage extends Component {
         browserHistory.push('/home');
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         //如果是tablet 并且不在微信中  跳转至https
         if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
             window.location.href = window.location.href.replace('http', 'https');
         }
-    }
-
-    async componentDidMount() {
-        Track.event('测试_题' + this.state.step + '页面');
 
         try {
+            Track.event('测试_题' + this.state.step + '页面');
+
             let profile = await CurrentUser.getProfile();
 
             this.setState({
@@ -105,6 +122,8 @@ class Homepage extends Component {
 
             let clonedAnswers = this.state.answers;
             clonedAnswers[this.state.step - 1] = url.url;
+
+            console.log(clonedAnswers);
 
             this.setState({
                 audioAnswerUrl: url,
@@ -147,11 +166,7 @@ class Homepage extends Component {
     }
 
     checkPlacementAnswer() {
-        if (this.state.answers.length === 8) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.state.answers.length === 6;
     }
 
     recordingChanged(recordingStatus) {
@@ -181,33 +196,20 @@ class Homepage extends Component {
 
     async submit() {
         try {
-            if (this.state.step < 8) {
+            if (this.state.step < 6) {
                 Track.event('测试_题' + this.state.step + '继续');
 
                 let newStep = this.state.step + 1;
 
-                if (this.state.step === 7) {
-                    let answerSeventh = this.state.answers[6];
-
-                    let audioUrl = answerSeventh === 'A' ? 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%201' : (answerSeventh === 'B' ? 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%202' : 'https://buzz-corner.user.resource.buzzbuzzenglish.com/Placement%203');
-                    let audioQuestionLength = answerSeventh === 'A' ? 5 : (answerSeventh === 'B' ? 13 : 11);
-
-                    console.log(audioUrl, audioQuestionLength);
-
-                    this.setState({
-                        step: newStep,
-                        audioQuestionUrl: audioUrl,
-                        audioQuestionLength: audioQuestionLength,
-                        chats: [audioUrl]
-                    });
-                } else {
-                    this.setState({
-                        step: newStep
-                    });
-                }
+                this.setState({
+                    step: newStep
+                });
 
                 Track.event('测试_题' + newStep + '页面');
             } else {
+
+                console.log(this.state.answers);
+
                 Track.event('测试_题' + this.state.step + '完成');
 
                 //done
@@ -241,13 +243,9 @@ class Homepage extends Component {
                     //show error
                     this.setState({loadingModal: false});
                 }
-
             }
-
-            //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
             console.error(ex);
-            //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
             this.setState({loadingModal: false});
 
             if(this.props.location.query.intro){
@@ -267,37 +265,19 @@ class Homepage extends Component {
                 <HeaderWithBack goBack={this.goBack}/>
                 <PlacementProgress step={this.state.step}/>
                 <Form className='profile-body'>
-                    {
-                        this.state.step <= 7 ?
-                            (<PlacementQuestion step={this.state.step} questions={this.state.questions}
-                                                answering={this.answering} answers={this.state.answers}/>)
-                            :
-                            (<div className="placement-second">
-                                    <div className="second-title">
-                                        <p>{Resources.getInstance().placementAudioWord}</p>
-                                    </div>
-                                    <Practice chats={this.state.chats}
-                                              avatars={["//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg", this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg']}
-                                              handleUploadUrl={this.handleUploadUrl.bind(this)}
-                                              audioUpload={true}
-                                              recordingChanged={this.recordingChanged}
-                                              ref={p => this.practice = p}/>
-                                </div>
-                            )
-                    }
+                    <PlacementQuestion step={this.state.step} questions={this.state.questions} recording={this.state.recording}
+                                       answering={this.answering} answers={this.state.answers} handleUploadUrl={this.handleUploadUrl.bind(this)}
+                                       open={this.state.recording}
+                                       avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                    />
                     <div className="profile-btn">
-                        <ButtonBottom disabled={!this.state.answers[this.state.step - 1]}
+                        <ButtonBottom disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2) : !this.state.answers[this.state.step - 1]}
                                     text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
-                {
-                    this.state.step === 8 &&
-                    <RecordingModal open={this.state.recording} onClose={this.cancelRecording}
-                                    onOK={this.finishRecording} timeout={this.finishRecording}/>
-                }
             </div>
         );
     }
 }
 
-export default Homepage;
+export default Placement;

@@ -1,5 +1,7 @@
 import React from 'react';
 import Resources from '../../resources';
+import ImageModal from '../imageSelect';
+import PlacementRecorder from '../placementRecord';
 import './index.css';
 
 export default class PlacementQuestion extends React.Component {
@@ -36,31 +38,42 @@ export default class PlacementQuestion extends React.Component {
                 </div>
             </div>
             <div className="first-answer">
-                <div className="answer-title"
-                     style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
                 {
+                    this.props.step <= 3 &&
+                    <div className="answer-title"
+                         style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
+                }
+                {
+                    this.props.step <= 3 &&
                     this.props.questions && this.props.questions.length &&
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].items &&
                     this.props.questions[this.props.step - 1].items.length &&
                     this.props.questions[this.props.step - 1].items.map((item, index) => {
-                        return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"} key={index} onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
-                                    style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === (index === 0 ? 'A' : (index === 1 ? 'B' : 'C')) ? {
+                        return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"} key={index}
+                                    onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
+                                    onClick={(event) => this.props.answering(event, this.props.step - 1, item)}
+                                    style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === item ? {
                                             color: 'rgb(246, 180, 12)',
                                             border: '1px solid rgb(246, 180, 12)'
                                         } : {}}>
-                            <div className="item-value">
-                                <p>{index === 0 ? 'A' : (index === 1 ? 'B' : 'C')}</p>
-                            </div>
                             <div className="item-content">
                                 <p>{item}</p>
                             </div>
-                            <button className="click-event"
-                                    name={this.props.step + '' + (index === 0 ? 'A' : (index === 1 ? 'B' : 'C'))}
-                                    onClick={this.props.answering}
-                            >hidden
-                            </button>
                         </div>
                     })
+                }
+                {
+                    this.props.step === 4 && this.props.questions && this.props.questions.length &&
+                    this.props.questions[3] && this.props.questions[3].title &&
+                        <ImageModal select={this.props.answering} step={this.props.step} answers={this.props.answers}  />
+                }
+                {
+                    this.props.step > 4 && this.props.questions && this.props.questions.length &&
+                    this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].title &&
+                    <PlacementRecorder  step={this.props.step} answers={this.props.answers}
+                                        open={this.props.open} onClose={this.props.onClose}
+                                        avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
+                    />
                 }
             </div>
         </div>

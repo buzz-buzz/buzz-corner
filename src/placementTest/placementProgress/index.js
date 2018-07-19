@@ -45,20 +45,6 @@ export default class PlacementProgress extends React.Component {
                 </div>
                 <p>6</p>
             </div>
-            <div className={this.props.step > 7 ? 'done' : (this.props.step === 7 ? 'active' : '' )}>
-                <div className="dot">
-                    <div className="line-left"></div>
-                    <div className="circle"></div>
-                </div>
-                <p>7</p>
-            </div>
-            <div className={this.props.step > 8 ? 'done' : (this.props.step === 8 ? 'active' : '' )}>
-                <div className="dot">
-                    <div className="line-left line-left-last"></div>
-                    <div className="circle"></div>
-                </div>
-                <p>8</p>
-            </div>
         </div>
     }
 }

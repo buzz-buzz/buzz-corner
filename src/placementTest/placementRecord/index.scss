@@ -1,0 +1,21 @@
+.placement-record{
+  .img-content{
+    width: 100%;
+    .img{
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 0 auto;
+    }
+    .content-description{
+      font-size: 13px;
+      color: #666;
+      margin: 10px 0 20px 0;
+      p{
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

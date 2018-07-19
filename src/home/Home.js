@@ -267,7 +267,7 @@ class Home extends Component {
         });
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             Track.event('首页_首页Home页面');
 
