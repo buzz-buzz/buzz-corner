@@ -2,6 +2,7 @@ import React from 'react';
 import {Icon, Image} from "semantic-ui-react";
 import Resources from '../../resources';
 import RecordModal from '../recordModal';
+import LoadingModal from '../../common/commonComponent/loadingModal';
 import WechatAudio from "../../wechat/audio";
 import TabletAudio from "../../wechat/tabletAudio";
 import './index.css';
@@ -64,6 +65,9 @@ export default class PlacementRecorder extends React.Component {
 
     async stopRecord() {
         console.log('完成录音');
+        if (recordingTime && recordingTime >= 30) {
+            this.setState({loadingModal: true});
+        }
 
         this.setState({recording: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
@@ -77,8 +81,6 @@ export default class PlacementRecorder extends React.Component {
                         err: '',
                         type: 'end'
                     });
-
-                    recordingTime = 0;
                 }
                 catch (ex) {
                     this.props.handleUploadUrl({
@@ -86,13 +88,14 @@ export default class PlacementRecorder extends React.Component {
                         err: ex.toString(),
                         type: 'end'
                     });
-
-                    recordingTime = 0;
                 }
+
+                this.setState({loadingModal: false});
             } else {
                 console.log('录制时间不满足条件， 不可继续' + recordingTime);
-                recordingTime = 0;
             }
+
+            recordingTime = 0;
         });
     }
 
@@ -147,6 +150,7 @@ export default class PlacementRecorder extends React.Component {
     render() {
         return (
             <div className="placement-record">
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div className="img-content">
                     <img className="img" src={this.props.answers[3][this.props.step - 5]} alt=""/>
                     <div className="content-description">
