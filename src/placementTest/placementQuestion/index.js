@@ -1,5 +1,4 @@
 import React from 'react';
-import Resources from '../../resources';
 import ImageModal from '../imageSelect';
 import PlacementRecorder from '../placementRecord';
 import './index.css';
@@ -38,11 +37,6 @@ export default class PlacementQuestion extends React.Component {
                 </div>
             </div>
             <div className="first-answer">
-                {
-                    this.props.step <= 3 &&
-                    <div className="answer-title"
-                         style={{fontSize: '.8em'}}>{Resources.getInstance().placementSelectWord}</div>
-                }
                 {
                     this.props.step <= 3 &&
                     this.props.questions && this.props.questions.length &&
