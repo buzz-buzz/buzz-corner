@@ -59,7 +59,7 @@ export default class PlacementRecorder extends React.Component {
     }
 
     recordAnswer() {
-        if (!this.state.recording && !this.props.answers[this.props.step - 1]) {
+        if (!this.state.recording && !this.props.answers[this.props.step - 1] && !this.state.loadingAudio) {
             this.setState({recording: true}, async() => {
                 await this.state.recordAudio.startRecording();
             });
@@ -67,6 +67,8 @@ export default class PlacementRecorder extends React.Component {
             this.props.setMessage('正在录制中...', 'error');
         } else if (this.props.answers[this.props.step - 1]) {
             this.reReplyAudio();
+        }else if(this.state.loadingAudio){
+            this.props.setMessage('当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...', 'error');
         }
     }
 
