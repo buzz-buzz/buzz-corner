@@ -2,13 +2,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  max-width: 600px;
+  margin: 0 auto;
   .placement-image-item{
     display: inline-block;
     position: relative;
     overflow: hidden;
     margin-bottom: 7px;
+    width: 48%;
     img{
-      width: 160px;
+      width: 100%;
       border-radius: 10px;
     }
     .select-status{
@@ -22,26 +25,6 @@
       z-index: 5;
       img{
         width: 100%;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .placement-images{
-    .placement-image-item{
-      img{
-        width: 150px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .placement-images{
-    .placement-image-item{
-      img{
-        width: 130px;
       }
     }
   }
