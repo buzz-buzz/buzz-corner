@@ -24,7 +24,7 @@ class CompanionLoginEntryPoint extends Component {
         Track.event('登录页面_点击微信登录按钮', null, {
             '用户类型': MemberTypeChinese.Companion
         });
-        WeChatLogin.redirectToWechatOAuthPage();
+        WeChatLogin.showLoginPage();
     }
 
     signInViaFacebook() {
@@ -39,7 +39,8 @@ class CompanionLoginEntryPoint extends Component {
     render() {
         return (
             <div style={{height: '100%'}}>
-                <Grid textAlign='center' style={{height: '100%', marginLeft: '0', marginRight: '0'}} verticalAlign='middle'>
+                <Grid textAlign='center' style={{height: '100%', marginLeft: '0', marginRight: '0'}}
+                      verticalAlign='middle'>
                     <Grid.Row>
                         <Grid.Column style={{padding: '0'}}>
                             <Divider horizontal/>
@@ -64,7 +65,7 @@ class CompanionLoginEntryPoint extends Component {
                                 <FacebookLogin/>
                                 <Divider horizontal/>
                                 <BuzzRoundButton paddingLeft="60px" onClick={this.signInViaWechat}>
-                                    <Image src={ QiniuDomain + "/button_WeChat.png"}
+                                    <Image src={QiniuDomain + "/button_WeChat.png"}
                                            alt="Wechat login"/>
                                     {Resources.getInstance('en-US').signInWith('WECHAT')}
                                 </BuzzRoundButton>
