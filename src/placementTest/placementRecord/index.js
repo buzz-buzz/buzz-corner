@@ -23,6 +23,7 @@ export default class PlacementRecorder extends React.Component {
             recordAgainLoading: false
         };
 
+        this.audio = {};
         recordingTime = 0;
 
         this.recordAnswer = this.recordAnswer.bind(this);
@@ -148,20 +149,21 @@ export default class PlacementRecorder extends React.Component {
         if (this.state.recording) {
             await this.closeRecord();
         }
+
+        if(this.state.isPlaying){
+            this.audio.pause();
+            this.setState({isPlaying: false});
+        }
     }
 
     reReplyAudio() {
         this.setState({isPlaying: true});
         try {
-            this.state.recordAudio.play();
+            this.audio.play();
         }
         catch (ex) {
             return;
         }
-
-        window.setTimeout(() => {
-            this.setState({isPlaying: false});
-        }, this.state.recordingTime * 1000)
     }
 
     render() {
@@ -214,6 +216,21 @@ export default class PlacementRecorder extends React.Component {
                                 </div>
                                 :
                                 ''
+                        }
+                        {
+                            this.props.answers[this.props.step - 1] ?
+                            <audio type="audio/mpeg" src={this.props.answers[this.props.step - 1]} ref={(audio) => {
+                                this.audio = audio;
+
+                                if (audio) {
+                                    audio.addEventListener('ended', () => {
+                                        this.setState({ isPlaying: false });
+                                    });
+                                }
+                            }}>
+                                <source src={this.props.answers[this.props.step - 1]} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio> : ''
                         }
                     </div>
                     {
