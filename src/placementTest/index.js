@@ -298,7 +298,7 @@ export default class PlacementModal extends React.Component {
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack}/>
                 <PlacementProgress step={this.state.step}/>
-                <Form className='profile-body bottom-50px'>
+                <Form className='profile-body'>
                     <PlacementQuestion step={this.state.step} questions={this.state.questions}
                                        recording={this.state.recording}
                                        answering={this.answering} answers={this.state.answers}
@@ -312,6 +312,7 @@ export default class PlacementModal extends React.Component {
                             text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
+                <div className="offset-bottom"></div>
             </div>
         );
     }

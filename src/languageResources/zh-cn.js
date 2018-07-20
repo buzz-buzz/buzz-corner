@@ -85,7 +85,7 @@ export const profileStep4InfoWordBold = '外籍伙伴';
 export const placementSelectWord = '选择最匹配的选项';
 export const placementAudioWord = '收听下面的问题并录制你的回答';
 export const placementListeningAudio = '点击收听';
-export const placementRecordAudio = '点击录制';
+export const placementRecordAudio = '点击录音';
 export const placementRecordAgain = '重新录制';
 
 export const placementYes = '是';
