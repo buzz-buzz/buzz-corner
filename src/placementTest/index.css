@@ -270,3 +270,15 @@ div.help-modal > .help-content > img{
 .placement-second .ui.segment{
     padding: 0;
 }
+
+.profile-btn-placement{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.bottom-50px{
+    margin-bottom: 70px;
+}
