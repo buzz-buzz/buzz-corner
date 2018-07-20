@@ -5,13 +5,14 @@
   .placement-image-item{
     display: inline-block;
     position: relative;
-    border-radius: 10px;
     overflow: hidden;
     margin-bottom: 7px;
     img{
       width: 160px;
+      border-radius: 10px;
     }
     .select-status{
+      cursor: pointer;
       position: absolute;
       height: 35px;
       width: 35px;
