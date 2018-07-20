@@ -146,6 +146,8 @@ export default class PlacementRecorder extends React.Component {
     }
 
     async componentWillUnmount() {
+        this.setState({recordingTime: 0});
+
         if (this.state.recording) {
             await this.closeRecord();
         }
@@ -154,6 +156,8 @@ export default class PlacementRecorder extends React.Component {
             this.audio.pause();
             this.setState({isPlaying: false});
         }
+
+        recordingTime = 0;
     }
 
     reReplyAudio() {
