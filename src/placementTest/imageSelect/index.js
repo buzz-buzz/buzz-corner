@@ -32,7 +32,7 @@ export default class ImageSelect extends React.Component{
 
     render(){
         return (
-            <div className="placement-images">
+            <div className="placement-images" style={{maxWidth: '375px', margin: '0 auto'}}>
                 {
                     this.state.urls.map((item, index) => {
                         return <div className="placement-image-item" key={index}
