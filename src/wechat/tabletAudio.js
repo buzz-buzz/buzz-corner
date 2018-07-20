@@ -94,11 +94,17 @@ export default class TabletAudio {
     }
 
     play() {
-        let audioNow = document.createElement('audio');
-        let superBuffer = new Blob(this.validBlobs, {type: 'audio/mp3'});
-        audioNow.muted = false;
-        audioNow.src = window.URL.createObjectURL(superBuffer);
-        audioNow.play();
+        try{
+            let audioNow = document.createElement('audio');
+            let superBuffer = new Blob(this.validBlobs, {type: 'audio/mp3'});
+            audioNow.muted = false;
+            audioNow.src = window.URL.createObjectURL(superBuffer);
+            audioNow.play();
+        }
+        catch (ex){
+            console.log('tablet play err:' + ex);
+        }
+
     }
 
     async getQiniuLink() {
