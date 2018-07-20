@@ -12,6 +12,7 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import Client from "../common/client";
+import ErrorHandler from "../common/error-handler";
 import '../my/my.css';
 import './index.css';
 import CurrentUser from "../membership/user";
@@ -61,21 +62,23 @@ export default class PlacementModal extends React.Component {
 
     answering(event, qNum, answer) {
         let answers = this.state.answers;
-        if(qNum === 3){
-            if(!answers[qNum] ){
+        if (qNum === 3) {
+            if (!answers[qNum]) {
                 answers[qNum] = [answer];
-            }else if(answers[qNum] && answers[qNum].length &&  answers[qNum].indexOf(answer) === -1){
-                if(answers[qNum].length === 2 && !this.state.messageModal){
+            } else if (answers[qNum] && answers[qNum].length && answers[qNum].indexOf(answer) === -1) {
+                if (answers[qNum].length === 2 && !this.state.messageModal) {
                     //提示最多选两张 再次点击取消
                     this.closeMessageModal();
-                    this.setMessage('最多选取两张图片哦，再次点击已选中图片"取消"选中。',  'error')
+                    this.setMessage('最多选取两张图片哦，再次点击已选中图片"取消"选中。', 'error')
                 }
 
                 answers[qNum].length < 2 && answers[qNum].push(answer);
-            }else if(answers[qNum] && answers[qNum].length &&  answers[qNum].indexOf(answer) > -1){
-                answers[qNum] = answers[qNum].filter(item => {return item !== answer;});
+            } else if (answers[qNum] && answers[qNum].length && answers[qNum].indexOf(answer) > -1) {
+                answers[qNum] = answers[qNum].filter(item => {
+                    return item !== answer;
+                });
             }
-        }else{
+        } else {
             answers[qNum] = answer;
         }
 
@@ -84,7 +87,7 @@ export default class PlacementModal extends React.Component {
         });
     }
 
-    setMessage(message, type){
+    setMessage(message, type) {
         this.setState({
             messageModal: true,
             messageContent: message,
@@ -171,10 +174,6 @@ export default class PlacementModal extends React.Component {
         }, 5000)
     }
 
-    checkPlacementAnswer() {
-        return this.state.answers.length === 6;
-    }
-
     recordingChanged(recordingStatus) {
         console.log('recording status = ', recordingStatus);
         if (recordingStatus === false) {
@@ -200,10 +199,70 @@ export default class PlacementModal extends React.Component {
         }
     }
 
+    saveStep3(){
+        try{
+            let placementTestData = {
+                user_id: this.state.userId,
+                detail: JSON.stringify({
+                    questions: this.state.questions,
+                    answers: this.state.answers
+                })
+            };
+
+            ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                    json: placementTestData,
+                    method: 'PUT'
+                }
+            });
+        }
+        catch(ex){
+            ErrorHandler.notify('保存placement-3出错：', ex);
+        }
+    }
+
+    async saveStep6(){
+        try {
+            let placementTestData = {
+                user_id: this.state.userId,
+                detail: JSON.stringify({
+                    questions: this.state.questions,
+                    answers: this.state.answers
+                })
+            };
+
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                    json: placementTestData,
+                    method: 'PUT'
+                }
+            });
+
+            this.setState({loadingModal: false});
+
+            if (this.props.location.query.intro) {
+                browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
+            } else {
+                browserHistory.push('/home');
+            }
+        }
+        catch(ex) {
+            //show error
+            ErrorHandler.notify('保存placement-6出错：', ex);
+            this.setState({loadingModal: false});
+        }
+    }
+
     async submit() {
         try {
             if (this.state.step < 6) {
                 Track.event('测试_题' + this.state.step + '继续');
+
+                if (this.state.step === 3) {
+                    this.saveStep3();
+                }
 
                 let newStep = this.state.step + 1;
 
@@ -213,50 +272,19 @@ export default class PlacementModal extends React.Component {
 
                 Track.event('测试_题' + newStep + '页面');
             } else {
-
-                console.log(this.state.answers);
-
                 Track.event('测试_题' + this.state.step + '完成');
 
-                //done
                 this.setState({loadingModal: true});
 
-                if (this.checkPlacementAnswer()) {
-                    let placementTestData = {
-                        user_id: this.state.userId,
-                        detail: JSON.stringify({
-                            questions: this.state.questions,
-                            answers: this.state.answers
-                        })
-                    };
-
-                    await ServiceProxy.proxyTo({
-                        body: {
-                            uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                            json: placementTestData,
-                            method: 'PUT'
-                        }
-                    });
-
-                    this.setState({loadingModal: false});
-
-                    if(this.props.location.query.intro){
-                        browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
-                    }else{
-                        browserHistory.push('/home');
-                    }
-                } else {
-                    //show error
-                    this.setState({loadingModal: false});
-                }
+                await this.saveStep6();
             }
         } catch (ex) {
             console.error(ex);
             this.setState({loadingModal: false});
 
-            if(this.props.location.query.intro){
+            if (this.props.location.query.intro) {
                 browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
-            }else{
+            } else {
                 browserHistory.push('/home');
             }
         }
@@ -271,14 +299,17 @@ export default class PlacementModal extends React.Component {
                 <HeaderWithBack goBack={this.goBack}/>
                 <PlacementProgress step={this.state.step}/>
                 <Form className='profile-body'>
-                    <PlacementQuestion step={this.state.step} questions={this.state.questions} recording={this.state.recording}
-                                       answering={this.answering} answers={this.state.answers} handleUploadUrl={this.handleUploadUrl.bind(this)}
+                    <PlacementQuestion step={this.state.step} questions={this.state.questions}
+                                       recording={this.state.recording}
+                                       answering={this.answering} answers={this.state.answers}
+                                       handleUploadUrl={this.handleUploadUrl.bind(this)}
                                        open={this.state.recording} setMessage={this.setMessage}
                                        avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                     />
                     <div className="profile-btn">
-                        <ButtonBottom disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2) : !this.state.answers[this.state.step - 1]}
-                                    text={Resources.getInstance().profileContinue} submit={this.submit}/>
+                        <ButtonBottom
+                            disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2) : !this.state.answers[this.state.step - 1]}
+                            text={Resources.getInstance().profileContinue} submit={this.submit}/>
                     </div>
                 </Form>
             </div>
