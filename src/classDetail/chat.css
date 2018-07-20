@@ -4,10 +4,13 @@
 }
 
 .talk-bubble {
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     background-color: white;
     align-self: center;
+    min-height: 42px;
+    justify-content: center;
+    align-items: center;
 }
 
 .border {
@@ -376,7 +379,7 @@
 }
 
 .talktext > p > img{
-    margin: 0 5px;
+    margin: 0 10px 0 5px;
 }
 
 .practise-word{

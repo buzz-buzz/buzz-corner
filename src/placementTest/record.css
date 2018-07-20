@@ -22,7 +22,7 @@
       color: #000; }
   .record-control .button-record-again, .record-control .button-record-done {
     border-radius: 5px;
-    border: solid 0.5px #666666;
+    border: solid 1px #666666;
     padding: 10px 20px;
     color: #666;
     font-size: 15px; }
