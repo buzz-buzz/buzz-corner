@@ -34,20 +34,24 @@ export default class PlacementRecorder extends React.Component {
     }
 
     async recordAgain() {
-        if (this.state.recording) {
-            this.setState({recordAgainLoading: true});
-            console.log('stop---recording');
-            //调用停止录音方法
-            await this.state.recordAudio.stopRecording();
-            recordingTime = 0;
-            await new Promise(resolve => window.setTimeout(resolve, 2000));
-        }
+        if (this.state.isPlaying) {
+            this.props.setMessage('正在播放中, 请稍后操作。', 'error');
+        } else {
+            if (this.state.recording) {
+                this.setState({recordAgainLoading: true});
+                console.log('stop---recording');
+                //调用停止录音方法
+                await this.state.recordAudio.stopRecording();
+                recordingTime = 0;
+                await new Promise(resolve => window.setTimeout(resolve, 2000));
+            }
 
-        this.setState({recording: false});
-        this.setState({recording: true, recordAgainLoading: false}, async() => {
-            await this.state.recordAudio.startRecording();
-            console.log('begin...');
-        });
+            this.setState({recording: false});
+            this.setState({recording: true, recordAgainLoading: false}, async() => {
+                await this.state.recordAudio.startRecording();
+                console.log('begin...');
+            });
+        }
     }
 
     getTime(time) {
@@ -56,29 +60,23 @@ export default class PlacementRecorder extends React.Component {
 
     recordAnswer() {
         if (!this.state.recording && !this.props.answers[this.props.step - 1]) {
-            console.log('开始录音');
-
             this.setState({recording: true}, async() => {
                 await this.state.recordAudio.startRecording();
             });
         } else if (this.state.recording) {
-            console.log('warning, 录音中...');
+            this.props.setMessage('正在录制中...', 'error');
         } else if (this.props.answers[this.props.step - 1]) {
-            console.log('播放...');
             this.reReplyAudio();
         }
     }
 
     async stopRecord() {
-        console.log('完成录音');
         if (recordingTime && recordingTime >= 30) {
             this.setState({loadingModal: true});
         }
 
         this.setState({recording: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
-                console.log('录制时间满足条件， 可保存结果' + recordingTime);
-
                 try {
                     let url = await this.state.recordAudio.stopRecordingWithQiniuLink();
 
@@ -87,6 +85,8 @@ export default class PlacementRecorder extends React.Component {
                         err: '',
                         type: 'end'
                     });
+
+                    this.setState({loadingModal: false, recordingTime: recordingTime});
                 }
                 catch (ex) {
                     this.props.handleUploadUrl({
@@ -94,11 +94,11 @@ export default class PlacementRecorder extends React.Component {
                         err: ex.toString(),
                         type: 'end'
                     });
-                }
 
-                this.setState({loadingModal: false, recordingTime: recordingTime});
+                    this.setState({loadingModal: false, recordingTime: 0});
+                }
             } else {
-                console.log('录制时间不满足条件， 不可继续' + recordingTime);
+                this.props.setMessage('录制时间30-60秒哦', 'error');
             }
 
             recordingTime = 0;
@@ -150,10 +150,10 @@ export default class PlacementRecorder extends React.Component {
 
     reReplyAudio() {
         this.setState({isPlaying: true});
-        try{
+        try {
             this.state.recordAudio.play();
         }
-        catch (ex){
+        catch (ex) {
             return;
         }
 
@@ -205,6 +205,14 @@ export default class PlacementRecorder extends React.Component {
                                 </p>
                             </div>
                         </div>
+                        {
+                            this.state.recordingTime && this.state.recordingTime > 0 ?
+                                <div className="timeShow">
+                                    {this.state.recordingTime}”
+                                </div>
+                                :
+                                ''
+                        }
                     </div>
                     {
                         this.props.answers[this.props.step - 1] ?
