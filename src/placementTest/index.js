@@ -6,6 +6,7 @@ import ServiceProxy from '../service-proxy';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ButtonBottom from '../common/commonComponent/submitButtonBottom';
+import WhiteSpace from '../common/commonComponent/whiteSpace';
 import PlacementProgress from './placementProgress';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
@@ -43,6 +44,7 @@ export default class PlacementModal extends React.Component {
         this.finishRecording = this.finishRecording.bind(this);
         this.goBack = this.goBack.bind(this);
         this.setMessage = this.setMessage.bind(this);
+        this.goHomePage = this.goHomePage.bind(this);
     }
 
     goBack() {
@@ -57,6 +59,8 @@ export default class PlacementModal extends React.Component {
             this.setState({
                 step: newStep
             });
+        } else if (this.state.step === 7) {
+            this.goHomePage();
         }
     }
 
@@ -199,8 +203,8 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    saveStep3(){
-        try{
+    saveStep3() {
+        try {
             let placementTestData = {
                 user_id: this.state.userId,
                 detail: JSON.stringify({
@@ -217,12 +221,12 @@ export default class PlacementModal extends React.Component {
                 }
             });
         }
-        catch(ex){
+        catch (ex) {
             ErrorHandler.notify('保存placement-3出错：', ex);
         }
     }
 
-    async saveStep6(){
+    async saveStep6() {
         try {
             let placementTestData = {
                 user_id: this.state.userId,
@@ -240,18 +244,22 @@ export default class PlacementModal extends React.Component {
                 }
             });
 
-            this.setState({loadingModal: false});
+            let newStep = this.state.step + 1;
 
-            if (this.props.location.query.intro) {
-                browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
-            } else {
-                browserHistory.push('/home');
-            }
+            this.setState({loadingModal: false, step: newStep});
         }
-        catch(ex) {
+        catch (ex) {
             //show error
             ErrorHandler.notify('保存placement-6出错：', ex);
             this.setState({loadingModal: false});
+        }
+    }
+
+    goHomePage() {
+        if (this.props.location.query.intro) {
+            browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
+        } else {
+            browserHistory.push('/home');
         }
     }
 
@@ -271,22 +279,20 @@ export default class PlacementModal extends React.Component {
                 });
 
                 Track.event('测试_题' + newStep + '页面');
-            } else {
+            } else if (this.state.step === 6) {
                 Track.event('测试_题' + this.state.step + '完成');
 
                 this.setState({loadingModal: true});
 
                 await this.saveStep6();
+            } else if (this.state.step === 7) {
+                this.goHomePage();
             }
         } catch (ex) {
             console.error(ex);
-            this.setState({loadingModal: false});
-
-            if (this.props.location.query.intro) {
-                browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
-            } else {
-                browserHistory.push('/home');
-            }
+            this.setState({loadingModal: false}, () => {
+                this.goHomePage();
+            });
         }
     }
 
@@ -297,19 +303,33 @@ export default class PlacementModal extends React.Component {
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack}/>
-                <PlacementProgress step={this.state.step}/>
-                <Form className='profile-body'>
-                    <PlacementQuestion step={this.state.step} questions={this.state.questions}
-                                       recording={this.state.recording}
-                                       answering={this.answering} answers={this.state.answers}
-                                       handleUploadUrl={this.handleUploadUrl.bind(this)}
-                                       open={this.state.recording} setMessage={this.setMessage}
-                                       avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                {
+                    this.state.step <= 6 &&
+                    <PlacementProgress step={this.state.step}/>
+                }
+                {
+                    this.state.step === 7 &&
+                    <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png"
                     />
+                }
+                <Form className='profile-body'>
+                    {
+                        this.state.step <= 6 &&
+                        <PlacementQuestion step={this.state.step} questions={this.state.questions}
+                                           recording={this.state.recording}
+                                           answering={this.answering} answers={this.state.answers}
+                                           handleUploadUrl={this.handleUploadUrl.bind(this)}
+                                           open={this.state.recording} setMessage={this.setMessage}
+                                           avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
+                        />
+                    }
                     <div className="profile-btn-placement">
                         <ButtonBottom
-                            disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2) : !this.state.answers[this.state.step - 1]}
-                            text={Resources.getInstance().profileContinue} submit={this.submit}/>
+                            disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
+                                : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
+                            text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
+                            submit={this.submit}/>
                     </div>
                 </Form>
                 <div className="offset-bottom"></div>
