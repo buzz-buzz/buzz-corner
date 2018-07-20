@@ -62,11 +62,21 @@ export default class PlacementQuestion extends React.Component {
                         <ImageModal select={this.props.answering} step={this.props.step} answers={this.props.answers}  />
                 }
                 {
-                    this.props.step > 4 && this.props.questions && this.props.questions.length &&
+                    this.props.step === 5 && this.props.questions && this.props.questions.length &&
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].title &&
                     <PlacementRecorder  step={this.props.step} answers={this.props.answers}
                                         open={this.props.open} onClose={this.props.onClose}
                                         avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
+                                        setMessage={this.props.setMessage}
+                    />
+                }
+                {
+                    this.props.step === 6 && this.props.questions && this.props.questions.length &&
+                    this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].title &&
+                    <PlacementRecorder  step={this.props.step} answers={this.props.answers}
+                                        open={this.props.open} onClose={this.props.onClose}
+                                        avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
+                                        setMessage={this.props.setMessage}
                     />
                 }
             </div>

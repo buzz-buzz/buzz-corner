@@ -40,7 +40,8 @@ export default class PlacementModal extends React.Component {
         this.recordingChanged = this.recordingChanged.bind(this);
         this.cancelRecording = this.cancelRecording.bind(this);
         this.finishRecording = this.finishRecording.bind(this);
-        this.goBack = this.goBack.bind(this)
+        this.goBack = this.goBack.bind(this);
+        this.setMessage = this.setMessage.bind(this);
     }
 
     goBack() {
@@ -66,13 +67,8 @@ export default class PlacementModal extends React.Component {
             }else if(answers[qNum] && answers[qNum].length &&  answers[qNum].indexOf(answer) === -1){
                 if(answers[qNum].length === 2 && !this.state.messageModal){
                     //提示最多选两张 再次点击取消
-                    this.setState({
-                        messageModal: true,
-                        messageContent: '最多选取两张图片哦，再次点击已选中图片"取消"选中。',
-                        messageName: 'error'
-                    });
-
                     this.closeMessageModal();
+                    this.setMessage('最多选取两张图片哦，再次点击已选中图片"取消"选中。',  'error')
                 }
 
                 answers[qNum].length < 2 && answers[qNum].push(answer);
@@ -86,6 +82,16 @@ export default class PlacementModal extends React.Component {
         this.setState({
             answers: answers
         });
+    }
+
+    setMessage(message, type){
+        this.setState({
+            messageModal: true,
+            messageContent: message,
+            messageName: type
+        });
+
+        this.closeMessageModal();
     }
 
     async skip() {
@@ -267,7 +273,7 @@ export default class PlacementModal extends React.Component {
                 <Form className='profile-body'>
                     <PlacementQuestion step={this.state.step} questions={this.state.questions} recording={this.state.recording}
                                        answering={this.answering} answers={this.state.answers} handleUploadUrl={this.handleUploadUrl.bind(this)}
-                                       open={this.state.recording}
+                                       open={this.state.recording} setMessage={this.setMessage}
                                        avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                     />
                     <div className="profile-btn">
