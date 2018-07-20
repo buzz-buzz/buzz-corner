@@ -19,7 +19,8 @@ export default class PlacementRecorder extends React.Component {
             soundPlaying: '//cdn-corner.resource.buzzbuzzenglish.com/icon_recording.gif',
             recordingTime: 0,
             recordAudio: /MicroMessenger/.test(navigator.userAgent) ? new WechatAudio() : new TabletAudio(),
-            isPlaying: false
+            isPlaying: false,
+            recordAgainLoading: false
         };
 
         recordingTime = 0;
@@ -34,14 +35,18 @@ export default class PlacementRecorder extends React.Component {
 
     async recordAgain() {
         if (this.state.recording) {
+            this.setState({recordAgainLoading: true});
+            console.log('stop---recording');
             //调用停止录音方法
             await this.state.recordAudio.stopRecording();
             recordingTime = 0;
+            await new Promise(resolve => window.setTimeout(resolve, 2000));
         }
 
         this.setState({recording: false});
-        this.setState({recording: true}, async() => {
+        this.setState({recording: true, recordAgainLoading: false}, async() => {
             await this.state.recordAudio.startRecording();
+            console.log('begin...');
         });
     }
 
@@ -60,7 +65,7 @@ export default class PlacementRecorder extends React.Component {
             console.log('warning, 录音中...');
         } else if (this.props.answers[this.props.step - 1]) {
             console.log('播放...');
-            this.reReplyAudio(this.props.answers[this.props.step - 1]);
+            this.reReplyAudio();
         }
     }
 
@@ -143,11 +148,15 @@ export default class PlacementRecorder extends React.Component {
         }
     }
 
-    reReplyAudio(url) {
-        console.log('play:');
-        console.log(url);
+    reReplyAudio() {
         this.setState({isPlaying: true});
-        this.state.recordAudio.play();
+        try{
+            this.state.recordAudio.play();
+        }
+        catch (ex){
+            return;
+        }
+
         window.setTimeout(() => {
             this.setState({isPlaying: false});
         }, this.state.recordingTime * 1000)
@@ -213,6 +222,12 @@ export default class PlacementRecorder extends React.Component {
                             timeout={this.stopRecord}
                             getTime={this.getTime}
                         />
+                    }
+                    {
+                        this.state.recordAgainLoading &&
+                        <div className="record-again-loading">
+                            <Icon loading name="spinner"/>
+                        </div>
                     }
                 </div>
             </div>
