@@ -154,7 +154,7 @@ export default class PlacementModal extends React.Component {
             this.setState({
                 answers: clonedAnswers,
                 messageModal: true,
-                messageContent: Resources.getInstance().errorUpload + ':' + url.err,
+                messageContent: Resources.getInstance().errorUpload + ':' + JSON.stringify(url.err),
                 messageName: 'error'
             });
 
@@ -298,7 +298,7 @@ export default class PlacementModal extends React.Component {
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack}/>
                 <PlacementProgress step={this.state.step}/>
-                <Form className='profile-body'>
+                <Form className='profile-body bottom-50px'>
                     <PlacementQuestion step={this.state.step} questions={this.state.questions}
                                        recording={this.state.recording}
                                        answering={this.answering} answers={this.state.answers}
@@ -306,7 +306,7 @@ export default class PlacementModal extends React.Component {
                                        open={this.state.recording} setMessage={this.setMessage}
                                        avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                     />
-                    <div className="profile-btn">
+                    <div className="profile-btn-placement">
                         <ButtonBottom
                             disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2) : !this.state.answers[this.state.step - 1]}
                             text={Resources.getInstance().profileContinue} submit={this.submit}/>

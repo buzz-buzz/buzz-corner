@@ -26,3 +26,23 @@
     }
   }
 }
+
+@media screen and (max-width: 360px) {
+  .placement-images{
+    .placement-image-item{
+      img{
+        width: 150px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .placement-images{
+    .placement-image-item{
+      img{
+        width: 130px;
+      }
+    }
+  }
+}

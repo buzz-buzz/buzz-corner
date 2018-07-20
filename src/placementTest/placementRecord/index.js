@@ -94,7 +94,7 @@ export default class PlacementRecorder extends React.Component {
                 catch (ex) {
                     this.props.handleUploadUrl({
                         url: '',
-                        err: ex.toString(),
+                        err: ex,
                         type: 'end'
                     });
 

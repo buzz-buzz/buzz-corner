@@ -53,7 +53,7 @@ export default class StopWatch extends React.Component {
                             this.props.getTime(this.state.timeElapsed);
                         }
 
-                        if (this.state.timeElapsed >= 60) {
+                        if (this.state.timeElapsed >= 59) {
                             this.props.timeout();
                             this.stopTick();
                         }
