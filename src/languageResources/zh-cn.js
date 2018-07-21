@@ -58,7 +58,6 @@ export const sessions = '我的课时';
 export const profileStep1 = '联系方式';
 export const profileStep1Info = '仅用于学习相关通知与服务';
 export const profileParentsName = '家长姓名';
-export const profilePhoneInfo = '中国(+86)';
 export const profilePhoneHolder = '手机号码';
 export const profilePhoneCheck = '获取验证码';
 export const profilePhoneLabel = '输入验证码';
@@ -356,6 +355,7 @@ export const popUserUpdateAccountInfo = '该绑定手机号已设置账号密码
 export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密码。若更换绑定，则会自动以新的邮箱为登录账号。';
 
 export const audioDisabled = "需要录音权限，但是你没有给予，请先允许录音后再试……";
+export const selectCountryCode = "请选择国家代码";
 
 export function signInWith(method) {
     return (

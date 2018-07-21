@@ -16,7 +16,9 @@ export default (props) =>
         <PhoneNumber profile={props.profile} handleChange={props.handleChange}
                      code={props.code} handleCodeChange={props.handleCodeChange}
                      waitSec={props.waitSec} mobileValid={props.mobileValid}
-                     sms={props.sms}/>
+                     sms={props.sms}
+                     onCountryCodeChange={props.onCountryCodeChange}
+                     mobileCountry={props.mobileCountry}/>
 
         <div className="phone-number">
             <Button>Email</Button>

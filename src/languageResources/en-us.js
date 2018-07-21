@@ -59,7 +59,6 @@ export const sessions = 'Sessions';
 export const profileStep1 = 'Contact Information';
 export const profileStep1Info = 'Session information and service notification';
 export const profileParentsName = 'Parent\'s Information';
-export const profilePhoneInfo = 'China(+86)';
 export const profilePhoneHolder = 'Phone number';
 export const profilePhoneCheck = 'Receive';
 export const profilePhoneLabel = 'Verification code';
@@ -356,6 +355,7 @@ export const accountSelectLoginInfo = 'The system detected the user information 
 export const popUserUpdateAccountInfo = 'The binding phone number has been set up with an account and password. If the phone changed, the new phone number will be used as the login account automatically.';
 export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up with an account and password. If the e-mail changed, the new e-mail address will be used as the login account automatically.';
 export const audioDisabled = "Need the permission for recording, but you denied it. Please authorize the permission and come back here to try again...";
+export const selectCountryCode = "Please select country code";
 
 export function signInWith(method) {
     return (

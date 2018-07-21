@@ -6,17 +6,29 @@ import ContactInfoCompanion from '../contact-info-companion';
 export default (props) => <div>
     {
         props.role === MemberType.Student &&
-        <ContactInfoStudent profile={props.profile} handleChange={props.handleChange} code={props.code}
-                            handleCodeChange={props.handleCodeChange} waitSec={props.waitSec}
+        <ContactInfoStudent profile={props.profile}
+                            handleChange={props.handleChange} code={props.code}
+                            handleCodeChange={props.handleCodeChange}
+                            waitSec={props.waitSec}
                             mobileValid={props.mobileValid} sms={props.sms}
-                            agreementCheck={props.agreementCheck} agreement={props.agreement}/>
+                            agreementCheck={props.agreementCheck}
+                            agreement={props.agreement}
+                            mobileCountry={props.mobileCountry}
+                            onCountryCodeChange={props.onCountryCodeChange}/>
     }
     {
         props.role === MemberType.Companion &&
-        <ContactInfoCompanion profile={props.profile} handleChange={props.handleChange} code={props.code}
-                              handleCodeChange={props.handleCodeChange} waitSec={props.waitSec}
-                              mobileValid={props.mobileValid} sms={props.sms} emailValid={props.emailValid}
-                              agreementCheck={props.agreementCheck} agreement={props.agreement}
-                              sendEmail={props.sendEmail}/>
+        <ContactInfoCompanion profile={props.profile}
+                              handleChange={props.handleChange}
+                              code={props.code}
+                              handleCodeChange={props.handleCodeChange}
+                              waitSec={props.waitSec}
+                              mobileValid={props.mobileValid} sms={props.sms}
+                              emailValid={props.emailValid}
+                              agreementCheck={props.agreementCheck}
+                              agreement={props.agreement}
+                              sendEmail={props.sendEmail}
+                              mobileCountry={props.mobileCountry}
+                              onCountryCodeChange={props.onCountryCodeChange}/>
     }
 </div>

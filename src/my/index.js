@@ -21,9 +21,20 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
 import Client from "../common/client";
 import BirthdayHelper from '../common/birthdayFormat';
+import {iso3166_data} from 'phone';
 import './my.css';
 
 let interval = null;
+
+
+let countryCodeMap = {};
+iso3166_data.map(i => {
+    countryCodeMap[i.alpha3] = i.country_code;
+});
+let countryLongNameMap = {};
+iso3166_data.map(i => {
+    countryLongNameMap[i.alpha2] = i.alpha3;
+});
 
 class My extends Component {
     constructor(props) {
@@ -54,6 +65,7 @@ class My extends Component {
             agreement: true,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             placement_topics: Topics,
+            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]]
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -80,7 +92,10 @@ class My extends Component {
             const phoneResult = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-                    json: {mobile: this.state.profile.phone},
+                    json: {
+                        mobile: this.state.profile.phone,
+                        mobile_country: this.state.mobileCountry
+                    },
                     method: 'POST'
                 }
             });
@@ -307,9 +322,10 @@ class My extends Component {
         clonedProfile[event.target.name] = event.target.value;
         this.setState({
             profile: clonedProfile,
-            mobileValid: clonedProfile.phone && clonedProfile.phone.length === 11,
+            mobileValid: clonedProfile.phone && clonedProfile.phone.length > 0,
             emailValid: clonedProfile.email && this.state.email_reg.test(clonedProfile.email) && clonedProfile.student_en_name
         });
+
     }
 
     handleChangeBirthdayLabel(event) {
@@ -487,7 +503,7 @@ class My extends Component {
 
         return {
             parent_name: profile.parent_name,
-            mobile: profile.phone,
+            mobile: '+' + countryCodeMap[this.state.mobileCountry] + profile.phone,
             name: profile.student_en_name,
             gender: profile.gender,
             city: profile.city,
@@ -520,7 +536,7 @@ class My extends Component {
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
-                mobileValid: profile && profile.phone && profile.phone.length === 11,
+                mobileValid: profile && profile.phone && profile.phone.length > 0,
                 emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
                 profile.student_en_name
             })
@@ -589,6 +605,8 @@ class My extends Component {
                                                   agreement={this.state.agreement}
                                                   sendEmail={this.sendEmail}
                                                   emailValid={this.state.emailValid}
+                                                  mobileCountry={this.state.mobileCountry}
+                                                  onCountryCodeChange={this.onCountryCodeChange}
                                 />
                             ) : (
                                 this.state.step === 2 ? (
@@ -695,14 +713,22 @@ class My extends Component {
             return this.studentContactInformationFormIsInvalid();
         }
         if (this.state.profile.role === MemberType.Companion) {
-            return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code;
+            return this.companionContactInformationFormIsInvalid();
         }
         return true;
+    }
+
+    companionContactInformationFormIsInvalid() {
+        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone;
     }
 
     studentContactInformationFormIsInvalid() {
         return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code;
     }
+
+    onCountryCodeChange = (event, data) =>
+        this.setState({mobileCountry: data.value})
+
 }
 
 export default My;
