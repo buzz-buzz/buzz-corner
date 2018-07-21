@@ -310,7 +310,8 @@ export default class PlacementModal extends React.Component {
                 {
                     this.state.step === 7 &&
                     <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
-                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png"
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_placement.svg"
+                                style={{background: 'white'}}
                     />
                 }
                 <Form className='profile-body'>

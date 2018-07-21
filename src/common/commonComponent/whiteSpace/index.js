@@ -4,7 +4,7 @@ import './index.css';
 class WhiteSpace extends Component {
     render() {
         return (
-            <div className="white-space">
+            <div className="white-space" style={this.props.style || {}}>
                 <img src={this.props.src || "//cdn-corner.resource.buzzbuzzenglish.com/icon-message-blank-page.svg"} alt=""/>
                 <p>{this.props.message}</p>
             </div>
