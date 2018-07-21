@@ -337,7 +337,7 @@ class Home extends Component {
                         });
                     }
                 } else if (profile.role === MemberType.Companion) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.class_id !== 'observation') {
                         //get companion evaluation is done
                         let result = await this.getCompanionEvaluation(item.class_id);
 
