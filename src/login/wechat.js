@@ -1,6 +1,5 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
-import {MemberType} from "../membership/member-type";
 
 export default class WechatLogin extends React.Component {
     constructor(props) {
