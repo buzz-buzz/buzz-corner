@@ -118,6 +118,10 @@ export default class CompanionEvaluation extends React.Component {
 
                 this.setState({evaluation_status: true}, () => {
                     this.props.setModalSubmitStatus('a', 2);
+
+                    if(sessionStorage.getItem('evaluation')){
+                        sessionStorage.setItem('evaluation', null);
+                    }
                 });
             } catch (ex) {
                 ErrorHandler.notify('保存能力打分出错：', ex);
