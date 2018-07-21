@@ -142,7 +142,10 @@ class My extends Component {
             let emailResult = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-                    json: {mail: this.state.profile.email, name: this.state.profile.student_en_name},
+                    json: {
+                        mail: this.state.profile.email,
+                        name: this.state.profile.student_en_name
+                    },
                     method: 'POST'
                 }
             });
@@ -338,7 +341,10 @@ class My extends Component {
                             '验证数据': this.state.profile.phone + '-' + this.state.code
                         });
 
-                        this.setState({messageModal: true, messageContent: '短信校验失败'});
+                        this.setState({
+                            messageModal: true,
+                            messageContent: '短信校验失败'
+                        });
                         this.closeMessageModal();
                         return;
                     }
@@ -432,7 +438,8 @@ class My extends Component {
                 Track.event('注册_对暗号页面-继续');
 
                 //if http,then go https
-                if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
+                if (Client.getClient() === 'tablet' &&
+                    !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
                     window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement?intro=1');
                 } else {
                     window.location.href = '/placement?intro=1';
@@ -514,13 +521,18 @@ class My extends Component {
                 profile: profile,
                 userId: profile.user_id,
                 mobileValid: profile && profile.phone && profile.phone.length === 11,
-                emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name
+                emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
+                profile.student_en_name
             })
         }
         catch (ex) {
             console.log(ex.toString());
             //browserHistory.push('/');
-            this.setState({messageModal: true, messageContent: ex.toString(), messageName: 'error'});
+            this.setState({
+                messageModal: true,
+                messageContent: ex.toString(),
+                messageName: 'error'
+            });
             this.closeMessageModal();
         }
     }
@@ -554,27 +566,34 @@ class My extends Component {
         return (
             <div className="my-profile">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                <MessageModal modalName={this.state.messageName}
+                              modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <HeaderWithBack goBack={this.goBack}/>
-                <ProfileProgress step={this.state.step} role={this.state.profile.role}/>
+                <ProfileProgress step={this.state.step}
+                                 role={this.state.profile.role}/>
                 <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {
                         this.state.step === 1 ?
                             (
-                                <ProfileFormStep1 role={this.state.profile.role} profile={this.state.profile}
+                                <ProfileFormStep1 role={this.state.profile.role}
+                                                  profile={this.state.profile}
                                                   handleChange={this.handleChange}
                                                   code={this.state.code}
                                                   handleCodeChange={this.handleCodeChange}
-                                                  mobileValid={this.state.mobileValid} sms={this.sms}
-                                                  waitSec={this.state.waitSec} agreementCheck={this.agreementCheck}
+                                                  mobileValid={this.state.mobileValid}
+                                                  sms={this.sms}
+                                                  waitSec={this.state.waitSec}
+                                                  agreementCheck={this.agreementCheck}
                                                   agreement={this.state.agreement}
-                                                  sendEmail={this.sendEmail} emailValid={this.state.emailValid}
+                                                  sendEmail={this.sendEmail}
+                                                  emailValid={this.state.emailValid}
                                 />
                             ) : (
                                 this.state.step === 2 ? (
-                                    <ProfileFormStep2 role={this.state.profile.role} profile={this.state.profile}
+                                    <ProfileFormStep2 role={this.state.profile.role}
+                                                      profile={this.state.profile}
                                                       handleChange={this.handleChange}
                                                       changeGenderMale={this.changeGenderMale}
                                                       changeGenderFemale={this.changeGenderFemale}
@@ -589,12 +608,17 @@ class My extends Component {
                                     this.state.step === 3 ?
                                         (<div className='topic form-content'>
                                             <p>{Resources.getInstance().profileStep3}</p>
-                                            <div className="topic-items" style={{padding: '20px 0'}}>
+                                            <div className="topic-items"
+                                                 style={{padding: '20px 0'}}>
                                                 {
                                                     this.state.placement_topics.map((item, index) => {
-                                                        return <Hobby key={index} src={item.url} circleColor={item.color_f}
-                                                                      bgColor={item.color_b} word={item.name}
-                                                                      wordColor={item.color_f} select={this.topicChange}
+                                                        return <Hobby key={index}
+                                                                      src={item.url}
+                                                                      circleColor={item.color_f}
+                                                                      bgColor={item.color_b}
+                                                                      word={item.name}
+                                                                      wordColor={item.color_f}
+                                                                      select={this.topicChange}
                                                                       name={item.value}
                                                                       selected={this.state.profile.topics.indexOf(item.value) >= 0}/>
                                                     })
@@ -616,8 +640,9 @@ class My extends Component {
                     }
                     <div className="profile-btn">
                         <ButtonBottom
-                            disabled={this.state.step === 1 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code : !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code) : (this.state.step === 2 ? (this.state.profile.role === MemberType.Student ? !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' : !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone) : (this.state.step === 3 ? !this.state.profile.topics.length : false))}
-                            text={Resources.getInstance().profileContinue} submit={this.submit}/>
+                            disabled={this.formIsInvalid()}
+                            text={Resources.getInstance().profileContinue}
+                            submit={this.submit}/>
                         {
                             this.state.step === 4 ? (
                                 <div className="skip"
@@ -628,6 +653,55 @@ class My extends Component {
                 </Form>
             </div>
         );
+    }
+
+    formIsInvalid() {
+        if (this.state.step === 1) {
+            return this.contactInfoFormIsInvalid();
+        }
+        if (this.state.step === 2) {
+            return this.personalInformationFormIsInvalid();
+        }
+        if (this.state.step === 3) {
+            return this.hobbyFormIsInvalid();
+        }
+        return true;
+    }
+
+    hobbyFormIsInvalid() {
+        return !this.state.profile.topics.length;
+    }
+
+    personalInformationFormIsInvalid() {
+        if (this.state.profile.role === MemberType.Student) {
+            return this.studentPersonalInformationFormIsInvalid();
+        }
+        if (this.state.profile.role === MemberType.Companion) {
+            return this.companionPersonalInformationFormIsInvalid();
+        }
+        return true;
+    }
+
+    companionPersonalInformationFormIsInvalid() {
+        return !this.state.profile.date_of_birth || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u' || !this.state.profile.country || !this.state.profile.time_zone;
+    }
+
+    studentPersonalInformationFormIsInvalid() {
+        return !this.state.profile.student_en_name || !this.state.profile.date_of_birth || !this.state.profile.city || !this.state.profile.gender || !this.state.profile.grade || this.state.profile.gender === 'u';
+    }
+
+    contactInfoFormIsInvalid() {
+        if (this.state.profile.role === MemberType.Student) {
+            return this.studentContactInformationFormIsInvalid();
+        }
+        if (this.state.profile.role === MemberType.Companion) {
+            return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code;
+        }
+        return true;
+    }
+
+    studentContactInformationFormIsInvalid() {
+        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code;
     }
 }
 
