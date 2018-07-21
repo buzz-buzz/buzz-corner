@@ -215,6 +215,13 @@ class classDetail extends Component {
         }
     }
 
+    getClassApiUri(){
+        return this.state.class_id !== 'rookie' && this.state.class_id !== 'observation' ?
+            `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
+            :
+            `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
+    }
+
     async componentDidMount() {
         try {
             Track.event('课程详情_课程详情页面');
@@ -225,7 +232,7 @@ class classDetail extends Component {
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
-                    uri: this.state.class_id !== 'rookie' ? `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id : `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
+                    uri: this.getClassApiUri()
                 }
             }))[0]), studentsList = [];
 
