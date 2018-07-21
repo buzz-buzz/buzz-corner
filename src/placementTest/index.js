@@ -209,7 +209,8 @@ export default class PlacementModal extends React.Component {
                 user_id: this.state.userId,
                 detail: JSON.stringify({
                     questions: this.state.questions,
-                    answers: this.state.answers
+                    answers: this.state.answers,
+                    version: 2.0
                 })
             };
 
@@ -232,7 +233,8 @@ export default class PlacementModal extends React.Component {
                 user_id: this.state.userId,
                 detail: JSON.stringify({
                     questions: this.state.questions,
-                    answers: this.state.answers
+                    answers: this.state.answers,
+                    version: 2.0
                 })
             };
 
