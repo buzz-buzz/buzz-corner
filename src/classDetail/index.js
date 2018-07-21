@@ -215,11 +215,11 @@ class classDetail extends Component {
         }
     }
 
-    getClassApiUri(){
+    getClassApiUri(user_id){
         return this.state.class_id !== 'rookie' && this.state.class_id !== 'observation' ?
             `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
             :
-            `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${profile.user_id}`
+            `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${user_id}`
     }
 
     async componentDidMount() {
@@ -232,7 +232,7 @@ class classDetail extends Component {
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
-                    uri: this.getClassApiUri()
+                    uri: this.getClassApiUri(profile.user_id)
                 }
             }))[0]), studentsList = [];
 
