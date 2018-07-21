@@ -23,9 +23,11 @@ import Client from "../common/client";
 import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
 
+let interval = null;
+
 class My extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             waitSec: 0,
@@ -33,7 +35,7 @@ class My extends Component {
             mobileValid: false,
             emailValid: false,
             birthdayLabel: '',
-            step: 1,
+            step: Number(props.params.step) || 1,
             profile: {
                 parent_name: '',
                 phone: '',
@@ -51,7 +53,7 @@ class My extends Component {
             profile_title: Resources.getInstance().profileStep1Info,
             agreement: true,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            placement_topics: Topics
+            placement_topics: Topics,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -327,13 +329,7 @@ class My extends Component {
                     Track.event('注册_联系方式继续-中方');
 
                     try {
-                        await ServiceProxy.proxyTo({
-                            body: {
-                                uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
-                                json: {mobile: this.state.profile.phone, code: this.state.code},
-                                method: 'POST'
-                            }
-                        })
+                        await this.validateMobilePhone();
                     } catch (e) {
                         console.log(e)
 
@@ -352,13 +348,7 @@ class My extends Component {
                     Track.event('注册_联系方式继续-外籍');
 
                     try {
-                        await ServiceProxy.proxyTo({
-                            body: {
-                                uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
-                                json: {mail: this.state.profile.email, code: this.state.code},
-                                method: 'POST'
-                            }
-                        })
+                        await this.validateMobilePhone();
                     } catch (e) {
                         console.log(e)
 
@@ -457,8 +447,18 @@ class My extends Component {
         }
     }
 
+    async validateMobilePhone() {
+        await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
+                json: {mobile: this.state.profile.phone, code: this.state.code},
+                method: 'POST'
+            }
+        })
+    }
+
     closeMessageModal() {
-        const interval = setTimeout(() => {
+        interval = setTimeout(() => {
             if (this.state.messageModal) {
                 this.setState({messageModal: false});
             }
@@ -526,7 +526,9 @@ class My extends Component {
     }
 
     componentWillUnmount() {
-        this.setState({messageModal: false});
+        if (interval) {
+            clearTimeout(interval);
+        }
     }
 
     getProfileFromUserData(userData) {
