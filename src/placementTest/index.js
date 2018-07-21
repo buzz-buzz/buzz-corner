@@ -12,7 +12,6 @@ import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
-import Client from "../common/client";
 import ErrorHandler from "../common/error-handler";
 import '../my/my.css';
 import './index.css';
@@ -106,8 +105,8 @@ export default class PlacementModal extends React.Component {
     }
 
     async componentWillMount() {
-        //如果是tablet 并且不在微信中  跳转至https
-        if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
+        //如果不在微信中  跳转至https
+        if (!/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
             window.location.href = window.location.href.replace('http', 'https');
         }
 
