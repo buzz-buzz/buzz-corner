@@ -10,7 +10,7 @@ import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import UserShow from './user/profileShow';
-import UserUpdate from './user/profileUpdate';
+import UserUpdate from './user/profileUpdate/confirmationModal';
 import My from './my';
 import ClassDetail from './classDetail/index';
 import Placement from './placementTest';

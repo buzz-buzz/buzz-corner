@@ -11,7 +11,7 @@ import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
 import QiniuDomain from '../common/systemData/qiniuUrl';
-import PopModal from '../common/commonComponent/popModal';
+import Index from '../common/commonComponent/ConfirmationModal/index';
 
 class User extends Component {
     constructor(props) {
@@ -85,9 +85,9 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
-                <PopModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
-                          sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
-                          info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
+                <Index cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                       sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                       info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
                 />
                 <div className="user-content">
                     <div className="user-my">

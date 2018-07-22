@@ -9,8 +9,10 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
-import PopModal from '../../common/commonComponent/popModal';
-import ModifyContact from '../modifyContact';
+import ConfirmationModal
+    from '../../common/commonComponent/ConfirmationModal/index';
+import ModifyMobileModal from '../modifyContact/modify-mobile-modal';
+import ModifyEmailModal from '../modifyContact/modify-email-modal';
 import UpdateTopicModal from '../updateModal';
 import {browserHistory} from 'react-router';
 import {MemberType} from "../../membership/member-type";
@@ -47,23 +49,27 @@ class UserUpdate extends Component {
             mobileValid: false,
             emailValid: false,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            modifyContactModal: false,
+            showModifyMobileModal: false,
+            showModifyEmailModal: false,
             new_phone: '',
-            new_email: ''
+            new_email: '',
+            showingMobileConfirmationModal: false,
+            showingEmailConfirmationModal: false
         };
 
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.topicChange = this.topicChange.bind(this);
         this.topicToggle = this.topicToggle.bind(this);
-        this.showModifyContact = this.showModifyContact.bind(this);
+        this.toggleModifyMobile = this.toggleModifyMobile.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
         this.sms = this.sms.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
-        this.modifyCheck = this.modifyCheck.bind(this);
+        this.validateEmail = this.validateEmail.bind(this);
+        this.validateMobile = this.validateMobile.bind(this);
         this.handleContactChange = this.handleContactChange.bind(this);
-        this.checkIfSetAccount = this.checkIfSetAccount.bind(this);
-        this.closePopModal = this.closePopModal.bind(this);
+        this.gotoModifyMobile = this.gotoModifyMobile.bind(this);
+        this.closeMobileChangeConfirmationModal = this.closeMobileChangeConfirmationModal.bind(this);
     }
 
     back() {
@@ -117,75 +123,72 @@ class UserUpdate extends Component {
         }, 1000)
     }
 
-    async modifyCheck() {
-        if (this.state.profile.role === MemberType.Student) {
-            try {
-                await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
-                        json: {
-                            mobile: this.state.new_phone,
-                            code: this.state.code
-                        },
-                        method: 'POST'
-                    }
-                });
 
-                let clonedProfile = this.state.profile;
-                clonedProfile.phone = this.state.new_phone;
+    async validateEmail() {
+        try {
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
+                    json: {
+                        mail: this.state.new_email,
+                        code: this.state.code
+                    },
+                    method: 'POST'
+                }
+            })
 
-                this.setState({
-                    canUpdate: true,
-                    modifyContactModal: false,
-                    update: true,
-                    profile: clonedProfile
-                });
-            } catch (e) {
-                console.log(e)
+            let clonedProfile = this.state.profile;
+            clonedProfile.email = this.state.new_email;
 
-                this.setState({
-                    messageModal: true,
-                    messageContent: Resources.getInstance().emailWrongVerification,
-                    canUpdate: false
-                });
-                this.closeMessageModal();
-                return;
-            }
+            this.setState({
+                canUpdate: true,
+                showModifyEmailModal: false,
+                update: true,
+                profile: clonedProfile
+            });
+        } catch (e) {
+            console.log(e)
+
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailWrongVerification,
+                canUpdate: false
+            });
+            this.closeMessageModal();
         }
+    }
 
-        if (this.state.profile.role === MemberType.Companion) {
-            try {
-                await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
-                        json: {
-                            mail: this.state.new_email,
-                            code: this.state.code
-                        },
-                        method: 'POST'
-                    }
-                })
+    async validateMobile() {
+        try {
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
+                    json: {
+                        mobile: this.state.new_phone,
+                        code: this.state.code
+                    },
+                    method: 'POST'
+                }
+            });
 
-                let clonedProfile = this.state.profile;
-                clonedProfile.email = this.state.new_email;
+            let clonedProfile = this.state.profile;
+            clonedProfile.phone = this.state.new_phone;
 
-                this.setState({
-                    canUpdate: true,
-                    modifyContactModal: false,
-                    update: true,
-                    profile: clonedProfile
-                });
-            } catch (e) {
-                console.log(e)
+            this.setState({
+                canUpdate: true,
+                showModifyMobileModal: false,
+                update: true,
+                profile: clonedProfile
+            });
+        } catch (e) {
+            console.log(e)
 
-                this.setState({
-                    messageModal: true,
-                    messageContent: Resources.getInstance().emailWrongVerification,
-                    canUpdate: false
-                });
-                this.closeMessageModal();
-                return;
-            }
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailWrongVerification,
+                canUpdate: false
+            });
+            this.closeMessageModal();
         }
     }
 
@@ -211,29 +214,38 @@ class UserUpdate extends Component {
     }
 
 
-    showModifyContact() {
-        let clonedContact = this.state.modifyContactModal;
-
-        if (this.state.popModal) {
+    toggleModifyMobile() {
+        if (this.state.showingMobileConfirmationModal) {
             this.setState({
-                modifyContactModal: !clonedContact,
-                popModal: false
+                showModifyMobileModal: !this.state.showModifyMobileModal,
+                showingMobileConfirmationModal: false
             });
         } else {
-            this.setState({modifyContactModal: !clonedContact});
+            this.setState({showModifyMobileModal: !this.state.showModifyMobileModal});
         }
     }
 
-    checkIfSetAccount() {
+    showModifyEmail = () => {
+        this.setState({
+            showingEmailConfirmationModal: false,
+            showModifyEmailModal: true
+        });
+    };
+
+    hideModifyEmail = () => {
+        this.setState({showModifyEmailModal: false});
+    };
+
+    gotoModifyMobile() {
         if (this.state.profile.password && (this.state.profile.phone || this.state.profile.email)) {
-            this.setState({popModal: true});
+            this.setState({showingMobileConfirmationModal: true});
         } else {
-            this.showModifyContact();
+            this.toggleModifyMobile();
         }
     }
 
-    closePopModal() {
-        this.setState({popModal: false});
+    closeMobileChangeConfirmationModal() {
+        this.setState({showingMobileConfirmationModal: false});
     }
 
     topicChange(event) {
@@ -452,13 +464,23 @@ class UserUpdate extends Component {
     render() {
         return (
             <div className="profile-update">
-                <PopModal cancel={this.closePopModal}
-                          sure={this.showModifyContact}
-                          modal={this.state.popModal}
-                          sureText={Resources.getInstance().popSure}
-                          cancelText={Resources.getInstance().popCancel}
-                          info={this.state.profile.phone ? Resources.getInstance().popUserUpdateAccountInfo : Resources.getInstance().popUserUpdateAccountInfoEmail}
-                          title={Resources.getInstance().popTitle}
+                <ConfirmationModal
+                    cancel={this.closeMobileChangeConfirmationModal}
+                    sure={this.toggleModifyMobile}
+                    modal={this.state.showingMobileConfirmationModal}
+                    sureText={Resources.getInstance().popSure}
+                    cancelText={Resources.getInstance().popCancel}
+                    info={Resources.getInstance().popUserUpdateAccountInfo}
+                    title={Resources.getInstance().popTitle}
+                />
+                <ConfirmationModal
+                    cancel={() => this.setState({showingEmailConfirmationModal: false})}
+                    sure={this.showModifyEmail}
+                    modal={this.state.showingEmailConfirmationModal}
+                    sureText={Resources.getInstance().popSure}
+                    cancelText={Resources.getInstance().popCancel}
+                    info={Resources.getInstance().popUserUpdateAccountInfoEmail}
+                    title={Resources.getInstance().popTitle}
                 />
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName}
@@ -471,21 +493,31 @@ class UserUpdate extends Component {
                                   modalShow={this.state.topicShow}
                                   topicToggle={this.topicToggle}
                 />
-                <ModifyContact modalShow={this.state.modifyContactModal}
-                               handleContactChange={this.handleContactChange}
-                               code={this.state.code || ''}
-                               handleCodeChange={this.handleCodeChange}
-                               mobileValid={this.state.mobileValid}
-                               sms={this.sms}
-                               waitSec={this.state.waitSec}
-                               sendEmail={this.sendEmail}
-                               emailValid={this.state.emailValid}
-                               role={this.state.profile.role || ''}
-                               modifyCheck={this.modifyCheck}
-                               new_phone={this.state.new_phone}
-                               new_email={this.state.new_email}
-                               closeModal={this.showModifyContact}
+                <ModifyMobileModal modalShow={this.state.showModifyMobileModal}
+                                   handleContactChange={this.handleContactChange}
+                                   code={this.state.code || ''}
+                                   handleCodeChange={this.handleCodeChange}
+                                   mobileValid={this.state.mobileValid}
+                                   sms={this.sms}
+                                   waitSec={this.state.waitSec}
+                                   role={this.state.profile.role || ''}
+                                   modifyCheck={this.validateMobile}
+                                   new_phone={this.state.new_phone}
+                                   closeModal={this.toggleModifyMobile}
                 />
+                <ModifyEmailModal modalShow={this.state.showModifyEmailModal}
+                                  handleContactChange={this.handleContactChange}
+                                  code={this.state.code || ''}
+                                  handleCodeChange={this.handleCodeChange}
+                                  emailValid={this.state.emailValid}
+                                  waitSec={this.state.waitSec}
+                                  sendEmail={this.sendEmail}
+                                  role={this.state.profile.role || ''}
+                                  modifyCheck={this.validateEmail}
+                                  new_email={this.state.new_email}
+                                  closeModal={this.hideModifyEmail}
+                />
+
                 <div className="update-body">
                     <div className="avatar-update with-half-border">
                         <div className="avatar-img">
@@ -662,24 +694,21 @@ class UserUpdate extends Component {
                             <span>{Resources.getInstance().phoneLabel}</span>
                         </div>
                         <div className="update-right"
-                             onClick={this.checkIfSetAccount}>
+                             onClick={this.gotoModifyMobile}>
                             <span>{this.state.profile.phone}</span>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
-                    {
-                        this.state.profile.role === MemberType.Companion &&
-                        <div className="item-update">
-                            <div className="update-left">
-                                <span>Email</span>
-                            </div>
-                            <div className="update-right"
-                                 onClick={this.checkIfSetAccount}>
-                                <span>{this.state.profile.email}</span>
-                                <i className="icon-icon_back_down"/>
-                            </div>
+                    <div className="item-update">
+                        <div className="update-left">
+                            <span>Email</span>
                         </div>
-                    }
+                        <div className="update-right"
+                             onClick={this.gotoModifyEmail}>
+                            <span>{this.state.profile.email}</span>
+                            <i className="icon-icon_back_down"/>
+                        </div>
+                    </div>
                 </div>
                 <div className="update-btn">
                     <Button50px
@@ -689,6 +718,14 @@ class UserUpdate extends Component {
                 </div>
             </div>
         );
+    }
+
+    gotoModifyEmail = () => {
+        if (this.state.profile.password && (this.state.profile.phone || this.state.profile.email)) {
+            this.setState({showingEmailConfirmationModal: true});
+        } else {
+            this.showModifyEmail();
+        }
     }
 }
 
