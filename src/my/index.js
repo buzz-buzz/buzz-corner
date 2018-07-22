@@ -30,10 +30,12 @@ let interval = null;
 let countryCodeMap = {};
 iso3166_data.map(i => {
     countryCodeMap[i.alpha3] = i.country_code;
+    return i;
 });
 let countryLongNameMap = {};
 iso3166_data.map(i => {
     countryLongNameMap[i.alpha2] = i.alpha3;
+    return i;
 });
 
 class My extends Component {

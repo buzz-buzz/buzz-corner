@@ -17,24 +17,29 @@ class StudentLoginEntryPoint extends Component {
         Track.event('登录页面_点击微信登录按钮', null, {
             '用户类型': MemberTypeChinese.Student
         });
-        WeChatLogin.redirectToWechatOAuthPage();
+        WeChatLogin.showLoginPage();
     }
 
     render() {
         return (
             <div className="wechat-login">
                 <div className="login-logo">
-                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png" alt="loading..."/>
+                    <img
+                        src="//cdn-corner.resource.buzzbuzzenglish.com/logo_full%20name.png"
+                        alt="loading..."/>
                 </div>
                 <div className="login-wechat-img">
-                    <img src={ QiniuDomain + '/banner-inland.png'} alt="loading..."/>
+                    <img src={QiniuDomain + '/banner-inland.png'}
+                         alt="loading..."/>
                     <div className="img-introduction">
                         <p>{Resources.getInstance().loginByWechatIntroduction}</p>
                     </div>
                 </div>
-                <div className="login-wechat-btn" onClick={this.signInViaWechat}>
+                <div className="login-wechat-btn"
+                     onClick={this.signInViaWechat}>
                     <div>
-                        <img src={QiniuDomain + "/button_WeChat.png"} alt="loading..."/>
+                        <img src={QiniuDomain + "/button_WeChat.png"}
+                             alt="loading..."/>
                         <p>{Resources.getInstance().loginByWechatInfo}</p>
                     </div>
                 </div>
