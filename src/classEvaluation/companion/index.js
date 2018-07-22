@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, TextArea} from 'semantic-ui-react';
+import {browserHistory} from "react-router";
 import Resources from '../../resources';
 import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
 import Button50px from '../../common/commonComponent/submitButton50px';
@@ -46,7 +47,7 @@ export default class CompanionEvaluation extends React.Component {
     }
 
     evaluationStandards() {
-        window.open('/evaluation/standards');
+        browserHistory.push('/evaluation/standards');
     }
 
     evaluationContentChange(event, data) {
@@ -117,6 +118,10 @@ export default class CompanionEvaluation extends React.Component {
 
                 this.setState({evaluation_status: true}, () => {
                     this.props.setModalSubmitStatus('a', 2);
+
+                    if(sessionStorage.getItem('evaluation')){
+                        sessionStorage.setItem('evaluation', null);
+                    }
                 });
             } catch (ex) {
                 ErrorHandler.notify('保存能力打分出错：', ex);
@@ -124,6 +129,35 @@ export default class CompanionEvaluation extends React.Component {
                 this.props.setModalSubmitStatus('a', 3);
             }
         }
+    }
+
+    componentWillMount(){
+        if(!this.props.evaluation_status){
+          let data = sessionStorage.getItem('evaluation');
+          if(data){
+              try{
+                  data = JSON.parse(data);
+
+                  this.setState({
+                      stars: data.stars || 0,
+                      evaluation_content: data.evaluation_content || '',
+                  });
+              }
+              catch (ex){
+                 console.log('--獲取緩存的評價數據出錯--');
+              }
+          }
+        }
+    }
+
+    componentWillUnmount(){
+        //save data to sessionStorage
+        let data = {
+            stars: this.state.stars || 0,
+            evaluation_content: this.state.evaluation_content || '',
+        };
+
+        sessionStorage.setItem('evaluation', JSON.stringify(data));
     }
 
     render() {

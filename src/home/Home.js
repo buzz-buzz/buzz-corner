@@ -204,7 +204,7 @@ class Home extends Component {
         let past = [];
 
         for (let i in class_list) {
-            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time)) / 1000;
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_end_time)) / 1000;
             if (class_list[i].left_time <= 0) {
                 future.push(class_list[i]);
             } else {
@@ -337,7 +337,7 @@ class Home extends Component {
                         });
                     }
                 } else if (profile.role === MemberType.Companion) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0) {
+                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.class_id !== 'observation') {
                         //get companion evaluation is done
                         let result = await this.getCompanionEvaluation(item.class_id);
 
