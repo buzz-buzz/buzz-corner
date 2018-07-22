@@ -204,7 +204,7 @@ class Home extends Component {
         let past = [];
 
         for (let i in class_list) {
-            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time)) / 1000;
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_end_time)) / 1000;
             if (class_list[i].left_time <= 0) {
                 future.push(class_list[i]);
             } else {
