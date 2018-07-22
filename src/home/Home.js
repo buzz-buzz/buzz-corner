@@ -199,16 +199,25 @@ class Home extends Component {
     }
 
     sortClassList(class_list) {
-        //<= 0 >, >0 <
+        let inProgress = [];
         let future = [];
         let past = [];
 
         for (let i in class_list) {
-            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_end_time)) / 1000;
-            if (class_list[i].left_time <= 0) {
-                future.push(class_list[i]);
-            } else {
+            class_list[i].left_time = (new Date(class_list[i].CURRENT_TIMESTAMP) - new Date(class_list[i].class_start_time)) / 1000;
+
+            let endDiff = new Date(class_list[i].class_end_time) - new Date(class_list[i].CURRENT_TIMESTAMP);
+
+            if (endDiff < 0) {
                 past.push(class_list[i]);
+            } else {
+                let startDiff = new Date(class_list[i].class_start_time) - new Date(class_list[i].CURRENT_TIMESTAMP);
+
+                if (startDiff <= 0) {
+                    inProgress.push(class_list[i]);
+                } else {
+                    future.push(class_list[i]);
+                }
             }
         }
 
@@ -219,11 +228,8 @@ class Home extends Component {
             return a.left_time - b.left_time
         });
 
-        class_list = future;
+        class_list = inProgress.concat(future).concat(past);
 
-        for (let f in past) {
-            class_list.push(past[f]);
-        }
 
         if (class_list && class_list.length) {
             class_list[0].highLight = 1;
@@ -252,7 +258,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async() => {
+        }, async () => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -317,7 +323,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async(item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -407,28 +413,41 @@ class Home extends Component {
         };
     }
 
-    colorHelper(color){
-        switch(color){
-            case 'rgb(246, 180, 12)' : return '#ffd200';
-            case 'rgb(0, 216, 90)' : return 'rgb(0, 216, 90)';
-            case 'rgb(102, 102, 102)' : return '#DFDFE4';
-            default : break;
+    colorHelper(color) {
+        switch (color) {
+            case 'rgb(246, 180, 12)' :
+                return '#ffd200';
+            case 'rgb(0, 216, 90)' :
+                return 'rgb(0, 216, 90)';
+            case 'rgb(102, 102, 102)' :
+                return '#DFDFE4';
+            default :
+                break;
         }
     }
 
     render() {
         return (
             <div className="my-home">
-                <Welcome welcome={this.state.welcome} closeWelcome={this.closeWelcome}/>
-                <UserGuide modal={this.state.intro_done && this.state.role === MemberType.Student}/>
+                <Welcome welcome={this.state.welcome}
+                         closeWelcome={this.closeWelcome}/>
+                <UserGuide
+                    modal={this.state.intro_done && this.state.role === MemberType.Student}/>
                 <div className="home-header">
                     <div className="consult" onClick={this.signUp}>
-                        <img src={QiniuDomain + "/icon_Service_new.svg"} style={{width: '20px'}} alt=""/>
-                        <span style={{color: '#000', fontSize: '10px'}}>{Resources.getInstance().homeHelp}</span>
+                        <img src={QiniuDomain + "/icon_Service_new.svg"}
+                             style={{width: '20px'}} alt=""/>
+                        <span style={{
+                            color: '#000',
+                            fontSize: '10px'
+                        }}>{Resources.getInstance().homeHelp}</span>
                     </div>
-                    <div className="tab-booking" style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
+                    <div className="tab-booking"
+                         style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png" alt="" style={{
+                        <img
+                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png"
+                            alt="" style={{
                             height: '50%',
                             marginRight: '.5em'
                         }}/>
@@ -436,21 +455,25 @@ class Home extends Component {
                         <div className="tab-active"
                              style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}/>
                     </div>
-                    <div className="tab-message" style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
+                    <div className="tab-message"
+                         style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png" alt="" style={{
+                        <img
+                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png"
+                            alt="" style={{
                             height: '40%',
                             marginRight: '.5em'
                         }}/>
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
                             <div style={this.state.messageRead ? {
-                                    width: '25px',
-                                    display: 'inline-block'
-                                } : {display: 'none'}}/>
+                                width: '25px',
+                                display: 'inline-block'
+                            } : {display: 'none'}}/>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
-                                <img src={QiniuDomain + "/icon_NEW_message.svg"} alt=""/>
+                                <img src={QiniuDomain + "/icon_NEW_message.svg"}
+                                     alt=""/>
                             </div>
                         </div>
                         <div className="tab-active"
@@ -471,24 +494,29 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item" key={index}
+                                        return <Link className="booking-item"
+                                                     key={index}
                                                      onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <div className="booking-item-avatar">
-                                                <Avatar src={item.companion_avatar}/>
+                                            <div
+                                                className="booking-item-avatar">
+                                                <Avatar
+                                                    src={item.companion_avatar}/>
                                                 <Flag
                                                     name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'}/>
                                             </div>
                                             <div className="booking-item-info">
-                                                <p className="your-name" style={{
-                                                    fontWeight: 'bold',
-                                                    fontSize: '15px',
-                                                    color: '#000'
-                                                }}>{item.companion_name || 'BuzzBuzz'}</p>
-                                                <p className="class-topic" style={{
-                                                    color: '#f6b40c',
-                                                    margin: '.3em 0',
-                                                    fontSize: '13px'
-                                                }}>{item.topic || 'No topic'}</p>
+                                                <p className="your-name"
+                                                   style={{
+                                                       fontWeight: 'bold',
+                                                       fontSize: '15px',
+                                                       color: '#000'
+                                                   }}>{item.companion_name || 'BuzzBuzz'}</p>
+                                                <p className="class-topic"
+                                                   style={{
+                                                       color: '#f6b40c',
+                                                       margin: '.3em 0',
+                                                       fontSize: '13px'
+                                                   }}>{item.topic || 'No topic'}</p>
                                                 <p className="class-date"
                                                    style={{
                                                        fontSize: '11px',
@@ -502,8 +530,9 @@ class Home extends Component {
                                                     classInfo={item}/>
                                                 </p>
                                             </div>
-                                            <div className={ item.highLight ? "status-active" : "booking-item-status"}
-                                                 style={ item.highLight ? {backgroundColor: this.colorHelper(item.class_status_show_style)} : {}}>
+                                            <div
+                                                className={item.highLight ? "status-active" : "booking-item-status"}
+                                                style={item.highLight ? {backgroundColor: this.colorHelper(item.class_status_show_style)} : {}}>
                                                 <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
                                             </div>
                                         </Link>
@@ -512,8 +541,9 @@ class Home extends Component {
                             </div>) :
                             (<div className="none-items">
                                 <div className="no-items">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png"
-                                         alt=""/>
+                                    <img
+                                        src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Coursepurchase tips.png"
+                                        alt=""/>
                                     <p>{Resources.getInstance().bookingNoItemText1}</p>
                                     <p>{this.state.role === MemberType.Student ? Resources.getInstance().bookingNoItemText2 : Resources.getInstance().bookingNoItemText3}</p>
                                 </div>
@@ -533,8 +563,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                        return ele.hasRead === '';
-                                    }).length + ')' : '')}</p>
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}/>
                             </div>
@@ -542,25 +572,34 @@ class Home extends Component {
                         {
                             this.state.message_tab === 'friends' ?
                                 (<div className="none-items">
-                                    <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
+                                    <WhiteSpace
+                                        message={Resources.getInstance().whiteSpaceMessage}/>
                                 </div>) :
                                 (this.state.messageFromAdvisor.length === 0 ?
                                     (<div className="none-items">
-                                            <WhiteSpace message={Resources.getInstance().whiteSpaceMessage}/>
+                                            <WhiteSpace
+                                                message={Resources.getInstance().whiteSpaceMessage}/>
                                         </div>
                                     ) :
                                     (<div className="message-items">
                                             {
                                                 this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link className="message-item" key={index}
-                                                                 onClick={event => this.clickEventPlacement(event, item)}>
-                                                        <div className="message-item-avatar">
-                                                            <Avatar src={item.message_avatar}/>
-                                                            <div className="message-red-circle"
-                                                                 style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}/>
+                                                    return <Link
+                                                        className="message-item"
+                                                        key={index}
+                                                        onClick={event => this.clickEventPlacement(event, item)}>
+                                                        <div
+                                                            className="message-item-avatar">
+                                                            <Avatar
+                                                                src={item.message_avatar}/>
+                                                            <div
+                                                                className="message-red-circle"
+                                                                style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}/>
                                                         </div>
-                                                        <div className="message-body">
-                                                            <div className="message-title">{item.message_title}</div>
+                                                        <div
+                                                            className="message-body">
+                                                            <div
+                                                                className="message-title">{item.message_title}</div>
                                                             <div
                                                                 className="message-content">{item.message_content}</div>
                                                         </div>
