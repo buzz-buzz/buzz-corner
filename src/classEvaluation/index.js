@@ -199,7 +199,7 @@ class classEvaluation extends Component {
         return result;
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         //get data from DB await CurrentUser.getUserId()
         try {
             this.setState({loadingModal: true});
