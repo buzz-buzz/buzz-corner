@@ -166,7 +166,7 @@ class classEvaluationResult extends Component {
         });
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             Track.event('查看学伴的评价');
 

@@ -65,7 +65,7 @@ class classEvaluationForeign extends Component {
         return classInfo;
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             Track.event('课后评价_外籍课后评价列表页面');
 

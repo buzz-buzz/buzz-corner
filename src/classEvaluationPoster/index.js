@@ -29,7 +29,7 @@ class classEvaluationPoster extends Component {
         browserHistory.push('/video-play');
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             this.setState({loadingModal: true});
 

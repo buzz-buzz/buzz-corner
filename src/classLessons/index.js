@@ -44,7 +44,7 @@ class ClassLessons extends Component {
         //window.location.href = this.state.buy_list[event.target.name].youzan_url;
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             Track.event('购买课时_购买课时页面');
 

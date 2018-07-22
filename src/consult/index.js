@@ -25,7 +25,7 @@ class Consult extends Component {
         browserHistory.push('/home');
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('顾问_顾问页面展示');
 
         let profile = await CurrentUser.getProfile(true);

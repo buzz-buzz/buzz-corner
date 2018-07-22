@@ -208,13 +208,6 @@ class classDetail extends Component {
         };
     }
 
-    componentWillMount() {
-        //如果是tablet 并且不在微信中  跳转至https
-        if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
-            window.location.href = window.location.href.replace('http', 'https');
-        }
-    }
-
     getClassApiUri(user_id){
         return this.state.class_id !== 'rookie' && this.state.class_id !== 'observation' ?
             `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
@@ -222,8 +215,13 @@ class classDetail extends Component {
             `{config.endPoints.buzzService}/api/v1/class-schedule/${this.state.class_id}?user_id=${user_id}`
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         try {
+            //如果是tablet 并且不在微信中  跳转至https
+            if (Client.getClient() === 'tablet' && !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
+                window.location.href = window.location.href.replace('http', 'https');
+            }
+
             Track.event('课程详情_课程详情页面');
 
             this.setState({loadingModal: true});
