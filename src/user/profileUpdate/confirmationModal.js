@@ -699,16 +699,20 @@ class UserUpdate extends Component {
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
-                    <div className="item-update">
-                        <div className="update-left">
-                            <span>Email</span>
+                    {
+                        this.state.profile.role === MemberType.Companion &&
+
+                        <div className="item-update">
+                            <div className="update-left">
+                                <span>Email</span>
+                            </div>
+                            <div className="update-right"
+                                 onClick={this.gotoModifyEmail}>
+                                <span>{this.state.profile.email}</span>
+                                <i className="icon-icon_back_down"/>
+                            </div>
                         </div>
-                        <div className="update-right"
-                             onClick={this.gotoModifyEmail}>
-                            <span>{this.state.profile.email}</span>
-                            <i className="icon-icon_back_down"/>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <div className="update-btn">
                     <Button50px
