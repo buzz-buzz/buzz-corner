@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { zones } from 'moment-timezone/data/meta/latest.json';
-import { countries } from 'moment-timezone/data/meta/latest.json';
+import {zones} from 'moment-timezone/data/meta/latest.json';
+import {countries} from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChineseCityList} from "../../common/systemData/chineseCityListData";
 import Resources from '../../resources';
@@ -25,11 +25,11 @@ import '../../common/Icon/style.css';
 const grade_list = GradeData.grade_list;
 const grade_list_foreign = GradeData.grade_list_foreign;
 
-const timeZones = Object.keys(zones).map(key=>({
+const timeZones = Object.keys(zones).map(key => ({
     key, value: key, text: key
 }));
 
-const countryList = Object.keys(countries).map(key=>({
+const countryList = Object.keys(countries).map(key => ({
     key, value: countries[key].name, text: countries[key].name
 }));
 
@@ -66,7 +66,7 @@ class UserUpdate extends Component {
         this.closePopModal = this.closePopModal.bind(this);
     }
 
-    back(){
+    back() {
         Back.back();
     }
 
@@ -95,11 +95,17 @@ class UserUpdate extends Component {
         await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-                json: {mail: this.state.new_email, name: this.state.profile.student_en_name},
+                json: {
+                    mail: this.state.new_email,
+                    name: this.state.profile.student_en_name
+                },
                 method: 'POST'
             }
         });
-        this.setState({messageModal: true, messageContent: Resources.getInstance().emailUnkonwWrong});
+        this.setState({
+            messageModal: true,
+            messageContent: Resources.getInstance().emailUnkonwWrong
+        });
         this.closeMessageModal();
         this.setState({waitSec: 60});
         const interval = setInterval(() => {
@@ -111,13 +117,16 @@ class UserUpdate extends Component {
         }, 1000)
     }
 
-    async modifyCheck(){
+    async modifyCheck() {
         if (this.state.profile.role === MemberType.Student) {
             try {
                 await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
-                        json: {mobile: this.state.new_phone, code: this.state.code},
+                        json: {
+                            mobile: this.state.new_phone,
+                            code: this.state.code
+                        },
                         method: 'POST'
                     }
                 });
@@ -149,7 +158,10 @@ class UserUpdate extends Component {
                 await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/mail/verify`,
-                        json: {mail: this.state.new_email, code: this.state.code},
+                        json: {
+                            mail: this.state.new_email,
+                            code: this.state.code
+                        },
                         method: 'POST'
                     }
                 })
@@ -181,17 +193,17 @@ class UserUpdate extends Component {
         this.setState({code: event.target.value});
     }
 
-    topicToggle(){
+    topicToggle() {
         let clonedTopicShow = this.state.topicShow;
 
-        if(clonedTopicShow){
+        if (clonedTopicShow) {
             document.getElementById('update-modal').style.animation = 'topic-move-hide .3s linear';
 
-            let onceDisappear = setTimeout(()=>{
+            let onceDisappear = setTimeout(() => {
                 this.setState({topicShow: !clonedTopicShow});
                 clearTimeout(onceDisappear);
-            },300)
-        }else{
+            }, 300)
+        } else {
             document.getElementById('update-modal').style.animation = 'topic-move-show .3s linear';
 
             this.setState({topicShow: !clonedTopicShow});
@@ -199,26 +211,28 @@ class UserUpdate extends Component {
     }
 
 
-
-    showModifyContact(){
+    showModifyContact() {
         let clonedContact = this.state.modifyContactModal;
 
-        if(this.state.popModal){
-            this.setState({modifyContactModal: !clonedContact, popModal: false});
-        }else{
+        if (this.state.popModal) {
+            this.setState({
+                modifyContactModal: !clonedContact,
+                popModal: false
+            });
+        } else {
             this.setState({modifyContactModal: !clonedContact});
         }
     }
 
-    checkIfSetAccount(){
-        if(this.state.profile.password && (this.state.profile.phone || this.state.profile.email)){
+    checkIfSetAccount() {
+        if (this.state.profile.password && (this.state.profile.phone || this.state.profile.email)) {
             this.setState({popModal: true});
-        }else{
+        } else {
             this.showModifyContact();
         }
     }
 
-    closePopModal(){
+    closePopModal() {
         this.setState({popModal: false});
     }
 
@@ -272,9 +286,9 @@ class UserUpdate extends Component {
         };
     }
 
-    async submit(){
+    async submit() {
         //check if has change
-        if(this.state.update && this.state.canUpdate){
+        if (this.state.update && this.state.canUpdate) {
             //save data
             this.setState({loadingModal: true});
 
@@ -286,7 +300,12 @@ class UserUpdate extends Component {
             });
         }
 
-        this.setState({loadingModal: false, messageModal: true, messageName: 'success', messageContent: Resources.getInstance().saveSuccess});
+        this.setState({
+            loadingModal: false,
+            messageModal: true,
+            messageName: 'success',
+            messageContent: Resources.getInstance().saveSuccess
+        });
         this.closeMessageModal();
     }
 
@@ -302,15 +321,15 @@ class UserUpdate extends Component {
         });
     }
 
-    handleContactChange(event){
-        if(event.target.name === 'phone'){
+    handleContactChange(event) {
+        if (event.target.name === 'phone') {
             this.setState({
                 new_phone: event.target.value,
                 mobileValid: event.target.value && event.target.value.length === 11
             });
         }
 
-        if(event.target.name === 'email'){
+        if (event.target.name === 'email') {
             this.setState({
                 new_email: event.target.value,
                 emailValid: event.target.value && this.state.email_reg.test(event.target.value)
@@ -332,9 +351,13 @@ class UserUpdate extends Component {
 
     async handleAvatarChange(e) {
         try {
-            if(this.fileInput.files[0].type !== 'image/jpeg' && this.fileInput.files[0].type !== 'image/png'){
+            if (this.fileInput.files[0].type !== 'image/jpeg' && this.fileInput.files[0].type !== 'image/png') {
                 //error
-                this.setState({messageModal: true, messageName: 'error', messageContent: Resources.getInstance().userProfileAvatarWrongType});
+                this.setState({
+                    messageModal: true,
+                    messageName: 'error',
+                    messageContent: Resources.getInstance().userProfileAvatarWrongType
+                });
                 this.closeMessageModal();
                 return;
             }
@@ -387,7 +410,7 @@ class UserUpdate extends Component {
         }
     };
 
-    async componentWillMount(){
+    async componentWillMount() {
         Track.event('我的_修改资料页面展示');
 
         let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
@@ -399,7 +422,7 @@ class UserUpdate extends Component {
         this.setState({
             profile: profile,
             mobileValid: profile && profile.phone && profile.phone.length === 11,
-            emailValid: profile &&profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
+            emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
             new_phone: profile.phone,
             new_email: profile.email
         });
@@ -429,29 +452,46 @@ class UserUpdate extends Component {
     render() {
         return (
             <div className="profile-update">
-                <PopModal cancel={this.closePopModal} sure={this.showModifyContact} modal={this.state.popModal}
-                          sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
-                          info={ this.state.profile.phone ?  Resources.getInstance().popUserUpdateAccountInfo : Resources.getInstance().popUserUpdateAccountInfoEmail }
+                <PopModal cancel={this.closePopModal}
+                          sure={this.showModifyContact}
+                          modal={this.state.popModal}
+                          sureText={Resources.getInstance().popSure}
+                          cancelText={Resources.getInstance().popCancel}
+                          info={this.state.profile.phone ? Resources.getInstance().popUserUpdateAccountInfo : Resources.getInstance().popUserUpdateAccountInfoEmail}
                           title={Resources.getInstance().popTitle}
                 />
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                <MessageModal modalName={this.state.messageName}
+                              modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().userUpdateTitle} />
-                <UpdateTopicModal topics={this.state.profile.topics || []} topicChange={this.topicChange}
-                             modalShow={this.state.topicShow} topicToggle={this.topicToggle}
+                <HeaderWithBack goBack={this.back}
+                                title={Resources.getInstance().userUpdateTitle}/>
+                <UpdateTopicModal topics={this.state.profile.topics || []}
+                                  topicChange={this.topicChange}
+                                  modalShow={this.state.topicShow}
+                                  topicToggle={this.topicToggle}
                 />
-                <ModifyContact modalShow={this.state.modifyContactModal} handleContactChange={this.handleContactChange}
-                               code={this.state.code || ''} handleCodeChange={this.handleCodeChange} mobileValid={this.state.mobileValid} sms={this.sms}
-                               waitSec={this.state.waitSec} sendEmail={this.sendEmail} emailValid={this.state.emailValid}
-                               role={this.state.profile.role || ''} modifyCheck={this.modifyCheck}
-                               new_phone={this.state.new_phone} new_email={this.state.new_email}
+                <ModifyContact modalShow={this.state.modifyContactModal}
+                               handleContactChange={this.handleContactChange}
+                               code={this.state.code || ''}
+                               handleCodeChange={this.handleCodeChange}
+                               mobileValid={this.state.mobileValid}
+                               sms={this.sms}
+                               waitSec={this.state.waitSec}
+                               sendEmail={this.sendEmail}
+                               emailValid={this.state.emailValid}
+                               role={this.state.profile.role || ''}
+                               modifyCheck={this.modifyCheck}
+                               new_phone={this.state.new_phone}
+                               new_email={this.state.new_email}
                                closeModal={this.showModifyContact}
                 />
                 <div className="update-body">
                     <div className="avatar-update with-half-border">
                         <div className="avatar-img">
-                            <img src={this.state.profile.avatar || QiniuDomain + '/logo-image.svg'} alt=""/>
+                            <img
+                                src={this.state.profile.avatar || QiniuDomain + '/logo-image.svg'}
+                                alt=""/>
                         </div>
                         <div className="update-right">
                             <span>{Resources.getInstance().userProfileChange}</span>
@@ -472,7 +512,9 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             <input className="input-show" type="text"
-                                   name="student_en_name" value={this.state.profile.student_en_name || ''} onChange={this.handleChange} />
+                                   name="student_en_name"
+                                   value={this.state.profile.student_en_name || ''}
+                                   onChange={this.handleChange}/>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
@@ -483,9 +525,13 @@ class UserUpdate extends Component {
                         <div className="update-right">
                             <span>{this.state.profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span>
                             <i className="icon-icon_back_down"/>
-                            <select name="gender" id="gender" value={this.state.profile.gender} onChange={this.handleChange}>
-                                <option value="f">{Resources.getInstance().profileFemale}</option>
-                                <option value="m">{Resources.getInstance().profileMale}</option>
+                            <select name="gender" id="gender"
+                                    value={this.state.profile.gender}
+                                    onChange={this.handleChange}>
+                                <option
+                                    value="f">{Resources.getInstance().profileFemale}</option>
+                                <option
+                                    value="m">{Resources.getInstance().profileMale}</option>
                             </select>
                         </div>
                     </div>
@@ -508,24 +554,28 @@ class UserUpdate extends Component {
                             <span>{Resources.getInstance().profileGrade}</span>
                         </div>
                         <div className="update-right">
-                            {  this.state.profile.role === MemberType.Student &&
-                                <span>{ this.state.profile.grade ? grade_list[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
+                            {this.state.profile.role === MemberType.Student &&
+                            <span>{this.state.profile.grade ? grade_list[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
-                            {  this.state.profile.role === MemberType.Companion &&
+                            {this.state.profile.role === MemberType.Companion &&
                             <span>{this.state.profile.grade ? grade_list_foreign[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
                             <i className="icon-icon_back_down"/>
-                            <select name="grade" placeholder="" value={this.state.profile.grade} onChange={this.handleChange}>
+                            <select name="grade" placeholder=""
+                                    value={this.state.profile.grade}
+                                    onChange={this.handleChange}>
                                 {
                                     this.state.profile.role === MemberType.Student &&
-                                    grade_list.map((item, index)=>{
-                                        return <option key={index} value={item.value}>{item.text}</option>
+                                    grade_list.map((item, index) => {
+                                        return <option key={index}
+                                                       value={item.value}>{item.text}</option>
                                     })
                                 }
                                 {
                                     this.state.profile.role === MemberType.Companion &&
-                                    grade_list_foreign.map((item, index)=>{
-                                        return <option key={index} value={item.value}>{item.text}</option>
+                                    grade_list_foreign.map((item, index) => {
+                                        return <option key={index}
+                                                       value={item.value}>{item.text}</option>
                                     })
                                 }
                             </select>
@@ -540,10 +590,13 @@ class UserUpdate extends Component {
                             <div className="update-right">
                                 <span>{this.state.profile.city || '其他'}</span>
                                 <i className="icon-icon_back_down"/>
-                                <select name="city" placeholder="" value={this.state.profile.city} onChange={this.handleChange}>
+                                <select name="city" placeholder=""
+                                        value={this.state.profile.city}
+                                        onChange={this.handleChange}>
                                     {
-                                        ChineseCityList.map((item, index)=>{
-                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        ChineseCityList.map((item, index) => {
+                                            return <option key={index}
+                                                           value={item.value}>{item.text}</option>
                                         })
                                     }
                                 </select>
@@ -559,10 +612,13 @@ class UserUpdate extends Component {
                             <div className="update-right">
                                 <span>{this.state.profile.time_zone}</span>
                                 <i className="icon-icon_back_down"/>
-                                <select name="time_zone" value={this.state.profile.time_zone} onChange={this.handleChange}>
+                                <select name="time_zone"
+                                        value={this.state.profile.time_zone}
+                                        onChange={this.handleChange}>
                                     {
-                                        timeZones.map((item, index)=>{
-                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        timeZones.map((item, index) => {
+                                            return <option key={index}
+                                                           value={item.value}>{item.text}</option>
                                         })
                                     }
                                 </select>
@@ -578,10 +634,13 @@ class UserUpdate extends Component {
                             <div className="update-right">
                                 <span>{this.state.profile.country}</span>
                                 <i className="icon-icon_back_down"/>
-                                <select name="country" value={this.state.profile.country} onChange={this.handleChange}>
+                                <select name="country"
+                                        value={this.state.profile.country}
+                                        onChange={this.handleChange}>
                                     {
-                                        countryList.map((item, index)=>{
-                                            return <option key={index} value={item.value}>{item.text}</option>
+                                        countryList.map((item, index) => {
+                                            return <option key={index}
+                                                           value={item.value}>{item.text}</option>
                                         })
                                     }
                                 </select>
@@ -592,23 +651,41 @@ class UserUpdate extends Component {
                         <div className="update-left">
                             <span>{Resources.getInstance().profileStep3}</span>
                         </div>
-                        <div className="update-right" onClick={this.topicToggle}>
+                        <div className="update-right"
+                             onClick={this.topicToggle}>
                             <span>{this.state.profile.topics && this.state.profile.topics.length ? this.state.profile.topics[0] + '...' : Resources.getInstance().profileTopicNone}</span>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
                     <div className="item-update">
                         <div className="update-left">
-                            <span>{ this.state.profile.role === MemberType.Student?  Resources.getInstance().phoneLabel : 'Email'}</span>
+                            <span>{Resources.getInstance().phoneLabel}</span>
                         </div>
-                        <div className="update-right"  onClick={this.checkIfSetAccount}>
-                            <span>{ this.state.profile.role === MemberType.Student ? this.state.profile.phone : this.state.profile.email}</span>
+                        <div className="update-right"
+                             onClick={this.checkIfSetAccount}>
+                            <span>{this.state.profile.phone}</span>
                             <i className="icon-icon_back_down"/>
                         </div>
                     </div>
+                    {
+                        this.state.profile.role === MemberType.Companion &&
+                        <div className="item-update">
+                            <div className="update-left">
+                                <span>Email</span>
+                            </div>
+                            <div className="update-right"
+                                 onClick={this.checkIfSetAccount}>
+                                <span>{this.state.profile.email}</span>
+                                <i className="icon-icon_back_down"/>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div className="update-btn">
-                    <Button50px disabled={!(this.state.update && this.state.canUpdate)}  text={Resources.getInstance().profileSunmitBtn} submit={this.submit} />
+                    <Button50px
+                        disabled={!(this.state.update && this.state.canUpdate)}
+                        text={Resources.getInstance().profileSunmitBtn}
+                        submit={this.submit}/>
                 </div>
             </div>
         );
