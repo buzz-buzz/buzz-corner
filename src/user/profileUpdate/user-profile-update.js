@@ -297,7 +297,7 @@ class UserUpdate extends Component {
             city: profile.city,
             interests: newTopics,
             email: profile.email,
-            mobile: '+' + countryCodeMap[this.state.mobileCountry] + profile.phone,
+            mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
             avatar: profile.avatar
         };
     }
@@ -448,7 +448,7 @@ class UserUpdate extends Component {
     static getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            phone: userData.mobile || '',
+            phone: userData.mobile_country ? userData.mobile_country.mobile || userData.mobile || '' : '',
             student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
