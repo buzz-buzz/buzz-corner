@@ -45,7 +45,7 @@ export default class PlacementQuestion extends React.Component {
                     this.props.questions[this.props.step - 1].items.map((item, index) => {
                         return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"} key={index}
                                     onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
-                                    onClick={(event) => this.props.answering(event, this.props.step - 1, item)}
+                                    onClick={(event) => this.props.saveAnswer(event, this.props.step - 1, item)}
                                     style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === item ? {
                                             color: 'rgb(246, 180, 12)',
                                             border: '1px solid rgb(246, 180, 12)'
@@ -59,7 +59,7 @@ export default class PlacementQuestion extends React.Component {
                 {
                     this.props.step === 4 && this.props.questions && this.props.questions.length &&
                     this.props.questions[3] && this.props.questions[3].title &&
-                        <ImageModal select={this.props.answering} step={this.props.step} answers={this.props.answers}  />
+                        <ImageModal select={this.props.saveAnswer} step={this.props.step} answers={this.props.answers}  />
                 }
                 {
                     this.props.step === 5 && this.props.questions && this.props.questions.length &&

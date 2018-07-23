@@ -18,6 +18,7 @@ import UserGuide from '../common/commonComponent/modalUserGuide';
 import YunyingModal from '../common/commonComponent/yunyingModal';
 import moment from 'moment';
 import Client from "../common/client";
+import ErrorHandler from "../common/error-handler";
 import ClassEndTime from "../classDetail/class-end-time";
 import './index.css';
 import {fundebug} from '../common/logger';
@@ -370,7 +371,7 @@ class Home extends Component {
 
             await this.handleFeedbackNotifications(userId, clonedMessageFromAdvisor);
         } catch (ex) {
-            Track.event('首页_错误', null, {"类型": "错误", "错误内容": ex.toString()});
+            ErrorHandler.notify('首页_错误: ', ex);
 
             this.setState({loadingModal: false});
         }
@@ -393,6 +394,8 @@ class Home extends Component {
             });
         } catch (ex) {
             console.error(ex);
+
+            ErrorHandler.notify('获取消息失败', ex)
         }
 
         let messageCheck = clonedMessageFromAdvisor.filter(function (item) {

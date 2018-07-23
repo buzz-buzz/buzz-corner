@@ -31,19 +31,6 @@ export default class TabletAudio {
     }
 
     static async init(callback) {
-        //let getUserMedia = navigator.getUserMedia || (navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-        // let getUserMedia = navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia : false;
-        //
-        // if(getUserMedia){
-        //      await getUserMedia({ audio: true })
-        //         .then(handleSuccess)
-        //         .catch(handleError)
-        //         .finally(() => {
-        //             callback(recordReadyStatus);
-        //         });
-        // }else{
-        //     callback(false);
-        // }
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder) {
             await navigator.mediaDevices.getUserMedia({audio: true}).then(handleSuccess).catch(handleError);
             callback(recordReadyStatus);
@@ -90,6 +77,8 @@ export default class TabletAudio {
             console.log('recording...');
         } else {
             alert('navigator.mediaDevices.getUserMedia didn\'t work!');
+
+            throw handleError('')
         }
     }
 

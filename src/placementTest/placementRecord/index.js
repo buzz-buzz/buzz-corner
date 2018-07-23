@@ -5,6 +5,7 @@ import RecordModal from '../recordModal';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import WechatAudio from "../../wechat/audio";
 import TabletAudio from "../../wechat/tabletAudio";
+import ErrorHandler from "../../common/error-handler";
 import './index.css';
 import '../../classDetail/chat.css';
 import '../../classDetail/index.css';
@@ -35,34 +36,37 @@ export default class PlacementRecorder extends React.Component {
     }
 
     async recordAgain() {
-        if (this.state.isPlaying) {
-            //暂停播放
-            if (this.audio) {
-                this.audio.pause();
-                this.setState({isPlaying: false});
+        try {
+            if (this.state.isPlaying) {
+                //暂停播放
+                if (this.audio) {
+                    this.audio.pause();
+                    this.setState({isPlaying: false});
+                }
             }
+
+            if (this.state.recording && recordingTime <= 1) {
+                this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
+                return false;
+            }
+
+            if (this.state.recording && recordingTime > 1) {
+                this.setState({recordAgainLoading: true});
+                //调用停止录音方法
+                await this.state.recordAudio.stopRecording();
+                recordingTime = 0;
+                await new Promise(resolve => window.setTimeout(resolve, 2000));
+
+                this.setState({recording: false});
+            }
+
+            this.setState({recording: true, recordAgainLoading: false}, async() => {
+                await this.state.recordAudio.startRecording();
+            });
         }
-
-        if (this.state.recording && recordingTime <= 1) {
-            this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
-            return false;
+        catch (ex) {
+            ErrorHandler.notify('Placement重录出错', ex);
         }
-
-        if (this.state.recording && recordingTime > 1) {
-            this.setState({recordAgainLoading: true});
-            console.log('stop---recording');
-            //调用停止录音方法
-            await this.state.recordAudio.stopRecording();
-            recordingTime = 0;
-            await new Promise(resolve => window.setTimeout(resolve, 2000));
-
-            this.setState({recording: false});
-        }
-
-        this.setState({recording: true, recordAgainLoading: false}, async() => {
-            await this.state.recordAudio.startRecording();
-            console.log('begin...');
-        });
     }
 
     getTime(time) {
@@ -119,8 +123,6 @@ export default class PlacementRecorder extends React.Component {
     }
 
     async closeRecord() {
-        console.log('关闭录音操作窗口， 录制时间清除为0');
-
         if (this.state.recording && recordingTime <= 1) {
             this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
             return false;
@@ -135,29 +137,40 @@ export default class PlacementRecorder extends React.Component {
     async componentWillMount() {
         let audioReady = false;
 
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            try {
-                await WechatAudio.init();
-                audioReady = true;
-            } catch (ex) {
-                audioReady = false;
-            }
-        } else {
-            let support = /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder;
+        try {
+            if (/MicroMessenger/.test(navigator.userAgent)) {
+                try {
+                    await WechatAudio.init();
+                    audioReady = true;
+                } catch (ex) {
+                    audioReady = false;
+                }
 
-            if (support) {
-                await TabletAudio.init((readyStatus) => {
-                    audioReady = readyStatus;
-                    this.setState({loadingAudio: !readyStatus})
-                });
+                this.setState({
+                    loadingAudio: !audioReady
+                })
             } else {
-                audioReady = false;
+                let support = /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder;
+
+                if (support) {
+                    await TabletAudio.init((readyStatus) => {
+                        audioReady = readyStatus;
+                        this.setState({loadingAudio: !readyStatus})
+                    });
+                } else {
+                    audioReady = false;
+                    this.setState({
+                        loadingAudio: !audioReady
+                    })
+                }
             }
         }
-
-        this.setState({
-            loadingAudio: !audioReady
-        })
+        catch (ex) {
+            ErrorHandler.notify('Placement录音初始化发生错误', ex);
+            this.setState({
+                loadingAudio: true
+            })
+        }
     }
 
     async componentWillUnmount() {
@@ -169,7 +182,6 @@ export default class PlacementRecorder extends React.Component {
 
         if (this.state.isPlaying) {
             this.audio.pause();
-            this.setState({isPlaying: false});
         }
 
         recordingTime = 0;
@@ -183,8 +195,7 @@ export default class PlacementRecorder extends React.Component {
                 });
             }
             catch (ex) {
-                console.log('播放音频出错');
-                return;
+                ErrorHandler('Placement播放音频出错', ex);
             }
         } else {
             try {
@@ -192,8 +203,7 @@ export default class PlacementRecorder extends React.Component {
                 this.setState({isPlaying: false});
             }
             catch (ex) {
-                console.log('停止音频出错');
-                return;
+                ErrorHandler('Placement停止音频出错', ex);
             }
         }
     }
