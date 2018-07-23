@@ -1,4 +1,5 @@
 import ServiceProxy from '../service-proxy';
+import ErrorHandler from "../common/error-handler";
 
 let currentUser;
 
@@ -21,6 +22,7 @@ class User {
 
                 currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
             } catch (ex) {
+                ErrorHandler.notify('页面发生错误--退出登录', ex);
                 await User.signOut();
                 console.log(ex);
                 return {};

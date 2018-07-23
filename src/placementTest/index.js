@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form} from 'semantic-ui-react';
+import _ from 'lodash';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import ServiceProxy from '../service-proxy';
@@ -13,9 +14,9 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import ErrorHandler from "../common/error-handler";
+import CurrentUser from "../membership/user";
 import '../my/my.css';
 import './index.css';
-import CurrentUser from "../membership/user";
 
 export default class PlacementModal extends React.Component {
     constructor(props) {
@@ -35,12 +36,8 @@ export default class PlacementModal extends React.Component {
             recording: false
         };
 
-        this.answering = this.answering.bind(this);
-        this.skip = this.skip.bind(this);
+        this.saveAnswer = this.saveAnswer.bind(this);
         this.submit = this.submit.bind(this);
-        this.recordingChanged = this.recordingChanged.bind(this);
-        this.cancelRecording = this.cancelRecording.bind(this);
-        this.finishRecording = this.finishRecording.bind(this);
         this.goBack = this.goBack.bind(this);
         this.setMessage = this.setMessage.bind(this);
         this.goHomePage = this.goHomePage.bind(this);
@@ -63,10 +60,10 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    answering(event, qNum, answer) {
+    saveAnswer(event, qNum, answer) {
         let answers = this.state.answers;
         if (qNum === 3) {
-            if (!answers[qNum]) {
+            if (!answers[qNum] || _.isEmpty(answers[qNum])) {
                 answers[qNum] = [answer];
             } else if (answers[qNum] && answers[qNum].length && answers[qNum].indexOf(answer) === -1) {
                 if (answers[qNum].length === 2 && !this.state.messageModal) {
@@ -100,10 +97,6 @@ export default class PlacementModal extends React.Component {
         this.closeMessageModal();
     }
 
-    async skip() {
-        browserHistory.push('/home');
-    }
-
     async componentWillMount() {
         //如果不在微信中  跳转至https
         if (!/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
@@ -121,6 +114,8 @@ export default class PlacementModal extends React.Component {
             });
         }
         catch (ex) {
+            ErrorHandler.notify('Placement发生错误', ex);
+
             console.log(ex.toString());
         }
     }
@@ -149,7 +144,7 @@ export default class PlacementModal extends React.Component {
             //close messageModal
             this.closeMessageModal();
         } else {
-            Track.event('测试_录音上传过程失败');
+            ErrorHandler.notify('测试_录音上传过程失败');
 
             let clonedAnswers = this.state.answers;
             clonedAnswers[this.state.step - 1] = '';
@@ -161,7 +156,6 @@ export default class PlacementModal extends React.Component {
                 messageName: 'error'
             });
 
-            //close messageModal
             this.closeMessageModal();
         }
     }
@@ -175,31 +169,6 @@ export default class PlacementModal extends React.Component {
 
             clearTimeout(interval);
         }, 3000)
-    }
-
-    recordingChanged(recordingStatus) {
-        console.log('recording status = ', recordingStatus);
-        if (recordingStatus === false) {
-            this.setState({loadingModal: true});
-        }
-        this.setState({recording: recordingStatus})
-    }
-
-    cancelRecording() {
-        Track.event('测试_点击取消录音');
-
-        if (this.practice) {
-            this.practice.cancelReply();
-        }
-    }
-
-    finishRecording() {
-        Track.event('测试_点击完成录音');
-
-        console.log('end reply');
-        if (this.practice) {
-            this.practice.endReply();
-        }
     }
 
     saveStep3() {
@@ -320,7 +289,7 @@ export default class PlacementModal extends React.Component {
                         this.state.step <= 6 &&
                         <PlacementQuestion step={this.state.step} questions={this.state.questions}
                                            recording={this.state.recording}
-                                           answering={this.answering} answers={this.state.answers}
+                                           saveAnswer={this.saveAnswer} answers={this.state.answers}
                                            handleUploadUrl={this.handleUploadUrl.bind(this)}
                                            open={this.state.recording} setMessage={this.setMessage}
                                            avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}

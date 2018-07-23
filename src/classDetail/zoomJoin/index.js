@@ -10,6 +10,8 @@ export default class ZoomDownJoin extends React.Component {
         if(!/MicroMessenger/.test(navigator.userAgent)){
             Track.event('课程详情_进入教室唤醒Zoom客户端');
 
+            //TODO 发送请求-保存用户进入教室的时间，记录考勤状况
+
             if(ua_info && ua_info.platform === 'pc'){
                 window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=${this.props.location.query.zc}&uname=${this.props.location.query.user_name}`;
             }else{
