@@ -24,6 +24,12 @@ export default class HeaderWithBack extends React.Component {
                         </div>
                     }
                 </div>
+                {
+                    this.props.rightTitle &&
+                        <div className="right-showModal" onClick={this.props.rightClick}>
+                            <span>{this.props.rightTitle}</span>
+                        </div>
+                }
             </div>
         )
     }

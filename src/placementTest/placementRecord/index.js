@@ -85,7 +85,7 @@ export default class PlacementRecorder extends React.Component {
         } else if (this.props.answers[this.props.step - 1]) {
             this.reReplyAudio();
         } else if (this.state.loadingAudio) {
-            let message = this.state.support ? '请给予录音权限, 如已拒绝，请刷新页面重试。' : '当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...';
+            let message = this.state.support ? '正在等待录音权限, 如已拒绝，请刷新页面重试。' : '当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...';
 
             this.props.setMessage(message, 'error');
         }
@@ -140,12 +140,10 @@ export default class PlacementRecorder extends React.Component {
 
     async componentWillMount() {
         let audioReady = false;
-        console.log('1');
 
         try {
             if (/MicroMessenger/.test(navigator.userAgent)) {
                 try {
-                    console.log('2');
                     await WechatAudio.init();
                     audioReady = true;
                 } catch (ex) {
@@ -158,7 +156,6 @@ export default class PlacementRecorder extends React.Component {
             } else {
                 if (this.state.support) {
                     await TabletAudio.init((readyStatus) => {
-                        console.log(readyStatus);
                         audioReady = readyStatus;
                         this.setState({loadingAudio: !readyStatus})
                     });
