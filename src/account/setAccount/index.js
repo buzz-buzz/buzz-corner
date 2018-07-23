@@ -71,7 +71,7 @@ class UpdatePassword extends Component {
         }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('设置密码页面展示');
 
         let profile = await CurrentUser.getProfile(true);

@@ -42,7 +42,7 @@ class Friends extends Component {
     }
 
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('好友_好友页面展示');
 
         //TitleSet.setTitle(Resources.getInstance().footerFriends);
