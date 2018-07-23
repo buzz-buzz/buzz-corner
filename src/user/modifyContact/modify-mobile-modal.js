@@ -16,7 +16,9 @@ class ModifyMobileModal extends Component {
                               mobileValid={this.props.mobileValid}
                               waitSec={this.props.waitSec}
                               sms={this.props.sms}
-                              modifyCheck={this.props.modifyCheck}/>
+                              modifyCheck={this.props.modifyCheck}
+                              mobileCountry={this.props.mobileCountry}
+                              onCountryCodeChange={this.props.onCountryCodeChange}/>
                 {
                     this.props.role === MemberType.Companion && false &&
                     <ModifyEmail new_email={this.props.new_email}
