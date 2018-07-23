@@ -54,6 +54,6 @@ export default (props) => (<div className="form-content" onClick={(e) => {
     </div>
     <Button50px
         disabled={!props.mobileValid || props.code.length !== 4}
-        text={Resources.getInstance().profileSunmitBtn}
+        text={Resources.getInstance().validate}
         submit={props.modifyCheck}/>
 </div>)
