@@ -82,7 +82,7 @@ class UserUpdate extends Component {
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
                 json: {
-                    mobile: this.state.new_phone,
+                    mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.new_phone}`,
                     mobile_country: this.state.mobileCountry
                 },
                 method: 'POST'
@@ -168,7 +168,7 @@ class UserUpdate extends Component {
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
                     json: {
-                        mobile: this.state.new_phone,
+                        mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.new_phone}`,
                         code: this.state.code
                     },
                     method: 'POST'
@@ -341,7 +341,7 @@ class UserUpdate extends Component {
         if (event.target.name === 'phone') {
             this.setState({
                 new_phone: event.target.value,
-                mobileValid: event.target.value && event.target.value.length === 11
+                mobileValid: event.target.value && event.target.value.length > 0
             });
         }
 
@@ -437,7 +437,7 @@ class UserUpdate extends Component {
 
         this.setState({
             profile: profile,
-            mobileValid: profile && profile.phone && profile.phone.length === 11,
+            mobileValid: profile && profile.phone && profile.phone.length > 0,
             emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
             new_phone: profile.phone,
             new_email: profile.email,
