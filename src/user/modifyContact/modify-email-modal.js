@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ModifyEmail from './modiy-email';
 import './index.css';
 
-class ModifyMobileModal extends Component {
+class ModifyEmailModal extends Component {
     render() {
         return (
             <div className="modify-contact" onClick={this.props.closeModal}
@@ -20,4 +20,4 @@ class ModifyMobileModal extends Component {
     }
 }
 
-export default ModifyMobileModal;
+export default ModifyEmailModal;
