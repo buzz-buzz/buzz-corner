@@ -21,7 +21,9 @@ export default class PlacementRecorder extends React.Component {
             recordingTime: 0,
             recordAudio: /MicroMessenger/.test(navigator.userAgent) ? new WechatAudio() : new TabletAudio(),
             isPlaying: false,
-            recordAgainLoading: false
+            recordAgainLoading: false,
+            loadingAudio: true,
+            support: /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder
         };
 
         this.audio = {};
@@ -83,7 +85,9 @@ export default class PlacementRecorder extends React.Component {
         } else if (this.props.answers[this.props.step - 1]) {
             this.reReplyAudio();
         } else if (this.state.loadingAudio) {
-            this.props.setMessage('当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...', 'error');
+            let message = this.state.support ? '请给予录音权限, 如已拒绝，请刷新页面重试。' : '当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...';
+
+            this.props.setMessage(message, 'error');
         }
     }
 
@@ -136,10 +140,12 @@ export default class PlacementRecorder extends React.Component {
 
     async componentWillMount() {
         let audioReady = false;
+        console.log('1');
 
         try {
             if (/MicroMessenger/.test(navigator.userAgent)) {
                 try {
+                    console.log('2');
                     await WechatAudio.init();
                     audioReady = true;
                 } catch (ex) {
@@ -150,10 +156,9 @@ export default class PlacementRecorder extends React.Component {
                     loadingAudio: !audioReady
                 })
             } else {
-                let support = /MicroMessenger/.test(navigator.userAgent) ? true : navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder;
-
-                if (support) {
+                if (this.state.support) {
                     await TabletAudio.init((readyStatus) => {
+                        console.log(readyStatus);
                         audioReady = readyStatus;
                         this.setState({loadingAudio: !readyStatus})
                     });

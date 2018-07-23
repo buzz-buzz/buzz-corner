@@ -76,9 +76,9 @@ export default class TabletAudio {
             mediaRecorder.start(10); // collect 10ms of data
             console.log('recording...');
         } else {
-            alert('navigator.mediaDevices.getUserMedia didn\'t work!');
+            alert('需要录音权限，请允许录音后重试…');
 
-            throw handleError('')
+            throw handleError('录音功能出错');
         }
     }
 
