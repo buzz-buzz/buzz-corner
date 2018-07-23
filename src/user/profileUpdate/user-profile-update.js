@@ -23,6 +23,7 @@ import BirthdayHelper from '../../common/birthdayFormat';
 import Track from "../../common/track";
 import './index.css';
 import '../../common/Icon/style.css';
+import {countryCodeMap} from "../../common/country-code-map";
 
 const grade_list = GradeData.grade_list;
 const grade_list_foreign = GradeData.grade_list_foreign;
@@ -80,7 +81,10 @@ class UserUpdate extends Component {
         const {code} = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-                json: {mobile: this.state.new_phone},
+                json: {
+                    mobile: this.state.new_phone,
+                    mobile_country: this.state.mobileCountry
+                },
                 method: 'POST'
             }
         })
@@ -293,7 +297,7 @@ class UserUpdate extends Component {
             city: profile.city,
             interests: newTopics,
             email: profile.email,
-            mobile: profile.phone,
+            mobile: '+' + countryCodeMap[this.state.mobileCountry] + profile.phone,
             avatar: profile.avatar
         };
     }
@@ -425,7 +429,7 @@ class UserUpdate extends Component {
     async componentWillMount() {
         Track.event('我的_修改资料页面展示');
 
-        let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
+        let profile = UserUpdate.getProfileFromUserData(await CurrentUser.getProfile(true));
         if (!profile.role) {
             browserHistory.push('/select-role');
             return;
@@ -436,11 +440,12 @@ class UserUpdate extends Component {
             mobileValid: profile && profile.phone && profile.phone.length === 11,
             emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
             new_phone: profile.phone,
-            new_email: profile.email
+            new_email: profile.email,
+            mobileCountry: profile.mobileCountry
         });
     }
 
-    getProfileFromUserData(userData) {
+    static getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
             phone: userData.mobile || '',
@@ -457,7 +462,8 @@ class UserUpdate extends Component {
             country: userData.country || '',
             time_zone: userData.time_zone || '',
             avatar: userData.avatar || QiniuDomain + '/logo-image.svg',
-            password: userData.password
+            password: userData.password,
+            mobileCountry: userData.mobile_country.country.country_long_name
         };
     }
 
@@ -504,6 +510,8 @@ class UserUpdate extends Component {
                                    modifyCheck={this.validateMobile}
                                    new_phone={this.state.new_phone}
                                    closeModal={this.toggleModifyMobile}
+                                   mobileCountry={this.state.mobileCountry}
+                                   onCountryCodeChange={this.onCountryCodeChange}
                 />
                 <ModifyEmailModal modalShow={this.state.showModifyEmailModal}
                                   handleContactChange={this.handleContactChange}
@@ -730,7 +738,11 @@ class UserUpdate extends Component {
         } else {
             this.showModifyEmail();
         }
-    }
+    };
+
+    onCountryCodeChange = (event, data) => {
+        this.setState({mobileCountry: data.value})
+    };
 }
 
 export default UserUpdate;
