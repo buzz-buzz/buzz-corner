@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {MemberType} from "../../membership/member-type";
-import ModifyMobile from './modify-mobile';
 import ModifyEmail from './modiy-email';
 import './index.css';
 

@@ -3,7 +3,6 @@ import React from "react";
 import {Button, Dropdown} from "semantic-ui-react";
 import BuzzInput from "../common/commonComponent/buzzInput";
 import {iso3166_data} from 'phone';
-import {zones} from 'moment-timezone/data/meta/latest.json';
 
 const countryList = iso3166_data.map(i => ({
     mobileLength: i.phone_number_lengths,

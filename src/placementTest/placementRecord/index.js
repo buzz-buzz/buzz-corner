@@ -36,7 +36,8 @@ export default class PlacementRecorder extends React.Component {
 
     async recordAgain() {
         if (this.state.isPlaying) {
-            this.props.setMessage('正在播放中, 请稍后操作。', 'error');
+            //暂停播放
+            this.props.setMessage('正在播放中, 再次点击播放按钮暂停播放。', 'error');
         } else {
             if (this.state.recording) {
                 this.setState({recordAgainLoading: true});
@@ -161,12 +162,25 @@ export default class PlacementRecorder extends React.Component {
     }
 
     reReplyAudio() {
-        this.setState({isPlaying: true});
-        try {
-            this.audio.play();
-        }
-        catch (ex) {
-            return;
+        if(!this.state.isPlaying){
+            try {
+                this.setState({isPlaying: true}, () => {
+                    this.audio.play();
+                });
+            }
+            catch (ex) {
+                console.log('播放音频出错');
+                return;
+            }
+        }else{
+            try {
+                this.audio.pause();
+                this.setState({isPlaying: false});
+            }
+            catch (ex) {
+                console.log('停止音频出错');
+                return;
+            }
         }
     }
 

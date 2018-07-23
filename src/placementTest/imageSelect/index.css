@@ -9,7 +9,8 @@
     position: relative;
     overflow: hidden;
     margin-bottom: 7px;
-    width: 48%; }
+    width: 48%;
+    min-width: 120px; }
     .placement-images .placement-image-item img {
       width: 100%;
       border-radius: 10px; }
