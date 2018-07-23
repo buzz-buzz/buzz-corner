@@ -16,6 +16,20 @@
     bottom: 0;
     display: flex;
     align-items: center; }
+  .header-with-go-back .right-showModal {
+    position: absolute;
+    margin: 0;
+    width: 20%;
+    height: 50px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 21px; }
+    .header-with-go-back .right-showModal span {
+      color: #666;
+      font-size: 15px; }
   .header-with-go-back .go-back > div {
     display: inline-block;
     background-color: #eee; }

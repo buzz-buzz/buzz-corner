@@ -41,6 +41,7 @@ export default class PlacementModal extends React.Component {
         this.goBack = this.goBack.bind(this);
         this.setMessage = this.setMessage.bind(this);
         this.goHomePage = this.goHomePage.bind(this);
+        this.skip = this.skip.bind(this);
     }
 
     goBack() {
@@ -171,24 +172,9 @@ export default class PlacementModal extends React.Component {
         }, 3000)
     }
 
-    saveStep3() {
+    async saveStep3() {
         try {
-            let placementTestData = {
-                user_id: this.state.userId,
-                detail: JSON.stringify({
-                    questions: this.state.questions,
-                    answers: this.state.answers,
-                    version: 2.0
-                })
-            };
-
-            ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                    json: placementTestData,
-                    method: 'PUT'
-                }
-            });
+            await this.savePlacement();
         }
         catch (ex) {
             ErrorHandler.notify('保存placement-3出错：', ex);
@@ -197,22 +183,7 @@ export default class PlacementModal extends React.Component {
 
     async saveStep6() {
         try {
-            let placementTestData = {
-                user_id: this.state.userId,
-                detail: JSON.stringify({
-                    questions: this.state.questions,
-                    answers: this.state.answers,
-                    version: 2.0
-                })
-            };
-
-            await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                    json: placementTestData,
-                    method: 'PUT'
-                }
-            });
+            await this.savePlacement();
 
             let newStep = this.state.step + 1;
 
@@ -225,6 +196,25 @@ export default class PlacementModal extends React.Component {
         }
     }
 
+    async savePlacement(){
+        let placementTestData = {
+            user_id: this.state.userId,
+            detail: JSON.stringify({
+                questions: this.state.questions,
+                answers: this.state.answers,
+                version: 2.0
+            })
+        };
+
+        return ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                json: placementTestData,
+                method: 'PUT'
+            }
+        });
+    }
+
     goHomePage() {
         if (this.props.location.query.intro) {
             browserHistory.push(`/home?intro=${this.props.location.query.intro}`);
@@ -233,13 +223,18 @@ export default class PlacementModal extends React.Component {
         }
     }
 
+    async skip(){
+        await this.savePlacement();
+        this.goHomePage();
+    }
+
     async submit() {
         try {
             if (this.state.step < 6) {
                 Track.event('测试_题' + this.state.step + '继续');
 
                 if (this.state.step === 3) {
-                    this.saveStep3();
+                    await this.saveStep3();
                 }
 
                 let newStep = this.state.step + 1;
@@ -272,7 +267,12 @@ export default class PlacementModal extends React.Component {
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
-                <HeaderWithBack goBack={this.goBack}/>
+                {
+                    (this.state.step === 5 || this.state.step === 6) ?
+                    <HeaderWithBack goBack={this.goBack} rightTitle="跳过" rightClick={this.skip} />
+                        :
+                    <HeaderWithBack goBack={this.goBack}/>
+                }
                 {
                     this.state.step <= 6 &&
                     <PlacementProgress step={this.state.step}/>
