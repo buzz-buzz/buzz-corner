@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {MemberType} from "../../membership/member-type";
 import ModifyMobile from './modify-mobile';
-import ModifyEmail from './modiy-email';
 import './index.css';
+
 
 class ModifyMobileModal extends Component {
     render() {
@@ -19,17 +18,6 @@ class ModifyMobileModal extends Component {
                               modifyCheck={this.props.modifyCheck}
                               mobileCountry={this.props.mobileCountry}
                               onCountryCodeChange={this.props.onCountryCodeChange}/>
-                {
-                    this.props.role === MemberType.Companion && false &&
-                    <ModifyEmail new_email={this.props.new_email}
-                                 handleContactChange={this.props.handleContactChange}
-                                 code={this.props.code}
-                                 handleCodeChange={this.props.handleCodeChange}
-                                 emailValid={this.props.emailValid}
-                                 waitSec={this.props.waitSec}
-                                 sendEmail={this.props.sendEmail}
-                                 modifyCheck={this.props.modifyCheck}/>
-                }
             </div>
         );
     }

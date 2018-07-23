@@ -497,7 +497,7 @@ class My extends Component {
 
         return {
             parent_name: profile.parent_name,
-            mobile: '+' + countryCodeMap[this.state.mobileCountry] + profile.phone,
+            mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
             name: profile.student_en_name,
             gender: profile.gender,
             city: profile.city,
@@ -532,7 +532,8 @@ class My extends Component {
                 userId: profile.user_id,
                 mobileValid: profile && profile.phone && profile.phone.length > 0,
                 emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
-                profile.student_en_name
+                profile.student_en_name,
+                mobileCountry: profile.mobile_country ? profile.mobile_country.country.country_long_name || this.state.mobileCountry : this.state.mobileCountry
             })
         }
         catch (ex) {
@@ -556,7 +557,8 @@ class My extends Component {
     getProfileFromUserData(userData) {
         return {
             parent_name: userData.parent_name || userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
-            phone: userData.mobile || '',
+            phone: userData.mobile_country ? userData.mobile_country.mobile : userData.mobile || '',
+            mobile_country: userData.mobile_country,
             student_en_name: userData.name || '',
             gender: userData.gender,
             date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
@@ -677,7 +679,7 @@ class My extends Component {
         if (this.state.step === 3) {
             return this.hobbyFormIsInvalid();
         }
-        return true;
+        return false;
     }
 
     hobbyFormIsInvalid() {
