@@ -84,7 +84,7 @@ class My extends Component {
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
                     json: {
-                        mobile: this.state.profile.phone,
+                        mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`,
                         mobile_country: this.state.mobileCountry
                     },
                     method: 'POST'
@@ -465,7 +465,10 @@ class My extends Component {
         await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
-                json: {mobile: this.state.profile.phone, code: this.state.code},
+                json: {
+                    mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`,
+                    code: this.state.code
+                },
                 method: 'POST'
             }
         })
