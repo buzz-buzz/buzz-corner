@@ -23,7 +23,7 @@ const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
 
-fundebug.notify("buzz-corner", "Fundebug started!");
+fundebug.notify("buzz-corner-koa", "Fundebug started!");
 
 app.use(userAgent);
 app.use(bodyParser());
@@ -162,8 +162,8 @@ router
                     profile: JSON.parse(profile)
                 });
             } catch (ex) {
-                await membership.signOut(ctx, () => {
-                });
+                fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
+                
                 ctx.throw(ex.statusCode, `Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
             }
         } else {

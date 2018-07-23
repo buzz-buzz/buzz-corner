@@ -23,20 +23,9 @@ import Client from "../common/client";
 import BirthdayHelper from '../common/birthdayFormat';
 import {iso3166_data} from 'phone';
 import './my.css';
+import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 
 let interval = null;
-
-
-let countryCodeMap = {};
-iso3166_data.map(i => {
-    countryCodeMap[i.alpha3] = i.country_code;
-    return i;
-});
-let countryLongNameMap = {};
-iso3166_data.map(i => {
-    countryLongNameMap[i.alpha2] = i.alpha3;
-    return i;
-});
 
 class My extends Component {
     constructor(props) {
@@ -95,7 +84,7 @@ class My extends Component {
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
                     json: {
-                        mobile: this.state.profile.phone,
+                        mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`,
                         mobile_country: this.state.mobileCountry
                     },
                     method: 'POST'
@@ -476,7 +465,10 @@ class My extends Component {
         await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/mobile/verify`,
-                json: {mobile: this.state.profile.phone, code: this.state.code},
+                json: {
+                    mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`,
+                    code: this.state.code
+                },
                 method: 'POST'
             }
         })
