@@ -174,7 +174,7 @@ export default class PlacementModal extends React.Component {
             }
 
             clearTimeout(interval);
-        }, 5000)
+        }, 3000)
     }
 
     recordingChanged(recordingStatus) {

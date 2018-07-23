@@ -37,23 +37,32 @@ export default class PlacementRecorder extends React.Component {
     async recordAgain() {
         if (this.state.isPlaying) {
             //暂停播放
-            this.props.setMessage('正在播放中, 再次点击播放按钮暂停播放。', 'error');
-        } else {
-            if (this.state.recording) {
-                this.setState({recordAgainLoading: true});
-                console.log('stop---recording');
-                //调用停止录音方法
-                await this.state.recordAudio.stopRecording();
-                recordingTime = 0;
-                await new Promise(resolve => window.setTimeout(resolve, 2000));
+            if (this.audio) {
+                this.audio.pause();
+                this.setState({isPlaying: false});
             }
+        }
+
+        if (this.state.recording && recordingTime <= 1) {
+            this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
+            return false;
+        }
+
+        if (this.state.recording && recordingTime > 1) {
+            this.setState({recordAgainLoading: true});
+            console.log('stop---recording');
+            //调用停止录音方法
+            await this.state.recordAudio.stopRecording();
+            recordingTime = 0;
+            await new Promise(resolve => window.setTimeout(resolve, 2000));
 
             this.setState({recording: false});
-            this.setState({recording: true, recordAgainLoading: false}, async() => {
-                await this.state.recordAudio.startRecording();
-                console.log('begin...');
-            });
         }
+
+        this.setState({recording: true, recordAgainLoading: false}, async() => {
+            await this.state.recordAudio.startRecording();
+            console.log('begin...');
+        });
     }
 
     getTime(time) {
@@ -69,7 +78,7 @@ export default class PlacementRecorder extends React.Component {
             this.props.setMessage('正在录制中...', 'error');
         } else if (this.props.answers[this.props.step - 1]) {
             this.reReplyAudio();
-        }else if(this.state.loadingAudio){
+        } else if (this.state.loadingAudio) {
             this.props.setMessage('当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...', 'error');
         }
     }
@@ -112,10 +121,15 @@ export default class PlacementRecorder extends React.Component {
     async closeRecord() {
         console.log('关闭录音操作窗口， 录制时间清除为0');
 
-        this.setState({recording: false}, async() => {
-            await this.state.recordAudio.stopRecording();
-            recordingTime = 0;
-        });
+        if (this.state.recording && recordingTime <= 1) {
+            this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
+            return false;
+        } else if (this.state.recording) {
+            this.setState({recording: false}, async() => {
+                await this.state.recordAudio.stopRecording();
+                recordingTime = 0;
+            });
+        }
     }
 
     async componentWillMount() {
@@ -153,7 +167,7 @@ export default class PlacementRecorder extends React.Component {
             await this.closeRecord();
         }
 
-        if(this.state.isPlaying){
+        if (this.state.isPlaying) {
             this.audio.pause();
             this.setState({isPlaying: false});
         }
@@ -162,7 +176,7 @@ export default class PlacementRecorder extends React.Component {
     }
 
     reReplyAudio() {
-        if(!this.state.isPlaying){
+        if (!this.state.isPlaying) {
             try {
                 this.setState({isPlaying: true}, () => {
                     this.audio.play();
@@ -172,7 +186,7 @@ export default class PlacementRecorder extends React.Component {
                 console.log('播放音频出错');
                 return;
             }
-        }else{
+        } else {
             try {
                 this.audio.pause();
                 this.setState({isPlaying: false});
@@ -237,18 +251,18 @@ export default class PlacementRecorder extends React.Component {
                         }
                         {
                             this.props.answers[this.props.step - 1] ?
-                            <audio type="audio/mpeg" src={this.props.answers[this.props.step - 1]} ref={(audio) => {
-                                this.audio = audio;
+                                <audio type="audio/mpeg" src={this.props.answers[this.props.step - 1]} ref={(audio) => {
+                                    this.audio = audio;
 
-                                if (audio) {
-                                    audio.addEventListener('ended', () => {
-                                        this.setState({ isPlaying: false });
-                                    });
-                                }
-                            }}>
-                                <source src={this.props.answers[this.props.step - 1]} type="audio/mpeg" />
-                                Your browser does not support the audio element.
-                            </audio> : ''
+                                    if (audio) {
+                                        audio.addEventListener('ended', () => {
+                                            this.setState({isPlaying: false});
+                                        });
+                                    }
+                                }}>
+                                    <source src={this.props.answers[this.props.step - 1]} type="audio/mpeg"/>
+                                    Your browser does not support the audio element.
+                                </audio> : ''
                         }
                     </div>
                     {
