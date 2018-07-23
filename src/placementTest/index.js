@@ -172,9 +172,9 @@ export default class PlacementModal extends React.Component {
         }, 3000)
     }
 
-    async saveStep3() {
+    saveStep3() {
         try {
-            await this.savePlacement();
+            this.savePlacement();
         }
         catch (ex) {
             ErrorHandler.notify('保存placement-3出错：', ex);
@@ -196,7 +196,7 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    async savePlacement(){
+    savePlacement(){
         let placementTestData = {
             user_id: this.state.userId,
             detail: JSON.stringify({
@@ -224,7 +224,12 @@ export default class PlacementModal extends React.Component {
     }
 
     async skip(){
-        await this.savePlacement();
+        try{
+            this.savePlacement();
+        }
+        catch(ex){
+            ErrorHandler.notify('保存placement-skip出错：', ex);
+        }
         this.goHomePage();
     }
 
@@ -234,7 +239,7 @@ export default class PlacementModal extends React.Component {
                 Track.event('测试_题' + this.state.step + '继续');
 
                 if (this.state.step === 3) {
-                    await this.saveStep3();
+                    this.saveStep3();
                 }
 
                 let newStep = this.state.step + 1;
