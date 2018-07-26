@@ -319,25 +319,30 @@ class UserUpdate extends Component {
 
     async submit() {
         //check if has change
-        if (this.state.update && this.state.canUpdate) {
-            //save data
-            this.setState({loadingModal: true});
+        try{
+            if (this.state.update && this.state.canUpdate) {
+                //save data
+                this.setState({loadingModal: true});
 
-            let profileData = this.validateForm();
+                let profileData = this.validateForm();
 
-            await ServiceProxy.proxy(`/user-info`, {
-                body: profileData,
-                method: 'PUT'
+                await ServiceProxy.proxy(`/user-info`, {
+                    body: profileData,
+                    method: 'PUT'
+                });
+            }
+
+            this.setState({
+                loadingModal: false,
+                messageModal: true,
+                messageName: 'success',
+                messageContent: Resources.getInstance().saveSuccess
             });
+            this.closeMessageModal();
         }
-
-        this.setState({
-            loadingModal: false,
-            messageModal: true,
-            messageName: 'success',
-            messageContent: Resources.getInstance().saveSuccess
-        });
-        this.closeMessageModal();
+        catch (ex){
+            ErrorHandler.notify('保存个人信息出错', ex);
+        }
     }
 
     handleChange(event) {
@@ -438,6 +443,7 @@ class UserUpdate extends Component {
             }
         } catch (ex) {
             //something wrong
+            ErrorHandler.notify('上传头像出错', ex);
         }
     };
 
