@@ -62,7 +62,12 @@ membership.ensureAuthenticated = async function (context, next) {
 
             return context.body = result;
         } else {
-            let url = '/select-role?return_url=' + encodeURIComponent(context.request.originalUrl);
+            let returnUrl = context.request.originalUrl;
+            if (returnUrl === '/user-info') {
+                returnUrl = context.request.headers.referer;
+            }
+
+            let url = '/select-role?return_url=' + encodeURIComponent(returnUrl);
 
             return context.redirect(url);
         }
@@ -79,9 +84,7 @@ membership.pretendToBeOtherUser = async function (context, next) {
 }
 
 membership.signOut = async function (ctx, next) {
-    console.log('signing out...');
     cookie.resetSignOnCookies.call(ctx);
-    console.log('signed out');
 
     await next();
 };
