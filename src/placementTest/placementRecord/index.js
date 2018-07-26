@@ -94,13 +94,11 @@ export default class PlacementRecorder extends React.Component {
     async stopRecord() {
         if (recordingTime && recordingTime >= 30) {
             this.setState({loadingModal: true});
-            alert('upload 1');
         }
 
         this.setState({recording: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
                 try {
-                    alert('upload 2');
                     let url = await this.state.recordAudio.stopRecordingWithQiniuLink();
 
                     this.props.handleUploadUrl({
@@ -109,11 +107,11 @@ export default class PlacementRecorder extends React.Component {
                         type: 'end'
                     });
 
-                    alert('upload 5-done');
                     this.setState({loadingModal: false, recordingTime: recordingTime});
                 }
                 catch (ex) {
-                    alert('upload ex---');
+                    alert('upload ex---:' + JSON.stringify(ex));
+                    ErrorHandler.notify('上传音频出错', ex);
                     this.props.handleUploadUrl({
                         url: '',
                         err: ex,
@@ -124,7 +122,6 @@ export default class PlacementRecorder extends React.Component {
                     this.setState({loadingModal: false, recordingTime: 0});
                 }
             } else {
-                alert('upload < 30');
                 this.setState({loadingModal: false, recordingTime: 0});
                 this.props.setMessage('录制时间30-60秒哦', 'error');
             }
