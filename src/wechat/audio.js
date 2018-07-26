@@ -73,6 +73,7 @@ export default class WechatAudio {
 
 
     async stopRecording() {
+        alert('upload wx 1');
         this.status = WechatAudioStatus.stoppingRecording;
         return new Promise((resolve, reject) => {
             wx.stopRecord({
@@ -99,6 +100,7 @@ export default class WechatAudio {
 
 
     async upload() {
+        alert('upload wx 2');
         this.status = WechatAudioStatus.uploadingRecording;
         return new Promise((resolve, reject) => {
             wx.uploadVoice({
@@ -115,6 +117,7 @@ export default class WechatAudio {
 
 
     async getQiniuLink() {
+        alert('upload wx 3');
         this.status = WechatAudioStatus.uploadingToQiniu;
         const {url} = await ServiceProxy.proxyTo({
             body: {
