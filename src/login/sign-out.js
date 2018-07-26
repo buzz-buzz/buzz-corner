@@ -1,16 +1,10 @@
 import * as React from "react";
-import ServiceProxy from "../service-proxy";
-import {browserHistory} from "react-router";
 import LoadingModal from '../common/commonComponent/loadingModal';
+import CurrentUser from "../membership/user";
 
 export default class SignOut extends React.Component {
     async componentWillMount() {
-        try {
-            await ServiceProxy.proxy('/sign-out')
-            browserHistory.push('/sign-in')
-        } catch (ex) {
-            console.error(ex);
-        }
+        await CurrentUser.signOut();
     }
 
     render() {
