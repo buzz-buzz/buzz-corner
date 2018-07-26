@@ -21,7 +21,6 @@ import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
 import Client from "../common/client";
 import BirthdayHelper from '../common/birthdayFormat';
-import {iso3166_data} from 'phone';
 import './my.css';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 
