@@ -14,17 +14,13 @@ class User {
         if (!currentUser) {
             try {
                 let userData = await ServiceProxy.proxy('/user-info');
-
-                if (typeof userData !== 'object' || !userData.userId) {
-                    await User.signOut();
-                    return;
-                }
-
                 currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
             } catch (ex) {
-                ErrorHandler.notify('页面发生错误--退出登录', ex);
-                await User.signOut();
-                console.log(ex);
+                if (ex.message.startsWith('http')) {
+                    window.location.href = ex.message;
+                } else {
+                    ErrorHandler.notify('获取当前用户信息出错', ex);
+                }
                 return {};
             }
         }
@@ -37,9 +33,12 @@ class User {
         try {
             await ServiceProxy.proxy(`/sign-out`);
         } catch (ex) {
-            console.error(ex);
-        } finally {
-            window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
+            if (ex.message.startsWith('http')) {
+                window.location.href = ex.message;
+            } else {
+                console.error(ex);
+                window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
+            }
         }
     }
 
@@ -66,5 +65,9 @@ export default class CurrentUser {
 
         let instance = await User.getInstance();
         return instance.profile;
+    }
+
+    static async signOut() {
+        await User.signOut();
     }
 }
