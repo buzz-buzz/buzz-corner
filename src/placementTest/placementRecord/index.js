@@ -116,9 +116,11 @@ export default class PlacementRecorder extends React.Component {
                         type: 'end'
                     });
 
+                    this.props.setMessage('上传出错, 请稍后再次尝试:' + JSON.stringify(ex), 'error');
                     this.setState({loadingModal: false, recordingTime: 0});
                 }
             } else {
+                this.setState({loadingModal: false, recordingTime: 0});
                 this.props.setMessage('录制时间30-60秒哦', 'error');
             }
 

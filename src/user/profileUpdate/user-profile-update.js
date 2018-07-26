@@ -9,8 +9,7 @@ import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import Button50px from '../../common/commonComponent/submitButton50px';
-import ConfirmationModal
-    from '../../common/commonComponent/ConfirmationModal/index';
+import ConfirmationModal from '../../common/commonComponent/ConfirmationModal/index';
 import ModifyMobileModal from '../modifyContact/modify-mobile-modal';
 import ModifyEmailModal from '../modifyContact/modify-email-modal';
 import UpdateTopicModal from '../updateModal';
@@ -19,6 +18,7 @@ import {MemberType} from "../../membership/member-type";
 import CurrentUser from "../../membership/user";
 import ServiceProxy from '../../service-proxy';
 import Back from '../../common/back';
+import ErrorHandler from "../../common/error-handler";
 import BirthdayHelper from '../../common/birthdayFormat';
 import Track from "../../common/track";
 import './index.css';
@@ -78,53 +78,63 @@ class UserUpdate extends Component {
     }
 
     async sms() {
-        const {code} = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
-                json: {
-                    mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.new_phone}`,
-                    mobile_country: this.state.mobileCountry
-                },
-                method: 'POST'
+        try {
+            const {code} = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
+                    json: {
+                        mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.new_phone}`,
+                        mobile_country: this.state.mobileCountry
+                    },
+                    method: 'POST'
+                }
+            });
+            if (code) {
+                this.setState({code});
             }
-        })
-        if (code) {
-            this.setState({code});
+            this.setState({waitSec: 60});
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
         }
-        this.setState({waitSec: 60});
-        const interval = setInterval(() => {
-            if (this.state.waitSec) {
-                this.setState({waitSec: this.state.waitSec - 1});
-            } else {
-                clearInterval(interval)
-            }
-        }, 1000)
+        catch (ex) {
+            ErrorHandler.notify('修改资料-发送手机验证码错误', ex);
+        }
     }
 
     async sendEmail() {
-        await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
-                json: {
-                    mail: this.state.new_email,
-                    name: this.state.profile.student_en_name
-                },
-                method: 'POST'
-            }
-        });
-        this.setState({
-            messageModal: true,
-            messageContent: Resources.getInstance().emailUnkonwWrong
-        });
-        this.closeMessageModal();
-        this.setState({waitSec: 60});
-        const interval = setInterval(() => {
-            if (this.state.waitSec) {
-                this.setState({waitSec: this.state.waitSec - 1});
-            } else {
-                clearInterval(interval)
-            }
-        }, 1000)
+        try {
+            await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/mail/verification`,
+                    json: {
+                        mail: this.state.new_email,
+                        name: this.state.profile.student_en_name
+                    },
+                    method: 'POST'
+                }
+            });
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().emailUnkonwWrong
+            });
+            this.closeMessageModal();
+            this.setState({waitSec: 60});
+            const interval = setInterval(() => {
+                if (this.state.waitSec) {
+                    this.setState({waitSec: this.state.waitSec - 1});
+                } else {
+                    clearInterval(interval)
+                }
+            }, 1000)
+        }
+        catch (ex){
+            ErrorHandler.notify('修改信息-发送邮箱验证码错误', ex);
+        }
     }
 
 
@@ -139,7 +149,7 @@ class UserUpdate extends Component {
                     },
                     method: 'POST'
                 }
-            })
+            });
 
             let clonedProfile = this.state.profile;
             clonedProfile.email = this.state.new_email;
@@ -185,7 +195,7 @@ class UserUpdate extends Component {
                 profile: clonedProfile
             });
         } catch (e) {
-            console.log(e)
+            console.log(e);
 
             this.setState({
                 messageModal: true,
