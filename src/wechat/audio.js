@@ -73,7 +73,6 @@ export default class WechatAudio {
 
 
     async stopRecording() {
-        alert('upload wx 1');
         this.status = WechatAudioStatus.stoppingRecording;
         return new Promise((resolve, reject) => {
             wx.stopRecord({
@@ -90,17 +89,17 @@ export default class WechatAudio {
     async startRecording(timeoutCallback) {
         this.status = WechatAudioStatus.startingRecording;
         wx.startRecord();
-        await new Promise((resolve, reject) => setTimeout(resolve, 59 * 1000))
-        if (timeoutCallback) {
-            timeoutCallback();
-        } else {
-            await this.stopRecording()
-        }
+        // await new Promise((resolve, reject) => setTimeout(resolve, 59 * 1000))
+        // if (timeoutCallback) {
+        //     timeoutCallback();
+        // } else {
+        //     alert('weChat --- timeout -- stop');
+        //     await this.stopRecording()
+        // }
     }
 
 
     async upload() {
-        alert('upload wx 2');
         this.status = WechatAudioStatus.uploadingRecording;
         return new Promise((resolve, reject) => {
             wx.uploadVoice({
@@ -117,7 +116,6 @@ export default class WechatAudio {
 
 
     async getQiniuLink() {
-        alert('upload wx 3');
         this.status = WechatAudioStatus.uploadingToQiniu;
         const {url} = await ServiceProxy.proxyTo({
             body: {

@@ -26,12 +26,9 @@ export default class StopWatch extends React.Component {
     }
 
     componentWillUnmount() {
-        this.stopTick();
-
-        //重写组件的setState方法，直接返回空
-        this.setState = (state, callback) => {
-            return
-        };
+        if (this.state.timerId) {
+            clearInterval(this.state.timerId);
+        }
     }
 
     render() {
