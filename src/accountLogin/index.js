@@ -15,6 +15,28 @@ import Back from '../common/back';
 
 import {connect} from 'react-redux';
 import {addUser, addUsers, clearUsers} from '../actions/index';
+import {Dropdown} from "semantic-ui-react";
+import {iso3166_data} from "phone";
+import {countryLongNameMap} from "../common/country-code-map";
+import {zones} from "moment-timezone/data/meta/latest";
+import moment from "moment-timezone";
+
+const countryList = iso3166_data.map(i => ({
+    mobileLength: i.phone_number_lengths,
+    mobileBeginWith: i.mobile_begin_with,
+    countryName: i.country_name,
+    countryLongName: i.alpha3,
+    countryShortName: i.alpha2,
+    countryCode: i.country_code
+}));
+
+const countryOptions = countryList.map(c => ({
+    key: c.countryLongName,
+    value: c.countryLongName,
+    flag: c.countryShortName.toLowerCase(),
+    text: `(+${c.countryCode}) ${c.countryName}`
+}));
+
 
 class AccountLogin extends Component {
     constructor() {
@@ -26,7 +48,8 @@ class AccountLogin extends Component {
                 user_password: '',
                 user_id: null
             },
-            title: Resources.getInstance().accountPasswordLogin
+            title: Resources.getInstance().accountPasswordLogin,
+            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]]
         };
 
         this.back = this.back.bind(this);
@@ -69,6 +92,8 @@ class AccountLogin extends Component {
         this.setState({loadingModal: true});
         this.props.clearUsers();
 
+        console.log('state = ', this.state);
+
         try {
             let result = await ServiceProxy.proxyTo({
                 body: {
@@ -76,7 +101,8 @@ class AccountLogin extends Component {
                     json: {
                         account: this.state.data.user_account,
                         password: this.state.data.user_password,
-                        user_id: this.state.data.user_id
+                        user_id: this.state.data.user_id,
+                        mobile_country: this.state.mobileCountry
                     },
                     method: 'PUT'
                 }
@@ -128,10 +154,10 @@ class AccountLogin extends Component {
     };
 
     render() {
-        console.log('renderring...');
         return (
             <div className="account-login">
-                <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
+                <MessageModal modalName={this.state.messageName}
+                              modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <HeaderWithBack goBack={this.back} title={this.state.title}/>
@@ -139,18 +165,33 @@ class AccountLogin extends Component {
                     !this.state.multipleUsers &&
                     <div className="set-word">
                         <div className="user-password">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg"
+                                alt=""/>
+
+                            <Dropdown
+                                placeholder={Resources.getInstance().selectCountryCode}
+                                search selection options={countryOptions}
+                                style={{width: '80px', marginRight: '10px'}}
+                                value={this.state.mobileCountry}
+                                onChange={(event, data) =>
+                                    this.setState({mobileCountry: data.value})}/>
+
                             <BuzzInput
-                                type="text" placeholder={Resources.getInstance().accountInputAccount}
+                                type="text"
+                                placeholder={Resources.getInstance().accountInputAccount}
                                 value={this.state.data.user_account}
                                 onChange={this.handleChange}
                                 name='user_account'
                             />
                         </div>
                         <div className="user-password">
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg"
+                                alt=""/>
                             <BuzzInput
-                                type="password" placeholder={Resources.getInstance().accountInputPasswordLogin}
+                                type="password"
+                                placeholder={Resources.getInstance().accountInputPasswordLogin}
                                 value={this.state.data.user_password}
                                 onChange={this.handleChange}
                                 name='user_password'
@@ -159,13 +200,16 @@ class AccountLogin extends Component {
                         <div className="update-btn">
                             <Button50px
                                 disabled={!this.state.data.user_password || !this.state.data.user_account || this.state.data.user_password.length < 6}
-                                text={Resources.getInstance().accountLogin} submit={this.submit}/>
+                                text={Resources.getInstance().accountLogin}
+                                submit={this.submit}/>
                         </div>
-                        <div className="forgotten" onClick={this.forgottenPassword}>
+                        <div className="forgotten"
+                             onClick={this.forgottenPassword}>
                             {Resources.getInstance().accountForgotten}
                         </div>
                         <div className="flex-end">
-                            <div onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
+                            <div
+                                onClick={this.forgottenPassword}>{Resources.getInstance().accountHow}</div>
                         </div>
                     </div>
                 }
