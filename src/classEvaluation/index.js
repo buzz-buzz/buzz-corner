@@ -8,10 +8,12 @@ import {MemberType} from "../membership/member-type";
 import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
+import Back from "../common/back";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
+import ErrorHandler from "../common/error-handler";
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import CompanionModal from './companion';
 import moment from 'moment';
@@ -67,11 +69,7 @@ class classEvaluation extends Component {
     }
 
     back() {
-        if (window.history.length > 1) {
-            window.history.go(-1);
-        } else {
-            browserHistory.push('/');
-        }
+        Back.back();
     }
 
     companionCenter() {
@@ -182,17 +180,17 @@ class classEvaluation extends Component {
         }
     }
 
-    handleFeedBack(feedback){
+    handleFeedBack(feedback) {
         let result = [];
 
-        for(let i in feedback){
-            if(!feedback[i].type){
+        for (let i in feedback) {
+            if (!feedback[i].type) {
                 result.push(feedback[i]);
                 break;
             }
         }
 
-        for(let i in feedback){
+        for (let i in feedback) {
             feedback[i].type && result.push(feedback[i]);
         }
 
@@ -217,11 +215,18 @@ class classEvaluation extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
+            //class if end
+            if (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP) > 0) {
+                alert('此课程还未结束不能评价, 请稍后再来哦');
+                Back.back();
+                return false;
+            }
+
             //auth check
             if (class_info.companions && class_info.students && class_info.companions !== (userId + '') && class_info.students.indexOf(userId + '') <= -1) {
                 alert(Resources.getInstance().classInfoNoAuth);
-                browserHistory.push('/');
-                return;
+                Back.back();
+                return false;
             }
 
             //get feed_back data
@@ -274,7 +279,9 @@ class classEvaluation extends Component {
                         stars: parseFloat(feed_back[0].score),
                         evaluation_content: feed_back[0].comment
                     },
-                    types: feed_back.filter(function(item){return item.type})
+                    types: feed_back.filter(function (item) {
+                        return item.type
+                    })
                 });
             } else {
                 //set state
@@ -291,6 +298,7 @@ class classEvaluation extends Component {
             }
         } catch (ex) {
             //login error
+            ErrorHandler.notify('课后评价页面出错', ex)
             this.setState({loadingModal: false});
         }
     }
@@ -391,7 +399,8 @@ class classEvaluation extends Component {
                 {
                     this.state.role === MemberType.Companion &&
                     <CompanionModal parentProps={this.props}
-                                    setModalSubmitStatus={this.setModalSubmitStatus} evaluationContent={this.state.evaluationContent}
+                                    setModalSubmitStatus={this.setModalSubmitStatus}
+                                    evaluationContent={this.state.evaluationContent}
                                     evaluation_status={this.state.evaluation_status} types={this.state.types}
                     />
                 }
