@@ -16,8 +16,6 @@ export default class StopWatch extends React.Component {
     }
 
     componentWillMount() {
-        console.log('-----------');
-
         if (this.props.visible) {
             this.startTick();
         } else {
