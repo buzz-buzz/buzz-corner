@@ -161,7 +161,7 @@ class UserUpdate extends Component {
                 profile: clonedProfile
             });
         } catch (e) {
-            console.log(e)
+            console.log(e);
 
             this.setState({
                 messageModal: true,
@@ -211,19 +211,24 @@ class UserUpdate extends Component {
     }
 
     topicToggle() {
-        let clonedTopicShow = this.state.topicShow;
+        try{
+            let clonedTopicShow = this.state.topicShow;
 
-        if (clonedTopicShow) {
-            document.getElementById('update-modal').style.animation = 'topic-move-hide .3s linear';
+            if (clonedTopicShow) {
+                document.getElementById('update-modal').style.animation = 'topic-move-hide .3s linear';
 
-            let onceDisappear = setTimeout(() => {
+                let onceDisappear = setTimeout(() => {
+                    this.setState({topicShow: !clonedTopicShow});
+                    clearTimeout(onceDisappear);
+                }, 300)
+            } else {
+                document.getElementById('update-modal').style.animation = 'topic-move-show .3s linear';
+
                 this.setState({topicShow: !clonedTopicShow});
-                clearTimeout(onceDisappear);
-            }, 300)
-        } else {
-            document.getElementById('update-modal').style.animation = 'topic-move-show .3s linear';
-
-            this.setState({topicShow: !clonedTopicShow});
+            }
+        }
+        catch (ex){
+            ErrorHandler.notify('修改信息-topicModal出错', ex);
         }
     }
 
