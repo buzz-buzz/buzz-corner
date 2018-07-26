@@ -86,7 +86,7 @@ export default class WechatAudio {
     }
 
 
-    async startRecording(timeoutCallback) {
+    async startRecording() {
         this.status = WechatAudioStatus.startingRecording;
         wx.startRecord();
         // await new Promise((resolve, reject) => setTimeout(resolve, 59 * 1000))
