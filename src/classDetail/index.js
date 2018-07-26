@@ -385,7 +385,7 @@ class classDetail extends Component {
                         </div>
                     </div>
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
-                    <ClassAd id={this.state.class_id} />
+                    <ClassAd id={this.state.class_id} content={this.state.class_content} role={this.state.role}/>
                 </div>
                 <div className="class-detail-practice">
                     {
