@@ -33,9 +33,12 @@ class User {
         try {
             await ServiceProxy.proxy(`/sign-out`);
         } catch (ex) {
-            console.error(ex);
-        } finally {
-            window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
+            if (ex.message.startsWith('http')) {
+                window.location.href = ex.message;
+            } else {
+                console.error(ex);
+                window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
+            }
         }
     }
 
@@ -62,5 +65,9 @@ export default class CurrentUser {
 
         let instance = await User.getInstance();
         return instance.profile;
+    }
+
+    static async signOut() {
+        await User.signOut();
     }
 }

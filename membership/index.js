@@ -84,9 +84,7 @@ membership.pretendToBeOtherUser = async function (context, next) {
 }
 
 membership.signOut = async function (ctx, next) {
-    console.log('signing out...');
     cookie.resetSignOnCookies.call(ctx);
-    console.log('signed out');
 
     await next();
 };
