@@ -148,25 +148,20 @@ router
         ctx.redirect(`/select-role`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
-        if (isFinite(ctx.state.user.userId)) {
-            let options = Object.assign({
-                headers: BasicAuth.authHeader(),
-                uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
-            }, ctx.request.body);
+        let options = Object.assign({
+            headers: BasicAuth.authHeader(),
+            uri: `${config.endPoints.buzzService}/api/v1/users/${ctx.state.user.userId}`
+        }, ctx.request.body);
 
-            try {
-                let profile = await request(options);
-                console.log('profile is ', profile);
+        try {
+            let profile = await request(options);
 
-                ctx.body = Object.assign(ctx.state.user, {
-                    profile: JSON.parse(profile)
-                });
-            } catch (ex) {
-                fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
-                
-                ctx.throw(ex.statusCode, `Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
-            }
-        } else {
+            ctx.body = Object.assign(ctx.state.user, {
+                profile: JSON.parse(profile)
+            });
+        } catch (ex) {
+            fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
+
             ctx.redirect(`/select-role?return_url=${ctx.request.headers.referer}`);
         }
     })
