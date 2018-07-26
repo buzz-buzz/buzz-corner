@@ -140,7 +140,7 @@ class classEvaluationPoster extends Component {
                     <div className="class-contact">
                         <div className="how-btn">BuzzBuzz如何上课</div>
                         <div className="video-buzz">
-                            <img src="//resource.buzzbuzzenglish.com/image/buzz-corner/banner-inland.png" alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/banner-inland.png" alt=""/>
                             <div className="video-btn" onClick={this.goVideoPlayPage}>
                                 <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_play.png" alt=""/>
                             </div>
