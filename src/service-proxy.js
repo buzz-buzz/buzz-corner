@@ -55,6 +55,11 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
+            if (res.redirected && res.url.startsWith(`${window.location.origin}/select-role`)) {
+                throw new Error(res.url);
+                return;
+            }
+
             let textResult = typeof res.text === 'function' ? await res.text() : res.body;
             if (mergedOptions.accept === 'application/json') {
                 try {

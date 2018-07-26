@@ -14,17 +14,13 @@ class User {
         if (!currentUser) {
             try {
                 let userData = await ServiceProxy.proxy('/user-info');
-
-                if (typeof userData !== 'object' || !userData.userId) {
-                    await User.signOut();
-                    return;
-                }
-
                 currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
             } catch (ex) {
-                ErrorHandler.notify('页面发生错误--退出登录', ex);
-                await User.signOut();
-                console.log(ex);
+                if (ex.message.startsWith('http')) {
+                    window.location.href = ex.message;
+                } else {
+                    ErrorHandler.notify('获取当前用户信息出错', ex);
+                }
                 return {};
             }
         }

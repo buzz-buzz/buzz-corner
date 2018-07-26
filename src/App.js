@@ -37,8 +37,8 @@ import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
-import UnderConstruction from "./common/commonComponent/under-construction/index";
-import EntryPoint from "./home/EntryPoint";
+import UnderConstruction
+    from "./common/commonComponent/under-construction/index";
 import SignOut from "./login/sign-out";
 import Client from "./common/client";
 import WechatShare from './wechat/wechatShare';
@@ -58,22 +58,31 @@ class App extends Component {
                     <ToastMessage/>
                 </div>
                 <Router history={browserHistory} style={{height: '100%'}}>
-                    <Route path='/' component={EntryPoint}/>
-                    <Route path='//' component={EntryPoint}/>
-                    <Route path='/%2f' component={EntryPoint}/>
-                    <Route path='/select-role' component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
-                    <Route path='/sign-in' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
-                    <Route path='/tutor' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
-                    <Route path='/student' component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+                    <Route path='/' component={Home}/>
+                    <Route path='//' component={Home}/>
+                    <Route path='/%2f' component={Home}/>
+                    <Route path='/user-info' component={UserUpdate}/>
+                    <Route path='/select-role'
+                           component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
+                    <Route path='/sign-in'
+                           component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+                    <Route path='/tutor'
+                           component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
+                    <Route path='/student'
+                           component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
-                    <Route path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
-                           component={WechatOAuthRedirect}/>
-                    <Route path="/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string"
-                           component={WechatOAuthRedirect}/>
-                    <Route path="/wechat/oauth/success/:wechatUserInfo" component={WechatOAuthSuccess}/>
-                    <Route path="/wechat/oauth/fail/:wechatErrorInfo" component={WechatOAuthFail}/>
+                    <Route
+                        path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
+                        component={WechatOAuthRedirect}/>
+                    <Route
+                        path="/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string"
+                        component={WechatOAuthRedirect}/>
+                    <Route path="/wechat/oauth/success/:wechatUserInfo"
+                           component={WechatOAuthSuccess}/>
+                    <Route path="/wechat/oauth/fail/:wechatErrorInfo"
+                           component={WechatOAuthFail}/>
                     <Route path='/my/info' component={My}/>
                     <Route path='/my/info/:step' component={My}/>
                     <Route path='/placement' component={Placement}/>
@@ -90,15 +99,23 @@ class App extends Component {
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/consult' component={Consult}/>
                     <Route path='/help/:faq_id' component={HelpCenter}/>
-                    <Route path='/class/evaluation/:to_user_id/:class_id' component={ClassEvaluation}/>
-                    <Route path='/evaluation/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationResult}/>
-                    <Route path='/evaluation/standards' component={EvaluationStandards}/>
-                    <Route path='/poster/:from_user_id/:to_user_id/:class_id' component={ClassEvaluationPoster}/>
-                    <Route path='/class/foreign/:class_id' component={ClassEvaluationForeign}/>
+                    <Route path='/class/evaluation/:to_user_id/:class_id'
+                           component={ClassEvaluation}/>
+                    <Route
+                        path='/evaluation/:from_user_id/:to_user_id/:class_id'
+                        component={ClassEvaluationResult}/>
+                    <Route path='/evaluation/standards'
+                           component={EvaluationStandards}/>
+                    <Route path='/poster/:from_user_id/:to_user_id/:class_id'
+                           component={ClassEvaluationPoster}/>
+                    <Route path='/class/foreign/:class_id'
+                           component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>
-                    <Route path='/under-construction' component={UnderConstruction}/>
+                    <Route path='/under-construction'
+                           component={UnderConstruction}/>
                     <Route path='/booking' component={Booking}/>
-                    <Route path='/video-play' component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
+                    <Route path='/video-play'
+                           component={Client.showComponent(VideoPlay, VideoPlayTablet)}/>
                     <Route path='/zoom' component={ZoomDownLoad}/>
                     <Route path='/zoom-join' component={ZoomJoin}/>
                 </Router>
