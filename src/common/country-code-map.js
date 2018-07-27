@@ -13,4 +13,9 @@ iso3166_data.map(i => {
     return i;
 });
 
+export let countryAlpha2Map = {};
+iso3166_data.map(i =>{
+    countryAlpha2Map[i.alpha3] = i.alpha2;
+    return i;
+});
 

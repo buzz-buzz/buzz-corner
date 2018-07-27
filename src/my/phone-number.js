@@ -1,8 +1,10 @@
 import Resources from "../resources";
 import React from "react";
-import {Button, Dropdown} from "semantic-ui-react";
+import {Button, Dropdown, Flag} from "semantic-ui-react";
 import BuzzInput from "../common/commonComponent/buzzInput";
 import {iso3166_data} from 'phone';
+import {countryAlpha2Map, countryCodeMap} from "../common/country-code-map";
+import './dropdown-ui.css'
 
 const countryList = iso3166_data.map(i => ({
     mobileLength: i.phone_number_lengths,
@@ -24,9 +26,10 @@ const countryOptions = countryList.map(c => ({
 export default (props) =>
     <div>
         <div className="phone-number">
-            <Dropdown placeholder={Resources.getInstance().selectCountryCode}
-                      search selection options={countryOptions}
-                      style={{width: '80px', marginRight: '10px', minWidth: '140px'}}
+            <Dropdown trigger={<span><Flag name={countryAlpha2Map[props.mobileCountry].toLowerCase()}/>+({countryCodeMap[props.mobileCountry]}) {props.mobileCountry}</span>} placeholder={Resources.getInstance().selectCountryCode}
+                      search options={countryOptions}
+                      style={{width: '80px', marginRight: '10px', minWidth: '120px', whiteSpace: 'nowrap',
+                          display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'}}
                       value={props.mobileCountry}
                       onChange={props.onCountryCodeChange}/>
             <BuzzInput type="number"
