@@ -394,7 +394,8 @@ class My extends Component {
                 });
             } else if (this.state.step === 3) {
                 Track.event('注册_兴趣爱好继续-中方');
-                
+
+                //
                 this.setState({loadingModal: true});
 
                 let profileData = this.validateForm();
