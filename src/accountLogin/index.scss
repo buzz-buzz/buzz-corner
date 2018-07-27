@@ -8,6 +8,13 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    i.dropdown{
+      display: none;
+    }
+    .ui.dropdown .menu{
+      min-width: 240px;
+      width: 100%;
+    }
     .user-count, .user-password{
       display: flex;
       justify-content: space-between;

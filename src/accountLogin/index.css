@@ -8,6 +8,11 @@
     display: flex;
     flex-direction: column;
     position: relative; }
+    .account-login .set-word i.dropdown {
+      display: none; }
+    .account-login .set-word .ui.dropdown .menu {
+      min-width: 240px;
+      width: 100%; }
     .account-login .set-word .user-count, .account-login .set-word .user-password {
       display: flex;
       justify-content: space-between;
