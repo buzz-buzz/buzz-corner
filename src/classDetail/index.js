@@ -51,12 +51,17 @@ class classDetail extends Component {
                 if (this.state.left !== '' && this.state.left !== null && this.state.left !== undefined && !isNaN(this.state.left)) {
                     let left_new = this.state.left - 1;
                     let end_left_new = this.state.end_left - 1;
-                    if(left_new > 300){
+                    if (left_new > 300) {
                         this.setState({left: left_new, end_left: end_left_new});
-                    }else if(left_new <= 300 && end_left_new > 0){
+                    } else if (left_new <= 300 && end_left_new > 0) {
                         this.setState({classBeginNow: true, end_left: end_left_new, left: left_new});
-                    }else if(end_left_new <= 0){
-                        this.setState({classBeginNow: false, end_left: end_left_new, left: left_new, classEndNow: true});
+                    } else if (end_left_new <= 0) {
+                        this.setState({
+                            classBeginNow: false,
+                            end_left: end_left_new,
+                            left: left_new,
+                            classEndNow: true
+                        });
                         clearInterval(this.state.interval);
                     }
                 }
@@ -174,7 +179,7 @@ class classDetail extends Component {
             Track.event('课程详情_进入课程点击');
 
             this.showZoom();
-        } else{
+        } else {
             if (this.state.classEndNow) {
                 Track.event('课程详情_课后评价点击');
 
@@ -207,7 +212,7 @@ class classDetail extends Component {
         };
     }
 
-    getClassApiUri(user_id){
+    getClassApiUri(user_id) {
         return this.state.class_id !== 'rookie' && this.state.class_id !== 'observation' ?
             `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
             :
@@ -245,12 +250,12 @@ class classDetail extends Component {
             }
 
             let avatars = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
-                    json: {userIdList: studentsList},
-                    method: 'POST'
-                }
-            }) || [];
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/byUserIdlist`,
+                        json: {userIdList: studentsList},
+                        method: 'POST'
+                    }
+                }) || [];
 
             // if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
             //     classBegin = true;
@@ -261,24 +266,24 @@ class classDetail extends Component {
                 class_info.companions = class_info.companions.split(',')[0];
 
                 companion_country = (await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
-                    }
-                })).country || 'united states';
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
+                        }
+                    })).country || 'united states';
             }
 
             //get exercise
             let class_content = await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
-                    qs: {
-                        module: class_info.module || null,
-                        topic: class_info.topic || null,
-                        topic_level: class_info.topic_level || null,
-                        level: profile.level || null
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/content/getByClassAndUser`,
+                        qs: {
+                            module: class_info.module || null,
+                            topic: class_info.topic || null,
+                            topic_level: class_info.topic_level || null,
+                            level: profile.level || null
+                        }
                     }
-                }
-            }) || {};
+                }) || {};
 
             this.setState({
                 class_info: class_info,
@@ -425,8 +430,12 @@ class classDetail extends Component {
                             {
                                 this.state.role === MemberType.Student &&
                                 this.state.class_content && this.state.class_content.student_textbook &&
-                                this.state.class_content.student_textbook.filter(function(item){return item && item !== '' && item.length > 5}).length &&
-                                this.state.class_content.student_textbook.filter(function(item){return item && item !== '' && item.length > 5}).map((item, index) => {
+                                this.state.class_content.student_textbook.filter(function (item) {
+                                    return item && item !== '' && item.length > 5
+                                }).length &&
+                                this.state.class_content.student_textbook.filter(function (item) {
+                                    return item && item !== '' && item.length > 5
+                                }).map((item, index) => {
                                     return <a className="class_content_file_item" key={index}
                                               href={this.fileLink(item)} target="_blank" rel="noopener noreferrer">
                                         <img
@@ -467,29 +476,36 @@ class classDetail extends Component {
                                     onOK={this.finishRecording} timeout={this.finishRecording}/>
                 }
                 <div className="class-detail-button"
-                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) || this.state.class_id === 'observation' ? {display: 'none'} : {}}>
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24
+                     || !this.state.class_info.room_url
+                     || ((this.state.class_id === 'rookie' || this.state.class_info.evaluate_disabled) && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0)
+                         ? {display: 'none'} : {}}>
                     <Form.Group widths='equal'>
                         <Form.Field control={Button} onClick={this.checkStatusAndTime}
                                     content={this.state.classBeginNow || this.state.classEndNow ? (this.state.classBeginNow && !this.state.classEndNow ? Resources.getInstance().goToClass : Resources.getInstance().goToAssess) : (this.getCountDown() === '' ? '' : Resources.getInstance().classDetailLeft + '  ' + this.getCountDown())}
                                     style={this.state.classBeginNow || this.state.classEndNow ? {
-                                        color: 'white',
-                                        background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
-                                        borderRadius: '0',
-                                        fontSize: '15px',
-                                        fontWeight: '600',
-                                        letterSpacing: '1px'
-                                    } : {
-                                        color: 'white',
-                                        background: '#dfdfe4',
-                                        borderRadius: '0',
-                                        fontSize: '15px',
-                                        fontWeight: '600',
-                                        letterSpacing: '1px'
-                                    }}
+                                            color: 'white',
+                                            background: 'linear-gradient(to right, rgb(251, 218, 97) , rgb(246, 180, 12))',
+                                            borderRadius: '0',
+                                            fontSize: '15px',
+                                            fontWeight: '600',
+                                            letterSpacing: '1px'
+                                        } : {
+                                            color: 'white',
+                                            background: '#dfdfe4',
+                                            borderRadius: '0',
+                                            fontSize: '15px',
+                                            fontWeight: '600',
+                                            letterSpacing: '1px'
+                                        }}
                         />
                     </Form.Group>
                 </div>
-                <div className="offset-footer" style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24 || !this.state.class_info.room_url || (this.state.class_id === 'rookie' && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0) || this.state.class_id === 'observation' ? {display: 'none'} : {}}></div>
+                <div className="offset-footer"
+                     style={(new Date(this.state.class_info.start_time) - new Date(this.state.CURRENT_TIMESTAMP)) / 60000 >= 60 * 24
+                     || !this.state.class_info.room_url
+                     || ((this.state.class_id === 'rookie' || this.state.class_info.evaluate_disabled) && new Date(this.state.class_info.end_time) - new Date(this.state.CURRENT_TIMESTAMP) <= 0)
+                         ? {display: 'none'} : {}}></div>
             </div>
         );
     }

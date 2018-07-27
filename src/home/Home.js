@@ -278,17 +278,17 @@ class Home extends Component {
 
             if (!profile.role) {
                 browserHistory.push('/select-role');
-                return;
+                return false;
             }
 
             if (profile.role !== MemberType.Student && profile.role !== MemberType.Companion) {
                 browserHistory.push('/under-construction');
-                return;
+                return false;
             }
 
             if (!profile.date_of_birth || (!profile.location && !profile.city && !profile.country) || !profile.name || !(await Home.isProfileOK(userId))) {
                 browserHistory.push('/my/info');
-                return;
+                return false;
             }
 
             if (this.props.location.query.intro) {
