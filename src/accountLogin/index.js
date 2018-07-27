@@ -128,10 +128,9 @@ class AccountLogin extends Component {
                 }
             });
         } catch (ex) {
-            console.error(ex);
             this.setState({
                 messageModal: true,
-                messageContent: Resources.getInstance().accountLoginFailed,
+                messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
                 loadingModal: false
             });
             this.closeMessageModal();
@@ -172,7 +171,7 @@ class AccountLogin extends Component {
                             <Dropdown
                                 placeholder={Resources.getInstance().selectCountryCode}
                                 search selection options={countryOptions}
-                                style={{width: '80px', marginRight: '10px'}}
+                                style={{width: '80px', marginRight: '10px', minWidth: '140px'}}
                                 value={this.state.mobileCountry}
                                 onChange={(event, data) =>
                                     this.setState({mobileCountry: data.value})}/>
