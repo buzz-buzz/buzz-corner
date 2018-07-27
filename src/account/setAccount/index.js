@@ -6,6 +6,7 @@ import CurrentUser from "../../membership/user";
 import Track from "../../common/track";
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import LoadingModal from '../../common/commonComponent/loadingModal';
+import ErrorHandler from '../../common/error-handler';
 import Resources from '../../resources';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import './index.css';
@@ -66,8 +67,8 @@ class UpdatePassword extends Component {
             this.closeMessageModal();
         } catch (ex) {
             console.error(ex);
-            this.setState({messageModal: true, messageContent: Resources.getInstance().saveFailed, loadingModal: false, update: false});
-            this.closeMessageModal();
+            this.setState({loadingModal: false, update: false});
+            ErrorHandler.notify( Resources.getInstance().saveFailed, ex);
         }
     }
 
