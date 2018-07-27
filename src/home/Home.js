@@ -155,18 +155,10 @@ class Home extends Component {
         });
     }
 
-    async getUserClassList(user_id, role) {
-        let url;
-
-        if (role === MemberType.Student) {
-            url = `{config.endPoints.buzzService}/api/v1/student-class-schedule/${user_id}`;
-        } else if (role === MemberType.Companion) {
-            url = `{config.endPoints.buzzService}/api/v1/companion-class-schedule/${user_id}`;
-        }
-
+    async getUserClassList(user_id) {
         return ServiceProxy.proxyTo({
             body: {
-                uri: url
+                uri: `{config.endPoints.buzzService}/api/v1/class-schedule/listByUserId/${user_id}`
             }
         });
     }
@@ -303,7 +295,7 @@ class Home extends Component {
                 this.checkUserGuideDone(profile.intro_done);
             }
 
-            let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId, profile.role)).filter(function (ele) {
+            let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
                 return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
             })));
 
