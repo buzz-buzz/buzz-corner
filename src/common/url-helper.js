@@ -1,6 +1,6 @@
 export default class URLHelper {
     static getSearchParam(search, name) {
-        if (window.URLSearchParams) {
+        if (typeof window.URLSearchParams !== 'undefined') {
             let urlSearchParams = new window.URLSearchParams(search);
             let value = urlSearchParams.get(name);
 
@@ -26,7 +26,11 @@ export default class URLHelper {
         let callbackOrigin = URLHelper.getSearchParam(window.location.search, 'callback_origin');
 
         if (callbackOrigin) {
-            callbackOrigin = atob(callbackOrigin);
+            try {
+                callbackOrigin = atob(callbackOrigin);
+            } catch (ex) {
+                return false;
+            }
         }
 
         if (callbackOrigin && callbackOrigin !== window.location.origin) {
