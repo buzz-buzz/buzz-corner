@@ -356,7 +356,7 @@ export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密�
 
 export const audioDisabled = "需要录音权限，但是你没有给予，请先允许录音后再试……";
 export const selectCountryCode = "请选择国家代码";
-export const validate = "验证";
+export const validate = "确认"
 
 export function signInWith(method) {
     return (

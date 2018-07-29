@@ -357,7 +357,7 @@ export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up
 export const audioDisabled = "Need the permission for recording, but you denied it. Please authorize the permission and come back here to try again...";
 export const selectCountryCode = "Please select country code";
 
-export const validate = "Validate";
+export const validate = "OK";
 
 export function signInWith(method) {
     return (
