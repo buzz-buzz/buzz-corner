@@ -119,10 +119,10 @@ router
             params: ctx.params
         };
         let start = new Date()
-        fundebug.notify('微信扫码登录开始', `${ctx.query.code}@${start}`, meta)
+        fundebug.notify('微信手机登录开始', `${ctx.query.code}@${start}`, meta)
         let result = await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
         let end = new Date()
-        fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
+        fundebug.notify(`微信手机登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
     .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         const meta = {

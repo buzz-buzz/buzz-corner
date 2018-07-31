@@ -2,6 +2,7 @@ const request = require('request-promise-native');
 const fundebug = require('../common/error-handler').fundebug;
 
 function getParameters(msg, base64_callback_origin, base64_query_string) {
+
     return `${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
 }
 
