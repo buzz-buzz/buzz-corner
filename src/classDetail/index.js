@@ -288,7 +288,7 @@ class classDetail extends Component {
                 chats: class_content.exercises ? class_content.exercises : [],
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
-                role: profile.role || '',
+                role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 end_left: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 classBeginNow: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 300 && Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) > 0,
