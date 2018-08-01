@@ -402,10 +402,6 @@ class Home extends Component {
 
     componentWillUnmount() {
         this.setState({loadingModal: false});
-
-        this.setState = (state, callback) => {
-            return;
-        };
     }
 
     colorHelper(color) {

@@ -13,6 +13,7 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
 import ModalClassPractiseWord from '../common/commonComponent/modalClassPractiseWord';
 import Avatar from '../common/commonComponent/avatar';
+import ErrorHanlder from '../common/error-handler';
 import ClassAd from './classAd';
 import Resources from '../resources';
 import {Button, Form, Flag} from "semantic-ui-react";
@@ -206,10 +207,6 @@ class classDetail extends Component {
         if (this.state.interval) {
             clearInterval(this.state.interval);
         }
-
-        this.setState = (state, callback) => {
-            return;
-        };
     }
 
     getClassApiUri(user_id) {
@@ -256,10 +253,6 @@ class classDetail extends Component {
                         method: 'POST'
                     }
                 }) || [];
-
-            // if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
-            //     classBegin = true;
-            // }
 
             let companion_country = '';
             if (class_info.companions) {
@@ -308,8 +301,7 @@ class classDetail extends Component {
             });
         }
         catch (ex) {
-            console.log(ex.toString());
-            Track.event('错误_课程详情页面报错', null, {"类型": "错误", "错误内容": ex.toString()});
+            ErrorHanlder.notify('错误_课程详情页面报错', ex);
             this.setState({loadingModal: false});
         }
     }

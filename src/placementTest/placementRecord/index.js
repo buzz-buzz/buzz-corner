@@ -182,7 +182,7 @@ export default class PlacementRecorder extends React.Component {
         this.setState({recordingTime: 0});
 
         if (this.state.recording) {
-            await this.closeRecord();
+            await this.state.recordAudio.stopRecording();
         }
 
         if (this.state.isPlaying) {

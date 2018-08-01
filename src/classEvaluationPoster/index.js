@@ -4,6 +4,7 @@ import './index.css';
 import ServiceProxy from '../service-proxy';
 import WechatShare from '../wechat/wechatShare';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import ErrorHandler from '../common/error-handler';
 import Track from "../common/track";
 
 class classEvaluationPoster extends Component {
@@ -81,7 +82,7 @@ class classEvaluationPoster extends Component {
             });
         } catch (ex) {
             //login error
-            console.log("Wechat share:" + ex.toString());
+            ErrorHandler.notify('评价分享页出错', ex);
             this.setState({loadingModal: false});
         }
     }
