@@ -1,0 +1,20 @@
+.select-day {
+  .month-year {
+
+  }
+  .days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .day-item {
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .day-item-active{
+
+    }
+  }
+}
