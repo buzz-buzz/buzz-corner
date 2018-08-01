@@ -35,6 +35,7 @@ import AccountAbout from './account/accountAbout';
 import LoginByAccount from './accountLogin';
 import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
+import FlexCourses from './flexCourse';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction
@@ -88,6 +89,7 @@ class App extends Component {
                     <Route path='/placement' component={Placement}/>
                     <Route path='/home' component={Home}/>
                     <Route path='/friends' component={Friends}/>
+                    <Route path='/flex-course' component={FlexCourses}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
                     <Route path='/user-profile' component={UserUpdate}/>

@@ -1,0 +1,10 @@
+.select-day .days {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .select-day .days .day-item {
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; }

@@ -259,6 +259,7 @@ router
     .get('/zoom', serveSPA)
     .get('/zoom-join', serveSPA)
     .get('/help/:faq_id', serveSPA)
+    .get('/flex-course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
 ;
 
