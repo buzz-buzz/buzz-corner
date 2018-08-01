@@ -7,6 +7,7 @@ import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import Avatar from '../common/commonComponent/avatar';
+import ErrorHandler from '../common/error-handler';
 import './index.css';
 import {Flag} from "semantic-ui-react";
 import moment from 'moment';
@@ -138,7 +139,7 @@ class classEvaluationForeign extends Component {
             });
         } catch (ex) {
             //login error
-            console.log("evaluation:" + ex.toString());
+            ErrorHandler.notify('评价-外籍评价列表页出错', ex);
             this.setState({loadingModal: false});
         }
     }

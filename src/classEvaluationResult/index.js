@@ -243,8 +243,6 @@ class classEvaluationResult extends Component {
         } catch (ex) {
             //login error
             ErrorHandler.notify('获取评价结果出错：', ex);
-
-            console.log("evaluation:" + ex.toString());
             this.setState({loadingModal: false});
         }
     }

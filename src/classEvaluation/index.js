@@ -171,12 +171,10 @@ class classEvaluation extends Component {
             }
         }
         catch (ex) {
-            console.log('post evaluation data err:' + ex.toString());
+            ErrorHandler.notify('错误_课后评价完成点击后提交出错', ex);
             this.setState({modalSubmit: true, modalSubmitStatus: 3}, () => {
                 this.closeModalSubmitInfo();
             });
-
-            Track.event('错误_课后评价完成点击后提交出错', null, {"类型": "错误", "错误内容": ex.toString()});
         }
     }
 
