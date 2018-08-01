@@ -1,5 +1,3 @@
-'use strict';
-
 let config = {
     development: {
         endPoints: {
@@ -12,16 +10,6 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [532],
-
-    },
-
-    staging: {
-        endPoints: {
-            buzzService: 'https://buzz-corner-service.herokuapp.com'
-        },
-
-        superUsers: [532]
     },
 
     qa: {
@@ -35,7 +23,6 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [56],
 
         rootDomain: '.buzzbuzzenglish.com'
     },
@@ -50,7 +37,6 @@ let config = {
             appName: 'buzz-corner'
         },
 
-        superUsers: [3],
         rootDomain: '.buzzbuzzenglish.com'
     }
 };

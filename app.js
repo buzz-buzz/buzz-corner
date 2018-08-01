@@ -35,7 +35,8 @@ router
             'everything': ' is ok',
             node_env: process.env.NODE_ENV,
             port: process.env.PORT,
-            version: JSON.parse(fs.readFileSync('package.json', 'utf-8')).version
+            version: JSON.parse(fs.readFileSync('package.json', 'utf-8')).version,
+            rootDomain: config.rootDomain
         };
     })
     .get('/config', async ctx => {
