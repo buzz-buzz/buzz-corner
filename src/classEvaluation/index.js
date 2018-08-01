@@ -235,7 +235,7 @@ class classEvaluation extends Component {
             });
 
             let companion_country = '';
-            if (profile.role === MemberType.Companion) {
+            if (class_info.companions.indexOf(userId) > -1) {
                 //get to_user_id info
                 let user_profile = await ServiceProxy.proxyTo({
                     body: {
