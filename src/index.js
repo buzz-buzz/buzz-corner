@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
@@ -21,7 +22,7 @@ class ErrorBoundary extends React.Component {
 
         fundebug.notifyError(error, {
             metaData: {
-                info: info
+                info: info,
             }
         })
     }

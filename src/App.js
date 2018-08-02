@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import 'babel-polyfill';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
 import SelectRole from './select-role/index';
@@ -45,10 +44,15 @@ import SignOut from "./login/sign-out";
 import Client from "./common/client";
 import WechatShare from './wechat/wechatShare';
 import ToastMessage from './common/commonComponent/modalMessage/toast-message';
+import ErrorHandler from "./common/error-handler";
 
 WechatShare.init();
 
 class App extends Component {
+    componentDidCatch(error, info) {
+        ErrorHandler.notify(error.message, error, info)
+    }
+
     render() {
         return (
             <div className="content" style={{height: '100%'}}>
