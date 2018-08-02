@@ -6,10 +6,6 @@ let config = {
             upload_qiniu: 'http://uat.hcd.com:10003'
         },
 
-        logger: {
-            appName: 'buzz-corner'
-        },
-
     },
 
     qa: {
@@ -19,11 +15,6 @@ let config = {
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
 
-        logger: {
-            appName: 'buzz-corner'
-        },
-
-
         rootDomain: '.buzzbuzzenglish.com'
     },
     production: {
@@ -31,10 +22,6 @@ let config = {
             buzzCorner: 'http://live.buzzbuzzenglish.com',
             buzzService: process.env.buzz_service_endpoints,
             upload_qiniu: 'http://service.hcdlearning.com:10003'
-        },
-
-        logger: {
-            appName: 'buzz-corner'
         },
 
         rootDomain: '.buzzbuzzenglish.com'

@@ -1,3 +1,5 @@
+require('babel-core/register')()
+
 const BasicAuth = require('./secure/basic-auth');
 const Koa = require('koa');
 const app = new Koa();
@@ -120,10 +122,10 @@ router
             params: ctx.params
         };
         let start = new Date()
-        fundebug.notify('微信扫码登录开始', `${ctx.query.code}@${start}`, meta)
+        fundebug.notify('微信手机登录开始', `${ctx.query.code}@${start}`, meta)
         let result = await wechat.login(true, ctx.query.code, ctx.params.base64_callback_origin, ctx.params.base64_query_string, ctx)
         let end = new Date()
-        fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
+        fundebug.notify(`微信手机登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
     .get('/wechat/oauth/qr-redirect/:base64_callback_origin/:base64_query_string?', async ctx => {
         const meta = {
@@ -146,7 +148,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.redirect(`/select-role`);
+        ctx.redirect(`/sign-in`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         let options = Object.assign({
@@ -162,8 +164,18 @@ router
             });
         } catch (ex) {
             fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
+            let returnUrl = ctx.headers.referer;
 
-            ctx.redirect(`/select-role?return_url=${ctx.request.headers.referer}`);
+            if (ctx.request.get('X-Requested-With') === 'XMLHttpRequest') {
+                let result = {};
+                result.isSuccess = false;
+                result.code = 302;
+                result.message = returnUrl || '/';
+
+                return ctx.body = result;
+            } else {
+                ctx.redirect(`/sign-in?return_url=${returnUrl}`);
+            }
         }
     })
     .put('/user-info', membership.ensureAuthenticated, async ctx => {
@@ -272,6 +284,7 @@ app.on('error', fundebug.KoaErrorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
     let port = process.env.PORT || 16111;
+    console.log('started')
     module.exports = app.listen(port);
 } else {
     module.exports = app;
