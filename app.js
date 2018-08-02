@@ -239,6 +239,7 @@ router
     .get('/user-profile', serveSPA)
     .get('/user/:user_id', serveSPA)
     .get('/class/:class_id', membership.ensureAuthenticated, serveSPA)
+    .get('/course/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/class/foreign/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/class/evaluation/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/evaluation/:from_user_id/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)

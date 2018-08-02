@@ -1,0 +1,118 @@
+.course-detail{
+  display: flex;
+  flex-direction: column;
+  .class-info{
+    flex: 0 0 auto;
+    padding: 25px 0 25px 21px;
+    display: flex;
+    position: relative;
+    .avatar-new{
+      position: relative;
+      width: 88px;
+      height: 105px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+      img{
+        width: 100%;
+      }
+      img.bg{
+        z-index: 20;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    }
+    .course-content{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .name{
+        font-size: 18px;
+        font-weight: 600;
+        color: #000;
+      }
+      .topic{
+        margin: 10px 0 5px 0;
+        font-size: 13px;
+        color: #868686;
+      }
+      .date, .time{
+        font-size: 11px;
+        color: #868686;
+      }
+    }
+    .course-status{
+      position: absolute;
+      right: 0;
+      top: 30px;
+      font-size: 12px;
+      height: 35px;
+      line-height: 35px;
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+      text-align: center;
+      color: white;
+      padding: 0 12px 0 18px;
+      background-color: #6ae108;
+    }
+  }
+  .class-info:after, .course-intro:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .course-intro{
+    flex: 1 0 auto;
+    position: relative;
+  }
+  .course-join{
+    flex: 0 0 auto;
+    padding: 30px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .time-left{
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      img{
+        width: 32px;
+        margin-right: 15px;
+      }
+      .time{
+        display: flex;
+        flex-direction: column;
+        .word{
+          font-size: 13px;
+          color: #868686;
+          margin-bottom: 3px;
+        }
+        .time-down{
+          font-size: 15px;
+          color: #000;
+          font-weight: 500;
+        }
+      }
+    }
+    .btn{
+      width: 100%;
+      padding: 0 100px;
+    }
+  }
+}

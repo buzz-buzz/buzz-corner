@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseInfo from '../courseInfo';
+import {browserHistory} from 'react-router';
 import WhiteSpace from '../../common/commonComponent/whiteSpace';
 import './index.css';
 
@@ -20,7 +21,7 @@ export default class CourseList extends React.Component{
     }
 
     goDetailCourse(){
-
+        browserHistory.push('/course/1');
     }
 
     componentWillMount(){
@@ -42,6 +43,7 @@ export default class CourseList extends React.Component{
                                 style={{background: 'white'}}
                     />
                 }
+                <div className="no-more">^_^  没有更多了</div>
             </div>
         )
     }
