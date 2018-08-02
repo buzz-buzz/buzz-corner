@@ -55,7 +55,7 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
-            if (res.redirected && res.url.startsWith(`${window.location.origin}/select-role`)) {
+            if (res.redirected && (res.url.startsWith(`${window.location.origin}/select-role`) || res.url.startsWith(`${window.location.origin}/sign-in`))) {
                 throw new Error(res.url);
             }
 

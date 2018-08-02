@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import 'babel-polyfill';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
 import SelectRole from './select-role/index';
