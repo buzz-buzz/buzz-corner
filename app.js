@@ -145,7 +145,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.redirect(`/select-role`);
+        ctx.redirect(`/sign-in`);
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         let options = Object.assign({
@@ -161,8 +161,18 @@ router
             });
         } catch (ex) {
             fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
+            let returnUrl = ctx.headers.referer;
 
-            ctx.redirect(`/select-role?return_url=${ctx.request.headers.referer}`);
+            if (ctx.request.get('X-Request-With') === 'XMLHttpRequest') {
+                let result = {};
+                result.isSuccess = false;
+                result.code = 302;
+                result.message = returnUrl || '/';
+
+                return ctx.body = result;
+            } else {
+                ctx.redirect(`/select-role?return_url=${returnUrl}`);
+            }
         }
     })
     .put('/user-info', membership.ensureAuthenticated, async ctx => {
