@@ -1,3 +1,5 @@
+require('babel-core/register')()
+
 const BasicAuth = require('./secure/basic-auth');
 const Koa = require('koa');
 const app = new Koa();
@@ -163,7 +165,7 @@ router
             fundebug.notifyError(`Met error: ${JSON.stringify(ex)} for userId = ${ctx.state.user.userId}`, ex);
             let returnUrl = ctx.headers.referer;
 
-            if (ctx.request.get('X-Request-With') === 'XMLHttpRequest') {
+            if (ctx.request.get('X-Requested-With') === 'XMLHttpRequest') {
                 let result = {};
                 result.isSuccess = false;
                 result.code = 302;
@@ -171,7 +173,7 @@ router
 
                 return ctx.body = result;
             } else {
-                ctx.redirect(`/select-role?return_url=${returnUrl}`);
+                ctx.redirect(`/sign-in?return_url=${returnUrl}`);
             }
         }
     })
@@ -279,6 +281,7 @@ app.on('error', fundebug.KoaErrorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
     let port = process.env.PORT || 16111;
+    console.log('started')
     module.exports = app.listen(port);
 } else {
     module.exports = app;
