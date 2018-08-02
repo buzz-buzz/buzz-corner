@@ -1,7 +1,7 @@
+import RequestHelper from '../helpers/request-helper';
+
 const config = require('../config');
 const cookie = require('../helpers/cookie');
-
-const fundebug = require('../common/error-handler').fundebug;
 
 async function setUserToState(context, user_id) {
     console.log('super users = ', config.superUsers);
@@ -53,22 +53,20 @@ membership.ensureAuthenticated = async function (context, next) {
     await setUserFromQSOrCookie(context);
 
     if (!context.state.user) {
-        if (context.request.get('X-Request-With') === 'XMLHttpRequest') {
+        if (RequestHelper.isXHR(context)) {
             let returnUrl = context.headers.referer;
-            let result = {};
-            result.isSuccess = false;
-            result.code = 302;
-            result.message = returnUrl || '/';
 
-            return context.body = result;
+            context.status = 401;
+            return context.body = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
         } else {
             let returnUrl = context.request.originalUrl;
             if (returnUrl === '/user-info') {
                 returnUrl = context.request.headers.referer;
             }
 
-            let url = '/select-role?return_url=' + encodeURIComponent(returnUrl);
+            let url = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
 
+            console.log('redirected')
             return context.redirect(url);
         }
     }

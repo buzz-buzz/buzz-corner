@@ -13,13 +13,15 @@ async function checkStatus(response) {
         error.status = response.status;
         if (response.status === 401) {
             error.authPath = await response.text();
+        } else {
+            let errorResult = await response.text();
+            try {
+                error.result = JSON.parse(errorResult);
+            } catch (e) {
+                error.result = errorResult;
+            }
         }
-        let errorResult = await response.text();
-        try {
-            error.result = JSON.parse(errorResult);
-        } catch (e) {
-            error.result = errorResult;
-        }
+
         throw error;
     }
 }
@@ -55,6 +57,7 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
+            console.log('=================', res.redirected, res.url)
             if (res.redirected && (res.url.startsWith(`${window.location.origin}/select-role`) || res.url.startsWith(`${window.location.origin}/sign-in`))) {
                 throw new Error(res.url);
             }
