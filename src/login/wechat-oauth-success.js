@@ -94,6 +94,7 @@ export default class WechatOAuthSuccess extends React.Component {
         let base64QueryString = this.decodeBase64QueryString();
         this.setState({role: URLHelper.getSearchParam(base64QueryString, 'role')});
 
+        await CurrentUser.signOutNoRedirect();
         try {
             await this.loginOldUser(this.state.wechatUserInfo);
         } catch (ex) {
