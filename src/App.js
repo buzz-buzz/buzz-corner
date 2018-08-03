@@ -90,7 +90,7 @@ class App extends Component {
                     <Route path='/placement' component={Placement}/>
                     <Route path='/home' component={Home}/>
                     <Route path='/friends' component={Friends}/>
-                    <Route path='/flex-course' component={FlexCourses}/>
+                    <Route path='/course' component={FlexCourses}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
                     <Route path='/user-profile' component={UserUpdate}/>

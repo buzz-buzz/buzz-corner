@@ -20,6 +20,7 @@ export const footerHome = '主页';
 export const footerFriends = '好友';
 export const footerReward = '奖励';
 export const footerUser = '我的';
+export const footerSelectCourse = '淘课';
 
 export const homeTabBooking = '预约';
 export const homeTabMessage = '消息';

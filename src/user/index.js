@@ -168,7 +168,7 @@ class User extends Component {
                         {/*</Link>*/}
                     </div>
                 </div>
-                <Footer/>
+                <Footer role={this.state.role}/>
             </div>
         );
     }

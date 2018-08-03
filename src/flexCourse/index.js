@@ -2,6 +2,7 @@ import React from 'react';
 import SelectDay from './selectDate';
 import CourseList from './courseList';
 import Footer from '../layout/footer';
+import {MemberType} from "../membership/member-type";
 import './index.css';
 
 export default class FlexCourse extends React.Component{
@@ -10,7 +11,7 @@ export default class FlexCourse extends React.Component{
             <div className="flex-course">
                 <SelectDay/>
                 <CourseList/>
-                <Footer/>
+                <Footer role={MemberType.Student}/>
             </div>
         )
     }

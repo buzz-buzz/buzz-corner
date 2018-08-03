@@ -608,7 +608,7 @@ class Home extends Component {
                 }
                 <div className="offset-footer"
                      style={{height: '52px'}}/>
-                <Footer/>
+                <Footer role={this.state.role}/>
             </div>
         );
     }
