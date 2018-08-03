@@ -27,14 +27,12 @@ async function checkStatus(response) {
 }
 
 async function handleError(ex) {
-    if (ex.status === 401) {
-        if (ex.authPath) {
-            // browserHistory.push(ex.authPath);
-            window.location.href = ex.authPath;
-        } else {
-            throw ex;
-        }
+    if (ex.status === 401 && ex.authPath) {
+        window.location.href = ex.authPath;
+        return;
     }
+
+    throw ex;
 }
 
 export default {

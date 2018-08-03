@@ -137,8 +137,8 @@ router
         let end = new Date()
         fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
-    .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
-    .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
+    .get('/wechat/oauth/fail/:wechatErrorInfo', membership.signOut, serveSPA)
+    .get('/wechat/oauth/success/:wechatUserInfo', membership.signOut, serveSPA)
     .get('/sign-in', membership.signOut, membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
@@ -148,6 +148,9 @@ router
     })
     .get('/sign-out', membership.signOut, async ctx => {
         ctx.redirect(`/sign-in`);
+    })
+    .get('/sign-out-no-redirect', membership.signOut, async ctx => {
+        ctx.body = {message: 'signed out'};
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         let options = Object.assign({
