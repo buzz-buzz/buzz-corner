@@ -51,7 +51,7 @@ router
                 .replace('{config.endPoints.masr}', config.endPoints.masr)
                 .replace('{config.endPoints.hongda}', config.endPoints.hongda)
                 .replace('{config.endPoints.buzzService}', config.endPoints.buzzService)
-                ;
+            ;
         }
 
         try {
@@ -101,10 +101,10 @@ router
             }).map(cookie => {
                 ctx.cookies.set(cookie.name, cookie.value, cookie);
 
-                let option = Object.assign({}, cookie, { domain: config.rootDomain });
+                let option = Object.assign({}, cookie, {domain: config.rootDomain});
                 ctx.cookies.set(cookie.name, cookie.value, option);
 
-                option = Object.assign({}, cookie, { domain: undefined });
+                option = Object.assign({}, cookie, {domain: undefined});
                 ctx.cookies.set(cookie.name, cookie.value, option);
 
                 return cookie;
@@ -138,9 +138,9 @@ router
         let end = new Date()
         fundebug.notify(`微信扫码登录结束 ${result ? '成功' : '失败'}`, `${ctx.query.code}@${end}：${(end - start) / 1000} 秒`, meta)
     })
-    .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
-    .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
-    .get('/sign-in', membership.signInFromToken, async ctx => {
+    .get('/wechat/oauth/fail/:wechatErrorInfo', membership.signOut, serveSPA)
+    .get('/wechat/oauth/success/:wechatUserInfo', membership.signOut, serveSPA)
+    .get('/sign-in', membership.signOut, membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
         } else {
@@ -149,6 +149,9 @@ router
     })
     .get('/sign-out', membership.signOut, async ctx => {
         ctx.redirect(`/sign-in`);
+    })
+    .get('/sign-out-no-redirect', membership.signOut, async ctx => {
+        ctx.body = {message: 'signed out'};
     })
     .get('/user-info', membership.ensureAuthenticated, async ctx => {
         let options = Object.assign({
@@ -214,7 +217,7 @@ router
         });
         ctx.body = 'noted'
     })
-    ;
+;
 
 
 async function serveSPA(ctx) {
@@ -259,8 +262,8 @@ router
     .get('/wechat/demo', serveSPA)
     .get('/select-role', serveSPA)
     .get('/video-play', serveSPA)
-    .get('/tutor', serveSPA)
-    .get('/student', serveSPA)
+    .get('/tutor', async ctx => ctx.redirect('/sign-in?role=c&return_url='))
+    .get('/student', async ctx => ctx.redirect('/sign-in?role=s&return_url='))
     .get('/account/set', membership.ensureAuthenticated, serveSPA)
     .get('/account/about', serveSPA)
     .get('/account/select', serveSPA)
@@ -270,7 +273,7 @@ router
     .get('/help/:faq_id', serveSPA)
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
-    ;
+;
 
 app
     .use(router.routes())

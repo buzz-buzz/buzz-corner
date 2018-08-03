@@ -27,16 +27,12 @@ async function checkStatus(response) {
 }
 
 async function handleError(ex) {
-    if (ex.status === 401) {
-        if (ex.authPath) {
-            // browserHistory.push(ex.authPath);
-            window.location.href = ex.authPath;
-        } else {
-            console.error('Not allowed.');
-        }
+    if (ex.status === 401 && ex.authPath) {
+        window.location.href = ex.authPath;
+        return;
     }
 
-    console.error('ex = ', ex, JSON.stringify(ex));
+    throw ex;
 }
 
 export default {
@@ -57,9 +53,12 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
-            console.log('=================', res.redirected, res.url)
             if (res.redirected && (res.url.startsWith(`${window.location.origin}/select-role`) || res.url.startsWith(`${window.location.origin}/sign-in`))) {
-                throw new Error(res.url);
+                let error = new Error(res.url);
+                error.status = 401;
+                error.authPath = res.url;
+
+                throw error;
             }
 
             let textResult = typeof res.text === 'function' ? await res.text() : res.body;
@@ -74,7 +73,6 @@ export default {
             }
         } catch (ex) {
             await handleError(ex);
-            throw ex;
         }
     },
 
