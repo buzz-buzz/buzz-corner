@@ -139,7 +139,7 @@ router
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', serveSPA)
-    .get('/sign-in', membership.signInFromToken, async ctx => {
+    .get('/sign-in', membership.signOut, membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
         } else {
