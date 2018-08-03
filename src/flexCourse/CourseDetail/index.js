@@ -1,9 +1,10 @@
 import React from 'react';
 import Button50Px from '../../common/commonComponent/submitButton50px';
+import CourseModal from '../courseModal';
 import './index.css';
 
-export default class CourseDetail extends React.Component{
-    constructor(){
+export default class CourseDetail extends React.Component {
+    constructor() {
         super();
 
         this.state = {
@@ -14,28 +15,30 @@ export default class CourseDetail extends React.Component{
                 status: "",
                 show_date: 'tomorrow, is coming',
                 companions: ''
-            }
+            },
+            courseModal: false
         };
 
         this.joinCourse = this.joinCourse.bind(this);
     }
 
-    joinCourse(){
+    joinCourse() {
 
     }
 
-    componentWillMount(){
+    componentWillMount() {
 
     }
 
-    render(){
+    render() {
         return (
             <div className="course-detail">
                 <div className="class-info">
-                   <div className="avatar-new">
-                       <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg" alt=""/>
-                       <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_bg.svg" alt="" className="bg"/>
-                   </div>
+                    <div className="avatar-new">
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg" alt=""/>
+                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_bg.svg" alt=""
+                             className="bg"/>
+                    </div>
                     <div className="course-content">
                         <div className="name">SHANNON</div>
                         <div className="topic">Relationships</div>
@@ -57,7 +60,8 @@ export default class CourseDetail extends React.Component{
                                 <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_men.svg" alt=""/>
                             </div>
                             <div className="status">
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_Check_finish.svg" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_Check_finish.svg"
+                                     alt=""/>
                             </div>
                         </div>
                         <div className="partner-item">
@@ -82,7 +86,8 @@ export default class CourseDetail extends React.Component{
                         <div className="intro-title">课程简介</div>
                         <div className="intro-content">本课程为基础课程，
                             通过课程认识家庭、长辈、亲属、好友间的关系，
-                            掌握如何描述与人之间的关系与相处</div>
+                            掌握如何描述与人之间的关系与相处
+                        </div>
                     </div>
                 </div>
                 <div className="course-join">
@@ -97,6 +102,10 @@ export default class CourseDetail extends React.Component{
                         <Button50Px disabled={false} submit={this.joinCourse} text="报名加入"/>
                     </div>
                 </div>
+                {
+                    this.state.courseModal &&
+                    <CourseModal type="result" ok={false}/>
+                }
             </div>
         )
     }
