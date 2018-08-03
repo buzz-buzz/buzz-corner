@@ -69,7 +69,69 @@
     box-sizing: border-box; }
   .course-detail .course-intro {
     flex: 1 0 auto;
-    position: relative; }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+    .course-detail .course-intro .partners {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 60px;
+      align-items: center; }
+      .course-detail .course-intro .partners .partner-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; }
+        .course-detail .course-intro .partners .partner-item .avatar {
+          margin-bottom: 10px;
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          position: relative;
+          border: solid 1px #dfdfe4;
+          background-color: #f4f5f9;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+          .course-detail .course-intro .partners .partner-item .avatar img {
+            width: 100%; }
+        .course-detail .course-intro .partners .partner-item .name {
+          display: flex;
+          align-items: center; }
+          .course-detail .course-intro .partners .partner-item .name span {
+            font-size: 15px;
+            color: #000;
+            font-weight: 500; }
+          .course-detail .course-intro .partners .partner-item .name img {
+            position: absolute;
+            right: -15px;
+            border-bottom: 0;
+            height: 12px; }
+        .course-detail .course-intro .partners .partner-item .status {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: -3px;
+          right: -3px;
+          border-radius: 50%;
+          overflow: hidden;
+          z-index: 2; }
+          .course-detail .course-intro .partners .partner-item .status img {
+            width: 100%; }
+    .course-detail .course-intro .intro .intro-title {
+      font-size: 18px;
+      color: #000;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-align: center; }
+    .course-detail .course-intro .intro .intro-content {
+      text-align: center;
+      padding: 0 21px;
+      font-size: 13px;
+      color: #868686;
+      line-height: 25px; }
   .course-detail .course-join {
     flex: 0 0 auto;
     padding: 30px 0 30px 0;

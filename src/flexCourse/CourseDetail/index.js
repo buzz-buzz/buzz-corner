@@ -46,7 +46,45 @@ export default class CourseDetail extends React.Component{
                         今天开始
                     </div>
                 </div>
-                <div className="course-intro"></div>
+                <div className="course-intro">
+                    <div className="partners">
+                        <div className="partner-item">
+                            <div className="avatar">
+                                <img src="" alt=""/>
+                            </div>
+                            <div className="name">
+                                <span>TONY</span>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_men.svg" alt=""/>
+                            </div>
+                            <div className="status">
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_Check_finish.svg" alt=""/>
+                            </div>
+                        </div>
+                        <div className="partner-item">
+                            <div className="avatar">
+                                <img src="" alt=""/>
+                            </div>
+                            <div className="name">
+                                <span>TONY</span>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_women.svg" alt=""/>
+                            </div>
+                        </div>
+                        <div className="partner-item">
+                            <div className="avatar">
+                                <img src="" alt=""/>
+                            </div>
+                            <div className="name">
+                                <span style={{color: '#d0d6db', marginRight: '0'}}>暂无</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="intro">
+                        <div className="intro-title">课程简介</div>
+                        <div className="intro-content">本课程为基础课程，
+                            通过课程认识家庭、长辈、亲属、好友间的关系，
+                            掌握如何描述与人之间的关系与相处</div>
+                    </div>
+                </div>
                 <div className="course-join">
                     <div className="time-left">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_time.svg" alt=""/>
