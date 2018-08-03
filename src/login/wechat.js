@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Segment} from "semantic-ui-react";
+import ClientConfig from "../client-config/client-config";
 
 export default class WechatLogin extends React.Component {
     constructor(props) {
@@ -13,9 +14,9 @@ export default class WechatLogin extends React.Component {
     }
 
     static redirectToWechatOAuthPage() {
-        const redirectUri = encodeURIComponent(`${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`);
+        const redirectUri = ClientConfig.getWechatRedirectUri(window.location.origin, window.location.search)
 
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx370ed9dea414747f&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ClientConfig.wechatAppIdForMobile}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
     }
 
     static createQrCode() {
@@ -28,7 +29,7 @@ export default class WechatLogin extends React.Component {
             id: "qrcode-wechat",
             appid: "wx7f1051697b7fab6d",
             scope: "snsapi_login",
-            redirect_uri: encodeURIComponent(`${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/qr-redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+            redirect_uri: ClientConfig.getWechatRedirectUri(window.location.origin, window.location.search),
             state: "",
             style: "black"
         });
