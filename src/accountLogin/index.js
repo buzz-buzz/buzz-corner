@@ -120,7 +120,11 @@ class AccountLogin extends Component {
             }
 
             this.setState({loadingModal: false}, () => {
-                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
+                if(result.role){
+                    localStorage.setItem('role', result.role);
+                }
+
+                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
                 if (returnUrl) {
                     window.location.href = decodeURIComponent(returnUrl);

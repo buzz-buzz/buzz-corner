@@ -21,6 +21,7 @@ export const footerHome = 'Home';
 export const footerFriends = 'Friends';
 export const footerReward = 'Rewards';
 export const footerUser = 'Me';
+export const footerSelectCourse = 'Course';
 
 export const homeTabBooking = 'Bookings';
 export const homeTabMessage = 'Messages';
