@@ -42,6 +42,15 @@ class User {
         }
     }
 
+    static async signOutNoRedirect() {
+        User.destroy();
+        try {
+            await ServiceProxy.proxy('/sign-out-no-redirect');
+        } catch (ex) {
+            // do nothing
+        }
+    }
+
     static destroy() {
         if (currentUser) {
             currentUser = null;
@@ -69,5 +78,9 @@ export default class CurrentUser {
 
     static async signOut() {
         await User.signOut();
+    }
+
+    static async signOutNoRedirect() {
+        await User.signOutNoRedirect();
     }
 }
