@@ -12,7 +12,7 @@ export default class WechatOAuthRedirect extends React.Component {
 
     async componentDidMount() {
         let response = await fetch(window.location.href);
-        if (response.url) {
+        if (response.url !== window.location.href) {
             window.location.href = response.url;
         }
     }
