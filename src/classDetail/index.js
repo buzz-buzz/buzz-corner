@@ -92,7 +92,11 @@ class classDetail extends Component {
     }
 
     back() {
-        Back.back();
+        if (this.props.location.query.back) {
+            browserHistory.push('/' + this.props.location.query.back);
+        } else {
+            Back.back();
+        }
     }
 
     companionCenter() {
@@ -227,7 +231,7 @@ class classDetail extends Component {
 
             this.setState({loadingModal: true});
 
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {

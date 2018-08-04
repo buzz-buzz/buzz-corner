@@ -24,7 +24,6 @@ class User extends Component {
             country: 'china',
             switchToUserId: 0,
             role: '',
-            refresh: props.location.query.refresh || false,
             password: false
         };
 
@@ -68,7 +67,7 @@ class User extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
-        let profile = await CurrentUser.getProfile(this.state.refresh) || {};
+        let profile = await CurrentUser.getProfile(true) || {};
 
         this.setState({
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
