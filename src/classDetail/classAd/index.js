@@ -42,7 +42,8 @@ export default class ClassAd extends React.Component {
                     (
                         this.props.role === MemberType.Student ?
                             (this.props.content && this.props.content.student_notice_zh ?
-                                this.showHtml(window.navigator.language.toLowerCase() === 'zh-cn' ? this.props.content.student_notice_zh : this.props.content.student_notice_) :
+                                this.showHtml(window.navigator.language.toLowerCase() === 'zh-cn' ? this.props.content.student_notice_zh : this.props.content.student_notice_en)
+                                :
                                 <div className="class-before-content">
                                     <p>{Resources.getInstance().classDetailBeforeWord1}</p>
                                     <p onClick={event => this.sendTrack('下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
@@ -55,7 +56,8 @@ export default class ClassAd extends React.Component {
                                 </div>)
                             :
                             (this.props.content && this.props.content.companion_notice_en ?
-                                this.showHtml(window.navigator.language.toLowerCase() === 'zh-cn' ? this.props.content.companion_notice_zh : this.props.content.companion_notice_en) :
+                                this.showHtml(window.navigator.language.toLowerCase() === 'zh-cn' ? this.props.content.companion_notice_zh : this.props.content.companion_notice_en)
+                                :
                                 <div className="class-before-content">
                                     <p>{Resources.getInstance().classDetailBeforeWord1}</p>
                                     <p onClick={event => this.sendTrack('下载ZOOM安装')}>{Resources.getInstance().classDetailBeforeWord2}<a
