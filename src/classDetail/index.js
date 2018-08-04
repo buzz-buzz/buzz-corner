@@ -244,7 +244,10 @@ class classDetail extends Component {
             }
 
             //if User is not in this class
-            if (class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1) {
+            if (class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '')
+                && studentsList.indexOf(profile.user_id + '') <= -1
+                && (!class_info.subscribers || (class_info.subscribers.split(',').indexOf(profile.user_id + '') === -1))
+            ) {
                 alert(Resources.getInstance().classInfoNoAuth);
                 browserHistory.push('/');
                 return;
