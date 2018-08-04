@@ -24,6 +24,8 @@ import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 
+const logger = require('../common/logger');
+
 let interval = null;
 
 class My extends Component {
@@ -78,12 +80,15 @@ class My extends Component {
     }
 
     async sms() {
+        let mobile = `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`;
+
+        logger.fundebug.notify('发送手机验证码', mobile, {metaData: this.state});
         try {
             const phoneResult = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/mobile/sms`,
                     json: {
-                        mobile: `00${countryCodeMap[this.state.mobileCountry]}${this.state.profile.phone}`,
+                        mobile: mobile,
                         mobile_country: this.state.mobileCountry
                     },
                     method: 'POST'
