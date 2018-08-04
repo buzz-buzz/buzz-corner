@@ -230,10 +230,6 @@ async function serveSPA(ctx) {
 
 app.use(serveStatic('build'));
 
-if (process.env.NODE_ENV === 'staging') {
-    app.use(serveStatic('public'));
-}
-
 router
     .get('/%2f', serveSPA)
     .get('//', serveSPA)
