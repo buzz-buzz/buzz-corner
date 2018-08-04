@@ -169,12 +169,8 @@ router
             let returnUrl = ctx.headers.referer;
 
             if (ctx.request.get('X-Requested-With') === 'XMLHttpRequest') {
-                let result = {};
-                result.isSuccess = false;
-                result.code = 302;
-                result.message = `/sign-in?return_url=${returnUrl}` || '/';
-
-                return ctx.body = result;
+                ctx.status = 401;
+                return ctx.body = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
             } else {
                 ctx.redirect(`/sign-in?return_url=${returnUrl}`);
             }
