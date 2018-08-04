@@ -172,7 +172,7 @@ router
                 let result = {};
                 result.isSuccess = false;
                 result.code = 302;
-                result.message = returnUrl || '/';
+                result.message = `/sign-in?return_url=${returnUrl}` || '/';
 
                 return ctx.body = result;
             } else {
