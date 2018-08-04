@@ -27,9 +27,9 @@ export default class WechatLogin extends React.Component {
         new window.WxLogin({
             self_redirect: true,
             id: "qrcode-wechat",
-            appid: "wx7f1051697b7fab6d",
+            appid: ClientConfig.wechatAppIdForQrCode,
             scope: "snsapi_login",
-            redirect_uri: ClientConfig.getWechatRedirectUri(window.location.origin, window.location.search),
+            redirect_uri: ClientConfig.getWechatQrRedirectUri(window.location.origin, window.location.search),
             state: "",
             style: "black"
         });
