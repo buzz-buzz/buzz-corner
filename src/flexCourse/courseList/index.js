@@ -3,6 +3,7 @@ import CourseInfo from '../courseInfo';
 import {browserHistory} from 'react-router';
 import WhiteSpace from '../../common/commonComponent/whiteSpace';
 import Track from "../../common/track";
+import Resources from '../../resources';
 import './index.css';
 
 const styleEmpty = {
@@ -32,7 +33,7 @@ export default class CourseList extends React.Component {
             <div className="course-list" style={this.props.data.length > 0 ? {} : styleEmpty}>
                 {
                     this.props.data.length > 0 &&
-                    <div className="course-title">淘你喜欢</div>
+                    <div className="course-title">{Resources.getInstance().taoCourseLike}</div>
                 }
                 {
                     this.props.data.length > 0 &&
@@ -40,16 +41,21 @@ export default class CourseList extends React.Component {
                 }
                 {
                     this.props.data.length === 0 &&
-                    <WhiteSpace message="课程报名火爆/当前日期的课程都被抢完了！"
+                    <WhiteSpace message={Resources.getInstance().taoCourseNone}
                                 src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/bg_course_blank page.svg"
                                 style={{background: 'white'}}
                     />
                 }
                 {
                     this.props.data.length > 0 &&
-                    <div className="no-more">^_^ 没有更多了</div>
+                    <div className="no-more">^_^ {Resources.getInstance().taoCourseNomore}</div>
                 }
-
+                {
+                    this.props.loading &&
+                    <div className="loading-course">
+                        <p>{Resources.getInstance().taoCourseLoading}</p>
+                    </div>
+                }
             </div>
         )
     }

@@ -168,9 +168,6 @@ export default class CourseDetail extends React.Component {
                 courseInfo[0].class_status_show_word = TimeHelper.timeDiff(new Date(courseInfo[0].start_time), new Date(courseInfo[0].end_time), new Date(courseInfo[0].CURRENT_TIMESTAMP || new Date()), window.navigator.language);
             }
 
-            console.log(courseInfo[0].students.indexOf(profile.user_id));
-            console.log(courseInfo[0].students.indexOf(profile.user_id + ''));
-
             this.setState({
                 loadingModal: false,
                 course_info: courseInfo.length ? courseInfo[0] : {},

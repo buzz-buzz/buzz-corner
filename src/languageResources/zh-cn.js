@@ -358,6 +358,7 @@ export const taoCourseDateValid = '日期无效';
 export const taoCourseGradeUseless = '年级信息无效';
 export const taoCourseKnow = '我知道了';
 export const taoCourseNoone = '暂无';
+export const taoCourseLoading = '正在获取最新的课程信息...';
 
 export const refreshStatus1 = '下拉刷新...';
 export const refreshStatus2 = '释放刷新...';
