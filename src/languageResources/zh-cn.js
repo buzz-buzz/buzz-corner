@@ -332,6 +332,33 @@ export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
 
+export const taoCourseNone = '课程报名火爆/当前日期的课程都被抢光了。';
+export const taoCourseLike = '淘你喜欢';
+export const taoCourseRecommend = '推荐';
+export const taoCourseNomore = '没有更多了';
+export const taoCourseIntro = '课程简介';
+export const taoCourseBegin = '距离开始';
+export const taoCourseSignin = '报名加入';
+export const taoCourseSigned = '已报名';
+export const taoCourseSignNone = '已截至报名';
+export const taoCourseIntroContent = '与外籍学伴徜徉在英语母语的海洋里，邂逅趣味相投的他/她们，一起聆听彼此的心声，共同开启BuzzBuzz之旅吧。';
+export const taoCourseSignSure = '报名确认';
+export const taoCourseSignInfo = '参加该课程需要扣除1个课时';
+export const taoCourseSignCancel = '确认后则无法取消课程';
+export const taoCourseClassHoursNone = '您当前的课时数不足';
+export const taoCourseHelp = '咨询购买';
+export const taoCourseNotSign = '暂不参加';
+export const taoCourseSureSign = '确认参加';
+export const taoCourseSignSuccess = '参加成功';
+export const taoCourseSignFailed = '参加失败';
+export const taoCourseSuccessClass = '该课程已加入你的学习列表';
+export const taoCourseSignSlowly = '手慢了，该课程人数已截至报名，请挑选其他班级';
+export const taoCourseUseridNone = '用户不存在';
+export const taoCourseDateValid = '日期无效';
+export const taoCourseGradeUseless = '年级信息无效';
+export const taoCourseKnow = '我知道了';
+export const taoCourseNoone = '暂无';
+
 export const refreshStatus1 = '下拉刷新...';
 export const refreshStatus2 = '释放刷新...';
 export const refreshStatus3 = '正在更新...';
@@ -357,7 +384,7 @@ export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密�
 
 export const audioDisabled = "需要录音权限，但是你没有给予，请先允许录音后再试……";
 export const selectCountryCode = "请选择国家代码";
-export const validate = "确认"
+export const validate = "确认";
 
 export function signInWith(method) {
     return (
