@@ -8,6 +8,7 @@ import ErrorHandler from "../../common/error-handler";
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import ClassEndTime from "../../classDetail/class-end-time";
 import TimeHelper from '../../common/timeHelper';
+import Resources from '../../resources';
 import ServiceProxy from '../../service-proxy';
 import './index.css';
 
@@ -70,7 +71,7 @@ export default class CourseDetail extends React.Component {
 
             let classInfo = this.state.course_info;
 
-            if(classInfo.students.indexOf(this.state.user_id) === -1){
+            if (classInfo.students.indexOf(this.state.user_id) === -1) {
                 classInfo.students.push(this.state.user_id);
             }
 
@@ -87,8 +88,8 @@ export default class CourseDetail extends React.Component {
         }
     }
 
-    dealWithErr(msg){
-        switch (msg){
+    dealWithErr(msg) {
+        switch (msg) {
             case 'Error: invalid class hours':
                 this.setState({
                     courseModal: true,
@@ -109,7 +110,7 @@ export default class CourseDetail extends React.Component {
                     courseModal: true,
                     courseType: 'result',
                     courseOk: false,
-                    err: '用户不存在'
+                    err: Resources.getInstance().taoCourseUseridNone
                 });
                 break;
             case 'Error: invalid date':
@@ -117,7 +118,7 @@ export default class CourseDetail extends React.Component {
                     courseModal: true,
                     courseType: 'result',
                     courseOk: false,
-                    err: '日期无效'
+                    err: Resources.getInstance().taoCourseDateValid
                 });
                 break;
             case 'Error: invalid grade':
@@ -125,7 +126,7 @@ export default class CourseDetail extends React.Component {
                     courseModal: true,
                     courseType: 'result',
                     courseOk: false,
-                    err: '年级信息无效'
+                    err: Resources.getInstance().taoCourseGradeUseless
                 });
                 break;
             default:
@@ -133,7 +134,7 @@ export default class CourseDetail extends React.Component {
                     courseModal: true,
                     courseType: 'result',
                     courseOk: false,
-                    err: '网络出现错误, 请稍后重试'
+                    err: msg || Resources.getInstance().emailSendWrong
                 });
         }
     }
@@ -145,7 +146,7 @@ export default class CourseDetail extends React.Component {
     }
 
     joinHelp() {
-        browserHistory.push('/');
+        browserHistory.push('/help/purchase_class_hour');
     }
 
     joinSuccess() {
@@ -308,21 +309,19 @@ export default class CourseDetail extends React.Component {
                                             <img src="" alt=""/>
                                         </div>
                                         <div className="name">
-                                            <span style={{color: '#d0d6db', marginRight: '0'}}>暂无</span>
+                                            <span style={{color: '#d0d6db', marginRight: '0'}}>{Resources.getInstance().taoCourseNoone}</span>
                                         </div>
                                     </div>
                             })
                         }
                     </div>
                     <div className="intro">
-                        <div className="intro-title">课程简介</div>
+                        <div className="intro-title">{Resources.getInstance().taoCourseIntro}</div>
                         {
                             this.state.course_info.class_content && this.state.course_info.class_content.student_notice_zh ?
                                 this.showHtml(window.navigator.language.toLowerCase() === 'zh-cn' ? this.props.content.student_notice_zh : this.props.content.student_notice_en)
                                 :
-                                <div className="intro-content">
-                                    与外籍学伴徜徉在英语母语的海洋里，邂逅趣味相投的他/她们，一起聆听彼此的心声，共同开启BuzzBuzz之旅吧。
-                                </div>
+                                <div className="intro-content">{Resources.getInstance().taoCourseIntroContent}</div>
                         }
                     </div>
                 </div>
@@ -330,16 +329,17 @@ export default class CourseDetail extends React.Component {
                     <div className="time-left">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_time.svg" alt=""/>
                         <div className="time">
-                            <div className="word">距离开始</div>
+                            <div className="word">{Resources.getInstance().taoCourseBegin}</div>
                             <div
-                                className="time-down">{this.state.course_info.left ? this.state.course_info.left : '已截至报名'}</div>
+                                className="time-down">{this.state.course_info.left ? this.state.course_info.left : Resources.getInstance().taoCourseSignNone}</div>
                         </div>
                     </div>
                     <div className="btn">
                         <Button50Px
                             disabled={ this.state.course_info.students.indexOf(this.state.user_id + '') !== -1 || !this.state.course_info.left }
                             submit={this.joinCourse}
-                            text={ this.state.course_info.students.indexOf(this.state.user_id + '') === -1 ? "报名加入" : "已报名"}/>
+                            text={ this.state.course_info.students.indexOf(this.state.user_id + '') === -1 ?
+                                Resources.getInstance().taoCourseSignin : Resources.getInstance().taoCourseSigned}/>
                     </div>
                 </div>
                 {

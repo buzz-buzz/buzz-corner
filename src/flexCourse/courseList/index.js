@@ -40,7 +40,7 @@ export default class CourseList extends React.Component {
                 }
                 {
                     this.props.data.length === 0 &&
-                    <WhiteSpace message="课程报名火爆,  当前日期的课程都被抢完了！"
+                    <WhiteSpace message="课程报名火爆/当前日期的课程都被抢完了！"
                                 src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/bg_course_blank page.svg"
                                 style={{background: 'white'}}
                     />

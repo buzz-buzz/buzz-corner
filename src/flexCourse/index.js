@@ -25,8 +25,6 @@ export default class FlexCourse extends React.Component {
             });
         }
 
-        console.log(days);
-
         this.state = {
             days: days,
             active_day: days[0],
