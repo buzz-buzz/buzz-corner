@@ -6,7 +6,6 @@ import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import ServiceProxy from '../service-proxy';
 import ErrorHandler from "../common/error-handler";
-import LoadingModal from '../common/commonComponent/loadingModal';
 import moment from "moment/moment";
 import './index.css';
 
