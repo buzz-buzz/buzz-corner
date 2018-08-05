@@ -14,16 +14,24 @@ export default class PlacementQuestion extends React.Component {
         this.touchEnd = this.touchEnd.bind(this);
     }
 
-    touchStart(index){
+    touchStart(index) {
         this.setState({
             pressing: index
         });
     }
 
-    touchEnd(){
+    touchEnd() {
         this.setState({
             pressing: "no"
         });
+    }
+
+    renderWord(word) {
+        let info = word.split('英语');
+        return info.length === 2 ?
+            <p>{info[0]}<span style={{color: '#f7b52a'}}>英语</span>{info[1]}</p>
+            :
+            <p>{word}</p>
     }
 
     render() {
@@ -33,7 +41,9 @@ export default class PlacementQuestion extends React.Component {
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
                 </div>
                 <div className="first-title">
-                    <p>{ this.props.questions && this.props.questions.length ? this.props.questions[this.props.step - 1].title : ''}</p>
+                    {
+                        this.renderWord(this.props.questions && this.props.questions.length ? this.props.questions[this.props.step - 1].title : '')
+                    }
                 </div>
             </div>
             <div className="first-answer">
@@ -43,7 +53,8 @@ export default class PlacementQuestion extends React.Component {
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].items &&
                     this.props.questions[this.props.step - 1].items.length &&
                     this.props.questions[this.props.step - 1].items.map((item, index) => {
-                        return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"} key={index}
+                        return <div className={  this.state.pressing === index ? "answer-item pressing" : "answer-item"}
+                                    key={index}
                                     onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
                                     onClick={(event) => this.props.saveAnswer(event, this.props.step - 1, item)}
                                     style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === item ? {
@@ -59,24 +70,24 @@ export default class PlacementQuestion extends React.Component {
                 {
                     this.props.step === 4 && this.props.questions && this.props.questions.length &&
                     this.props.questions[3] && this.props.questions[3].title &&
-                        <ImageModal select={this.props.saveAnswer} step={this.props.step} answers={this.props.answers}  />
+                    <ImageModal select={this.props.saveAnswer} step={this.props.step} answers={this.props.answers}/>
                 }
                 {
                     this.props.step === 5 && this.props.questions && this.props.questions.length &&
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].title &&
-                    <PlacementRecorder  step={this.props.step} answers={this.props.answers}
-                                        open={this.props.open} onClose={this.props.onClose}
-                                        avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
-                                        setMessage={this.props.setMessage}
+                    <PlacementRecorder step={this.props.step} answers={this.props.answers}
+                                       open={this.props.open} onClose={this.props.onClose}
+                                       avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
+                                       setMessage={this.props.setMessage}
                     />
                 }
                 {
                     this.props.step === 6 && this.props.questions && this.props.questions.length &&
                     this.props.questions[this.props.step - 1] && this.props.questions[this.props.step - 1].title &&
-                    <PlacementRecorder  step={this.props.step} answers={this.props.answers}
-                                        open={this.props.open} onClose={this.props.onClose}
-                                        avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
-                                        setMessage={this.props.setMessage}
+                    <PlacementRecorder step={this.props.step} answers={this.props.answers}
+                                       open={this.props.open} onClose={this.props.onClose}
+                                       avatar={this.props.avatar} handleUploadUrl={this.props.handleUploadUrl}
+                                       setMessage={this.props.setMessage}
                     />
                 }
             </div>
