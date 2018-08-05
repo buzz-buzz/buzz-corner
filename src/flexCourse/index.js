@@ -55,7 +55,7 @@ export default class FlexCourse extends React.Component {
 
 
     async updateCourseListByUserId(user_id, date) {
-        try{
+        try {
             let courseList = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${date}`
@@ -64,20 +64,20 @@ export default class FlexCourse extends React.Component {
 
             if (courseList && courseList.length) {
                 this.setState({courseList: courseList, loadingCourse: false});
-            }else{
+            } else {
                 this.setState({courseList: [], loadingCourse: false});
             }
         }
-        catch (ex){
+        catch (ex) {
             ErrorHandler.notify('更新淘课列表出错', ex);
             this.setState({courseList: [], loadingCourse: false});
         }
     }
 
     async getLatestCourse(user_id, dates) {
-        let courseList = [], index= 0;
+        let courseList = [], index = 0;
 
-        for(let i in dates){
+        for (let i in dates) {
             let courseListData = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${dates[i].format_date}`
@@ -92,7 +92,7 @@ export default class FlexCourse extends React.Component {
             }
         }
 
-        if(index === 0){
+        if (index === 0) {
             dates[0].active = 0;
         }
 
@@ -119,7 +119,7 @@ export default class FlexCourse extends React.Component {
         return (
             <div className="flex-course">
                 <SelectDay switchDay={this.switchDay} days={this.state.days} activeDay={this.state.active_day}/>
-                <CourseList data={this.state.courseList} loading={this.state.loadingCourse} />
+                <CourseList data={this.state.courseList} loading={this.state.loadingCourse}/>
                 <Footer role={MemberType.Student}/>
             </div>
         )

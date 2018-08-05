@@ -120,7 +120,7 @@ class AccountLogin extends Component {
             }
 
             this.setState({loadingModal: false}, () => {
-                if(result.role){
+                if (result.role) {
                     localStorage.setItem('role', result.role);
                 }
 
@@ -152,7 +152,7 @@ class AccountLogin extends Component {
                 ...this.state.data,
                 user_id: userId
             }
-        }, async () => {
+        }, async() => {
             await this.submit();
         });
     };
@@ -175,10 +175,13 @@ class AccountLogin extends Component {
 
                             <Dropdown
                                 placeholder={Resources.getInstance().selectCountryCode}
-                                trigger={<span><Flag name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>}
+                                trigger={<span><Flag
+                                    name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>}
                                 search options={countryOptions}
-                                style={{width: '80px', marginRight: '10px',whiteSpace: 'nowrap', padding: '0 10px',
-                                    display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'}}
+                                style={{
+                                    width: '80px', marginRight: '10px', whiteSpace: 'nowrap', padding: '0 10px',
+                                    display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'
+                                }}
                                 value={this.state.mobileCountry}
                                 onChange={(event, data) =>
                                     this.setState({mobileCountry: data.value})}/>
