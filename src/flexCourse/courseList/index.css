@@ -1,6 +1,7 @@
 .course-list {
   flex: 1 1 auto;
-  background-color: white; }
+  background-color: white;
+  position: relative; }
   .course-list .course-title {
     padding: 20px 0 15px 21px;
     font-size: 18px;
@@ -11,3 +12,14 @@
     color: #868686;
     text-align: center;
     margin-top: 15px; }
+  .course-list .loading-course {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center; }

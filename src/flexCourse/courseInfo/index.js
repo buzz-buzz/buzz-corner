@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {Flag} from "semantic-ui-react";
 import Avatar from '../../common/commonComponent/avatar';
+import Resources from '../../resources';
 import ClassEndTime from "../../classDetail/class-end-time";
 import './index.css';
 
@@ -36,7 +37,7 @@ export default class CourseInfo extends React.Component {
                     this.props.data.recommend &&
                     <div className="booking-item-status">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_start.svg" alt=""/>
-                        推荐
+                        {Resources.getInstance().taoCourseRecommend}
                     </div>
                 }
             </div>
