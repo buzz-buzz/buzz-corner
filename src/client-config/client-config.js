@@ -10,7 +10,7 @@ let productionAppId = 'wx370ed9dea414747f';
 let testAppId = 'wx8f2141f7ff4bb443';
 
 export default class ClientConfig {
-    static wechatAppIdForMobile = inProduction() ? productionAppId : testAppId;
+    static wechatAppIdForMobile = inProduction() || true ? productionAppId : testAppId;
 
     static wechatAppIdForQrCode = 'wx7f1051697b7fab6d';
 
