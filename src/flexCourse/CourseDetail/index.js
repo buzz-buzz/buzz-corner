@@ -192,7 +192,7 @@ export default class CourseDetail extends React.Component {
         hours = Math.floor((left - days * 3600 * 24) / 3600);
         minutes = Math.floor((left - days * 3600 * 24 - hours * 3600) / 60);
 
-        if (days > 0) {
+        if (left > 0) {
             return (days > 9 ? days : '0' + days) + 'd ' + (hours > 9 ? hours : '0' + hours) + 'h ' + (minutes > 9 ? minutes : '0' + minutes) + 'm';
         } else {
             return 0;
@@ -306,7 +306,10 @@ export default class CourseDetail extends React.Component {
                                             <img src="" alt=""/>
                                         </div>
                                         <div className="name">
-                                            <span style={{color: '#d0d6db', marginRight: '0'}}>{Resources.getInstance().taoCourseNoone}</span>
+                                            <span style={{
+                                                color: '#d0d6db',
+                                                marginRight: '0'
+                                            }}>{Resources.getInstance().taoCourseNoone}</span>
                                         </div>
                                     </div>
                             })
