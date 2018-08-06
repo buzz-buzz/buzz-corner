@@ -505,7 +505,7 @@ class My extends Component {
             interests: newTopics,
             email: profile.email,
             school_name: profile.school,
-            country: profile.country || this.state.profile.role === MemberType.Student ? 'china' : 'united States',
+            country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
             time_zone: profile.time_zone
         };
     }
