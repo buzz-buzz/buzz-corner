@@ -9,10 +9,6 @@ class Footer extends Component {
     constructor() {
         super();
 
-        this.state = {
-            url: window.location.href
-        };
-
         this.clickEvent = this.clickEvent.bind(this);
     }
 
@@ -21,65 +17,58 @@ class Footer extends Component {
     }
 
     componentWillMount(){
+        let path_name = window.location.pathname;
+
         this.setState({
-            role: localStorage.getItem('role') || this.props.role
+            role: localStorage.getItem('role') || this.props.role,
+            path_name: path_name
         });
-    }
-
-    componentDidMount() {
-        let url = window.location.href;
-
-        if (this.state.url !== url) {
-            this.setState({
-                url: url
-            });
-        }
     }
 
     render() {
         return (
             <div className="footer">
-                <Link to="home" style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
+                <Link to="home" style={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
                     <img
-                        src={this.state.url.indexOf('/home') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home.svg"}
+                        src={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home.svg"}
                         alt=""/>
-                    <p  style={this.state.url.indexOf('/home') > -1 ? {color: '#f7b52a'} : {}}>
+                    <p  style={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerHome}
                     </p>
                 </Link>
                 {
                     this.state.role === MemberType.Student ?
-                        <Link to="course" style={this.state.url.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
+                        <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                             <img
-                                src={this.state.url.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
+                                src={this.state.path_name.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
                                 alt=""/>
-                            <p style={this.state.url.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
+                            <p style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
                                 {Resources.getInstance().footerSelectCourse}
                             </p>
                         </Link>
                         :
-                        <Link to="friends" style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
+                        <Link to="friends" style={this.state.path_name.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                             <img
-                                src={this.state.url.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}
+                                src={this.state.path_name.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}
                                 alt=""/>
-                            <p style={this.state.url.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
+                            <p style={this.state.path_name.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
                                 {Resources.getInstance().footerFriends}
                             </p>
                         </Link>
                 }
-                <Link to="reward" style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
+                <Link to="reward" style={this.state.path_name.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
                     <img
-                        src={this.state.url.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward.svg"}
+                        src={this.state.path_name.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward.svg"}
                         alt=""/>
-                    <p  style={this.state.url.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
+                    <p  style={this.state.path_name.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerReward}
                     </p>
                 </Link>
-                <Link to="user" style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
+                <Link to="user" style={this.state.path_name.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
                     <img
-                        src={this.state.url.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user.svg"}
+                        src={this.state.path_name.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user.svg"}
                         alt=""/>
-                    <p style={this.state.url.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
+                    <p style={this.state.path_name.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerUser}
                     </p>
                 </Link>
