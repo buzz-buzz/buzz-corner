@@ -1,6 +1,7 @@
 import React from 'react';
 import Client from "../../../common/client";
 import ServiceProxy from '../../../service-proxy';
+import Track from "../../track";
 import './index.css';
 
 export default class YunyingModal extends React.Component {
@@ -71,6 +72,8 @@ export default class YunyingModal extends React.Component {
     }
 
     goBannerPage(url){
+        Track.event('运营位_图片点击');
+
         window.open(url);
     }
 
@@ -201,17 +204,24 @@ export default class YunyingModal extends React.Component {
     }
 
     async componentWillMount() {
-        let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
+        try{
+            let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
 
-        if(bannerData && bannerData.length && bannerData.length > 0){
-            this.setState({
-                bannerData: bannerData,
-                new_images:this.resetBannerData(bannerData)
-            }, () => {
-                if( bannerData.length > 1){
-                    this.beginPlaying();
-                }
-            });
+            if(bannerData && bannerData.length && bannerData.length > 0){
+                Track.event('运营位_页面展示');
+
+                this.setState({
+                    bannerData: bannerData,
+                    new_images:this.resetBannerData(bannerData)
+                }, () => {
+                    if( bannerData.length > 1){
+                        this.beginPlaying();
+                    }
+                });
+            }
+        }
+        catch (ex){
+            Track.event('运营位_页面出错');
         }
     }
 

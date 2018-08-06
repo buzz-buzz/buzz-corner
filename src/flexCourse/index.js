@@ -5,6 +5,7 @@ import Footer from '../layout/footer';
 import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import ServiceProxy from '../service-proxy';
+import Track from "../common/track";
 import ErrorHandler from "../common/error-handler";
 import moment from "moment/moment";
 import './index.css';
@@ -34,6 +35,8 @@ export default class FlexCourse extends React.Component {
     }
 
     switchDay(index) {
+        Track.event('淘课_日期切换点击');
+
         if (!this.state.days[index].active) {
             let clonedDays = this.state.days.slice();
             for (let i in clonedDays) {
@@ -101,6 +104,8 @@ export default class FlexCourse extends React.Component {
 
     async componentWillMount() {
         try {
+            Track.event('淘课_页面展示');
+
             this.setState({loadingCourse: true});
 
             let profile = await CurrentUser.getProfile();

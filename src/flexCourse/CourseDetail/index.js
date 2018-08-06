@@ -10,6 +10,7 @@ import ClassEndTime from "../../classDetail/class-end-time";
 import TimeHelper from '../../common/timeHelper';
 import Resources from '../../resources';
 import ServiceProxy from '../../service-proxy';
+import Track from "../../common/track";
 import './index.css';
 
 export default class CourseDetail extends React.Component {
@@ -45,6 +46,8 @@ export default class CourseDetail extends React.Component {
     }
 
     joinCourse() {
+        Track.event('淘课_报名按钮点击');
+
         if (this.state.class_hours >= this.state.course_info.class_hours) {
             this.setState({
                 courseModal: true,
@@ -62,6 +65,8 @@ export default class CourseDetail extends React.Component {
 
     async joinClass() {
         try {
+            Track.event('淘课_确认参加点击');
+
             await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/class-schedule/joinOptional/${this.state.class_id}?user_id=${this.state.user_id}`,
@@ -84,6 +89,8 @@ export default class CourseDetail extends React.Component {
             });
         }
         catch (ex) {
+            Track.event('淘课_报名失败', ex.result || '');
+
             this.dealWithErr(ex.result);
         }
     }
@@ -140,21 +147,29 @@ export default class CourseDetail extends React.Component {
     }
 
     joinCancel() {
+        Track.event('淘课_暂不参加点击');
+
         this.setState({
             courseModal: false
         });
     }
 
     joinHelp() {
+        Track.event('淘课_咨询购买点击');
+
         browserHistory.push('/help/purchase_class_hour');
     }
 
     joinSuccess() {
+        Track.event('淘课_报名成功点击');
+
         browserHistory.push(`/class/${this.state.class_id}?back=course`);
     }
 
     async componentWillMount() {
         try {
+            Track.event('淘课_详情页面展示');
+
             this.setState({loadingModal: true});
 
             let courseInfo = await this.getCourseInfoByClassId(this.state.class_id), userList = [], class_content = {};
