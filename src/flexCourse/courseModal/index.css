@@ -25,7 +25,8 @@
       .course-modal .modal-content .status-img img {
         width: 100%; }
     .course-modal .modal-content .status-info {
-      text-align: center; }
+      text-align: center;
+      padding: 0 21px; }
       .course-modal .modal-content .status-info .title {
         font-size: 21px;
         color: #000;
