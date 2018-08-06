@@ -347,7 +347,7 @@ export default class CourseDetail extends React.Component {
                     <CourseModal type={this.state.courseType} ok={this.state.courseOk}
                                  joinClass={this.joinClass} joinCancel={this.joinCancel}
                                  joinHelp={this.joinHelp} joinSuccess={this.joinSuccess}
-                                 err={this.state.err}
+                                 err={this.state.err} class_hours_need={this.state.course_info.class_hours || 1}
                     />
                 }
             </div>

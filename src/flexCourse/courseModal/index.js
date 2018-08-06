@@ -29,7 +29,7 @@ export default class CourseModal extends React.Component {
                     <div className="modal-content">
                         <div className="status-info">
                             <div className="title">{Resources.getInstance().taoCourseSignSure}</div>
-                            <div className="info-one">{Resources.getInstance().taoCourseSignInfo}</div>
+                            <div className="info-one">{Resources.getInstance().taoCourseSignInfo.replace('$', this.props.class_hours_need)}</div>
                             <div className="info-two">{ this.props.ok ? Resources.getInstance().taoCourseSignCancel : Resources.getInstance().taoCourseClassHoursNone}</div>
                         </div>
                         <div className="btn-two">
