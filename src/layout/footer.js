@@ -38,7 +38,7 @@ class Footer extends Component {
                 </Link>
                 {
                     this.state.role === MemberType.Student ?
-                        <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
+                        <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '淘课')}>
                             <img
                                 src={this.state.path_name.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
                                 alt=""/>

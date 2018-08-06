@@ -5,6 +5,7 @@ import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import Track from "../common/track";
 import Back from '../common/back';
 
 import './index.css';
@@ -27,6 +28,8 @@ export default class HelpCenter extends React.Component{
     }
 
     async componentWillMount(){
+        Track.event('FAQ_页面展示');
+
         //get data from service
         if(this.state.faq_id === 'student_index' || this.state.faq_id === 'companion_index'){
             let profile = await CurrentUser.getProfile(true);
@@ -64,6 +67,8 @@ export default class HelpCenter extends React.Component{
     }
 
     async faqDetail(event, link, faq_id){
+        Track.event('FAQ_底部菜单栏点击');
+
         if(link){
             window.location.href = link;
         }else if(faq_id){

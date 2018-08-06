@@ -19,7 +19,7 @@ export default class CourseList extends React.Component {
     }
 
     goDetailCourse(event, course_id) {
-        Track.event('点击淘课详情');
+        Track.event('淘课_列表点击');
 
         browserHistory.push(`/course/${course_id}`);
     }

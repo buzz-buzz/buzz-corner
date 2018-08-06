@@ -256,6 +256,8 @@ export default class PlacementModal extends React.Component {
 
                 await this.saveStep6();
             } else if (this.state.step === 7) {
+                Track.event('测试_题全部完成');
+
                 this.goHomePage();
             }
         } catch (ex) {
