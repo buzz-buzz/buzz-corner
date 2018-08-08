@@ -355,7 +355,7 @@ class classEvaluation extends Component {
                                     onClick={(event) => this.changeStars(event, 5)} alt="star"/>
                             </div>
                             <div className="stars-word">
-                                <p>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</p>
+                                <p  style={{color: EvaluationStatusHelper.getStyleByStars(this.state.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</p>
                             </div>
                         </div>
                         {
