@@ -1,6 +1,5 @@
 import RequestHelper from '../helpers/request-helper';
 
-const config = require('../config');
 const cookie = require('../helpers/cookie');
 
 async function setUserToState(context, user_id) {
