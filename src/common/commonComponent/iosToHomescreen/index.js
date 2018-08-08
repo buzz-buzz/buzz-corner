@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import './addtohomescreen.min.js';
+import './addtohomescreen.js';
 import './addtohomescreen.css';
 
 export default class IosToHomeScreen extends React.Component {
