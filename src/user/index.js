@@ -12,7 +12,6 @@ import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Index from '../common/commonComponent/ConfirmationModal/index';
-import IosToHomeScreen from '../common/commonComponent/iosToHomescreen/index.js';
 
 class User extends Component {
     constructor(props) {
@@ -157,10 +156,10 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
-                        {
-                            this.state.ios &&
-                            <IosToHomeScreen/>
-                        }
+                        {/*{*/}
+                            {/*this.state.ios &&*/}
+                            {/*<IosToHomeScreen/>*/}
+                        {/*}*/}
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
                         {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
@@ -187,7 +186,7 @@ class User extends Component {
     }
 
     async switchToOtherUser() {
-        await ServiceProxy.proxy(`/switch-to-user/${this.state.switchToUserId}`)
+        await ServiceProxy.proxy(`/switch-to-user/${this.state.switchToUserId}`);
         window.location.reload()
     }
 }

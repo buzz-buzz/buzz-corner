@@ -166,7 +166,7 @@ for ( var lang in ath.intl ) {
 
 // default options
 ath.defaults = {
-	appID: 'org.cubiq.addtohome',		// local storage name (no need to change)
+	appID: 'BuzzBuzz',		// local storage name (no need to change)
 	fontSize: 15,				// base font size, used to properly resize the popup based on viewport scale factor
 	debug: false,				// override browser checks
 	logging: false,				// log reasons for showing or not showing to js console; defaults to true when debug is true
@@ -177,7 +177,7 @@ ath.defaults = {
 	startDelay: 1,				// display the message after that many seconds from page load
 	lifespan: 15,				// life of the message in seconds
 	displayPace: 1440,			// minutes before the message is shown again (0: display every time, default 24 hours)
-	maxDisplayCount: 0,			// absolute maximum number of times the message will be shown to the user (0: no limit)
+	maxDisplayCount: 10,			// absolute maximum number of times the message will be shown to the user (0: no limit)
 	icon: true,					// add touch icon to the message
 	message: '',				// the message can be customized
 	validLocation: [],			// list of pages where the message will be shown (array of regexes)
@@ -389,7 +389,7 @@ ath.Class = function (options) {
 
 	// check if this is a returning visitor
 	if ( !this.session.returningVisitor ) {
-		this.session.returningVisitor = true;
+		//this.session.returningVisitor = true;
 		this.updateSession();
 
 		// we do not show the message if this is your first visit
