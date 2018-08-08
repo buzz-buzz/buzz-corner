@@ -11,8 +11,6 @@ export default class WechatShare {
     static async init(shareData) {
         if (/MicroMessenger/.test(navigator.userAgent)) {
             if (!shareData) {
-                console.log('wechat-share config');
-
                 shareData = {
                     title: 'BuzzBuzzEnglish',
                     desc: '还在想去哪里学英语？聪明的英语学习者都在这里。不出家门,对话世界。用聊天的方式学英语。',
@@ -45,10 +43,12 @@ export default class WechatShare {
                     wx.checkJsApi({
                         jsApiList: jsConfig.jsApiList,
                         success: function(){
-                            console.log('wechat-share config 1');
+                            console.log('wechat-share config success');
+                            Track.event('微信通用分享初始化成功');
                         },
                         fail: function(){
-                            console.log('wechat-share config 2');
+                            console.log('wechat-share config failed');
+                            Track.event('微信通用分享初始化失败');
                         }
                     });
                     wx.onMenuShareAppMessage(shareData);
@@ -66,6 +66,7 @@ export default class WechatShare {
 
                 wx.error(err => {
                     console.log('与微信 SDK 连接出现问题：' + JSON.stringify(err));
+                    Track.event('与微信 SDK 连接出现问题');
                     //throw err
                 });
             }else{
@@ -117,6 +118,7 @@ export default class WechatShare {
 
                 wx.error(err => {
                     console.log('与微信 SDK 连接出现问题：' + JSON.stringify(err));
+                    Track.event('与微信 SDK 连接出现问题');
                     //throw err
                 });
 
