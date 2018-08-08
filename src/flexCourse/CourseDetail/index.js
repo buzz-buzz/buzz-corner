@@ -1,12 +1,11 @@
 import React from 'react';
-import moment from 'moment';
 import {browserHistory} from 'react-router';
 import CurrentUser from "../../membership/user";
 import Button50Px from '../../common/commonComponent/submitButton50px';
 import CourseModal from '../courseModal';
 import ErrorHandler from "../../common/error-handler";
 import LoadingModal from '../../common/commonComponent/loadingModal';
-import ClassEndTime from "../../classDetail/class-end-time";
+import ClassInfoTitle from '../../classDetail/classInfoTitle';
 import TimeHelper from '../../common/timeHelper';
 import Resources from '../../resources';
 import ServiceProxy from '../../service-proxy';
@@ -268,25 +267,7 @@ export default class CourseDetail extends React.Component {
         return (
             <div className="course-detail">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <div className="class-info">
-                    <div className="avatar-new">
-                        <img
-                            src={ this.state.course_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}
-                            alt=""/>
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_bg.svg" alt=""
-                             className="bg"/>
-                    </div>
-                    <div className="course-content">
-                        <div className="name">{this.state.course_info.companion_name || 'BuzzBuzz'}</div>
-                        <div className="topic">{this.state.course_info.topic || 'Relationships'}</div>
-                        <div
-                            className="date">{moment(this.state.course_info.start_time).format("dddd, MMMM Do YYYY")}</div>
-                        <div className="time">{moment(this.state.course_info.start_time).format("HH:mm")} -
-                            <ClassEndTime
-                                classInfo={this.state.course_info}/></div>
-                    </div>
-                    <div className="course-status">{this.state.course_info.class_status_show_word}</div>
-                </div>
+                <ClassInfoTitle course_info={this.state.course_info}/>
                 <div className="course-intro">
                     <div className="partners">
                         {
