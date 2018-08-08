@@ -14,7 +14,9 @@ export default class IosToHomeScreen extends React.Component {
         try{
             if (!!window.addToHomescreen) {
                 window.addToHomescreen({
-                    startDelay: 1
+                    startDelay: 0,
+                    skipFirstVisit: false,
+                    maxDisplayCount: 20
                 });
             } else {
                 alert('添加失败');
