@@ -12,6 +12,7 @@ import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Index from '../common/commonComponent/ConfirmationModal/index';
+import IosToHomeScreen from '../common/commonComponent/iosToHomescreen/index.js';
 
 class User extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class User extends Component {
             country: 'china',
             switchToUserId: 0,
             role: '',
-            password: false
+            password: false,
+            ios: false
         };
 
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
@@ -68,6 +70,9 @@ class User extends Component {
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
         let profile = await CurrentUser.getProfile(true) || {};
+        const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
+
+        console.log(ua_info);
 
         this.setState({
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
@@ -77,7 +82,8 @@ class User extends Component {
             country: profile.country || 'china',
             isSuper: await CurrentUser.isSuper(),
             role: profile.role || '',
-            password: !!profile.password
+            password: !!profile.password,
+            ios: !!ua_info.os.ios
         });
     }
 
@@ -151,6 +157,10 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
+                        {
+                            this.state.ios &&
+                            <IosToHomeScreen/>
+                        }
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
                         {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
