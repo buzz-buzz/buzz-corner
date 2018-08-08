@@ -182,7 +182,7 @@ export default class CompanionEvaluation extends React.Component {
                                 }
                             </div>
                         </div>
-                        <div className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</div>
+                        <div className="stars-word" style={{color: EvaluationStatusHelper.getStyleByStars(this.state.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</div>
                     </div>
                 }
                 {

@@ -293,7 +293,7 @@ class classEvaluationResult extends Component {
                                 </div>
                             </div>
                             <div
-                                className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
+                                className="stars-word" style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluation.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
                     </div>
                     <div className="evaluation-item">
@@ -313,7 +313,7 @@ class classEvaluationResult extends Component {
                                 </div>
                             </div>
                             <div
-                                className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluationMe.stars)}</div>
+                                className="stars-word" style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluationMe.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluationMe.stars)}</div>
                         </div>
                     </div>
                     <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
