@@ -293,6 +293,7 @@ export const goToClass = '进入课堂';
 export const goToAssess = '课后评价';
 export const classPerformance = '课堂表现:';
 export const partnersWord = '语伴寄语:';
+export const myWord = '你的评价:';
 export const evaluationStandard = '评分标准说明';
 export const evaluationStandardStep1 = '第一步: 课堂表现';
 export const evaluationStandardStep2 = '第二步: 能力打分';

@@ -1,0 +1,88 @@
+.class-info{
+  flex: 0 0 auto;
+  padding: 25px 0 25px 21px;
+  display: flex;
+  position: relative;
+  .avatar-new{
+    position: relative;
+    width: 88px;
+    height: 105px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    img{
+      height: 100%;
+    }
+    img.bg{
+      z-index: 20;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
+  .course-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .name{
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+    }
+    .topic{
+      margin: 10px 0 5px 0;
+      font-size: 13px;
+      color: #ffb117;
+    }
+    .date, .time{
+      font-size: 11px;
+      color: #868686;
+    }
+  }
+  .course-status{
+    position: absolute;
+    right: 0;
+    top: 30px;
+    font-size: 12px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    text-align: center;
+    color: white;
+    padding: 0 12px 0 18px;
+    background-color: #6ae108;
+  }
+  .medal{
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    cursor: pointer;
+    span{
+      color: #edae00;
+      font-size: 11px;
+      height: 15px;
+      line-height: 15px;
+    }
+    .medal-img{
+      height: 66px;
+      width: 66px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      img{
+        height: 100%;
+      }
+    }
+  }
+}

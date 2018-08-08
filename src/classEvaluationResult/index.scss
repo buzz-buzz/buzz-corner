@@ -2,7 +2,92 @@
   background: #f4f5f9;
 }
 
-.companion-evaluation .evaluation-submit{
-  padding: 0 21px;
-  margin: 50px 0;
+.evaluation-submit{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.evaluation-item{
+  background: white;
+  margin-bottom: 5px;
+  padding: 21px;
+  .title-info{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    line-height: 21px;
+    margin-bottom: 15px;
+    position: relative;
+    .shadow{
+      position: absolute;
+      top: 2px;
+      z-index: 1;
+      left: -21px;
+      width: 100px;
+      height: 18px;
+      background: #f4f5f9;
+    }
+  }
+  .content{
+    position: relative;
+    font-size: 13px;
+    color: #666;
+    word-wrap: break-word;
+    padding-bottom: 15px;
+  }
+  .content:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(.5,.5);
+    transform: scale(.5,.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .class-behavior{
+    height: 50px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    .stars-word{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      .word{
+        height: 50px;
+        line-height: 50px;
+        font-size: 15px;
+        color: #868686;
+      }
+    }
+    .behavior{
+      height: 50px;
+      line-height: 50px;
+      color: #000;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      .stars{
+        display: flex;
+        align-items: center;
+        img{
+          width: 20px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .stars-word{
+      font-size: 15px;
+      color: #868686;
+    }
+  }
 }

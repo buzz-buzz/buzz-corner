@@ -1,22 +1,18 @@
 import React, {Component} from 'react';
 import ServiceProxy from '../service-proxy';
-import {Form, TextArea} from 'semantic-ui-react';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import QiniuDomain from '../common/systemData/qiniuUrl';
-import Avatar from '../common/commonComponent/avatar';
 import './index.css';
-import Button50px from '../common/commonComponent/submitButton50px';
+import Button50px from '../common/commonComponent/submitButtonBottom';
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import ErrorHandler from '../common/error-handler';
+import ClassInfoTitle from '../classDetail/classInfoTitle';
 import CapacityRating from './capacityRating';
-import {Flag} from "semantic-ui-react";
 import Track from "../common/track";
 import Back from '../common/back';
 import moment from 'moment';
-import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluationResult extends Component {
     constructor(props) {
@@ -42,6 +38,10 @@ class classEvaluationResult extends Component {
                 stars: 0,
                 evaluation_content: ''
             },
+            evaluationMe: {
+                stars: 0,
+                evaluation_content: ''
+            },
             ratingModal: false
         };
 
@@ -59,7 +59,12 @@ class classEvaluationResult extends Component {
     }
 
     getScore(arr) {
-        return (arr.Fluency + arr.Grammar + arr.Vocabulary + arr.Pronunciation) / 4;
+        try {
+            return (arr.Fluency + arr.Grammar + arr.Vocabulary + arr.Pronunciation) / 4;
+        }
+        catch (ex) {
+            return 0;
+        }
     }
 
     handleFeedBack(feedback) {
@@ -192,13 +197,13 @@ class classEvaluationResult extends Component {
                     }
                 }));
 
-                companion_country = companion_info.country;
+                companion_country = companion_info.country || 'united states';
                 class_info.companion_avatar = companion_info.avatar;
                 class_info.companion_name = companion_info.name || companion_info.display_name;
             }
 
             //get evaluation result
-            let evaluation = {}, feed_back = [];
+            let evaluation = {}, feed_back = [], evaluationMe = {}, feed_back_me = [];
             if (this.state.from_user_id && this.state.to_user_id && this.state.class_id) {
                 feed_back = await  ServiceProxy.proxyTo({
                     body: {
@@ -210,6 +215,18 @@ class classEvaluationResult extends Component {
                     feed_back = this.handleFeedBack(feed_back);
                     evaluation.stars = parseInt(feed_back[0].score, 10) || 0;
                     evaluation.evaluation_content = feed_back[0].comment || '';
+                }
+
+                feed_back_me = await  ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.to_user_id}/evaluate/${this.state.from_user_id}`
+                    }
+                });
+
+                if (feed_back_me && feed_back_me.length) {
+                    feed_back_me = this.handleFeedBack(feed_back_me);
+                    evaluationMe.stars = parseInt(feed_back_me[0].score, 10) || 0;
+                    evaluationMe.evaluation_content = feed_back_me[0].comment || '';
                 }
             }
 
@@ -224,6 +241,7 @@ class classEvaluationResult extends Component {
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 companion_country: companion_country,
                 evaluation: evaluation,
+                evaluationMe: evaluationMe,
                 posterModal: evaluation.stars >= 4,
                 types: types,
                 sortNum: (sortResult.filter(function (item) {
@@ -249,92 +267,60 @@ class classEvaluationResult extends Component {
 
     render() {
         return (
-            <div className="class-detail">
+            <div className="class-detail" style={{background: '#f4f5f9', paddingBottom: '50px'}}>
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().classEvaluationResultTitle}/>
                 <div className="class-detail-info">
-                    <div className="class-info">
-                        <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar src={this.state.class_info.companion_avatar || QiniuDomain + "/logo-image.svg"}/>
-                            <Flag
-                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
+                    <ClassInfoTitle course_info={this.state.class_info} types={this.state.types}
+                                    companion_country={this.state.companion_country}
+                                    sortNum={this.state.sortNum} openRating={this.openRating}
+                                    score={ this.state.types ? this.getScore(this.state.types) : 0}
+                    />
+                    <div className="evaluation-item">
+                        <div className="title-info">
+                            <div
+                                style={{position: 'relative', zIndex: '2'}}>{Resources.getInstance().partnersWord}</div>
+                            <div className="shadow"></div>
                         </div>
-                        <div className="booking-item-info">
-                            <p className="your-name"
-                               style={{
-                                   fontWeight: 'bold',
-                                   fontSize: '1.2em'
-                               }}>{this.state.class_info.companion_name || "Buzz"}</p>
-                            <p className="class-topic" style={{
-                                color: '#f7b52a',
-                                margin: '.3em 0'
-                            }}>{this.state.class_info.topic || 'Sing a New song'}</p>
-                            <p className="class-date"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
-                            <p className="class-time"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}/></p>
-                        </div>
-                        {
-                            this.state.types && this.state.types.Fluency && this.state.sortNum ?
-                                <div className="medal" onClick={this.openRating}>
-                                    <div className="medal-img">
-                                        <img
-                                            src={this.state.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" : (
-                                                    this.state.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal/number3.svg"
-                                                )} alt=""/>
-                                    </div>
-                                    <span className="medal-score">{Resources.getInstance().evaluationTeacherScore}{this.getScore(this.state.types)}</span>
-                                </div> : ''
-                        }
-                    </div>
-                    <div className="companion-evaluation" style={{background: 'white'}}>
+                        <div className="content">{this.state.evaluation.evaluation_content}</div>
                         <div className="class-behavior">
                             <div className="behavior">
-                                <div className="word">{Resources.getInstance().classPerformance}</div>
                                 <div className="stars">
-                                    <img
-                                        src={this.state.evaluation.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                        alt=""/>
-                                    <img
-                                        src={this.state.evaluation.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                        alt=""/>
-                                    <img
-                                        src={this.state.evaluation.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                        alt=""/>
-                                    <img
-                                        src={this.state.evaluation.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                        alt=""/>
-                                    <img
-                                        src={this.state.evaluation.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                        alt=""/>
+                                    {
+                                        [1, 2, 3, 4, 5].map((item, index) => <img key={index}
+                                                                                  src={this.state.evaluation.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                  alt=""/>)
+                                    }
                                 </div>
                             </div>
                             <div
                                 className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
-                        <div className="companion-word">
-                            <div className="title">{Resources.getInstance().partnersWord}</div>
-                            <div className="evaluation-input">
-                                <Form>
-                                    <TextArea autoHeight
-                                              placeholder={Resources.getInstance().classEvaluationSuggest}
-                                              rows={7}
-                                              maxLength="200"
-                                              value={this.state.evaluation.evaluation_content}
-                                              readOnly={true}
-                                    />
-                                </Form>
-                            </div>
-                        </div>
-                        <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
-                            <Button50px text={Resources.getInstance().createPostersOfAchievement}
-                                        submit={this.createPostersOfAchievement}/>
-                        </div>
-                        <LoadingModal loadingModal={this.state.loadingModal}/>
                     </div>
+                    <div className="evaluation-item">
+                        <div className="title-info">
+                            <div style={{position: 'relative', zIndex: '2'}}>{Resources.getInstance().myWord}</div>
+                            <div className="shadow"></div>
+                        </div>
+                        <div className="content">{this.state.evaluationMe.evaluation_content}</div>
+                        <div className="class-behavior">
+                            <div className="behavior">
+                                <div className="stars">
+                                    {
+                                        [1, 2, 3, 4, 5].map((item, index) => <img key={index}
+                                                                                  src={this.state.evaluationMe.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                  alt=""/>)
+                                    }
+                                </div>
+                            </div>
+                            <div
+                                className="stars-word">{EvaluationStatusHelper.getStatusByStars(this.state.evaluationMe.stars)}</div>
+                        </div>
+                    </div>
+                    <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
+                        <Button50px text={Resources.getInstance().createPostersOfAchievement}
+                                    submit={this.createPostersOfAchievement}/>
+                    </div>
+                    <LoadingModal loadingModal={this.state.loadingModal}/>
                 </div>
                 <div className="modal" style={this.state.posterModal ? {display: 'flex'} : {display: 'none'}}
                      onClick={this.closePosterModal}>
