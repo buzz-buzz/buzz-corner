@@ -55,7 +55,7 @@
 
 .wechat-login > .login-wechat-btn{
     flex: auto;
-    padding: 0 37.5px;
+    padding: 0 37px;
     display: flex;
     justify-content: center;
     align-items: center;
