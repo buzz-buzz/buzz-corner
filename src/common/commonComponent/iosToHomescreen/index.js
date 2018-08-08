@@ -11,15 +11,11 @@ export default class IosToHomeScreen extends React.Component {
     }
 
     async toHomeScreen() {
-        console.log('aaaa');
-
         try{
             if (!!window.addToHomescreen) {
-                let addToHome = window.addToHomescreen({
-                    autostart: false
+                window.addToHomescreen({
+                    startDelay: 1
                 });
-
-                await addToHome.show();
             } else {
                 alert('添加失败');
             }

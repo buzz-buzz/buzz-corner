@@ -11,6 +11,7 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 import URLHelper from "../common/url-helper";
 import AccountSelect from '../accountSelect/index';
+import Client from "../common/client";
 import Back from '../common/back';
 
 import {connect} from 'react-redux';
@@ -175,8 +176,11 @@ class AccountLogin extends Component {
 
                             <Dropdown
                                 placeholder={Resources.getInstance().selectCountryCode}
-                                trigger={<span><Flag
-                                    name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>}
+                                trigger={ Client.getClient() === 'tablet' ?
+                                    <span><Flag
+                                        name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>
+                                    :
+                                    <span>+({countryCodeMap[this.state.mobileCountry]})</span>}
                                 search options={countryOptions}
                                 style={{
                                     width: '80px', marginRight: '10px', whiteSpace: 'nowrap', padding: '0 10px',
