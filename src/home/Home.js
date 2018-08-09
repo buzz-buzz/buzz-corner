@@ -20,6 +20,7 @@ import moment from 'moment';
 import Client from "../common/client";
 import ErrorHandler from "../common/error-handler";
 import ClassEndTime from "../classDetail/class-end-time";
+import MessageBody from './messageBody';
 import './index.css';
 import {fundebug} from '../common/logger';
 
@@ -266,7 +267,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async () => {
+        }, async() => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -331,7 +332,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async(item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -459,7 +460,11 @@ class Home extends Component {
                         }}/>
                         <div>{Resources.getInstance().homeTabBooking}</div>
                         <div className="tab-active"
-                             style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}/>
+                             style={this.state.tab === 'booking' ? {
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                     </div>
                     <div className="tab-message"
                          style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
@@ -473,9 +478,9 @@ class Home extends Component {
                         <div style={{position: 'relative'}}>
                             <span>{Resources.getInstance().homeTabMessage}</span>
                             <div style={this.state.messageRead ? {
-                                width: '25px',
-                                display: 'inline-block'
-                            } : {display: 'none'}}/>
+                                    width: '25px',
+                                    display: 'inline-block'
+                                } : {display: 'none'}}/>
                             <div className="message-red-new"
                                  style={this.state.messageRead ? {} : {display: 'none'}}>
                                 <img src={QiniuDomain + "/icon_NEW_message.svg"}
@@ -483,7 +488,11 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className="tab-active"
-                             style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}/>
+                             style={this.state.tab === 'message' ? {
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
@@ -569,8 +578,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                    return ele.hasRead === '';
-                                }).length + ')' : '')}</p>
+                                        return ele.hasRead === '';
+                                    }).length + ')' : '')}</p>
                                 <div className="message-red-circle-spe"
                                      style={this.state.messageRead ? {} : {display: 'none'}}/>
                             </div>
@@ -589,28 +598,9 @@ class Home extends Component {
                                     ) :
                                     (<div className="message-items">
                                             {
-                                                this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link
-                                                        className="message-item"
-                                                        key={index}
-                                                        onClick={event => this.clickEventPlacement(event, item)}>
-                                                        <div
-                                                            className="message-item-avatar">
-                                                            <Avatar
-                                                                src={item.message_avatar}/>
-                                                            <div
-                                                                className="message-red-circle"
-                                                                style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}/>
-                                                        </div>
-                                                        <div
-                                                            className="message-body">
-                                                            <div
-                                                                className="message-title">{item.message_title}</div>
-                                                            <div
-                                                                className="message-content">{item.message_content}</div>
-                                                        </div>
-                                                    </Link>
-                                                })
+                                                this.state.messageFromAdvisor.map((item, index) => <MessageBody
+                                                    item={item} key={index}
+                                                    clickEventPlacement={this.clickEventPlacement}/>)
                                             }
                                             {
                                                 this.state.messageFromAdvisor.length &&
