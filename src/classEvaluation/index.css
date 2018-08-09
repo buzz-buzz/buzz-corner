@@ -28,6 +28,7 @@
     height: 3em;
     justify-content: space-around;
     padding: 0 2em;
+    cursor: pointer;
 }
 
 .class-detail-practice > .evaluation-stars > .img-stars > img{
@@ -93,11 +94,6 @@
     background-color: rgb(244, 245, 249) !important;
     outline: none !important;
     border-color: #eee;
-}
-
-#evaluation > .evaluation-submit{
-    margin: 0 -1em -1em -1em;
-    padding: 2em;
 }
 
 #evaluation > .evaluation-submit > div.evaluation-done{

@@ -10,7 +10,7 @@ import Track from "../common/track";
 import Back from "../common/back";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import Button50px from '../common/commonComponent/submitButton50px';
+import Button50px from '../common/commonComponent/submitButtonBottom';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
 import ErrorHandler from "../common/error-handler";
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
@@ -311,7 +311,7 @@ class classEvaluation extends Component {
                 {
                     this.state.role === MemberType.Student &&
                     <div className="class-detail-practice" id="evaluation"
-                         style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
+                         style={{backgroundColor: 'white', position: 'relative', padding: '1em 1em 50px 1em'}}>
                         <div className="evaluation-stars">
                             <div className="img-stars">
                                 {
