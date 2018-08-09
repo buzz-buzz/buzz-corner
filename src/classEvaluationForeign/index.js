@@ -6,14 +6,12 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import Avatar from '../common/commonComponent/avatar';
+import ClassInfoTitle from '../classDetail/classInfoTitle';
 import ErrorHandler from '../common/error-handler';
 import './index.css';
-import {Flag} from "semantic-ui-react";
 import moment from 'moment';
 import Track from "../common/track";
 import Back from '../common/back';
-import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluationForeign extends Component {
     constructor(props) {
@@ -149,34 +147,9 @@ class classEvaluationForeign extends Component {
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationWord}/>
                 <div className="class-detail-info">
-                    <div className="class-info">
-                        <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar
-                                src={this.state.class_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag
-                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
-                        </div>
-                        <div className="booking-item-info">
-                            <p className="your-name"
-                               style={{
-                                   fontWeight: 'bold',
-                                   fontSize: '1.2em'
-                               }}>{this.state.class_info.companion_name || "Buzz"}</p>
-                            <p className="class-topic" style={{
-                                color: '#f7b52a',
-                                margin: '.3em 0'
-                            }}>{this.state.class_info.topic || 'Sing a New song'}</p>
-                            <p className="class-date"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
-                            <p className="class-time"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}/>
-                            </p>
-                        </div>
-                    </div>
+                    <ClassInfoTitle course_info={this.state.class_info}
+                                    companion_country={this.state.companion_country}
+                    />
                 </div>
                 <div className="class-detail-foreign-list" style={{position: 'relative', background: '#f4f5f9'}}>
                     <div className="foreign-evaluation-title">
@@ -201,21 +174,11 @@ class classEvaluationForeign extends Component {
                                             </div>
                                             :
                                             <div className="result-stars">
-                                                <img
-                                                    src={item.score >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
-                                                    alt="star"/>
-                                                <img
-                                                    src={item.score >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
-                                                    alt="star"/>
-                                                <img
-                                                    src={item.score >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
-                                                    alt="star"/>
-                                                <img
-                                                    src={item.score >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
-                                                    alt="star"/>
-                                                <img
-                                                    src={item.score >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
-                                                    alt="star"/>
+                                                {
+                                                    [1, 2, 3, 4, 5].map((i, index) => <img
+                                                        src={item.score >= i ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                        alt="star"/>)
+                                                }
                                             </div>}
                                     </div>
                                 </div>

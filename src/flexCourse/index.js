@@ -96,7 +96,7 @@ export default class FlexCourse extends React.Component {
         }
 
         if (index === 0) {
-            dates[0].active = 0;
+            dates[0].active = 1;
         }
 
         this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index]});
