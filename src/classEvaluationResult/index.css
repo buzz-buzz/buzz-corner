@@ -9,7 +9,7 @@
 .evaluation-item {
   background: white;
   margin-bottom: 5px;
-  padding: 21px; }
+  padding: 21px 0 6px 21px; }
   .evaluation-item .title-info {
     font-size: 18px;
     font-weight: 600;
@@ -25,12 +25,22 @@
       width: 100px;
       height: 18px;
       background: #f4f5f9; }
+    .evaluation-item .title-info .quick-way {
+      position: absolute;
+      right: 21px;
+      font-size: 13px;
+      color: #868686;
+      font-weight: normal;
+      top: 0;
+      z-index: 30;
+      cursor: pointer; }
   .evaluation-item .content {
     position: relative;
     font-size: 13px;
     color: #666;
     word-wrap: break-word;
-    padding-bottom: 15px; }
+    padding-bottom: 15px;
+    padding-right: 21px; }
   .evaluation-item .content:after {
     content: '';
     position: absolute;
@@ -51,7 +61,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; }
+    position: relative;
+    padding-right: 21px; }
     .evaluation-item .class-behavior .stars-word {
       display: flex;
       align-items: center;
