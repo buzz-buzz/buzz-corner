@@ -46,6 +46,7 @@ class Home extends Component {
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
         this.closeWelcome = this.closeWelcome.bind(this);
         this.colorHelper = this.colorHelper.bind(this);
+        this.clickEventPlacement = this.clickEventPlacement.bind(this);
     }
 
     signUp() {

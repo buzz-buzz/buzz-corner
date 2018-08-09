@@ -37,9 +37,8 @@ export default class ClassInfoTitle extends React.Component {
                     this.props.types && this.props.types.Fluency && this.props.sortNum && this.props.score ?
                         <div className="medal" onClick={this.props.openRating}>
                             <div className="medal-img">
-                                <img
-                                    src={this.props.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number1.svg" : (
-                                            this.props.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal/number2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal/number3.svg"
+                                <img src={this.props.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal-1.svg" : (
+                                            this.props.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal-2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal-3.svg"
                                         )} alt=""/>
                             </div>
                             <span className="medal-score">{Resources.getInstance().evaluationTeacherScore}{this.props.score.toFixed(1)}</span>
