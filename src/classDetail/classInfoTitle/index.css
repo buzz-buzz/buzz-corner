@@ -11,7 +11,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 20px; }
+    margin-right: 20px;
+    padding: 2px; }
     .class-info .avatar-new img {
       height: 100%; }
     .class-info .avatar-new img.bg {

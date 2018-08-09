@@ -11,7 +11,7 @@
 .evaluation-item{
   background: white;
   margin-bottom: 5px;
-  padding: 21px;
+  padding: 21px 0 6px 21px;
   .title-info{
     font-size: 18px;
     font-weight: 600;
@@ -28,6 +28,16 @@
       height: 18px;
       background: #f4f5f9;
     }
+    .quick-way{
+      position: absolute;
+      right: 21px;
+      font-size: 13px;
+      color: #868686;
+      font-weight: normal;
+      top: 0;
+      z-index: 30;
+      cursor: pointer;
+    }
   }
   .content{
     position: relative;
@@ -35,6 +45,7 @@
     color: #666;
     word-wrap: break-word;
     padding-bottom: 15px;
+    padding-right: 21px;
   }
   .content:after{
     content: '';
@@ -58,6 +69,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    padding-right: 21px;
     .stars-word{
       display: flex;
       align-items: center;

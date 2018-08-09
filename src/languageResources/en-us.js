@@ -295,6 +295,7 @@ export const goToAssess = 'Feedback';
 export const classPerformance = 'Class performance:';
 export const partnersWord = 'Feedback from partner:';
 export const myWord = 'Feedback from me:';
+export const goNow = 'Feedback now';
 export const evaluationStandard = 'Scoring standard description';
 export const evaluationStandardStep1 = 'Step 1: class performance';
 export const evaluationStandardStep2 = 'Step 2: skills';

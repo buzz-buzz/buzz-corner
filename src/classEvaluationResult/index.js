@@ -51,6 +51,7 @@ class classEvaluationResult extends Component {
         this.closePosterModal = this.closePosterModal.bind(this);
         this.openRating = this.openRating.bind(this);
         this.getScore = this.getScore.bind(this);
+        this.goEvaluateNow = this.goEvaluateNow.bind(this);
         this.closeRating = this.closeRating.bind(this);
     }
 
@@ -98,6 +99,10 @@ class classEvaluationResult extends Component {
         this.setState({
             posterModal: false
         });
+    }
+
+    goEvaluateNow() {
+        browserHistory.push(`/class/evaluation/${this.state.from_user_id}/${this.state.class_id}`);
     }
 
     createPostersOfAchievement() {
@@ -293,28 +298,43 @@ class classEvaluationResult extends Component {
                                 </div>
                             </div>
                             <div
-                                className="stars-word" style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluation.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
+                                className="stars-word"
+                                style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluation.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
                         </div>
                     </div>
                     <div className="evaluation-item">
                         <div className="title-info">
                             <div style={{position: 'relative', zIndex: '2'}}>{Resources.getInstance().myWord}</div>
                             <div className="shadow"></div>
-                        </div>
-                        <div className="content">{this.state.evaluationMe.evaluation_content}</div>
-                        <div className="class-behavior">
-                            <div className="behavior">
-                                <div className="stars">
-                                    {
-                                        [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                                                                  src={this.state.evaluationMe.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                                                                  alt=""/>)
-                                    }
+                            {
+                                (!this.state.evaluationMe.evaluation_content || !this.state.evaluationMe.stars) &&
+                                <div className="quick-way" onClick={this.goEvaluateNow}>
+                                    {Resources.getInstance().goNow}&nbsp;
+                                    <i className="icon-icon_back_down"/>
                                 </div>
-                            </div>
-                            <div
-                                className="stars-word" style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluationMe.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluationMe.stars)}</div>
+                            }
                         </div>
+                        {
+                            this.state.evaluationMe.evaluation_content &&
+                            <div className="content">{this.state.evaluationMe.evaluation_content}</div>
+                        }
+                        {
+                            this.state.evaluationMe.stars &&
+                            <div className="class-behavior">
+                                <div className="behavior">
+                                    <div className="stars">
+                                        {
+                                            [1, 2, 3, 4, 5].map((item, index) => <img key={index}
+                                                                                      src={this.state.evaluationMe.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                      alt=""/>)
+                                        }
+                                    </div>
+                                </div>
+                                <div
+                                    className="stars-word"
+                                    style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluationMe.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluationMe.stars)}</div>
+                            </div>
+                        }
                     </div>
                     <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
                         <Button50px text={Resources.getInstance().createPostersOfAchievement}
