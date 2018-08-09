@@ -5,7 +5,6 @@ import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
 import {MemberType} from "../membership/member-type";
-import Avatar from '../common/commonComponent/avatar';
 import './index.css';
 import Track from "../common/track";
 import Back from "../common/back";
@@ -15,10 +14,9 @@ import Button50px from '../common/commonComponent/submitButton50px';
 import ModalSubmit from '../common/commonComponent/modalSubmitInfo';
 import ErrorHandler from "../common/error-handler";
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
+import ClassInfoTitle from '../classDetail/classInfoTitle';
 import CompanionModal from './companion';
 import moment from 'moment';
-import {Flag} from "semantic-ui-react";
-import ClassEndTime from "../classDetail/class-end-time";
 
 class classEvaluation extends Component {
     constructor(props) {
@@ -306,31 +304,9 @@ class classEvaluation extends Component {
             <div className="class-detail">
                 <HeaderWithBack goBack={this.back} title={Resources.getInstance().evaluationMyWord}/>
                 <div className="class-detail-info">
-                    <div className="class-info">
-                        <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar
-                                src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag
-                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
-                        </div>
-                        <div className="booking-item-info">
-                            <p className="your-name"
-                               style={{fontWeight: 'bold', fontSize: '1.2em'}}>{this.state.companion_name || "Buzz"}</p>
-                            <p className="class-topic" style={{
-                                color: '#f7b52a',
-                                margin: '.3em 0'
-                            }}>{this.state.class_info.topic || 'Sing a New song'}</p>
-                            <p className="class-date"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
-                            <p className="class-time"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}/>
-                            </p>
-                        </div>
-                    </div>
+                    <ClassInfoTitle course_info={this.state.class_info}
+                                    companion_country={this.state.companion_country}
+                    />
                 </div>
                 {
                     this.state.role === MemberType.Student &&
@@ -338,24 +314,15 @@ class classEvaluation extends Component {
                          style={{backgroundColor: 'white', position: 'relative', padding: '1em'}}>
                         <div className="evaluation-stars">
                             <div className="img-stars">
-                                <img
-                                    src={this.state.stars >= 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={(event) => this.changeStars(event, 1)} alt="star"/>
-                                <img
-                                    src={this.state.stars >= 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={(event) => this.changeStars(event, 2)} alt="star"/>
-                                <img
-                                    src={this.state.stars >= 3 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={(event) => this.changeStars(event, 3)} alt="star"/>
-                                <img
-                                    src={this.state.stars >= 4 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={(event) => this.changeStars(event, 4)} alt="star"/>
-                                <img
-                                    src={this.state.stars >= 5 ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
-                                    onClick={(event) => this.changeStars(event, 5)} alt="star"/>
+                                {
+                                    [1, 2, 3, 4, 5].map((item, index) => <img key={index}
+                                        src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png"
+                                            : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
+                                        onClick={(event) => this.changeStars(event, item)} alt="star"/>)
+                                }
                             </div>
                             <div className="stars-word">
-                                <p  style={{color: EvaluationStatusHelper.getStyleByStars(this.state.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</p>
+                                <p style={{color: EvaluationStatusHelper.getStyleByStars(this.state.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.stars)}</p>
                             </div>
                         </div>
                         {
