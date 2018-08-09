@@ -41,7 +41,9 @@ export default class EvaluationStandards extends React.Component {
                     <p className="little-title">(band descriptors – public version)</p>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 1)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 1)}
+                         style={{borderLeft: '3px solid #ffd200'}}
+                    >
                         <div className="tab-name">
                             Level 1
                         </div>
@@ -59,7 +61,9 @@ export default class EvaluationStandards extends React.Component {
                     </div>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 2)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 2)}
+                         style={{borderLeft: '3px solid #6cd1fc'}}
+                    >
                         <div className="tab-name">
                             Level 2
                         </div>
@@ -90,7 +94,9 @@ export default class EvaluationStandards extends React.Component {
                     </div>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 3)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 3)}
+                         style={{borderLeft: '3px solid #f66d7a'}}
+                    >
                         <div className="tab-name">
                             Level 3
                         </div>
@@ -124,7 +130,9 @@ export default class EvaluationStandards extends React.Component {
                     </div>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 4)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 4)}
+                         style={{borderLeft: '3px solid #6ae108'}}
+                    >
                         <div className="tab-name">
                             Level 4
                         </div>
@@ -159,7 +167,9 @@ export default class EvaluationStandards extends React.Component {
                     </div>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 5)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 5)}
+                         style={{borderLeft: '3px solid #ffb117'}}
+                    >
                         <div className="tab-name">
                             Level 5
                         </div>
@@ -193,7 +203,9 @@ export default class EvaluationStandards extends React.Component {
                     </div>
                 </div>
                 <div className="standard-item">
-                    <div className="standard-title" onClick={(event) => this.openLevel(event, 6)}>
+                    <div className="standard-title" onClick={(event) => this.openLevel(event, 6)}
+                         style={{borderLeft: '3px solid #813dfd'}}
+                    >
                         <div className="tab-name">
                             Level 6
                         </div>
