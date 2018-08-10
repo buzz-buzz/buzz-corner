@@ -50,8 +50,7 @@ class Home extends Component {
     }
 
     signUp() {
-        Track.event('首页_预约点击');
-        this.AddFavorite('BuzzBuzz虚拟英语角', window.location.href);
+        Track.event('首页_帮助点击');
 
         let u = window.navigator.userAgent;
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -60,20 +59,6 @@ class Home extends Component {
             window.location.href = `/help/student_index`;
         } else {
             browserHistory.push(`/help/student_index`);
-        }
-    }
-
-    AddFavorite(title, url) {
-        try {
-            window.external.addFavorite(url, title);
-        }
-        catch (e) {
-            try {
-                window.sidebar.addPanel(title, url, "");
-            }
-            catch (e) {
-                alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
-            }
         }
     }
 
