@@ -28,7 +28,17 @@ export default class FlexCourse extends React.Component {
         this.state = {
             days: days,
             active_day: days[0],
-            courseList: []
+            courseList: [],
+            pagination: {
+                current_page: "1",
+                data: [],
+                from: 0,
+                last_page: 0,
+                offset: 0,
+                per_page: "5",
+                to: 0,
+                total: 0
+            }
         };
 
         this.switchDay = this.switchDay.bind(this);
@@ -61,36 +71,44 @@ export default class FlexCourse extends React.Component {
         try {
             let courseList = await ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${date}`
+                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${date}&per_page=${this.state.pagination.per_page}&current_page=1`
                 }
             });
 
-            if (courseList && courseList.length) {
-                this.setState({courseList: courseList, loadingCourse: false});
-            } else {
-                this.setState({courseList: [], loadingCourse: false});
-            }
+            this.setState({courseList: courseList.data || [], loadingCourse: false, pagination: courseList});
         }
         catch (ex) {
             ErrorHandler.notify('更新淘课列表出错', ex);
-            this.setState({courseList: [], loadingCourse: false});
+            this.setState({
+                courseList: [], loadingCourse: false, pagination: {
+                    current_page: "1",
+                    data: [],
+                    from: 0,
+                    last_page: 0,
+                    offset: 0,
+                    per_page: "5",
+                    to: 0,
+                    total: 0
+                }
+            });
         }
     }
 
     async getLatestCourse(user_id, dates) {
-        let courseList = [], index = 0;
+        let courseList = [], index = 0, pagination = Object.assign({}, this.state.pagination);
 
         for (let i in dates) {
             let courseListData = await ServiceProxy.proxyTo({
                 body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${dates[i].format_date}`
+                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/optional?user_id=${user_id}&date=${dates[i].format_date}&per_page=${this.state.pagination.per_page}&current_page=${this.state.pagination.current_page}`
                 }
             });
 
-            if (courseListData && courseListData.length) {
-                courseList = courseListData;
+            if (courseListData && courseListData.data && courseListData.data.length) {
+                courseList = courseListData.data;
                 index = i;
                 dates[i].active = 1;
+                pagination = courseListData;
                 break;
             }
         }
@@ -99,7 +117,7 @@ export default class FlexCourse extends React.Component {
             dates[0].active = 1;
         }
 
-        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index]});
+        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], pagination: pagination});
     }
 
     async componentWillMount() {
@@ -124,7 +142,10 @@ export default class FlexCourse extends React.Component {
         return (
             <div className="flex-course">
                 <SelectDay switchDay={this.switchDay} days={this.state.days} activeDay={this.state.active_day}/>
-                <CourseList data={this.state.courseList} loading={this.state.loadingCourse}/>
+                <CourseList data={this.state.courseList}
+                            loading={this.state.loadingCourse}
+                            pagination={this.state.pagination}
+                />
                 <Footer role={MemberType.Student}/>
             </div>
         )

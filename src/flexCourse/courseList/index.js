@@ -47,7 +47,7 @@ export default class CourseList extends React.Component {
                     />
                 }
                 {
-                    this.props.data.length > 0 &&
+                    parseInt(this.props.pagination.current_page, 10) >= parseInt(this.props.pagination.total, 10) && this.props.data.length > 0 &&
                     <div className="no-more">^_^ {Resources.getInstance().taoCourseNomore}</div>
                 }
                 {
