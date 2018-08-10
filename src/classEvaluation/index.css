@@ -18,8 +18,9 @@
 #evaluation > .evaluation-input > form > p, .text-length-notice{
     position: absolute;
     bottom: 0;
-    right: 1em;
-    color: #999;
+    right: 15px;
+    color: #868686;
+    font-size: 11px;
 }
 
 .class-detail-practice > .evaluation-stars > .img-stars{
@@ -41,6 +42,7 @@
     font-size: 1.2em;
     color: #f7b52a;
     letter-spacing: 0;
+    font-weight: 500;
 }
 
 .class-detail-practice > .evaluation-list{
@@ -88,6 +90,7 @@
     background-color: rgb(244, 245, 249);
     margin-top: 1em;
     border-color: #eee;
+    padding: 20px;
 }
 
 .class-detail-practice .evaluation-input textarea:focus{

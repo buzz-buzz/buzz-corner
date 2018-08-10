@@ -285,22 +285,34 @@ class classEvaluationResult extends Component {
                             <div
                                 style={{position: 'relative', zIndex: '2'}}>{Resources.getInstance().partnersWord}</div>
                             <div className="shadow"></div>
-                        </div>
-                        <div className="content">{this.state.evaluation.evaluation_content}</div>
-                        <div className="class-behavior">
-                            <div className="behavior">
-                                <div className="stars">
-                                    {
-                                        [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                                                                  src={this.state.evaluation.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
-                                                                                  alt=""/>)
-                                    }
+                            {
+                                (!this.state.evaluation.evaluation_content || !this.state.evaluation.stars) &&
+                                <div className="quick-way">
+                                    {Resources.getInstance().classEvaluationStarsStatus0}&nbsp;
                                 </div>
-                            </div>
-                            <div
-                                className="stars-word"
-                                style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluation.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
+                            }
                         </div>
+                        {
+                            this.state.evaluation.evaluation_content &&
+                            <div className="content">{this.state.evaluation.evaluation_content}</div>
+                        }
+                        {
+                            this.state.evaluation.stars &&
+                            <div className="class-behavior">
+                                <div className="behavior">
+                                    <div className="stars">
+                                        {
+                                            [1, 2, 3, 4, 5].map((item, index) => <img key={index}
+                                                                                      src={this.state.evaluation.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                      alt=""/>)
+                                        }
+                                    </div>
+                                </div>
+                                <div
+                                    className="stars-word"
+                                    style={{color: EvaluationStatusHelper.getStyleByStars(this.state.evaluation.stars)}}>{EvaluationStatusHelper.getStatusByStars(this.state.evaluation.stars)}</div>
+                            </div>
+                        }
                     </div>
                     <div className="evaluation-item">
                         <div className="title-info">
