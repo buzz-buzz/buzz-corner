@@ -31,6 +31,7 @@
       .day-en{
         font-size: 10px;
         margin-top: 5px;
+        font-weight: lighter;
       }
       .day-active{
         position: absolute;
@@ -52,6 +53,7 @@
     .day-item-active{
       background-color: #ffd200;
       color: white !important;
+      font-weight: 500;
     }
   }
 }

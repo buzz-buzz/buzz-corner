@@ -2,7 +2,7 @@
   display: flex;
   margin-bottom: .5em;
   background-color: white;
-  padding: 20px 0 20px 0;
+  padding: 5px 0 10px 0;
   margin-left: 20px;
   flex: none;
   position: relative;
@@ -40,11 +40,13 @@
       font-weight: bold;
       font-size: 14px; }
     .course-info .booking-item-info .class-topic {
-      color: #f7b52a;
-      margin: 5px 0; }
+      color: #ffb117;
+      margin: 5px 0;
+      font-size: 13px;
+      line-height: 15px; }
     .course-info .booking-item-info .class-date, .course-info .booking-item-info .class-time {
       color: #868686;
-      font-size: 12px; }
+      font-size: 13px; }
   .course-info .booking-item-status {
     position: absolute;
     padding: 0 21px 0 14px;

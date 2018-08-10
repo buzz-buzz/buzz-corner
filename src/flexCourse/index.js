@@ -18,7 +18,7 @@ export default class FlexCourse extends React.Component {
         for (let i = 1; i <= 7; i++) {
             days.push({
                 date: moment().add(i, 'd').format("DD"),
-                day: moment().add(i, 'd').format("ddd").toLocaleUpperCase(),
+                day: this.chineseDay(moment().add(i, 'd').format("ddd").toLocaleUpperCase()),
                 active: 0,
                 month_year: moment().add(i, 'd').format("MMM YYYY"),
                 format_date: moment().add(i, 'd').hour(0).minute(0).second(0).millisecond(0).toISOString()
@@ -66,6 +66,18 @@ export default class FlexCourse extends React.Component {
         }
     }
 
+    chineseDay(day) {
+        switch (day){
+            case 'MON': return '周一';
+            case 'SAT': return '周六';
+            case 'SUN': return '周日';
+            case 'TUE': return '周二';
+            case 'WED': return '周三';
+            case 'THU': return '周四';
+            case 'FRI': return '周五';
+            default: break;
+        }
+    }
 
     async updateCourseListByUserId(user_id, date) {
         try {
@@ -117,7 +129,9 @@ export default class FlexCourse extends React.Component {
             dates[0].active = 1;
         }
 
-        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], pagination: pagination});
+        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], pagination: pagination}, ()=>{
+            console.log(this.state.pagination);
+        });
     }
 
     async componentWillMount() {
