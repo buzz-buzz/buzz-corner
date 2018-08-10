@@ -138,7 +138,11 @@ class classEvaluation extends Component {
         if (this.state.modalSubmit) {
             const interval = setTimeout(() => {
                 if (this.state.modalSubmit) {
-                    this.setState({modalSubmit: false});
+                    this.setState({modalSubmit: false}, ()=>{
+                        if(this.state.evaluation_status){
+                            browserHistory.push(`/evaluation/${this.state.to_user_id}/${this.state.userId}/${this.state.class_id}`);
+                        }
+                    });
                 }
 
                 clearTimeout(interval);
@@ -311,12 +315,12 @@ class classEvaluation extends Component {
                 {
                     this.state.role === MemberType.Student &&
                     <div className="class-detail-practice" id="evaluation"
-                         style={{backgroundColor: 'white', position: 'relative', padding: '1em 1em 50px 1em'}}>
+                         style={{backgroundColor: 'white', position: 'relative', padding: '21px 21px 50px 21px'}}>
                         <div className="evaluation-stars">
                             <div className="img-stars">
                                 {
                                     [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                        src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars_active.png"
+                                        src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png"
                                             : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_stars.png"}
                                         onClick={(event) => this.changeStars(event, item)} alt="star"/>)
                                 }

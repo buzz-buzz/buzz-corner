@@ -29,7 +29,8 @@
     .class-info .course-content .name {
       font-size: 18px;
       font-weight: 600;
-      color: #000; }
+      color: #000;
+      line-height: 21px; }
     .class-info .course-content .topic {
       margin: 10px 0 5px 0;
       font-size: 13px;

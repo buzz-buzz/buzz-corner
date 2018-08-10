@@ -22,11 +22,11 @@ export default class evaluationStatusHelper {
     static getStyleByStars(stars) {
         switch (stars){
             case 1:
-                return '#6cd1fc';
+                return '#868686';
             case 2:
-                return '#6cd1fc';
+                return '#868686';
             case 3:
-                return '#6cd1fc';
+                return '#868686';
             case 4:
                 return '#ffb117';
             case 5:
