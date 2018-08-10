@@ -3,7 +3,6 @@
   padding: 16px 21px;
   height: 88px;
   background-color: white;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
   flex: none;
   position: relative;
   display: flex;
@@ -30,7 +29,12 @@
       top: -5px;
       right: -5px;
       z-index: 20;
-      position: absolute; }
+      position: absolute;
+      background-color: #fc4e52;
+      border: 1px solid rgba(252, 78, 82, 0.1);
+      border-radius: 50%;
+      height: 10px;
+      width: 10px; }
   .message-item .message-body {
     flex: 1 0 auto;
     padding-left: .5em;
@@ -38,6 +42,18 @@
     flex-direction: column;
     justify-content: space-between;
     width: 70%; }
+    .message-item .message-body .message-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #000;
+      line-height: 21px;
+      letter-spacing: 0;
+      width: 100%; }
+    .message-item .message-body .message-content {
+      font-size: 11px;
+      color: #868686;
+      width: 100%; }
   .message-item .message-icon {
     color: #dfdfe4; }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import CourseInfo from '../courseInfo';
 import {browserHistory} from 'react-router';
 import WhiteSpace from '../../common/commonComponent/whiteSpace';
+import LoadingModal from '../../common/commonComponent/loadingAbsoluteModal';
 import Track from "../../common/track";
 import Resources from '../../resources';
 import './index.css';
@@ -52,9 +53,7 @@ export default class CourseList extends React.Component {
                 }
                 {
                     this.props.loading &&
-                    <div className="loading-course">
-                        <p>{Resources.getInstance().taoCourseLoading}</p>
-                    </div>
+                    <LoadingModal/>
                 }
             </div>
         )
