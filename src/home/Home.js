@@ -566,8 +566,6 @@ class Home extends Component {
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
                                         return ele.hasRead === '';
                                     }).length + ')' : '')}</p>
-                                <div className="message-red-circle-spe"
-                                     style={this.state.messageRead ? {} : {display: 'none'}}/>
                             </div>
                         </div>
                         {
