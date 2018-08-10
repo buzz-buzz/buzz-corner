@@ -53,7 +53,7 @@ p{
 .my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
     position: absolute;
     width: 40%;
-    bottom: 1px;
+    bottom: 0;
     left: 30%;
 }
 

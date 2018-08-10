@@ -16,13 +16,13 @@ export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利对话英美优秀少年';
 export const loginTabletWord = '对话英美优秀少年, 轻松提高英语听说';
 
-export const footerHome = '主页';
+export const footerHome = '学习';
 export const footerFriends = '好友';
 export const footerReward = '奖励';
 export const footerUser = '我的';
 export const footerSelectCourse = '淘课';
 
-export const homeTabBooking = '预约';
+export const homeTabBooking = '日程';
 export const homeTabMessage = '消息';
 export const homeTabFriends = '伙伴';
 export const homeTabAdvisor = '助教';
