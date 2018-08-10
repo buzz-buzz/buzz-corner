@@ -16,7 +16,7 @@ export default class ClientConfig {
 
     static getWechatRedirectUri(origin, queryString) {
         let wechatRedirectUrl = `${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/redirect`
-        if (notInProduction()) {
+        if (notInProduction() && false) {
             wechatRedirectUrl = `${window.location.protocol}//corner-test.buzzbuzzenglish.com/wechat/oauth/redirect`
         }
 
