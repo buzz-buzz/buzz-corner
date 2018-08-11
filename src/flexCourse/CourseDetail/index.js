@@ -280,13 +280,13 @@ export default class CourseDetail extends React.Component {
                                         </div>
                                         <div className="name">
                                             <span>{this.state.user_list[item].name}</span>
-                                            <img
-                                                src={ this.state.user_list[item].gender === 'm' ?
-                                                    "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_men.svg"
-                                                    : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_women.svg"
-                                                }
-                                                alt=""/>
                                         </div>
+                                        <img className="gender"
+                                            src={ this.state.user_list[item].gender === 'm' ?
+                                                "//cdn-corner.resource.buzzbuzzenglish.com/icon_men_1.svg"
+                                                : "//cdn-corner.resource.buzzbuzzenglish.com/icon_women_1.svg"
+                                            }
+                                            alt=""/>
                                         {
                                             this.state.user_id === this.state.user_list[item].user_id &&
                                             <div className="status">

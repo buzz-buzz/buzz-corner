@@ -438,47 +438,47 @@ class Home extends Component {
                     <div className="tab-booking"
                          style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-                        <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png"
-                            alt="" style={{
-                            height: '50%',
-                            marginRight: '.5em'
-                        }}/>
-                        <div>{Resources.getInstance().homeTabBooking}</div>
-                        <div className="tab-active"
-                             style={this.state.tab === 'booking' ? {
-                                     borderTop: '4px solid #ffd200',
-                                     borderTopLeftRadius: '5px',
-                                     borderTopRightRadius: '5px'
-                                 } : {}}/>
+                        <div style={{position: 'relative'}}>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.svg"
+                                alt="" style={{
+                                width: '24px',
+                                marginRight: '10px'
+                            }}/>
+                            <div>{Resources.getInstance().homeTabBooking}</div>
+                            <div className="tab-active"
+                                 style={this.state.tab === 'booking' ? {
+                                         borderTop: '4px solid #ffd200',
+                                         borderTopLeftRadius: '5px',
+                                         borderTopRightRadius: '5px'
+                                     } : {}}/>
+                        </div>
                     </div>
                     <div className="tab-message"
                          style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png"
-                            alt="" style={{
-                            height: '40%',
-                            marginRight: '.5em'
-                        }}/>
-                        <div style={{position: 'relative'}}>
-                            <span>{Resources.getInstance().homeTabMessage}</span>
-                            <div style={this.state.messageRead ? {
-                                    width: '25px',
-                                    display: 'inline-block'
-                                } : {display: 'none'}}/>
-                            <div className="message-red-new"
-                                 style={this.state.messageRead ? {} : {display: 'none'}}>
-                                <img src={QiniuDomain + "/icon_NEW_message.svg"}
-                                     alt=""/>
+                        <div  style={{position: 'relative'}}>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.svg"
+                                alt="" style={{
+                                width: '24px',
+                                marginRight: '10px'
+                            }}/>
+                            <div style={{position: 'relative'}}>
+                                <span>{Resources.getInstance().homeTabMessage}</span>
+                                <div className="message-red-new"
+                                     style={this.state.messageRead && this.state.tab === 'message' ? {} : {display: 'none'}}>
+                                    <img src={QiniuDomain + "/icon_NEW_message.svg"}
+                                         alt=""/>
+                                </div>
                             </div>
+                            <div className="tab-active"
+                                 style={this.state.tab === 'message' ? {
+                                         borderTop: '4px solid #ffd200',
+                                         borderTopLeftRadius: '5px',
+                                         borderTopRightRadius: '5px'
+                                     } : {}}/>
                         </div>
-                        <div className="tab-active"
-                             style={this.state.tab === 'message' ? {
-                                     borderTop: '4px solid #ffd200',
-                                     borderTopLeftRadius: '5px',
-                                     borderTopRightRadius: '5px'
-                                 } : {}}/>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>

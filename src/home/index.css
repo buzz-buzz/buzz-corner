@@ -46,15 +46,17 @@ p{
     cursor: pointer;
 }
 
-.my-home > .home-header > div.tab-booking, .my-home > .home-header > div.tab-booking{
-    padding-right: 0;
+.my-home > .home-header > div.tab-booking > div, .my-home > .home-header > div.tab-message > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.my-home > .home-header > div.tab-booking > .tab-active, .my-home > .home-header > div.tab-message > .tab-active{
+.my-home > .home-header > div.tab-booking > div > .tab-active, .my-home > .home-header > div.tab-message > div > .tab-active{
     position: absolute;
-    width: 40%;
-    bottom: 0;
-    left: 30%;
+    width: 100%;
+    bottom: -10px;
+    left: 0;
 }
 
 .my-home > .home-header > .consult{
@@ -66,7 +68,6 @@ p{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
     color: #000;
 }
 
@@ -333,7 +334,7 @@ p{
 
 .message-red-new{
     position: absolute;
-    right: 0;
+    right: -32px;
     top: -5px;
     height: 17px;
     width: 25px;
