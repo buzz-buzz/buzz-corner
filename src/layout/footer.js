@@ -18,9 +18,15 @@ class Footer extends Component {
 
     componentWillMount(){
         let path_name = window.location.pathname;
+        let role = localStorage.getItem('role');
+
+        if(!role && this.props.role){
+            localStorage.setItem('role', this.props.role);
+            role = this.props.role;
+        }
 
         this.setState({
-            role: localStorage.getItem('role') || this.props.role,
+            role: role,
             path_name: path_name
         });
     }
@@ -37,16 +43,19 @@ class Footer extends Component {
                     </p>
                 </Link>
                 {
-                    this.state.role === MemberType.Student ?
-                        <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '淘课')}>
-                            <img
-                                src={this.state.path_name.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
-                                alt=""/>
-                            <p style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
-                                {Resources.getInstance().footerSelectCourse}
-                            </p>
-                        </Link>
-                        :
+                    this.state.role === MemberType.Student &&
+                    <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}
+                          onClick={event => this.clickEvent(event, '淘课')}>
+                        <img
+                            src={this.state.path_name.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
+                            alt=""/>
+                        <p style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
+                            {Resources.getInstance().footerSelectCourse}
+                        </p>
+                    </Link>
+                }
+                {
+                    this.state.role === MemberType.Companion &&
                         <Link to="friends" style={this.state.path_name.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
                             <img
                                 src={this.state.path_name.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}

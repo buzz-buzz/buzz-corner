@@ -26,13 +26,15 @@
     .partners{
       display: flex;
       justify-content: space-between;
-      padding: 0 60px;
+      padding: 0 20px;
       align-items: center;
       .partner-item{
         display: flex;
         flex-direction: column;
         align-items: center;
         position: relative;
+        min-width: 90px;
+        padding: 5px 20px;
         .avatar{
           margin-bottom: 10px;
           height: 50px;
@@ -52,17 +54,24 @@
         .name{
           display: flex;
           align-items: center;
+          width: 100%;
           span{
             font-size: 15px;
+            line-height:20px;
             color: #000;
             font-weight: 500;
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
           }
-          img{
-            position: absolute;
-            right: -15px;
-            border-bottom: 0;
-            height: 12px;
-          }
+        }
+        img.gender{
+          position: absolute;
+          right: 0;
+          bottom: 7px;
+          height: 15px;
         }
         .status{
           position: absolute;

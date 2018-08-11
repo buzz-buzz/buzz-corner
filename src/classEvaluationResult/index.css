@@ -10,7 +10,7 @@
 .evaluation-item {
   background: white;
   margin-bottom: 5px;
-  padding: 21px 0 6px 21px; }
+  padding: 21px 0 0 21px; }
   .evaluation-item .title-info {
     font-size: 18px;
     font-weight: 600;
@@ -57,7 +57,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
   .evaluation-item .class-behavior {
-    height: 50px;
+    height: 60px;
     flex: 0 0 auto;
     display: flex;
     justify-content: space-between;
