@@ -466,7 +466,7 @@ class Home extends Component {
                             <div style={{position: 'relative'}}>
                                 <span>{Resources.getInstance().homeTabMessage}</span>
                                 <div className="message-red-new"
-                                     style={this.state.messageRead && this.state.tab === 'message' ? {} : {display: 'none'}}>
+                                     style={this.state.messageRead ? {} : {display: 'none'}}>
                                     <img src={QiniuDomain + "/icon_NEW_message.svg"}
                                          alt=""/>
                                 </div>
