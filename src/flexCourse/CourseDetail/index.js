@@ -42,6 +42,7 @@ export default class CourseDetail extends React.Component {
         this.joinCancel = this.joinCancel.bind(this);
         this.joinHelp = this.joinHelp.bind(this);
         this.joinSuccess = this.joinSuccess.bind(this);
+        this.userCenter = this.userCenter.bind(this);
     }
 
     joinCourse() {
@@ -60,6 +61,12 @@ export default class CourseDetail extends React.Component {
                 courseOk: false
             });
         }
+    }
+
+    userCenter(id) {
+        Track.event('淘课详情_外籍头像点击');
+
+        browserHistory.push('/user/' + id);
     }
 
     async joinClass() {
@@ -274,7 +281,7 @@ export default class CourseDetail extends React.Component {
                             [0, 1, 2].map((item, index) => {
                                 return this.state.user_list && this.state.user_list.length
                                 && this.state.user_list[item] ?
-                                    <div className="partner-item" key={index}>
+                                    <div className="partner-item" key={index} onClick={()=>this.userCenter(this.state.user_list[item].user_id)}>
                                         <div className="avatar">
                                             <img src={this.state.user_list[item].avatar} alt=""/>
                                         </div>
@@ -299,7 +306,7 @@ export default class CourseDetail extends React.Component {
                                     :
                                     <div className="partner-item" key={index}>
                                         <div className="avatar">
-                                            <img src="" alt=""/>
+                                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg" alt=""/>
                                         </div>
                                         <div className="name">
                                             <span style={{

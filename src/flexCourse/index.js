@@ -28,6 +28,7 @@ export default class FlexCourse extends React.Component {
         this.state = {
             days: days,
             active_day: days[0],
+            active_index: 0,
             courseList: [],
             pagination: {
                 current_page: "1",
@@ -57,7 +58,8 @@ export default class FlexCourse extends React.Component {
             clonedDays[index].active = 1;
             this.setState({
                 days: clonedDays,
-                active_day: clonedDays[index]
+                active_day: clonedDays[index],
+                active_index: index
             }, async() => {
                 //update course data
                 this.setState({loadingCourse: true});
@@ -87,7 +89,10 @@ export default class FlexCourse extends React.Component {
                 }
             });
 
-            this.setState({courseList: courseList.data || [], loadingCourse: false, pagination: courseList});
+            this.setState({courseList: courseList.data || [], loadingCourse: false, pagination: courseList}, () => {
+                //animate
+                this.refs.selectDay.animate();
+            });
         }
         catch (ex) {
             ErrorHandler.notify('更新淘课列表出错', ex);
@@ -129,7 +134,7 @@ export default class FlexCourse extends React.Component {
             dates[0].active = 1;
         }
 
-        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], pagination: pagination}, ()=>{
+        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], active_index: index, pagination: pagination}, ()=>{
             console.log(this.state.pagination);
         });
     }
@@ -155,7 +160,12 @@ export default class FlexCourse extends React.Component {
     render() {
         return (
             <div className="flex-course">
-                <SelectDay switchDay={this.switchDay} days={this.state.days} activeDay={this.state.active_day}/>
+                <SelectDay switchDay={this.switchDay}
+                           ref='selectDay'
+                           days={this.state.days}
+                           active_day={this.state.active_day}
+                           active_index={this.state.active_index}
+                />
                 <CourseList data={this.state.courseList}
                             loading={this.state.loadingCourse}
                             pagination={this.state.pagination}
