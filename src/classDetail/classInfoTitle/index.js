@@ -36,7 +36,8 @@ export default class ClassInfoTitle extends React.Component {
                     <div className="name">
                         {(this.props.course_info.companion_name || 'BuzzBuzz') + '  '}&nbsp;&nbsp;
                         <Flag
-                            name={this.props.companion_country ? this.props.companion_country.toLowerCase() : 'united states'}/>
+                            name={this.props.companion_country || this.props.course_info.companion_country
+                                ? (this.props.companion_country || this.props.course_info.companion_country).toLowerCase() : 'united states'}/>
                     </div>
                     <div className="topic">{this.props.course_info.topic || 'Relationships'}</div>
                     <div
