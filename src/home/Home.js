@@ -402,10 +402,6 @@ class Home extends Component {
         })
     }
 
-    componentWillUnmount() {
-        this.setState({loadingModal: false});
-    }
-
     colorHelper(color) {
         switch (color) {
             case 'rgb(246, 180, 12)' :
@@ -417,6 +413,12 @@ class Home extends Component {
             default :
                 break;
         }
+    }
+
+    componentWillUnmount(){
+        this.setState = (state, callback) => {
+            return
+        };
     }
 
     render() {

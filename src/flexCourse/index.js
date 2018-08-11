@@ -157,6 +157,12 @@ export default class FlexCourse extends React.Component {
         }
     }
 
+    componentWillUnmount(){
+        this.setState = (state, callback) => {
+            return
+        };
+    }
+
     render() {
         return (
             <div className="flex-course">
