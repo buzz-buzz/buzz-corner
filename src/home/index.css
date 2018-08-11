@@ -121,7 +121,7 @@ p{
 .my-home > .home-content > .items{
     display: flex;
     flex-direction: column;
-    padding: 1em;
+    padding: 0;
     justify-content: flex-start;
     overflow: auto;
 }
@@ -129,16 +129,29 @@ p{
 .my-home > .home-content > .items > .booking-item{
     width: 100%;
     padding: 1em;
-    margin-bottom: 1em;
-    height: 10em;
-    border-radius: 5px;
+    height: 155px;
     background-color: white;
     flex: none;
     position: relative;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
     cursor: pointer;
+}
+
+.my-home > .home-content > .items > .booking-item:after{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid  #dfdfe4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .my-home > .home-content > .items > .booking-item > .booking-item-avatar{

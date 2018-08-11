@@ -12,16 +12,15 @@ import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
 import ModalClassPractiseWord from '../common/commonComponent/modalClassPractiseWord';
-import Avatar from '../common/commonComponent/avatar';
+import ClassInfoTitle from './classInfoTitle';
 import ErrorHanlder from '../common/error-handler';
 import ClassAd from './classAd';
 import Resources from '../resources';
-import {Button, Form, Flag} from "semantic-ui-react";
+import {Button, Form} from "semantic-ui-react";
 import Back from '../common/back';
 import Client from "../common/client";
 import moment from 'moment';
 import './index.css';
-import ClassEndTime from "./class-end-time";
 
 class classDetail extends Component {
     constructor(props) {
@@ -270,6 +269,8 @@ class classDetail extends Component {
                             uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
                         }
                     })).country || 'united states';
+                class_info.companion_country = companion_country;
+                class_info.class_status_show_word = TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US');
             }
 
             //get exercise
@@ -361,33 +362,9 @@ class classDetail extends Component {
                 <ModalClassPractiseWord modal={this.state.practiseModal} closeModal={this.closePractiseWord}
                                         title="你可以说" content={this.state.practiseWord} btnText="我知道啦"/>
                 <div className="class-detail-info">
-                    <div className="class-info">
-                        <div className="booking-item-avatar" onClick={this.companionCenter}>
-                            <Avatar
-                                src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag
-                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
-                        </div>
-                        <div className="booking-item-info">
-                            <p className="your-name"
-                               style={{fontWeight: 'bold', fontSize: '1.2em'}}>{this.state.companion_name || "Buzz"}</p>
-                            <p className="class-topic" style={{
-                                color: '#f7b52a',
-                                margin: '.3em 0'
-                            }}>{this.state.class_info.topic || this.state.class_info.name || 'No names'}</p>
-                            <p className="class-date"
-                               style={{fontSize: '.8em', color: '#aaa'}}>{this.state.class_info.show_date}</p>
-                            <p className="class-time"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}/></p>
-                        </div>
-                        <div className="booking-item-status">
-                            <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
-                        </div>
-                    </div>
+                    <ClassInfoTitle course_info={this.state.class_info} onAvatarClick={this.companionCenter}
+                                    companion_country={this.state.companion_country}
+                    />
                     <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
                     <ClassAd id={this.state.class_id} content={this.state.class_content} role={this.state.role}/>
                 </div>
