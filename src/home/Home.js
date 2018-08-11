@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Flag} from 'semantic-ui-react';
-import {browserHistory, Link} from "react-router";
+import {browserHistory} from "react-router";
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
@@ -12,14 +11,12 @@ import TimeHelper from '../common/timeHelper';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
 import {MemberType} from "../membership/member-type";
-import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import UserGuide from '../common/commonComponent/modalUserGuide';
 import YunyingModal from '../common/commonComponent/yunyingModal';
-import moment from 'moment';
+import ClassInfoTitle from '../classDetail/classInfoTitle';
 import Client from "../common/client";
 import ErrorHandler from "../common/error-handler";
-import ClassEndTime from "../classDetail/class-end-time";
 import MessageBody from './messageBody';
 import './index.css';
 import {fundebug} from '../common/logger';
@@ -497,48 +494,10 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item"
-                                                     key={index}
-                                                     onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <div
-                                                className="booking-item-avatar">
-                                                <Avatar
-                                                    src={item.companion_avatar}/>
-                                                <Flag
-                                                    name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'}/>
-                                            </div>
-                                            <div className="booking-item-info">
-                                                <p className="your-name"
-                                                   style={{
-                                                       fontWeight: 'bold',
-                                                       fontSize: '15px',
-                                                       color: '#000'
-                                                   }}>{item.companion_name || 'BuzzBuzz'}</p>
-                                                <p className="class-topic"
-                                                   style={{
-                                                       color: '#f6b40c',
-                                                       margin: '.3em 0',
-                                                       fontSize: '13px'
-                                                   }}>{item.topic || 'No topic'}</p>
-                                                <p className="class-date"
-                                                   style={{
-                                                       fontSize: '11px',
-                                                       color: '#868686'
-                                                   }}>{moment(item.class_start_time).format("dddd, MMMM Do YYYY")}</p>
-                                                <p className="class-time"
-                                                   style={{
-                                                       fontSize: '11px',
-                                                       color: '#868686'
-                                                   }}>{moment(item.class_start_time).format("HH:mm")} - <ClassEndTime
-                                                    classInfo={item}/>
-                                                </p>
-                                            </div>
-                                            <div
-                                                className={item.highLight ? "status-active" : "booking-item-status"}
-                                                style={item.highLight ? {backgroundColor: this.colorHelper(item.class_status_show_style)} : {}}>
-                                                <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
-                                            </div>
-                                        </Link>
+                                        return <ClassInfoTitle course_info={item} index={index}
+                                                               key={index} withHalfLine={true}
+                                                               onClick={event => this.clickEventClassDetail(event, item)}
+                                        />
                                     })
                                 }
                             </div>) :
