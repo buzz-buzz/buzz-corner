@@ -89,6 +89,9 @@
       font-size: 15px;
       display: flex;
       align-items: center;
+      .word{
+        white-space: nowrap;
+      }
       .stars{
         display: flex;
         align-items: center;
@@ -101,6 +104,7 @@
     .stars-word{
       font-size: 15px;
       color: #868686;
+      white-space: nowrap;
     }
   }
 }

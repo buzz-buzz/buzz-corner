@@ -34,6 +34,12 @@
       font-weight: 600;
       color: #000;
       line-height: 21px; }
+      .class-info .course-content .name span {
+        max-width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: inline-block; }
     .class-info .course-content .topic {
       margin: 10px 0 5px 0;
       font-size: 13px;
@@ -44,7 +50,7 @@
   .class-info .course-status {
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 25px;
     font-size: 12px;
     height: 35px;
     line-height: 35px;

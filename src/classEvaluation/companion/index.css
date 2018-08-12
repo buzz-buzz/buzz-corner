@@ -56,6 +56,8 @@
       font-size: 15px;
       display: flex;
       align-items: center; }
+      .companion-evaluation .class-behavior .behavior .word {
+        white-space: nowrap; }
       .companion-evaluation .class-behavior .behavior .stars {
         margin-left: 20px;
         display: flex;
@@ -65,7 +67,8 @@
           margin-right: 10px; }
     .companion-evaluation .class-behavior .stars-word {
       font-size: 15px;
-      color: #868686; }
+      color: #868686;
+      white-space: nowrap; }
   .companion-evaluation .companion-word {
     padding: 0 21px; }
     .companion-evaluation .companion-word .title {
