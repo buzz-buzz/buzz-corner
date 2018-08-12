@@ -78,7 +78,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
 }
 
 .login-entrance > .entrance-choose > div > div > .image > img{
@@ -151,4 +150,13 @@
     justify-content: center;
     align-items: center;
     background-color: #aaa;
+}
+
+@media all and (max-height: 500px){
+    .login-entrance > .entrance-choose > .login-forgotten{
+        margin-top: 0;
+    }
+    .preview-video > p{
+        margin: 5px;
+    }
 }

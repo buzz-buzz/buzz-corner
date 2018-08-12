@@ -1,0 +1,6 @@
+.flex-course {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f5f9;
+  padding-bottom: 52px; }

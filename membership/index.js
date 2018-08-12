@@ -1,14 +1,10 @@
 import RequestHelper from '../helpers/request-helper';
 
-const config = require('../config');
 const cookie = require('../helpers/cookie');
 
 async function setUserToState(context, user_id) {
-    console.log('super users = ', config.superUsers);
-
     context.state.user = {
-        userId: user_id,
-        super: (config.superUsers || []).indexOf(Number(user_id)) >= 0
+        userId: user_id
     };
 
     return context.state.user;

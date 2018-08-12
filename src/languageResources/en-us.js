@@ -21,6 +21,7 @@ export const footerHome = 'Home';
 export const footerFriends = 'Friends';
 export const footerReward = 'Rewards';
 export const footerUser = 'Me';
+export const footerSelectCourse = 'Course';
 
 export const homeTabBooking = 'Bookings';
 export const homeTabMessage = 'Messages';
@@ -106,7 +107,7 @@ export const placementQuestion3Answer1 = '是的，我就是';
 export const placementQuestion3Answer2 = '有时候是';
 export const placementQuestion3Answer3 = '完全不是';
 export const placementQuestion4 = '挑选2张你善于描述的场景并进行各不少于30秒的描述。';
-export const placementQuestion5 = '请根据下图，进行30秒 - 60秒的描述。';
+export const placementQuestion5 = '请根据下图，用英语进行30秒 - 60秒的描述。';
 export const placementQuestion6 = 'Enjoy talking to others.';
 export const placementQuestion7 = 'Which of the following situation do you belong to?';
 export const placementQuestion7Answer1 = 'Need some translation assistance, can introduce yourself and your hobbies.';
@@ -293,6 +294,8 @@ export const goToClass = 'Enter session';
 export const goToAssess = 'Feedback';
 export const classPerformance = 'Class performance:';
 export const partnersWord = 'Feedback from partner:';
+export const myWord = 'Feedback from me:';
+export const goNow = 'Feedback now';
 export const evaluationStandard = 'Scoring standard description';
 export const evaluationStandardStep1 = 'Step 1: class performance';
 export const evaluationStandardStep2 = 'Step 2: skills';
@@ -332,6 +335,34 @@ export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
 
+export const taoCourseNone = 'Sorry, current session is sold out.';
+export const taoCourseLike = 'Pick the one you like';
+export const taoCourseRecommend = 'Recommend';
+export const taoCourseNomore = 'Nothing further';
+export const taoCourseIntro = 'Introduction';
+export const taoCourseBegin = 'Away from';
+export const taoCourseSignin = 'Join us';
+export const taoCourseSigned = 'Joined';
+export const taoCourseSignNone = 'Date of enrollment is over';
+export const taoCourseIntroContent = 'Jumping into the sea of English, encountering your fellow linguists, listening to each other’s minds.';
+export const taoCourseSignSure = 'Confirmed';
+export const taoCourseSignInfo = 'Join this course you must have session: $';
+export const taoCourseSignCancel = 'You can’t cancel your session after your session confirmed';
+export const taoCourseClassHoursNone = 'You don’t have enough sessions ';
+export const taoCourseHelp = 'Get sessions';
+export const taoCourseNotSign = 'Cancel';
+export const taoCourseSureSign = 'Confirm';
+export const taoCourseSignSuccess = 'Successful attendance';
+export const taoCourseSignFailed = 'Failed in attendance';
+export const taoCourseSuccessClass = 'This session is in your learning list now';
+export const taoCourseSignSlowly = 'Sorry, it’s full in this session, please choose another session, thanks!';
+export const taoCourseUseridNone = 'User is invalid';
+export const taoCourseDateValid = 'Date is invalid';
+export const taoCourseGradeUseless = 'Grade is invalid';
+export const taoCourseKnow = 'Ok';
+export const taoCourseNoone = 'None';
+export const taoCourseLoading = 'Loading...';
+
 export const refreshStatus1 = 'Pull down refresh......';
 export const refreshStatus2 = 'Release refresh...';
 export const refreshStatus3 = 'Updating...';
@@ -357,7 +388,7 @@ export const popUserUpdateAccountInfoEmail = 'The binding e-mail has been set up
 export const audioDisabled = "Need the permission for recording, but you denied it. Please authorize the permission and come back here to try again...";
 export const selectCountryCode = "Please select country code";
 
-export const validate = "Validate";
+export const validate = "OK";
 
 export function signInWith(method) {
     return (

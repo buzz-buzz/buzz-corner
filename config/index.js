@@ -1,12 +1,11 @@
-'use strict';
-
 let config = {
     development: {
         endPoints: {
             buzzCorner: 'http://localhost:16111',
             buzzService: `${process.env.cors}/127.0.0.1:16888/`,
             upload_qiniu: 'http://uat.hcd.com:10003'
-        }
+        },
+        wechatRedirectUrl: 'localhost'
     },
 
     qa: {
@@ -15,6 +14,7 @@ let config = {
             buzzService: 'http://localhost:16888',
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
+        wechatRedirectUrl: 'live.buzzbuzzenglish.com',
 
         rootDomain: '.buzzbuzzenglish.com'
     },
@@ -24,6 +24,8 @@ let config = {
             buzzService: process.env.buzz_service_endpoints,
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
+
+        wechatRedirectUrl: 'live.buzzbuzzenglish.com',
 
         rootDomain: '.buzzbuzzenglish.com'
     }

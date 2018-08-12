@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Flag} from 'semantic-ui-react';
-import {browserHistory, Link} from "react-router";
+import {browserHistory} from "react-router";
 import CurrentUser from "../membership/user";
 import ServiceProxy from '../service-proxy';
 import Resources from '../resources';
@@ -12,14 +11,13 @@ import TimeHelper from '../common/timeHelper';
 import QiniuDomain from '../common/systemData/qiniuUrl';
 import Track from "../common/track";
 import {MemberType} from "../membership/member-type";
-import Avatar from '../common/commonComponent/avatar';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import UserGuide from '../common/commonComponent/modalUserGuide';
 import YunyingModal from '../common/commonComponent/yunyingModal';
-import moment from 'moment';
+import ClassInfoTitle from '../classDetail/classInfoTitle';
 import Client from "../common/client";
 import ErrorHandler from "../common/error-handler";
-import ClassEndTime from "../classDetail/class-end-time";
+import MessageBody from './messageBody';
 import './index.css';
 import {fundebug} from '../common/logger';
 
@@ -45,10 +43,11 @@ class Home extends Component {
         this.clickEventClassDetail = this.clickEventClassDetail.bind(this);
         this.closeWelcome = this.closeWelcome.bind(this);
         this.colorHelper = this.colorHelper.bind(this);
+        this.clickEventPlacement = this.clickEventPlacement.bind(this);
     }
 
     signUp() {
-        Track.event('首页_预约点击');
+        Track.event('首页_帮助点击');
 
         let u = window.navigator.userAgent;
         let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -251,7 +250,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async () => {
+        }, async() => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -316,7 +315,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async (item, index) => {
+            await window.Promise.all(classList.map(async(item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -400,14 +399,6 @@ class Home extends Component {
         })
     }
 
-    componentWillUnmount() {
-        this.setState({loadingModal: false});
-
-        this.setState = (state, callback) => {
-            return;
-        };
-    }
-
     colorHelper(color) {
         switch (color) {
             case 'rgb(246, 180, 12)' :
@@ -419,6 +410,12 @@ class Home extends Component {
             default :
                 break;
         }
+    }
+
+    componentWillUnmount(){
+        this.setState = (state, callback) => {
+            return
+        };
     }
 
     render() {
@@ -440,39 +437,47 @@ class Home extends Component {
                     <div className="tab-booking"
                          style={this.state.tab === 'booking' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeBook}>
-                        <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.png"
-                            alt="" style={{
-                            height: '50%',
-                            marginRight: '.5em'
-                        }}/>
-                        <div>{Resources.getInstance().homeTabBooking}</div>
-                        <div className="tab-active"
-                             style={this.state.tab === 'booking' ? {borderTop: '2px solid #f7b52a'} : {}}/>
+                        <div style={{position: 'relative'}}>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_booking.svg"
+                                alt="" style={{
+                                width: '24px',
+                                marginRight: '10px'
+                            }}/>
+                            <div>{Resources.getInstance().homeTabBooking}</div>
+                            <div className="tab-active"
+                                 style={this.state.tab === 'booking' ? {
+                                         borderTop: '4px solid #ffd200',
+                                         borderTopLeftRadius: '5px',
+                                         borderTopRightRadius: '5px'
+                                     } : {}}/>
+                        </div>
                     </div>
                     <div className="tab-message"
                          style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <img
-                            src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.png"
-                            alt="" style={{
-                            height: '40%',
-                            marginRight: '.5em'
-                        }}/>
-                        <div style={{position: 'relative'}}>
-                            <span>{Resources.getInstance().homeTabMessage}</span>
-                            <div style={this.state.messageRead ? {
-                                width: '25px',
-                                display: 'inline-block'
-                            } : {display: 'none'}}/>
-                            <div className="message-red-new"
-                                 style={this.state.messageRead ? {} : {display: 'none'}}>
-                                <img src={QiniuDomain + "/icon_NEW_message.svg"}
-                                     alt=""/>
+                        <div  style={{position: 'relative'}}>
+                            <img
+                                src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.svg"
+                                alt="" style={{
+                                width: '24px',
+                                marginRight: '10px'
+                            }}/>
+                            <div style={{position: 'relative'}}>
+                                <span>{Resources.getInstance().homeTabMessage}</span>
+                                <div className="message-red-new"
+                                     style={this.state.messageRead ? {} : {display: 'none'}}>
+                                    <img src={QiniuDomain + "/icon_NEW_message.svg"}
+                                         alt=""/>
+                                </div>
                             </div>
+                            <div className="tab-active"
+                                 style={this.state.tab === 'message' ? {
+                                         borderTop: '4px solid #ffd200',
+                                         borderTopLeftRadius: '5px',
+                                         borderTopRightRadius: '5px'
+                                     } : {}}/>
                         </div>
-                        <div className="tab-active"
-                             style={this.state.tab === 'message' ? {borderTop: '2px solid #f7b52a'} : {}}/>
                     </div>
                 </div>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
@@ -489,48 +494,10 @@ class Home extends Component {
                             (<div className="items">
                                 {
                                     this.state.booking.map((item, index) => {
-                                        return <Link className="booking-item"
-                                                     key={index}
-                                                     onClick={event => this.clickEventClassDetail(event, item)}>
-                                            <div
-                                                className="booking-item-avatar">
-                                                <Avatar
-                                                    src={item.companion_avatar}/>
-                                                <Flag
-                                                    name={item.companion_country ? item.companion_country.toLowerCase() : 'united states'}/>
-                                            </div>
-                                            <div className="booking-item-info">
-                                                <p className="your-name"
-                                                   style={{
-                                                       fontWeight: 'bold',
-                                                       fontSize: '15px',
-                                                       color: '#000'
-                                                   }}>{item.companion_name || 'BuzzBuzz'}</p>
-                                                <p className="class-topic"
-                                                   style={{
-                                                       color: '#f6b40c',
-                                                       margin: '.3em 0',
-                                                       fontSize: '13px'
-                                                   }}>{item.topic || 'No topic'}</p>
-                                                <p className="class-date"
-                                                   style={{
-                                                       fontSize: '11px',
-                                                       color: '#868686'
-                                                   }}>{moment(item.class_start_time).format("dddd, MMMM Do YYYY")}</p>
-                                                <p className="class-time"
-                                                   style={{
-                                                       fontSize: '11px',
-                                                       color: '#868686'
-                                                   }}>{moment(item.class_start_time).format("HH:mm")} - <ClassEndTime
-                                                    classInfo={item}/>
-                                                </p>
-                                            </div>
-                                            <div
-                                                className={item.highLight ? "status-active" : "booking-item-status"}
-                                                style={item.highLight ? {backgroundColor: this.colorHelper(item.class_status_show_style)} : {}}>
-                                                <p style={item.highLight ? {} : {color: item.class_status_show_style}}>{item.class_status_show_word}</p>
-                                            </div>
-                                        </Link>
+                                        return <ClassInfoTitle course_info={item} index={index}
+                                                               key={index} withHalfLine={true}
+                                                               onClick={event => this.clickEventClassDetail(event, item)}
+                                        />
                                     })
                                 }
                             </div>) :
@@ -558,10 +525,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                    return ele.hasRead === '';
-                                }).length + ')' : '')}</p>
-                                <div className="message-red-circle-spe"
-                                     style={this.state.messageRead ? {} : {display: 'none'}}/>
+                                        return ele.hasRead === '';
+                                    }).length + ')' : '')}</p>
                             </div>
                         </div>
                         {
@@ -578,28 +543,9 @@ class Home extends Component {
                                     ) :
                                     (<div className="message-items">
                                             {
-                                                this.state.messageFromAdvisor.map((item, index) => {
-                                                    return <Link
-                                                        className="message-item"
-                                                        key={index}
-                                                        onClick={event => this.clickEventPlacement(event, item)}>
-                                                        <div
-                                                            className="message-item-avatar">
-                                                            <Avatar
-                                                                src={item.message_avatar}/>
-                                                            <div
-                                                                className="message-red-circle"
-                                                                style={item.hasRead === 'read' ? {display: 'none'} : {display: 'block'}}/>
-                                                        </div>
-                                                        <div
-                                                            className="message-body">
-                                                            <div
-                                                                className="message-title">{item.message_title}</div>
-                                                            <div
-                                                                className="message-content">{item.message_content}</div>
-                                                        </div>
-                                                    </Link>
-                                                })
+                                                this.state.messageFromAdvisor.map((item, index) => <MessageBody
+                                                    item={item} key={index}
+                                                    clickEventPlacement={this.clickEventPlacement}/>)
                                             }
                                             {
                                                 this.state.messageFromAdvisor.length &&
@@ -612,7 +558,7 @@ class Home extends Component {
                 }
                 <div className="offset-footer"
                      style={{height: '52px'}}/>
-                <Footer/>
+                <Footer role={this.state.role}/>
             </div>
         );
     }

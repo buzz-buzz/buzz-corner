@@ -3,6 +3,7 @@ import {browserHistory} from 'react-router';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
+import ErrorHanlder from '../common/error-handler';
 import Track from "../common/track";
 import './index.css';
 
@@ -56,8 +57,7 @@ class ClassLessons extends Component {
             });
         }
         catch (ex) {
-            console.log(ex.toString());
-            //browserHistory.push('/');
+            ErrorHanlder.notify('课时查询-页面报错', ex);
         }
     }
 

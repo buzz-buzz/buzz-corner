@@ -24,8 +24,8 @@ class User extends Component {
             country: 'china',
             switchToUserId: 0,
             role: '',
-            refresh: props.location.query.refresh || false,
-            password: false
+            password: false,
+            ios: false
         };
 
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
@@ -68,7 +68,10 @@ class User extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
-        let profile = await CurrentUser.getProfile(this.state.refresh) || {};
+        let profile = await CurrentUser.getProfile(true) || {};
+        const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
+
+        console.log(ua_info);
 
         this.setState({
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
@@ -78,8 +81,15 @@ class User extends Component {
             country: profile.country || 'china',
             isSuper: await CurrentUser.isSuper(),
             role: profile.role || '',
-            password: !!profile.password
+            password: !!profile.password,
+            ios: !!ua_info.os.ios
         });
+    }
+
+    componentWillUnmount(){
+        this.setState = (state, callback) => {
+            return
+        };
     }
 
     render() {
@@ -152,6 +162,10 @@ class User extends Component {
                                 </div>
                             </div>
                         </Link>
+                        {/*{*/}
+                            {/*this.state.ios &&*/}
+                            {/*<IosToHomeScreen/>*/}
+                        {/*}*/}
                         {/*<Link style={{display: 'none'}}>*/}
                         {/*<div className="icon">*/}
                         {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
@@ -168,7 +182,7 @@ class User extends Component {
                         {/*</Link>*/}
                     </div>
                 </div>
-                <Footer/>
+                <Footer role={this.state.role}/>
             </div>
         );
     }
@@ -178,7 +192,7 @@ class User extends Component {
     }
 
     async switchToOtherUser() {
-        await ServiceProxy.proxy(`/switch-to-user/${this.state.switchToUserId}`)
+        await ServiceProxy.proxy(`/switch-to-user/${this.state.switchToUserId}`);
         window.location.reload()
     }
 }

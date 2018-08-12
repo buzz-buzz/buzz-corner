@@ -10,6 +10,7 @@ import TabletHeader from '../layout/tabletHeader';
 import TabletFooter from '../layout/tabletFooter';
 import WeChatLogin from "../login/wechat";
 import RoleDesider from "./RoleDesider";
+import ClientConfig from "../client-config/client-config";
 
 class LoginRole extends Component {
     constructor() {
@@ -41,9 +42,9 @@ class LoginRole extends Component {
         new window.WxLogin({
             self_redirect: true,
             id: "qrcode-wechat",
-            appid: "wx7f1051697b7fab6d",
+            appid: ClientConfig.wechatAppIdForQrCode,
             scope: "snsapi_login",
-            redirect_uri: encodeURIComponent(`${window.location.protocol}//live.buzzbuzzenglish.com/wechat/oauth/qr-redirect/${btoa(window.location.origin)}/${btoa(window.location.search)}`),
+            redirect_uri: ClientConfig.getWechatQrRedirectUri(window.location.origin, window.location.search),
             state: "123",
             style: "black"
         });
@@ -51,9 +52,9 @@ class LoginRole extends Component {
 
     changeWechatLogin() {
         if (this.state.active !== MemberType.Student) {
-            if(/MicroMessenger/.test(navigator.userAgent)){
+            if (/MicroMessenger/.test(navigator.userAgent)) {
                 WeChatLogin.redirectToWechatOAuthPage();
-            }else{
+            } else {
                 this.setState({
                     active: MemberType.Student
                 }, this.createCode);
@@ -85,7 +86,8 @@ class LoginRole extends Component {
                 <TabletHeader/>
                 <div className="login-entry-content">
                     <div className="login-left-word">
-                        <div className="login-word">{this.state.role === MemberType.Student ?
+                        <div
+                            className="login-word">{this.state.role === MemberType.Student ?
                             Resources.getInstance().loginTabletWord : 'Make friends, earn cool rewards, learn new languages, be a leader!'}</div>
                         <div className="items">
                             <img
@@ -102,8 +104,10 @@ class LoginRole extends Component {
                     {
                         this.state.active === MemberType.Companion &&
                         <div className="login-right-code">
-                            <img src={QiniuDomain + "/tablet/Facebook_pc.png"} alt="" className="facebook-logo"/>
-                            <div className="code-word">SIGN IN WITH <b>FACEBOOK</b></div>
+                            <img src={QiniuDomain + "/tablet/Facebook_pc.png"}
+                                 alt="" className="facebook-logo"/>
+                            <div className="code-word">SIGN IN
+                                WITH <b>FACEBOOK</b></div>
                             <FacebookLogin btnText="LOGIN"/>
                         </div>
                     }

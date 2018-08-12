@@ -1,0 +1,57 @@
+.course-modal {
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .course-modal .modal-content {
+    padding: 50px 0;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 21px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .course-modal .modal-content .status-img {
+      width: 50px;
+      height: 50px; }
+      .course-modal .modal-content .status-img img {
+        width: 100%; }
+    .course-modal .modal-content .status-info {
+      text-align: center;
+      padding: 0 21px; }
+      .course-modal .modal-content .status-info .title {
+        font-size: 21px;
+        color: #000;
+        font-weight: 600;
+        margin: 15px 0 10px 0; }
+      .course-modal .modal-content .status-info .info {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px; }
+      .course-modal .modal-content .status-info .info-one {
+        margin-top: 20px;
+        margin-bottom: 5px;
+        font-size: 17px;
+        color: #666; }
+      .course-modal .modal-content .status-info .info-two {
+        font-size: 14px;
+        color: #868686;
+        margin-bottom: 30px; }
+    .course-modal .modal-content .btn {
+      width: 125px; }
+    .course-modal .modal-content .btn-two {
+      width: 100%;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .course-modal .modal-content .btn-two div {
+        width: 125px; }

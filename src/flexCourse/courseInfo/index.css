@@ -1,0 +1,82 @@
+.course-info {
+  display: flex;
+  margin-bottom: .5em;
+  background-color: white;
+  padding: 5px 0 10px 0;
+  margin-left: 20px;
+  flex: none;
+  position: relative;
+  align-items: center; }
+  .course-info .am-pm-show {
+    width: 15px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column; }
+    .course-info .am-pm-show img {
+      width: 15px;
+      margin-bottom: 10px; }
+    .course-info .am-pm-show div {
+      width: 2px;
+      height: 100px;
+      background-color: #ffd200; }
+  .course-info .booking-item-avatar {
+    height: 100%;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .course-info .booking-item-avatar img {
+      margin-bottom: 5px; }
+    .course-info .booking-item-avatar i {
+      margin: 0 !important; }
+  .course-info .booking-item-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column; }
+    .course-info .booking-item-info p {
+      text-align: left; }
+    .course-info .booking-item-info .your-name {
+      font-weight: bold;
+      font-size: 14px; }
+    .course-info .booking-item-info .class-topic {
+      color: #ffb117;
+      margin: 5px 0;
+      font-size: 13px;
+      line-height: 15px; }
+    .course-info .booking-item-info .class-date, .course-info .booking-item-info .class-time {
+      color: #868686;
+      font-size: 13px; }
+  .course-info .booking-item-status {
+    position: absolute;
+    padding: 0 21px 0 14px;
+    display: flex;
+    align-items: center;
+    right: 0;
+    top: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    height: 35px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    background-image: linear-gradient(to right, #818eff, #69e5f1); }
+    .course-info .booking-item-status img {
+      height: 15px;
+      margin-right: 5px; }
+
+.course-info:after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid  #dfdfe4;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scale(0.5, 0.5);
+  transform: scale(0.5, 0.5);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
