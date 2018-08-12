@@ -303,7 +303,7 @@ class classDetail extends Component {
                 classEndNow: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 0,
                 classBeginModal: false,
                 companion_country: companion_country,
-                class_content_tab: profile.role === MemberType.Student ? 'practice' : 'class_file',
+                class_content_tab: profile.role === MemberType.Student && class_content.exercises && class_content.exercises.length ? 'practice' : 'class_file',
                 class_content: class_content,
                 user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz'
             });
@@ -372,12 +372,19 @@ class classDetail extends Component {
                     {
                         this.state.role === MemberType.Student &&
                         <div>
-                            <div className="class-detail-tab"
-                                 style={this.state.class_content && (this.state.class_content.student_textbook || this.state.class_content.tutor_textbook) ? {} : {display: 'none'}}>
+                            <div className="class-detail-tab">
                                 <div className={this.state.class_content_tab === 'practice' ? "active" : ""}
-                                     onClick={this.classContentOne}>{Resources.getInstance().classDetailBeforeClassExercise}</div>
+                                     onClick={this.classContentOne}
+                                     style={this.state.chats && this.state.chats.length ? {} : {display: 'none'}}
+                                >
+                                    {Resources.getInstance().classDetailBeforeClassExercise}
+                                </div>
                                 <div className={this.state.class_content_tab === 'class_file' ? "active" : ""}
-                                     onClick={this.classContentTwo}>{Resources.getInstance().classDetailBeforeClassContent}</div>
+                                     onClick={this.classContentTwo}
+                                     style={this.state.class_content && (this.state.class_content.student_textbook || this.state.class_content.tutor_textbook) ? {} : {display: 'none'}}
+                                >
+                                    {Resources.getInstance().classDetailBeforeClassContent}
+                                </div>
                             </div>
                             <div className="line-middle"></div>
                         </div>
