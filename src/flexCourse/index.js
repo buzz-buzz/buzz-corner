@@ -60,7 +60,7 @@ export default class FlexCourse extends React.Component {
                 days: clonedDays,
                 active_day: clonedDays[index],
                 active_index: index
-            }, async() => {
+            }, async () => {
                 //update course data
                 this.setState({loadingCourse: true});
                 await this.updateCourseListByUserId(this.state.user_id, clonedDays[index].format_date);
@@ -69,15 +69,23 @@ export default class FlexCourse extends React.Component {
     }
 
     chineseDay(day) {
-        switch (day){
-            case 'MON': return '周一';
-            case 'SAT': return '周六';
-            case 'SUN': return '周日';
-            case 'TUE': return '周二';
-            case 'WED': return '周三';
-            case 'THU': return '周四';
-            case 'FRI': return '周五';
-            default: break;
+        switch (day) {
+            case 'MON':
+                return '周一';
+            case 'SAT':
+                return '周六';
+            case 'SUN':
+                return '周日';
+            case 'TUE':
+                return '周二';
+            case 'WED':
+                return '周三';
+            case 'THU':
+                return '周四';
+            case 'FRI':
+                return '周五';
+            default:
+                break;
         }
     }
 
@@ -134,7 +142,7 @@ export default class FlexCourse extends React.Component {
             dates[0].active = 1;
         }
 
-        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], active_index: index, pagination: pagination}, ()=>{
+        this.setState({courseList: courseList, loadingCourse: false, active_day: dates[index], active_index: index, pagination: pagination}, () => {
             console.log(this.state.pagination);
         });
     }
@@ -157,7 +165,7 @@ export default class FlexCourse extends React.Component {
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = (state, callback) => {
             return
         };
@@ -176,7 +184,7 @@ export default class FlexCourse extends React.Component {
                             loading={this.state.loadingCourse}
                             pagination={this.state.pagination}
                 />
-                <Footer role={MemberType.Student}/>
+                <Footer/>
             </div>
         )
     }

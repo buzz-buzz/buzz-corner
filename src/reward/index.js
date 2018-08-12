@@ -10,12 +10,12 @@ class Reward extends Component {
     constructor() {
         super();
 
-        this.state = { integral: 0 };
+        this.state = {integral: 0};
 
         this.rewardRule = this.rewardRule.bind(this);
     }
 
-    rewardRule(){
+    rewardRule() {
         Track.event('奖励_点击查看规则');
     }
 
@@ -24,7 +24,7 @@ class Reward extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerReward);
 
-        let profile = await CurrentUser.getProfile(true) || {};
+        let profile = await CurrentUser.getProfile() || {};
 
         this.setState({
             integral: profile.integral || 0,
@@ -32,9 +32,9 @@ class Reward extends Component {
         });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         //重写组件的setState方法，直接返回空
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }
@@ -48,17 +48,17 @@ class Reward extends Component {
                     </div>
                     <div className="badge">
                         <div className="blue-diamond">
-                            <img src= { QiniuDomain + "/Blue.png"} alt=""/>
+                            <img src={QiniuDomain + "/Blue.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardBlueStone.length === 1 ? '' : Resources.getInstance().rewardBlueStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardBlueStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="red-diamond">
-                            <img src= { QiniuDomain + "/Red.png"} alt=""/>
+                            <img src={QiniuDomain + "/Red.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardRedStone.length === 1 ? '' : Resources.getInstance().rewardRedStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardRedStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
                         <div className="yellow-diamond">
-                            <img src={ QiniuDomain + "/Yellow.png"} alt=""/>
+                            <img src={QiniuDomain + "/Yellow.png"} alt=""/>
                             <p style={{marginTop: '10px'}}>{Resources.getInstance().rewardYellowStone.length === 1 ? '' : Resources.getInstance().rewardYellowStone}</p>
                             <p>{Resources.getInstance().rewardDiamond.length === 1 ? Resources.getInstance().rewardYellowStone + Resources.getInstance().rewardDiamond : Resources.getInstance().rewardDiamond}</p>
                         </div>
@@ -70,11 +70,11 @@ class Reward extends Component {
                 <div className="miles">
                     <div className="title">{Resources.getInstance().rewardMiles}</div>
                     <div className="buzz-miles">
-                        <img src= { QiniuDomain + "/icon_money.svg"} alt="Loading..."/>
+                        <img src={QiniuDomain + "/icon_money.svg"} alt="Loading..."/>
                         <span>{this.state.integral}</span>
                     </div>
                 </div>
-                <Footer role={this.state.role}/>
+                <Footer/>
             </div>
         );
     }
