@@ -33,7 +33,9 @@
       font-size: 18px;
       font-weight: 600;
       color: #000;
-      line-height: 21px; }
+      line-height: 21px;
+      display: flex;
+      align-items: center; }
       .class-info .course-content .name span {
         max-width: 100px;
         overflow: hidden;
