@@ -135,16 +135,19 @@ class User extends Component {
                         }
                         {
                             this.state.isSuper &&
-                            <Link to="">
+                            <Link to="" className="after-line">
                                 <div className="icon">
                                     <div className="name">
-                                        切换成其他用户：<input type="number" name="switchToUserId"
+                                        切换成其他用户(id):<input type="number" name="switchToUserId"
                                                        onChange={this.handleUserIdChange}
                                                        value={this.state.switchToUserId} />
                                         <Button onClick={this.switchToOtherUser}>切换</Button>
                                     </div>
                                 </div>
                                 <div className="link">
+                                    <div className="right-icon">
+                                        <i className="icon-icon_back_down"/>
+                                    </div>
                                 </div>
                             </Link>
                         }

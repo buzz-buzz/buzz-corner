@@ -6,8 +6,8 @@ import {MemberType} from "../membership/member-type";
 import './footer.css';
 
 class Footer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.clickEvent = this.clickEvent.bind(this);
     }

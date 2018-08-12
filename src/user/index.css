@@ -106,7 +106,13 @@
   height: 24px; }
 
 .user-menu > a > div.icon > .name {
-  margin: 0 15px; }
+  margin: 0 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .user-menu > a > div.icon > .name input {
+    width: 50px;
+    margin: 0 10px; }
 
 .user-menu > a > div.link > .right-icon {
   height: 15px;
