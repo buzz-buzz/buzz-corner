@@ -118,6 +118,7 @@ $grey-background: rgb(244, 245, 249);
 .user-menu > a > div{
     display: flex;
     height: 50%;
+
 }
 
 .user-menu > a >div.link{
@@ -130,6 +131,16 @@ $grey-background: rgb(244, 245, 249);
 
 .user-menu > a >div.icon > .name{
     margin: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    input{
+        width: 50px;
+        margin: 0 10px;
+    }
+    button{
+
+    }
 }
 
 .user-menu > a >div.link >  .right-icon{
