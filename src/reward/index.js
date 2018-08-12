@@ -19,7 +19,7 @@ class Reward extends Component {
         Track.event('奖励_点击查看规则');
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('奖励_奖励页面展示');
 
         //TitleSet.setTitle(Resources.getInstance().footerReward);
@@ -27,7 +27,8 @@ class Reward extends Component {
         let profile = await CurrentUser.getProfile(true) || {};
 
         this.setState({
-            integral: profile.integral || 0
+            integral: profile.integral || 0,
+            role: profile.role
         });
     }
 
@@ -73,7 +74,7 @@ class Reward extends Component {
                         <span>{this.state.integral}</span>
                     </div>
                 </div>
-                <Footer/>
+                <Footer role={this.state.role}/>
             </div>
         );
     }

@@ -11,6 +11,7 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import ServiceProxy from "../service-proxy";
 import URLHelper from "../common/url-helper";
 import AccountSelect from '../accountSelect/index';
+import Client from "../common/client";
 import Back from '../common/back';
 
 import {connect} from 'react-redux';
@@ -120,7 +121,11 @@ class AccountLogin extends Component {
             }
 
             this.setState({loadingModal: false}, () => {
-                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url')
+                if (result.role) {
+                    localStorage.setItem('role', result.role);
+                }
+
+                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
                 if (returnUrl) {
                     window.location.href = decodeURIComponent(returnUrl);
@@ -148,7 +153,7 @@ class AccountLogin extends Component {
                 ...this.state.data,
                 user_id: userId
             }
-        }, async () => {
+        }, async() => {
             await this.submit();
         });
     };
@@ -171,10 +176,16 @@ class AccountLogin extends Component {
 
                             <Dropdown
                                 placeholder={Resources.getInstance().selectCountryCode}
-                                trigger={<span><Flag name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>}
+                                trigger={ Client.getClient() === 'tablet' ?
+                                    <span><Flag
+                                        name={countryAlpha2Map[this.state.mobileCountry].toLowerCase()}/>+({countryCodeMap[this.state.mobileCountry]})</span>
+                                    :
+                                    <span>+({countryCodeMap[this.state.mobileCountry]})</span>}
                                 search options={countryOptions}
-                                style={{width: '80px', marginRight: '10px',whiteSpace: 'nowrap', padding: '0 10px',
-                                    display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'}}
+                                style={{
+                                    width: '80px', marginRight: '10px', whiteSpace: 'nowrap', padding: '0 10px',
+                                    display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'
+                                }}
                                 value={this.state.mobileCountry}
                                 onChange={(event, data) =>
                                     this.setState({mobileCountry: data.value})}/>

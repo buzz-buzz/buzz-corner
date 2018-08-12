@@ -17,9 +17,12 @@ let getAccessToken = async function (isMobile, code) {
     const appid = isMobile ? process.env.buzz_wechat_appid : process.env.buzz_wechat_qr_appid
     const secret = isMobile ? process.env.buzz_wechat_secret : process.env.buzz_wechat_qr_secret
 
-    return JSON.parse(await request({
+    let accessTokenResponse = await request({
         uri: `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appid}&secret=${secret}&code=${code}&grant_type=authorization_code`
-    }));
+    });
+
+    console.log('accesstoken = ', accessTokenResponse);
+    return JSON.parse(accessTokenResponse);
 };
 
 let getUserInfo = async function (accessTokenResponse) {
@@ -31,7 +34,7 @@ let getUserInfo = async function (accessTokenResponse) {
     return {userInfoResponse, json};
 };
 let handleAccessTokenResult = async function (accessTokenResponse, ctx, base64_callback_origin, base64_query_string) {
-    if (!(accessTokenResponse.errcode === 40163 && accessTokenResponse.errmsg.startsWith('code been used,'))) {
+    if (accessTokenResponse.access_token) {
         // response =  { access_token: '6_l7QIfpUBCn_wnWsFcsb5fP_94GcrPU3lm-aTvk9yhVt43CcxI75aH5Soz1pN5dDbOjaNj-FIVXX6YQApyvqQNg',
         //     expires_in: 7200,
         //     refresh_token: '6_1tXQ-GUhbbqUx69UGxQzxKMGygmfBTOHGWNuNoQV48PhqLrBZH5EDYsSz0OSKXmw1MMjjRN5IujlQpR1ZipJfw',
@@ -45,12 +48,15 @@ let handleAccessTokenResult = async function (accessTokenResponse, ctx, base64_c
             success(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
             return true;
         } else {
-            fundebug.notify('获取微信用户信息出错', json.errmsg, {json, userInfoResponse});
+            fundebug.notify('获取微信用户信息出错', json.errmsg, {
+                json,
+                userInfoResponse
+            });
             fail(ctx, userInfoResponse, base64_callback_origin, base64_query_string);
             return false;
         }
     } else {
-        fundebug.notify('code 已使用错误', accessTokenResponse.errmsg, accessTokenResponse);
+        fundebug.notify('获取 access_token 错误', accessTokenResponse.errmsg, accessTokenResponse);
         fail(ctx, accessTokenResponse.errmsg, base64_callback_origin, base64_query_string);
         return false;
     }

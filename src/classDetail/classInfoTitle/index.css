@@ -1,0 +1,95 @@
+.class-info {
+  flex: 0 0 auto;
+  padding: 25px 0 25px 21px;
+  display: flex;
+  position: relative;
+  width: 100%;
+  background-color: white; }
+  .class-info .avatar-new {
+    position: relative;
+    width: 88px;
+    height: 105px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    padding: 2px; }
+    .class-info .avatar-new img {
+      height: 100%; }
+    .class-info .avatar-new img.bg {
+      z-index: 20;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0; }
+  .class-info .course-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left; }
+    .class-info .course-content .name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+      line-height: 21px; }
+    .class-info .course-content .topic {
+      margin: 10px 0 5px 0;
+      font-size: 13px;
+      color: #ffb117; }
+    .class-info .course-content .date, .class-info .course-content .time {
+      font-size: 11px;
+      color: #868686; }
+  .class-info .course-status {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    font-size: 12px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    text-align: center;
+    color: white;
+    padding: 0 12px 0 18px;
+    background-color: #6ae108; }
+  .class-info .medal {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    cursor: pointer; }
+    .class-info .medal span {
+      color: #edae00;
+      font-size: 11px;
+      height: 15px;
+      line-height: 15px; }
+    .class-info .medal .medal-img {
+      height: 66px;
+      width: 66px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px; }
+      .class-info .medal .medal-img img {
+        height: 100%; }
+
+.class-info.half-line:after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid  #dfdfe4;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scale(0.5, 0.5);
+  transform: scale(0.5, 0.5);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }

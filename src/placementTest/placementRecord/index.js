@@ -6,6 +6,7 @@ import LoadingModal from '../../common/commonComponent/loadingModal';
 import WechatAudio from "../../wechat/audio";
 import TabletAudio from "../../wechat/tabletAudio";
 import ErrorHandler from "../../common/error-handler";
+import Track from "../../common/track";
 import './index.css';
 import '../../classDetail/chat.css';
 import '../../classDetail/index.css';
@@ -39,6 +40,8 @@ export default class PlacementRecorder extends React.Component {
 
     async recordAgain() {
         try {
+            Track.event('测试_重录按钮点击');
+
             if (this.state.isPlaying) {
                 //暂停播放
                 if (this.audio) {
@@ -77,6 +80,8 @@ export default class PlacementRecorder extends React.Component {
 
     recordAnswer() {
         if (!this.state.recording && !this.props.answers[this.props.step - 1] && !this.state.loadingAudio) {
+            Track.event('测试_录制按钮点击');
+
             this.setState({recording: true}, async() => {
                 await this.state.recordAudio.startRecording();
             });
@@ -98,6 +103,8 @@ export default class PlacementRecorder extends React.Component {
 
         this.setState({recording: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
+                Track.event('测试_录音完成按钮点击');
+
                 try {
                     let url = await this.state.recordAudio.stopRecordingWithQiniuLink();
 
@@ -121,6 +128,7 @@ export default class PlacementRecorder extends React.Component {
                     this.setState({loadingModal: false, recordingTime: 0});
                 }
             } else {
+                Track.event('测试_录音完成按钮点击-时间少于30秒');
                 this.setState({loadingModal: false, recordingTime: 0});
                 this.props.setMessage('录制时间30-60秒哦', 'error');
             }
@@ -143,6 +151,7 @@ export default class PlacementRecorder extends React.Component {
 
     async componentWillMount() {
         let audioReady = false;
+        Track.event('测试_页面展示');
 
         try {
             if (/MicroMessenger/.test(navigator.userAgent)) {
@@ -182,7 +191,7 @@ export default class PlacementRecorder extends React.Component {
         this.setState({recordingTime: 0});
 
         if (this.state.recording) {
-            await this.closeRecord();
+            await this.state.recordAudio.stopRecording();
         }
 
         if (this.state.isPlaying) {
@@ -194,6 +203,8 @@ export default class PlacementRecorder extends React.Component {
 
     reReplyAudio() {
         if (!this.state.isPlaying) {
+            Track.event('测试_播放按钮点击');
+
             try {
                 this.setState({isPlaying: true}, () => {
                     this.audio.play();

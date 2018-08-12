@@ -1,0 +1,97 @@
+.course-info {
+  display: flex;
+  margin-bottom: .5em;
+  background-color: white;
+  padding: 5px 0 10px 0;
+  margin-left: 20px;
+  flex: none;
+  position: relative;
+  align-items: center;
+  .am-pm-show{
+    width: 15px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    img{
+      width: 15px;
+      margin-bottom: 10px;
+    }
+    div{
+      width: 2px;
+      height: 100px;
+      background-color: #ffd200;
+    }
+  }
+  .booking-item-avatar{
+    height: 100%;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+      margin-bottom: 5px;
+    }
+    i{
+      margin: 0 !important;
+    }
+  }
+  .booking-item-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    p {
+      text-align: left;
+    }
+    .your-name{
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .class-topic{
+      color: #ffb117;
+      margin: 5px 0;
+      font-size: 13px;
+      line-height: 15px;
+    }
+    .class-date, .class-time{
+      color: #868686;
+      font-size: 13px;
+    }
+  }
+  .booking-item-status {
+    position: absolute;
+    padding: 0 21px 0 14px;
+    display: flex;
+    align-items: center;
+    right: 0;
+    top: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    height: 35px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    background-image: linear-gradient(to right, #818eff, #69e5f1);
+    img{
+      height: 15px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.course-info:after{
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid  #dfdfe4;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scale(.5,.5);
+  transform: scale(.5,.5);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

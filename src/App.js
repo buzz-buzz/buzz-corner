@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import 'babel-polyfill';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
 import SelectRole from './select-role/index';
@@ -35,6 +34,8 @@ import AccountAbout from './account/accountAbout';
 import LoginByAccount from './accountLogin';
 import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
+import FlexCourses from './flexCourse';
+import CourseDetail from './flexCourse/CourseDetail';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction
@@ -43,10 +44,15 @@ import SignOut from "./login/sign-out";
 import Client from "./common/client";
 import WechatShare from './wechat/wechatShare';
 import ToastMessage from './common/commonComponent/modalMessage/toast-message';
+import ErrorHandler from "./common/error-handler";
 
 WechatShare.init();
 
 class App extends Component {
+    componentDidCatch(error, info) {
+        ErrorHandler.notify(error.message, error, info)
+    }
+
     render() {
         return (
             <div className="content" style={{height: '100%'}}>
@@ -88,6 +94,7 @@ class App extends Component {
                     <Route path='/placement' component={Placement}/>
                     <Route path='/home' component={Home}/>
                     <Route path='/friends' component={Friends}/>
+                    <Route path='/course' component={FlexCourses}/>
                     <Route path='/reward' component={Reward}/>
                     <Route path='/user' component={User}/>
                     <Route path='/user-profile' component={UserUpdate}/>
@@ -97,6 +104,7 @@ class App extends Component {
                     <Route path='/account/about' component={AccountAbout}/>
                     <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
+                    <Route path='/course/:class_id' component={CourseDetail}/>
                     <Route path='/consult' component={Consult}/>
                     <Route path='/help/:faq_id' component={HelpCenter}/>
                     <Route path='/class/evaluation/:to_user_id/:class_id'

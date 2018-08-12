@@ -18,8 +18,9 @@
 #evaluation > .evaluation-input > form > p, .text-length-notice{
     position: absolute;
     bottom: 0;
-    right: 1em;
-    color: #999;
+    right: 15px;
+    color: #868686;
+    font-size: 11px;
 }
 
 .class-detail-practice > .evaluation-stars > .img-stars{
@@ -28,6 +29,7 @@
     height: 3em;
     justify-content: space-around;
     padding: 0 2em;
+    cursor: pointer;
 }
 
 .class-detail-practice > .evaluation-stars > .img-stars > img{
@@ -40,6 +42,7 @@
     font-size: 1.2em;
     color: #f7b52a;
     letter-spacing: 0;
+    font-weight: 500;
 }
 
 .class-detail-practice > .evaluation-list{
@@ -87,17 +90,13 @@
     background-color: rgb(244, 245, 249);
     margin-top: 1em;
     border-color: #eee;
+    padding: 20px;
 }
 
 .class-detail-practice .evaluation-input textarea:focus{
     background-color: rgb(244, 245, 249) !important;
     outline: none !important;
     border-color: #eee;
-}
-
-#evaluation > .evaluation-submit{
-    margin: 0 -1em -1em -1em;
-    padding: 2em;
 }
 
 #evaluation > .evaluation-submit > div.evaluation-done{
@@ -118,8 +117,8 @@
 }
 
 .evaluation-result-show > .result-content{
-    padding: 15px;
-    font-size: 13px;
+    padding: 20px;
+    font-size: 15px;
     margin: 0 1em;
     border-radius: 5px;
     background-color: #f4f5f9;

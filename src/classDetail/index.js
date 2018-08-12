@@ -11,17 +11,17 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import ClassPartners from './classPartnersAvatars';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ClassBeginModal from '../common/commonComponent/modalClassBegin';
-import ModalClassPractiseWord
-    from '../common/commonComponent/modalClassPractiseWord';
 import Avatar from '../common/commonComponent/avatar';
+import ModalClassPractiseWord from '../common/commonComponent/modalClassPractiseWord';
+import ClassInfoTitle from './classInfoTitle';
+import ErrorHanlder from '../common/error-handler';
 import ClassAd from './classAd';
 import Resources from '../resources';
-import {Button, Form, Flag} from "semantic-ui-react";
+import {Button, Form} from "semantic-ui-react";
 import Back from '../common/back';
 import Client from "../common/client";
 import moment from 'moment';
 import './index.css';
-import ClassEndTime from "./class-end-time";
 
 class classDetail extends Component {
     constructor(props) {
@@ -96,7 +96,11 @@ class classDetail extends Component {
     }
 
     back() {
-        Back.back();
+        if (this.props.location.query.back) {
+            browserHistory.push('/' + this.props.location.query.back);
+        } else {
+            Back.back();
+        }
     }
 
     companionCenter() {
@@ -214,10 +218,6 @@ class classDetail extends Component {
         if (this.state.interval) {
             clearInterval(this.state.interval);
         }
-
-        this.setState = (state, callback) => {
-            return;
-        };
     }
 
     getClassApiUri(user_id) {
@@ -238,7 +238,7 @@ class classDetail extends Component {
 
             this.setState({loadingModal: true});
 
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
 
             let class_info = this.handleClassInfoData((await  ServiceProxy.proxyTo({
                 body: {
@@ -251,7 +251,10 @@ class classDetail extends Component {
             }
 
             //if User is not in this class
-            if (class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '') && studentsList.indexOf(profile.user_id + '') <= -1) {
+            if (class_info.companions && class_info.students && class_info.companions !== (profile.user_id + '')
+                && studentsList.indexOf(profile.user_id + '') <= -1
+                && (!class_info.subscribers || (class_info.subscribers.split(',').indexOf(profile.user_id + '') === -1))
+            ) {
                 alert(Resources.getInstance().classInfoNoAuth);
                 browserHistory.push('/');
                 return;
@@ -265,19 +268,17 @@ class classDetail extends Component {
                 }
             }) || [];
 
-            // if ((new Date(class_info.start_time) - new Date(class_info.CURRENT_TIMESTAMP)) / 60000 < 0 && (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP)) > 0) {
-            //     classBegin = true;
-            // }
-
             let companion_country = '';
             if (class_info.companions) {
                 class_info.companions = class_info.companions.split(',')[0];
 
                 companion_country = (await ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
-                    }
-                })).country || 'united states';
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/users/${class_info.companions}?t=${new Date().getTime()}`
+                        }
+                    })).country || 'united states';
+                class_info.companion_country = companion_country;
+                class_info.class_status_show_word = TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US');
             }
 
             //get exercise
@@ -303,7 +304,7 @@ class classDetail extends Component {
                 chats: class_content.exercises ? class_content.exercises : [],
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
-                role: profile.role || '',
+                role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
                 left: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 end_left: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000),
                 classBeginNow: Math.floor((new Date(class_info.start_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 300 && Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) > 0,
@@ -316,11 +317,7 @@ class classDetail extends Component {
             });
         }
         catch (ex) {
-            console.log(ex.toString());
-            Track.event('错误_课程详情页面报错', null, {
-                "类型": "错误",
-                "错误内容": ex.toString()
-            });
+            ErrorHanlder.notify('错误_课程详情页面报错', ex);
             this.setState({loadingModal: false});
         }
     }
@@ -377,45 +374,11 @@ class classDetail extends Component {
                                         content={this.state.practiseWord}
                                         btnText="我知道啦"/>
                 <div className="class-detail-info">
-                    <div className="class-info">
-                        <div className="booking-item-avatar"
-                             onClick={this.companionCenter}>
-                            <Avatar
-                                src={this.state.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}/>
-                            <Flag
-                                name={this.state.companion_country ? this.state.companion_country.toLowerCase() : 'united states'}/>
-                        </div>
-                        <div className="booking-item-info">
-                            <p className="your-name"
-                               style={{
-                                   fontWeight: 'bold',
-                                   fontSize: '1.2em'
-                               }}>{this.state.companion_name || "Buzz"}</p>
-                            <p className="class-topic" style={{
-                                color: '#f7b52a',
-                                margin: '.3em 0'
-                            }}>{this.state.class_info.topic || this.state.class_info.name || 'No names'}</p>
-                            <p className="class-date"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{this.state.class_info.show_date}</p>
-                            <p className="class-time"
-                               style={{
-                                   fontSize: '.8em',
-                                   color: '#aaa'
-                               }}>{moment(this.state.class_info.start_time).format('HH:mm')} - <ClassEndTime
-                                classInfo={this.state.class_info}/></p>
-                        </div>
-                        <div className="booking-item-status">
-                            <p style={{color: this.state.class_status_show_style}}>{this.state.class_status_show_word}</p>
-                        </div>
-                    </div>
-                    <ClassPartners student_avatars={this.state.student_avatars}
-                                   sendTrack={this.sendTrack}/>
-                    <ClassAd id={this.state.class_id}
-                             content={this.state.class_content}
-                             role={this.state.role}/>
+                    <ClassInfoTitle course_info={this.state.class_info} onAvatarClick={this.companionCenter}
+                                    companion_country={this.state.companion_country}
+                    />
+                    <ClassPartners student_avatars={this.state.student_avatars} sendTrack={this.sendTrack}/>
+                    <ClassAd id={this.state.class_id} content={this.state.class_content} role={this.state.role}/>
                 </div>
                 <div className="class-detail-practice">
                     {

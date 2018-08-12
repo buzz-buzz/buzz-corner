@@ -18,4 +18,21 @@ export default class evaluationStatusHelper {
                 return Resources.getInstance().classEvaluationStarsStatus0;
         }
     }
+
+    static getStyleByStars(stars) {
+        switch (stars){
+            case 1:
+                return '#868686';
+            case 2:
+                return '#868686';
+            case 3:
+                return '#868686';
+            case 4:
+                return '#ffb117';
+            case 5:
+                return '#6ae108';
+            default:
+                return '#666';
+        }
+    }
 }

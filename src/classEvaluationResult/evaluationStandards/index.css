@@ -15,10 +15,12 @@
     .evaluation-standard .standard-big-title .main-title {
       font-size: 17px;
       font-weight: 500;
-      color: #666; }
+      color: #666;
+      text-align: center; }
     .evaluation-standard .standard-big-title .little-title {
       font-size: 13px;
-      color: #f6b40c; }
+      color: #ffd200;
+      text-align: center; }
   .evaluation-standard .standard-item {
     background: white;
     flex: 0 0 auto;
@@ -38,7 +40,7 @@
       .evaluation-standard .standard-item .standard-title .tab-status {
         height: 0;
         width: 0;
-        border-top: 6px solid #909399;
+        border-top: 6px solid #dfdfe4;
         border-bottom: 6px solid transparent;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
@@ -48,7 +50,7 @@
         height: 0;
         width: 0;
         border-top: 6px solid transparent;
-        border-bottom: 6px solid #909399;
+        border-bottom: 6px solid #dfdfe4;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         position: relative;
@@ -65,7 +67,7 @@
       -o-transition: height 1s linear;
       /* Opera */ }
       .evaluation-standard .standard-item .standard-content .title {
-        color: #f6b40c;
+        color: #ffd200;
         margin-top: 15px; }
       .evaluation-standard .standard-item .standard-content .content {
         margin: 10px 0 20px 0;
