@@ -37,11 +37,11 @@ class User extends Component {
         this.goUpdateProfile = this.goUpdateProfile.bind(this);
     }
 
-    showUserInfo(){
+    showUserInfo() {
         browserHistory.push('/user/' + this.state.userId);
     }
 
-    signOut(){
+    signOut() {
         Track.event('我的_点击切换账号');
 
         this.setState({signOutModal: false}, () => {
@@ -49,15 +49,15 @@ class User extends Component {
         });
     }
 
-    closePopModal(){
+    closePopModal() {
         this.setState({signOutModal: false});
     }
 
-    openPopModal(){
+    openPopModal() {
         this.setState({signOutModal: true});
     }
 
-    goUpdateProfile(){
+    goUpdateProfile() {
         Track.event('我的_编辑个人信息按钮点击');
 
         browserHistory.push('/user-profile');
@@ -86,7 +86,7 @@ class User extends Component {
         });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = (state, callback) => {
             return
         };
@@ -139,8 +139,8 @@ class User extends Component {
                                 <div className="icon">
                                     <div className="name">
                                         切换成其他用户(id):<input type="number" name="switchToUserId"
-                                                       onChange={this.handleUserIdChange}
-                                                       value={this.state.switchToUserId} />
+                                                           onChange={this.handleUserIdChange}
+                                                           value={this.state.switchToUserId}/>
                                         <Button onClick={this.switchToOtherUser}>切换</Button>
                                     </div>
                                 </div>
@@ -159,33 +159,16 @@ class User extends Component {
                                 </div>
                             </div>
                             <div className="link">
-                                <div className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
+                                <div
+                                    className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
                                 <div className="right-icon">
                                     <i className="icon-icon_back_down"/>
                                 </div>
                             </div>
                         </Link>
-                        {/*{*/}
-                            {/*this.state.ios &&*/}
-                            {/*<IosToHomeScreen/>*/}
-                        {/*}*/}
-                        {/*<Link style={{display: 'none'}}>*/}
-                        {/*<div className="icon">*/}
-                        {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
-                        {/*<div className="name">*/}
-                        {/*{Resources.getInstance().myLanguage}*/}
-                        {/*</div>*/}
-                        {/*</div>*/}
-                        {/*<div className="link">*/}
-                        {/*<div className="class-numbers">中文</div>*/}
-                        {/*<div className="right-icon">*/}
-                        {/*<i className="icon-icon_back_down" />*/}
-                        {/*</div>*/}
-                        {/*</div>*/}
-                        {/*</Link>*/}
                     </div>
                 </div>
-                <Footer role={this.state.role}/>
+                <Footer/>
             </div>
         );
     }

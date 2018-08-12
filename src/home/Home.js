@@ -250,7 +250,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async() => {
+        }, async () => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -315,7 +315,7 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async(item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
                     if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
                         clonedMessageFromAdvisor.push({
@@ -412,7 +412,7 @@ class Home extends Component {
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = (state, callback) => {
             return
         };
@@ -447,16 +447,16 @@ class Home extends Component {
                             <div>{Resources.getInstance().homeTabBooking}</div>
                             <div className="tab-active"
                                  style={this.state.tab === 'booking' ? {
-                                         borderTop: '4px solid #ffd200',
-                                         borderTopLeftRadius: '5px',
-                                         borderTopRightRadius: '5px'
-                                     } : {}}/>
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                         </div>
                     </div>
                     <div className="tab-message"
                          style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <div  style={{position: 'relative'}}>
+                        <div style={{position: 'relative'}}>
                             <img
                                 src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.svg"
                                 alt="" style={{
@@ -473,10 +473,10 @@ class Home extends Component {
                             </div>
                             <div className="tab-active"
                                  style={this.state.tab === 'message' ? {
-                                         borderTop: '4px solid #ffd200',
-                                         borderTopLeftRadius: '5px',
-                                         borderTopRightRadius: '5px'
-                                     } : {}}/>
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                         </div>
                     </div>
                 </div>
@@ -525,8 +525,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                        return ele.hasRead === '';
-                                    }).length + ')' : '')}</p>
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                             </div>
                         </div>
                         {
@@ -558,7 +558,7 @@ class Home extends Component {
                 }
                 <div className="offset-footer"
                      style={{height: '52px'}}/>
-                <Footer role={this.state.role}/>
+                <Footer/>
             </div>
         );
     }

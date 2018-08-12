@@ -185,9 +185,7 @@ router
             json: ctx.request.body
         };
 
-        console.log('options = ', options);
         let updatedProfile = await request(options);
-        console.log('updated profile = ', updatedProfile);
 
         ctx.body = Object.assign(ctx.state.user, {
             profile: updatedProfile

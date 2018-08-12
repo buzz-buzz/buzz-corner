@@ -61,9 +61,9 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" />
+                    <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png"/>
                 </div>
-                <Footer role={MemberType.Companion}/>
+                <Footer/>
             </div>
         );
     }
