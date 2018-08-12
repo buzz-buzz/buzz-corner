@@ -32,7 +32,7 @@ export default class HelpCenter extends React.Component{
 
         //get data from service
         if(this.state.faq_id === 'student_index' || this.state.faq_id === 'companion_index'){
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
 
             if (!profile.role) {
                 browserHistory.push('/select-role');

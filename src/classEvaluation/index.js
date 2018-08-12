@@ -202,7 +202,7 @@ class classEvaluation extends Component {
         try {
             this.setState({loadingModal: true});
 
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
             let userId = profile.user_id;
 
             Track.event(profile.role === MemberType.Student ? '课后评价_中方课后评价页面' : '课后评价_外籍课后评价页面');

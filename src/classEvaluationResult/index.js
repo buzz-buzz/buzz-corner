@@ -183,7 +183,7 @@ class classEvaluationResult extends Component {
 
             this.setState({loadingModal: true});
 
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
             let userId = profile.user_id;
 
             //auth check
