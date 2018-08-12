@@ -75,7 +75,7 @@ class UpdatePassword extends Component {
     async componentWillMount() {
         Track.event('设置密码页面展示');
 
-        let profile = await CurrentUser.getProfile(true);
+        let profile = await CurrentUser.getProfile();
 
         let clonedData = this.state.data;
         clonedData.user_account = profile.mobile || profile.email;

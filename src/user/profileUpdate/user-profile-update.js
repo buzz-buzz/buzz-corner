@@ -450,7 +450,7 @@ class UserUpdate extends Component {
     async componentWillMount() {
         Track.event('我的_修改资料页面展示');
 
-        let profile = UserUpdate.getProfileFromUserData(await CurrentUser.getProfile(true));
+        let profile = UserUpdate.getProfileFromUserData(await CurrentUser.getProfile());
         if (!profile.role) {
             browserHistory.push('/select-role');
             return;
