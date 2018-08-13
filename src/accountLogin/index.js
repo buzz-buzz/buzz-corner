@@ -15,7 +15,7 @@ import Client from "../common/client";
 import Back from '../common/back';
 
 import {connect} from 'react-redux';
-import {addUser, addUsers, clearUsers} from '../actions/index';
+import {addUser, addUsers, clearUsers} from '../redux/actions/index';
 import {iso3166_data} from "phone";
 import {countryLongNameMap} from "../common/country-code-map";
 import {zones} from "moment-timezone/data/meta/latest";
