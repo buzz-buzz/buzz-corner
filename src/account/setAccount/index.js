@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import Back from '../../common/back';
-import Button50px from '../../common/commonComponent/submitButton50px';
-import BuzzInput from '../../common/commonComponent/buzzInput';
+import Button50px from '../../common/commonComponent/submitButtonRadius10Px';
 import CurrentUser from "../../membership/user";
 import Track from "../../common/track";
-import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import LoadingModal from '../../common/commonComponent/loadingModal';
 import ErrorHandler from '../../common/error-handler';
 import Resources from '../../resources';
@@ -21,12 +19,14 @@ class UpdatePassword extends Component {
                 user_account: '',
                 user_password: ''
             },
-            update: false
+            update: false,
+            hidden: true
         };
 
         this.back = this.back.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
+        this.toggleHidden = this.toggleHidden.bind(this);
     }
 
     back() {
@@ -40,6 +40,10 @@ class UpdatePassword extends Component {
         clonedData.user_password = event.target.value;
 
         this.setState({data: clonedData, update: true});
+    }
+
+    toggleHidden(){
+        this.setState({hidden: !this.state.hidden});
     }
 
     closeMessageModal() {
@@ -90,20 +94,25 @@ class UpdatePassword extends Component {
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <HeaderWithBack goBack={this.back} title={Resources.getInstance().accountSetTitle}/>
+                <div className="title">{Resources.getInstance().accountSetTitle}</div>
                 <div className="set-word">
                     <div className="user-count">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_account.svg" alt=""/>
-                        <p>{this.state.data.user_account}</p>
+                        <p className="label">{Resources.getInstance().accountAccount}</p>
+                        <p className="info">{this.state.data.user_account}</p>
                     </div>
                     <div className="user-password">
-                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_password.svg" alt=""/>
-                        <BuzzInput
-                            type="text" placeholder={Resources.getInstance().accountInputPassword}
-                            value={this.state.data.user_password}
-                            onChange={this.handleChange}
-                            name='user_password'
-                        />
+                        <p className="label">{Resources.getInstance().accountPassword}</p>
+                        <div className="input-container">
+                            <input
+                                type={this.state.hidden ? 'password' : 'text'} placeholder={Resources.getInstance().accountInputPassword}
+                                value={this.state.data.user_password}
+                                onChange={this.handleChange}
+                            />
+                            <div className="status" onClick={this.toggleHidden}>
+                                <img src={this.state.hidden ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
+                                    "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg" } alt=""/>
+                            </div>
+                        </div>
                     </div>
                     <div className="update-btn">
                         <Button50px disabled={!this.state.data.user_password || this.state.data.user_password.length < 6 || !this.state.update }

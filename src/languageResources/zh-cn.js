@@ -335,6 +335,8 @@ export const accountHow = '如何获得账号密码登录？';
 export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
+export const accountAccount = '账号';
+export const accountPassword = '密码';
 
 export const taoCourseNone = '课程报名火爆/当前日期的课程都被抢光了。';
 export const taoCourseLike = '淘你喜欢';
