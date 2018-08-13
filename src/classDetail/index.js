@@ -200,7 +200,8 @@ class classDetail extends Component {
         if (this.state.class_info.room_url) {
             let zoom_number = this.state.class_info.room_url.split('/')[this.state.class_info.room_url.split('/').length - 1] || '';
 
-            browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}&zc=${this.state.class_info.zc || '0'}`);
+            browserHistory.push(`/zoom-join?zoom_number=${zoom_number}&user_name=${this.state.user_name}
+            &zc=${this.state.class_info.zc || '0'}&user_id=${this.state.user_id}&class_id=${this.state.class_id}`);
         } else {
             alert('缺少Zoom教室链接');
         }
@@ -305,7 +306,8 @@ class classDetail extends Component {
                 companion_country: companion_country,
                 class_content_tab: profile.role === MemberType.Student && class_content.exercises && class_content.exercises.length ? 'practice' : 'class_file',
                 class_content: class_content,
-                user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz'
+                user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz',
+                user_id: profile.user_id
             });
         }
         catch (ex) {

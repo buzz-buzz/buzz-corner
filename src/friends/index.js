@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
-import {MemberType} from "../membership/member-type";
 import Track from "../common/track";
 import './index.css';
 
