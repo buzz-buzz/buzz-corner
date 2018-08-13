@@ -54,6 +54,9 @@ export default (props) =>
                 padding: 0,
                 color: 'white'
             } : {padding: 0, color: '#666'})} onClick={props.sms}
-                    disabled={!props.mobileValid || props.waitSec > 0}>{props.waitSec || Resources.getInstance().profilePhoneCheck}</Button>
+                    disabled={!props.mobileValid || props.waitSec > 0}>
+                {props.waitSec ? Resources.getInstance().profilePhoneSend + '('+ props.waitSec +')' :
+                    ( props.send ? Resources.getInstance().profilePhoneCheckAgain : Resources.getInstance().profilePhoneCheck)}
+                </Button>
         </div>
     </div>

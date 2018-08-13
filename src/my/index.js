@@ -50,7 +50,8 @@ class My extends Component {
             agreement: true,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             placement_topics: Topics,
-            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]]
+            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
+            send: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -89,7 +90,8 @@ class My extends Component {
                 this.setState({
                     messageModal: true,
                     messageContent: Resources.getInstance().phoneSendWrong,
-                    waitSec: 30
+                    waitSec: 30,
+                    send: true
                 }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
@@ -103,7 +105,8 @@ class My extends Component {
                 this.setState({
                     messageModal: true,
                     messageContent: Resources.getInstance().profileSendSuccess,
-                    waitSec: 60
+                    waitSec: 60,
+                    send: true
                 }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
@@ -541,6 +544,7 @@ class My extends Component {
                                           emailValid={this.state.emailValid}
                                           mobileCountry={this.state.mobileCountry}
                                           onCountryCodeChange={this.onCountryCodeChange}
+                                          send={this.state.send}
                         />
                     }
                     {
