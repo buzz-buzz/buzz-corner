@@ -336,6 +336,8 @@ export const accountHow = 'How to get my account？';
 export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
+export const accountAccount = 'Account';
+export const accountPassword = 'Password';
 
 export const taoCourseNone = 'Sorry, current session is sold out.';
 export const taoCourseLike = 'Pick the one you like';
