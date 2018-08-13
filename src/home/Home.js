@@ -272,7 +272,7 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
             let userId = profile.user_id;
 
             if (!profile.role) {

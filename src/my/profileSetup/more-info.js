@@ -4,6 +4,7 @@ import './avatar.css';
 import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
+import ErrorHandler from "../../common/error-handler";
 
 export default class profileSetup extends Component {
     handlePhoneChange = (e, {value}) => {
@@ -84,20 +85,13 @@ export default class profileSetup extends Component {
     }
 
     async submit() {
+        let profile = this.validateForm();
         try {
-            let profile = this.validateForm();
-
-            await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                    json: profile,
-                    method: 'PUT'
-                }
-            });
+            await CurrentUser.updateProfile(profile);
 
             this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
-            console.error(ex);
+            ErrorHandler.notify('更新用户资料出错', ex, profile)
             this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
         }
     }
