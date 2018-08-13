@@ -20,6 +20,9 @@ import ErrorHandler from "../common/error-handler";
 import MessageBody from './messageBody';
 import './index.css';
 import {fundebug} from '../common/logger';
+import {connect} from 'react-redux';
+import {replaceCurrentUserClassList} from "../redux/actions";
+import store from '../redux/store'
 
 class Home extends Component {
     constructor(props) {
@@ -294,9 +297,7 @@ class Home extends Component {
                 this.checkUserGuideDone(profile.intro_done);
             }
 
-            let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
-                return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
-            })));
+            let classList = await this.getClassListFor(userId);
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 
@@ -368,6 +369,21 @@ class Home extends Component {
         }
     }
 
+    async getClassListFor(userId) {
+        console.log('props = ', this.props.classList)
+        let classList = this.props.classList || await this.refreshMyClassList(userId);
+
+        store.dispatch(replaceCurrentUserClassList(classList))
+        return classList;
+    }
+
+    async refreshMyClassList(userId) {
+        console.log('refresh...')
+        return this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
+            return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
+        })));
+    }
+
     async handleFeedbackNotifications(userId, clonedMessageFromAdvisor) {
         try {
             let classFeedbackNotice = await this.getClassFeedbackNotice(userId);
@@ -410,12 +426,6 @@ class Home extends Component {
             default :
                 break;
         }
-    }
-
-    componentWillUnmount() {
-        this.setState = (state, callback) => {
-            return
-        };
     }
 
     render() {
@@ -573,4 +583,8 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default connect(store => {
+    return {
+        classList: store.currentUserClassList
+    }
+}, null)(Home);
