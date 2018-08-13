@@ -74,6 +74,10 @@ class User {
             currentUser = null;
         }
     }
+
+    static update(profile) {
+        currentUser = new User(currentUser.userId, profile.isSuper, profile)
+    }
 }
 
 export default class CurrentUser {
@@ -85,13 +89,21 @@ export default class CurrentUser {
         return (await User.getInstance()).userId;
     }
 
-    static async getProfile(refresh) {
-        if (refresh) {
-            User.destroy();
-        }
-
+    static async getProfile() {
         let instance = await User.getInstance();
         return instance.profile;
+    }
+
+    static async updateProfile(profile) {
+        await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${(await User.getInstance()).userId}`,
+                json: profile,
+                method: 'PUT'
+            }
+        });
+
+        User.update(profile)
     }
 
     static async signOut() {
