@@ -388,7 +388,7 @@ class My extends Component {
                     profile_title: newTitle
                 });
             } else if (this.state.step === 2) {
-                Track.event('注册_完成提交信息-' + this.state.profile.role === MemberType.Student ? '中方' : '外籍' );
+                Track.event('注册_完成提交信息-' + this.state.profile.role === MemberType.Student ? '中方' : '外籍');
 
                 this.setState({loadingModal: true});
 
@@ -461,7 +461,7 @@ class My extends Component {
     async componentWillMount() {
         try {
             Track.event('注册_联系方式页面-中方');
-            let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
+            let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
             if (!profile.role) {
                 browserHistory.push('/select-role');
                 return;
@@ -565,7 +565,7 @@ class My extends Component {
                     <div className="profile-btn">
                         <ButtonBottom
                             disabled={this.formIsInvalid()}
-                            text={ this.state.step === 1 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
+                            text={this.state.step === 1 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
                             submit={this.submit}/>
                     </div>
                 </Form>

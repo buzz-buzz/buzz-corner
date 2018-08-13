@@ -4,6 +4,7 @@ import ServiceProxy from '../../service-proxy';
 import Resources from '../../resources';
 import CurrentUser from "../../membership/user";
 import BirthdayHelper from '../../common/birthdayFormat';
+import ErrorHandler from "../../common/error-handler";
 
 const genderOptions = [
     {key: 'm', text: 'Male', value: 'm'},
@@ -81,20 +82,14 @@ export default class profileSetup extends Component {
     };
 
     async submit() {
+        let profile = this.validateForm();
+        
         try {
-            let profile = this.validateForm();
-
-            await ServiceProxy.proxyTo({
-                body: {
-                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.userId}`,
-                    json: profile,
-                    method: 'PUT'
-                }
-            });
+            await CurrentUser.updateProfile(profile)
 
             this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
-            console.error(ex);
+            ErrorHandler.notify('更新用户资料出错', ex, profile)
             this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
         }
     }
@@ -125,11 +120,7 @@ export default class profileSetup extends Component {
     async componentDidMount() {
         let userId = await CurrentUser.getUserId();
 
-        let profile = this.getProfileFromUserData(await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${userId}`
-            }
-        }));
+        let profile = profileSetup.getProfileFromUserData(await CurrentUser.getProfile());
 
         profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth);
 
@@ -139,7 +130,7 @@ export default class profileSetup extends Component {
         });
     }
 
-    getProfileFromUserData(userData) {
+    static getProfileFromUserData(userData) {
         return {
             interests: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             display_name: userData.display_name || userData.name || userData.facebook_name || userData.wechat_name || '',
