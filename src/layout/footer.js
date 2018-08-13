@@ -12,7 +12,7 @@ class Footer extends Component {
 
         this.clickEvent = this.clickEvent.bind(this);
 
-        this.state = {role: ''}
+        this.state = {role: 's'}
     }
 
     clickEvent(event, page) {

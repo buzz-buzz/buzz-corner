@@ -1,16 +1,34 @@
 import React from 'react';
 import Track from "../../common/track";
+import ServiceProxy from "../../service-proxy";
 import HeaderWithLogo from '../../common/commonComponent/headerWithLogo';
 import './index.css';
 
 export default class ZoomDownJoin extends React.Component {
-    componentWillMount() {
+    async componentWillMount() {
         const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
 
         if (!/MicroMessenger/.test(navigator.userAgent)) {
             Track.event('课程详情_进入教室唤醒Zoom客户端');
 
-            //TODO 发送请求-保存用户进入教室的时间，记录考勤状况
+            if(this.props.location.query.user_id && this.props.location.query.class_id){
+                try{
+                    await ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/userClassLog`,
+                            json: {
+                                type: 'attend',
+                                user_id: this.props.location.query.user_id,
+                                class_id: this.props.location.query.class_id
+                            },
+                            method: 'POST'
+                        }
+                    });
+                }
+                catch (ex){
+                    console.log('api error:', ex);
+                }
+            }
 
             if (ua_info && ua_info.platform === 'pc') {
                 window.location.href = `zoommtg://zoom.us/join?confno=${this.props.location.query.zoom_number}&zc=${this.props.location.query.zc}&uname=${this.props.location.query.user_name}`;

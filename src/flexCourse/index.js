@@ -3,7 +3,6 @@ import SelectDay from './selectDate';
 import CourseList from './courseList';
 import Footer from '../layout/footer';
 import CurrentUser from "../membership/user";
-import {MemberType} from "../membership/member-type";
 import ServiceProxy from '../service-proxy';
 import Track from "../common/track";
 import ErrorHandler from "../common/error-handler";
