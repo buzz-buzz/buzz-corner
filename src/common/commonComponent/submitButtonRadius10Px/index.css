@@ -1,0 +1,36 @@
+.submit-button {
+  width: 100%;
+  padding: 0;
+  position: relative; }
+  .submit-button button {
+    outline: none;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-shadow: 0 0 0 white;
+    font-size: 17px;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; }
+  .submit-button button.pressing:after {
+    content: '';
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.1); }
+  .submit-button .press {
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0; }
