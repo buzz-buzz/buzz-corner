@@ -23,10 +23,11 @@
 
 .profile-title{
     text-align: center;
-    margin: 30px 0 20px 0 !important;
-    font-weight: normal;
-    letter-spacing: 0;
-    font-size: 17px;
+    margin: 30px 0 !important;
+    font-weight: 600;
+    line-height: 25px;
+    letter-spacing: 1px;
+    font-size: 18px;
     color: #000;
 }
 
@@ -35,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin: 0 -21px;
+    margin-bottom: 50px;
 }
 
 /* .check-number{
@@ -59,7 +60,7 @@
     font-weight: normal !important;
     letter-spacing: 0;
     margin: 0 !important;
-    background-image: linear-gradient(143deg, #fad961, #f5b40c);
+    background: #ffd200;
     color: #ffffff;
 }
 
@@ -115,7 +116,7 @@
 }
 
 .gender > div > .active{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
 }
 
 input[name='date_of_birth']{
@@ -144,12 +145,12 @@ input[name='birthdayLabel']{
 }
 
 .parents-name>input:focus{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
     background-color: white !important;
 }
 
 .phone-number>input:focus{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
     background-color: white !important;
 }
 
@@ -197,7 +198,6 @@ h4{
 
 .agreement{
     margin: 6px auto 0 auto;
-    width: 80%;
     text-align: center;
 }
 
