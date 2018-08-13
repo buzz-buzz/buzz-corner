@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button50px from '../common/commonComponent/submitButton50px';
+import Button50px from '../common/commonComponent/submitButtonRadius10Px';
 import UserItem from '../common/commonComponent/userItem';
 import Resources from '../resources';
 import './index.css';
