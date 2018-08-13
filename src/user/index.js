@@ -10,7 +10,6 @@ import '../common/Icon/style.css';
 import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Index from '../common/commonComponent/ConfirmationModal/index';
 
 class User extends Component {
@@ -109,10 +108,10 @@ class User extends Component {
                             <p className="nationality">{this.state.country}</p>
                         </div>
                         <div className="edit-img" onClick={this.goUpdateProfile}>
-                            <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_sign.svg" alt=""/>
                         </div>
                         <div className="sign-out" onClick={this.openPopModal}>
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_switch.svg" alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_switch.svg" alt=""/>
                         </div>
                     </div>
                     <div className="user-menu">
@@ -120,7 +119,7 @@ class User extends Component {
                             this.state.role === MemberType.Student &&
                             <Link to="class-lessons" className="after-line">
                                 <div className="icon">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_course.svg" alt=""/>
                                     <div className="name">
                                         {Resources.getInstance().myCoins}
                                     </div>
@@ -128,7 +127,7 @@ class User extends Component {
                                 <div className="link">
                                     <div className="class-numbers">{this.state.class_hours || 0}</div>
                                     <div className="right-icon">
-                                        <i className="icon-icon_back_down"/>
+                                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                     </div>
                                 </div>
                             </Link>
@@ -138,7 +137,8 @@ class User extends Component {
                             <Link to="" className="after-line">
                                 <div className="icon">
                                     <div className="name">
-                                        切换成其他用户(id):<input type="number" name="switchToUserId"
+                                        <span>切换成其他用户(id):</span>
+                                        <input type="number" name="switchToUserId"
                                                            onChange={this.handleUserIdChange}
                                                            value={this.state.switchToUserId}/>
                                         <Button onClick={this.switchToOtherUser}>切换</Button>
@@ -146,14 +146,14 @@ class User extends Component {
                                 </div>
                                 <div className="link">
                                     <div className="right-icon">
-                                        <i className="icon-icon_back_down"/>
+                                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                     </div>
                                 </div>
                             </Link>
                         }
                         <Link to="account/set">
                             <div className="icon">
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_account_user.svg" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/user/icon_password.svg" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myAccount}
                                 </div>
@@ -162,7 +162,7 @@ class User extends Component {
                                 <div
                                     className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
                                 <div className="right-icon">
-                                    <i className="icon-icon_back_down"/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                 </div>
                             </div>
                         </Link>

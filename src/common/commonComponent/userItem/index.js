@@ -44,10 +44,10 @@ export default class UserItem extends Component{
                     <p className="city-grade">{this.props.user.city || this.props.user.country}&nbsp;&nbsp;&nbsp;&nbsp;{this.getGradeName(this.props.user.grade)}</p>
                 </div>
                 <div className="status">
-                    {
-                        this.props.active === this.props.user.user_id ?
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_select_active.png" alt=""/> : ''
-                    }
+                    <img src={this.props.active === this.props.user.user_id ?
+                        "//cdn-corner.resource.buzzbuzzenglish.com/icon_select_active.svg" :
+                        "//cdn-corner.resource.buzzbuzzenglish.com/icon_select.svg"
+                    } alt=""/>
                 </div>
             </div>
         )
