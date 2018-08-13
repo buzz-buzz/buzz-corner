@@ -53,14 +53,14 @@
 
 .check-number>.ui.button[disabled]{
     color: rgb(255, 255, 255);
-    background-color: rgb(223, 223, 228) !important;
+    background-color: #f4f5f9 !important;
 }
 .check-number>.ui.button{
     width: 38%;
     font-weight: normal !important;
     letter-spacing: 0;
     margin: 0 !important;
-    background: #ffd200;
+    background: #6ae108;
     color: #ffffff;
 }
 
