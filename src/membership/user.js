@@ -2,6 +2,8 @@ import ServiceProxy from '../service-proxy';
 import ErrorHandler from "../common/error-handler";
 
 let currentUser;
+let fetching = null;
+let promiseResolve = null;
 
 class User {
     constructor(userId, isSuper, profile) {
@@ -10,18 +12,34 @@ class User {
         this.profile = profile;
     }
 
+    static async requestForCurrentUserInfo() {
+        fetching = new Promise(resolve => {
+            promiseResolve = resolve
+        });
+        try {
+            let userData = await ServiceProxy.proxy('/user-info');
+            currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
+        }
+        catch (ex) {
+            if (ex.message.startsWith('http')) {
+                window.location.href = ex.message;
+            } else {
+                ErrorHandler.notify('获取当前用户信息出错', ex);
+            }
+
+            currentUser = {};
+        } finally {
+            fetching = null
+            promiseResolve();
+        }
+    }
+
     static async getInstance() {
         if (!currentUser) {
-            try {
-                let userData = await ServiceProxy.proxy('/user-info');
-                currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
-            } catch (ex) {
-                if (ex.message.startsWith('http')) {
-                    window.location.href = ex.message;
-                } else {
-                    ErrorHandler.notify('获取当前用户信息出错', ex);
-                }
-                return {};
+            if (!fetching) {
+                await this.requestForCurrentUserInfo()
+            } else {
+                await fetching
             }
         }
 
