@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {ADD_USER, ADD_USERS, CLEAR_USERS, TOAST} from '../actions'
+import {ADD_USER, ADD_USERS, CLEAR_USERS, REPLACE_CLASS_LIST, TOAST} from '../actions/index'
 
 function multipleUsers(state = [], action) {
     switch (action.type) {
@@ -32,7 +32,17 @@ function toastMessage(state = {show: false, message: ''}, action) {
     }
 }
 
+function currentUserClassList(state = null, action) {
+    switch (action.type) {
+        case REPLACE_CLASS_LIST:
+            return action.classList
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     users: multipleUsers,
-    toast: toastMessage
+    toast: toastMessage,
+    currentUserClassList: currentUserClassList
 })

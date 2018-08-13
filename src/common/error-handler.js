@@ -1,6 +1,6 @@
-import {toastMessage} from "../actions";
+import {toastMessage} from "../redux/actions";
 import {createStore} from 'redux';
-import reducers from '../reducers/index';
+import reducers from '../redux/reducers/index';
 
 const store = createStore(reducers);
 
