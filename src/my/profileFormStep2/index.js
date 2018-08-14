@@ -119,6 +119,7 @@ export default class ProfileFormStep2 extends React.Component {
                                 <span
                                     style={this.props.profile.gender === 'm' ? {color: '#ffb117'} : {}}>Boy</span>
                             </div>
+                            <div className="between-line"></div>
                             <div className="female" onClick={this.props.changeGenderFemale}>
                                 <div
                                     className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
