@@ -612,11 +612,11 @@ class My extends Component {
     }
 
     companionContactInformationFormIsInvalid() {
-        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone;
+        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone || !this.state.send;
     }
 
     studentContactInformationFormIsInvalid() {
-        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code;
+        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code || !this.state.send;
     }
 
     onCountryCodeChange = (event, data) =>

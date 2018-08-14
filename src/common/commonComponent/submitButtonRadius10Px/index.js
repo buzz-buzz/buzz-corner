@@ -35,8 +35,7 @@ export default class Button extends React.Component {
                 <button className={this.state.pressing ? 'pressing' : ''}
                         onClick={this.props.submit} onTouchStart={this.touchStart}
                         onTouchEnd={this.touchEnd} disabled={this.props.disabled}
-                        style={ this.props.style ?
-                            this.props.style : (this.props.disabled ? {background: '#dfdfe4'} : {background: '#ffd200', boxShadow: '0 2px 5px 0 rgba(237, 174, 0, 0.4)'})}>
+                        style={ this.props.style ? this.props.style : {}}>
                     {this.props.text || 'Continue'}
                 </button>
             </div>
