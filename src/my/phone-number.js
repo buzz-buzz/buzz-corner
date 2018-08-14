@@ -47,7 +47,8 @@ export default (props) =>
             />
             <Button style={props.waitSec ? {
                 padding: 0,
-                color: '#000'
+                color: '#fff',
+                background: '#aaa'
             } : (props.mobileValid ? {
                 padding: 0,
                 color: 'white'
