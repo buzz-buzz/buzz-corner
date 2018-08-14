@@ -498,6 +498,10 @@ class My extends Component {
         if (interval) {
             clearTimeout(interval);
         }
+
+        this.setState = (state, callback) => {
+            return false;
+        };
     }
 
     getProfileFromUserData(userData) {

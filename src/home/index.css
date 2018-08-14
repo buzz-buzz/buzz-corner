@@ -40,10 +40,11 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
     position: relative;
     height: 100%;
     cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .my-home > .home-header > div.tab-booking > div, .my-home > .home-header > div.tab-message > div{

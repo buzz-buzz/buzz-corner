@@ -28,7 +28,8 @@
       margin: 0 3px;
       color: #666; }
       .select-day .days .day-item .day-num {
-        font-size: 17px; }
+        font-size: 17px;
+        font-weight: normal; }
       .select-day .days .day-item .day-en {
         font-size: 10px;
         margin-top: 5px;
@@ -49,8 +50,12 @@
           background-color: #ffd200; }
     .select-day .days .day-item-active {
       background-color: #ffd200;
-      color: white !important;
-      font-weight: 500; }
+      color: white !important; }
+      .select-day .days .day-item-active .day-num {
+        font-size: 17px;
+        font-weight: bold !important; }
+      .select-day .days .day-item-active .day-en {
+        font-weight: bold !important; }
     .select-day .days .active-status {
       position: absolute;
       bottom: -8px;
