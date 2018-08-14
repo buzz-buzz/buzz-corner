@@ -10,6 +10,7 @@ import {MemberType} from "../../membership/member-type";
 import Track from "../../common/track";
 import BirthdayHelper from '../../common/birthdayFormat';
 import './index.css';
+import ServiceProxy from "../../service-proxy";
 import CurrentUser from "../../membership/user";
 
 const grade_list = GradeData.grade_list;
@@ -39,8 +40,12 @@ class UserShow extends Component {
     async componentWillMount() {
         Track.event('用户中心_用户中心展示');
 
-        //topics
-        let user_profile = await CurrentUser.getProfile()
+        //get user info, not current user
+        let user_profile = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.user_id}`
+            }
+        });
 
         let newTopics = [];
 
