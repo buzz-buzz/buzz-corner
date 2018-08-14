@@ -56,10 +56,10 @@
     background-color: #f4f5f9 !important;
 }
 .check-number>.ui.button{
-    width: 38%;
+    width: 125px;
+    margin: 0 0 0 5px !important;
     font-weight: normal !important;
     letter-spacing: 0;
-    margin: 0 !important;
     background: #6ae108;
     color: #ffffff;
 }
@@ -86,22 +86,30 @@
 }
 
 .gender{
+    height: 75px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    margin-top: -10px;
+    color: #666;
 }
 
 .gender > div{
     display: flex;
-    height: 5em;
     align-items: center;
+}
+
+.gender > .between-line{
+    height: 30px;
+    border-left: 1px solid #dfdfe4;
+    margin: 0 47px;
 }
 
 .gender > div > .avatar{
     height: 45px;
     width: 45px;
     border-radius: 50%;
-    margin: 0 1em;
+    margin-right: 15px;
     border: 1px solid #dfdfe4;
     display: flex;
     justify-content: center;
@@ -245,6 +253,10 @@ div.dropdown > input.search{
 
 .ui.input >input{
     background: rgb(244, 245, 249) !important;
+}
+
+.ui.search.dropdown>input.search{
+    padding-left: 2em;
 }
 
 input{

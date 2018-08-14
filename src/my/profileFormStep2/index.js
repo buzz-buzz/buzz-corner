@@ -60,6 +60,7 @@ export default class ProfileFormStep2 extends React.Component {
                             <span
                                 style={this.props.profile.gender === 'm' ? {color: '#ffb117'} : {}}>{Resources.getInstance().profileMale}</span>
                         </div>
+                        <div className="between-line"></div>
                         <div className="female" onClick={this.props.changeGenderFemale}>
                             <div
                                 className={this.props.profile.gender === 'f' ? 'avatar active' : 'avatar'}>
@@ -91,18 +92,18 @@ export default class ProfileFormStep2 extends React.Component {
                             </div>
                     }
                     <div className="selection-options">
-                        <Dropdown placeholder={Resources.getInstance().profileCity} search
-                                  selection noResultsMessage="no result"
-                                  onChange={(event, data) => {
-                                      this.props.handleCityChange(event, data)
-                                  }} value={this.props.profile.city}
-                                  options={ChineseCityList}/>
                         <Dropdown placeholder={Resources.getInstance().profileGrade} search
                                   selection noResultsMessage="no result"
                                   onChange={(event, data) => {
                                       this.props.handleGradeChange(event, data)
                                   }} value={this.props.profile.grade}
                                   options={grade_list}/>
+                        <Dropdown placeholder={Resources.getInstance().profileCity} search
+                                  selection noResultsMessage="no result"
+                                  onChange={(event, data) => {
+                                      this.props.handleCityChange(event, data)
+                                  }} value={this.props.profile.city}
+                                  options={ChineseCityList}/>
                     </div>
                 </div>)
                 : (this.props.role === MemberType.Companion ?

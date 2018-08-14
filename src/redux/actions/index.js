@@ -4,7 +4,6 @@ export const CLEAR_USERS = 'CLEAR_USERS';
 export const TOAST = 'TOAST';
 export const REPLACE_CLASS_LIST = 'REPLACE_CLASS_LIST';
 export const ADD_YUNYING_DATA = 'ADD_YUNYING_DATA';
-export const CLEAR_YUNYING_DATA = 'CLEAR_YUNYING_DATA';
 
 export function addUser(payload) {
     return {type: ADD_USER, payload}
@@ -27,5 +26,5 @@ export function replaceCurrentUserClassList(classList) {
 }
 
 export function addYunYingData(yunYingData) {
-    return {type: ADD_YUNYING_DATA, yunYingData}
+    return {type: ADD_YUNYING_DATA, payload: yunYingData}
 }

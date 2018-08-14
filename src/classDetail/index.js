@@ -294,7 +294,7 @@ class classDetail extends Component {
                 companion_avatar: class_info.companion_avatar || '',
                 class_status_show_style: TimeHelper.timeDiffStyle(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP)),
                 class_status_show_word: TimeHelper.timeDiff(new Date(class_info.start_time), new Date(class_info.end_time), new Date(class_info.CURRENT_TIMESTAMP), window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'),
-                chats: class_content.exercises ? class_content.exercises : [],
+                chats: class_content.exercises ? class_content.exercises.filter(item=>{return !!item;}) : [],
                 loadingModal: false,
                 CURRENT_TIMESTAMP: class_info.CURRENT_TIMESTAMP || new Date(),
                 role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,

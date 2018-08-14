@@ -30,6 +30,7 @@
       color: #666;
       .day-num{
         font-size: 17px;
+        font-weight: normal;
       }
       .day-en{
         font-size: 10px;
@@ -56,7 +57,13 @@
     .day-item-active{
       background-color: #ffd200;
       color: white !important;
-      font-weight: 500;
+      .day-num{
+        font-size: 17px;
+        font-weight: bold !important;
+      }
+      .day-en{
+        font-weight: bold !important;
+      }
     }
     .active-status{
       position: absolute;
