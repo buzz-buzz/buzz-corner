@@ -395,10 +395,7 @@ class My extends Component {
                 let profileData = this.validateForm();
 
                 if (this.state.userId) {
-                    await ServiceProxy.proxy(`/user-info`, {
-                        body: profileData,
-                        method: 'PUT'
-                    });
+                    await CurrentUser.updateProfile(profileData);
 
                     browserHistory.push('/home?intro=1');
                 } else {

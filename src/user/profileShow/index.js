@@ -11,7 +11,6 @@ import Track from "../../common/track";
 import BirthdayHelper from '../../common/birthdayFormat';
 import './index.css';
 import ServiceProxy from "../../service-proxy";
-import CurrentUser from "../../membership/user";
 
 const grade_list = GradeData.grade_list;
 const grade_list_foreign = GradeData.grade_list_foreign;
