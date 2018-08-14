@@ -210,7 +210,6 @@ class YunyingModal extends React.Component {
         try{
             //get data from redux, if no data, then get from DB
             if(this.props.yunYingData && this.props.yunYingData.length){
-                console.log('redux banner有数据-----');
                 this.setState({
                     bannerData: this.props.yunYingData,
                     new_images:this.resetBannerData(this.props.yunYingData)
@@ -220,12 +219,10 @@ class YunyingModal extends React.Component {
                     }
                 });
             }else{
-                console.log('banner无数据-----');
                 let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
 
                 if(bannerData && bannerData.length && bannerData.length > 0){
                     Track.event('运营位_页面展示');
-                    //保存在redux
                     this.props.addYunYingData(bannerData);
 
                     this.setState({
