@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {ADD_USER, ADD_USERS, CLEAR_USERS, REPLACE_CLASS_LIST, TOAST} from '../actions/index'
+import {ADD_USER, ADD_USERS, CLEAR_USERS, REPLACE_CLASS_LIST, TOAST, ADD_YUNYING_DATA, CLEAR_YUNYING_DATA} from '../actions/index'
 
 function multipleUsers(state = [], action) {
     switch (action.type) {
@@ -41,8 +41,18 @@ function currentUserClassList(state = null, action) {
     }
 }
 
+function yunYingList(state = null, action){
+    switch (action.type) {
+        case ADD_YUNYING_DATA:
+            return action.yunYingData;
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
     users: multipleUsers,
     toast: toastMessage,
-    currentUserClassList: currentUserClassList
+    currentUserClassList: currentUserClassList,
+    yunYingList: yunYingList
 })

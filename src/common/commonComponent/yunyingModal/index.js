@@ -2,9 +2,13 @@ import React from 'react';
 import Client from "../../../common/client";
 import ServiceProxy from '../../../service-proxy';
 import Track from "../../track";
+
+import {connect} from 'react-redux';
+import store from '../../../redux/store';
+import {addYunYingData} from "../../../redux/actions";
 import './index.css';
 
-export default class YunyingModal extends React.Component {
+class YunyingModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -205,19 +209,36 @@ export default class YunyingModal extends React.Component {
 
     async componentWillMount() {
         try{
-            let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
-
-            if(bannerData && bannerData.length && bannerData.length > 0){
-                Track.event('运营位_页面展示');
-
+            //get data from redux, if no data, then get from DB
+            if(this.props.yunYingData && this.props.yunYingData.length){
+                console.log('有数据-----');
+                console.log(this.props.yunYingData);
                 this.setState({
-                    bannerData: bannerData,
-                    new_images:this.resetBannerData(bannerData)
+                    bannerData: this.props.yunYingData,
+                    new_images:this.resetBannerData(this.props.yunYingData)
                 }, () => {
-                    if( bannerData.length > 1){
+                    if( this.props.yunYingData.length > 1){
                         this.beginPlaying();
                     }
                 });
+            }else{
+                console.log('无数据-----');
+                let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
+
+                if(bannerData && bannerData.length && bannerData.length > 0){
+                    Track.event('运营位_页面展示');
+                    //保存在redux
+                    store.dispatch(addYunYingData(bannerData));
+
+                    this.setState({
+                        bannerData: bannerData,
+                        new_images:this.resetBannerData(bannerData)
+                    }, () => {
+                        if( bannerData.length > 1){
+                            this.beginPlaying();
+                        }
+                    });
+                }
             }
         }
         catch (ex){
@@ -290,3 +311,9 @@ export default class YunyingModal extends React.Component {
         )
     }
 }
+
+export default connect(store => {
+    return {
+        yunYingData: store.yunYingList
+    }
+}, null)(YunyingModal);
