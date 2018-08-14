@@ -423,6 +423,12 @@ class Home extends Component {
         })
     }
 
+    componentWillUnmount() {
+        this.setState = (state, callback) => {
+            return false;
+        };
+    }
+
     colorHelper(color) {
         switch (color) {
             case 'rgb(246, 180, 12)' :

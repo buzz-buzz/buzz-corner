@@ -85,7 +85,7 @@ export default class profileSetup extends Component {
         let profile = this.validateForm();
         
         try {
-            await CurrentUser.updateProfile(profile)
+            await CurrentUser.updateProfile(profile);
 
             this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
