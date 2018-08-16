@@ -274,7 +274,7 @@ export default class CourseDetail extends React.Component {
         return (
             <div className="course-detail">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
-                <ClassInfoTitle course_info={this.state.course_info}/>
+                <ClassInfoTitle course_info={this.state.course_info} onAvatarClick={()=>this.userCenter(this.state.course_info.companions)}/>
                 <div className="course-intro">
                     <div className="partners">
                         {

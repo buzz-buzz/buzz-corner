@@ -21,7 +21,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around; }
+    padding: 30px 21px;
+    justify-content: center; }
     .course-detail .course-intro .partners {
       display: flex;
       justify-content: space-between;
@@ -82,7 +83,7 @@
       font-size: 18px;
       color: #000;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin: 25px 0 15px 0;
       text-align: center; }
     .course-detail .course-intro .intro .intro-content {
       text-align: center;
@@ -91,11 +92,12 @@
       color: #868686;
       line-height: 21px; }
   .course-detail .course-join {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     padding: 30px 0 30px 0;
     display: flex;
     flex-direction: column;
-    align-items: center; }
+    align-items: center;
+    justify-content: center; }
     .course-detail .course-join .time-left {
       display: flex;
       align-items: center;
