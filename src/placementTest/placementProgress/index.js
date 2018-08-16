@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../my/profileProgress/index.css';
 
 export default class PlacementProgress extends React.Component {
     render() {

@@ -67,10 +67,8 @@ class User extends Component {
 
         //TitleSet.setTitle(Resources.getInstance().footerUser);
 
-        let profile = await CurrentUser.getProfile(true) || {};
+        let profile = await CurrentUser.getProfile() || {};
         const ua_info = require("ua_parser").userAgent(window.navigator.userAgent);
-
-        console.log(ua_info);
 
         this.setState({
             avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg',
