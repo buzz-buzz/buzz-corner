@@ -18,7 +18,7 @@
     position: relative; }
     .select-day .days .day-item {
       position: relative;
-      padding: 8px 9px 15px 9px;
+      padding: 8px 0 15px 0;
       border-radius: 2px;
       flex-direction: column;
       justify-content: center;
