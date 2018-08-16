@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Resources from '../resources';
 import Footer from '../layout/footer';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
-import {MemberType} from "../membership/member-type";
 import Track from "../common/track";
 import './index.css';
 
@@ -61,9 +60,9 @@ class Friends extends Component {
                     </div>
                 </div>
                 <div className="friends-content">
-                    <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png" />
+                    <WhiteSpace message={Resources.getInstance().developWord} src="//cdn-corner.resource.buzzbuzzenglish.com/icon_blank%20page.png"/>
                 </div>
-                <Footer role={MemberType.Companion}/>
+                <Footer/>
             </div>
         );
     }

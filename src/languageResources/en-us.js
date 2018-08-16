@@ -62,6 +62,7 @@ export const profileStep1Info = 'Session information and service notification';
 export const profileParentsName = 'Parent\'s Information';
 export const profilePhoneHolder = 'Phone number';
 export const profilePhoneCheck = 'Receive';
+export const profilePhoneCheckAgain = 'Receive';
 export const profilePhoneLabel = 'Verification code';
 export const profilePhoneCheckError = 'The code you entered is incorrect or expired. Please re-enter or get a new code';
 export const profileAgreement = 'I have reviewed and accepted BuzzBuzz user term and agreement.';
@@ -82,6 +83,7 @@ export const profileStep4 = 'Decode the call sign';
 export const profileStep4Info = 'Create user language profile, ';
 export const profileStep4InfoWord1 = 'Match the perfect English native speaking';
 export const profileStep4InfoWordBold = ' Peer tutor';
+export const profilePhoneSend = 'Sent';
 
 export const placementSelectWord = 'Choose the best answer';
 export const placementAudioWord = 'Listen to the question and record your answer.';
@@ -334,6 +336,8 @@ export const accountHow = 'How to get my account？';
 export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
+export const accountAccount = 'Account';
+export const accountPassword = 'Password';
 
 export const taoCourseNone = 'Sorry, current session is sold out.';
 export const taoCourseLike = 'Pick the one you like';

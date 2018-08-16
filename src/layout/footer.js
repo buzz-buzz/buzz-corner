@@ -4,80 +4,80 @@ import Track from "../common/track";
 import {Link} from "react-router";
 import {MemberType} from "../membership/member-type";
 import './footer.css';
+import CurrentUser from "../membership/user";
 
 class Footer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.clickEvent = this.clickEvent.bind(this);
+
+        this.state = {role: 's'}
     }
 
-    clickEvent(event, page){
+    clickEvent(event, page) {
         Track.event('首页_点击' + page + '图标');
     }
 
-    componentWillMount(){
-        let path_name = window.location.pathname;
-        let role = localStorage.getItem('role');
-
-        if(!role && this.props.role){
-            localStorage.setItem('role', this.props.role);
-            role = this.props.role;
-        }
+    async componentWillMount() {
+        let role = (await CurrentUser.getProfile()).role;
 
         this.setState({
             role: role,
-            path_name: path_name
         });
     }
 
     render() {
         return (
             <div className="footer">
-                <Link to="home" style={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? {color: '#f7b52a'} : {}} onClick={event => this.clickEvent(event, '首页')}>
+                <Link to="home" style={window.location.pathname.indexOf('/home') > -1 || window.location.pathname === '/' ? {color: '#f7b52a'} : {}}
+                      onClick={event => this.clickEvent(event, '首页')}>
                     <img
-                        src={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home.svg"}
+                        src={window.location.pathname.indexOf('/home') > -1 || window.location.pathname === '/' ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_home.svg"}
                         alt=""/>
-                    <p  style={this.state.path_name.indexOf('/home') > -1 || this.state.path_name === '/' ? {color: '#f7b52a'} : {}}>
+                    <p style={window.location.pathname.indexOf('/home') > -1 || window.location.pathname === '/' ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerHome}
                     </p>
                 </Link>
                 {
                     this.state.role === MemberType.Student &&
-                    <Link to="course" style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}
+                    <Link to="course" style={window.location.pathname.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}
                           onClick={event => this.clickEvent(event, '淘课')}>
                         <img
-                            src={this.state.path_name.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
+                            src={window.location.pathname.indexOf('/course') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course.svg"}
                             alt=""/>
-                        <p style={this.state.path_name.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
+                        <p style={window.location.pathname.indexOf('/course') > -1 ? {color: '#f7b52a'} : {}}>
                             {Resources.getInstance().footerSelectCourse}
                         </p>
                     </Link>
                 }
                 {
                     this.state.role === MemberType.Companion &&
-                        <Link to="friends" style={this.state.path_name.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '好友')}>
-                            <img
-                                src={this.state.path_name.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}
-                                alt=""/>
-                            <p style={this.state.path_name.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
-                                {Resources.getInstance().footerFriends}
-                            </p>
-                        </Link>
+                    <Link to="friends" style={window.location.pathname.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}
+                          onClick={event => this.clickEvent(event, '好友')}>
+                        <img
+                            src={window.location.pathname.indexOf('/friends') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_friend.svg"}
+                            alt=""/>
+                        <p style={window.location.pathname.indexOf('/friends') > -1 ? {color: '#f7b52a'} : {}}>
+                            {Resources.getInstance().footerFriends}
+                        </p>
+                    </Link>
                 }
-                <Link to="reward" style={this.state.path_name.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '奖励')}>
+                <Link to="reward" style={window.location.pathname.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}
+                      onClick={event => this.clickEvent(event, '奖励')}>
                     <img
-                        src={this.state.path_name.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward.svg"}
+                        src={window.location.pathname.indexOf('/reward') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/Icon_reward.svg"}
                         alt=""/>
-                    <p  style={this.state.path_name.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
+                    <p style={window.location.pathname.indexOf('/reward') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerReward}
                     </p>
                 </Link>
-                <Link to="user" style={this.state.path_name.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}  onClick={event => this.clickEvent(event, '我的')}>
+                <Link to="user" style={window.location.pathname.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}
+                      onClick={event => this.clickEvent(event, '我的')}>
                     <img
-                        src={this.state.path_name.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user.svg"}
+                        src={window.location.pathname.indexOf('/user') > -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/footer/icon_user.svg"}
                         alt=""/>
-                    <p style={this.state.path_name.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
+                    <p style={window.location.pathname.indexOf('/user') > -1 ? {color: '#f7b52a'} : {}}>
                         {Resources.getInstance().footerUser}
                     </p>
                 </Link>

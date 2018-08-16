@@ -28,7 +28,7 @@ class Consult extends Component {
     async componentWillMount() {
         Track.event('顾问_顾问页面展示');
 
-        let profile = await CurrentUser.getProfile(true);
+        let profile = await CurrentUser.getProfile();
 
         this.setState({role: profile.role});
     }

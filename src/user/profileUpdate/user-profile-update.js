@@ -448,22 +448,27 @@ class UserUpdate extends Component {
     };
 
     async componentWillMount() {
-        Track.event('我的_修改资料页面展示');
+        try{
+            Track.event('我的_修改资料页面展示');
 
-        let profile = UserUpdate.getProfileFromUserData(await CurrentUser.getProfile(true));
-        if (!profile.role) {
-            browserHistory.push('/select-role');
-            return;
+            let profile = UserUpdate.getProfileFromUserData(await CurrentUser.getProfile());
+            if (!profile.role) {
+                browserHistory.push('/select-role');
+                return;
+            }
+
+            this.setState({
+                profile: profile,
+                mobileValid: profile && profile.phone && profile.phone.length > 0,
+                emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
+                new_phone: profile.phone,
+                new_email: profile.email,
+                mobileCountry: profile.mobileCountry
+            });
         }
-
-        this.setState({
-            profile: profile,
-            mobileValid: profile && profile.phone && profile.phone.length > 0,
-            emailValid: profile && profile.email && this.state.email_reg.test(profile.email) && profile.student_en_name,
-            new_phone: profile.phone,
-            new_email: profile.email,
-            mobileCountry: profile.mobileCountry
-        });
+        catch(ex){
+            ErrorHandler.notify('我的_获取用户信息出错', ex);
+        }
     }
 
     static getProfileFromUserData(userData) {
@@ -484,7 +489,7 @@ class UserUpdate extends Component {
             time_zone: userData.time_zone || '',
             avatar: userData.avatar || QiniuDomain + '/logo-image.svg',
             password: userData.password,
-            mobileCountry: userData.mobile_country.country.country_long_name
+            mobileCountry: userData.mobile_country && userData.mobile_country.country && userData.mobile_country.country.country_long_name ? userData.mobile_country.country.country_long_name : ''
         };
     }
 

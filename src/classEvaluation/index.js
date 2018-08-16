@@ -202,7 +202,7 @@ class classEvaluation extends Component {
         try {
             this.setState({loadingModal: true});
 
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
             let userId = profile.user_id;
 
             Track.event(profile.role === MemberType.Student ? '课后评价_中方课后评价页面' : '课后评价_外籍课后评价页面');
@@ -215,6 +215,12 @@ class classEvaluation extends Component {
 
             class_info = this.handleClassInfoData(class_info[0]);
 
+            if(userId + '' === this.state.to_user_id){
+                alert('链接失效, 不能评价自己');
+                Back.back();
+                return false;
+            }
+
             //class if end
             if (new Date(class_info.end_time) - new Date(class_info.CURRENT_TIMESTAMP) > 0) {
                 alert('此课程还未结束不能评价, 请稍后再来哦');
@@ -225,6 +231,12 @@ class classEvaluation extends Component {
             //auth check
             if (class_info.companions && class_info.students && class_info.companions !== (userId + '') && class_info.students.indexOf(userId + '') <= -1) {
                 alert(Resources.getInstance().classInfoNoAuth);
+                Back.back();
+                return false;
+            }
+
+            if (class_info.companions && class_info.students && class_info.companions !== this.state.to_user_id && class_info.students.indexOf(this.state.to_user_id) <= -1) {
+                alert('链接失效, 不能评价非此班级的成员');
                 Back.back();
                 return false;
             }
@@ -298,7 +310,7 @@ class classEvaluation extends Component {
             }
         } catch (ex) {
             //login error
-            ErrorHandler.notify('课后评价页面出错', ex)
+            ErrorHandler.notify('课后评价页面出错', ex);
             this.setState({loadingModal: false});
         }
     }

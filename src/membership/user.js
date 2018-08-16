@@ -2,6 +2,8 @@ import ServiceProxy from '../service-proxy';
 import ErrorHandler from "../common/error-handler";
 
 let currentUser;
+let fetching = null;
+let promiseResolve = null;
 
 class User {
     constructor(userId, isSuper, profile) {
@@ -10,18 +12,34 @@ class User {
         this.profile = profile;
     }
 
+    static async requestForCurrentUserInfo() {
+        fetching = new Promise(resolve => {
+            promiseResolve = resolve
+        });
+        try {
+            let userData = await ServiceProxy.proxy('/user-info');
+            currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
+        }
+        catch (ex) {
+            if (ex.message.startsWith('http')) {
+                window.location.href = ex.message;
+            } else {
+                ErrorHandler.notify('获取当前用户信息出错', ex);
+            }
+
+            currentUser = {};
+        } finally {
+            fetching = null
+            promiseResolve();
+        }
+    }
+
     static async getInstance() {
         if (!currentUser) {
-            try {
-                let userData = await ServiceProxy.proxy('/user-info');
-                currentUser = new User(userData.userId, userData.profile.isSuper, userData.profile);
-            } catch (ex) {
-                if (ex.message.startsWith('http')) {
-                    window.location.href = ex.message;
-                } else {
-                    ErrorHandler.notify('获取当前用户信息出错', ex);
-                }
-                return {};
+            if (!fetching) {
+                await this.requestForCurrentUserInfo()
+            } else {
+                await fetching
             }
         }
 
@@ -56,6 +74,10 @@ class User {
             currentUser = null;
         }
     }
+
+    static update(profile) {
+        currentUser = new User(currentUser.userId, profile.isSuper, profile)
+    }
 }
 
 export default class CurrentUser {
@@ -67,13 +89,21 @@ export default class CurrentUser {
         return (await User.getInstance()).userId;
     }
 
-    static async getProfile(refresh) {
-        if (refresh) {
-            User.destroy();
-        }
-
+    static async getProfile() {
         let instance = await User.getInstance();
         return instance.profile;
+    }
+
+    static async updateProfile(profile) {
+        let new_profile = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/${(await User.getInstance()).userId}`,
+                json: profile,
+                method: 'PUT'
+            }
+        });
+
+        User.update(new_profile);
     }
 
     static async signOut() {

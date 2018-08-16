@@ -20,6 +20,9 @@ import ErrorHandler from "../common/error-handler";
 import MessageBody from './messageBody';
 import './index.css';
 import {fundebug} from '../common/logger';
+import {connect} from 'react-redux';
+import {replaceCurrentUserClassList} from "../redux/actions";
+import store from '../redux/store'
 
 class Home extends Component {
     constructor(props) {
@@ -250,7 +253,7 @@ class Home extends Component {
         this.setState({
             welcome: false,
             intro_done: true
-        }, async() => {
+        }, async () => {
             try {
                 await ServiceProxy.proxy(`/user-info`, {
                     body: {
@@ -272,7 +275,7 @@ class Home extends Component {
             this.setState({loadingModal: true});
 
             //check if placement is Done await CurrentUser.getUserId()
-            let profile = await CurrentUser.getProfile(true);
+            let profile = await CurrentUser.getProfile();
             let userId = profile.user_id;
 
             if (!profile.role) {
@@ -294,9 +297,7 @@ class Home extends Component {
                 this.checkUserGuideDone(profile.intro_done);
             }
 
-            let classList = this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
-                return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
-            })));
+            let classList = await this.getClassListFor(userId);
 
             let clonedMessageFromAdvisor = this.state.messageFromAdvisor;
 
@@ -315,38 +316,11 @@ class Home extends Component {
                 }
             }
 
-            await window.Promise.all(classList.map(async(item, index) => {
+            await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
-                        clonedMessageFromAdvisor.push({
-                            message_title: item.companion_name || 'Advisor',
-                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
-                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
-                            hasRead: ''
-                        });
-                    } else if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
-                        clonedMessageFromAdvisor.push({
-                            message_title: item.companion_name || 'Advisor',
-                            message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
-                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                            goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
-                            hasRead: 'read'
-                        });
-                    }
+                    this.calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor);
                 } else if (profile.role === MemberType.Companion) {
-                    if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.class_id !== 'observation') {
-                        //get companion evaluation is done
-                        let result = await this.getCompanionEvaluation(item.class_id);
-
-                        clonedMessageFromAdvisor.push({
-                            message_title: item.companion_name || 'Advisor',
-                            message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'BuzzBuzz'),
-                            message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                            goUrl: '/class/foreign/' + item.class_id + '?tab=message',
-                            hasRead: result && result.feedback ? 'read' : ''
-                        });
-                    }
+                    await this.calculateFeedbackMessagesForCompanion(item, clonedMessageFromAdvisor);
                 }
 
                 return item;
@@ -366,6 +340,56 @@ class Home extends Component {
 
             this.setState({loadingModal: false});
         }
+    }
+
+    async calculateFeedbackMessagesForCompanion(item, clonedMessageFromAdvisor) {
+        if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.class_id !== 'observation') {
+            //get companion evaluation is done
+            let result = await this.getCompanionEvaluation(item.class_id);
+
+            clonedMessageFromAdvisor.push({
+                message_title: item.companion_name || 'Advisor',
+                message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'BuzzBuzz'),
+                message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
+                goUrl: '/class/foreign/' + item.class_id + '?tab=message',
+                hasRead: result && result.feedback ? 'read' : ''
+            });
+        }
+    }
+
+    calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor) {
+        if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
+            clonedMessageFromAdvisor.push({
+                message_title: item.companion_name || 'Advisor',
+                message_content: Resources.getInstance().bookingFeedbackNotice + (item.topic || item.name || 'No topic'),
+                message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
+                goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
+                hasRead: ''
+            });
+        } else if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && item.comment && item.score) {
+            clonedMessageFromAdvisor.push({
+                message_title: item.companion_name || 'Advisor',
+                message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
+                message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
+                goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
+                hasRead: 'read'
+            });
+        }
+    }
+
+    async getClassListFor(userId) {
+        console.log('props = ', this.props.classList)
+        let classList = this.props.classList || await this.refreshMyClassList(userId);
+
+        store.dispatch(replaceCurrentUserClassList(classList))
+        return classList;
+    }
+
+    async refreshMyClassList(userId) {
+        console.log('refresh...')
+        return this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
+            return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
+        })));
     }
 
     async handleFeedbackNotifications(userId, clonedMessageFromAdvisor) {
@@ -399,6 +423,12 @@ class Home extends Component {
         })
     }
 
+    componentWillUnmount() {
+        this.setState = (state, callback) => {
+            return false;
+        };
+    }
+
     colorHelper(color) {
         switch (color) {
             case 'rgb(246, 180, 12)' :
@@ -410,12 +440,6 @@ class Home extends Component {
             default :
                 break;
         }
-    }
-
-    componentWillUnmount(){
-        this.setState = (state, callback) => {
-            return
-        };
     }
 
     render() {
@@ -447,16 +471,16 @@ class Home extends Component {
                             <div>{Resources.getInstance().homeTabBooking}</div>
                             <div className="tab-active"
                                  style={this.state.tab === 'booking' ? {
-                                         borderTop: '4px solid #ffd200',
-                                         borderTopLeftRadius: '5px',
-                                         borderTopRightRadius: '5px'
-                                     } : {}}/>
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                         </div>
                     </div>
                     <div className="tab-message"
                          style={this.state.tab === 'message' ? {color: '#f7b52a'} : {}}
                          onClick={this.tabChangeMessage}>
-                        <div  style={{position: 'relative'}}>
+                        <div style={{position: 'relative'}}>
                             <img
                                 src="//cdn-corner.resource.buzzbuzzenglish.com/icon_message.svg"
                                 alt="" style={{
@@ -473,10 +497,10 @@ class Home extends Component {
                             </div>
                             <div className="tab-active"
                                  style={this.state.tab === 'message' ? {
-                                         borderTop: '4px solid #ffd200',
-                                         borderTopLeftRadius: '5px',
-                                         borderTopRightRadius: '5px'
-                                     } : {}}/>
+                                     borderTop: '4px solid #ffd200',
+                                     borderTopLeftRadius: '5px',
+                                     borderTopRightRadius: '5px'
+                                 } : {}}/>
                         </div>
                     </div>
                 </div>
@@ -525,8 +549,8 @@ class Home extends Component {
                                 <p>{Resources.getInstance().homeTabAdvisor + (this.state.messageFromAdvisor.filter(function (ele) {
                                     return ele.hasRead === '';
                                 }).length > 0 ? '(' + this.state.messageFromAdvisor.filter(function (ele) {
-                                        return ele.hasRead === '';
-                                    }).length + ')' : '')}</p>
+                                    return ele.hasRead === '';
+                                }).length + ')' : '')}</p>
                             </div>
                         </div>
                         {
@@ -558,7 +582,7 @@ class Home extends Component {
                 }
                 <div className="offset-footer"
                      style={{height: '52px'}}/>
-                <Footer role={this.state.role}/>
+                <Footer/>
             </div>
         );
     }
@@ -573,4 +597,8 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default connect(store => {
+    return {
+        classList: store.currentUserClassList
+    }
+}, null)(Home);

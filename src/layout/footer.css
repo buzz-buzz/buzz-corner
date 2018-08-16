@@ -11,7 +11,7 @@
 }
 
 .footer>a{
-    width: 25%;
+    flex: 1 1 auto;
     height: 100%;
     display: flex;
     justify-content: center;

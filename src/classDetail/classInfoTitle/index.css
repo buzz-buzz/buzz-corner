@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 20px;
-    padding: 2px; }
+    padding: 5px; }
     .class-info .avatar-new img {
       height: 100%; }
     .class-info .avatar-new img.bg {
@@ -33,7 +33,15 @@
       font-size: 18px;
       font-weight: 600;
       color: #000;
-      line-height: 21px; }
+      line-height: 21px;
+      display: flex;
+      align-items: center; }
+      .class-info .course-content .name span {
+        max-width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: inline-block; }
     .class-info .course-content .topic {
       margin: 10px 0 5px 0;
       font-size: 13px;
@@ -44,7 +52,7 @@
   .class-info .course-status {
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 25px;
     font-size: 12px;
     height: 35px;
     line-height: 35px;

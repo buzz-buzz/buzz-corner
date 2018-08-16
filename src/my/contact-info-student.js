@@ -14,7 +14,7 @@ export default (props) => (<div className="form-content">
     <PhoneNumber profile={props.profile} handleChange={props.handleChange}
                  code={props.code} handleCodeChange={props.handleCodeChange}
                  waitSec={props.waitSec} mobileValid={props.mobileValid}
-                 sms={props.sms}
+                 sms={props.sms} send={props.send}
                  mobileCountry={props.mobileCountry}
                  onCountryCodeChange={props.onCountryCodeChange}/>
     <div className="agreement" onClick={props.agreementCheck}>
