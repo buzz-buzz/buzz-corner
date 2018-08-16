@@ -378,15 +378,13 @@ class Home extends Component {
     }
 
     async getClassListFor(userId) {
-        console.log('props = ', this.props.classList)
         let classList = this.props.classList || await this.refreshMyClassList(userId);
 
-        store.dispatch(replaceCurrentUserClassList(classList))
+        store.dispatch(replaceCurrentUserClassList(classList));
         return classList;
     }
 
     async refreshMyClassList(userId) {
-        console.log('refresh...')
         return this.sortClassList(this.handleClassListData((await this.getUserClassList(userId)).filter(function (ele) {
             return ele.status && ele.status !== 'cancelled' && ele.class_id && ele.companion_id;
         })));
