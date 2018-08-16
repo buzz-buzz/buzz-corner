@@ -5,9 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import users from './reducers';
+import store from './redux/store';
 
 let fundebug = require('./common/logger').fundebug;
 
@@ -33,7 +32,6 @@ class ErrorBoundary extends React.Component {
 }
 
 
-const store = createStore(users);
 window.store = store;
 
 ReactDOM.render(<ErrorBoundary>

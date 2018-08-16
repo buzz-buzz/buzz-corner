@@ -23,10 +23,11 @@
 
 .profile-title{
     text-align: center;
-    margin: 30px 0 20px 0 !important;
-    font-weight: normal;
-    letter-spacing: 0;
-    font-size: 17px;
+    margin: 30px 0 !important;
+    font-weight: 600;
+    line-height: 25px;
+    letter-spacing: 1px;
+    font-size: 18px;
     color: #000;
 }
 
@@ -35,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin: 0 -21px;
+    margin-bottom: 50px;
 }
 
 /* .check-number{
@@ -50,16 +51,12 @@
     justify-content: space-between;
 }
 
-.check-number>.ui.button[disabled]{
-    color: rgb(255, 255, 255);
-    background-color: rgb(223, 223, 228) !important;
-}
 .check-number>.ui.button{
-    width: 38%;
+    width: 125px;
+    margin: 0 0 0 5px !important;
     font-weight: normal !important;
     letter-spacing: 0;
-    margin: 0 !important;
-    background-image: linear-gradient(143deg, #fad961, #f5b40c);
+    background: #6ae108;
     color: #ffffff;
 }
 
@@ -85,22 +82,30 @@
 }
 
 .gender{
+    height: 75px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    margin-top: -10px;
+    color: #666;
 }
 
 .gender > div{
     display: flex;
-    height: 5em;
     align-items: center;
+}
+
+.gender > .between-line{
+    height: 30px;
+    border-left: 1px solid #dfdfe4;
+    margin: 0 47px;
 }
 
 .gender > div > .avatar{
     height: 45px;
     width: 45px;
     border-radius: 50%;
-    margin: 0 1em;
+    margin-right: 15px;
     border: 1px solid #dfdfe4;
     display: flex;
     justify-content: center;
@@ -115,7 +120,7 @@
 }
 
 .gender > div > .active{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
 }
 
 input[name='date_of_birth']{
@@ -144,12 +149,12 @@ input[name='birthdayLabel']{
 }
 
 .parents-name>input:focus{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
     background-color: white !important;
 }
 
 .phone-number>input:focus{
-    border: 1px solid #f7b52a !important;
+    border: 1px solid #ffd200 !important;
     background-color: white !important;
 }
 
@@ -197,7 +202,6 @@ h4{
 
 .agreement{
     margin: 6px auto 0 auto;
-    width: 80%;
     text-align: center;
 }
 
@@ -247,6 +251,14 @@ div.dropdown > input.search{
     background: rgb(244, 245, 249) !important;
 }
 
+.ui.search.dropdown>input.search{
+    padding-left: 2em;
+}
+
 input{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+.my-profile > .error{
+    top: 0;
 }

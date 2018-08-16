@@ -31,11 +31,11 @@ export default class Button extends React.Component {
 
     render() {
         return (
-            <div className="submit-button">
+            <div className="submit-button-r10">
                 <button className={this.state.pressing ? 'pressing' : ''}
                         onClick={this.props.submit} onTouchStart={this.touchStart}
                         onTouchEnd={this.touchEnd} disabled={this.props.disabled}
-                        style={this.props.style ? this.props.style : {}}>
+                        style={ this.props.style ? this.props.style : {}}>
                     {this.props.text || 'Continue'}
                 </button>
             </div>

@@ -16,7 +16,12 @@
     color: white;
     position: relative;
     cursor: pointer;
+    background: #ffd200;
+    box-shadow: 0 2px 5px 0 rgba(237, 174, 0, 0.4);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; }
+  .submit-button-bottom button[disabled] {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+    background: #dfdfe4; }
   .submit-button-bottom button.pressing:after {
     content: '';
     position: absolute;

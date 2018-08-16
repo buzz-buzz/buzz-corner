@@ -63,6 +63,9 @@
       font-size: 15px;
       display: flex;
       align-items: center;
+      .word{
+        white-space: nowrap;
+      }
       .stars{
         margin-left: 20px;
         display: flex;
@@ -76,6 +79,7 @@
     .stars-word{
       font-size: 15px;
       color: #868686;
+      white-space: nowrap;
     }
   }
   .companion-word{

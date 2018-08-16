@@ -10,7 +10,6 @@ import '../common/Icon/style.css';
 import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import Index from '../common/commonComponent/ConfirmationModal/index';
 
 class User extends Component {
@@ -37,11 +36,11 @@ class User extends Component {
         this.goUpdateProfile = this.goUpdateProfile.bind(this);
     }
 
-    showUserInfo(){
+    showUserInfo() {
         browserHistory.push('/user/' + this.state.userId);
     }
 
-    signOut(){
+    signOut() {
         Track.event('我的_点击切换账号');
 
         this.setState({signOutModal: false}, () => {
@@ -49,15 +48,15 @@ class User extends Component {
         });
     }
 
-    closePopModal(){
+    closePopModal() {
         this.setState({signOutModal: false});
     }
 
-    openPopModal(){
+    openPopModal() {
         this.setState({signOutModal: true});
     }
 
-    goUpdateProfile(){
+    goUpdateProfile() {
         Track.event('我的_编辑个人信息按钮点击');
 
         browserHistory.push('/user-profile');
@@ -86,7 +85,7 @@ class User extends Component {
         });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = (state, callback) => {
             return
         };
@@ -109,10 +108,10 @@ class User extends Component {
                             <p className="nationality">{this.state.country}</p>
                         </div>
                         <div className="edit-img" onClick={this.goUpdateProfile}>
-                            <img src={QiniuDomain + "/icon-sign.svg"} alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_sign.svg" alt=""/>
                         </div>
                         <div className="sign-out" onClick={this.openPopModal}>
-                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/image/icon/icon_switch.svg" alt=""/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_switch.svg" alt=""/>
                         </div>
                     </div>
                     <div className="user-menu">
@@ -120,7 +119,7 @@ class User extends Component {
                             this.state.role === MemberType.Student &&
                             <Link to="class-lessons" className="after-line">
                                 <div className="icon">
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_my%20coins.png" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_course.svg" alt=""/>
                                     <div className="name">
                                         {Resources.getInstance().myCoins}
                                     </div>
@@ -128,61 +127,48 @@ class User extends Component {
                                 <div className="link">
                                     <div className="class-numbers">{this.state.class_hours || 0}</div>
                                     <div className="right-icon">
-                                        <i className="icon-icon_back_down"/>
+                                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                     </div>
                                 </div>
                             </Link>
                         }
                         {
                             this.state.isSuper &&
-                            <Link to="">
+                            <Link to="" className="after-line">
                                 <div className="icon">
                                     <div className="name">
-                                        切换成其他用户：<input type="number" name="switchToUserId"
-                                                       onChange={this.handleUserIdChange}
-                                                       value={this.state.switchToUserId} />
+                                        <span>切换成其他用户(id):</span>
+                                        <input type="number" name="switchToUserId"
+                                                           onChange={this.handleUserIdChange}
+                                                           value={this.state.switchToUserId}/>
                                         <Button onClick={this.switchToOtherUser}>切换</Button>
                                     </div>
                                 </div>
                                 <div className="link">
+                                    <div className="right-icon">
+                                        <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
+                                    </div>
                                 </div>
                             </Link>
                         }
                         <Link to="account/set">
                             <div className="icon">
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_account_user.svg" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/user/icon_password.svg" alt=""/>
                                 <div className="name">
                                     {Resources.getInstance().myAccount}
                                 </div>
                             </div>
                             <div className="link">
-                                <div className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
+                                <div
+                                    className="class-numbers">{this.state.password ? Resources.getInstance().accountSet : Resources.getInstance().accountUnset}</div>
                                 <div className="right-icon">
-                                    <i className="icon-icon_back_down"/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                 </div>
                             </div>
                         </Link>
-                        {/*{*/}
-                            {/*this.state.ios &&*/}
-                            {/*<IosToHomeScreen/>*/}
-                        {/*}*/}
-                        {/*<Link style={{display: 'none'}}>*/}
-                        {/*<div className="icon">*/}
-                        {/*<img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_language.png" alt=""/>*/}
-                        {/*<div className="name">*/}
-                        {/*{Resources.getInstance().myLanguage}*/}
-                        {/*</div>*/}
-                        {/*</div>*/}
-                        {/*<div className="link">*/}
-                        {/*<div className="class-numbers">中文</div>*/}
-                        {/*<div className="right-icon">*/}
-                        {/*<i className="icon-icon_back_down" />*/}
-                        {/*</div>*/}
-                        {/*</div>*/}
-                        {/*</Link>*/}
                     </div>
                 </div>
-                <Footer role={this.state.role}/>
+                <Footer/>
             </div>
         );
     }

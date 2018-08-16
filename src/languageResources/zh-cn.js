@@ -61,6 +61,7 @@ export const profileStep1Info = '仅用于学习相关通知与服务';
 export const profileParentsName = '家长姓名';
 export const profilePhoneHolder = '手机号码';
 export const profilePhoneCheck = '获取验证码';
+export const profilePhoneCheckAgain = '重新获取';
 export const profilePhoneLabel = '输入验证码';
 export const profilePhoneCheckError = '您输入的验证码不正确或过期, 请重新输入或获取新的验证码';
 export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
@@ -81,6 +82,7 @@ export const profileStep4 = '解密暗号';
 export const profileStep4Info = '建立少年的语言档案';
 export const profileStep4InfoWord1 = '优先匹配最合适的';
 export const profileStep4InfoWordBold = '外籍伙伴';
+export const profilePhoneSend = '已发送';
 
 export const placementSelectWord = '选择最匹配的选项';
 export const placementAudioWord = '收听下面的问题并录制你的回答';
@@ -333,6 +335,8 @@ export const accountHow = '如何获得账号密码登录？';
 export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
+export const accountAccount = '账号';
+export const accountPassword = '密码';
 
 export const taoCourseNone = '课程报名火爆/当前日期的课程都被抢光了。';
 export const taoCourseLike = '淘你喜欢';

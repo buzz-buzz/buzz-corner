@@ -9,6 +9,7 @@ import Button50px from '../common/commonComponent/submitButtonBottom';
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import ErrorHandler from '../common/error-handler';
 import ClassInfoTitle from '../classDetail/classInfoTitle';
+import CurrentUser from "../membership/user";
 import CapacityRating from './capacityRating';
 import Track from "../common/track";
 import Back from '../common/back';
@@ -181,6 +182,16 @@ class classEvaluationResult extends Component {
             Track.event('查看学伴的评价');
 
             this.setState({loadingModal: true});
+
+            let profile = await CurrentUser.getProfile();
+            let userId = profile.user_id;
+
+            //auth check
+            if(userId.toString() !== this.state.from_user_id.toString() && userId.toString() !== this.state.to_user_id.toString()){
+                alert(Resources.getInstance().classInfoNoAuth);
+                Back.back();
+                return false;
+            }
 
             let class_info = await  ServiceProxy.proxyTo({
                 body: {

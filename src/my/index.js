@@ -6,20 +6,15 @@ import {browserHistory} from 'react-router';
 import CurrentUser from "../membership/user";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
-import HeaderWithBack from '../common/commonComponent/headerWithBack';
-import ButtonBottom from '../common/commonComponent/submitButtonBottom';
-import ProfileProgress from './profileProgress/index';
+import ButtonBottom from '../common/commonComponent/submitButtonRadius10Px';
 import ProfileFormStep1 from './profileFormStep1/index';
 import ProfileFormStep2 from './profileFormStep2/index';
-import Hobby from './hobby';
 import {MemberType} from "../membership/member-type";
 import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countries} from 'moment-timezone/data/meta/latest.json';
-import QiniuDomain from '../common/systemData/qiniuUrl';
 import ServiceProxy from '../service-proxy';
-import Client from "../common/client";
 import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
@@ -57,7 +52,8 @@ class My extends Component {
             agreement: true,
             email_reg: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
             placement_topics: Topics,
-            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]]
+            mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
+            send: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -99,7 +95,8 @@ class My extends Component {
                 this.setState({
                     messageModal: true,
                     messageContent: Resources.getInstance().phoneSendWrong,
-                    waitSec: 30
+                    waitSec: 30,
+                    send: true
                 }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
@@ -113,7 +110,8 @@ class My extends Component {
                 this.setState({
                     messageModal: true,
                     messageContent: Resources.getInstance().profileSendSuccess,
-                    waitSec: 60
+                    waitSec: 60,
+                    send: true
                 }, () => {
                     const interval = setInterval(() => {
                         if (this.state.waitSec) {
@@ -338,14 +336,14 @@ class My extends Component {
         try {
             event.stopPropagation();
 
-            if (this.state.step < 3) {
-                if (this.state.step === 1 && this.state.profile.role === MemberType.Student) {
+            if (this.state.step === 1) {
+                if (this.state.profile.role === MemberType.Student) {
                     Track.event('注册_联系方式继续-中方');
 
                     try {
                         await this.validateMobilePhone();
                     } catch (e) {
-                        console.log(e)
+                        console.log(e);
 
                         Track.event('注册', '手机验证', {
                             '消息状态': '错误',
@@ -361,13 +359,13 @@ class My extends Component {
                     }
                 }
 
-                if (this.state.step === 1 && this.state.profile.role === MemberType.Companion) {
+                if (this.state.profile.role === MemberType.Companion) {
                     Track.event('注册_联系方式继续-外籍');
 
                     try {
                         await this.validateMobilePhone();
                     } catch (e) {
-                        console.log(e)
+                        console.log(e);
 
                         Track.event('注册', '邮箱验证', {
                             '消息状态': '错误',
@@ -388,55 +386,23 @@ class My extends Component {
 
                 if (newStep === 2) {
                     Track.event('注册_孩子信息页面-中方');
-                } else if (newStep === 3) {
-                    Track.event('注册_孩子信息页面-继续');
-                    Track.event('注册_兴趣爱好页面-中方');
                 }
 
                 this.setState({
                     step: newStep,
                     profile_title: newTitle
                 });
-            } else if (this.state.step === 3) {
-                Track.event('注册_兴趣爱好继续-中方');
+            } else if (this.state.step === 2) {
+                Track.event('注册_完成提交信息-' + this.state.profile.role === MemberType.Student ? '中方' : '外籍');
 
-                //
                 this.setState({loadingModal: true});
 
                 let profileData = this.validateForm();
 
                 if (this.state.userId) {
-                    await ServiceProxy.proxy(`/user-info`, {
-                        body: profileData,
-                        method: 'PUT'
-                    });
+                    await CurrentUser.updateProfile(profileData);
 
-                    //check if placement is done
-                    if (this.state.profile.role === MemberType.Student) {
-                        let placementResult = await ServiceProxy.proxyTo({
-                            body: {
-                                uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`
-                            }
-                        });
-
-                        if (placementResult && placementResult.detail && placementResult.detail.length > 20) {
-                            this.setState({loadingModal: false});
-
-                            browserHistory.push('/home?intro=1');
-                        } else {
-                            let newStep = this.state.step + 1;
-                            let newTitle = Resources.getInstance().profileStep4Info;
-                            this.setState({
-                                step: newStep,
-                                profile_title: newTitle,
-                                loadingModal: false
-                            });
-                        }
-                    } else {
-                        this.setState({loadingModal: false});
-
-                        browserHistory.push('/home?intro=1');
-                    }
+                    browserHistory.push('/home?intro=1');
                 } else {
                     this.setState({
                         messageModal: true,
@@ -445,19 +411,7 @@ class My extends Component {
                     });
                     this.closeMessageModal();
                 }
-            } else if (this.state.step === 4) {
-                Track.event('注册_对暗号页面-继续');
-
-                //if http,then go https
-                if (Client.getClient() === 'tablet' &&
-                    !/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
-                    window.location.href = window.location.href.replace('http', 'https').replace('/my/info', '/placement?intro=1');
-                } else {
-                    window.location.href = '/placement?intro=1';
-                }
             }
-
-            //this.setState({modal: true, message: Resources.getInstance().saveSuccess});
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
@@ -491,14 +445,6 @@ class My extends Component {
     validateForm() {
         let profile = this.state.profile;
 
-        let newTopics = [];
-
-        for (let i in profile.topics) {
-            if (profile.topics[i]) {
-                newTopics.push(profile.topics[i]);
-            }
-        }
-
         return {
             parent_name: profile.parent_name,
             mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
@@ -507,7 +453,6 @@ class My extends Component {
             city: profile.city,
             date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
             grade: profile.grade,
-            interests: newTopics,
             email: profile.email,
             school_name: profile.school,
             country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
@@ -518,7 +463,7 @@ class My extends Component {
     async componentWillMount() {
         try {
             Track.event('注册_联系方式页面-中方');
-            let profile = this.getProfileFromUserData(await CurrentUser.getProfile(true));
+            let profile = this.getProfileFromUserData(await CurrentUser.getProfile());
             if (!profile.role) {
                 browserHistory.push('/select-role');
                 return;
@@ -542,7 +487,6 @@ class My extends Component {
         }
         catch (ex) {
             console.log(ex.toString());
-            //browserHistory.push('/');
             this.setState({
                 messageModal: true,
                 messageContent: ex.toString(),
@@ -556,6 +500,10 @@ class My extends Component {
         if (interval) {
             clearTimeout(interval);
         }
+
+        this.setState = (state, callback) => {
+            return false;
+        };
     }
 
     getProfileFromUserData(userData) {
@@ -568,7 +516,6 @@ class My extends Component {
             date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(userData.date_of_birth),
             city: userData.city || '',
             grade: userData.grade || '',
-            topics: userData.interests instanceof Array ? userData.interests : (userData.interests ? userData.interests.split(',') : []),
             user_id: userData.user_id,
             role: userData.role,
             email: userData.email || '',
@@ -585,88 +532,47 @@ class My extends Component {
                 <MessageModal modalName={this.state.messageName}
                               modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
-                <HeaderWithBack goBack={this.goBack}/>
-                <ProfileProgress step={this.state.step}
-                                 role={this.state.profile.role}/>
                 <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {
-                        this.state.step === 1 ?
-                            (
-                                <ProfileFormStep1 role={this.state.profile.role}
-                                                  profile={this.state.profile}
-                                                  handleChange={this.handleChange}
-                                                  code={this.state.code}
-                                                  handleCodeChange={this.handleCodeChange}
-                                                  mobileValid={this.state.mobileValid}
-                                                  sms={this.sms}
-                                                  waitSec={this.state.waitSec}
-                                                  agreementCheck={this.agreementCheck}
-                                                  agreement={this.state.agreement}
-                                                  sendEmail={this.sendEmail}
-                                                  emailValid={this.state.emailValid}
-                                                  mobileCountry={this.state.mobileCountry}
-                                                  onCountryCodeChange={this.onCountryCodeChange}
-                                />
-                            ) : (
-                                this.state.step === 2 ? (
-                                    <ProfileFormStep2 role={this.state.profile.role}
-                                                      profile={this.state.profile}
-                                                      handleChange={this.handleChange}
-                                                      changeGenderMale={this.changeGenderMale}
-                                                      changeGenderFemale={this.changeGenderFemale}
-                                                      handleChangeBirthdayLabel={this.handleChangeBirthdayLabel}
-                                                      handleCityChange={this.handleCityChange}
-                                                      handleGradeChange={this.handleGradeChange}
-                                                      handleTimeZoneChange={this.handleTimeZoneChange}
-                                                      time_zone={this.state.profile.time_zone}
-                                                      handleCountryChange={this.handleCountryChange}
-                                    />
-                                ) : (
-                                    this.state.step === 3 ?
-                                        (<div className='topic form-content'>
-                                            <p>{Resources.getInstance().profileStep3}</p>
-                                            <div className="topic-items"
-                                                 style={{padding: '20px 0'}}>
-                                                {
-                                                    this.state.placement_topics.map((item, index) => {
-                                                        return <Hobby key={index}
-                                                                      src={item.url}
-                                                                      circleColor={item.color_f}
-                                                                      bgColor={item.color_b}
-                                                                      word={item.name}
-                                                                      wordColor={item.color_f}
-                                                                      select={this.topicChange}
-                                                                      name={item.value}
-                                                                      selected={this.state.profile.topics.indexOf(item.value) >= 0}/>
-                                                    })
-                                                }
-                                            </div>
-                                        </div>) :
-                                        (
-                                            <div className="form-content">
-                                                <h4>{Resources.getInstance().profileStep4InfoWord1}<span
-                                                    style={{color: '#f7b52a'}}>{Resources.getInstance().profileStep4InfoWordBold}</span>
-                                                </h4>
-                                                <img className="profile-done-img"
-                                                     src={QiniuDomain + "/friends.png"}
-                                                     alt=""/>
-                                            </div>
-                                        )
-                                )
-                            )
+                        this.state.step === 1 &&
+                        <ProfileFormStep1 role={this.state.profile.role}
+                                          profile={this.state.profile}
+                                          handleChange={this.handleChange}
+                                          code={this.state.code}
+                                          handleCodeChange={this.handleCodeChange}
+                                          mobileValid={this.state.mobileValid}
+                                          sms={this.sms}
+                                          waitSec={this.state.waitSec}
+                                          agreementCheck={this.agreementCheck}
+                                          agreement={this.state.agreement}
+                                          sendEmail={this.sendEmail}
+                                          emailValid={this.state.emailValid}
+                                          mobileCountry={this.state.mobileCountry}
+                                          onCountryCodeChange={this.onCountryCodeChange}
+                                          send={this.state.send}
+                        />
+                    }
+                    {
+                        this.state.step === 2 &&
+                        <ProfileFormStep2 role={this.state.profile.role}
+                                          profile={this.state.profile}
+                                          handleChange={this.handleChange}
+                                          changeGenderMale={this.changeGenderMale}
+                                          changeGenderFemale={this.changeGenderFemale}
+                                          handleChangeBirthdayLabel={this.handleChangeBirthdayLabel}
+                                          handleCityChange={this.handleCityChange}
+                                          handleGradeChange={this.handleGradeChange}
+                                          handleTimeZoneChange={this.handleTimeZoneChange}
+                                          time_zone={this.state.profile.time_zone}
+                                          handleCountryChange={this.handleCountryChange}
+                        />
                     }
                     <div className="profile-btn">
                         <ButtonBottom
                             disabled={this.formIsInvalid()}
-                            text={Resources.getInstance().profileContinue}
+                            text={this.state.step === 1 ? Resources.getInstance().profileContinue : Resources.getInstance().profileDone}
                             submit={this.submit}/>
-                        {
-                            this.state.step === 4 ? (
-                                <div className="skip"
-                                     onClick={this.skipPlacement}>{Resources.getInstance().profileSkipNow}</div>
-                            ) : ('')
-                        }
                     </div>
                 </Form>
             </div>
@@ -680,14 +586,7 @@ class My extends Component {
         if (this.state.step === 2) {
             return this.personalInformationFormIsInvalid();
         }
-        if (this.state.step === 3) {
-            return this.hobbyFormIsInvalid();
-        }
         return false;
-    }
-
-    hobbyFormIsInvalid() {
-        return !this.state.profile.topics.length;
     }
 
     personalInformationFormIsInvalid() {
@@ -719,11 +618,11 @@ class My extends Component {
     }
 
     companionContactInformationFormIsInvalid() {
-        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone;
+        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone || !this.state.send;
     }
 
     studentContactInformationFormIsInvalid() {
-        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code;
+        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code || !this.state.send;
     }
 
     onCountryCodeChange = (event, data) =>

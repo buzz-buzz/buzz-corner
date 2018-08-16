@@ -14,25 +14,32 @@
     width: 80%;
     max-width: 800px;
     background-color: white;
-    min-height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 40px; }
+    padding: 40px 30px; }
+    .pop-modal .pop-content .att-img {
+      height: 50px;
+      width: 50px;
+      margin: 0 auto; }
+      .pop-modal .pop-content .att-img img {
+        width: 100%; }
     .pop-modal .pop-content .attention {
       font-size: 21px;
+      line-height: 28px;
       font-weight: 600;
-      text-align: center; }
+      text-align: center;
+      margin: 15px 0 10px 0; }
     .pop-modal .pop-content .attention-info {
-      font-size: 17px;
+      font-size: 14px;
       line-height: 21px;
       letter-spacing: 0;
       color: #666;
-      margin: 20px auto 25px auto;
+      margin-bottom: 25px;
       text-align: center; }
-    .pop-modal .pop-content .chose-buttons p {
-      width: 100%;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
-      margin-top: 15px; }
+    .pop-modal .pop-content .chose-buttons {
+      display: flex;
+      justify-content: space-between; }
+      .pop-modal .pop-content .chose-buttons div {
+        width: calc((100% - 25px)/2);
+        font-size: 15px !important; }

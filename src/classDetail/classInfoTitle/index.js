@@ -34,7 +34,7 @@ export default class ClassInfoTitle extends React.Component {
                 </div>
                 <div className="course-content">
                     <div className="name">
-                        {(this.props.course_info.companion_name || 'BuzzBuzz') + '  '}&nbsp;&nbsp;
+                        <span>{this.props.course_info.companion_name || 'BuzzBuzz'}</span>&nbsp;&nbsp;
                         <Flag
                             name={this.props.companion_country || this.props.course_info.companion_country
                                 ? (this.props.companion_country || this.props.course_info.companion_country).toLowerCase() : 'united states'}/>

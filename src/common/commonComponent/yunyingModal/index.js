@@ -2,9 +2,12 @@ import React from 'react';
 import Client from "../../../common/client";
 import ServiceProxy from '../../../service-proxy';
 import Track from "../../track";
+
+import {connect} from 'react-redux';
+import {addYunYingData} from "../../../redux/actions";
 import './index.css';
 
-export default class YunyingModal extends React.Component {
+class YunyingModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -205,19 +208,32 @@ export default class YunyingModal extends React.Component {
 
     async componentWillMount() {
         try{
-            let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
-
-            if(bannerData && bannerData.length && bannerData.length > 0){
-                Track.event('运营位_页面展示');
-
+            //get data from redux, if no data, then get from DB
+            if(this.props.yunYingData && this.props.yunYingData.length){
                 this.setState({
-                    bannerData: bannerData,
-                    new_images:this.resetBannerData(bannerData)
+                    bannerData: this.props.yunYingData,
+                    new_images:this.resetBannerData(this.props.yunYingData)
                 }, () => {
-                    if( bannerData.length > 1){
+                    if( this.props.yunYingData.length > 1){
                         this.beginPlaying();
                     }
                 });
+            }else{
+                let bannerData = this.handleBannerData(await this.getBannerData(), this.props.role);
+
+                if(bannerData && bannerData.length && bannerData.length > 0){
+                    Track.event('运营位_页面展示');
+                    this.props.addYunYingData(bannerData);
+
+                    this.setState({
+                        bannerData: bannerData,
+                        new_images: this.resetBannerData(bannerData)
+                    }, () => {
+                        if( bannerData.length > 1){
+                            this.beginPlaying();
+                        }
+                    });
+                }
             }
         }
         catch (ex){
@@ -290,3 +306,13 @@ export default class YunyingModal extends React.Component {
         )
     }
 }
+
+const mapStateToProps = store => ({
+    yunYingData: store.yunYingList
+});
+
+const mapDispatchToProps = dispatch => ({
+    addYunYingData: data => dispatch(addYunYingData(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(YunyingModal);

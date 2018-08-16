@@ -14,6 +14,7 @@ export default (props) => <div>
                             agreementCheck={props.agreementCheck}
                             agreement={props.agreement}
                             mobileCountry={props.mobileCountry}
+                            send={props.send}
                             onCountryCodeChange={props.onCountryCodeChange}/>
     }
     {
@@ -28,6 +29,7 @@ export default (props) => <div>
                               agreementCheck={props.agreementCheck}
                               agreement={props.agreement}
                               sendEmail={props.sendEmail}
+                              send={props.send}
                               mobileCountry={props.mobileCountry}
                               onCountryCodeChange={props.onCountryCodeChange}/>
     }

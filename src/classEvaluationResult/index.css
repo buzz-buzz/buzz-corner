@@ -80,6 +80,8 @@
       font-size: 15px;
       display: flex;
       align-items: center; }
+      .evaluation-item .class-behavior .behavior .word {
+        white-space: nowrap; }
       .evaluation-item .class-behavior .behavior .stars {
         display: flex;
         align-items: center; }
@@ -88,4 +90,5 @@
           margin-right: 10px; }
     .evaluation-item .class-behavior .stars-word {
       font-size: 15px;
-      color: #868686; }
+      color: #868686;
+      white-space: nowrap; }
