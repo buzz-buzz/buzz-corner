@@ -22,7 +22,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    padding: 30px 21px;
+    justify-content: center;
     .partners{
       display: flex;
       justify-content: space-between;
@@ -93,7 +94,7 @@
         font-size: 18px;
         color: #000;
         font-weight: 600;
-        margin-bottom: 15px;
+        margin:25px 0 15px 0;
         text-align: center;
       }
       .intro-content{
@@ -106,11 +107,12 @@
     }
   }
   .course-join{
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     padding: 30px 0 30px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     .time-left{
       display: flex;
       align-items: center;
