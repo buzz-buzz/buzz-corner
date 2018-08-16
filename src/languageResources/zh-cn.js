@@ -300,7 +300,7 @@ export const goNow = '快去评价';
 export const evaluationStandard = '评分标准说明';
 export const evaluationStandardStep1 = '第一步: 课堂表现';
 export const evaluationStandardStep2 = '第二步: 能力打分';
-export const evaluationTeacherScore = '语伴评分:';
+export const evaluationTeacherScore = '评分: ';
 export const evaluationEnglishScore = '能力评分';
 
 export const errorUpload = '上传失败, 请稍后重试!';
