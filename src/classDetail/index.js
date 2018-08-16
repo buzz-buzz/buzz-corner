@@ -304,7 +304,7 @@ class classDetail extends Component {
                 classEndNow: Math.floor((new Date(class_info.end_time).getTime() - new Date(class_info.CURRENT_TIMESTAMP).getTime()) / 1000) <= 0,
                 classBeginModal: false,
                 companion_country: companion_country,
-                class_content_tab: profile.role === MemberType.Student && class_content.exercises && class_content.exercises.length ? 'practice' : 'class_file',
+                class_content_tab: profile.role === MemberType.Student && class_content.exercises && class_content.exercises.filter(item=>{return !!item;}).length ? 'practice' : 'class_file',
                 class_content: class_content,
                 user_name: profile.name || profile.wechat_name || profile.display_name || profile.facebook_name || 'BuzzBuzz',
                 user_id: profile.user_id
@@ -415,12 +415,8 @@ class classDetail extends Component {
                             {
                                 this.state.role === MemberType.Student &&
                                 this.state.class_content && this.state.class_content.student_textbook &&
-                                this.state.class_content.student_textbook.filter(function (item) {
-                                    return item && item !== '' && item.length > 5
-                                }).length &&
-                                this.state.class_content.student_textbook.filter(function (item) {
-                                    return item && item !== '' && item.length > 5
-                                }).map((item, index) => {
+                                this.state.class_content.student_textbook.length &&
+                                this.state.class_content.student_textbook.map((item, index) => {
                                     return <a className="class_content_file_item" key={index}
                                               href={this.fileLink(item)} target="_blank" rel="noopener noreferrer">
                                         <img
