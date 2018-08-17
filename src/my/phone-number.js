@@ -26,10 +26,13 @@ const countryOptions = countryList.map(c => ({
 export default (props) =>
     <div>
         <div className="phone-number">
-            <Dropdown trigger={<span>{props.mobileCountry} +({countryCodeMap[props.mobileCountry]})</span>} placeholder={Resources.getInstance().selectCountryCode}
+            <Dropdown trigger={<span>{props.mobileCountry} +({countryCodeMap[props.mobileCountry]})</span>}
+                      placeholder={Resources.getInstance().selectCountryCode}
                       search options={countryOptions}
-                      style={{width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
-                          display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'}}
+                      style={ props.dropDownStyle ? props.dropDownStyle : {
+                              width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
+                              display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'
+                          }}
                       value={props.mobileCountry}
                       onChange={props.onCountryCodeChange}/>
             <BuzzInput type="number"
@@ -39,23 +42,26 @@ export default (props) =>
                        name='phone'
             />
         </div>
-        <div className="check-number">
-            <BuzzInput type="text"
-                       placeholder={Resources.getInstance().profilePhoneLabel}
-                       value={props.code}
-                       onChange={props.handleCodeChange}
-            />
-            <Button style={props.waitSec ? {
-                padding: 0,
-                color: '#fff',
-                background: '#aaa'
-            } : (props.mobileValid ? {
-                padding: 0,
-                color: 'white'
-            } : {padding: 0, color: '#666'})} onClick={props.sms}
-                    disabled={!props.mobileValid || props.waitSec > 0}>
-                {props.waitSec ? Resources.getInstance().profilePhoneSend + '('+ props.waitSec +')' :
-                    ( props.send ? Resources.getInstance().profilePhoneCheckAgain : Resources.getInstance().profilePhoneCheck)}
+        {
+            !props.codeModalNone &&
+            <div className="check-number">
+                <BuzzInput type="text"
+                           placeholder={Resources.getInstance().profilePhoneLabel}
+                           value={props.code}
+                           onChange={props.handleCodeChange}
+                />
+                <Button style={props.waitSec || !props.mobileValid ? {
+                        padding: 0,
+                        color: '#fff',
+                        background: '#dfdfe4'
+                    } : {
+                        padding: 0,
+                        color: 'white'
+                    }} onClick={props.sms}
+                        disabled={!props.mobileValid || props.waitSec > 0}>
+                    {props.waitSec ? Resources.getInstance().profilePhoneSend + '(' + props.waitSec + ')' :
+                        ( props.send ? Resources.getInstance().profilePhoneCheckAgain : Resources.getInstance().profilePhoneCheck)}
                 </Button>
-        </div>
+            </div>
+        }
     </div>
