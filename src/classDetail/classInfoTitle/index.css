@@ -7,23 +7,17 @@
   background-color: white; }
   .class-info .avatar-new {
     position: relative;
-    width: 88px;
-    height: 105px;
-    overflow: hidden;
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 20px;
-    padding: 5px; }
+    margin-right: 18px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: solid 3px #d0d6db; }
     .class-info .avatar-new img {
-      height: 100%; }
-    .class-info .avatar-new img.bg {
-      z-index: 20;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0; }
+      width: 100%; }
   .class-info .course-content {
     display: flex;
     flex-direction: column;
