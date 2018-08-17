@@ -3,6 +3,7 @@ import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
 import SelectRole from './select-role/index';
 import SelectRoleTablet from './select-role/tablet';
+import SelectRoleNew from './select-role/select';
 import {browserHistory, Route, Router} from "react-router";
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';

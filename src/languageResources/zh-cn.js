@@ -15,6 +15,7 @@ export const whiteSpaceMessage = '还没有消息提醒哦～';
 export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利对话英美优秀少年';
 export const loginTabletWord = '对话英美优秀少年, 轻松提高英语听说';
+export const loginNextStep = '下一步';
 
 export const footerHome = '学习';
 export const footerFriends = '好友';
