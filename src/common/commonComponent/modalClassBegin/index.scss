@@ -16,9 +16,8 @@
   width: 80%;
   max-width: 800px;
   margin: 0 auto;
-  min-height: 50%;
-  background:white url('//cdn-corner.resource.buzzbuzzenglish.com/circles.png') top center no-repeat;
-  background-size: 100% 100%;
+  padding: 50px 0;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +26,6 @@
 .modal>.content > div{
   display: flex;
   flex-direction: column;
-  padding: 0 1em;
   width: 100%;
 }
 
