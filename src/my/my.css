@@ -60,6 +60,10 @@
     color: #ffffff;
 }
 
+.ui.button:disabled, .ui.buttons .disabled.button, .ui.disabled.active.button, .ui.disabled.button, .ui.disabled.button:hover{
+    opacity: 1 !important;
+}
+
 .parents-name{
     margin-bottom: 10px;
 }
@@ -249,6 +253,10 @@ div.dropdown > input.search{
 
 .ui.input >input{
     background: rgb(244, 245, 249) !important;
+}
+
+.ui.search.dropdown>input.search:focus span{
+    display: none !important;
 }
 
 .ui.search.dropdown>input.search{
