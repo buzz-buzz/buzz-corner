@@ -29,8 +29,6 @@ export default class ClassInfoTitle extends React.Component {
                     <img
                         src={ this.props.course_info.companion_avatar || "//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg"}
                         alt=""/>
-                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_bg.svg" alt=""
-                         className="bg"/>
                 </div>
                 <div className="course-content">
                     <div className="name">
