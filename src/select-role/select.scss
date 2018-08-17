@@ -1,0 +1,48 @@
+.select-role{
+  padding: 30px 21px 50px 21px;
+  display: flex;
+  flex-direction: column;
+  .page-title{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    text-align: center;
+  }
+  .item-role{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    img{
+      width: 100px;
+    }
+    .role-name{
+      margin: 15px 0 10px 0;
+      line-height: 21px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+    }
+    .role-intro{
+      p{
+        font-size: 13px;
+        line-height: 17px;
+        color: #666;
+        padding: 0 11px;
+        text-align: center;
+      }
+    }
+  }
+  .btn{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .item-role-active{
+    .role-name{
+      color: #ffb117 !important;
+    }
+  }
+}
