@@ -45,6 +45,8 @@ class Login extends Component {
             password: ''
         };
 
+        this.status = {};
+
         this.handleChange = this.handleChange.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
         this.sms = this.sms.bind(this);
@@ -81,13 +83,20 @@ class Login extends Component {
         }
     }
 
-    togglePassword(){
+    togglePassword() {
         this.setState({hidden: !this.state.hidden});
     }
 
     toggleLogin(tab) {
         if (this.state.active_tab !== tab) {
-            this.setState({active_tab: tab});
+            this.setState({active_tab: tab}, () => {
+                if (tab === 'third') {
+                    this.status.style.animation = 'login-move-left .3s linear';
+                } else {
+                    this.status.style.animation = 'login-move-right .3s linear';
+                }
+
+            });
         }
     }
 
@@ -212,7 +221,9 @@ class Login extends Component {
                     <div onClick={() => this.toggleLogin('account')}
                          className={ this.state.active_tab === 'account' ? "login-others active" : "login-others"}>账号密码
                     </div>
-                    <div className="status"
+                    <div className="status" ref={div => {
+                        this.status = div;
+                    }}
                          style={ this.state.active_tab === 'third' ? {left: 'calc(25% - 5px)'} : {left: 'calc(75% - 5px)'} }
                     ></div>
                 </div>
@@ -244,8 +255,9 @@ class Login extends Component {
                                    value={this.state.password} name='password'
                             />
                             <div className="eye" onClick={this.togglePassword}>
-                                <img src={ this.state.hidden ?  "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
-                                    "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg"} alt=""/>
+                                <img
+                                    src={ this.state.hidden ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
+                                        "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg"} alt=""/>
                             </div>
                         </div>
                     }
@@ -286,7 +298,7 @@ class Login extends Component {
     formIsInvalid() {
         if (this.state.active_tab === 'account' && this.state.active_form === 'code') {
             return !this.state.mobileValid || !this.state.code || !this.state.send;
-        }else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
+        } else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
             return !this.state.profile.phone || false;
         }
         return false;
