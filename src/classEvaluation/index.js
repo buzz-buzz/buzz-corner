@@ -286,7 +286,7 @@ class classEvaluation extends Component {
                     userId: userId,
                     loadingModal: false,
                     companion_country: companion_country,
-                    role: profile.role,
+                    role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
                     evaluationContent: {
                         stars: parseFloat(feed_back[0].score),
                         evaluation_content: feed_back[0].comment
@@ -304,7 +304,7 @@ class classEvaluation extends Component {
                     userId: userId,
                     loadingModal: false,
                     companion_country: companion_country,
-                    role: profile.role,
+                    role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
                     types: []
                 });
             }
