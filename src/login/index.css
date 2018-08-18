@@ -7,11 +7,19 @@
   flex: 1 0 auto;
   position: relative;
   padding: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-in > .login-intro > img{
+  width: 100%;
+  max-width: 700px;
 }
 
 .login-in > .login-intro > .intro-content{
   position: absolute;
-  bottom: 21px;
+  bottom: 11px;
   right: 21px;
 }
 
@@ -162,7 +170,7 @@
   width: 100%;
 }
 
-.login-in > .login-form > .third-login > div{
+div.face-book,  div.we-chat{
   height: 60px;
   width: 100%;
   margin-bottom: 10px;
@@ -175,7 +183,7 @@
   position: relative;
 }
 
-.login-in > .login-form > .third-login > div > img{
+ div.face-book > img, div.we-chat > img{
   width: 32px;
   height: 32px;
   position: absolute;
@@ -183,7 +191,7 @@
   left: 20px;
 }
 
-.login-in > .login-form > .third-login > div.face-book{
+div.face-book{
   background-color: #3d70da;
   box-shadow: 0 1px 4px 0 rgba(61, 112, 218, 0.4);
 }

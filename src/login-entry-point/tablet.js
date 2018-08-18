@@ -35,7 +35,7 @@ class LoginRole extends Component {
             return;
         }
 
-        browserHistory.push('/select-role');
+        browserHistory.push('/login');
     }
 
     createCode() {

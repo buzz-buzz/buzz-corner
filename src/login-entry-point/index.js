@@ -25,7 +25,7 @@ class LoginEntryPoint extends Component {
             return;
         }
 
-        browserHistory.push('/select-role')
+        browserHistory.push('/login')
     }
 
     render() {

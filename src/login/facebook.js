@@ -7,6 +7,7 @@ import {MemberType} from "../membership/member-type";
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import ModalMessage from "../common/commonComponent/modalMessage/index";
 import Resources from "../resources";
+import './index.css';
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -71,26 +72,26 @@ export default class FacebookLogin extends React.Component {
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
-    logout = async () => {
+    logout = async() => {
         this.setState({loading: true});
 
         await new Promise(callback => this.FB.logout(callback));
         await ServiceProxy.proxy('/sign-out');
         this.setState({userInfo: {}, loading: false})
     };
-    facebookUserInfoGot = async (facebookUserData) => {
+    facebookUserInfoGot = async(facebookUserData) => {
         try {
             await this.loginOldUser(facebookUserData);
         } catch (error) {
             await this.loginNewUser(error, facebookUserData);
         }
     };
-    loginOldUser = async (facebookUserData) => {
+    loginOldUser = async(facebookUserData) => {
         let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
 
         await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
     };
-    loginNewUser = async (error, facebookUserData) => {
+    loginNewUser = async(error, facebookUserData) => {
         if (BuzzServiceApiErrorParser.isNewUser(error)) {
             let newUserId = await this.registerByFacebook(facebookUserData);
             await this.loginByFacebook(facebookUserData.id, newUserId);
@@ -100,14 +101,14 @@ export default class FacebookLogin extends React.Component {
             throw error;
         }
     };
-    getBuzzUserData = async (facebook_id) => {
+    getBuzzUserData = async(facebook_id) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
             }
         });
     };
-    registerByFacebook = async (facebookUserInfo) => {
+    registerByFacebook = async(facebookUserInfo) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
@@ -121,7 +122,7 @@ export default class FacebookLogin extends React.Component {
             }
         });
     };
-    loginByFacebook = async (facebookId, userId) => {
+    loginByFacebook = async(facebookId, userId) => {
         let res = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
@@ -187,11 +188,19 @@ export default class FacebookLogin extends React.Component {
                 <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
                               modalContent={Resources.getInstance().pleaseUseWechatToLogin}
                               style={{position: 'fixed'}} duration={'long'}/>
-                <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
-                                 paddingLeft="60px">
-                    <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
-                    {Resources.getInstance('en-US').signInWith('FACEBOOK')}
-                </BuzzRoundButton>
+                {
+                    this.props.mobileFacebookUI ? <div className="face-book" onClick={this.facebookLogin}>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
+                            <span>facebook</span>
+                        </div> :
+                        <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading}
+                                         disabled={this.state.loading}
+                                         paddingLeft="60px">
+                            <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg"
+                                   alt="Facebook login"/>
+                            {Resources.getInstance('en-US').signInWith('FACEBOOK')}
+                        </BuzzRoundButton>
+                }
             </div>
         );
     }
