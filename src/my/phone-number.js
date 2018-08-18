@@ -31,7 +31,7 @@ export default (props) =>
                       search options={countryOptions}
                       style={ props.dropDownStyle ? props.dropDownStyle : {
                               width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
-                              display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px'
+                              display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px'
                           }}
                       value={props.mobileCountry}
                       onChange={props.onCountryCodeChange}/>

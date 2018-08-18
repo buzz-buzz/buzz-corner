@@ -326,10 +326,12 @@ class UserUpdate extends Component {
 
                 let profileData = this.validateForm();
 
-                await ServiceProxy.proxy(`/user-info`, {
-                    body: profileData,
-                    method: 'PUT'
-                });
+                // await ServiceProxy.proxy(`/user-info`, {
+                //     body: profileData,
+                //     method: 'PUT'
+                // });
+
+                await CurrentUser.updateProfile(profileData);
             }
 
             this.setState({

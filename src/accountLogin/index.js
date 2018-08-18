@@ -101,8 +101,8 @@ class AccountLogin extends Component {
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {
-                        account: this.state.data.user_account,
-                        password: this.state.data.user_password,
+                        account: this.state.data.user_account || this.props.users[0].mobile || this.props.users[0].email,
+                        password: this.state.data.user_password || this.props.users[0].password,
                         user_id: this.state.data.user_id,
                         mobile_country: this.state.mobileCountry
                     },
@@ -143,8 +143,15 @@ class AccountLogin extends Component {
         }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('设置密码页面展示');
+
+        if(this.props.users && this.props.users instanceof Array && this.props.users.length > 1){
+            this.setState({
+                multipleUsers: true,
+                title: Resources.getInstance().accountSelectLogin
+            })
+        }
     }
 
     selectUser = (userId) => {
@@ -235,7 +242,11 @@ class AccountLogin extends Component {
     }
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+    return {
+        users: state.users
+    }
+}, dispatch => {
     return {
         addUser: user => {
             dispatch(addUser(user));

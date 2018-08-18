@@ -53,7 +53,7 @@ export default {
 
             let res = (await checkStatus(await fetch(url, mergedOptions)));
 
-            if (res.redirected && (res.url.startsWith(`${window.location.origin}/select-role`) || res.url.startsWith(`${window.location.origin}/sign-in`))) {
+            if (res.redirected && (res.url.startsWith(`${window.location.origin}/login`) || res.url.startsWith(`${window.location.origin}/login`))) {
                 let error = new Error(res.url);
                 error.status = 401;
                 error.authPath = res.url;

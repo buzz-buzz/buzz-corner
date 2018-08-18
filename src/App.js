@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
-import SelectRole from './select-role/index';
 import SelectRoleTablet from './select-role/tablet';
 import SelectRoleNew from './select-role/select';
 import {browserHistory, Route, Router} from "react-router";
@@ -71,7 +70,7 @@ class App extends Component {
                     <Route path='/%2f' component={Home}/>
                     <Route path='/user-info' component={UserUpdate}/>
                     <Route path='/select-role'
-                           component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
+                           component={Client.showComponent(SelectRoleNew, SelectRoleTablet)}/>
                     <Route path='/sign-in'
                            component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/tutor'

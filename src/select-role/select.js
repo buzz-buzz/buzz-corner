@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
+import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import URLHelper from "../common/url-helper";
 import ButtonBottom from '../common/commonComponent/submitButtonRadius10Px';
+import ErrorHandler from "../common/error-handler";
 import './select.css';
 
 class SelectRole extends Component {
@@ -11,7 +14,8 @@ class SelectRole extends Component {
         super(props);
 
         this.state = {
-            role: props.location.query.intro || '',
+            loadingModal: true,
+            role: props.location.query.role || '',
             role_data: [
                 {
                     name: 'I\'m a Tutor',
@@ -30,14 +34,52 @@ class SelectRole extends Component {
                     img_active: 'https://cdn-corner.resource.buzzbuzzenglish.com/icon_china_active.svg'
                 }
             ]
-        }
+        };
 
         this.toggleRole = this.toggleRole.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     toggleRole(role){
         if(this.state.role !== role){
             this.setState({role: role});
+        }
+    }
+
+    async componentWillMount(){
+        try{
+            let profile = await CurrentUser.getProfile();
+
+            if(!profile.user_id){
+                browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
+            }else{
+                this.setState({loadingModal: false});
+            }
+        }
+        catch (ex){
+            browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
+        }
+    }
+
+    async submit(){
+        try{
+            this.setState({loadingModal: true});
+
+            await CurrentUser.updateProfile({role: this.state.role});
+
+            let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+
+            if (returnUrl) {
+                browserHistory.push(decodeURIComponent(returnUrl));
+                //window.location.href = decodeURIComponent(returnUrl);
+            } else {
+                browserHistory.push('/');
+            }
+        }
+        catch (ex){
+            this.setState({loadingModal: true});
+
+            ErrorHandler.notify('网络请求发生错误', ex);
         }
     }
 

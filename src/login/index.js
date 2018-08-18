@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
+import {browserHistory} from "react-router";
 import Resources from '../resources';
 import moment from 'moment-timezone';
 import {zones} from 'moment-timezone/data/meta/latest.json';
-import {countries} from 'moment-timezone/data/meta/latest.json';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 import LoadingModal from '../common/commonComponent/loadingModal';
 import MessageModal from '../common/commonComponent/modalMessage';
 import ButtonBottom from '../common/commonComponent/submitButtonRadius10Px';
 import PhoneNumber from '../my/phone-number';
 import ServiceProxy from '../service-proxy';
+import URLHelper from "../common/url-helper";
+import {MemberTypeChinese} from "../membership/member-type";
+import {connect} from 'react-redux';
+import {addUser, addUsers, clearUsers} from '../redux/actions/index';
+import WeChatLogin from "./wechat";
+import FacebookLogin from "./facebook";
+import Track from "../common/track";
 import './index.css';
 
 const logger = require('../common/logger');
@@ -24,18 +31,7 @@ class Login extends Component {
             mobileValid: false,
             emailValid: false,
             profile: {
-                parent_name: '',
-                phone: '',
-                student_en_name: '',
-                city: '',
-                date_of_birth: '',
-                gender: '',
-                grade: '',
-                topics: [],
-                email: '',
-                school: '',
-                country: '',
-                time_zone: ''
+                phone: ''
             },
             mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
             send: false,
@@ -55,6 +51,9 @@ class Login extends Component {
         this.togglePassword = this.togglePassword.bind(this);
         this.formIsInvalid = this.formIsInvalid.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.submit = this.submit.bind(this);
+        this.facebookLogin = this.facebookLogin.bind(this);
+        this.wechatLogin = this.wechatLogin.bind(this);
     }
 
     onCountryCodeChange = (event, data) =>
@@ -98,6 +97,33 @@ class Login extends Component {
 
             });
         }
+    }
+
+    async submit() {
+        if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
+            //账号密码登陆
+            await this.accountLogin();
+        }
+        if (this.state.active_tab === 'account' && this.state.active_form === 'code') {
+            //随机密码登陆-验证码登陆
+            alert('暂不支持验证码登陆, 请切换其他登陆方式');
+        }
+    }
+
+    facebookLogin() {
+        Track.event('登录页面_点击微信登录按钮', null, {
+            '用户类型': MemberTypeChinese.Student
+        });
+
+        browserHistory.push(`/login/facebook${window.location.search}`);
+    }
+
+    wechatLogin(){
+        Track.event('登录页面_点击微信登录按钮', null, {
+            '用户类型': MemberTypeChinese.Student
+        });
+
+        WeChatLogin.showLoginPage();
     }
 
     async sms() {
@@ -173,7 +199,6 @@ class Login extends Component {
         this.setState({
             password: password
         });
-
     }
 
     closeMessageModal() {
@@ -206,6 +231,7 @@ class Login extends Component {
                               style={{top: '0'}}
                 />
                 <div className="login-intro">
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/login_picture.png" alt=""/>
                     <div className="intro-content">
                         <div className="title">BUZZBUZZ</div>
                         <div className="content">
@@ -243,7 +269,7 @@ class Login extends Component {
                                          minWidth: '120px',
                                          whiteSpace: 'nowrap',
                                          display: 'flex',
-                                         justifyContent: 'center',
+                                         paddingLeft: '15px',
                                          alignItems: 'center'
                                      }}/>
                     }
@@ -273,11 +299,8 @@ class Login extends Component {
                     {
                         this.state.active_tab === 'third' &&
                         <div className="third-login">
-                            <div className="face-book">
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
-                                <span>facebook</span>
-                            </div>
-                            <div className="we-chat">
+                            <FacebookLogin btnText="facebook" mobileFacebookUI={true}/>
+                            <div className="we-chat" onClick={this.wechatLogin} >
                                 <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
                                 <span>微信</span>
                             </div>
@@ -299,11 +322,72 @@ class Login extends Component {
         if (this.state.active_tab === 'account' && this.state.active_form === 'code') {
             return !this.state.mobileValid || !this.state.code || !this.state.send;
         } else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
-            return !this.state.profile.phone || false;
+            return !this.state.profile.phone || !this.state.password;
         }
         return false;
     }
 
+    async accountLogin(){
+        this.setState({loadingModal: true});
+        this.props.clearUsers();
+
+        try {
+            let result =  await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
+                    json: {
+                        account: this.state.profile.phone,
+                        password: this.state.password,
+                        mobile_country: this.state.mobileCountry
+                    },
+                    method: 'PUT'
+                }
+            });
+
+            if (result instanceof Array) {
+                this.props.addUsers(result);
+                this.setState({loadingModal: false}, ()=> {
+                    browserHistory.push('/login/account');
+                });
+                return;
+            }
+
+            this.setState({loadingModal: false}, () => {
+                let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+
+                if (returnUrl) {
+                    window.location.href = decodeURIComponent(returnUrl);
+                } else {
+                    browserHistory.push('/');
+                }
+            });
+        } catch (ex) {
+            this.setState({
+                messageModal: true,
+                messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
+                loadingModal: false
+            });
+            this.closeMessageModal();
+        }
+    }
+
 }
 
-export default Login;
+
+const mapStateToProps = store => ({
+    users: store.users
+});
+
+const mapDispatchToProps = dispatch => ({
+    addUser: user => {
+        dispatch(addUser(user));
+    },
+    addUsers: users => {
+        dispatch(addUsers(users));
+    },
+    clearUsers: () => {
+        dispatch(clearUsers());
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
