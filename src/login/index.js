@@ -220,6 +220,9 @@ class Login extends Component {
                                      }}/>
                     }
                     {
+
+                    }
+                    {
                         this.state.active_tab === 'account' &&
                         <div className="btn">
                             <ButtonBottom
