@@ -55,7 +55,7 @@ class SelectRole extends Component {
             } else if(profile.role){
                 browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
             } else{
-                this.setState({loadingModal: false});   
+                this.setState({loadingModal: false});
             }
         }
         catch (ex){
