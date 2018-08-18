@@ -49,6 +49,7 @@
   color: #d0d6db;
   background-color: white;
   position: relative;
+  cursor: pointer;
 }
 
 .login-in > .login-tab > div.login-others:after{
@@ -74,6 +75,7 @@
 
 .login-in > .login-tab > .status{
   position: absolute;
+  left: calc(75% - 5px);
   bottom: 0;
   height: 0;
   width: 0;
@@ -237,3 +239,27 @@
 .login-in > .login-form > .login-password > input[placeholder]{
   color: #666;
 }
+
+@keyframes login-move-right {
+  from {
+    left: calc(25% - 5px); }
+  to {
+    left: calc(75% - 5px); } }
+
+@-webkit-keyframes login-move-right /*Safari and Chrome*/ {
+  from {
+    left: calc(25% - 5px); }
+  to {
+    left: calc(75% - 5px); } }
+
+@keyframes login-move-left {
+  from {
+    left: calc(75% - 5px); }
+  to {
+    left: calc(25% - 5px); } }
+
+@-webkit-keyframes login-move-left /*Safari and Chrome*/ {
+  from {
+    left: calc(75% - 5px); }
+  to {
+    left: calc(25% - 5px); } }
