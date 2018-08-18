@@ -40,7 +40,9 @@ class Login extends Component {
             mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
             send: false,
             active_tab: 'account',
-            active_form: 'code'
+            active_form: 'code',
+            hidden: true,
+            password: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -48,6 +50,9 @@ class Login extends Component {
         this.sms = this.sms.bind(this);
         this.toggleLoginStyle = this.toggleLoginStyle.bind(this);
         this.toggleLogin = this.toggleLogin.bind(this);
+        this.togglePassword = this.togglePassword.bind(this);
+        this.formIsInvalid = this.formIsInvalid.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
     }
 
     onCountryCodeChange = (event, data) =>
@@ -74,6 +79,10 @@ class Login extends Component {
         } else {
             this.setState({active_form: 'code'});
         }
+    }
+
+    togglePassword(){
+        this.setState({hidden: !this.state.hidden});
     }
 
     toggleLogin(tab) {
@@ -150,6 +159,14 @@ class Login extends Component {
         }
     }
 
+    onPasswordChange(event) {
+        let password = event.target.value;
+        this.setState({
+            password: password
+        });
+
+    }
+
     closeMessageModal() {
         interval = setTimeout(() => {
             if (this.state.messageModal) {
@@ -220,13 +237,23 @@ class Login extends Component {
                                      }}/>
                     }
                     {
-
+                        this.state.active_tab === 'account' && this.state.active_form === 'password' &&
+                        <div className="login-password">
+                            <input type={ this.state.hidden ? "password" : "text"} className="login-password"
+                                   placeholder="请输入密码" onChange={this.onPasswordChange}
+                                   value={this.state.password} name='password'
+                            />
+                            <div className="eye" onClick={this.togglePassword}>
+                                <img src={ this.state.hidden ?  "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
+                                    "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg"} alt=""/>
+                            </div>
+                        </div>
                     }
                     {
                         this.state.active_tab === 'account' &&
                         <div className="btn">
                             <ButtonBottom
-                                disabled={ !this.state.mobileValid || !this.state.code || !this.state.send }
+                                disabled={this.formIsInvalid()}
                                 text={Resources.getInstance().accountLogin}
                                 submit={this.submit}/>
                         </div>
@@ -235,11 +262,11 @@ class Login extends Component {
                         this.state.active_tab === 'third' &&
                         <div className="third-login">
                             <div className="face-book">
-                                <img src="" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
                                 <span>facebook</span>
                             </div>
                             <div className="we-chat">
-                                <img src="" alt=""/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
                                 <span>微信</span>
                             </div>
                         </div>
@@ -255,6 +282,16 @@ class Login extends Component {
             </div>
         );
     }
+
+    formIsInvalid() {
+        if (this.state.active_tab === 'account' && this.state.active_form === 'code') {
+            return !this.state.mobileValid || !this.state.code || !this.state.send;
+        }else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
+            return !this.state.profile.phone || false;
+        }
+        return false;
+    }
+
 }
 
 export default Login;
