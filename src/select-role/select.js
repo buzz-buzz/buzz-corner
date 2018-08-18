@@ -52,8 +52,10 @@ class SelectRole extends Component {
 
             if(!profile.user_id){
                 browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
-            }else{
-                this.setState({loadingModal: false});
+            } else if(profile.role){
+                browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
+            } else{
+                this.setState({loadingModal: false});   
             }
         }
         catch (ex){
