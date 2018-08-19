@@ -173,7 +173,6 @@
 div.face-book,  div.we-chat{
   height: 60px;
   width: 100%;
-  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,6 +198,17 @@ div.face-book{
 .login-in > .login-form > .third-login > div.we-chat{
   background-color: #43e300;
   box-shadow: 0 1px 4px 0 rgba(67, 227, 0, 0.4);
+  margin: 10px 0;
+}
+
+.login-in > .login-form > .third-login > div.facebook-status{
+  margin: 5px 0;
+  height: 0;
+  padding-left: 14px;
+  font-size: 8px;
+  line-height: 16px;
+  color: #fc4e52;
+  overflow: hidden;
 }
 
 .login-in > .login-form > .login-password{
@@ -271,3 +281,15 @@ div.face-book{
     left: calc(75% - 5px); }
   to {
     left: calc(25% - 5px); } }
+
+@keyframes facebook-info-show {
+  from {
+    height: 0; }
+  to {
+    height: 16px; } }
+
+@-webkit-keyframes facebook-info-show /*Safari and Chrome*/ {
+  from {
+    height: 0; }
+  to {
+    height: 16px; } }

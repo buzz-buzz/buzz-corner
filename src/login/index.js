@@ -29,9 +29,9 @@ class Login extends Component {
             waitSec: 0,
             code: '',
             mobileValid: false,
-            emailValid: false,
             profile: {
-                phone: ''
+                phone: '',
+                email: ''
             },
             mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
             send: false,
@@ -42,6 +42,7 @@ class Login extends Component {
         };
 
         this.status = {};
+        this.facebookInfo = {};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleCodeChange = this.handleCodeChange.bind(this);
@@ -54,6 +55,7 @@ class Login extends Component {
         this.submit = this.submit.bind(this);
         this.facebookLogin = this.facebookLogin.bind(this);
         this.wechatLogin = this.wechatLogin.bind(this);
+        this.facebookLoginFail = this.facebookLoginFail.bind(this);
     }
 
     onCountryCodeChange = (event, data) =>
@@ -65,8 +67,7 @@ class Login extends Component {
         clonedProfile[event.target.name] = event.target.value;
         this.setState({
             profile: clonedProfile,
-            mobileValid: clonedProfile.phone && clonedProfile.phone.length > 0,
-            emailValid: clonedProfile.email && this.state.email_reg.test(clonedProfile.email) && clonedProfile.student_en_name
+            mobileValid: clonedProfile.phone && clonedProfile.phone.length > 0
         });
     }
 
@@ -88,7 +89,7 @@ class Login extends Component {
 
     toggleLogin(tab) {
         if (this.state.active_tab !== tab) {
-            this.setState({active_tab: tab}, () => {
+            this.setState({active_tab: tab, facebookDisconnect: false}, () => {
                 if (tab === 'third') {
                     this.status.style.animation = 'login-move-left .3s linear';
                 } else {
@@ -299,7 +300,10 @@ class Login extends Component {
                     {
                         this.state.active_tab === 'third' &&
                         <div className="third-login">
-                            <FacebookLogin btnText="facebook" mobileFacebookUI={true}/>
+                            <FacebookLogin btnText="facebook" mobileFacebookUI={true} LoginFail={this.facebookLoginFail} />
+                            <div className="facebook-status" ref={div => {
+                                this.facebookInfo = div;
+                            }} style={this.state.facebookDisconnect ? {height: '16px'} : {height: '0'}}>Facebook连接失败，请检查您的网络连接</div>
                             <div className="we-chat" onClick={this.wechatLogin} >
                                 <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
                                 <span>微信</span>
@@ -424,6 +428,11 @@ class Login extends Component {
             });
             this.closeMessageModal();
         }
+    }
+
+    facebookLoginFail(){
+        this.setState({facebookDisconnect: true});
+        this.facebookInfo.style.animation = 'facebook-info-show .3s linear';
     }
 
 }

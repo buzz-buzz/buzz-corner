@@ -61,7 +61,10 @@ export default class FacebookLogin extends React.Component {
     };
     doLogin = () => {
         if (!this.state.facebookConnected) {
-            this.setState({modalShow: true})
+            this.setState({modalShow: true});
+            if(this.props.LoginFail){
+                this.props.LoginFail();
+            }
             return;
         }
         if (/MicroMessenger/.test(navigator.userAgent)) {
@@ -182,12 +185,12 @@ export default class FacebookLogin extends React.Component {
             <div>
                 <ModalMessage modalName="error" modalShow={this.state.modalShow}
                               modalContent={Resources.getInstance().connectionError}
-                              style={{position: 'fixed'}} duration={'long'}/>
+                              style={{position: 'fixed', top: '0'}} duration={'long'}/>
                 <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
                               modalContent={Resources.getInstance().pleaseUseWechatToLogin}
                               style={{position: 'fixed'}} duration={'long'}/>
                 {
-                    this.props.mobileFacebookUI ? <div className="face-book" onClick={this.facebookLogin}>
+                    this.props.mobileFacebookUI ? <div className="face-book" onClick={this.doLogin}>
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
                             <span>facebook</span>
                         </div> :
