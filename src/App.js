@@ -37,6 +37,7 @@ import ZoomJoin from './classDetail/zoomJoin';
 import FlexCourses from './flexCourse';
 import CourseDetail from './flexCourse/CourseDetail';
 import LoginNew from './login/index';
+import LoginSelect from './accountLogin/account-select';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction
@@ -80,7 +81,9 @@ class App extends Component {
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
+                    <Route path='/login/account' component={LoginByAccount}/>
                     <Route path="/login" component={LoginNew}/>
+                    <Route path="/login-select" component={LoginSelect}/>
                     <Route
                         path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
                         component={WechatOAuthRedirect}/>
@@ -104,7 +107,6 @@ class App extends Component {
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>
-                    <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/course/:class_id' component={CourseDetail}/>
                     <Route path='/consult' component={Consult}/>

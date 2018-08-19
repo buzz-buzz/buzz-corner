@@ -219,6 +219,8 @@ export const errorModalBtn = '确定';
 export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面，稍后重试';
 
 export const messageSaveFailed = '保存失败!';
+export const messageSaveFailedPhone = '手机号信息存在异常, 需要重新填写!';
+export const messageSaveFailedNoWhy = '保存失败, 请刷新重试!';
 
 export const practiceAgain = '点击重新录制音频';
 
@@ -336,6 +338,7 @@ export const accountHow = '如何获得账号密码登录？';
 export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
+export const codeLoginFailed = '登录失败: 手机号或者验证码错误!';
 export const accountAccount = '账号';
 export const accountPassword = '密码';
 

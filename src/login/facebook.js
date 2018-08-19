@@ -3,7 +3,6 @@ import {Image} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
-import {MemberType} from "../membership/member-type";
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import ModalMessage from "../common/commonComponent/modalMessage/index";
 import Resources from "../resources";

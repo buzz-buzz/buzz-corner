@@ -36,7 +36,7 @@ class Login extends Component {
             mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
             send: false,
             active_tab: 'account',
-            active_form: 'code',
+            active_form: 'password',
             hidden: true,
             password: ''
         };
@@ -106,7 +106,7 @@ class Login extends Component {
         }
         if (this.state.active_tab === 'account' && this.state.active_form === 'code') {
             //随机密码登陆-验证码登陆
-            alert('暂不支持验证码登陆, 请切换其他登陆方式');
+            await this.codeLogin();
         }
     }
 
@@ -323,8 +323,9 @@ class Login extends Component {
             return !this.state.mobileValid || !this.state.code || !this.state.send;
         } else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
             return !this.state.profile.phone || !this.state.password;
+        }else {
+            return false;
         }
-        return false;
     }
 
     async accountLogin(){
@@ -347,7 +348,7 @@ class Login extends Component {
             if (result instanceof Array) {
                 this.props.addUsers(result);
                 this.setState({loadingModal: false}, ()=> {
-                    browserHistory.push('/login/account');
+                    browserHistory.push('/login-select');
                 });
                 return;
             }
@@ -365,6 +366,60 @@ class Login extends Component {
             this.setState({
                 messageModal: true,
                 messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
+                loadingModal: false
+            });
+            this.closeMessageModal();
+        }
+    }
+
+    async codeLogin(){
+        try{
+            this.setState({loadingModal: true});
+            this.props.clearUsers();
+
+            try {
+                let result =  await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/signInByMobileCode`,
+                        json: {
+                            mobile: this.state.profile.phone,
+                            code: this.state.code,
+                            mobile_country: this.state.mobileCountry
+                        },
+                        method: 'POST'
+                    }
+                });
+
+                if (result instanceof Array) {
+                    this.props.addUsers(result);
+                    this.setState({loadingModal: false}, ()=> {
+                        browserHistory.push('/login-select');
+                    });
+                    return;
+                }
+
+                this.setState({loadingModal: false}, () => {
+                    let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+
+                    if (returnUrl) {
+                        window.location.href = decodeURIComponent(returnUrl);
+                    } else {
+                        browserHistory.push('/');
+                    }
+                });
+            } catch (ex) {
+                this.setState({
+                    messageModal: true,
+                    messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().accountLoginFailed,
+                    loadingModal: false
+                });
+                this.closeMessageModal();
+            }
+        }
+        catch (ex) {
+            this.setState({
+                messageModal: true,
+                messageContent: ex.status === 500 ? Resources.getInstance().emailSendWrong : Resources.getInstance().codeLoginFailed,
                 loadingModal: false
             });
             this.closeMessageModal();

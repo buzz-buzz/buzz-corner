@@ -261,12 +261,14 @@ router
     .get('/account/set', membership.ensureAuthenticated, serveSPA)
     .get('/account/about', serveSPA)
     .get('/account/select', serveSPA)
-    .get('/login/account', serveSPA)
     .get('/zoom', serveSPA)
     .get('/zoom-join', serveSPA)
     .get('/help/:faq_id', serveSPA)
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
+    .get('/login/account', serveSPA)
+    .get('/login', serveSPA)
+    .get('/login-select', serveSPA)
 ;
 
 app

@@ -94,15 +94,13 @@ class AccountLogin extends Component {
         this.setState({loadingModal: true});
         this.props.clearUsers();
 
-        console.log('state = ', this.state);
-
         try {
             let result = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {
-                        account: this.state.data.user_account || this.props.users[0].mobile || this.props.users[0].email,
-                        password: this.state.data.user_password || this.props.users[0].password,
+                        account: this.state.data.user_account,
+                        password: this.state.data.user_password,
                         user_id: this.state.data.user_id,
                         mobile_country: this.state.mobileCountry
                     },
@@ -111,20 +109,16 @@ class AccountLogin extends Component {
             });
 
             if (result instanceof Array) {
-                this.props.addUsers(result)
+                this.props.addUsers(result);
                 this.setState({
                     loadingModal: false,
                     multipleUsers: true,
                     title: Resources.getInstance().accountSelectLogin
-                })
+                });
                 return;
             }
 
             this.setState({loadingModal: false}, () => {
-                if (result.role) {
-                    localStorage.setItem('role', result.role);
-                }
-
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
                 if (returnUrl) {
