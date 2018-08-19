@@ -95,7 +95,6 @@ class Login extends Component {
                 } else {
                     this.status.style.animation = 'login-move-right .3s linear';
                 }
-
             });
         }
     }
@@ -119,7 +118,7 @@ class Login extends Component {
         browserHistory.push(`/login/facebook${window.location.search}`);
     }
 
-    wechatLogin(){
+    wechatLogin() {
         Track.event('登录页面_点击微信登录按钮', null, {
             '用户类型': MemberTypeChinese.Student
         });
@@ -300,11 +299,20 @@ class Login extends Component {
                     {
                         this.state.active_tab === 'third' &&
                         <div className="third-login">
-                            <FacebookLogin btnText="facebook" mobileFacebookUI={true} LoginFail={this.facebookLoginFail} />
-                            <div className="facebook-status" ref={div => {
-                                this.facebookInfo = div;
-                            }} style={this.state.facebookDisconnect ? {height: '16px'} : {height: '0'}}>Facebook连接失败，请检查您的网络连接</div>
-                            <div className="we-chat" onClick={this.wechatLogin} >
+                            {
+                                !/MicroMessenger/.test(navigator.userAgent) &&
+                                <FacebookLogin btnText="facebook" mobileFacebookUI={true}
+                                               LoginFail={this.facebookLoginFail}/>
+                            }
+                            {
+                                !/MicroMessenger/.test(navigator.userAgent) &&
+                                <div className="facebook-status" ref={div => {
+                                    this.facebookInfo = div;
+                                }} style={this.state.facebookDisconnect ? {height: '16px'} : {height: '0'}}>
+                                    Facebook连接失败，请检查您的网络连接
+                                </div>
+                            }
+                            <div className="we-chat" onClick={this.wechatLogin}>
                                 <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
                                 <span>微信</span>
                             </div>
@@ -327,17 +335,17 @@ class Login extends Component {
             return !this.state.mobileValid || !this.state.code || !this.state.send;
         } else if (this.state.active_tab === 'account' && this.state.active_form === 'password') {
             return !this.state.profile.phone || !this.state.password;
-        }else {
+        } else {
             return false;
         }
     }
 
-    async accountLogin(){
+    async accountLogin() {
         this.setState({loadingModal: true});
         this.props.clearUsers();
 
         try {
-            let result =  await ServiceProxy.proxyTo({
+            let result = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/account-sign-in`,
                     json: {
@@ -351,7 +359,7 @@ class Login extends Component {
 
             if (result instanceof Array) {
                 this.props.addUsers(result);
-                this.setState({loadingModal: false}, ()=> {
+                this.setState({loadingModal: false}, () => {
                     browserHistory.push('/login-select');
                 });
                 return;
@@ -376,13 +384,13 @@ class Login extends Component {
         }
     }
 
-    async codeLogin(){
-        try{
+    async codeLogin() {
+        try {
             this.setState({loadingModal: true});
             this.props.clearUsers();
 
             try {
-                let result =  await ServiceProxy.proxyTo({
+                let result = await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/signInByMobileCode`,
                         json: {
@@ -396,7 +404,7 @@ class Login extends Component {
 
                 if (result instanceof Array) {
                     this.props.addUsers(result);
-                    this.setState({loadingModal: false}, ()=> {
+                    this.setState({loadingModal: false}, () => {
                         browserHistory.push('/login-select');
                     });
                     return;
@@ -430,7 +438,7 @@ class Login extends Component {
         }
     }
 
-    facebookLoginFail(){
+    facebookLoginFail() {
         this.setState({facebookDisconnect: true});
         this.facebookInfo.style.animation = 'facebook-info-show .3s linear';
     }
