@@ -135,7 +135,7 @@ class User extends Component {
                             <Link to="" className="after-line">
                                 <div className="icon">
                                     <div className="name">
-                                        <span>切换成其他用户(id):</span>
+                                        <span>切换成(id):</span>
                                         <input type="number" name="switchToUserId"
                                                            onChange={this.handleUserIdChange}
                                                            value={this.state.switchToUserId}/>
