@@ -114,7 +114,6 @@ export default class FacebookLogin extends React.Component {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
                 method: 'POST',
                 json: {
-                    role: URLHelper.getSearchParam(window.location.search, 'role') || MemberType.Companion,
                     name: facebookUserInfo.name,
                     facebook_id: facebookUserInfo.id,
                     facebook_name: facebookUserInfo.name

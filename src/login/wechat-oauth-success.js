@@ -48,7 +48,6 @@ export default class WechatOAuthSuccess extends React.Component {
                 uri: '{config.endPoints.buzzService}/api/v1/users',
                 method: 'POST',
                 json: {
-                    role: this.state.role || MemberType.Student,
                     wechat_name: wechatUserInfo.nickname,
                     wechat_openid: wechatUserInfo.openid,
                     wechat_unionid: wechatUserInfo.unionid,
