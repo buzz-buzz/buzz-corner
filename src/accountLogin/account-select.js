@@ -46,7 +46,7 @@ class AccountSelectLogin extends Component {
         if(!data || !data.mobile || !data.token){
             this.setState({
                 messageModal: true,
-                messageContent: '数据失效，请重新登陆!'
+                messageContent: '数据失效，请重新登录!'
             });
             this.closeMessageModal();
             return false;
