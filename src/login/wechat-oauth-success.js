@@ -4,7 +4,6 @@ import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import {browserHistory} from 'react-router';
 import LoadingModal from '../common/commonComponent/loadingModal';
-import {MemberType} from "../membership/member-type";
 import URLHelper from "../common/url-helper";
 
 export default class WechatOAuthSuccess extends React.Component {

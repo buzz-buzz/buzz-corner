@@ -220,6 +220,8 @@ export const errorModalBtn = 'Got it';
 export const errorModalContent = 'Sorry, something was wrong。 please fresh the page and try later';
 
 export const messageSaveFailed = 'Save Failed!';
+export const messageSaveFailedPhone = 'Sorry, save Failed, please try again!';
+export const messageSaveFailedNoWhy = 'Sorry, save Failed, please refresh this page and try again!';
 
 export const practiceAgain = 'Record again';
 
@@ -337,6 +339,7 @@ export const accountHow = 'How to get my account？';
 export const accountUnset = 'Unset';
 export const accountSet = 'Set';
 export const accountLoginFailed = 'Login failed: Incorrect account or password!';
+export const codeLoginFailed = 'Login failed: Incorrect phone number or code!';
 export const accountAccount = 'Account';
 export const accountPassword = 'Password';
 

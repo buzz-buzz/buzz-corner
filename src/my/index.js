@@ -399,15 +399,16 @@ class My extends Component {
 
                 let profileData = this.validateForm();
 
-                if (this.state.userId) {
+                if (this.state.userId && profileData) {
                     await CurrentUser.updateProfile(profileData);
 
                     browserHistory.push('/home?intro=1');
                 } else {
                     this.setState({
                         messageModal: true,
-                        messageContent: Resources.getInstance().messageSaveFailed,
-                        messageName: 'error'
+                        messageContent: this.state.userId ? Resources.getInstance().messageSaveFailed : (!profileData ? Resources.getInstance().messageSaveFailedPhone : Resources.getInstance().messageSaveFailedNoWhy),
+                        messageName: 'error',
+                        loadingModal: false
                     });
                     this.closeMessageModal();
                 }
@@ -415,7 +416,13 @@ class My extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
-            this.setState({loadingModal: false});
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().messageSaveFailedNoWhy,
+                messageName: 'error',
+                loadingModal: false
+            });
+            this.closeMessageModal();
         }
     }
 
@@ -444,6 +451,10 @@ class My extends Component {
 
     validateForm() {
         let profile = this.state.profile;
+
+        if(!profile.phone || ! countryCodeMap[this.state.mobileCountry]){
+            return false;
+        }
 
         return {
             parent_name: profile.parent_name,
