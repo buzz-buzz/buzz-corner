@@ -96,8 +96,8 @@
 .login-in > .login-form{
   flex: 0 0 auto;
   background: #f4f5f9;
-  padding: 20px 21px 50px 21px;
-  min-height: 286px;
+  padding: 20px 21px 30px 21px;
+  min-height: 266px;
 }
 
 .login-in > .login-form > div.btn{
