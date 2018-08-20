@@ -7,7 +7,7 @@ import {MemberType} from "../../membership/member-type";
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countries} from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
-import {ChineseCityList} from "../../common/systemData/chineseCityListData";
+import {ChinaAllCityList} from "../../common/systemData/chineseCityListData";
 import BuzzInput from '../../common/commonComponent/buzzInput';
 import Client from "../../common/client";
 import DatePicker from 'react-datepicker';
@@ -27,6 +27,10 @@ const timeZones = Object.keys(zones).map(key => ({
 const countryList = Object.keys(countries).map(key => ({
     key, value: countries[key].name, text: countries[key].name
 }));
+
+const ChineseCityListNew = ChinaAllCityList.map((item, index) => {
+    return {key: index, value: item.name, text: item.name}
+});
 
 const birthdayFrom = (new Date().getFullYear() - 7) + '-' + (new Date().getMonth() + 1 > 9 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate());
 
@@ -103,7 +107,7 @@ export default class ProfileFormStep2 extends React.Component {
                                   onChange={(event, data) => {
                                       this.props.handleCityChange(event, data)
                                   }} value={this.props.profile.city}
-                                  options={ChineseCityList}/>
+                                  options={ChineseCityListNew}/>
                     </div>
                 </div>)
                 : (this.props.role === MemberType.Companion ?

@@ -1,14 +1,18 @@
 .placement-first, .placement-second, .placement-third,  .placement-fourth {
     min-height: 15em;
     flex: 1 0 auto;
+    width: 100%;
 }
 
+
+
 .first-question{
-    height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 1em 0 1em 0;
+    background: white;
+    padding: 21px;
+    position: relative;
 }
 
 .first-question>div:nth-child(1){
@@ -28,13 +32,13 @@
 }
 
 .first-answer>.answer-item{
-    width: 100%;
+    margin: 15px 17px;
     border-radius: 10px;
     border: 1px solid #dfdfe4;
-    margin: 1em 0;
     position: relative;
     display: flex;
     color: #666;
+    background: white;
 }
 
 .answer-title{
@@ -280,7 +284,22 @@ div.help-modal > .help-content > img{
 }
 
 .offset-bottom{
-    height: 80px;
     flex: 0 0 auto;
     width: 100%;
+}
+
+.placement{
+    display: flex;
+    flex-direction: column;
+}
+
+.placement > .placement-body{
+    flex: 1 0 auto;
+    display: flex;
+    width: 100%;
+}
+
+.placement > .placement-body  .first-answer{
+    flex: 1 0 auto;
+    padding: 15px 21px;
 }

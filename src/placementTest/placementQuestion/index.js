@@ -36,7 +36,7 @@ export default class PlacementQuestion extends React.Component {
 
     render() {
         return <div className="first placement-first">
-            <div className="first-question">
+            <div className="first-question" style={this.props.step <= 4 ? {borderBottom: '1px solid #dfdfe4'} : {}}>
                 <div>
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
                 </div>
@@ -58,8 +58,9 @@ export default class PlacementQuestion extends React.Component {
                                     onTouchStart={() => this.touchStart(index)} onTouchEnd={this.touchEnd}
                                     onClick={(event) => this.props.saveAnswer(event, this.props.step - 1, item)}
                                     style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === item ? {
-                                            color: 'rgb(246, 180, 12)',
-                                            border: '1px solid rgb(246, 180, 12)'
+                                            color: 'white',
+                                            border: '1px solid #ffd200',
+                                            background: '#ffd200'
                                         } : {}}>
                             <div className="item-content">
                                 <p>{item}</p>

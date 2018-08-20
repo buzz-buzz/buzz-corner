@@ -181,6 +181,7 @@ div.face-book,  div.we-chat{
   color: #fff;
   border-radius: 10px;
   position: relative;
+  font-weight: 600;
 }
 
  div.face-book > img, div.we-chat > img{
