@@ -1,5 +1,4 @@
 import React from 'react';
-import {Form} from 'semantic-ui-react';
 import _ from 'lodash';
 import {browserHistory} from 'react-router';
 import Resources from '../resources';
@@ -15,7 +14,6 @@ import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import ErrorHandler from "../common/error-handler";
 import CurrentUser from "../membership/user";
-import '../my/my.css';
 import './index.css';
 
 export default class PlacementModal extends React.Component {
@@ -270,7 +268,7 @@ export default class PlacementModal extends React.Component {
 
     render() {
         return (
-            <div className="my-profile">
+            <div className="placement">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
@@ -291,7 +289,7 @@ export default class PlacementModal extends React.Component {
                                 style={{background: 'white'}}
                     />
                 }
-                <Form className='profile-body'>
+                <div className='placement-body' style={this.state.step <= 4 ? {background: '#f4f5f9'} : {background: 'white'}}>
                     {
                         this.state.step <= 6 &&
                         <PlacementQuestion step={this.state.step} questions={this.state.questions}
@@ -302,15 +300,15 @@ export default class PlacementModal extends React.Component {
                                            avatar={this.state.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                         />
                     }
-                    <div className="profile-btn-placement">
-                        <ButtonBottom
-                            disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
-                                : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
-                            text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
-                            submit={this.submit}/>
-                    </div>
-                </Form>
-                <div className="offset-bottom"></div>
+                </div>
+                <div className="offset-bottom" style={this.state.step >= 5 ? {height: '82px'} : {height: '50px'}}></div>
+                <div className="profile-btn-placement">
+                    <ButtonBottom
+                        disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
+                            : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
+                        text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
+                        submit={this.submit}/>
+                </div>
             </div>
         );
     }

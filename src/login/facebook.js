@@ -192,7 +192,7 @@ export default class FacebookLogin extends React.Component {
                 {
                     this.props.mobileFacebookUI ? <div className="face-book" onClick={this.doLogin}>
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
-                            <span>facebook</span>
+                            <span>FACEBOOK</span>
                         </div> :
                         <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading}
                                          disabled={this.state.loading}
