@@ -39,11 +39,13 @@ export default class ImageSelect extends React.Component{
                         >
                             <img src={item} alt="" onClick={(event) => this.openBigger(event, item)} />
                             <div className="select-status" onClick={(event) => this.props.select(event, this.props.step - 1, item)}>
-                                <img src={ this.props.answers && this.props.answers.length &&
-                                this.props.answers[this.props.step - 1] &&
-                                this.props.answers[this.props.step - 1].indexOf(item) > -1 ?
-                                    "//cdn-corner.resource.buzzbuzzenglish.com/placement/placement_select_active.svg"
-                                    : "//cdn-corner.resource.buzzbuzzenglish.com/placement/placement_select.svg" } alt=""/>
+                                <div>
+                                    <img src={ this.props.answers && this.props.answers.length &&
+                                    this.props.answers[this.props.step - 1] &&
+                                    this.props.answers[this.props.step - 1].indexOf(item) > -1 ?
+                                        "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select_active.svg"
+                                        : "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select.svg" } alt=""/>
+                                </div>
                             </div>
                         </div>
                     })

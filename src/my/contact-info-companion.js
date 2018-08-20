@@ -32,7 +32,7 @@ export default (props) =>
 
         <div className="agreement" onClick={props.agreementCheck}>
             <img
-                src={props.agreement === true ? QiniuDomain + "/icon_select_active.png" : QiniuDomain + "/icon_select.png"}
+                src={props.agreement === true ? QiniuDomain + "/placement/icon_select_active.svg" : QiniuDomain + "/placement/icon_select.svg"}
                 alt=""/>
             <span>{Resources.getInstance().profileAgreement}</span>
         </div>
