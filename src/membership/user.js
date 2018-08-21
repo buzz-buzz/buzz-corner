@@ -95,15 +95,12 @@ export default class CurrentUser {
     }
 
     static async updateProfile(profile) {
-        let new_profile = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${(await User.getInstance()).userId}`,
-                json: profile,
-                method: 'PUT'
-            }
+        let user = await ServiceProxy.proxy(`/user-info`, {
+            body: profile,
+            method: 'PUT'
         });
 
-        User.update(new_profile);
+        User.update(user.profile);
     }
 
     static async signOut() {
