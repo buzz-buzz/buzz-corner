@@ -95,12 +95,12 @@ export default class CurrentUser {
     }
 
     static async updateProfile(profile) {
-        let new_profile = await ServiceProxy.proxy(`/user-info`, {
+        let user = await ServiceProxy.proxy(`/user-info`, {
             body: profile,
             method: 'PUT'
         });
 
-        User.update(new_profile);
+        User.update(user.profile);
     }
 
     static async signOut() {
