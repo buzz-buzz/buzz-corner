@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
-import SelectRoleTablet from './select-role/tablet';
 import SelectRoleNew from './select-role/select';
+import SelectRoleNewTablet from './select-role/select-tablet';
 import {browserHistory, Route, Router} from "react-router";
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
@@ -72,7 +72,7 @@ class App extends Component {
                     <Route path='/%2f' component={Home}/>
                     <Route path='/user-info' component={UserUpdate}/>
                     <Route path='/select-role'
-                           component={Client.showComponent(SelectRoleNew, SelectRoleTablet)}/>
+                           component={Client.showComponent(SelectRoleNew, SelectRoleNewTablet)}/>
                     <Route path='/sign-in'
                            component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/tutor'

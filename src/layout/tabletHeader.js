@@ -27,9 +27,6 @@ class TabletHeader extends Component {
                 <div className="tablet-middle">
                     <p onClick={this.goHomePage}>{Resources.getInstance().homeLogin}</p>
                 </div>
-                <div className="tablet-language-right">
-
-                </div>
             </div>
         );
     }
