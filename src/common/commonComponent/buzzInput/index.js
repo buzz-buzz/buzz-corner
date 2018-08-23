@@ -2,14 +2,6 @@ import * as React from "react";
 import './index.css';
 
 export default class BuzzInput extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            pressing: false
-        };
-    }
-
     render() {
         return (
             <div className="buzz-input"

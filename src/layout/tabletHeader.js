@@ -15,7 +15,7 @@ class TabletHeader extends Component {
     goHomePage(){
         Track.event('角色选择_logo点击', 'logo点击');
 
-        browserHistory.push('/');
+        browserHistory.push('/login');
     }
 
     render() {

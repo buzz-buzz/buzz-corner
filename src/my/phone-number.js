@@ -20,7 +20,7 @@ const countryOptions = countryList.map(c => ({
     value: c.countryLongName,
     flag: c.countryShortName.toLowerCase(),
     text: `(+${c.countryCode}) ${c.countryName}`
-}));
+})).filter(item=>{return item.flag !== 'sx';});
 
 
 export default (props) =>
@@ -31,7 +31,8 @@ export default (props) =>
                       search options={countryOptions}
                       style={ props.dropDownStyle ? props.dropDownStyle : {
                               width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
-                              display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px'
+                              display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px',
+                              background: 'rgb(244, 245, 249)'
                           }}
                       value={props.mobileCountry}
                       onChange={props.onCountryCodeChange}/>

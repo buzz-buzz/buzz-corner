@@ -18,7 +18,7 @@ const countryOptions = countryList.map(c => ({
     value: c.countryLongName,
     flag: c.countryShortName.toLowerCase(),
     text: `(+${c.countryCode}) ${c.countryName}`
-}));
+})).filter(item=>{return item.flag !== 'sx';});
 
 
 export default (props) => (<div className="form-content" onClick={(e) => {
@@ -29,7 +29,11 @@ export default (props) => (<div className="form-content" onClick={(e) => {
     <div className="two-items">
         <Dropdown placeholder={Resources.getInstance().selectCountryCode}
                   search selection options={countryOptions}
-                  style={{width: '80px', marginRight: '10px'}}
+                  style={{
+                      width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
+                      display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px',
+                      background: 'rgb(244, 245, 249)'
+                  }}
                   value={props.mobileCountry}
                   onChange={props.onCountryCodeChange}/>
 
@@ -46,10 +50,17 @@ export default (props) => (<div className="form-content" onClick={(e) => {
                onChange={props.handleCodeChange}
                name='code'/>
         <button
-            className={props.mobileValid && props.waitSec <= 0 ? 'right-button light' : 'right-button'}
-            disabled={!props.mobileValid || props.waitSec > 0}
+            style={props.waitSec || !props.mobileValid || !props.new_phone ? {
+                    color: '#fff',
+                    background: '#dfdfe4'
+                } : {
+                    color: 'white'
+                }}
+            disabled={!props.mobileValid || props.waitSec > 0 || !props.new_phone}
             onClick={props.sms}
-        >{props.waitSec || Resources.getInstance().profilePhoneCheck}</button>
+        >{props.waitSec ? Resources.getInstance().profilePhoneSend + '(' + props.waitSec + ')' :
+                ( props.send ? Resources.getInstance().profilePhoneCheckAgain : Resources.getInstance().profilePhoneCheck)}
+        </button>
     </div>
     <Button50px
         disabled={!props.mobileValid || props.code.length !== 4}

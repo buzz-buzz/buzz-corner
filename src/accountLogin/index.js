@@ -37,7 +37,7 @@ const countryOptions = countryList.map(c => ({
     value: c.countryLongName,
     flag: c.countryShortName.toLowerCase(),
     text: `(+${c.countryCode}) ${c.countryName}`
-}));
+})).filter(item=>{return item.flag !== 'sx';});
 
 
 class AccountLogin extends Component {

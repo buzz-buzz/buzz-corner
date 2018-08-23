@@ -178,6 +178,10 @@ export default class FacebookLogin extends React.Component {
 
     componentWillUnmount() {
         document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
+
+        this.setState = (state, callback) => {
+            return false;
+        };
     }
 
     render() {

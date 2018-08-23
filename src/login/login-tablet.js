@@ -16,12 +16,14 @@ import {addUser, addUsers, clearUsers} from '../redux/actions/index';
 import WeChatLogin from "./wechat";
 import FacebookLogin from "./facebook";
 import Track from "../common/track";
-import './index.css';
+import './login-tablet.css';
+import TabletHeader from '../layout/tabletHeader';
+import TabletFooter from '../layout/tabletFooter';
 
 const logger = require('../common/logger');
 let interval = null;
 
-class Login extends Component {
+class LoginTablet extends Component {
     constructor(props) {
         super(props);
 
@@ -90,13 +92,7 @@ class Login extends Component {
 
     toggleLogin(tab) {
         if (this.state.active_tab !== tab) {
-            this.setState({active_tab: tab, facebookDisconnect: false}, () => {
-                if (tab === 'third') {
-                    this.status.style.animation = 'login-move-left .3s linear';
-                } else {
-                    this.status.style.animation = 'login-move-right .3s linear';
-                }
-            });
+            this.setState({active_tab: tab, facebookDisconnect: false});
         }
     }
 
@@ -224,7 +220,8 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="login-in">
+            <div className="login-in-tablet">
+                <TabletHeader/>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName}
                               modalContent={this.state.messageContent}
@@ -242,100 +239,99 @@ class Login extends Component {
                     </div>
                 </div>
                 <div className="login-tab">
-                    <div onClick={() => this.toggleLogin('third')}
-                         className={ this.state.active_tab === 'third' ? "login-others active" : "login-others"}>第三方登录
-                    </div>
-                    <div onClick={() => this.toggleLogin('account')}
-                         className={ this.state.active_tab === 'account' ? "login-others active" : "login-others"}>账号密码
-                    </div>
-                    <div className="status" ref={div => {
-                        this.status = div;
-                    }}
-                         style={ this.state.active_tab === 'third' ? {left: 'calc(25% - 5px)'} : {left: 'calc(75% - 5px)'} }
-                    ></div>
-                </div>
-                <div className="login-form">
-                    {
-                        this.state.active_tab === 'account' &&
-                        <PhoneNumber profile={this.state.profile} handleChange={this.handleChange}
-                                     code={this.state.code} handleCodeChange={this.handleCodeChange}
-                                     waitSec={this.state.waitSec} mobileValid={this.state.mobileValid}
-                                     sms={this.sms} send={this.state.send}
-                                     mobileCountry={this.state.mobileCountry}
-                                     onCountryCodeChange={this.onCountryCodeChange}
-                                     codeModalNone={this.state.active_form !== 'code'}
-                                     dropDownStyle={{
-                                         width: '100px',
-                                         marginRight: '5px',
-                                         minWidth: '120px',
-                                         whiteSpace: 'nowrap',
-                                         display: 'flex',
-                                         paddingLeft: '15px',
-                                         alignItems: 'center'
-                                     }}/>
-                    }
-                    {
-                        this.state.active_tab === 'account' && this.state.active_form === 'password' &&
-                        <div className="login-password">
-                            <input type={ this.state.hidden ? "password" : "text"} className="login-password"
-                                   placeholder="请输入密码" onChange={this.onPasswordChange}
-                                   value={this.state.password} name='password'
-                            />
-                            <div className="eye" onClick={this.togglePassword}>
-                                <img
-                                    src={ this.state.hidden ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
-                                        "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg"} alt=""/>
-                            </div>
+                    <div className="tab-container">
+                        <div onClick={() => this.toggleLogin('third')}
+                             className={ this.state.active_tab === 'third' ? "login-others active" : "login-others"}>第三方登录
                         </div>
-                    }
-                    {
-                        this.state.active_tab === 'account' &&
-                        <div className="btn">
-                            <ButtonBottom
-                                disabled={this.formIsInvalid()}
-                                text={Resources.getInstance().accountLogin}
-                                submit={this.submit}/>
+                        <div className="line"></div>
+                        <div onClick={() => this.toggleLogin('account')}
+                             className={ this.state.active_tab === 'account' ? "login-others active" : "login-others"}>账号密码
                         </div>
-                    }
-                    {
-                        this.state.active_tab === 'third' &&
-                        <div className="third-login">
-                            {
-                                !/MicroMessenger/.test(navigator.userAgent) &&
-                                <FacebookLogin btnText="facebook" mobileFacebookUI={true}
-                                               LoginFail={this.facebookLoginFail}/>
-                            }
-                            {
-                                !/MicroMessenger/.test(navigator.userAgent) &&
-                                <div className="facebook-status" ref={div => {
-                                    this.facebookInfo = div;
-                                }} style={this.state.facebookDisconnect ? {height: '16px'} : {height: '0'}}>
-                                    Facebook连接失败，请检查您的网络连接
+                    </div>
+                    <div className="login-form">
+                        {
+                            this.state.active_tab === 'account' &&
+                            <PhoneNumber profile={this.state.profile} handleChange={this.handleChange}
+                                         code={this.state.code} handleCodeChange={this.handleCodeChange}
+                                         waitSec={this.state.waitSec} mobileValid={this.state.mobileValid}
+                                         sms={this.sms} send={this.state.send}
+                                         mobileCountry={this.state.mobileCountry}
+                                         onCountryCodeChange={this.onCountryCodeChange}
+                                         codeModalNone={this.state.active_form !== 'code'}
+                                         dropDownStyle={{
+                                             width: '100px',
+                                             marginRight: '5px',
+                                             minWidth: '120px',
+                                             whiteSpace: 'nowrap',
+                                             display: 'flex',
+                                             paddingLeft: '15px',
+                                             alignItems: 'center'
+                                         }}/>
+                        }
+                        {
+                            this.state.active_tab === 'account' && this.state.active_form === 'password' &&
+                            <div className="login-password">
+                                <input type={ this.state.hidden ? "password" : "text"} className="login-password"
+                                       placeholder="请输入密码" onChange={this.onPasswordChange}
+                                       value={this.state.password} name='password'
+                                />
+                                <div className="eye" onClick={this.togglePassword}>
+                                    <img
+                                        src={ this.state.hidden ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_on.svg" :
+                                            "//cdn-corner.resource.buzzbuzzenglish.com/icon_password_off.svg"} alt=""/>
                                 </div>
-                            }
-                            <div className="we-chat" onClick={this.wechatLogin}>
-                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
-                                <span>微信</span>
                             </div>
-                            <div className="agreement">
-                                <img
-                                    src={this.state.agreement === true ? "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select.svg"}
-                                    alt=""/>
-                                <span>{Resources.getInstance().profileAgreement}</span>
+                        }
+                        {
+                            this.state.active_tab === 'account' &&
+                            <div className="btn">
+                                <ButtonBottom
+                                    disabled={this.formIsInvalid()}
+                                    text={Resources.getInstance().accountLogin}
+                                    submit={this.submit}/>
                             </div>
-                        </div>
-                    }
-                    {
-                        this.state.active_tab === 'account' &&
-                        <div className="toggle-login">
-                            <div className="line"></div>
-                            <div className="toggle-word"
-                                 style={this.state.active_tab === 'third' ? {textDecoration: 'none'} : {}}
-                                 onClick={this.toggleLoginStyle}>{this.state.active_form === 'code' ? '用密码登录' : '忘记密码'}</div>
-                            <div className="line"></div>
-                        </div>
-                    }
+                        }
+                        {
+                            this.state.active_tab === 'third' &&
+                            <div className="third-login">
+                                {
+                                    !/MicroMessenger/.test(navigator.userAgent) &&
+                                    <FacebookLogin btnText="facebook" mobileFacebookUI={true}
+                                                   LoginFail={this.facebookLoginFail}/>
+                                }
+                                {
+                                    !/MicroMessenger/.test(navigator.userAgent) &&
+                                    <div className="facebook-status" ref={div => {
+                                        this.facebookInfo = div;
+                                    }} style={this.state.facebookDisconnect ? {height: '32px'} : {height: '0'}}>
+                                        Facebook连接失败，请检查您的网络连接
+                                    </div>
+                                }
+                                <div className="we-chat" onClick={this.wechatLogin}>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
+                                    <span>微信</span>
+                                </div>
+                                <div className="agreement">
+                                    <img
+                                        src={this.state.agreement === true ? "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_select.svg"}
+                                        alt=""/>
+                                    <span>{Resources.getInstance().profileAgreement}</span>
+                                </div>
+                            </div>
+                        }
+                        {
+                            this.state.active_tab === 'account' &&
+                            <div className="toggle-login">
+                                <div className="line"></div>
+                                <div className="toggle-word"
+                                     style={this.state.active_tab === 'third' ? {textDecoration: 'none'} : {}}
+                                     onClick={this.toggleLoginStyle}>{this.state.active_form === 'code' ? '用密码登录' : '忘记密码'}</div>
+                                <div className="line"></div>
+                            </div>
+                        }
+                    </div>
                 </div>
+                <TabletFooter/>
             </div>
         );
     }
@@ -378,7 +374,7 @@ class Login extends Component {
             this.setState({loadingModal: false}, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
-                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') <= -1) {
+                if (returnUrl) {
                     window.location.href = decodeURIComponent(returnUrl);
                 } else {
                     browserHistory.push('/');
@@ -450,7 +446,7 @@ class Login extends Component {
 
     facebookLoginFail() {
         this.setState({facebookDisconnect: true});
-        this.facebookInfo.style.animation = 'facebook-info-show .3s linear';
+        this.facebookInfo.style.animation = 'facebook-info-show-tablet .3s linear';
     }
 
 }
@@ -472,4 +468,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginTablet);
