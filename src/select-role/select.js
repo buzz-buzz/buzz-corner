@@ -72,14 +72,14 @@ class SelectRole extends Component {
             let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
             if (returnUrl) {
-                browserHistory.push(decodeURIComponent(returnUrl));
+                browserHistory.push(decodeURIComponent(returnUrl).indexOf('sign-out') <= -1 ? decodeURIComponent(returnUrl) : '/');
                 //window.location.href = decodeURIComponent(returnUrl);
             } else {
                 browserHistory.push('/');
             }
         }
         catch (ex){
-            this.setState({loadingModal: true});
+            this.setState({loadingModal: false});
 
             ErrorHandler.notify('网络请求发生错误', ex);
         }

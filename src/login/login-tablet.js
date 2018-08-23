@@ -374,7 +374,7 @@ class LoginTablet extends Component {
             this.setState({loadingModal: false}, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
-                if (returnUrl) {
+                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') <= -1) {
                     window.location.href = decodeURIComponent(returnUrl);
                 } else {
                     browserHistory.push('/');
