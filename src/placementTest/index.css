@@ -125,7 +125,8 @@
     justify-content: center;
     align-items: center;
     letter-spacing: 0;
-    font-size: 1em;
+    font-size: 15px;
+    font-weight: bold;
     margin: 0 1em;
 }
 
@@ -302,4 +303,28 @@ div.help-modal > .help-content > img{
 .placement > .placement-body  .first-answer{
     flex: 1 0 auto;
     padding: 15px 21px;
+}
+
+.new-talk-style{
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid #d0d6db;
+    margin-right: 17px;
+}
+
+.new-talk-style .right-location{
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: calc(50% - 3px);
+    right: -5px;
+    z-index: 20;
+    border-top: 1px solid #d0d6db;
+    border-right: 1px solid #d0d6db;
+    background: white;
+    transform:rotate(45deg);
+    -ms-transform:rotate(45deg); 	/* IE 9 */
+    -moz-transform:rotate(45deg); 	/* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+    -o-transform:rotate(45deg);
 }
