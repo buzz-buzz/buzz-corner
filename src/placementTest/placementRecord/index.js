@@ -270,7 +270,7 @@ export default class PlacementRecorder extends React.Component {
                                    alt="avatar"/>
                         </div>
                         <div onClick={this.openRecordModal}
-                             className="student-word talk-bubble tri-left right-bottom border round">
+                             className="student-word talk-bubble new-talk-style">
                             <div className="talktext">
                                 <p style={{paddingLeft: '10px', display: 'flex', alignItems: 'center'}}>
                                     {
@@ -293,6 +293,7 @@ export default class PlacementRecorder extends React.Component {
                                         }
                                     </span>
                                 </p>
+                                <div className="right-location"></div>
                             </div>
                         </div>
                         {

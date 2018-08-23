@@ -7,7 +7,7 @@ import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ButtonBottom from '../common/commonComponent/submitButtonBottom';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
-import PlacementProgress from './placementProgress';
+import Progress from './placementProgress/progress';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
@@ -280,7 +280,7 @@ export default class PlacementModal extends React.Component {
                 }
                 {
                     this.state.step <= 6 &&
-                    <PlacementProgress step={this.state.step}/>
+                    <Progress step={this.state.step}/>
                 }
                 {
                     this.state.step === 7 &&
