@@ -737,7 +737,6 @@ class UserUpdate extends Component {
                     </div>
                     {
                         this.state.profile.role === MemberType.Companion &&
-
                         <div className="item-update">
                             <div className="update-left">
                                 <span>Email</span>

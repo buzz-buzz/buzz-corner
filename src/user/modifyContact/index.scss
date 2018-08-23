@@ -12,7 +12,6 @@
   background-color: rgba(0, 0, 0, 0.3);
   .form-content{
     max-width: 800px;
-    flex: 1 0 auto;
     padding: 40px 20px;
     border-radius: 5px;
     background-color: #ffffff;
@@ -48,9 +47,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
     input,button{
-      width: 48%;
       height: 50px;
       line-height: 50px;
       font-size: 14px;
@@ -63,6 +60,7 @@
     input{
       letter-spacing: 0;
       padding: 0 15px;
+      width: 100%;
     }
     input:focus{
       border: 1px solid #f7b52a !important;
@@ -70,11 +68,15 @@
       color: #000;
     }
     button{
+      color: white;
+      background: #6ae108;
+      width: 125px;
+      margin: 0 0 0 5px;
       text-align: center;
     }
-    button.light{
-      color: white;
-      background-image: linear-gradient(146deg, #fad961, #f5b40c);
-    }
   }
+  .submit-button{
+        padding:0 20px;
+        margin-top: 40px;
+      }
 }
