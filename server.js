@@ -232,7 +232,6 @@ router
     .get('/%2f', serveSPA)
     .get('//', serveSPA)
     .get('/profile', serveSPA)
-    .get('/login', serveSPA)
     .get('/login/facebook', serveSPA)
     .get('/login/wechat', serveSPA)
     .get('/my/info', serveSPA)

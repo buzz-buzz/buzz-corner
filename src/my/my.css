@@ -265,3 +265,7 @@ input{
 .my-profile > .error{
     top: 0;
 }
+
+.my-profile .selection-options .ui.search.dropdown>input.search{
+    background: #f4f5f9 !important
+}
