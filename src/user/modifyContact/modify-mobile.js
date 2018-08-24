@@ -24,7 +24,7 @@ const countryOptions = countryList.map(c => ({
 export default (props) => (<div className="form-content" onClick={(e) => {
     e.stopPropagation();
 }}>
-    <div className="form-title">{Resources.getInstance().userUpdatephone}</div>
+    <div className="form-title">{props.title || Resources.getInstance().userUpdatephone}</div>
 
     <div className="two-items">
         <Dropdown placeholder={Resources.getInstance().selectCountryCode}

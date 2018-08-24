@@ -29,7 +29,7 @@ class User {
 
             currentUser = {};
         } finally {
-            fetching = null
+            fetching = null;
             promiseResolve();
         }
     }
@@ -76,7 +76,9 @@ class User {
     }
 
     static update(profile) {
-        currentUser = new User(currentUser.userId, profile.isSuper, profile)
+        let UserId = currentUser && currentUser.userId ? currentUser.userId : parseInt(profile.user_id, 10);
+
+        currentUser = new User(UserId, profile.isSuper, profile)
     }
 }
 

@@ -74,7 +74,7 @@
       -webkit-box-sizing: border-box;
       box-sizing: border-box; }
     .login-in-tablet .login-tab .login-form {
-      padding: 20px 20px;
+      padding: 30px;
       width: 100%; }
       .login-in-tablet .login-tab .login-form .third-login .face-book, .login-in-tablet .login-tab .login-form .third-login .we-chat {
         height: 60px;
@@ -197,16 +197,16 @@
           -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
-.check-number .buzz-input input {
+.login-in-tablet .check-number .buzz-input input {
   background: white !important;
   border: 1px solid #dfdfe4 !important;
   border-radius: 10px !important;
   color: #000 !important; }
 
-.check-number input:focus {
+.login-in-tablet .check-number input:focus {
   border: 1px solid #ffb117 !important; }
 
-.check-number input[placeholder] {
+.login-in-tablet .check-number input[placeholder] {
   color: #666; }
 
 @keyframes facebook-info-show-tablet {
