@@ -8,7 +8,7 @@ import QiniuDomain from '../../common/systemData/qiniuUrl';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
 import MessageModal from '../../common/commonComponent/modalMessage';
 import LoadingModal from '../../common/commonComponent/loadingModal';
-import Button50px from '../../common/commonComponent/submitButton50px';
+import Button50px from '../../common/commonComponent/submitButtonRadius10Px';
 import ConfirmationModal from '../../common/commonComponent/ConfirmationModal/index';
 import ModifyMobileModal from '../modifyContact/modify-mobile-modal';
 import ModifyEmailModal from '../modifyContact/modify-email-modal';
