@@ -55,9 +55,9 @@ p{
 
 .my-home > .home-header > div.tab-booking > div > .tab-active, .my-home > .home-header > div.tab-message > div > .tab-active{
     position: absolute;
-    width: 100%;
+    width: calc(100% + 20px);
     bottom: -10px;
-    left: 0;
+    left: -10px;
 }
 
 .my-home > .home-header > .consult{

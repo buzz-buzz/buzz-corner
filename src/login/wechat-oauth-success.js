@@ -12,6 +12,8 @@ import MessageModal from '../common/commonComponent/modalMessage';
 import UserItem from '../common/commonComponent/userItem';
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
+import TabletBindingMobile from './tabletBindingMobile';
+import Client from "../common/client";
 import {browserHistory} from 'react-router';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import URLHelper from "../common/url-helper";
@@ -131,6 +133,7 @@ export default class WechatOAuthSuccess extends React.Component {
             await this.gotoAfterLoginPage(base64QueryString);
         } catch (ex) {
             //新用户-需要绑定手机号
+            console.log('new-----')
             this.setState({loadingModal: false, showModifyMobileModal: true});
             //如果该手机号 已有账户 且 无微信，更新该微信信息 到 原手机账户， 登陆原手机账户。
             //否则(无账户/有账户-其他微信)，创建新用户---
@@ -364,7 +367,7 @@ export default class WechatOAuthSuccess extends React.Component {
             <div className="login-in">
                 <LoadingModal loadingModal={this.state.loadingModal} />
                 {
-                    this.state.showModifyMobileModal &&
+                    this.state.showModifyMobileModal && Client.getClient() === 'phone' &&
                     <div className="my-profile">
                         <MessageModal style={{top: '0'}}
                                       modalContent={this.state.messageContent}
@@ -385,6 +388,17 @@ export default class WechatOAuthSuccess extends React.Component {
                             </div>
                         </Form>
                     </div>
+                }
+                {
+                    this.state.showModifyMobileModal && Client.getClient() === 'tablet' &&
+                    <TabletBindingMobile profile={{phone: this.state.phone}} handleChange={this.handleContactChange}
+                                         code={this.state.code} handleCodeChange={this.handleCodeChange}
+                                         waitSec={this.state.waitSec} mobileValid={this.state.mobileValid}
+                                         sms={this.sms} send={this.state.send}
+                                         mobileCountry={this.state.mobileCountry}
+                                         onCountryCodeChange={this.onCountryCodeChange}
+                                         submit={this.submitMobile}
+                    />
                 }
                 {
                     this.state.multipleUsers && this.state.multipleUsers.length > 1 &&
