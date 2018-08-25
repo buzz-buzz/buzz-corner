@@ -563,7 +563,7 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             <span>{Resources.getInstance().userProfileChange}</span>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                             <input id="avatar" className="avatar-input hidden"
                                    type="file" accept="image/*"
                                    onChange={(e) => this.handleAvatarChange(e)}
@@ -583,7 +583,7 @@ class UserUpdate extends Component {
                                    name="student_en_name"
                                    value={this.state.profile.student_en_name || ''}
                                    onChange={this.handleChange}/>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                         </div>
                     </div>
                     <div className="item-update with-half-border">
@@ -592,7 +592,7 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             <span>{this.state.profile.gender === 'f' ? Resources.getInstance().profileFemale : Resources.getInstance().profileMale}</span>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                             <select name="gender" id="gender"
                                     value={this.state.profile.gender}
                                     onChange={this.handleChange}>
@@ -609,7 +609,7 @@ class UserUpdate extends Component {
                         </div>
                         <div className="update-right">
                             <span>{this.state.profile.date_of_birth}</span>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                             <input type="date" className="hidden"
                                    placeholder={Resources.getInstance().profileBirth}
                                    value={this.state.profile.date_of_birth || ''}
@@ -628,7 +628,7 @@ class UserUpdate extends Component {
                             {this.state.profile.role === MemberType.Companion &&
                             <span>{this.state.profile.grade ? grade_list_foreign[parseInt(this.state.profile.grade || 1, 10) - 1].text : ''}</span>
                             }
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                             <select name="grade" placeholder=""
                                     value={this.state.profile.grade}
                                     onChange={this.handleChange}>
@@ -657,7 +657,7 @@ class UserUpdate extends Component {
                             </div>
                             <div className="update-right">
                                 <span>{this.state.profile.city || '其他'}</span>
-                                <i className="icon-icon_back_down"/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                 <select name="city" placeholder=""
                                         value={this.state.profile.city}
                                         onChange={this.handleChange}>
@@ -679,7 +679,7 @@ class UserUpdate extends Component {
                             </div>
                             <div className="update-right">
                                 <span>{this.state.profile.time_zone}</span>
-                                <i className="icon-icon_back_down"/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                 <select name="time_zone"
                                         value={this.state.profile.time_zone}
                                         onChange={this.handleChange}>
@@ -701,7 +701,7 @@ class UserUpdate extends Component {
                             </div>
                             <div className="update-right">
                                 <span>{this.state.profile.country}</span>
-                                <i className="icon-icon_back_down"/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                                 <select name="country"
                                         value={this.state.profile.country}
                                         onChange={this.handleChange}>
@@ -722,7 +722,7 @@ class UserUpdate extends Component {
                         <div className="update-right"
                              onClick={this.topicToggle}>
                             <span>{this.state.profile.topics && this.state.profile.topics.length ? this.state.profile.topics[0] + '...' : Resources.getInstance().profileTopicNone}</span>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                         </div>
                     </div>
                     <div className="item-update">
@@ -732,7 +732,7 @@ class UserUpdate extends Component {
                         <div className="update-right"
                              onClick={this.gotoModifyMobile}>
                             <span>{this.state.profile.phone}</span>
-                            <i className="icon-icon_back_down"/>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                         </div>
                     </div>
                     {
@@ -744,7 +744,7 @@ class UserUpdate extends Component {
                             <div className="update-right"
                                  onClick={this.gotoModifyEmail}>
                                 <span>{this.state.profile.email}</span>
-                                <i className="icon-icon_back_down"/>
+                                <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_right_turn.svg" alt=""/>
                             </div>
                         </div>
                     }
