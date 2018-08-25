@@ -2,7 +2,7 @@ const titleUtil = {};
 
 titleUtil.setTitle = (title) => {
     if(!title){
-       title = 'BuzzBuzz';
+       title = 'BuzzBuzz live';
     }
     document.title = title;
     let ua = navigator.userAgent;

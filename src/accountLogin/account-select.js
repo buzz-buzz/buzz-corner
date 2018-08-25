@@ -66,7 +66,7 @@ class AccountSelectLogin extends Component {
             this.setState({loadingModal: false}, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
-                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') === -1) {
+                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') === -1 && returnUrl.indexOf('login') === -1 ) {
                     window.location.href = decodeURIComponent(returnUrl);
                 } else {
                     browserHistory.push('/');
