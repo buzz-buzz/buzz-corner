@@ -370,7 +370,12 @@ class LoginTablet extends Component {
             if (result instanceof Array) {
                 this.props.addUsers(result);
                 this.setState({loadingModal: false}, () => {
-                    browserHistory.push('/login-select');
+                    let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
+                    if(returnUrl.indexOf('sign-out') !== -1 || returnUrl.indexOf('login') !== -1 ){
+                        browserHistory.push('/login-select');
+                    }else{
+                        browserHistory.push(`/login-select?return_url=${returnUrl}`);
+                    }
                 });
                 return;
             }
