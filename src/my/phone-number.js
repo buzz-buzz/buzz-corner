@@ -31,7 +31,7 @@ export default (props) =>
                       search options={countryOptions}
                       style={ props.dropDownStyle ? props.dropDownStyle : {
                               width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
-                              display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px',
+                              display: 'flex', alignItems: 'center', borderRadius: '10px', paddingLeft: '15px',
                               background: 'rgb(244, 245, 249)'
                           }}
                       value={props.mobileCountry}
@@ -54,10 +54,12 @@ export default (props) =>
                 <Button style={props.waitSec || !props.mobileValid ? {
                         padding: 0,
                         color: '#fff',
-                        background: '#dfdfe4'
+                        background: '#dfdfe4',
+                        borderRadius: '10px'
                     } : {
                         padding: 0,
-                        color: 'white'
+                        color: 'white',
+                        borderRadius: '10px'
                     }} onClick={props.sms}
                         disabled={!props.mobileValid || props.waitSec > 0}>
                     {props.waitSec ? Resources.getInstance().profilePhoneSend + '(' + props.waitSec + ')' :
