@@ -281,6 +281,11 @@ div.face-book{
   color: #666;
 }
 
+.login .qrcode-wechat iframe{
+  width: 100% !important;
+  height: 100% !important;
+}
+
 @keyframes login-move-right {
   from {
     left: calc(25% - 5px); }
