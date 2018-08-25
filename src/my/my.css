@@ -206,7 +206,7 @@ h4{
 }
 
 .agreement{
-    margin: 6px auto 0 auto;
+    margin: 15px auto 0 auto;
     text-align: center;
 }
 
@@ -276,7 +276,4 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
-}
-input{
-    -moz-appearance:textfield;
 }
