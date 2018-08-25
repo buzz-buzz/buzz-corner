@@ -26,7 +26,7 @@ export default class Progress extends React.Component {
             </div>
             <div className="long-line" style={this.props.step >= 6 ? {background: '#ffd200'} : {background: '#dfdfe4'}}></div>
             <div className="num">
-                <img src={ this.props.step >= 6 ? "//cdn-corner.resource.buzzbuzzenglish.com/progress/icon_picker_6_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/progress/icon_picker_6.svg"} alt=""/>
+                <img src={ this.props.step >= 6 ? "//cdn-corner.resource.buzzbuzzenglish.com/progress/icon_picker_6_new.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/progress/icon_picker_6.svg"} alt=""/>
             </div>
             <div className="short-line" style={this.props.step === 6 ? {background: '#ffd200'} : {background: '#dfdfe4'}}></div>
         </div>

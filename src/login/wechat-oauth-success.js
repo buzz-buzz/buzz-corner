@@ -304,12 +304,9 @@ export default class WechatOAuthSuccess extends React.Component {
                 });
 
                 if (result instanceof Array) {
-                    result = result.filter((item)=>{return !item.wechat_openid && !item.wechat_unionid });
+                    result = result.filter((item)=>{return !item.wechat_openid && !item.wechat_unionid});
                     if(result && result.length > 1){
-                        this.setState({loadingModal: false, multipleUsers: result}, () => {
-                            //登陆----选择
-
-                        });
+                        this.setState({loadingModal: false, multipleUsers: result});
                     }else if(result && result.length === 1){
                         //login this account
                         await this.wechatLoginUpdateMobile({
@@ -321,7 +318,7 @@ export default class WechatOAuthSuccess extends React.Component {
                         let newUserId = await this.registerByWechat(this.state.wechatUserInfo, this.state.phone, this.state.mobileCountry);
                         await this.loginByWechat(this.state.wechatUserInfo.unionid, this.state.wechatUserInfo.openid, newUserId);
 
-                        await this.gotoAfterLoginPage(this.state.base64QueryString);
+                        browserHistory.push('/select-role');
                     }
                 }else{
                     if(result && !result.wechat_openid && !result.wechat_unionid){
