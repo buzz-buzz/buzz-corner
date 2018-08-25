@@ -1,17 +1,21 @@
 import React from 'react';
 import ServiceProxy from '../service-proxy';
+import {Form} from 'semantic-ui-react';
 import Resources from '../resources';
 import CurrentUser from "../membership/user";
 import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import moment from 'moment-timezone';
 import Button50px from '../common/commonComponent/submitButtonRadius10Px';
+import PhoneNumber from '../my/phone-number';
+import ButtonBottom from '../common/commonComponent/submitButtonRadius10Px';
+import MessageModal from '../common/commonComponent/modalMessage';
 import UserItem from '../common/commonComponent/userItem';
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 import {browserHistory} from 'react-router';
 import LoadingModal from '../common/commonComponent/loadingModal';
-import ModifyMobileModal from '../user/modifyContact/modify-mobile-modal';
 import URLHelper from "../common/url-helper";
+import '../my/my.css';
 
 const logger = require('../common/logger');
 let interval = null;
@@ -31,7 +35,8 @@ export default class WechatOAuthSuccess extends React.Component {
             phone: '',
             mobileCountry: countryLongNameMap[zones[moment.tz.guess()].countries[0]],
             multipleUsers: [],
-            active: ''
+            active: '',
+            send: false
         };
 
         this.handleContactChange = this.handleContactChange.bind(this);
@@ -356,21 +361,31 @@ export default class WechatOAuthSuccess extends React.Component {
 
     render() {
         return (
-            <div className="success-info">
+            <div className="login-in">
                 <LoadingModal loadingModal={this.state.loadingModal} />
-                <ModifyMobileModal modalShow={this.state.showModifyMobileModal}
-                                   handleContactChange={this.handleContactChange}
-                                   code={this.state.code || ''}
-                                   title="绑定手机号"
-                                   handleCodeChange={this.handleCodeChange}
-                                   mobileValid={this.state.mobileValid}
-                                   sms={this.sms}
-                                   waitSec={this.state.waitSec}
-                                   modifyCheck={this.submitMobile}
-                                   new_phone={this.state.phone}
-                                   closeModal={()=>{}}
-                                   mobileCountry={this.state.mobileCountry}
-                                   onCountryCodeChange={this.onCountryCodeChange} />
+                {
+                    this.state.showModifyMobileModal &&
+                    <div className="my-profile">
+                        <MessageModal style={{top: '0'}}
+                                      modalContent={this.state.messageContent}
+                                      modalShow={this.state.messageModal}/>
+                        <Form className='profile-body'>
+                            <h3 className="profile-title">绑定手机号</h3>
+                            <PhoneNumber profile={{phone: this.state.phone}} handleChange={this.handleContactChange}
+                                         code={this.state.code} handleCodeChange={this.handleCodeChange}
+                                         waitSec={this.state.waitSec} mobileValid={this.state.mobileValid}
+                                         sms={this.sms} send={this.state.send}
+                                         mobileCountry={this.state.mobileCountry}
+                                         onCountryCodeChange={this.onCountryCodeChange}/>
+                            <div className="profile-btn">
+                                <ButtonBottom
+                                    disabled={!this.state.send || !this.state.phone || !this.state.code}
+                                    text={Resources.getInstance().profileDone}
+                                    submit={this.submitMobile}/>
+                            </div>
+                        </Form>
+                    </div>
+                }
                 {
                     this.state.multipleUsers && this.state.multipleUsers.length > 1 &&
                     <div className="account-select">

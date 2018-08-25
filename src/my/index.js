@@ -452,23 +452,37 @@ class My extends Component {
     validateForm() {
         let profile = this.state.profile;
 
-        if(!profile.phone || ! countryCodeMap[this.state.mobileCountry]){
-            return false;
-        }
+        if(this.state.withPhone){
+            return {
+                name: profile.student_en_name,
+                gender: profile.gender,
+                city: profile.city,
+                date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
+                grade: profile.grade,
+                email: profile.email,
+                school_name: profile.school,
+                country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
+                time_zone: profile.time_zone
+            };
+        }else{
+            if(!profile.phone || ! countryCodeMap[this.state.mobileCountry]){
+                return false;
+            }
 
-        return {
-            parent_name: profile.parent_name,
-            mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
-            name: profile.student_en_name,
-            gender: profile.gender,
-            city: profile.city,
-            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
-            grade: profile.grade,
-            email: profile.email,
-            school_name: profile.school,
-            country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
-            time_zone: profile.time_zone
-        };
+            return {
+                parent_name: profile.parent_name,
+                mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
+                name: profile.student_en_name,
+                gender: profile.gender,
+                city: profile.city,
+                date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
+                grade: profile.grade,
+                email: profile.email,
+                school_name: profile.school,
+                country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
+                time_zone: profile.time_zone
+            };
+        }
     }
 
     async componentWillMount() {
@@ -490,6 +504,8 @@ class My extends Component {
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
+                step: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed ? 2 : 1,
+                withPhone: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed,
                 mobileValid: profile && profile.phone && profile.phone.length > 0,
                 emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
                 profile.student_en_name,
@@ -532,7 +548,8 @@ class My extends Component {
             email: userData.email || '',
             school: userData.school_name || '',
             country: userData.country || '',
-            time_zone: userData.time_zone || ''
+            time_zone: userData.time_zone || '',
+            mobile_confirmed: userData.mobile_confirmed
         };
     }
 
