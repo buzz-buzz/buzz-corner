@@ -120,7 +120,7 @@ class LoginTablet extends Component {
             '用户类型': MemberTypeChinese.Student
         });
 
-        WeChatLogin.showLoginPage();
+        WeChatLogin.redirectToWechatQRcode();
     }
 
     async sms() {
