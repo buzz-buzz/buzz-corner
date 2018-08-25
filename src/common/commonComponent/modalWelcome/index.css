@@ -36,11 +36,13 @@
 
 
 .modal>.content > div > div.welcome-info {
-    text-align: center;
     font-size: 14px;
+    margin: 10px 0 22px 0;
+}
+
+.modal>.content > div > div.welcome-info > p {
     line-height: 21px;
     font-weight: normal;
-    margin: 10px 0 22px 0;
     letter-spacing: 0;
     color: #868686;
 }

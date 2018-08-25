@@ -50,6 +50,7 @@
           font-size: 14px;
           padding-right: 10px;
           letter-spacing: 0;
+          line-height: 50px;
         }
         input.input-show{
           border: none;
@@ -57,10 +58,8 @@
           text-align: right;
           font-weight: 600;
         }
-        i{
-          color: #666;
-          font-size: 15px;
-          font-weight: 300;
+        img{
+          width: 5px;
         }
         input.hidden, select{
           position: absolute;
