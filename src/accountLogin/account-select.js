@@ -43,7 +43,7 @@ class AccountSelectLogin extends Component {
     }
 
     async submit(data) {
-        if(!data || !data.mobile || !data.token){
+        if (!data || !data.mobile || !data.token) {
             this.setState({
                 messageModal: true,
                 messageContent: '数据失效，请重新登录!'
@@ -66,7 +66,7 @@ class AccountSelectLogin extends Component {
             this.setState({loadingModal: false}, () => {
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
-                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') === -1 && returnUrl.indexOf('login') === -1 ) {
+                if (returnUrl && decodeURIComponent(returnUrl).indexOf('sign-out') === -1 && returnUrl.indexOf('login') === -1) {
                     window.location.href = decodeURIComponent(returnUrl);
                 } else {
                     browserHistory.push('/');
@@ -85,24 +85,25 @@ class AccountSelectLogin extends Component {
     async componentWillMount() {
         Track.event('多账号选择页面展示');
 
-        if(!(this.props.users && this.props.users instanceof Array && this.props.users.length > 1)){
+        if (!(this.props.users && this.props.users instanceof Array && this.props.users.length > 1)) {
             browserHistory.push('/login/account');
         }
     }
 
     selectUser = (userId) => {
-        let users = this.props.users, login_data ={};
-        for(let i in users){
-            if(userId + '' === users[i].user_id + ''){
+        let users = this.props.users, login_data = {};
+        for (let i in users) {
+            if (userId + '' === users[i].user_id + '') {
                 login_data.mobile = users[i].mobile;
                 login_data.token = users[i].token;
+                login_data.source = URLHelper.getSearchParam(window.location.search, 'source') + '; 使用手机号创建账号';
                 break;
             }
         }
 
         this.setState({
             login_data: login_data
-        }, async() => {
+        }, async () => {
             await this.submit(login_data);
         });
     };
