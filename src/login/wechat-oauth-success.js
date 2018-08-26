@@ -23,7 +23,7 @@ const logger = require('../common/logger');
 let interval = null;
 
 export default class WechatOAuthSuccess extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -97,7 +97,9 @@ export default class WechatOAuthSuccess extends React.Component {
                     gender: wechatUserInfo.sex === 1 ? 'm' : (wechatUserInfo.sex === 0 ? 'f' : 'u'),
                     language: wechatUserInfo.language.replace('_', '-'),
                     location: wechatUserInfo.country + ' ' + wechatUserInfo.province + ' ' + wechatUserInfo.city,
-                    mobile: mobile && mobile_country ? '00' + countryCodeMap[mobile_country] + mobile : null
+                    mobile: mobile && mobile_country ? '00' + countryCodeMap[mobile_country] + mobile : null,
+                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用微信创建账号'
+
                 }
             }
         });
@@ -151,7 +153,7 @@ export default class WechatOAuthSuccess extends React.Component {
         }));
 
         let returnUrl = URLHelper.getSearchParam(base64QueryString, 'return_url');
-        if(returnUrl.indexOf('sign-out') !== -1 || returnUrl.indexOf('login') !== -1 ){
+        if (returnUrl.indexOf('sign-out') !== -1 || returnUrl.indexOf('login') !== -1) {
             returnUrl = '';
         }
 
@@ -304,24 +306,26 @@ export default class WechatOAuthSuccess extends React.Component {
                 });
 
                 if (result instanceof Array) {
-                    result = result.filter((item)=>{return !item.wechat_openid && !item.wechat_unionid});
-                    if(result && result.length > 1){
+                    result = result.filter((item) => {
+                        return !item.wechat_openid && !item.wechat_unionid
+                    });
+                    if (result && result.length > 1) {
                         this.setState({loadingModal: false, multipleUsers: result});
-                    }else if(result && result.length === 1){
+                    } else if (result && result.length === 1) {
                         //login this account
                         await this.wechatLoginUpdateMobile({
                             mobile: result[0].mobile,
                             token: result[0].token
                         });
-                    }else if(result && result.length === 0){
+                    } else if (result && result.length === 0) {
                         //sign-in a new user
                         let newUserId = await this.registerByWechat(this.state.wechatUserInfo, this.state.phone, this.state.mobileCountry);
                         await this.loginByWechat(this.state.wechatUserInfo.unionid, this.state.wechatUserInfo.openid, newUserId);
 
                         browserHistory.push('/select-role');
                     }
-                }else{
-                    if(result && !result.wechat_openid && !result.wechat_unionid){
+                } else {
+                    if (result && !result.wechat_openid && !result.wechat_unionid) {
                         await CurrentUser.updateProfile({
                             wechat_name: this.state.wechatUserInfo.nickname,
                             wechat_openid: this.state.wechatUserInfo.openid,
@@ -362,7 +366,7 @@ export default class WechatOAuthSuccess extends React.Component {
     render() {
         return (
             <div className="login-in">
-                <LoadingModal loadingModal={this.state.loadingModal} />
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 {
                     this.state.showModifyMobileModal && Client.getClient() === 'phone' &&
                     <div className="my-profile">
@@ -406,13 +410,13 @@ export default class WechatOAuthSuccess extends React.Component {
                         <div className="account-item">
                             {
                                 this.state.multipleUsers.map(u =>
-                                    <UserItem active={this.state.active} selectUser={this.selectUser} user={u} key={u.user_id} />
+                                    <UserItem active={this.state.active} selectUser={this.selectUser} user={u} key={u.user_id}/>
                                 )
                             }
                         </div>
                         <div className="account-btn">
                             <Button50px disabled={!this.state.active}
-                                        text={Resources.getInstance().accountSelectLoginSubmit} submit={this.selectLogin} />
+                                        text={Resources.getInstance().accountSelectLoginSubmit} submit={this.selectLogin}/>
                         </div>
                     </div>
                 }
@@ -422,7 +426,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
     selectUser(event, user_id) {
         if (this.state.active !== user_id) {
-            this.setState({ active: user_id });
+            this.setState({active: user_id});
         }
     }
 
@@ -431,7 +435,7 @@ export default class WechatOAuthSuccess extends React.Component {
     };
 
     async wechatLoginUpdateMobile(data) {
-        if(!data || !data.mobile || !data.token){
+        if (!data || !data.mobile || !data.token) {
             this.setState({
                 messageModal: true,
                 messageContent: '数据失效，请重新登录!'
@@ -463,9 +467,9 @@ export default class WechatOAuthSuccess extends React.Component {
 
     selectLogin = async () => {
         let userId = this.state.active;
-        let users = this.state.multipleUsers, login_data ={};
-        for(let i in users){
-            if(userId + '' === users[i].user_id + ''){
+        let users = this.state.multipleUsers, login_data = {};
+        for (let i in users) {
+            if (userId + '' === users[i].user_id + '') {
                 login_data.mobile = users[i].mobile;
                 login_data.token = users[i].token;
                 break;
