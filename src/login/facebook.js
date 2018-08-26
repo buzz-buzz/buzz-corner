@@ -45,18 +45,21 @@ let loadFacebookScripts = () => {
 export default class FacebookLogin extends React.Component {
     initializeFacebookLogin = () => {
         this.FB = window.FB;
-        this.FB.getLoginStatus(this.facebookLoginStatusGot);
-    };
-    facebookLoginStatusGot = response => {
-        if (response.status === 'connected') {
-            this.FB.api('/me', this.facebookUserInfoGot);
-        } else {
+        this.FB.getLoginStatus(() => {
             this.setState({
                 loading: false,
                 facebookConnected: true
-            }, () => {
-                // alert('Please click the Facebook Login button to open facebook authentication page...')
-            });
+            })
+        });
+    };
+    facebookLoginStatusGot = response => {
+        this.setState({
+            loading: false,
+            facebookConnected: true
+        });
+
+        if (response.status === 'connected') {
+            this.FB.api('/me', this.facebookUserInfoGot);
         }
     };
     doLogin = () => {
@@ -118,7 +121,8 @@ export default class FacebookLogin extends React.Component {
                 json: {
                     name: facebookUserInfo.name,
                     facebook_id: facebookUserInfo.id,
-                    facebook_name: facebookUserInfo.name
+                    facebook_name: facebookUserInfo.name,
+                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
                 }
             }
         });
