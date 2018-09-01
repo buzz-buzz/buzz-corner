@@ -96,7 +96,7 @@ class App extends Component {
                            component={WechatOAuthSuccess}/>
                     <Route path="/wechat/oauth/fail/:wechatErrorInfo"
                            component={WechatOAuthFail}/>
-                    <Route path="/facebook/oauth/success/:facebookUserInfo"
+                    <Route path="/facebook/oauth/success/:id/:name"
                            component={FacebookOAuthSuccess}/>
                     <Route path='/my/info' component={My}/>
                     <Route path='/my/info/:step' component={My}/>

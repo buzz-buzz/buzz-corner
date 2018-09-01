@@ -27,7 +27,10 @@ export default class WechatOAuthSuccess extends React.Component {
 
         this.state = {
             loading: true,
-            facebookUserInfo: JSON.parse(decodeURIComponent(atob(decodeURIComponent(props.params.facebookUserInfo)))),
+            facebookUserInfo: {
+                id: props.params.id,
+                name: props.params.name
+            },
             loadingModal: true,
             waitSec: 0,
             code: '',
@@ -257,7 +260,7 @@ export default class WechatOAuthSuccess extends React.Component {
                             name: this.state.facebookUserInfo.name,
                             facebook_id: this.state.facebookUserInfo.id,
                             facebook_name: this.state.facebookUserInfo.name,
-                            source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
+                            source: URLHelper.getSearchParam(window.location.search, 'source') + '使用facebook创建账号'
                         });
                     }
 
@@ -413,7 +416,7 @@ export default class WechatOAuthSuccess extends React.Component {
                     facebook_id: facebookUserInfo.id,
                     facebook_name: facebookUserInfo.name,
                     mobile: mobile && mobile_country ? '00' + countryCodeMap[mobile_country] + mobile : null,
-                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
+                    source: URLHelper.getSearchParam(window.location.search, 'source') + '使用facebook创建账号'
                 }
             }
         });

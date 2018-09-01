@@ -62,6 +62,7 @@ export default class FacebookLogin extends React.Component {
         }
     };
     doLogin = () => {
+        //this.facebookUserInfoGot({name: "Xiaopeng Han", id: "285519065597484"});
         if (!this.state.facebookConnected) {
             this.setState({modalShow: true});
             if(this.props.LoginFail){
@@ -69,10 +70,7 @@ export default class FacebookLogin extends React.Component {
             }
             return;
         }
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({wechatModalShow: true})
-            return;
-        }
+
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
@@ -88,15 +86,13 @@ export default class FacebookLogin extends React.Component {
             await this.loginOldUser(facebookUserData);
         } catch (error) {
             //新用户-需要绑定手机号 调至登陆成功处
-            console.log('new--facebook---');
-            console.log(facebookUserData);
-            //window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
+            window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
             //await this.loginNewUser(error, facebookUserData);
         }
     };
     getParameters = (msg, base64_callback_origin, base64_query_string) => {
 
-        return `${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
+        return `${msg.id}/${msg.name}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
     };
     loginOldUser = async(facebookUserData) => {
         let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
