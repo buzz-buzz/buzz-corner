@@ -243,7 +243,7 @@ export default class WechatOAuthSuccess extends React.Component {
                         this.setState({loadingModal: false, multipleUsers: result});
                     } else if (result && result.length === 1) {
                         //login this account
-                        await this.wechatLoginUpdateMobile({
+                        await this.facebookLoginUpdateMobile({
                             mobile: result[0].mobile,
                             token: result[0].token
                         });
@@ -361,7 +361,7 @@ export default class WechatOAuthSuccess extends React.Component {
         this.setState({mobileCountry: data.value})
     };
 
-    async wechatLoginUpdateMobile(data) {
+    async facebookLoginUpdateMobile(data) {
         if (!data || !data.mobile || !data.token) {
             this.setState({
                 messageModal: true,
@@ -379,6 +379,12 @@ export default class WechatOAuthSuccess extends React.Component {
                     json: data,
                     method: 'POST'
                 }
+            });
+
+            //update info
+            await CurrentUser.updateProfile({
+                facebook_id: this.state.facebookUserInfo.id,
+                facebook_name: this.state.facebookUserInfo.name,
             });
 
             await this.gotoAfterLoginPage(this.state.base64QueryString);
@@ -403,7 +409,7 @@ export default class WechatOAuthSuccess extends React.Component {
             }
         }
 
-        await this.wechatLoginUpdateMobile(login_data);
+        await this.facebookLoginUpdateMobile(login_data);
     };
 
     registerByFacebook = async(facebookUserInfo, mobile, mobile_country) => {

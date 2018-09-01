@@ -444,6 +444,16 @@ export default class WechatOAuthSuccess extends React.Component {
                 }
             });
 
+            //update info
+            await CurrentUser.updateProfile({
+                wechat_name: this.state.wechatUserInfo.nickname,
+                wechat_openid: this.state.wechatUserInfo.openid,
+                wechat_unionid: this.state.wechatUserInfo.unionid,
+                gender: this.state.wechatUserInfo.sex === 1 ? 'm' : (this.state.wechatUserInfo.sex === 0 ? 'f' : 'u'),
+                language: this.state.wechatUserInfo.language.replace('_', '-'),
+                location: this.state.wechatUserInfo.country + ' ' + this.state.wechatUserInfo.province + ' ' + this.state.wechatUserInfo.city
+            });
+
             await this.gotoAfterLoginPage(this.state.base64QueryString);
         } catch (ex) {
             this.setState({
