@@ -90,7 +90,7 @@ export default class FacebookLogin extends React.Component {
             //新用户-需要绑定手机号 调至登陆成功处
             console.log('new--facebook---');
             console.log(facebookUserData);
-            window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
+            //window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
             //await this.loginNewUser(error, facebookUserData);
         }
     };
