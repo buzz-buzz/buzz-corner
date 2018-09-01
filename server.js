@@ -140,7 +140,7 @@ router
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', membership.signOut, serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', membership.signOut, serveSPA)
-    .get('/facebook/oauth/success/:facebookUserInfo', membership.signOut, serveSPA)
+    .get('/facebook/oauth/success/:id/:name', membership.signOut, serveSPA)
     .get('/sign-in', membership.signOut, membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
