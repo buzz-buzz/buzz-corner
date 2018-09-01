@@ -7,6 +7,7 @@ import {browserHistory, Route, Router} from "react-router";
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
+import FacebookOAuthSuccess from './login/facebook-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import UserShow from './user/profileShow';
 import UserUpdate from './user/profileUpdate/user-profile-update';
@@ -95,6 +96,8 @@ class App extends Component {
                            component={WechatOAuthSuccess}/>
                     <Route path="/wechat/oauth/fail/:wechatErrorInfo"
                            component={WechatOAuthFail}/>
+                    <Route path="/facebook/oauth/success/:facebookUserInfo"
+                           component={FacebookOAuthSuccess}/>
                     <Route path='/my/info' component={My}/>
                     <Route path='/my/info/:step' component={My}/>
                     <Route path='/placement' component={Placement}/>

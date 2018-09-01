@@ -27,7 +27,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
         this.state = {
             loading: true,
-            wechatUserInfo: JSON.parse(decodeURIComponent(atob(decodeURIComponent(props.params.wechatUserInfo)))),
+            facebookUserInfo: JSON.parse(decodeURIComponent(atob(decodeURIComponent(props.params.facebookUserInfo)))),
             loadingModal: true,
             waitSec: 0,
             code: '',
@@ -49,68 +49,6 @@ export default class WechatOAuthSuccess extends React.Component {
         this.selectLogin = this.selectLogin.bind(this);
     }
 
-    loginOldUser = async (wechatUserInfo) => {
-        let buzzUserData;
-        try {
-            buzzUserData = await this.getBuzzUserData(wechatUserInfo.unionid);
-        } catch (ex) {
-            buzzUserData = await this.getBuzzUserDataByOpenId(wechatUserInfo.openid);
-        } finally {
-            if (buzzUserData && buzzUserData.user_id) {
-                await this.loginByWechat(wechatUserInfo.unionid, wechatUserInfo.openid, buzzUserData.user_id);
-            }
-        }
-    };
-    getBuzzUserData = async (wechatUnionId) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/by-wechat?unionid=${wechatUnionId}`
-            }
-        });
-    };
-    getBuzzUserDataByOpenId = async (openid) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/by-wechat?openid=${openid}`
-            }
-        })
-    };
-    registerByWechat = async (wechatUserInfo, mobile, mobile_country) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users',
-                method: 'POST',
-                json: {
-                    wechat_name: wechatUserInfo.nickname,
-                    wechat_openid: wechatUserInfo.openid,
-                    wechat_unionid: wechatUserInfo.unionid,
-                    avatar: wechatUserInfo.headimgurl,
-                    gender: wechatUserInfo.sex === 1 ? 'm' : (wechatUserInfo.sex === 0 ? 'f' : 'u'),
-                    language: wechatUserInfo.language.replace('_', '-'),
-                    location: wechatUserInfo.country + ' ' + wechatUserInfo.province + ' ' + wechatUserInfo.city,
-                    mobile: mobile && mobile_country ? '00' + countryCodeMap[mobile_country] + mobile : null,
-                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用微信创建账号'
-                }
-            }
-        });
-    };
-    loginByWechat = async (wechatUnionId, wechatOpenId, userId) => {
-        let res = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
-                method: 'PUT',
-                json: {
-                    user_id: userId
-                }
-            }
-        });
-
-        this.setState({
-            userInfo: res,
-            loading: false
-        });
-    };
-
     async componentWillMount() {
         if (URLHelper.handleOrigin()) {
             return;
@@ -121,15 +59,14 @@ export default class WechatOAuthSuccess extends React.Component {
 
         await CurrentUser.signOutNoRedirect();
         try {
-            await this.loginOldUser(this.state.wechatUserInfo);
-            await this.gotoAfterLoginPage(base64QueryString);
-        } catch (ex) {
             //新用户-需要绑定手机号
-            console.log('new--wechat---');
+            console.log('new--facebook---');
             this.setState({loadingModal: false, showModifyMobileModal: true});
-            //如果该手机号 已有账户 且 无微信，更新该微信信息 到 原手机账户， 登陆原手机账户。
-            //否则(无账户/有账户-其他微信)，创建新用户---
-            //await this.loginNewUser(ex, this.state.wechatUserInfo);
+            //如果该手机号 已有账户 且 无fb，更新该fb信息 到 原手机账户， 登陆原手机账户。
+            //否则(无账户/有账户-其他fb)，创建新用户---
+            //await this.loginNewUser(ex, this.state.facebookUserInfo);
+        } catch (ex) {
+
         }
     }
 
@@ -297,7 +234,7 @@ export default class WechatOAuthSuccess extends React.Component {
 
                 if (result instanceof Array) {
                     result = result.filter((item) => {
-                        return !item.wechat_openid && !item.wechat_unionid
+                        return !item.facebook_id
                     });
                     if (result && result.length > 1) {
                         this.setState({loadingModal: false, multipleUsers: result});
@@ -309,21 +246,18 @@ export default class WechatOAuthSuccess extends React.Component {
                         });
                     } else if (result && result.length === 0) {
                         //sign-in a new user
-                        let newUserId = await this.registerByWechat(this.state.wechatUserInfo, this.state.phone, this.state.mobileCountry);
-                        await this.loginByWechat(this.state.wechatUserInfo.unionid, this.state.wechatUserInfo.openid, newUserId);
+                        let newUserId = await this.registerByFacebook(this.state.facebookUserInfo, this.state.phone, this.state.mobileCountry);
+                        await this.loginByFacebook(this.state.facebookUserInfo.id, newUserId);
 
                         browserHistory.push('/select-role');
                     }
                 } else {
-                    if (result && !result.wechat_openid && !result.wechat_unionid) {
+                    if (result && !result.facebook_id) {
                         await CurrentUser.updateProfile({
-                            wechat_name: this.state.wechatUserInfo.nickname,
-                            wechat_openid: this.state.wechatUserInfo.openid,
-                            wechat_unionid: this.state.wechatUserInfo.unionid,
-                            avatar: this.state.wechatUserInfo.headimgurl,
-                            gender: this.state.wechatUserInfo.sex === 1 ? 'm' : (this.state.wechatUserInfo.sex === 0 ? 'f' : 'u'),
-                            language: this.state.wechatUserInfo.language.replace('_', '-'),
-                            location: this.state.wechatUserInfo.country + ' ' + this.state.wechatUserInfo.province + ' ' + this.state.wechatUserInfo.city
+                            name: this.state.facebookUserInfo.name,
+                            facebook_id: this.state.facebookUserInfo.id,
+                            facebook_name: this.state.facebookUserInfo.name,
+                            source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
                         });
                     }
 
@@ -467,5 +401,43 @@ export default class WechatOAuthSuccess extends React.Component {
         }
 
         await this.wechatLoginUpdateMobile(login_data);
+    };
+
+    registerByFacebook = async(facebookUserInfo, mobile, mobile_country) => {
+        return await ServiceProxy.proxyTo({
+            body: {
+                uri: '{config.endPoints.buzzService}/api/v1/users',
+                method: 'POST',
+                json: {
+                    name: facebookUserInfo.name,
+                    facebook_id: facebookUserInfo.id,
+                    facebook_name: facebookUserInfo.name,
+                    mobile: mobile && mobile_country ? '00' + countryCodeMap[mobile_country] + mobile : null,
+                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
+                }
+            }
+        });
+    };
+    loginByFacebook = async(facebookId, userId) => {
+        let res = await ServiceProxy.proxyTo({
+            body: {
+                uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
+                method: 'PUT',
+                json: {
+                    user_id: userId,
+                    facebook_id: facebookId
+                }
+            }
+        });
+
+        this.setState({
+            userInfo: res,
+            loading: false
+        });
+
+        let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url') || '/';
+        if (returnUrl) {
+            window.location.href = returnUrl;
+        }
     };
 }
