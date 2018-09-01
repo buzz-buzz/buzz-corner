@@ -124,8 +124,10 @@ export default class FacebookLogin extends React.Component {
         });
 
         let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url') || '/';
-        if (returnUrl) {
+        if (returnUrl && returnUrl.indexOf('login') === -1 && returnUrl.indexOf('sign') === -1) {
             window.location.href = returnUrl;
+        }else {
+            window.location.href = '/';
         }
     };
 
