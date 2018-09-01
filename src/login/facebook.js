@@ -1,7 +1,6 @@
 import React from 'react';
 import {Image} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
-import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import ModalMessage from "../common/commonComponent/modalMessage/index";
@@ -88,42 +87,26 @@ export default class FacebookLogin extends React.Component {
         try {
             await this.loginOldUser(facebookUserData);
         } catch (error) {
-            await this.loginNewUser(error, facebookUserData);
+            //新用户-需要绑定手机号 调至登陆成功处
+            console.log('new--facebook---');
+            console.log(facebookUserData);
+            window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
+            //await this.loginNewUser(error, facebookUserData);
         }
+    };
+    getParameters = (msg, base64_callback_origin, base64_query_string) => {
+
+        return `${encodeURIComponent(new Buffer(encodeURIComponent(msg)).toString('base64'))}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
     };
     loginOldUser = async(facebookUserData) => {
         let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
 
         await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
     };
-    loginNewUser = async(error, facebookUserData) => {
-        if (BuzzServiceApiErrorParser.isNewUser(error)) {
-            let newUserId = await this.registerByFacebook(facebookUserData);
-            await this.loginByFacebook(facebookUserData.id, newUserId);
-        } else {
-            alert('Login failed!');
-
-            throw error;
-        }
-    };
     getBuzzUserData = async(facebook_id) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
-            }
-        });
-    };
-    registerByFacebook = async(facebookUserInfo) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users',
-                method: 'POST',
-                json: {
-                    name: facebookUserInfo.name,
-                    facebook_id: facebookUserInfo.id,
-                    facebook_name: facebookUserInfo.name,
-                    source: URLHelper.getSearchParam(window.location.search, 'source') + '; 使用facebook创建账号'
-                }
             }
         });
     };
@@ -159,15 +142,6 @@ export default class FacebookLogin extends React.Component {
         this.state = {
             facebookConnected: false
         };
-
-        // this.checkWechatBrowser();
-    }
-
-    checkWechatBrowser() {
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({wechatModalShow: true})
-            window.location.href = `/login/wechat/${window.location.search}`;
-        }
     }
 
     componentDidMount() {

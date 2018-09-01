@@ -273,28 +273,31 @@ class classEvaluation extends Component {
             }
 
             if (feed_back.length && feed_back[0].score) {
-                //set state
-                feed_back = this.handleFeedBack(feed_back);
+                //the result
+                browserHistory.push(`/evaluation/${this.state.to_user_id}/${userId}/${this.state.class_id}`);
 
-                this.setState({
-                    class_info: class_info,
-                    companion_name: class_info.companion_name || '',
-                    companion_avatar: class_info.companion_avatar || '',
-                    stars: parseFloat(feed_back[0].score),
-                    evaluation_content: feed_back[0].comment,
-                    evaluation_status: true,
-                    userId: userId,
-                    loadingModal: false,
-                    companion_country: companion_country,
-                    role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
-                    evaluationContent: {
-                        stars: parseFloat(feed_back[0].score),
-                        evaluation_content: feed_back[0].comment
-                    },
-                    types: feed_back.filter(function (item) {
-                        return item.type
-                    })
-                });
+                //set state
+                // feed_back = this.handleFeedBack(feed_back);
+                //
+                // this.setState({
+                //     class_info: class_info,
+                //     companion_name: class_info.companion_name || '',
+                //     companion_avatar: class_info.companion_avatar || '',
+                //     stars: parseFloat(feed_back[0].score),
+                //     evaluation_content: feed_back[0].comment,
+                //     evaluation_status: true,
+                //     userId: userId,
+                //     loadingModal: false,
+                //     companion_country: companion_country,
+                //     role: class_info.companions.indexOf(profile.user_id) > -1 ? MemberType.Companion : MemberType.Student,
+                //     evaluationContent: {
+                //         stars: parseFloat(feed_back[0].score),
+                //         evaluation_content: feed_back[0].comment
+                //     },
+                //     types: feed_back.filter(function (item) {
+                //         return item.type
+                //     })
+                // });
             } else {
                 //set state
                 this.setState({
