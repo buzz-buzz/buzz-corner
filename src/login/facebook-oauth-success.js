@@ -332,7 +332,7 @@ export default class WechatOAuthSuccess extends React.Component {
                     this.state.multipleUsers && this.state.multipleUsers.length > 1 &&
                     <div className="account-select">
                         <div className='success' style={{top: '0', position: 'relative'}}>
-                            {Resources.getInstance().accountSelectLoginInfo}
+                            系统检测到该手机号已绑定多个账号, 请选择登陆
                         </div>
                         <div className="account-item">
                             {
@@ -381,10 +381,10 @@ export default class WechatOAuthSuccess extends React.Component {
                 }
             });
 
-            //update info
+            //update facebook info
             await CurrentUser.updateProfile({
                 facebook_id: this.state.facebookUserInfo.id,
-                facebook_name: this.state.facebookUserInfo.name,
+                facebook_name: this.state.facebookUserInfo.name
             });
 
             await this.gotoAfterLoginPage(this.state.base64QueryString);
