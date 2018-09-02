@@ -214,7 +214,7 @@ class LoginTablet extends Component {
     }
 
     async componentWillMount(){
-        await CurrentUser.signOut();
+        //await CurrentUser.signOut();
     }
 
     componentWillUnmount() {
