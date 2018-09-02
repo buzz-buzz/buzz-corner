@@ -172,9 +172,9 @@ router
 
             if (RequestHelper.isXHR(ctx)) {
                 ctx.status = 401;
-                return ctx.body = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
+                return ctx.body = '/login?return_url=' + encodeURIComponent(returnUrl);
             } else {
-                ctx.redirect(`/sign-in?return_url=${returnUrl}`);
+                ctx.redirect(`/login?return_url=${returnUrl}`);
             }
         }
     })
@@ -267,7 +267,7 @@ router
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
     .get('/login/account', serveSPA)
-    .get('/login', serveSPA)
+    .get('/login', membership.signOut, serveSPA)
     .get('/login-select', serveSPA)
 ;
 
