@@ -53,14 +53,14 @@ membership.ensureAuthenticated = async function (context, next) {
             let returnUrl = context.headers.referer;
 
             context.status = 401;
-            return context.body = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
+            return context.body = '/login?return_url=' + encodeURIComponent(returnUrl);
         } else {
             let returnUrl = context.request.originalUrl;
             if (returnUrl === '/user-info') {
                 returnUrl = context.request.headers.referer;
             }
 
-            let url = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
+            let url = '/login?return_url=' + encodeURIComponent(returnUrl);
 
             console.log('redirected')
             return context.redirect(url);
