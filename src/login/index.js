@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {browserHistory} from "react-router";
 import Resources from '../resources';
 import moment from 'moment-timezone';
-import CurrentUser from "../membership/user";
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countryCodeMap, countryLongNameMap} from "../common/country-code-map";
 import LoadingModal from '../common/commonComponent/loadingModal';
@@ -215,10 +214,6 @@ class Login extends Component {
 
             clearTimeout(interval);
         }, 5000)
-    }
-
-    async componentWillMount(){
-        //await CurrentUser.signOut();
     }
 
     componentWillUnmount() {
