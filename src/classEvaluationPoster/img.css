@@ -1,0 +1,77 @@
+.poster-img {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  max-width: 414px; }
+  .poster-img .title {
+    padding: 28px 32px 15px 28px; }
+    .poster-img .title p {
+      font-size: 15px;
+      font-weight: 600;
+      color: #000;
+      text-align: center; }
+      .poster-img .title p span {
+        color: #ffb117; }
+  .poster-img .content-img .top-head {
+    line-height: 0;
+    width: 100%; }
+    .poster-img .content-img .top-head img {
+      width: 100%; }
+  .poster-img .content-img .letter {
+    background-color: #ffd200;
+    position: relative; }
+    .poster-img .content-img .letter img {
+      width: 100%; }
+    .poster-img .content-img .letter .info {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 200;
+      padding: 55px 60px; }
+      .poster-img .content-img .letter .info .user-info {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        margin-bottom: 5px; }
+        .poster-img .content-img .letter .info .user-info .u-avatar {
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: solid 3px #f4f5f9; }
+          .poster-img .content-img .letter .info .user-info .u-avatar img {
+            width: 100%; }
+        .poster-img .content-img .letter .info .user-info .u-info {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          justify-content: center; }
+          .poster-img .content-img .letter .info .user-info .u-info .country {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 21px;
+            color: #ffb117;
+            margin-bottom: 5px; }
+          .poster-img .content-img .letter .info .user-info .u-info .grade {
+            font-size: 10px;
+            line-height: 14px;
+            color: #666; }
+      .poster-img .content-img .letter .info .feedback-word {
+        font-size: 12px;
+        font-weight: 500;
+        color: #2f2f2f; }
+  .poster-img .qr-code {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; }
+    .poster-img .qr-code img {
+      width: 35%;
+      margin-bottom: 15px; }
+    .poster-img .qr-code p {
+      font-size: 12px;
+      line-height: 16px;
+      color: #000; }
