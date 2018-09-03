@@ -8,10 +8,13 @@
   min-height: 100% !important;
   height: auto !important;
   z-index: 2000;
-  background: black; }
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
   .user-guide img {
     flex: 0 0 auto;
     width: 100%;
     height: auto;
     margin: 0 auto;
-    max-width: 400px; }
+    max-width: 500px; }

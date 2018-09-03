@@ -9,11 +9,14 @@
   height: auto !important;
   z-index: 2000;
   background: rgb(0,0,0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img{
     flex: 0 0 auto;
     width: 100%;
     height: auto;
     margin: 0 auto;
-    max-width: 400px;
+    max-width: 500px;
   }
 }
