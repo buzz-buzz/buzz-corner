@@ -17,6 +17,7 @@ import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
 import ClassEvaluationResult from './classEvaluationResult';
 import ClassEvaluationPoster from './classEvaluationPoster';
+import ClassEvaluationPosterImg from './classEvaluationPoster/img';
 import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
 import EvaluationStandards from './classEvaluationResult/evaluationStandards';
@@ -124,6 +125,8 @@ class App extends Component {
                            component={EvaluationStandards}/>
                     <Route path='/poster/:from_user_id/:to_user_id/:class_id'
                            component={ClassEvaluationPoster}/>
+                    <Route path='/poster/img'
+                           component={ClassEvaluationPosterImg}/>
                     <Route path='/class/foreign/:class_id'
                            component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>
