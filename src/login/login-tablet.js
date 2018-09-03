@@ -212,6 +212,10 @@ class LoginTablet extends Component {
         }, 5000)
     }
 
+    async componentWillMount(){
+        await ServiceProxy.proxy('/sign-out-no-redirect');
+    }
+
     componentWillUnmount() {
         if (interval) {
             clearTimeout(interval);
