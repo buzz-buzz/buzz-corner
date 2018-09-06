@@ -274,7 +274,14 @@ class classEvaluation extends Component {
 
             if (feed_back.length && feed_back[0].score) {
                 //the result
-                browserHistory.push(`/evaluation/${this.state.to_user_id}/${userId}/${this.state.class_id}`);
+                if(sessionStorage.getItem('first_feedback_' + this.state.class_id)){
+                    browserHistory.push('/');
+                }else{
+                    if(window.history.length <= 2){
+                        sessionStorage.setItem('first_feedback_' + this.state.class_id, true);
+                    }
+                    browserHistory.push(`/evaluation/${this.state.to_user_id}/${userId}/${this.state.class_id}`);
+                }
 
                 //set state
                 // feed_back = this.handleFeedBack(feed_back);
