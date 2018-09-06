@@ -185,7 +185,7 @@ class classDetail extends Component {
         return classInfo;
     }
 
-    checkStatusAndTime() {
+    async checkStatusAndTime() {
         if (this.state.classBeginNow && !this.state.classEndNow) {
             Track.event('课程详情_进入课程点击');
 
@@ -195,7 +195,18 @@ class classDetail extends Component {
                 Track.event('课程详情_课后评价点击');
 
                 if (this.state.role === MemberType.Student) {
-                    browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+                    //get result
+                    let feed_back = await  ServiceProxy.proxyTo({
+                        body: {
+                            uri: `{config.endPoints.buzzService}/api/v1/class-feedback/${this.state.class_id}/${this.state.user_id}/evaluate/${this.state.class_info.companions}`
+                        }
+                    });
+
+                    if (feed_back && feed_back.length && feed_back[0] && feed_back[0].score) {
+                        browserHistory.push(`/evaluation/${this.state.class_info.companions}/${this.state.user_id}/${this.state.class_id}`);
+                    }else{
+                        browserHistory.push(`/class/evaluation/${this.state.class_info.companions}/${this.state.class_id}`);
+                    }
                 } else if (this.state.role === MemberType.Companion) {
                     browserHistory.push(`/class/foreign/${this.state.class_id}`);
                 }
