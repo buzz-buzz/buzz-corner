@@ -5,7 +5,7 @@ import './index.css';
 export default class MessageBody extends React.Component{
     render(){
         return <Link
-            className="message-item"
+            className={ this.props.line ? "message-item message-item-line" : "message-item"}
             onClick={event => this.props.clickEventPlacement(event, this.props.item)}>
             <div className="message-item-avatar">
                 <div className="img">
