@@ -32,6 +32,9 @@ app.use(bodyParser());
 app.use(pug('views'));
 
 router
+    .get('/redirect/:url', async ctx => {
+      ctx.redirect(decodeURIComponent(ctx.params.url) + '?' + ctx.querystring)
+    })
     .get('/healthcheck', async ctx => {
         ctx.body = {
             'everything': ' is ok',
