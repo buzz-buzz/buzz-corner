@@ -270,10 +270,3 @@ input{
 .my-profile .selection-options .ui.search.dropdown>input.search{
     background: #f4f5f9 !important
 }
-
-@media all and (min-width: 600px){
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
-}
