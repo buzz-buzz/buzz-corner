@@ -24,12 +24,28 @@
 
 .profile-title{
     text-align: center;
-    margin: 30px 0 !important;
+    margin-bottom: 30px !important;
     font-weight: 600;
     line-height: 25px;
     letter-spacing: 1px;
     font-size: 18px;
     color: #000;
+}
+
+.my-profile .quit{
+    height: 40px;
+    width: 45px;
+    margin-top: 10px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #f4f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-profile .quit img{
+    width: 15px;
 }
 
 .profile-btn{
