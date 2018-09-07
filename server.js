@@ -13,6 +13,7 @@ const membership = require('./membership');
 const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const fs = require('fs');
+const _ = require('lodash');
 const pug = require('js-koa-pug');
 const qiniu = require('qiniu');
 const config_qiniu = require('./config/qiniu');
@@ -32,8 +33,9 @@ app.use(bodyParser());
 app.use(pug('views'));
 
 router
-    .get('/redirect', async ctx => {
-      ctx.redirect(decodeURIComponent(ctx.query.url) + '?' + ctx.querystring)
+    .get('/redirect/:url', async ctx => {
+      const v = new Buffer(ctx.params.url, 'base64').toString('ascii')
+       ctx.redirect(_.includes(v, '?') ? v + '&' + ctx.querystring : v + '?' + ctx.querystring)
     })
     .get('/healthcheck', async ctx => {
         ctx.body = {
