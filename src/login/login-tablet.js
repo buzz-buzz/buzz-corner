@@ -316,7 +316,7 @@ class LoginTablet extends Component {
                                     </div>
                                 }
                                 <div className="we-chat" onClick={this.wechatLogin}>
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_wechat.svg" alt=""/>
+                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon/icon_wechat.svg" alt=""/>
                                     <span>微信</span>
                                 </div>
                                 <div className="agreement">

@@ -62,7 +62,7 @@ membership.ensureAuthenticated = async function (context, next) {
 
             let url = '/login?return_url=' + encodeURIComponent(returnUrl);
 
-            console.log('redirected')
+            console.log('redirected');
             return context.redirect(url);
         }
     }
