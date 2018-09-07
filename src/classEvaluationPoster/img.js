@@ -13,6 +13,7 @@ class classEvaluationPoster extends Component {
         super(props);
 
         this.state = {
+            loadingModal: false,
             class_id: props.params.class_id,
             from_user_id: props.params.from_user_id,
             to_user_id: props.params.to_user_id,
@@ -91,6 +92,7 @@ class classEvaluationPoster extends Component {
     render() {
         return (
             <div className="poster-img">
+                <LoadingModal loadingModal={this.state.loadingModal}/>
                 <div className="title">
                     <p>我与"hank"一起成为了国际学伴。</p>
                     <p>我们一起讨论了"<span>Eating</span>"课题。</p>

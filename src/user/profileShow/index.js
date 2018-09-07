@@ -37,39 +37,44 @@ class UserShow extends Component {
     }
 
     async componentWillMount() {
-        Track.event('用户中心_用户中心展示');
+        try {
+            Track.event('用户中心_用户中心展示');
 
-        //get user info, not current user
-        let user_profile = await ServiceProxy.proxyTo({
-            body: {
-                uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.user_id}`
-            }
-        });
+            //get user info, not current user
+            let user_profile = await ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.user_id}`
+                }
+            });
 
-        let newTopics = [];
+            let newTopics = [];
 
-        if (user_profile.interests && user_profile.interests.length) {
-            user_profile.topics = user_profile.interests.split(',');
+            if (user_profile.interests && user_profile.interests.length) {
+                user_profile.topics = user_profile.interests.split(',');
 
-            for (let i in user_profile.topics) {
-                if (user_profile.topics[i]) {
-                    //check Topics
-                    for (let f in Topics) {
-                        if (Topics[f].value === user_profile.topics[i]) {
-                            newTopics.push(Topics[f]);
-                            break;
+                for (let i in user_profile.topics) {
+                    if (user_profile.topics[i]) {
+                        //check Topics
+                        for (let f in Topics) {
+                            if (Topics[f].value === user_profile.topics[i]) {
+                                newTopics.push(Topics[f]);
+                                break;
+                            }
                         }
                     }
                 }
             }
+
+            user_profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(user_profile.date_of_birth);
+
+            this.setState({
+                user_profile: user_profile,
+                topics: newTopics
+            });
         }
+        catch (ex){
 
-        user_profile.date_of_birth = BirthdayHelper.getBirthdayFromDbFormat(user_profile.date_of_birth);
-
-        this.setState({
-            user_profile: user_profile,
-            topics: newTopics
-        });
+        }
     }
 
     componentWillUnmount() {
