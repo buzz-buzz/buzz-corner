@@ -243,7 +243,7 @@ class Login extends Component {
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/login_picture.png" alt=""/>
                     <div className="intro-content">
                         <div className="title">BUZZBUZZ</div>
-                        <div className="content">
+                        <div className="content" style={{position: 'relative', right: '-8px'}}>
                             <p>结识英语学伴，对话英美少年！</p>
                             <p>开启你的国际交流旅程。</p>
                         </div>
