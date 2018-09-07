@@ -567,6 +567,7 @@ class Home extends Component {
                                             {
                                                 this.state.messageFromAdvisor.map((item, index) => <MessageBody
                                                     item={item} key={index}
+                                                    line={this.state.messageFromAdvisor.length - 1 !== index }
                                                     clickEventPlacement={this.clickEventPlacement}/>)
                                             }
                                             {
