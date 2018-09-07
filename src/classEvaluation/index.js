@@ -342,7 +342,7 @@ class classEvaluation extends Component {
                             <div className="img-stars">
                                 {
                                     [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                        src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png"
+                                        src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg"
                                             : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
                                         onClick={(event) => this.changeStars(event, item)} alt="star"/>)
                                 }
