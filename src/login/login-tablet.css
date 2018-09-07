@@ -118,6 +118,13 @@
           color: #000 !important; }
         .login-in-tablet .login-tab .login-form .phone-number .buzz-input input {
           background: white !important; }
+        .login-in-tablet .login-tab .login-form .phone-number .buzz-input input::-webkit-outer-spin-button,
+        .login-in-tablet .login-tab .login-form .phone-number .buzz-input input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          appearance: none;
+          margin: 0; }
+        .login-in-tablet .login-tab .login-form .phone-number .buzz-input input {
+          -moz-appearance: textfield; }
         .login-in-tablet .login-tab .login-form .phone-number input:focus {
           border: 1px solid #ffb117 !important;
           background-color: white !important; }
