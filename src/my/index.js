@@ -14,6 +14,7 @@ import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countries} from 'moment-timezone/data/meta/latest.json';
+import QuitModal from '../common/commonComponent/ConfirmationModal/index';
 import ServiceProxy from '../service-proxy';
 import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
@@ -73,6 +74,25 @@ class My extends Component {
         this.skipPlacement = this.skipPlacement.bind(this);
         this.sms = this.sms.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
+        this.signOut = this.signOut.bind(this);
+        this.closePopModal = this.closePopModal.bind(this);
+        this.openPopModal = this.openPopModal.bind(this);
+    }
+
+    signOut() {
+        Track.event('注册_点击退出');
+
+        this.setState({signOutModal: false}, () => {
+            browserHistory.push('/sign-out');
+        });
+    }
+
+    closePopModal() {
+        this.setState({signOutModal: false});
+    }
+
+    openPopModal() {
+        this.setState({signOutModal: true});
     }
 
     async sms() {
@@ -560,6 +580,13 @@ class My extends Component {
                 <MessageModal modalName={this.state.messageName}
                               modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
+                <QuitModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                       sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                       info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
+                />
+                <div className="quit" onClick={this.openPopModal}>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_quit.svg" alt=""/>
+                </div>
                 <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {

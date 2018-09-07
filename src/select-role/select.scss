@@ -1,7 +1,22 @@
 .select-role{
-  padding: 30px 21px 30px 21px;
+  padding: 10px 21px 30px 21px;
   display: flex;
   flex-direction: column;
+  .quit{
+    height: 40px;
+    width: 45px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #f4f5f9;
+    position: relative;
+    left: -21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 15px;
+    }
+  }
   .page-title{
     margin-bottom: 20px;
     font-size: 18px;

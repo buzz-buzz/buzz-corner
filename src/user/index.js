@@ -10,7 +10,7 @@ import '../common/Icon/style.css';
 import './index.css';
 import {Button} from "semantic-ui-react";
 import ServiceProxy from "../service-proxy";
-import Index from '../common/commonComponent/ConfirmationModal/index';
+import QuitModal from '../common/commonComponent/ConfirmationModal/index';
 
 class User extends Component {
     constructor(props) {
@@ -92,7 +92,7 @@ class User extends Component {
     render() {
         return (
             <div className="user-page">
-                <Index cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                <QuitModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
                        sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
                        info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
                 />

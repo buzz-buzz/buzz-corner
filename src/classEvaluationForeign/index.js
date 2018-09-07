@@ -176,7 +176,7 @@ class classEvaluationForeign extends Component {
                                             <div className="result-stars">
                                                 {
                                                     [1, 2, 3, 4, 5].map((i, index) => <img
-                                                        src={item.score >= i ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                        src={item.score >= i ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
                                                         alt="star"/>)
                                                 }
                                             </div>}

@@ -4,8 +4,10 @@ import CurrentUser from "../membership/user";
 import {MemberType} from "../membership/member-type";
 import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
+import Track from "../common/track";
 import URLHelper from "../common/url-helper";
 import ButtonBottom from '../common/commonComponent/submitButtonRadius10Px';
+import QuitModal from '../common/commonComponent/ConfirmationModal/index';
 import ErrorHandler from "../common/error-handler";
 import './select.css';
 
@@ -38,6 +40,25 @@ class SelectRole extends Component {
 
         this.toggleRole = this.toggleRole.bind(this);
         this.submit = this.submit.bind(this);
+        this.signOut = this.signOut.bind(this);
+        this.closePopModal = this.closePopModal.bind(this);
+        this.openPopModal = this.openPopModal.bind(this);
+    }
+
+    signOut() {
+        Track.event('注册_点击退出');
+
+        this.setState({signOutModal: false}, () => {
+            browserHistory.push('/sign-out');
+        });
+    }
+
+    closePopModal() {
+        this.setState({signOutModal: false});
+    }
+
+    openPopModal() {
+        this.setState({signOutModal: true});
     }
 
     toggleRole(role){
@@ -50,9 +71,7 @@ class SelectRole extends Component {
         try{
             let profile = await CurrentUser.getProfile();
 
-            if(!profile.user_id){
-                browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
-            } else if(profile.role){
+            if(!profile.user_id || profile.role){
                 browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
             } else{
                 this.setState({loadingModal: false});
@@ -89,6 +108,13 @@ class SelectRole extends Component {
         return (
             <div className="select-role">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
+                <QuitModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                       sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                       info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
+                />
+                <div className="quit" onClick={this.openPopModal}>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_quit.svg" alt=""/>
+                </div>
                 <div className="page-title">
                     点击选择你的角色
                 </div>
