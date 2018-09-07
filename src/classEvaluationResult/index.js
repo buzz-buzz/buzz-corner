@@ -314,7 +314,7 @@ class classEvaluationResult extends Component {
                                     <div className="stars">
                                         {
                                             [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                                                                      src={this.state.evaluation.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                      src={this.state.evaluation.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
                                                                                       alt=""/>)
                                         }
                                     </div>
@@ -348,7 +348,7 @@ class classEvaluationResult extends Component {
                                     <div className="stars">
                                         {
                                             [1, 2, 3, 4, 5].map((item, index) => <img key={index}
-                                                                                      src={this.state.evaluationMe.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
+                                                                                      src={this.state.evaluationMe.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg"}
                                                                                       alt=""/>)
                                         }
                                     </div>
