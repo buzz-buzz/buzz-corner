@@ -36,13 +36,15 @@ export default class PlacementQuestion extends React.Component {
 
     render() {
         return <div className="first placement-first">
-            <div className="first-question" style={this.props.step <= 4 ? {borderBottom: '1px solid #dfdfe4'} : {}}>
+            <div className="first-question" style={this.props.step <= 4 ? {borderBottom: '.5px solid #dfdfe4'} : {}}>
                 <div>
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg" alt=""/>
                 </div>
                 <div className="first-title">
                     {
+                        this.props.step === 5 || this.props.step === 6 ?
                         this.renderWord(this.props.questions && this.props.questions.length ? this.props.questions[this.props.step - 1].title : '')
+                            : this.props.questions[this.props.step - 1].title
                     }
                 </div>
             </div>
@@ -60,7 +62,8 @@ export default class PlacementQuestion extends React.Component {
                                     style={this.props.answers && this.props.answers.length && this.props.answers[this.props.step - 1] === item ? {
                                             color: 'white',
                                             border: '1px solid #ffd200',
-                                            background: '#ffd200'
+                                            background: '#ffd200',
+                                            fontWeight: '600'
                                         } : {}}>
                             <div className="item-content">
                                 <p>{item}</p>
