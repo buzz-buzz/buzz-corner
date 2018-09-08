@@ -19,6 +19,7 @@
     div.active{
       color: #f6b40c;
       border-bottom: 2px solid #ffd200;
+      font-weight: 600;
     }
 
   }
@@ -65,6 +66,7 @@
       align-items: center;
       .word{
         white-space: nowrap;
+         font-weight: 600;
       }
       .stars{
         margin-left: 20px;
@@ -89,6 +91,7 @@
       line-height: 50px;
       font-size: 15px;
       color: #000;
+      font-weight: 600;
     }
     textarea{
       background-color: #f4f5f9;
