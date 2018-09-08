@@ -25,6 +25,7 @@ const putPolicy = new qiniu.rs.PutPolicy({
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
+const languageParser = require('accept-language-parser');
 
 fundebug.notify("buzz-corner-koa", "Fundebug started!");
 
@@ -48,6 +49,10 @@ router
     })
     .get('/config', async ctx => {
         ctx.body = config;
+    })
+    .get('/language', async ctx => {
+        let languages = languageParser.parse('en-GB,en;q=0.8');
+        ctx.body = 'en-us' || languages[0].code;
     })
     .post('/proxy', async ctx => {
         if (ctx.request.body.uri) {
