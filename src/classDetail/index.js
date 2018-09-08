@@ -122,11 +122,18 @@ class classDetail extends Component {
         }
     }
 
+    checkOfficeName(item){
+        let rex = /\.(?:doc|docx|docm|dotx|dotm|xlsx|xlsm|xltx|xltm|xlsb|xlam|pptx|pptm|potx|ppt|potm|ppt|pdf)$/i;
+        return rex.test(item);
+    }
+
     fileLink(item) {
-        if (item.indexOf('.pdf') <= -1) {
+        if (!this.checkOfficeName(item)) {
             return item;
-        } else {
+        } else if(item.indexOf('.pdf') > -1){
             return 'https://buzz-corner.user.resource.buzzbuzzenglish.com/pdf/web/viewer.html?file=' + encodeURIComponent(item);
+        } else{
+            return 'https://view.officeapps.live.com/op/view.aspx?src=' + encodeURIComponent(item);
         }
     }
 
