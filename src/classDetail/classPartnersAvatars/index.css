@@ -3,17 +3,17 @@
   margin-top: 10px;
   padding: 10px 0 0 0; }
   .class-partners .class-partners-avatar {
-    height: 4em;
-    display: flex;
+    height: 55px;
+    padding-top: 15px;
     width: 100%;
-    align-items: center;
     padding-left: 24px; }
     .class-partners .class-partners-avatar a {
-      height: 35px;
-      margin-right: .5em; }
+      height: 40px;
+      margin-right: 12px;
+      overflow: hidden; }
       .class-partners .class-partners-avatar a img {
-        height: 35px;
-        width: 35px;
+        height: 40px;
+        width: 40px;
         border-radius: 50%; }
   .class-partners .s-title {
     background-color: white;

@@ -15,7 +15,6 @@
     position: relative;
     margin-right: 16px;
     border-radius: 50%;
-    overflow: hidden;
     border: 2px solid #f4f5f9; }
     .message-item .message-item-avatar .img {
       width: 100%;
@@ -26,7 +25,7 @@
       overflow: hidden; }
       .message-item .message-item-avatar .img img {
         width: 100%;
-        border-radius: 5px; }
+        border-radius: 50%; }
     .message-item .message-item-avatar .message-red-circle {
       top: -5px;
       right: -5px;
