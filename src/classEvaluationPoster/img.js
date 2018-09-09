@@ -119,7 +119,7 @@ class classEvaluationPoster extends Component {
                                     <div className="u-info">
                                         <div className="country">
                                             <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                            <Flag name={this.state.user_from.country || 'united states'}/>
+                                            <Flag name={this.state.user_from.country ? this.state.user_from.country.toLowerCase() : 'united states'}/>
                                         </div>
                                         <div className="grade">
                                             {this.state.user_from.country} {this.state.user_from.grade ? grade_list[parseInt(this.state.user_from.grade, 10) - 1].text : grade_list[0].text}
@@ -139,7 +139,7 @@ class classEvaluationPoster extends Component {
                                     <div className="u-info">
                                         <div className="country">
                                             <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                            <Flag name={this.state.user_to.country || 'china'}/>
+                                            <Flag name={this.state.user_to.country ? this.state.user_to.country.toLowerCase() : 'china'}/>
                                         </div>
                                         <div className="grade">
                                             {this.state.user_to.country} {this.state.user_to.grade ? grade_list[parseInt(this.state.user_to.grade, 10) - 1].text : grade_list[0].text}
