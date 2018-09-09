@@ -14,6 +14,7 @@ import {Placement} from "../common/systemData/placementData";
 import Track from "../common/track";
 import ErrorHandler from "../common/error-handler";
 import CurrentUser from "../membership/user";
+import Back from '../common/back';
 import './index.css';
 
 export default class PlacementModal extends React.Component {
@@ -47,7 +48,7 @@ export default class PlacementModal extends React.Component {
             if (this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message') {
                 browserHistory.push('/home?tab=message');
             } else {
-                browserHistory.push('/home');
+                Back.back();
             }
         } else if (this.state.step <= 6) {
             let newStep = this.state.step - 1;
