@@ -80,8 +80,8 @@ class classEvaluationPoster extends Component {
                 loadingModal: false,
                 user_from: user_from,
                 user_to: user_to,
-                user_from_feedback: user_from_feedback.filter(item => !item.type)[0].comment,
-                user_to_feedback: user_to_feedback.filter(item => !item.type)[0].comment,
+                user_from_feedback: user_from_feedback && user_from_feedback.length ? user_from_feedback.filter(item => !item.type)[0].comment : '',
+                user_to_feedback: user_to_feedback && user_to_feedback.length ? user_to_feedback.filter(item => !item.type)[0].comment : '',
                 class_info: class_info
             });
         } catch (ex) {

@@ -44,11 +44,12 @@
           font-size: 14px;
           padding-right: 10px;
           letter-spacing: 0;
-          line-height: 50px; }
+          line-height: 25px; }
         .profile-update .update-body div .update-right input.input-show {
           border: none;
           outline: none;
-          text-align: right; }
+          text-align: right;
+          height: 50%; }
         .profile-update .update-body div .update-right img {
           width: 5px; }
         .profile-update .update-body div .update-right input.hidden, .profile-update .update-body div .update-right select {
