@@ -34,17 +34,37 @@
     letter-spacing: 2px;
 }
 
+.modal>.content > div > div.welcome-title  p{
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline-block;
+    position: relative;
+    z-index: 5;
+}
+
+.modal>.content > div > div.welcome-title  p:after{
+    content: '';
+    width: calc(100% + 10px);
+    position: absolute;
+    left: -5px;
+    bottom: -2px;
+    height: 50%;
+    background-color: #f4f5f9;
+    z-index: -2;
+}
 
 .modal>.content > div > div.welcome-info {
-    font-size: 14px;
-    margin: 10px 0 22px 0;
+    font-size: 17px;
+    margin-bottom: 40px;
 }
 
 .modal>.content > div > div.welcome-info > p {
     line-height: 21px;
     font-weight: normal;
     letter-spacing: 0;
-    color: #868686;
+    color: #666;
 }
 
 .modal>.content > div > div.begin{
@@ -65,7 +85,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, .1);
 }
 
 .modal>.content > div > div.skip{
