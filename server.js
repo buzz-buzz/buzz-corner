@@ -52,7 +52,7 @@ router
     })
     .get('/language', async ctx => {
         let languages = languageParser.parse('en-GB,en;q=0.8');
-        ctx.body = 'en-us' || languages[0].code;
+        ctx.body = languages[0].code;
     })
     .post('/proxy', async ctx => {
         if (ctx.request.body.uri) {
