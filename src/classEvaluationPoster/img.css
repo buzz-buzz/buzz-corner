@@ -3,6 +3,19 @@
   width: 100%;
   min-height: 100%;
   max-width: 414px; }
+  .poster-img .share-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .poster-img .share-btn p {
+      color: #2f2f2f;
+      font-size: 8px;
+      padding-right: 8px; }
+    .poster-img .share-btn img {
+      height: 14px; }
   .poster-img .title {
     padding: 28px 32px 15px 28px; }
     .poster-img .title p {

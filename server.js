@@ -260,6 +260,7 @@ router
     .get('/evaluation/:from_user_id/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/evaluation/standards', serveSPA)
     .get('/poster/:from_user_id/:to_user_id/:class_id', serveSPA)
+    .get('/share/:from_user_id/:to_user_id/:class_id', serveSPA)
     .get('/consult', serveSPA)
     .get('/class-lessons', membership.ensureAuthenticated, serveSPA)
     .get('/consult', serveSPA)
