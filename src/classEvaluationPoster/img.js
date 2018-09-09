@@ -80,8 +80,8 @@ class classEvaluationPoster extends Component {
                 loadingModal: false,
                 user_from: user_from,
                 user_to: user_to,
-                user_from_feedback: user_from_feedback,
-                user_to_feedback: user_to_feedback,
+                user_from_feedback: user_from_feedback.filter(item => !item.type)[0].comment,
+                user_to_feedback: user_to_feedback.filter(item => !item.type)[0].comment,
                 class_info: class_info
             });
         } catch (ex) {
@@ -114,7 +114,7 @@ class classEvaluationPoster extends Component {
                                 this.state.user_from_feedback &&
                                 <div className="user-info">
                                     <div className="u-avatar" style={{marginRight: '15px'}}>
-                                        <img src={this.state.user_from.avatar} alt=""/>
+                                        <img src={this.state.user_from.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
                                     </div>
                                     <div className="u-info">
                                         <div className="country">
@@ -122,7 +122,7 @@ class classEvaluationPoster extends Component {
                                             <Flag name={this.state.user_from.country || 'united states'}/>
                                         </div>
                                         <div className="grade">
-                                            {this.state.user_from.country} {grade_list[parseInt(this.state.user_from.grade || 1, 10) - 1].text}
+                                            {this.state.user_from.country} {this.state.user_from.grade ? grade_list[parseInt(this.state.user_from.grade, 10) - 1].text : grade_list[0].text}
                                         </div>
                                     </div>
                                 </div>
@@ -142,11 +142,11 @@ class classEvaluationPoster extends Component {
                                             <Flag name={this.state.user_to.country || 'china'}/>
                                         </div>
                                         <div className="grade">
-                                            {this.state.user_to.country} {grade_list[parseInt(this.state.user_to.grade || 1, 10) - 1].text}
+                                            {this.state.user_to.country} {this.state.user_to.grade ? grade_list[parseInt(this.state.user_to.grade, 10) - 1].text : grade_list[0].text}
                                         </div>
                                     </div>
                                     <div className="u-avatar"  style={{marginLeft: '15px'}}>
-                                        <img src={this.state.user_to.avatar} alt=""/>
+                                        <img src={this.state.user_to.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
                                     </div>
                                 </div>
                             }
