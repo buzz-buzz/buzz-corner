@@ -371,7 +371,7 @@ class Home extends Component {
                 message_title: item.companion_name || 'Advisor',
                 message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
                 message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                goUrl: '/evaluation/' + userId + '/' + item.companion_id + '/' + item.class_id + '?tab=message',
+                goUrl: '/evaluation/' + item.companion_id + '/' + userId + '/' + item.class_id + '?tab=message',
                 hasRead: 'read'
             });
         }
