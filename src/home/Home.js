@@ -318,7 +318,7 @@ class Home extends Component {
 
             await window.Promise.all(classList.map(async (item, index) => {
                 if (profile.role === MemberType.Student) {
-                    this.calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor);
+                    this.calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor, userId);
                 } else if (profile.role === MemberType.Companion) {
                     await this.calculateFeedbackMessagesForCompanion(item, clonedMessageFromAdvisor);
                 }
@@ -357,7 +357,7 @@ class Home extends Component {
         }
     }
 
-    calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor) {
+    calculateFeedbackMessagesForStudent(item, clonedMessageFromAdvisor, userId) {
         if (item.class_end_time && new Date(item.class_end_time) - new Date(item.CURRENT_TIMESTAMP) < 0 && (!item.comment || !item.score) && item.class_id !== 'rookie') {
             clonedMessageFromAdvisor.push({
                 message_title: item.companion_name || 'Advisor',
@@ -371,7 +371,7 @@ class Home extends Component {
                 message_title: item.companion_name || 'Advisor',
                 message_content: Resources.getInstance().bookingFeedbackInfo + (item.topic || item.name || 'No topic'),
                 message_avatar: item.companion_avatar || '//cdn-corner.resource.buzzbuzzenglish.com/WeChat_use_tutor.jpg',
-                goUrl: '/class/evaluation/' + item.companion_id + '/' + item.class_id + '?tab=message',
+                goUrl: '/evaluation/' + userId + '/' + item.companion_id + '/' + item.class_id + '?tab=message',
                 hasRead: 'read'
             });
         }
