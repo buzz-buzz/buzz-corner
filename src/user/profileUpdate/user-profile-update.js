@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countries} from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
-import {ChineseCityList} from "../../common/systemData/chineseCityListData";
+import {ChinaAllCityList} from "../../common/systemData/chineseCityListData";
 import Resources from '../../resources';
 import QiniuDomain from '../../common/systemData/qiniuUrl';
 import HeaderWithBack from '../../common/commonComponent/headerWithBack';
@@ -32,9 +32,9 @@ const timeZones = Object.keys(zones).map(key => ({
     key, value: key, text: key
 }));
 
-const countryList = Object.keys(countries).map(key => ({
-    key, value: countries[key].name, text: countries[key].name
-}));
+const ChineseCityList = ChinaAllCityList.map((item, index) => {
+    return {key: index, value: item.name, text: item.name}
+});
 
 class UserUpdate extends Component {
     constructor(props) {
@@ -605,7 +605,7 @@ class UserUpdate extends Component {
                     </div>
                     <div className="item-update with-half-border">
                         <div className="update-left">
-                            <span>{Resources.getInstance().profileBirth}</span>
+                            <span>{Resources.getInstance().profileBirthOnly}</span>
                         </div>
                         <div className="update-right">
                             <span>{this.state.profile.date_of_birth}</span>
@@ -619,7 +619,7 @@ class UserUpdate extends Component {
                     </div>
                     <div className="item-update with-half-border">
                         <div className="update-left">
-                            <span>{Resources.getInstance().profileGrade}</span>
+                            <span>{Resources.getInstance().profileGradeOnly}</span>
                         </div>
                         <div className="update-right">
                             {this.state.profile.role === MemberType.Student &&
@@ -653,7 +653,7 @@ class UserUpdate extends Component {
                         this.state.profile.role === MemberType.Student &&
                         <div className="item-update with-half-border">
                             <div className="update-left">
-                                <span>{Resources.getInstance().profileCityNow}</span>
+                                <span>{Resources.getInstance().profileCityOnly}</span>
                             </div>
                             <div className="update-right">
                                 <span>{this.state.profile.city || '其他'}</span>
@@ -706,7 +706,7 @@ class UserUpdate extends Component {
                                         value={this.state.profile.country}
                                         onChange={this.handleChange}>
                                     {
-                                        countryList.map((item, index) => {
+                                        ChineseCityList.map((item, index) => {
                                             return <option key={index}
                                                            value={item.value}>{item.text}</option>
                                         })
