@@ -471,6 +471,7 @@ class classDetail extends Component {
                                         className="class_content_file_item"
                                         key={index}
                                         href={this.fileLink(item)}
+                                        target="_blank"
                                         rel="noopener noreferrer">
                                         <img
                                             src={item.indexOf('.pdf') <= -1 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_jpeg.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_PDF.svg"}
