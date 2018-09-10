@@ -16,7 +16,7 @@
     font-weight: 600;
     color: #000;
     line-height: 21px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
     position: relative; }
     .evaluation-item .title-info .shadow {
       position: absolute;
@@ -67,7 +67,8 @@
     .evaluation-item .class-behavior .stars-word {
       display: flex;
       align-items: center;
-      height: 100%; }
+      height: 100%;
+      font-weight: 600; }
       .evaluation-item .class-behavior .stars-word .word {
         height: 50px;
         line-height: 50px;

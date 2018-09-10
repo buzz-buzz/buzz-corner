@@ -12,6 +12,8 @@ export default class RecordModal extends React.Component {
             done: false
         };
 
+        this.modal = {};
+
         this.getTime = this.getTime.bind(this);
         this.stopRecord = this.stopRecord.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -49,28 +51,33 @@ export default class RecordModal extends React.Component {
         });
     }
 
+    componentDidMount(){
+        this.modal.style.animation = 'record-move-show .3s linear';
+    }
+
     render() {
         return (
-            <div className="record-control">
+            <div className="record-control"  ref={div => {this.modal = div;}}>
                 <div className="button-record-again" onClick={this.props.recordAgain}>
-                    重录
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Retake%20it.svg" alt=""/>
                 </div>
                 <div className="button-record-status">
-                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_Siri_Mic.svg" alt=""/>
+                    <div className="status-img" onClick={ this.props.open ? ()=>{} : this.props.recordAnswer}>
+                        <img src={ !this.props.open ? "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Siri_Mic.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_suspended.svg"} alt=""/>
+                    </div>
                     <span>
-                       <TimerWatch start={this.state.done ? 30 : 0} timeout={this.props.timeout}
-                                   visible={this.props.open} getTime={this.getTime}/>
+                        {
+                            this.props.open ? <TimerWatch start={this.state.done ? 30 : 0} timeout={this.props.timeout}
+                                                          visible={this.props.open} getTime={this.getTime}/> : '点击开始'
+                        }
                     </span>
                 </div>
-                <div className="button-record-done" onClick={this.stopRecord}
-                     style={this.state.done ? {borderColor: '#6ae108', color: '#6ae108'} : {
-                             borderColor: '#d0d6db',
-                             color: '#d0d6db'
-                         }}>
-                    完成
+                <div className="button-record-done" onClick={this.stopRecord}>
+                    <img src={this.state.done ? "///cdn-corner.resource.buzzbuzzenglish.com/placement/icon_complete_active.svg":"//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_complete.svg"} alt=""/>
                 </div>
+                <div className="half-circle"></div>
                 <div className="close" onClick={this.onClose}>
-                    <img className="img-close" src="//cdn-corner.resource.buzzbuzzenglish.com/placement-close.svg"
+                    <img className="img-close" src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_close.svg"
                          alt=""/>
                 </div>
             </div>

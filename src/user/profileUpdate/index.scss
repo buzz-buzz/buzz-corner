@@ -15,7 +15,7 @@
         height: 50px;
         width: 50px;
         border-radius: 50%;
-        border: 2px solid #d0d6db;
+        border: 2px solid #f4f5f9;
         overflow: hidden;
         img{
           width: 100%;
@@ -33,6 +33,8 @@
         margin-left: 9px;
         span{
           color: #000;
+          font-weight: 600;
+          font-size: 15px;
         }
       }
       .update-right{
@@ -48,17 +50,23 @@
           font-size: 14px;
           padding-right: 10px;
           letter-spacing: 0;
+          line-height: 25px;
         }
         input.input-show{
           border: none;
           outline: none;
           text-align: right;
-          font-weight: 600;
-        }
-        i{
+          height: 100%;
+          padding: 12px;
           color: #666;
-          font-size: 15px;
-          font-weight: 300;
+          line-height: 26px;
+          text-indent: 0px;
+          text-shadow: none;
+          position: relative;
+          background: #fff;
+        }
+        img{
+          width: 5px;
         }
         input.hidden, select{
           position: absolute;

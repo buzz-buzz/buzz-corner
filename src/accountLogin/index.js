@@ -37,7 +37,7 @@ const countryOptions = countryList.map(c => ({
     value: c.countryLongName,
     flag: c.countryShortName.toLowerCase(),
     text: `(+${c.countryCode}) ${c.countryName}`
-}));
+})).filter(item=>{return item.flag !== 'sx';});
 
 
 class AccountLogin extends Component {
@@ -94,8 +94,6 @@ class AccountLogin extends Component {
         this.setState({loadingModal: true});
         this.props.clearUsers();
 
-        console.log('state = ', this.state);
-
         try {
             let result = await ServiceProxy.proxyTo({
                 body: {
@@ -111,20 +109,16 @@ class AccountLogin extends Component {
             });
 
             if (result instanceof Array) {
-                this.props.addUsers(result)
+                this.props.addUsers(result);
                 this.setState({
                     loadingModal: false,
                     multipleUsers: true,
                     title: Resources.getInstance().accountSelectLogin
-                })
+                });
                 return;
             }
 
             this.setState({loadingModal: false}, () => {
-                if (result.role) {
-                    localStorage.setItem('role', result.role);
-                }
-
                 let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url');
 
                 if (returnUrl) {
@@ -143,8 +137,15 @@ class AccountLogin extends Component {
         }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         Track.event('设置密码页面展示');
+
+        if(this.props.users && this.props.users instanceof Array && this.props.users.length > 1){
+            this.setState({
+                multipleUsers: true,
+                title: Resources.getInstance().accountSelectLogin
+            })
+        }
     }
 
     selectUser = (userId) => {
@@ -235,7 +236,11 @@ class AccountLogin extends Component {
     }
 }
 
-export default connect(null, dispatch => {
+export default connect(state => {
+    return {
+        users: state.users
+    }
+}, dispatch => {
     return {
         addUser: user => {
             dispatch(addUser(user));

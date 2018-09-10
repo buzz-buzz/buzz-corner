@@ -1,5 +1,4 @@
 import React from 'react';
-import QiniuDomain from "../common/systemData/qiniuUrl";
 import Resources from "../resources";
 import BuzzInput from "../common/commonComponent/buzzInput";
 import PhoneNumber from './phone-number';
@@ -17,10 +16,4 @@ export default (props) => (<div className="form-content">
                  sms={props.sms} send={props.send}
                  mobileCountry={props.mobileCountry}
                  onCountryCodeChange={props.onCountryCodeChange}/>
-    <div className="agreement" onClick={props.agreementCheck}>
-        <img
-            src={props.agreement === true ? QiniuDomain + "/icon_select_active.png" : QiniuDomain + "/icon_select.png"}
-            alt=""/>
-        <span>{Resources.getInstance().profileAgreement}</span>
-    </div>
 </div>)

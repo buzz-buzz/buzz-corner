@@ -11,7 +11,7 @@ p{
 
 .my-home > .home-header{
     width: 100%;
-    height: 44px;
+    height: 50px;
     display: flex;
     position: relative;
     z-index: 999;
@@ -55,9 +55,9 @@ p{
 
 .my-home > .home-header > div.tab-booking > div > .tab-active, .my-home > .home-header > div.tab-message > div > .tab-active{
     position: absolute;
-    width: 100%;
-    bottom: -10px;
-    left: 0;
+    width: calc(100% + 20px);
+    bottom: -12px;
+    left: -10px;
 }
 
 .my-home > .home-header > .consult{

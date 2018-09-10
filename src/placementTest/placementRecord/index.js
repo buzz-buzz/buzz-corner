@@ -36,6 +36,7 @@ export default class PlacementRecorder extends React.Component {
         this.getTime = this.getTime.bind(this);
         this.stopRecord = this.stopRecord.bind(this);
         this.reReplyAudio = this.reReplyAudio.bind(this);
+        this.openRecordModal = this.openRecordModal.bind(this);
     }
 
     async recordAgain() {
@@ -65,9 +66,15 @@ export default class PlacementRecorder extends React.Component {
                 this.setState({recording: false});
             }
 
-            this.setState({recording: true, recordAgainLoading: false}, async() => {
-                await this.state.recordAudio.startRecording();
-            });
+            if(this.state.recordingModal){
+                this.setState({recording: true, recordAgainLoading: false}, async() => {
+                    await this.state.recordAudio.startRecording();
+                });
+            }else{
+                this.setState({
+                    recordingModal: true
+                });
+            }
         }
         catch (ex) {
             ErrorHandler.notify('Placement重录出错', ex);
@@ -78,7 +85,7 @@ export default class PlacementRecorder extends React.Component {
         recordingTime = time;
     }
 
-    recordAnswer() {
+    async recordAnswer() {
         if (!this.state.recording && !this.props.answers[this.props.step - 1] && !this.state.loadingAudio) {
             Track.event('测试_录制按钮点击');
 
@@ -88,7 +95,7 @@ export default class PlacementRecorder extends React.Component {
         } else if (this.state.recording) {
             this.props.setMessage('正在录制中...', 'error');
         } else if (this.props.answers[this.props.step - 1]) {
-            this.reReplyAudio();
+            await this.recordAgain();
         } else if (this.state.loadingAudio) {
             let message = this.state.support ? '正在等待录音权限, 如已拒绝，请刷新页面重试。' : '当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...';
 
@@ -96,12 +103,29 @@ export default class PlacementRecorder extends React.Component {
         }
     }
 
-    async stopRecord() {
-        if (recordingTime && recordingTime >= 30) {
-            this.setState({loadingModal: true});
+    openRecordModal(){
+        if(!this.state.recording && !this.props.answers[this.props.step - 1] && !this.state.loadingAudio){
+            this.setState({
+                recordingModal: true
+            });
+        }else if(this.state.recording){
+            this.props.setMessage('正在录制中...', 'error');
+        }else if (this.props.answers[this.props.step - 1]) {
+            this.reReplyAudio();
+        } else if (this.state.loadingAudio) {
+            let message = this.state.support ? '正在等待录音权限, 如已拒绝，请刷新页面重试。' : '当前设备不支持录音功能, 请使用手机版微信或在PC中使用Chrome浏览器...';
+
+            this.props.setMessage(message, 'error');
         }
 
-        this.setState({recording: false}, async() => {
+    }
+
+    async stopRecord() {
+        if (recordingTime && recordingTime >= 30) {
+            this.setState({loadingModal: true, recordingModal: false});
+        }
+
+        this.setState({recording: false, recordingModal: false}, async() => {
             if (recordingTime && recordingTime >= 30) {
                 Track.event('测试_录音完成按钮点击');
 
@@ -142,9 +166,13 @@ export default class PlacementRecorder extends React.Component {
             this.props.setMessage('操作过于频繁, 请稍后再次尝试。', 'error');
             return false;
         } else if (this.state.recording) {
-            this.setState({recording: false}, async() => {
+            this.setState({recording: false, recordingModal: false}, async() => {
                 await this.state.recordAudio.stopRecording();
                 recordingTime = 0;
+            });
+        } else if(!this.state.recording){
+            this.setState({
+                recordingModal: false
             });
         }
     }
@@ -241,8 +269,8 @@ export default class PlacementRecorder extends React.Component {
                                    src={this.props.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                                    alt="avatar"/>
                         </div>
-                        <div onClick={this.recordAnswer}
-                             className="student-word talk-bubble tri-left right-bottom border round">
+                        <div onClick={this.openRecordModal}
+                             className="student-word talk-bubble new-talk-style">
                             <div className="talktext">
                                 <p style={{paddingLeft: '10px', display: 'flex', alignItems: 'center'}}>
                                     {
@@ -265,6 +293,7 @@ export default class PlacementRecorder extends React.Component {
                                         }
                                     </span>
                                 </p>
+                                <div className="right-location"></div>
                             </div>
                         </div>
                         {
@@ -299,9 +328,10 @@ export default class PlacementRecorder extends React.Component {
                             : ''
                     }
                     {
-                        this.props.step > 4 && this.state.recording && <RecordModal
+                        this.props.step > 4 && this.state.recordingModal && <RecordModal
                             open={this.state.recording}
                             recordAgain={this.recordAgain}
+                            recordAnswer={this.recordAnswer}
                             onClose={this.closeRecord}
                             stopRecord={this.stopRecord}
                             timeout={this.stopRecord}

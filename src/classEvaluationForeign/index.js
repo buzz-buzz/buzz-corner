@@ -100,7 +100,7 @@ class classEvaluationForeign extends Component {
             }
 
             //create a students evaluation list.
-            let clonedEvaluationList = this.state.evaluation_list;
+            let clonedEvaluationList = [];
 
             if (class_info.companions && class_info.partners && class_info.partners.length > 0) {
                 await window.Promise.all(class_info.partners.map(async(item, index) => {
@@ -119,7 +119,7 @@ class classEvaluationForeign extends Component {
                     });
 
                     clonedEvaluationList.push({
-                        url: '/class/evaluation/' + item + '/' + this.state.class_id,
+                        url: evaluationResult && evaluationResult[0] && evaluationResult[0].score ? `/evaluation/${item}/${class_info.companions}/${this.state.class_id}` : '/class/evaluation/' + item + '/' + this.state.class_id,
                         score: evaluationResult && evaluationResult[0] && evaluationResult[0].score ? evaluationResult[0].score : 0,
                         user_name: user_info.name || 'Buzz',
                         avatar: user_info.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
@@ -176,7 +176,7 @@ class classEvaluationForeign extends Component {
                                             <div className="result-stars">
                                                 {
                                                     [1, 2, 3, 4, 5].map((i, index) => <img
-                                                        src={item.score >= i ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
+                                                        src={item.score >= i ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars1.png"}
                                                         alt="star"/>)
                                                 }
                                             </div>}

@@ -3,7 +3,7 @@ import {Form, TextArea} from 'semantic-ui-react';
 import {browserHistory} from "react-router";
 import Resources from '../../resources';
 import EvaluationStatusHelper from '../../common/evaluationStatusHelper';
-import Button50px from '../../common/commonComponent/submitButton50px';
+import Button50px from '../../common/commonComponent/submitButtonRadius10Px';
 import './index.css';
 import ErrorHandler from "../../common/error-handler";
 import ServiceProxy from "../../service-proxy";
@@ -176,7 +176,7 @@ export default class CompanionEvaluation extends React.Component {
                                 {
                                     [1, 2, 3, 4, 5].map((item, index) => {
                                         return <img onClick={(event) => this.getScore(event, item, 'stars')} key={index}
-                                                    src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/image/icon_Stars_active1.png" : (this.state.stars === item - 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
+                                                    src={this.state.stars >= item ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_active.svg" : (this.state.stars === item - 0.5 ? "//cdn-corner.resource.buzzbuzzenglish.com/icon_stars_half.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/icon_Stars_grey.svg")}
                                                     alt=""/>
                                     })
                                 }

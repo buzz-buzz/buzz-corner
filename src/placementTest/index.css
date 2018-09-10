@@ -1,14 +1,18 @@
 .placement-first, .placement-second, .placement-third,  .placement-fourth {
     min-height: 15em;
     flex: 1 0 auto;
+    width: 100%;
 }
 
+
+
 .first-question{
-    height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 1em 0 1em 0;
+    background: white;
+    padding: 18px 21px 21px 21px;
+    position: relative;
 }
 
 .first-question>div:nth-child(1){
@@ -28,13 +32,13 @@
 }
 
 .first-answer>.answer-item{
-    width: 100%;
+    margin: 15px 17px;
     border-radius: 10px;
     border: 1px solid #dfdfe4;
-    margin: 1em 0;
     position: relative;
     display: flex;
     color: #666;
+    background: white;
 }
 
 .answer-title{
@@ -121,7 +125,8 @@
     justify-content: center;
     align-items: center;
     letter-spacing: 0;
-    font-size: 1em;
+    font-size: 15px;
+    font-weight: bold;
     margin: 0 1em;
 }
 
@@ -280,7 +285,46 @@ div.help-modal > .help-content > img{
 }
 
 .offset-bottom{
-    height: 80px;
     flex: 0 0 auto;
     width: 100%;
+}
+
+.placement{
+    display: flex;
+    flex-direction: column;
+}
+
+.placement > .placement-body{
+    flex: 1 0 auto;
+    display: flex;
+    width: 100%;
+}
+
+.placement > .placement-body  .first-answer{
+    flex: 1 0 auto;
+    padding: 15px 21px;
+}
+
+.new-talk-style{
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid #d0d6db;
+    margin-right: 17px;
+}
+
+.new-talk-style .right-location{
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: calc(50% - 3px);
+    right: -5px;
+    z-index: 20;
+    border-top: 1px solid #d0d6db;
+    border-right: 1px solid #d0d6db;
+    background: white;
+    transform:rotate(45deg);
+    -ms-transform:rotate(45deg); 	/* IE 9 */
+    -moz-transform:rotate(45deg); 	/* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+    -o-transform:rotate(45deg);
 }

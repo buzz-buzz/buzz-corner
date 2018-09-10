@@ -18,7 +18,7 @@
     font-weight: 600;
     color: #000;
     line-height: 21px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
     position: relative;
     .shadow{
       position: absolute;
@@ -75,6 +75,7 @@
       display: flex;
       align-items: center;
       height: 100%;
+      font-weight: 600;
       .word{
         height: 50px;
         line-height: 50px;

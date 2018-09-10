@@ -1,12 +1,11 @@
 import React from 'react';
 import {Image} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
-import BuzzServiceApiErrorParser from "../common/buzz-service-api-error-parser";
 import URLHelper from "../common/url-helper";
-import {MemberType} from "../membership/member-type";
 import BuzzRoundButton from "../common/commonComponent/buttons/buzz-round-button";
 import ModalMessage from "../common/commonComponent/modalMessage/index";
 import Resources from "../resources";
+import './index.css';
 
 let loadFacebookScripts = () => {
     window.fbAsyncInit = function () {
@@ -45,83 +44,69 @@ let loadFacebookScripts = () => {
 export default class FacebookLogin extends React.Component {
     initializeFacebookLogin = () => {
         this.FB = window.FB;
-        this.FB.getLoginStatus(this.facebookLoginStatusGot);
-    };
-    facebookLoginStatusGot = response => {
-        if (response.status === 'connected') {
-            this.FB.api('/me', this.facebookUserInfoGot);
-        } else {
+        this.FB.getLoginStatus(() => {
             this.setState({
                 loading: false,
                 facebookConnected: true
-            }, () => {
-                // alert('Please click the Facebook Login button to open facebook authentication page...')
-            });
+            })
+        });
+    };
+    facebookLoginStatusGot = response => {
+        this.setState({
+            loading: false,
+            facebookConnected: true
+        });
+
+        if (response.status === 'connected') {
+            this.FB.api('/me', this.facebookUserInfoGot);
         }
     };
     doLogin = () => {
+        //this.facebookUserInfoGot({name: "Xiaopeng Han", id: "285519065597484"});
         if (!this.state.facebookConnected) {
-            this.setState({modalShow: true})
+            this.setState({modalShow: true});
+            if(this.props.LoginFail){
+                this.props.LoginFail();
+            }
             return;
         }
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({wechatModalShow: true})
-            return;
-        }
+
         this.setState({loading: true});
         this.FB.login(this.facebookLoginStatusGot, {scope: 'public_profile'});
     };
-    logout = async () => {
+    logout = async() => {
         this.setState({loading: true});
 
         await new Promise(callback => this.FB.logout(callback));
         await ServiceProxy.proxy('/sign-out');
         this.setState({userInfo: {}, loading: false})
     };
-    facebookUserInfoGot = async (facebookUserData) => {
+    facebookUserInfoGot = async(facebookUserData) => {
         try {
             await this.loginOldUser(facebookUserData);
         } catch (error) {
-            await this.loginNewUser(error, facebookUserData);
+            //新用户-需要绑定手机号 调至登陆成功处
+            window.location.href = `/facebook/oauth/success/${this.getParameters(facebookUserData, window.btoa(window.location.origin), window.btoa(window.location.search))}`;
+            //await this.loginNewUser(error, facebookUserData);
         }
     };
-    loginOldUser = async (facebookUserData) => {
+    getParameters = (msg, base64_callback_origin, base64_query_string) => {
+
+        return `${msg.id}/${msg.name}?callback_origin=${base64_callback_origin}&base64_query_string=${base64_query_string}`;
+    };
+    loginOldUser = async(facebookUserData) => {
         let buzzUserData = await this.getBuzzUserData(facebookUserData.id);
 
         await this.loginByFacebook(facebookUserData.id, buzzUserData.user_id);
     };
-    loginNewUser = async (error, facebookUserData) => {
-        if (BuzzServiceApiErrorParser.isNewUser(error)) {
-            let newUserId = await this.registerByFacebook(facebookUserData);
-            await this.loginByFacebook(facebookUserData.id, newUserId);
-        } else {
-            alert('Login failed!');
-
-            throw error;
-        }
-    };
-    getBuzzUserData = async (facebook_id) => {
+    getBuzzUserData = async(facebook_id) => {
         return await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/by-facebook/${facebook_id}`
             }
         });
     };
-    registerByFacebook = async (facebookUserInfo) => {
-        return await ServiceProxy.proxyTo({
-            body: {
-                uri: '{config.endPoints.buzzService}/api/v1/users',
-                method: 'POST',
-                json: {
-                    role: URLHelper.getSearchParam(window.location.search, 'role') || MemberType.Companion,
-                    name: facebookUserInfo.name,
-                    facebook_id: facebookUserInfo.id,
-                    facebook_name: facebookUserInfo.name
-                }
-            }
-        });
-    };
-    loginByFacebook = async (facebookId, userId) => {
+    loginByFacebook = async(facebookId, userId) => {
         let res = await ServiceProxy.proxyTo({
             body: {
                 uri: `{config.endPoints.buzzService}/api/v1/users/sign-in`,
@@ -139,8 +124,10 @@ export default class FacebookLogin extends React.Component {
         });
 
         let returnUrl = URLHelper.getSearchParam(window.location.search, 'return_url') || '/';
-        if (returnUrl) {
+        if (returnUrl && returnUrl.indexOf('login') === -1 && returnUrl.indexOf('sign') === -1) {
             window.location.href = returnUrl;
+        }else {
+            window.location.href = '/';
         }
     };
 
@@ -153,15 +140,6 @@ export default class FacebookLogin extends React.Component {
         this.state = {
             facebookConnected: false
         };
-
-        // this.checkWechatBrowser();
-    }
-
-    checkWechatBrowser() {
-        if (/MicroMessenger/.test(navigator.userAgent)) {
-            this.setState({wechatModalShow: true})
-            window.location.href = `/login/wechat/${window.location.search}`;
-        }
     }
 
     componentDidMount() {
@@ -176,6 +154,10 @@ export default class FacebookLogin extends React.Component {
 
     componentWillUnmount() {
         document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
+
+        this.setState = (state, callback) => {
+            return false;
+        };
     }
 
     render() {
@@ -183,15 +165,23 @@ export default class FacebookLogin extends React.Component {
             <div>
                 <ModalMessage modalName="error" modalShow={this.state.modalShow}
                               modalContent={Resources.getInstance().connectionError}
-                              style={{position: 'fixed'}} duration={'long'}/>
+                              style={{position: 'fixed', top: '0'}} duration={'long'}/>
                 <ModalMessage modalName="error" modalShow={this.state.wechatModalShow}
                               modalContent={Resources.getInstance().pleaseUseWechatToLogin}
                               style={{position: 'fixed'}} duration={'long'}/>
-                <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading} disabled={this.state.loading}
-                                 paddingLeft="60px">
-                    <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg" alt="Facebook login"/>
-                    {Resources.getInstance('en-US').signInWith('FACEBOOK')}
-                </BuzzRoundButton>
+                {
+                    this.props.mobileFacebookUI ? <div className="face-book" onClick={this.doLogin}>
+                            <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_facebook.svg" alt=""/>
+                            <span>FACEBOOK</span>
+                        </div> :
+                        <BuzzRoundButton onClick={this.doLogin} loading={this.state.loading}
+                                         disabled={this.state.loading}
+                                         paddingLeft="60px">
+                            <Image src="//cdn-corner.resource.buzzbuzzenglish.com/image/svg/icon_facebook.svg"
+                                   alt="Facebook login"/>
+                            {Resources.getInstance('en-US').signInWith('FACEBOOK')}
+                        </BuzzRoundButton>
+                }
             </div>
         );
     }

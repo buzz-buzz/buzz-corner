@@ -37,7 +37,7 @@ export default class CourseModal extends React.Component {
                                              submit={this.props.ok ? this.props.joinClass : this.props.joinHelp}
                             /></div>
                             <div><Button50Px disabled={false} text={Resources.getInstance().taoCourseNotSign} submit={this.props.joinCancel}
-                                             style={{background: 'white', border: '1px solid #dfdfe4', color: '#666'}}/>
+                                             style={{background: 'white', border: '1px solid #dfdfe4', color: '#666', boxShadow: 'none'}}/>
                             </div>
                         </div>
                     </div>

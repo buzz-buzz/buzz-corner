@@ -1,6 +1,4 @@
 import React from 'react';
-import QiniuDomain from "../common/systemData/qiniuUrl";
-import Resources from "../resources";
 import BuzzInput from "../common/commonComponent/buzzInput";
 import PhoneNumber from './phone-number';
 import {Button} from "semantic-ui-react";
@@ -28,12 +26,5 @@ export default (props) =>
                        onChange={props.handleChange}
                        name='email'
             />
-        </div>
-
-        <div className="agreement" onClick={props.agreementCheck}>
-            <img
-                src={props.agreement === true ? QiniuDomain + "/icon_select_active.png" : QiniuDomain + "/icon_select.png"}
-                alt=""/>
-            <span>{Resources.getInstance().profileAgreement}</span>
         </div>
     </div>)

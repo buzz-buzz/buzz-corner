@@ -14,16 +14,19 @@ export default class WechatLogin extends React.Component {
     }
 
     static redirectToWechatOAuthPage() {
-        const redirectUri = ClientConfig.getWechatRedirectUri(window.location.origin, window.location.search)
+        const redirectUri = ClientConfig.getWechatRedirectUri(window.location.origin, window.location.search);
 
         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ClientConfig.wechatAppIdForMobile}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
     }
 
+    static redirectToWechatQRcode() {
+        const redirectUri = ClientConfig.getWechatQrRedirectUri(window.location.origin, window.location.search);
+
+        window.location.href = `https://open.weixin.qq.com/connect/qrconnect?appid=${ClientConfig.wechatAppIdForQrCode}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_login&self_redirect=#wechat_redirect`;
+    }
+
     static createQrCode() {
-        document.write('<div id="qrcode-wechat" style="text-align: center;">正在加载微信二维码，请稍候……</div>');
-        document.write('<div style="text-align: center;"><p>&nbsp;</p></div>');
-        document.write('<div style="text-align: center;"><p>&nbsp;</p></div>');
-        document.write('<div style="text-align: center;"><p>&nbsp;</p></div>');
+        document.write('<div id="qrcode-wechat" style="text-align: center; width: 100%; margin-bottom: 30px">正在加载微信二维码，请稍候……</div>');
         new window.WxLogin({
             self_redirect: true,
             id: "qrcode-wechat",
@@ -34,7 +37,7 @@ export default class WechatLogin extends React.Component {
             style: "black"
         });
         document.write('<div style="text-align: center;"><a' +
-            ' href="weixin://dl/business/">已安装微信？请尝试在微信中打开本页面</a></div>');
+            ' href="weixin://dl/business/">在微信中打开</a></div>');
     }
 
     static showLoginPage() {

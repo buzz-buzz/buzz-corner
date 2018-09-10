@@ -15,7 +15,7 @@ class TabletHeader extends Component {
     goHomePage(){
         Track.event('角色选择_logo点击', 'logo点击');
 
-        browserHistory.push('/');
+        browserHistory.push('/login');
     }
 
     render() {
@@ -26,9 +26,6 @@ class TabletHeader extends Component {
                 </div>
                 <div className="tablet-middle">
                     <p onClick={this.goHomePage}>{Resources.getInstance().homeLogin}</p>
-                </div>
-                <div className="tablet-language-right">
-
                 </div>
             </div>
         );
