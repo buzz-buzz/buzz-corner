@@ -125,7 +125,7 @@ class App extends Component {
                            component={EvaluationStandards}/>
                     <Route path='/poster/:from_user_id/:to_user_id/:class_id'
                            component={ClassEvaluationPoster}/>
-                    <Route path='/poster/img'
+                    <Route path='/share/:from_user_id/:to_user_id/:class_id'
                            component={ClassEvaluationPosterImg}/>
                     <Route path='/class/foreign/:class_id'
                            component={ClassEvaluationForeign}/>

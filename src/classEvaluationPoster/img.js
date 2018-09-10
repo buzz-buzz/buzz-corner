@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
 import {Flag} from "semantic-ui-react";
 import ServiceProxy from '../service-proxy';
 import WechatShare from '../wechat/wechatShare';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import ErrorHandler from '../common/error-handler';
+import {GradeData} from "../common/systemData/gradeData";
 import Track from "../common/track";
 import './img.css';
+
+const grade_list = GradeData.grade_list;
 
 class classEvaluationPoster extends Component {
     constructor(props) {
@@ -22,14 +24,9 @@ class classEvaluationPoster extends Component {
             },
             user_to: {
                 avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
-            }
+            },
+            class_info: {}
         };
-
-        this.goVideoPlayPage = this.goVideoPlayPage.bind(this);
-    }
-
-    goVideoPlayPage(){
-        browserHistory.push('/video-play');
     }
 
     async componentWillMount() {
@@ -49,8 +46,6 @@ class classEvaluationPoster extends Component {
                 }
             });
 
-            //get data
-
             let user_from = await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.from_user_id}`
@@ -60,6 +55,12 @@ class classEvaluationPoster extends Component {
             let user_to =  await ServiceProxy.proxyTo({
                 body: {
                     uri: `{config.endPoints.buzzService}/api/v1/users/${this.state.to_user_id}`
+                }
+            });
+
+            let class_info = await  ServiceProxy.proxyTo({
+                body: {
+                    uri: `{config.endPoints.buzzService}/api/v1/class-schedule/` + this.state.class_id
                 }
             });
 
@@ -79,8 +80,9 @@ class classEvaluationPoster extends Component {
                 loadingModal: false,
                 user_from: user_from,
                 user_to: user_to,
-                user_from_feedback: user_from_feedback,
-                user_to_feedback: user_to_feedback
+                user_from_feedback: user_from_feedback && user_from_feedback.length ? user_from_feedback.filter(item => !item.type)[0].comment : '',
+                user_to_feedback: user_to_feedback && user_to_feedback.length ? user_to_feedback.filter(item => !item.type)[0].comment : '',
+                class_info: class_info
             });
         } catch (ex) {
             //login error
@@ -93,9 +95,13 @@ class classEvaluationPoster extends Component {
         return (
             <div className="poster-img">
                 <LoadingModal loadingModal={this.state.loadingModal}/>
+                <div className="share-btn">
+                    <p>点击这里分享</p>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/Triangle_2.png" alt=""/>
+                </div>
                 <div className="title">
-                    <p>我与"hank"一起成为了国际学伴。</p>
-                    <p>我们一起讨论了"<span>Eating</span>"课题。</p>
+                    <p>我与"{ this.state.user_from.name || 'Eathan'}"一起成为了国际学伴。</p>
+                    <p>我们一起讨论了"<span>{this.state.class_info.topic || 'Eating'}</span>"课题。</p>
                 </div>
                 <div className="content-img">
                     <div className="top-head">
@@ -104,40 +110,52 @@ class classEvaluationPoster extends Component {
                     <div className="letter">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/letter.png" alt="" className="letter"/>
                         <div className="info">
-                            <div className="user-info">
-                                <div className="u-avatar" style={{marginRight: '15px'}}>
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg" alt=""/>
-                                </div>
-                                <div className="u-info">
-                                    <div className="country">
-                                        <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                        <Flag name={'united states'}/>
+                            {
+                                this.state.user_from_feedback &&
+                                <div className="user-info">
+                                    <div className="u-avatar" style={{marginRight: '15px'}}>
+                                        <img src={this.state.user_from.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
                                     </div>
-                                    <div className="grade">
-                                        美国 二年级
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="feedback-word" style={{marginBottom: '30px'}}>
-                                Eathan is a bit hesitant to speak, but he participated. I would recommend him to be more confident in himself and don’t be shy. Overall, however……
-                            </div>
-                            <div className="user-info" style={{justifyContent: 'flex-end'}}>
-                                <div className="u-info">
-                                    <div className="country">
-                                        <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                        <Flag name={'united states'}/>
-                                    </div>
-                                    <div className="grade">
-                                        美国 二年级
+                                    <div className="u-info">
+                                        <div className="country">
+                                            <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
+                                            <Flag name={this.state.user_from.country ? this.state.user_from.country.toLowerCase() : 'united states'}/>
+                                        </div>
+                                        <div className="grade">
+                                            {this.state.user_from.country} {this.state.user_from.grade ? grade_list[parseInt(this.state.user_from.grade, 10) - 1].text : grade_list[0].text}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="u-avatar"  style={{marginLeft: '15px'}}>
-                                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg" alt=""/>
+                            }
+                            {
+                                this.state.user_from_feedback &&
+                                <div className="feedback-word" style={{marginBottom: '30px'}}>
+                                    {this.state.user_from_feedback}
                                 </div>
-                            </div>
-                            <div className="feedback-word">
-                                Eathan is a bit hesitant to speak, but he participated. I would recommend him to be more confident in himself and don’t be shy. Overall, however……
-                            </div>
+                            }
+                            {
+                                this.state.user_to_feedback &&
+                                <div className="user-info" style={{justifyContent: 'flex-end'}}>
+                                    <div className="u-info">
+                                        <div className="country">
+                                            <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
+                                            <Flag name={this.state.user_to.country ? this.state.user_to.country.toLowerCase() : 'china'}/>
+                                        </div>
+                                        <div className="grade">
+                                            {this.state.user_to.country} {this.state.user_to.grade ? grade_list[parseInt(this.state.user_to.grade, 10) - 1].text : grade_list[0].text}
+                                        </div>
+                                    </div>
+                                    <div className="u-avatar"  style={{marginLeft: '15px'}}>
+                                        <img src={this.state.user_to.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                this.state.user_to_feedback &&
+                                <div className="feedback-word">
+                                    {this.state.user_to_feedback}
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

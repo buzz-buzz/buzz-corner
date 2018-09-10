@@ -57,7 +57,7 @@
             font-size: 15px;
             line-height: 20px;
             color: #000;
-            font-weight: 500;
+            font-weight: 600;
             white-space: nowrap;
             width: 100%;
             overflow: hidden;
@@ -115,7 +115,7 @@
         .course-detail .course-join .time-left .time .time-down {
           font-size: 15px;
           color: #000;
-          font-weight: 500; }
+          font-weight: 600; }
     .course-detail .course-join .btn {
       width: 100%;
       padding: 0 100px; }

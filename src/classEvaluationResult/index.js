@@ -109,7 +109,7 @@ class classEvaluationResult extends Component {
     createPostersOfAchievement() {
         Track.event('中方点击成就海报');
 
-        browserHistory.push(`/poster/${this.state.from_user_id}/${this.state.to_user_id}/${this.state.class_id}`);
+        browserHistory.push(`/share/${this.state.from_user_id}/${this.state.to_user_id}/${this.state.class_id}`);
     }
 
     companionCenter() {

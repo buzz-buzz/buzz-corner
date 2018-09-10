@@ -47,7 +47,7 @@ export default class ClassInfoTitle extends React.Component {
                 {
                     this.props.course_info.class_status_show_word &&
                     <div className="course-status"
-                         style={!this.props.index ? {backgroundColor: this.colorHelper(this.props.course_info.class_status_show_style)} : {backgroundColor: 'white'}}>
+                         style={!this.props.index ? {backgroundColor: this.colorHelper(this.props.course_info.class_status_show_style)} : {backgroundColor: 'white', paddingRight: '21px'}}>
                         <span
                             style={!this.props.index ? {color: 'white'} : {color: this.props.course_info.class_status_show_style}}>{this.props.course_info.class_status_show_word}</span>
                     </div>
