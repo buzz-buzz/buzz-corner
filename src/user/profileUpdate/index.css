@@ -55,7 +55,8 @@
           line-height: 26px;
           text-indent: 0px;
           text-shadow: none;
-          position: relative; }
+          position: relative;
+          background: #fff; }
         .profile-update .update-body div .update-right img {
           width: 5px; }
         .profile-update .update-body div .update-right input.hidden, .profile-update .update-body div .update-right select {
