@@ -71,7 +71,7 @@ class Consult extends Component {
                                 </p>
                             </div>
                         </div>
-                        <p className="email-title">2. You can use wechat and <span style={{color: '#edae00'}}>scan the QR code</span></p>
+                        <p className="email-title">2. You can use wechat and <span style={{color: '#ffb117'}}>scan the QR code</span></p>
                         <div className="consult-QR-code" style={{width: '40%'}}>
                             <img src="//cdn-corner.resource.buzzbuzzenglish.com/companion_advisor.jpg" alt=""/>
                         </div>

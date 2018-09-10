@@ -58,16 +58,12 @@ router
         let buzzService = config.endPoints.buzzService;
 
         if(ctx.request.origin && ctx.request.origin.indexOf('live1') > -1 && (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints)){
-            console.log('live 1:' + (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints));
             buzzService = config.endPoints.buzzService1 || process.env.buzz_service1_endpoints;
         }
 
         if(ctx.request.origin && ctx.request.origin.indexOf('live2') > -1 && (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints)){
-            console.log('live 2:' + (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints));
             buzzService = config.endPoints.buzzService2 || process.env.buzz_service2_endpoints;
         }
-
-        console.log('live address:' + buzzService);
 
         if (ctx.request.body.uri) {
             ctx.request.body.uri = ctx.request.body.uri

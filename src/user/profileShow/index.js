@@ -114,7 +114,10 @@ class UserShow extends Component {
                     <div className="user-country">{this.state.user_profile.country}</div>
                 </div>
                 <div className="user-hobby">
-                    <div className="hobby-title">{Resources.getInstance().userCenterHobby}</div>
+                    <div className="hobby-title">
+                        {Resources.getInstance().userCenterHobby}
+                        <div></div>
+                    </div>
                     <div className="hobby-items">
                         {
                             this.state.topics.map((item, index) => {
