@@ -55,12 +55,26 @@ router
         ctx.body = languages[0].code;
     })
     .post('/proxy', async ctx => {
+        let buzzService = config.endPoints.buzzService;
+
+        if(ctx.request.origin && ctx.request.origin.indexOf('live1') > -1 && (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints)){
+            console.log('live 1:' + (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints));
+            buzzService = config.endPoints.buzzService1 || process.env.buzz_service1_endpoints;
+        }
+
+        if(ctx.request.origin && ctx.request.origin.indexOf('live2') > -1 && (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints)){
+            console.log('live 2:' + (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints));
+            buzzService = config.endPoints.buzzService2 || process.env.buzz_service2_endpoints;
+        }
+
+        console.log('live address:' + buzzService);
+
         if (ctx.request.body.uri) {
             ctx.request.body.uri = ctx.request.body.uri
                 .replace('{config.endPoints.interview}', config.endPoints.interview)
                 .replace('{config.endPoints.masr}', config.endPoints.masr)
                 .replace('{config.endPoints.hongda}', config.endPoints.hongda)
-                .replace('{config.endPoints.buzzService}', config.endPoints.buzzService)
+                .replace('{config.endPoints.buzzService}', buzzService)
             ;
         }
 
