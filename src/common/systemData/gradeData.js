@@ -11,6 +11,9 @@ export const GradeData = {
         {key: '7', value: '7', text: Resources.getInstance().gradeSev},
         {key: '8', value: '8', text: Resources.getInstance().gradeEig},
         {key: '9', value: '9', text: Resources.getInstance().gradeNin},
+        {key: '10', value: '10', text: Resources.getInstance().gradeNin},
+        {key: '11', value: '11', text: Resources.getInstance().gradeNin},
+        {key: '12', value: '12', text: Resources.getInstance().gradeNin},
     ],
     grade_list_foreign: [
         {key: '1', value: '1', text: 'Grade 1'},

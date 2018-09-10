@@ -20,10 +20,16 @@ export default (props) => (
                    onChange={props.handleCodeChange}
                    name='code'/>
             <button
-                className={props.emailValid && props.waitSec <= 0 ? 'right-button light' : 'right-button'}
-                disabled={!props.emailValid || props.waitSec > 0}
+                style={props.waitSec || !props.emailValid || !props.new_email ? {
+                        color: '#fff',
+                        background: '#dfdfe4'
+                    } : {
+                        color: 'white'
+                    }}
+                disabled={!props.emailValid || props.waitSec > 0 || !props.new_email}
                 onClick={props.sendEmail}
-            >{props.waitSec || Resources.getInstance().profilePhoneCheck}</button>
+            >{props.waitSec ? Resources.getInstance().profilePhoneSend + '(' + props.waitSec + ')' :
+                ( props.send ? Resources.getInstance().profilePhoneCheckAgain : Resources.getInstance().profilePhoneCheck)}</button>
         </div>
         <Button50px
             disabled={!props.emailValid || props.code.length !== 4}

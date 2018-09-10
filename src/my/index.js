@@ -14,6 +14,7 @@ import {Topics} from "../common/systemData/topicData";
 import Track from "../common/track";
 import {zones} from 'moment-timezone/data/meta/latest.json';
 import {countries} from 'moment-timezone/data/meta/latest.json';
+import QuitModal from '../common/commonComponent/ConfirmationModal/index';
 import ServiceProxy from '../service-proxy';
 import BirthdayHelper from '../common/birthdayFormat';
 import './my.css';
@@ -73,6 +74,25 @@ class My extends Component {
         this.skipPlacement = this.skipPlacement.bind(this);
         this.sms = this.sms.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
+        this.signOut = this.signOut.bind(this);
+        this.closePopModal = this.closePopModal.bind(this);
+        this.openPopModal = this.openPopModal.bind(this);
+    }
+
+    signOut() {
+        Track.event('注册_点击退出');
+
+        this.setState({signOutModal: false}, () => {
+            browserHistory.push('/sign-out');
+        });
+    }
+
+    closePopModal() {
+        this.setState({signOutModal: false});
+    }
+
+    openPopModal() {
+        this.setState({signOutModal: true});
     }
 
     async sms() {
@@ -399,15 +419,16 @@ class My extends Component {
 
                 let profileData = this.validateForm();
 
-                if (this.state.userId) {
+                if (this.state.userId && profileData) {
                     await CurrentUser.updateProfile(profileData);
 
                     browserHistory.push('/home?intro=1');
                 } else {
                     this.setState({
                         messageModal: true,
-                        messageContent: Resources.getInstance().messageSaveFailed,
-                        messageName: 'error'
+                        messageContent: this.state.userId ? Resources.getInstance().messageSaveFailed : (!profileData ? Resources.getInstance().messageSaveFailedPhone : Resources.getInstance().messageSaveFailedNoWhy),
+                        messageName: 'error',
+                        loadingModal: false
                     });
                     this.closeMessageModal();
                 }
@@ -415,7 +436,13 @@ class My extends Component {
         } catch (ex) {
             console.error(ex);
             //this.setState({modal: true, message: ex.message || Resources.getInstance().saveFailed});
-            this.setState({loadingModal: false});
+            this.setState({
+                messageModal: true,
+                messageContent: Resources.getInstance().messageSaveFailedNoWhy,
+                messageName: 'error',
+                loadingModal: false
+            });
+            this.closeMessageModal();
         }
     }
 
@@ -445,19 +472,37 @@ class My extends Component {
     validateForm() {
         let profile = this.state.profile;
 
-        return {
-            parent_name: profile.parent_name,
-            mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
-            name: profile.student_en_name,
-            gender: profile.gender,
-            city: profile.city,
-            date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
-            grade: profile.grade,
-            email: profile.email,
-            school_name: profile.school,
-            country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
-            time_zone: profile.time_zone
-        };
+        if(this.state.withPhone){
+            return {
+                name: profile.student_en_name,
+                gender: profile.gender,
+                city: profile.city,
+                date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
+                grade: profile.grade,
+                email: profile.email,
+                school_name: profile.school,
+                country: profile.role === MemberType.Student ? 'china' : ( profile.country || 'united States'),
+                time_zone: profile.time_zone
+            };
+        }else{
+            if(!profile.phone || ! countryCodeMap[this.state.mobileCountry]){
+                return false;
+            }
+
+            return {
+                parent_name: profile.parent_name,
+                mobile: '00' + countryCodeMap[this.state.mobileCountry] + profile.phone,
+                name: profile.student_en_name,
+                gender: profile.gender,
+                city: profile.city,
+                date_of_birth: BirthdayHelper.getBirthdayFromDbFormat(profile.date_of_birth),
+                grade: profile.grade,
+                email: profile.email,
+                school_name: profile.school,
+                country: profile.role === MemberType.Student ? 'china' : ( profile.country || 'united States'),
+                time_zone: profile.time_zone
+            };
+        }
     }
 
     async componentWillMount() {
@@ -479,6 +524,8 @@ class My extends Component {
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
+                step: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed ? 2 : 1,
+                withPhone: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed,
                 mobileValid: profile && profile.phone && profile.phone.length > 0,
                 emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
                 profile.student_en_name,
@@ -521,7 +568,8 @@ class My extends Component {
             email: userData.email || '',
             school: userData.school_name || '',
             country: userData.country || '',
-            time_zone: userData.time_zone || ''
+            time_zone: userData.time_zone || '',
+            mobile_confirmed: userData.mobile_confirmed
         };
     }
 
@@ -532,6 +580,13 @@ class My extends Component {
                 <MessageModal modalName={this.state.messageName}
                               modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
+                <QuitModal cancel={this.closePopModal} sure={this.signOut} modal={this.state.signOutModal}
+                       sureText={Resources.getInstance().popSure} cancelText={Resources.getInstance().popCancel}
+                       info={Resources.getInstance().popInfo} title={Resources.getInstance().popTitle}
+                />
+                <div className="quit" onClick={this.openPopModal}>
+                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/icon_quit.svg" alt=""/>
+                </div>
                 <Form className='profile-body'>
                     <h3 className="profile-title">{this.state.profile_title}</h3>
                     {

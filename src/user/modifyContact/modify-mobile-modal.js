@@ -14,7 +14,7 @@ class ModifyMobileModal extends Component {
                               handleCodeChange={this.props.handleCodeChange}
                               mobileValid={this.props.mobileValid}
                               waitSec={this.props.waitSec}
-                              sms={this.props.sms}
+                              sms={this.props.sms} title={this.props.title || ''}
                               modifyCheck={this.props.modifyCheck}
                               mobileCountry={this.props.mobileCountry}
                               onCountryCodeChange={this.props.onCountryCodeChange}/>

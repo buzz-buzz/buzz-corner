@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import LoginEntryPoint from './login-entry-point/index';
 import LoginEntryPointTablet from './login-entry-point/tablet';
-import SelectRole from './select-role/index';
-import SelectRoleTablet from './select-role/tablet';
+import SelectRoleNew from './select-role/select';
+import SelectRoleNewTablet from './select-role/select-tablet';
 import {browserHistory, Route, Router} from "react-router";
 import LoginByFacebook from './login/facebook';
 import LoginByWechat from './login/wechat';
 import WechatOAuthSuccess from './login/wechat-oauth-success';
+import FacebookOAuthSuccess from './login/facebook-oauth-success';
 import WechatOAuthRedirect from './login/wechat-oauth-redirect';
 import UserShow from './user/profileShow';
 import UserUpdate from './user/profileUpdate/user-profile-update';
@@ -16,6 +17,7 @@ import Placement from './placementTest';
 import ClassEvaluation from './classEvaluation';
 import ClassEvaluationResult from './classEvaluationResult';
 import ClassEvaluationPoster from './classEvaluationPoster';
+import ClassEvaluationPosterImg from './classEvaluationPoster/img';
 import ClassLessons from './classLessons';
 import ClassEvaluationForeign from './classEvaluationForeign';
 import EvaluationStandards from './classEvaluationResult/evaluationStandards';
@@ -36,6 +38,9 @@ import ZoomDownLoad from './classDetail/zoomDownLoad';
 import ZoomJoin from './classDetail/zoomJoin';
 import FlexCourses from './flexCourse';
 import CourseDetail from './flexCourse/CourseDetail';
+import LoginNew from './login/index';
+import LoginTablet from './login/login-tablet';
+import LoginSelect from './accountLogin/account-select';
 
 import WechatOAuthFail from "./login/wechat-oauth-fail";
 import UnderConstruction
@@ -69,7 +74,7 @@ class App extends Component {
                     <Route path='/%2f' component={Home}/>
                     <Route path='/user-info' component={UserUpdate}/>
                     <Route path='/select-role'
-                           component={Client.showComponent(SelectRole, SelectRoleTablet)}/>
+                           component={Client.showComponent(SelectRoleNew, SelectRoleNewTablet)}/>
                     <Route path='/sign-in'
                            component={Client.showComponent(LoginEntryPoint, LoginEntryPointTablet)}/>
                     <Route path='/tutor'
@@ -79,6 +84,9 @@ class App extends Component {
                     <Route path='/sign-out' component={SignOut}/>
                     <Route path="/login/facebook" component={LoginByFacebook}/>
                     <Route path="/login/wechat" component={LoginByWechat}/>
+                    <Route path='/login/account' component={LoginByAccount}/>
+                    <Route path="/login" component={Client.showComponent(LoginNew, LoginTablet)}/>
+                    <Route path="/login-select" component={LoginSelect}/>
                     <Route
                         path="/wechat/oauth/redirect/:base64_callback_origin/:base64_query_string"
                         component={WechatOAuthRedirect}/>
@@ -89,6 +97,8 @@ class App extends Component {
                            component={WechatOAuthSuccess}/>
                     <Route path="/wechat/oauth/fail/:wechatErrorInfo"
                            component={WechatOAuthFail}/>
+                    <Route path="/facebook/oauth/success/:id/:name"
+                           component={FacebookOAuthSuccess}/>
                     <Route path='/my/info' component={My}/>
                     <Route path='/my/info/:step' component={My}/>
                     <Route path='/placement' component={Placement}/>
@@ -102,7 +112,6 @@ class App extends Component {
                     <Route path='/user/:user_id' component={UserShow}/>
                     <Route path='/account/set' component={SetAccount}/>
                     <Route path='/account/about' component={AccountAbout}/>
-                    <Route path='/login/account' component={LoginByAccount}/>
                     <Route path='/class/:class_id' component={ClassDetail}/>
                     <Route path='/course/:class_id' component={CourseDetail}/>
                     <Route path='/consult' component={Consult}/>
@@ -116,6 +125,8 @@ class App extends Component {
                            component={EvaluationStandards}/>
                     <Route path='/poster/:from_user_id/:to_user_id/:class_id'
                            component={ClassEvaluationPoster}/>
+                    <Route path='/share/:from_user_id/:to_user_id/:class_id'
+                           component={ClassEvaluationPosterImg}/>
                     <Route path='/class/foreign/:class_id'
                            component={ClassEvaluationForeign}/>
                     <Route path='/class-lessons' component={ClassLessons}/>

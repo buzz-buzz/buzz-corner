@@ -5,34 +5,94 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 82px;
+  height: 100px;
   display: flex;
-  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.08);
-  justify-content: space-around;
+  box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+  padding: 0 21px;
   align-items: center; }
   .record-control .button-record-status {
     display: flex;
     align-items: center;
-    flex-direction: column; }
-    .record-control .button-record-status img {
-      width: 32px; }
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    z-index: 30; }
+    .record-control .button-record-status div.status-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      position: absolute;
+      top: -8px;
+      left: calc(50% - 30px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px 0 rgba(237, 174, 0, 0.4);
+      background-color: #ffd200; }
+      .record-control .button-record-status div.status-img img {
+        width: 32px; }
     .record-control .button-record-status span {
       text-align: center;
-      font-size: 14px;
-      color: #000; }
+      color: #666;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 28px; }
   .record-control .button-record-again, .record-control .button-record-done {
-    border-radius: 5px;
-    border: solid 1px #666666;
-    padding: 10px 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
     color: #666;
     font-size: 15px; }
+    .record-control .button-record-again img, .record-control .button-record-done img {
+      width: 100%; }
   .record-control .close {
     position: absolute;
-    top: -30px;
-    right: -2px;
-    border-radius: 5px;
+    z-index: -5;
+    top: -32px;
+    right: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     width: 32px;
-    height: 32px; }
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center; }
     .record-control .close .img-close {
-      width: 32px;
-      height: 32px; }
+      width: 15px;
+      height: 15px; }
+  .record-control .half-circle {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: -18px;
+    left: calc(50% - 40px);
+    z-index: -5;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.2); }
+    .record-control .half-circle img {
+      height: 100%;
+      left: calc(50% - 83px); }
+
+@keyframes record-move-show {
+  from {
+    bottom: -140px; }
+  to {
+    bottom: 0; } }
+
+@-webkit-keyframes record-move-show /*Safari and Chrome*/ {
+  from {
+    bottom: -140px; }
+  to {
+    bottom: 0; } }

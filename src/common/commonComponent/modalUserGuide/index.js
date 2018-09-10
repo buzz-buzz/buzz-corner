@@ -16,15 +16,15 @@ export default class UserGuide extends React.Component {
         this.state = {
             step: 0,
             steps: [
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-01.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-02.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-03.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-04.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-05.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-06.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-07.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-08.jpg",
-                "https://cdn-corner.resource.buzzbuzzenglish.com/user-guide/inland-guidance-09.jpg",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-01.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-02.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-03.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-04.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-05.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-06.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-07.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-08.png",
+                "//cdn-corner.resource.buzzbuzzenglish.com/user-guide-09.png",
             ],
             end: false
         };

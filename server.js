@@ -13,6 +13,7 @@ const membership = require('./membership');
 const send = require('koa-send');
 const userAgent = require('koa-useragent');
 const fs = require('fs');
+const _ = require('lodash');
 const pug = require('js-koa-pug');
 const qiniu = require('qiniu');
 const config_qiniu = require('./config/qiniu');
@@ -24,6 +25,7 @@ const putPolicy = new qiniu.rs.PutPolicy({
 const setCookieParser = require('set-cookie-parser');
 const url = require('url');
 const fundebug = require('./common/error-handler').fundebug;
+const languageParser = require('accept-language-parser');
 
 fundebug.notify("buzz-corner-koa", "Fundebug started!");
 
@@ -32,6 +34,10 @@ app.use(bodyParser());
 app.use(pug('views'));
 
 router
+    .get('/redirect/:url', async ctx => {
+      const v = Buffer.from(ctx.params.url, 'base64').toString('ascii')
+       ctx.redirect(_.includes(v, '?') ? v + '&' + ctx.querystring : v + '?' + ctx.querystring)
+    })
     .get('/healthcheck', async ctx => {
         ctx.body = {
             'everything': ' is ok',
@@ -44,13 +50,31 @@ router
     .get('/config', async ctx => {
         ctx.body = config;
     })
+    .get('/language', async ctx => {
+        let languages = languageParser.parse('en-GB,en;q=0.8');
+        ctx.body = languages[0].code;
+    })
     .post('/proxy', async ctx => {
+        let buzzService = config.endPoints.buzzService;
+
+        if(ctx.request.origin && ctx.request.origin.indexOf('live1') > -1 && (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints)){
+            console.log('live 1:' + (config.endPoints.buzzService1 || process.env.buzz_service1_endpoints));
+            buzzService = config.endPoints.buzzService1 || process.env.buzz_service1_endpoints;
+        }
+
+        if(ctx.request.origin && ctx.request.origin.indexOf('live2') > -1 && (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints)){
+            console.log('live 2:' + (config.endPoints.buzzService2 || process.env.buzz_service2_endpoints));
+            buzzService = config.endPoints.buzzService2 || process.env.buzz_service2_endpoints;
+        }
+
+        console.log('live address:' + buzzService);
+
         if (ctx.request.body.uri) {
             ctx.request.body.uri = ctx.request.body.uri
                 .replace('{config.endPoints.interview}', config.endPoints.interview)
                 .replace('{config.endPoints.masr}', config.endPoints.masr)
                 .replace('{config.endPoints.hongda}', config.endPoints.hongda)
-                .replace('{config.endPoints.buzzService}', config.endPoints.buzzService)
+                .replace('{config.endPoints.buzzService}', buzzService)
             ;
         }
 
@@ -140,6 +164,7 @@ router
     })
     .get('/wechat/oauth/fail/:wechatErrorInfo', membership.signOut, serveSPA)
     .get('/wechat/oauth/success/:wechatUserInfo', membership.signOut, serveSPA)
+    .get('/facebook/oauth/success/:id/:name', membership.signOut, serveSPA)
     .get('/sign-in', membership.signOut, membership.signInFromToken, async ctx => {
         if (ctx.state.user && ctx.state.user.user_id) {
             ctx.redirect(ctx.query.from || '/my/info');
@@ -148,7 +173,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.redirect(`/sign-in`);
+        ctx.redirect(`/login`);
     })
     .get('/sign-out-no-redirect', membership.signOut, async ctx => {
         ctx.body = {message: 'signed out'};
@@ -171,9 +196,9 @@ router
 
             if (RequestHelper.isXHR(ctx)) {
                 ctx.status = 401;
-                return ctx.body = '/sign-in?return_url=' + encodeURIComponent(returnUrl);
+                return ctx.body = '/login?return_url=' + encodeURIComponent(returnUrl);
             } else {
-                ctx.redirect(`/sign-in?return_url=${returnUrl}`);
+                ctx.redirect(`/login?return_url=${returnUrl}`);
             }
         }
     })
@@ -232,7 +257,6 @@ router
     .get('/%2f', serveSPA)
     .get('//', serveSPA)
     .get('/profile', serveSPA)
-    .get('/login', serveSPA)
     .get('/login/facebook', serveSPA)
     .get('/login/wechat', serveSPA)
     .get('/my/info', serveSPA)
@@ -250,6 +274,7 @@ router
     .get('/evaluation/:from_user_id/:to_user_id/:class_id', membership.ensureAuthenticated, serveSPA)
     .get('/evaluation/standards', serveSPA)
     .get('/poster/:from_user_id/:to_user_id/:class_id', serveSPA)
+    .get('/share/:from_user_id/:to_user_id/:class_id', serveSPA)
     .get('/consult', serveSPA)
     .get('/class-lessons', membership.ensureAuthenticated, serveSPA)
     .get('/consult', serveSPA)
@@ -261,12 +286,14 @@ router
     .get('/account/set', membership.ensureAuthenticated, serveSPA)
     .get('/account/about', serveSPA)
     .get('/account/select', serveSPA)
-    .get('/login/account', serveSPA)
     .get('/zoom', serveSPA)
     .get('/zoom-join', serveSPA)
     .get('/help/:faq_id', serveSPA)
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
+    .get('/login/account', serveSPA)
+    .get('/login', membership.signOut, serveSPA)
+    .get('/login-select', serveSPA)
 ;
 
 app

@@ -5,6 +5,7 @@ import {MemberType} from "../membership/member-type";
 import StudentLoginEntryPoint from "./student";
 import CompanionLoginEntryPoint from "./companion";
 import {browserHistory} from "react-router";
+import URLHelper from "../common/url-helper";
 import RoleDesider from "./RoleDesider";
 
 class LoginEntryPoint extends Component {
@@ -25,7 +26,14 @@ class LoginEntryPoint extends Component {
             return;
         }
 
-        browserHistory.push('/select-role')
+        let return_url = URLHelper.getSearchParam(window.location.search, 'return_url');
+
+        if(return_url){
+            browserHistory.push(`/login?return_url=${URLHelper.getSearchParam(window.location.search, 'return_url')}`);
+        }else{
+            browserHistory.push('/login');
+        }
+
     }
 
     render() {

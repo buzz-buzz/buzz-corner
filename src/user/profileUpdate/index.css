@@ -15,7 +15,7 @@
         height: 50px;
         width: 50px;
         border-radius: 50%;
-        border: 2px solid #d0d6db;
+        border: 2px solid #f4f5f9;
         overflow: hidden; }
         .profile-update .update-body .avatar-update .avatar-img img {
           width: 100%; }
@@ -29,7 +29,9 @@
       .profile-update .update-body div .update-left {
         margin-left: 9px; }
         .profile-update .update-body div .update-left span {
-          color: #000; }
+          color: #000;
+          font-weight: 600;
+          font-size: 15px; }
       .profile-update .update-body div .update-right {
         padding-right: 14px;
         position: relative;
@@ -41,16 +43,22 @@
           color: #666;
           font-size: 14px;
           padding-right: 10px;
-          letter-spacing: 0; }
+          letter-spacing: 0;
+          line-height: 25px; }
         .profile-update .update-body div .update-right input.input-show {
           border: none;
           outline: none;
           text-align: right;
-          font-weight: 600; }
-        .profile-update .update-body div .update-right i {
+          height: 100%;
+          padding: 12px;
           color: #666;
-          font-size: 15px;
-          font-weight: 300; }
+          line-height: 26px;
+          text-indent: 0px;
+          text-shadow: none;
+          position: relative;
+          background: #fff; }
+        .profile-update .update-body div .update-right img {
+          width: 5px; }
         .profile-update .update-body div .update-right input.hidden, .profile-update .update-body div .update-right select {
           position: absolute;
           left: 0;

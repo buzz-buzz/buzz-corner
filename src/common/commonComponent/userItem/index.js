@@ -35,8 +35,6 @@ export default class UserItem extends Component{
                     <img
                         src={ this.props.user.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'}
                         alt=""/>
-                    <img src="//cdn-corner.resource.buzzbuzzenglish.com/flex-course/icon_course_bg.svg" alt=""
-                         className="bg"/>
                 </div>
                 <div className="user-item-info">
                     <p className="your-name">{this.props.user.name}</p>

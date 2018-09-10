@@ -29,7 +29,7 @@ class User {
 
             currentUser = {};
         } finally {
-            fetching = null
+            fetching = null;
             promiseResolve();
         }
     }
@@ -55,7 +55,7 @@ class User {
                 window.location.href = ex.message;
             } else {
                 console.error(ex);
-                window.location.href = `/select-role?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
+                window.location.href = `/login?return_url=${encodeURIComponent(window.location.pathname + (window.location.search || ''))}`;
             }
         }
     }
@@ -76,7 +76,9 @@ class User {
     }
 
     static update(profile) {
-        currentUser = new User(currentUser.userId, profile.isSuper, profile)
+        let UserId = currentUser && currentUser.userId ? currentUser.userId : parseInt(profile.user_id, 10);
+
+        currentUser = new User(UserId, profile.isSuper, profile)
     }
 }
 

@@ -41,7 +41,7 @@ export default class WechatOAuthFail extends React.Component {
             window.parent.location.reload();
         }
 
-        window.location.href = '/select-role';
+        window.location.href = '/login';
     }
 
     render() {
@@ -49,7 +49,7 @@ export default class WechatOAuthFail extends React.Component {
             <Container textAlign="center">
                 <Segment loading={this.state.loading}>
                     <p>微信登录过程中出错了，</p>
-                    <p>请<a href="/select-role" onClick={this.goBack}>返回重试</a>。
+                    <p>请<a href="/login" onClick={this.goBack}>返回重试</a>。
                     </p>
                     <p>{this.state.wechatErrorInfo}</p>
                 </Segment>

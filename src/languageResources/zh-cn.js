@@ -15,6 +15,7 @@ export const whiteSpaceMessage = '还没有消息提醒哦～';
 export const loginByWechatInfo = '微信登录';
 export const loginByWechatIntroduction = '流利对话英美优秀少年';
 export const loginTabletWord = '对话英美优秀少年, 轻松提高英语听说';
+export const loginNextStep = '下一步';
 
 export const footerHome = '学习';
 export const footerFriends = '好友';
@@ -59,10 +60,10 @@ export const sessions = '我的课时';
 export const profileStep1 = '联系方式';
 export const profileStep1Info = '仅用于学习相关通知与服务';
 export const profileParentsName = '家长姓名';
-export const profilePhoneHolder = '手机号码';
+export const profilePhoneHolder = '请输入手机号码';
 export const profilePhoneCheck = '获取验证码';
 export const profilePhoneCheckAgain = '重新获取';
-export const profilePhoneLabel = '输入验证码';
+export const profilePhoneLabel = '请输入验证码';
 export const profilePhoneCheckError = '您输入的验证码不正确或过期, 请重新输入或获取新的验证码';
 export const profileAgreement = '我已接受并遵守BuzzBuzz的相关用户协议与条款';
 export const profileStep2 = '个人信息';
@@ -70,9 +71,9 @@ export const profileStep2Info = '用于平台中呈现少年的基本资料';
 export const profileChildName = '少年英文名';
 export const profileMale = '男';
 export const profileFemale = '女';
-export const profileBirth = '生日';
-export const profileCityNow = '所在城市';
-export const profileGrade = '在读年级';
+export const profileBirth = '请输入生日';
+export const profileCityNow = '请填写所在城市';
+export const profileGrade = '请选择在读年级';
 export const profileStep3 = '兴趣爱好';
 export const profileStep3Info = '用于匹配最优话题小组';
 export const profileContinue = '继续';
@@ -138,7 +139,7 @@ export const classDetailBeforeWord3 = '下载视频教室';
 export const classDetailBeforeClassExercise = '会话练习';
 export const classDetailBeforeClassContent = '参考教材';
 export const classDetailBeforeClassNotice = '公告';
-export const classDetailClassPartners = '其他伙伴';
+export const classDetailClassPartners = '其他相关';
 export const classDetailLeft = '距离开课还有';
 export const classBeginModalTitle = '已开始';
 export const classBeginModalContent1 = '马上开始与你的';
@@ -175,7 +176,7 @@ export const profileBirthday = '生日';
 export const profileBirthdayDayHolder = '日';
 export const profileBirthdayMonthHolder = '月';
 export const profileBirthdayYearHolder = '年';
-export const profileCity = '城市';
+export const profileCity = '请输入所在城市';
 export const profileCityHolder = '你的家乡所在地';
 export const profileInterests = '兴趣';
 export const profileIntroduction = '自我介绍';
@@ -218,6 +219,8 @@ export const errorModalBtn = '确定';
 export const errorModalContent = '抱歉, 出现未知错误。 请刷新页面，稍后重试';
 
 export const messageSaveFailed = '保存失败!';
+export const messageSaveFailedPhone = '手机号信息存在异常, 需要重新填写!';
+export const messageSaveFailedNoWhy = '保存失败, 请刷新重试!';
 
 export const practiceAgain = '点击重新录制音频';
 
@@ -310,7 +313,7 @@ export const unkownError = '出现错误，请刷新页面重试';
 export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
 
 export const userCenterTitle = '用户信息';
-export const userCenterHobby = 'TA的兴趣爱好';
+export const userCenterHobby = '兴趣爱好';
 export const userUpdateTitle = '修改信息';
 export const userUpdatephone = '修改手机号';
 
@@ -335,6 +338,7 @@ export const accountHow = '如何获得账号密码登录？';
 export const accountUnset = '未设置';
 export const accountSet = '已设置';
 export const accountLoginFailed = '登录失败: 账号或密码错误!';
+export const codeLoginFailed = '登录失败: 手机号或者验证码错误!';
 export const accountAccount = '账号';
 export const accountPassword = '密码';
 
@@ -384,7 +388,7 @@ export const popSure = '确认';
 
 export const accountSelectLogin = '账号选择';
 export const accountSelectLoginSubmit = '以该身份登录';
-export const accountSelectLoginInfo = '系统检测到有相同账号密码的用户信息, 请选择登陆';
+export const accountSelectLoginInfo = '系统检测到有相同账号密码的用户信息, 请选择登录';
 
 export const popUserUpdateAccountInfo = '该绑定手机号已设置账号密码。若更换绑定，则会自动以新的手机号为登录账号。';
 export const popUserUpdateAccountInfoEmail = '该绑定邮箱已设置账号密码。若更换绑定，则会自动以新的邮箱为登录账号。';

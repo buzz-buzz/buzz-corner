@@ -61,7 +61,8 @@
     .header-with-go-back .logo > div span {
       font-size: 17px;
       text-align: center;
-      letter-spacing: 0; }
+      letter-spacing: 0;
+      font-weight: 600; }
   .header-with-go-back .logo img {
     height: 40px; }
 
