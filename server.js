@@ -35,7 +35,7 @@ app.use(pug('views'));
 
 router
     .get('/redirect/:url', async ctx => {
-      const v = new Buffer(ctx.params.url, 'base64').toString('ascii')
+      const v = Buffer.from(ctx.params.url, 'base64').toString('ascii')
        ctx.redirect(_.includes(v, '?') ? v + '&' + ctx.querystring : v + '?' + ctx.querystring)
     })
     .get('/healthcheck', async ctx => {
