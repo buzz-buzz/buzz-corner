@@ -13,7 +13,8 @@
       color: #ffb117;
       font-size: 17px;
       text-align: center;
-      position: relative; }
+      position: relative;
+      font-weight: bold; }
     .help-center .help-list .help-title:after, .help-center .help-list .help-item:after {
       content: '';
       position: absolute;
