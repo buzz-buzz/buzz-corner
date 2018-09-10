@@ -58,6 +58,12 @@ class App extends Component {
         ErrorHandler.notify(error.message, error, info)
     }
 
+    componentDidMount(){
+        if(document.getElementById('html-loading')){
+            document.getElementById('html-loading').style.display = 'none';
+        }
+    }
+
     render() {
         return (
             <div className="content" style={{height: '100%'}}>
