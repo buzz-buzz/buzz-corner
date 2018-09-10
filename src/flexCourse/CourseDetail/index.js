@@ -291,7 +291,7 @@ export default class CourseDetail extends React.Component {
                                         <img className="gender"
                                             src={ this.state.user_list[item].gender === 'm' ?
                                                 "//cdn-corner.resource.buzzbuzzenglish.com/icon_men_1.svg"
-                                                : "//cdn-corner.resource.buzzbuzzenglish.com/icon_women_1.svg"
+                                                : "//cdn-corner.resource.buzzbuzzenglish.com/icon_wome_1.svg"
                                             }
                                             alt=""/>
                                         {

@@ -23,8 +23,6 @@ export default class ClassAd extends React.Component {
 
     render() {
         return <div className="class-info-content">
-            <div
-                className="s-title">{Resources.getInstance().classDetailBeforeClassNotice}</div>
             <div className="line-middle" style={{marginBottom: '20px'}}></div>
             {
                 this.props.id === 'rookie' ?

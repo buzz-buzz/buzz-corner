@@ -481,7 +481,7 @@ class My extends Component {
                 grade: profile.grade,
                 email: profile.email,
                 school_name: profile.school,
-                country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
+                country: profile.role === MemberType.Student ? 'china' : ( profile.country || 'united States'),
                 time_zone: profile.time_zone
             };
         }else{
@@ -499,7 +499,7 @@ class My extends Component {
                 grade: profile.grade,
                 email: profile.email,
                 school_name: profile.school,
-                country: profile.country || (this.state.profile.role === MemberType.Student ? 'china' : 'united States'),
+                country: profile.role === MemberType.Student ? 'china' : ( profile.country || 'united States'),
                 time_zone: profile.time_zone
             };
         }

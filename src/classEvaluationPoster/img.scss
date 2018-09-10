@@ -3,8 +3,24 @@
   width: 100%;
   min-height: 100%;
   max-width: 414px;
+  .share-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      color: #2f2f2f;
+      font-size: 8px;
+      padding-right: 8px;
+    }
+    img {
+      height: 14px;
+    }
+  }
   .title {
-    padding: 28px 32px 15px 28px;
+    padding: 35px 32px 15px 28px;
     p {
       font-size: 15px;
       font-weight: 600;
@@ -73,7 +89,7 @@
         }
         .feedback-word{
           font-size: 12px;
-          font-weight: 500;
+          font-weight: 600;
           color: #2f2f2f;
         }
       }

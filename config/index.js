@@ -22,6 +22,8 @@ let config = {
         endPoints: {
             buzzCorner: 'http://live.buzzbuzzenglish.com',
             buzzService: process.env.buzz_service_endpoints,
+            buzzService1: process.env.buzz_service1_endpoints,
+            buzzService2: process.env.buzz_service2_endpoints,
             upload_qiniu: 'http://service.hcdlearning.com:10003'
         },
 

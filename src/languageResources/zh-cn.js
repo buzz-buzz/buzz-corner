@@ -139,7 +139,7 @@ export const classDetailBeforeWord3 = '下载视频教室';
 export const classDetailBeforeClassExercise = '会话练习';
 export const classDetailBeforeClassContent = '参考教材';
 export const classDetailBeforeClassNotice = '公告';
-export const classDetailClassPartners = '其他伙伴';
+export const classDetailClassPartners = '其他相关';
 export const classDetailLeft = '距离开课还有';
 export const classBeginModalTitle = '已开始';
 export const classBeginModalContent1 = '马上开始与你的';
@@ -176,7 +176,7 @@ export const profileBirthday = '生日';
 export const profileBirthdayDayHolder = '日';
 export const profileBirthdayMonthHolder = '月';
 export const profileBirthdayYearHolder = '年';
-export const profileCity = '城市';
+export const profileCity = '请输入所在城市';
 export const profileCityHolder = '你的家乡所在地';
 export const profileInterests = '兴趣';
 export const profileIntroduction = '自我介绍';
@@ -313,7 +313,7 @@ export const unkownError = '出现错误，请刷新页面重试';
 export const pleaseUseWechatToLogin = '在微信中请使用微信登录方式';
 
 export const userCenterTitle = '用户信息';
-export const userCenterHobby = 'TA的兴趣爱好';
+export const userCenterHobby = '兴趣爱好';
 export const userUpdateTitle = '修改信息';
 export const userUpdatephone = '修改手机号';
 
