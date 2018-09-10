@@ -333,7 +333,7 @@ class LoginTablet extends Component {
                                 <div className="line"></div>
                                 <div className="toggle-word"
                                      style={this.state.active_tab === 'third' ? {textDecoration: 'none'} : {}}
-                                     onClick={this.toggleLoginStyle}>{this.state.active_form === 'code' ? '用密码登录' : '忘记密码'}</div>
+                                     onClick={this.toggleLoginStyle}>{this.state.active_form === 'code' ? '密码登录' : '验证码登录'}</div>
                                 <div className="line"></div>
                             </div>
                         }
