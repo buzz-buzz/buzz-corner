@@ -55,29 +55,24 @@
       line-height: 50px;
       padding-left: 8px;
       position: relative;
-      font-size: 15px;
+      z-index: 5;
+      font-size: 18px;
       color: #000;
       letter-spacing: 0;
+      font-weight: 600;
     }
-    .hobby-title:after{
-      content: '';
+    .hobby-title div{
       position: absolute;
-      width: 200%;
-      height: 1px;
-      z-index: 20;
-      bottom: 0;
-      left: 0;
-      border-bottom: 1px solid  #dfdfe4;
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      -webkit-transform: scale(.5,.5);
-      transform: scale(.5,.5);
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
+      height: 15px;
+      z-index: -5;
+      top: 20px;
+      left: -20px;
+      width: 105px;
+      background: #f4f5f9;
     }
     .hobby-items{
       min-height: 65px;
-      padding: 15px 9px;
+      padding: 0 9px 9px 9px;
     }
   }
 }

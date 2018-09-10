@@ -57,8 +57,8 @@ export default class ClassInfoTitle extends React.Component {
                         <div className="medal" onClick={this.props.openRating}>
                             <div className="medal-img">
                                 <img
-                                    src={this.props.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal-1.svg" : (
-                                            this.props.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/medal-2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/medal-3.svg"
+                                    src={this.props.sortNum === 1 ? "//cdn-corner.resource.buzzbuzzenglish.com/feedback/medal-1.svg" : (
+                                            this.props.sortNum === 2 ? "//cdn-corner.resource.buzzbuzzenglish.com/feedback/medal-2.svg" : "//cdn-corner.resource.buzzbuzzenglish.com/feedback/medal-3.svg"
                                         )} alt=""/>
                             </div>
                             <span
