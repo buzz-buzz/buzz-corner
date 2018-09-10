@@ -578,7 +578,7 @@ class UserUpdate extends Component {
                         <div className="update-left">
                             <span>{Resources.getInstance().profileChildName}</span>
                         </div>
-                        <div className="update-right">
+                        <div className="update-right"  style={{padding: '12px 14px 12px 0'}}>
                             <input className="input-show" type="text"
                                    name="student_en_name"
                                    value={this.state.profile.student_en_name || ''}
