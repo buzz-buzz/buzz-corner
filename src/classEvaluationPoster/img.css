@@ -17,7 +17,9 @@
     .poster-img .share-btn img {
       height: 14px; }
   .poster-img .title {
-    padding: 35px 32px 15px 28px; }
+    padding: 30px 32px 15px 28px;
+    background: url("//cdn-corner.resource.buzzbuzzenglish.com/bg-star.png") center center no-repeat;
+    background-size: contain; }
     .poster-img .title p {
       font-size: 15px;
       font-weight: 600;

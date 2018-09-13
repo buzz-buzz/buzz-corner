@@ -32,7 +32,8 @@ export default class PlacementModal extends React.Component {
             audioQuestionLength: 0,
             errorMessage: Resources.getInstance().errorUpload,
             chats: [],
-            recording: false
+            recording: false,
+            weapp: props.location.query.weapp
         };
 
         this.saveAnswer = this.saveAnswer.bind(this);
@@ -106,12 +107,16 @@ export default class PlacementModal extends React.Component {
         try {
             Track.event('测试_题' + this.state.step + '页面');
 
-            let profile = await CurrentUser.getProfile();
+            if(this.state.weapp){
 
-            this.setState({
-                userId: profile.user_id,
-                avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
-            });
+            }else{
+                let profile = await CurrentUser.getProfile();
+
+                this.setState({
+                    userId: profile.user_id,
+                    avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                });
+            }
         }
         catch (ex) {
             ErrorHandler.notify('Placement发生错误', ex);

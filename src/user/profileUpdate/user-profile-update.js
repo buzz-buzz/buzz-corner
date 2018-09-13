@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {zones} from 'moment-timezone/data/meta/latest.json';
-import {countries} from 'moment-timezone/data/meta/latest.json';
 import {GradeData} from "../../common/systemData/gradeData";
 import {ChinaAllCityList} from "../../common/systemData/chineseCityListData";
 import Resources from '../../resources';
