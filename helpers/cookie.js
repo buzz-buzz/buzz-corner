@@ -1,4 +1,12 @@
-let config = require('../config')
+let config = require('../config');
+let buzzDomains = [
+    '.live.buzzbuzzenglish.com',
+    'live.buzzbuzzenglish.com',
+    '.corner-test.buzzbuzzenglish.com',
+    'corner-test.buzzbuzzenglish.com',
+    'buzzbuzzenglish.com',
+    '.buzzbuzzenglish.com'
+];
 
 let clearCookieOption = {
     expires: new Date(1970, 1, 1),
@@ -25,9 +33,11 @@ let o = {
     },
     deleteUserId: function () {
         this.cookies.set('user_id', '', clearCookieOption);
-        this.cookies.set('user_id', '', {
-            ...clearCookieOption,
-            domain: config.rootDomain
+        buzzDomains.map((item, index)=>{
+            this.cookies.set('user_id', '', {
+                ...clearCookieOption,
+                domain: item
+            });
         });
     }
 };

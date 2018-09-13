@@ -288,7 +288,7 @@ router
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
     .get('/login/account', serveSPA)
-    .get('/login', membership.signOut, serveSPA)
+    .get('/login', membership.signOut, membership.ensureLoginOut, serveSPA)
     .get('/login-select', serveSPA)
 ;
 

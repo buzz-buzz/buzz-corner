@@ -71,6 +71,14 @@ membership.ensureAuthenticated = async function (context, next) {
     await next();
 };
 
+membership.ensureLoginOut = async function (context, next) {
+    if (context.state.user) {
+        return context.body = '/sing-out';
+    }
+
+    await next();
+};
+
 membership.pretendToBeOtherUser = async function (context, next) {
     await setUserToState(context, context.params.user_id)
     cookie.setUserId.call(context, context.params.user_id)
