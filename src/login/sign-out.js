@@ -5,7 +5,8 @@ import ErrorHandler from "../common/error-handler";
 
 export default class SignOut extends React.Component {
     async componentWillMount() {
-        await CurrentUser.signOut();
+        await CurrentUser.signOutNoRedirect();
+        await CurrentUser.getProfile();
     }
 
     componentDidCatch(error, info) {

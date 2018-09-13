@@ -172,7 +172,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.redirect(`/user-info`);
+        ctx.redirect(`/login`);
     })
     .get('/sign-out-no-redirect', membership.signOut, async ctx => {
         ctx.body = {message: 'signed out'};
