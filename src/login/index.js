@@ -218,7 +218,7 @@ class Login extends Component {
 
     async componentWillMount(){
         await ServiceProxy.proxy('/sign-out-no-redirect');
-        await ServiceProxy.proxy('/sign-out-no-redirect?' + new Date.toString());
+        await ServiceProxy.proxy('/sign-out-no-redirect?' + `t=${new Date().getTime()}`);
     }
 
     componentWillUnmount() {
