@@ -1,6 +1,7 @@
 import RequestHelper from '../helpers/request-helper';
 
 const cookie = require('../helpers/cookie');
+let config = require('../config');
 
 async function setUserToState(context, user_id) {
     context.state.user = {
@@ -79,6 +80,16 @@ membership.pretendToBeOtherUser = async function (context, next) {
 
 membership.signOut = async function (ctx, next) {
     cookie.resetSignOnCookies.call(ctx);
+    ctx.cookies.set(
+        'user_id',
+        null,
+        {
+            domain: config.rootDomain,
+            expires: new Date(1970, 1, 1),
+            path: '/',
+            httpOnly: true
+        }
+    );
 
     await next();
 };
