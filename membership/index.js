@@ -73,6 +73,7 @@ membership.ensureAuthenticated = async function (context, next) {
 
 membership.ensureLoginOut = async function (context, next) {
     if (context.state.user) {
+        context.state.user = null;
         return context.body = '/sing-out';
     }
 
