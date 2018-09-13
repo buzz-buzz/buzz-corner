@@ -44,7 +44,7 @@ class User extends Component {
         Track.event('我的_点击切换账号');
 
         this.setState({signOutModal: false}, () => {
-            browserHistory.push('/sign-out');
+            window.location.href = '/sign-out';
         });
     }
 

@@ -83,7 +83,7 @@ class My extends Component {
         Track.event('注册_点击退出');
 
         this.setState({signOutModal: false}, () => {
-            browserHistory.push('/sign-out');
+            window.location.href = '/sign-out';
         });
     }
 
