@@ -8,6 +8,7 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ButtonBottom from '../common/commonComponent/submitButtonBottom';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import Progress from './placementProgress/progress';
+import WeappDone from './weappDone';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
@@ -107,7 +108,7 @@ export default class PlacementModal extends React.Component {
         try {
             Track.event('测试_题' + this.state.step + '页面');
 
-            if(this.state.weapp){
+            if (this.state.weapp) {
                 //openid, phone-number
                 let weapp = window.atob(this.state.weapp);
 
@@ -118,15 +119,15 @@ export default class PlacementModal extends React.Component {
 
                 //unionid purePhoneNumber countryCode
                 //perfect login
-                ServiceProxy.proxyTo({
-                    body: {
-                        uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                        json: weapp,
-                        method: 'PUT'
-                    }
-                });
+                // ServiceProxy.proxyTo({
+                //     body: {
+                //         uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                //         json: weapp,
+                //         method: 'PUT'
+                //     }
+                // });
 
-            }else{
+            } else {
                 let profile = await CurrentUser.getProfile();
 
                 this.setState({
@@ -217,7 +218,7 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    savePlacement(){
+    savePlacement() {
         let placementTestData = {
             user_id: this.state.userId,
             detail: JSON.stringify({
@@ -244,11 +245,11 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    async skip(){
-        try{
+    async skip() {
+        try {
             this.savePlacement();
         }
-        catch(ex){
+        catch (ex) {
             ErrorHandler.notify('保存placement-skip出错：', ex);
         }
         this.goHomePage();
@@ -297,9 +298,9 @@ export default class PlacementModal extends React.Component {
                               modalShow={this.state.messageModal}/>
                 {
                     (this.state.step === 5 || this.state.step === 6) ?
-                    <HeaderWithBack goBack={this.goBack} rightTitle="跳过" rightClick={this.skip} />
+                        <HeaderWithBack goBack={this.goBack} rightTitle="跳过" rightClick={this.skip}/>
                         :
-                    <HeaderWithBack goBack={this.goBack}/>
+                        <HeaderWithBack goBack={this.goBack}/>
                 }
                 {
                     this.state.step <= 6 &&
@@ -307,13 +308,16 @@ export default class PlacementModal extends React.Component {
                 }
                 {
                     this.state.step === 7 &&
-                    <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
-                                src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Language_profile.svg"
-                                width="50%"
-                                style={{background: 'white'}}
-                    />
+                    (this.state.weapp ? <WeappDone/>
+                        :
+                        <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
+                                    src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Language_profile.svg"
+                                    width="50%"
+                                    style={{background: 'white'}}
+                        />)
                 }
-                <div className='placement-body' style={this.state.step <= 4 ? {background: '#f4f5f9'} : {background: 'white'}}>
+                <div className='placement-body'
+                     style={this.state.step <= 4 ? {background: '#f4f5f9'} : {background: 'white'}}>
                     {
                         this.state.step <= 6 &&
                         <PlacementQuestion step={this.state.step} questions={this.state.questions}
@@ -329,7 +333,8 @@ export default class PlacementModal extends React.Component {
                     this.state.weapp &&
                     <div style={{fontSize: '20px'}}>{this.state.weapp}</div>
                 }
-                <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
+                <div className="offset-bottom"
+                     style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
                 <div className="profile-btn-placement">
                     <ButtonBottom
                         disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
