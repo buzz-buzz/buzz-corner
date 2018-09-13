@@ -8,7 +8,7 @@ import {GradeData} from "../common/systemData/gradeData";
 import Track from "../common/track";
 import './img.css';
 
-const grade_list = GradeData.grade_list;
+const grade_list = GradeData.grade_list_show;
 
 class classEvaluationPoster extends Component {
     constructor(props) {

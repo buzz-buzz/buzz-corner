@@ -116,6 +116,16 @@ export default class PlacementModal extends React.Component {
                     avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
                 });
 
+                //unionid purePhoneNumber countryCode
+                //perfect login
+                ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
+                        json: weapp,
+                        method: 'PUT'
+                    }
+                });
+
             }else{
                 let profile = await CurrentUser.getProfile();
 

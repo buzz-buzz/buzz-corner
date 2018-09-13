@@ -10,10 +10,7 @@ export const GradeData = {
         {key: '6', value: '6', text: Resources.getInstance().gradeSix},
         {key: '7', value: '7', text: Resources.getInstance().gradeSev},
         {key: '8', value: '8', text: Resources.getInstance().gradeEig},
-        {key: '9', value: '9', text: Resources.getInstance().gradeNin},
-        {key: '10', value: '10', text: Resources.getInstance().gradeNin},
-        {key: '11', value: '11', text: Resources.getInstance().gradeNin},
-        {key: '12', value: '12', text: Resources.getInstance().gradeNin},
+        {key: '9', value: '9', text: Resources.getInstance().gradeNin}
     ],
     grade_list_foreign: [
         {key: '1', value: '1', text: 'Grade 1'},
@@ -28,5 +25,19 @@ export const GradeData = {
         {key: '10', value: '10', text: 'Grade 10'},
         {key: '11', value: '11', text: 'Grade 11'},
         {key: '12', value: '12', text: 'Grade 12'},
+    ],
+    grade_list_show: [
+        {key: '1', value: '1', text: Resources.getInstance().gradeOne},
+        {key: '2', value: '2', text: Resources.getInstance().gradeTwo},
+        {key: '3', value: '3', text: Resources.getInstance().gradeThr},
+        {key: '4', value: '4', text: Resources.getInstance().gradeFou},
+        {key: '5', value: '5', text: Resources.getInstance().gradeFiv},
+        {key: '6', value: '6', text: Resources.getInstance().gradeSix},
+        {key: '7', value: '7', text: Resources.getInstance().gradeSev},
+        {key: '8', value: '8', text: Resources.getInstance().gradeEig},
+        {key: '9', value: '9', text: Resources.getInstance().gradeNin},
+        {key: '10', value: '10', text: Resources.getInstance().gradeNin},
+        {key: '11', value: '11', text: Resources.getInstance().gradeNin},
+        {key: '12', value: '12', text: Resources.getInstance().gradeNin},
     ]
 };
