@@ -171,8 +171,8 @@ router
             await serveSPA(ctx);
         }
     })
-    .get('/sign-out', membership.signOut, membership.ensureAuthenticated, async ctx => {
-        ctx.redirect(`/login`);
+    .get('/sign-out', membership.signOut, async ctx => {
+        ctx.redirect(`/user-info`);
     })
     .get('/sign-out-no-redirect', membership.signOut, async ctx => {
         ctx.body = {message: 'signed out'};
