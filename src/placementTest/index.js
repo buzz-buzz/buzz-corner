@@ -108,6 +108,13 @@ export default class PlacementModal extends React.Component {
             Track.event('测试_题' + this.state.step + '页面');
 
             if(this.state.weapp){
+                //openid, phone-number
+                let weapp = window.atob(this.state.weapp);
+
+                this.setState({
+                    weapp: weapp,
+                    avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                });
 
             }else{
                 let profile = await CurrentUser.getProfile();
@@ -308,6 +315,10 @@ export default class PlacementModal extends React.Component {
                         />
                     }
                 </div>
+                {
+                    this.state.weapp &&
+                    <div style={{fontSize: '20px'}}>{this.state.weapp}</div>
+                }
                 <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
                 <div className="profile-btn-placement">
                     <ButtonBottom
