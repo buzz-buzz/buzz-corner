@@ -38,6 +38,9 @@ router
       const v = Buffer.from(ctx.params.url, 'base64').toString('ascii')
        ctx.redirect(_.includes(v, '?') ? v + '&' + ctx.querystring : v + '?' + ctx.querystring)
     })
+    .get('/file-text', ctx => {
+        ctx.body = 'c3d21b070a9a69097729494dc1065841';
+    })
     .get('/healthcheck', async ctx => {
         ctx.body = {
             'everything': ' is ok',
@@ -168,7 +171,7 @@ router
             await serveSPA(ctx);
         }
     })
-    .get('/sign-out', membership.signOut, async ctx => {
+    .get('/sign-out', membership.signOut, membership.ensureAuthenticated, async ctx => {
         ctx.redirect(`/login`);
     })
     .get('/sign-out-no-redirect', membership.signOut, async ctx => {
@@ -288,7 +291,7 @@ router
     .get('/course', membership.ensureAuthenticated, serveSPA)
     .get('/user-guide', serveSPA)
     .get('/login/account', serveSPA)
-    .get('/login', membership.signOut, membership.ensureLoginOut, serveSPA)
+    .get('/login', membership.signOut, serveSPA)
     .get('/login-select', serveSPA)
 ;
 

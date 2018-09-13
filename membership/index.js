@@ -54,14 +54,14 @@ membership.ensureAuthenticated = async function (context, next) {
             let returnUrl = context.headers.referer;
 
             context.status = 401;
-            return context.body = '/login?return_url=' + encodeURIComponent(returnUrl);
+            return context.body =  (returnUrl.indexOf('sign-out') > -1 || returnUrl.indexOf('sign-out') > -1) ? '/login'  : '/login?return_url=' + encodeURIComponent(returnUrl);
         } else {
             let returnUrl = context.request.originalUrl;
             if (returnUrl === '/user-info') {
                 returnUrl = context.request.headers.referer;
             }
 
-            let url = '/login?return_url=' + encodeURIComponent(returnUrl);
+            let url = (returnUrl.indexOf('sign-out') > -1 || returnUrl.indexOf('sign-out') > -1) ? '/login'  : '/login?return_url=' + encodeURIComponent(returnUrl);
 
             console.log('redirected');
             return context.redirect(url);
@@ -100,6 +100,7 @@ membership.signOut = async function (ctx, next) {
         }
     );
 
+    ctx.state.user = null;
     await next();
 };
 
