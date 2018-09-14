@@ -277,10 +277,9 @@ div.help-modal > .help-content > img{
 }
 
 .profile-btn-placement{
-    position: absolute;
+    flex: 0 0 auto;
     width: 100%;
-    bottom: 0;
-    left: 0;
+    height: 50px;
     z-index: 2;
 }
 
@@ -297,6 +296,7 @@ div.help-modal > .help-content > img{
 .placement > .placement-body{
     flex: 1 0 auto;
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
