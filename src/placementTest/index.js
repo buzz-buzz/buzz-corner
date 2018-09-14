@@ -100,6 +100,8 @@ export default class PlacementModal extends React.Component {
     }
 
     async componentWillMount() {
+        alert(document.body.offsetHeight+ '-'+ document.documentElement.clientHeight +'-' + window.innerHeight);
+
         //如果不在微信中  跳转至https
         if (!/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
             window.location.href = window.location.href.replace('http', 'https');
