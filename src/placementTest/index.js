@@ -119,14 +119,18 @@ export default class PlacementModal extends React.Component {
 
                 //unionid purePhoneNumber countryCode
                 //perfect login
-                // ServiceProxy.proxyTo({
-                //     body: {
-                //         uri: `{config.endPoints.buzzService}/api/v1/user-placement-tests/${this.state.userId}`,
-                //         json: weapp,
-                //         method: 'PUT'
-                //     }
-                // });
+                let user = ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/signInWithWechatMobile`,
+                        json: JSON.parse(weapp),
+                        method: 'POST'
+                    }
+                });
 
+                this.setState({
+                    userId: user.user_id,
+                    avatar: user.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                });
             } else {
                 let profile = await CurrentUser.getProfile();
 
