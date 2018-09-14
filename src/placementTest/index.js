@@ -333,7 +333,10 @@ export default class PlacementModal extends React.Component {
                         />
                     }
                 </div>
-                <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
+                {
+                    this.state.step !== 7 &&
+                    <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
+                }
                 {
                     !(this.state.weapp && this.state.step === 7) ?
                         <div className="profile-btn-placement">
