@@ -49,7 +49,7 @@ export default class PlacementModal extends React.Component {
         if (this.state.step === 1) {
             if (this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message') {
                 browserHistory.push('/home?tab=message');
-            } else {
+            } else if(!this.state.weapp){
                 Back.back();
             }
         } else if (this.state.step <= 6) {
