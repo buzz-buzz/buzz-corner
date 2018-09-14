@@ -58,7 +58,11 @@ class classEvaluationResult extends Component {
     }
 
     back() {
-        Back.back();
+        if(this.props.location.query && this.props.location.query.class_id){
+            browserHistory.push('/class/' + this.state.class_id);
+        }else{
+            Back.back();
+        }
     }
 
     getScore(arr) {

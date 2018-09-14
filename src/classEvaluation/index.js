@@ -140,7 +140,7 @@ class classEvaluation extends Component {
                 if (this.state.modalSubmit) {
                     this.setState({modalSubmit: false}, ()=>{
                         if(this.state.evaluation_status){
-                            browserHistory.push(`/evaluation/${this.state.to_user_id}/${this.state.userId}/${this.state.class_id}`);
+                            browserHistory.push(`/evaluation/${this.state.to_user_id}/${this.state.userId}/${this.state.class_id}?class_id=${this.state.class_id}`);
                         }
                     });
                 }
