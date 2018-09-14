@@ -100,8 +100,6 @@ export default class PlacementModal extends React.Component {
     }
 
     async componentWillMount() {
-        alert(document.body.offsetHeight+ '-'+ document.documentElement.clientHeight +'-' + window.innerHeight);
-
         //如果不在微信中  跳转至https
         if (!/MicroMessenger/.test(navigator.userAgent) && window.location.href.indexOf('https') < 0 && window.location.host !== 'localhost') {
             window.location.href = window.location.href.replace('http', 'https');
@@ -111,9 +109,6 @@ export default class PlacementModal extends React.Component {
             Track.event('测试_题' + this.state.step + '页面');
 
             if (this.state.weapp) {
-                alert(this.state.weapp);
-                //openid, phone-number
-                //unionid purePhoneNumber countryCode
                 //perfect login
                 let user = ServiceProxy.proxyTo({
                     body: {
