@@ -110,19 +110,12 @@ export default class PlacementModal extends React.Component {
 
             if (this.state.weapp) {
                 //openid, phone-number
-                let weapp = window.atob(this.state.weapp);
-
-                this.setState({
-                    weapp: weapp,
-                    avatar: '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
-                });
-
                 //unionid purePhoneNumber countryCode
                 //perfect login
                 let user = ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/signInWithWechatMobile`,
-                        json: JSON.parse(weapp),
+                        json: JSON.parse(window.atob(this.state.weapp)),
                         method: 'POST'
                     }
                 });
@@ -141,6 +134,7 @@ export default class PlacementModal extends React.Component {
             }
         }
         catch (ex) {
+            alert(ex);
             ErrorHandler.notify('Placement发生错误', ex);
 
             console.log(ex.toString());
