@@ -58,7 +58,9 @@ export default class PlacementModal extends React.Component {
                 step: newStep
             });
         } else if (this.state.step === 7) {
-            this.goHomePage();
+            if(!this.state.weapp){
+                this.goHomePage();
+            }
         }
     }
 

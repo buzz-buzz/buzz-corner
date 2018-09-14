@@ -16,6 +16,7 @@ export default class WeappDone extends React.Component{
                 </div>
                 <div className="placement-qr-code">
                     <img src="//cdn-corner.resource.buzzbuzzenglish.com/qr-code.svg" alt=""/>
+                    <p>长按保存二维码，美好即将发生</p>
                 </div>
             </div>
         )
