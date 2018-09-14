@@ -110,7 +110,7 @@ export default class PlacementModal extends React.Component {
 
             if (this.state.weapp) {
                 //perfect login
-                let user = ServiceProxy.proxyTo({
+                let user = await ServiceProxy.proxyTo({
                     body: {
                         uri: `{config.endPoints.buzzService}/api/v1/users/signInWithWechatMobile`,
                         json: JSON.parse(window.atob(this.state.weapp)),
