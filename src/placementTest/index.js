@@ -248,7 +248,15 @@ export default class PlacementModal extends React.Component {
         catch (ex) {
             ErrorHandler.notify('保存placement-skip出错：', ex);
         }
-        this.goHomePage();
+        finally {
+            if(this.state.weapp){
+                this.setState({
+                    step: 7
+                });
+            }else{
+                this.goHomePage();
+            }
+        }
     }
 
     async submit() {
