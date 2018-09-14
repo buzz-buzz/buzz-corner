@@ -329,19 +329,18 @@ export default class PlacementModal extends React.Component {
                         />
                     }
                 </div>
-                {
-                    this.state.weapp &&
-                    <div style={{fontSize: '20px'}}>{this.state.weapp}</div>
-                }
                 <div className="offset-bottom"
                      style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
-                <div className="profile-btn-placement">
-                    <ButtonBottom
-                        disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
-                            : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
-                        text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
-                        submit={this.submit}/>
-                </div>
+                {
+                    !(this.state.weapp && this.state.step === 7 ) ?
+                    <div className="profile-btn-placement">
+                        <ButtonBottom
+                            disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
+                                : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
+                            text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
+                            submit={this.submit}/>
+                    </div> : ''
+                }
             </div>
         );
     }

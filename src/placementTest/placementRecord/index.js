@@ -121,12 +121,12 @@ export default class PlacementRecorder extends React.Component {
     }
 
     async stopRecord() {
-        if (recordingTime && recordingTime >= 30) {
+        if (recordingTime && recordingTime >= 10) {
             this.setState({loadingModal: true, recordingModal: false});
         }
 
         this.setState({recording: false, recordingModal: false}, async() => {
-            if (recordingTime && recordingTime >= 30) {
+            if (recordingTime && recordingTime >= 10) {
                 Track.event('测试_录音完成按钮点击');
 
                 try {
@@ -152,9 +152,9 @@ export default class PlacementRecorder extends React.Component {
                     this.setState({loadingModal: false, recordingTime: 0});
                 }
             } else {
-                Track.event('测试_录音完成按钮点击-时间少于30秒');
+                Track.event('测试_录音完成按钮点击-时间少于10秒');
                 this.setState({loadingModal: false, recordingTime: 0});
-                this.props.setMessage('录制时间30-60秒哦', 'error');
+                this.props.setMessage('录制时间10-60秒哦', 'error');
             }
 
             recordingTime = 0;

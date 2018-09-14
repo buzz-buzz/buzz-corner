@@ -20,7 +20,7 @@ export default class RecordModal extends React.Component {
     }
 
     getTime(time) {
-        if (time > 29) {
+        if (time > 9) {
             this.setState({done: true});
         }
 
@@ -30,7 +30,7 @@ export default class RecordModal extends React.Component {
     }
 
     async stopRecord() {
-        if (recordingTime >= 30) {
+        if (recordingTime >= 10) {
             recordingTime = 0;
 
             this.setState({
@@ -67,7 +67,7 @@ export default class RecordModal extends React.Component {
                     </div>
                     <span>
                         {
-                            this.props.open ? <TimerWatch start={this.state.done ? 30 : 0} timeout={this.props.timeout}
+                            this.props.open ? <TimerWatch start={this.state.done ? 10 : 0} timeout={this.props.timeout}
                                                           visible={this.props.open} getTime={this.getTime}/> : '点击开始'
                         }
                     </span>
