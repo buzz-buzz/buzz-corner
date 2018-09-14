@@ -277,7 +277,7 @@ div.help-modal > .help-content > img{
 }
 
 .profile-btn-placement{
-    position: fixed;
+    position: absolute;
     width: 100%;
     bottom: 0;
     left: 0;

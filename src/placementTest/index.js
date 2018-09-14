@@ -292,7 +292,7 @@ export default class PlacementModal extends React.Component {
 
     render() {
         return (
-            <div className="placement">
+            <div className="placement" style={{position: 'relative'}}>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
