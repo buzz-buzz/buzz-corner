@@ -33,7 +33,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = 'buzzbuzzenglish-static/css/[name].[contenthash:8].css';
+const cssFilename = 'buzzbuzzenglish-static/css/[name].[chunkhash:8].css';
 
 // ExtractTextPlugin expects the build output to be flat.
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
