@@ -2,12 +2,55 @@ var replace = require('gulp-replace');
 var gulp = require('gulp');
 var pkg = require('./package.json');
 
+// var fs = require('fs');
+// var path = require('path');
+// var qiniu = require('qiniu');
+// const config_qiniu = {
+//     ACCESS_KEY: process.env.buzz_qiniu_access_key,
+//     SECRET_KEY: process.env.buzz_qiniu_secret_key,
+//     bucket: 'buzz-corner-user-resource',
+//     url: {
+//         upload_url: 'https://upload.qiniup.com/',
+//         resources_url: 'https://buzz-corner.user.resource.buzzbuzzenglish.com/',
+//     },
+// }
+// gulp.task('upload', async () => {
+//   const mac = new qiniu.auth.digest.Mac(config_qiniu.ACCESS_KEY, config_qiniu.SECRET_KEY)
+//   const putPolicy = new qiniu.rs.PutPolicy({
+//       scope: config_qiniu.bucket,
+//   })
+//
+//   const config = new qiniu.conf.Config()
+//   // 空间对应的机房
+//   config.zone = qiniu.zone.Zone_z0
+//   // 是否使用https域名
+//   config.useHttpsDomain = true
+//   // 上传是否使用cdn加速
+//   config.useCdnDomain = true
+//
+//   const formUploader = new qiniu.form_up.FormUploader(config)
+//   const putExtra = new qiniu.form_up.PutExtra()
+//   const uploadToken = putPolicy.uploadToken(mac)
+//   console.log(fs.readdirSync(path.join(__dirname, 'build', 'static')))
+//   // formUploader.putFile(uploadToken, key, localFile, putExtra, function(respErr,
+//   // respBody, respInfo) {
+//   //   if (respErr) {
+//   //     throw respErr;
+//   //   }
+//   //   if (respInfo.statusCode === 200) {
+//   //     console.log(respBody);
+//   //   } else {
+//   //     console.log(respInfo.statusCode);
+//   //     console.log(respBody);
+//   //   }
+//   // });
+// });
+
 gulp.task('cdn', function () {
     let cdnifiedUrl = '//cdn-corner.buzzbuzzenglish.com/static/';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner-test.buzzbuzzenglish.com/static/';
+        cdnifiedUrl = '//cdn-corner-test.buzzbuzzenglish.com/corner-test/static/';
     }
-
     return gulp.src(['build/index.html'])
         .pipe(replace(/"\/static\//g, `"${cdnifiedUrl}`))
         .pipe(gulp.dest('build/'));
