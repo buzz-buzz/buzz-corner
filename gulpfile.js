@@ -47,6 +47,9 @@ gulp.task('upload-cdn', async cb => {
           console.log(key)
           console.log(respBody)
           resolve(respBody)
+        } else if(respInfo.statusCode === 614) {
+          console.log(key, '已存在');
+          console.log(respBody);
         } else {
           console.log(respInfo.statusCode);
           console.log(respBody);
