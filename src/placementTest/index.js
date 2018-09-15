@@ -8,6 +8,7 @@ import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import ButtonBottom from '../common/commonComponent/submitButtonBottom';
 import WhiteSpace from '../common/commonComponent/whiteSpace';
 import Progress from './placementProgress/progress';
+import WeappDone from './weappDone';
 import PlacementQuestion from './placementQuestion';
 import MessageModal from '../common/commonComponent/modalMessage';
 import {Placement} from "../common/systemData/placementData";
@@ -32,7 +33,8 @@ export default class PlacementModal extends React.Component {
             audioQuestionLength: 0,
             errorMessage: Resources.getInstance().errorUpload,
             chats: [],
-            recording: false
+            recording: false,
+            weapp: props.location.query.weapp
         };
 
         this.saveAnswer = this.saveAnswer.bind(this);
@@ -47,7 +49,7 @@ export default class PlacementModal extends React.Component {
         if (this.state.step === 1) {
             if (this.props.location.query && this.props.location.query.tab && this.props.location.query.tab === 'message') {
                 browserHistory.push('/home?tab=message');
-            } else {
+            } else if(!this.state.weapp){
                 Back.back();
             }
         } else if (this.state.step <= 6) {
@@ -56,7 +58,9 @@ export default class PlacementModal extends React.Component {
                 step: newStep
             });
         } else if (this.state.step === 7) {
-            this.goHomePage();
+            if(!this.state.weapp){
+                this.goHomePage();
+            }
         }
     }
 
@@ -106,14 +110,31 @@ export default class PlacementModal extends React.Component {
         try {
             Track.event('测试_题' + this.state.step + '页面');
 
-            let profile = await CurrentUser.getProfile();
+            if (this.state.weapp) {
+                //perfect login
+                let user = await ServiceProxy.proxyTo({
+                    body: {
+                        uri: `{config.endPoints.buzzService}/api/v1/users/signInWithWechatMobile`,
+                        json: JSON.parse(window.atob(this.state.weapp)),
+                        method: 'POST'
+                    }
+                });
 
-            this.setState({
-                userId: profile.user_id,
-                avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
-            });
+                this.setState({
+                    userId: user.user_id,
+                    avatar: user.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                });
+            } else {
+                let profile = await CurrentUser.getProfile();
+
+                this.setState({
+                    userId: profile.user_id,
+                    avatar: profile.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'
+                });
+            }
         }
         catch (ex) {
+            alert(ex);
             ErrorHandler.notify('Placement发生错误', ex);
 
             console.log(ex.toString());
@@ -195,7 +216,7 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    savePlacement(){
+    savePlacement() {
         let placementTestData = {
             user_id: this.state.userId,
             detail: JSON.stringify({
@@ -222,14 +243,22 @@ export default class PlacementModal extends React.Component {
         }
     }
 
-    async skip(){
-        try{
+    async skip() {
+        try {
             this.savePlacement();
         }
-        catch(ex){
+        catch (ex) {
             ErrorHandler.notify('保存placement-skip出错：', ex);
         }
-        this.goHomePage();
+        finally {
+            if(this.state.weapp){
+                this.setState({
+                    step: 7
+                });
+            }else{
+                this.goHomePage();
+            }
+        }
     }
 
     async submit() {
@@ -269,15 +298,15 @@ export default class PlacementModal extends React.Component {
 
     render() {
         return (
-            <div className="placement">
+            <div className="placement" style={{position: 'relative'}}>
                 <LoadingModal loadingModal={this.state.loadingModal}/>
                 <MessageModal modalName={this.state.messageName} modalContent={this.state.messageContent}
                               modalShow={this.state.messageModal}/>
                 {
                     (this.state.step === 5 || this.state.step === 6) ?
-                    <HeaderWithBack goBack={this.goBack} rightTitle="跳过" rightClick={this.skip} />
+                        <HeaderWithBack goBack={this.goBack} rightTitle="跳过" rightClick={this.skip}/>
                         :
-                    <HeaderWithBack goBack={this.goBack}/>
+                        <HeaderWithBack goBack={this.goBack}/>
                 }
                 {
                     this.state.step <= 6 &&
@@ -285,13 +314,16 @@ export default class PlacementModal extends React.Component {
                 }
                 {
                     this.state.step === 7 &&
-                    <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
-                                src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Language_profile.svg"
-                                width="50%"
-                                style={{background: 'white'}}
-                    />
+                    (this.state.weapp ? <WeappDone/>
+                        :
+                        <WhiteSpace message="非常感谢完成了语言档案的建立, 根据语言档案我们会提供更合适学员的学习计划。"
+                                    src="//cdn-corner.resource.buzzbuzzenglish.com/placement/icon_Language_profile.svg"
+                                    width="50%"
+                                    style={{background: 'white'}}
+                        />)
                 }
-                <div className='placement-body' style={this.state.step <= 4 ? {background: '#f4f5f9'} : {background: 'white'}}>
+                <div className='placement-body'
+                     style={this.state.step <= 4 ? {background: '#f4f5f9'} : {background: 'white'}}>
                     {
                         this.state.step <= 6 &&
                         <PlacementQuestion step={this.state.step} questions={this.state.questions}
@@ -303,14 +335,20 @@ export default class PlacementModal extends React.Component {
                         />
                     }
                 </div>
-                <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
-                <div className="profile-btn-placement">
-                    <ButtonBottom
-                        disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
-                            : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
-                        text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
-                        submit={this.submit}/>
-                </div>
+                {
+                    this.state.step !== 7 &&
+                    <div className="offset-bottom" style={this.state.step >= 5 ? {height: '100px'} : {height: '50px'}}></div>
+                }
+                {
+                    !(this.state.weapp && this.state.step === 7) ?
+                        <div className="profile-btn-placement">
+                            <ButtonBottom
+                                disabled={ this.state.step === 4 ? !(this.state.answers[3] && this.state.answers[3].length === 2)
+                                    : ( this.state.step === 7 ? false : !this.state.answers[this.state.step - 1])}
+                                text={this.state.step <= 6 ? Resources.getInstance().profileContinue : Resources.getInstance().welcomePageBooking}
+                                submit={this.submit}/>
+                        </div> : ''
+                }
             </div>
         );
     }

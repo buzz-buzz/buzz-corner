@@ -14,14 +14,14 @@ export default (props) => <div>
                             agreementCheck={props.agreementCheck}
                             agreement={props.agreement}
                             mobileCountry={props.mobileCountry}
-                            send={props.send}
+                            send={props.send} withPhone={props.withPhone}
                             onCountryCodeChange={props.onCountryCodeChange}/>
     }
     {
         props.role === MemberType.Companion &&
         <ContactInfoCompanion profile={props.profile}
                               handleChange={props.handleChange}
-                              code={props.code}
+                              code={props.code} withPhone={props.withPhone}
                               handleCodeChange={props.handleCodeChange}
                               waitSec={props.waitSec}
                               mobileValid={props.mobileValid} sms={props.sms}

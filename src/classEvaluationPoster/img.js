@@ -8,7 +8,7 @@ import {GradeData} from "../common/systemData/gradeData";
 import Track from "../common/track";
 import './img.css';
 
-const grade_list = GradeData.grade_list;
+const grade_list = GradeData.grade_list_show;
 
 class classEvaluationPoster extends Component {
     constructor(props) {
@@ -110,52 +110,40 @@ class classEvaluationPoster extends Component {
                     <div className="letter">
                         <img src="//cdn-corner.resource.buzzbuzzenglish.com/letter.png" alt="" className="letter"/>
                         <div className="info">
-                            {
-                                this.state.user_from_feedback &&
-                                <div className="user-info">
-                                    <div className="u-avatar" style={{marginRight: '15px'}}>
-                                        <img src={this.state.user_from.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
+                            <div className="user-info">
+                                <div className="u-avatar" style={{marginRight: '15px'}}>
+                                    <img src={this.state.user_from.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
+                                </div>
+                                <div className="u-info">
+                                    <div className="country">
+                                        <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
+                                        <Flag name={this.state.user_from.country ? this.state.user_from.country.toLowerCase() : 'united states'}/>
                                     </div>
-                                    <div className="u-info">
-                                        <div className="country">
-                                            <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                            <Flag name={this.state.user_from.country ? this.state.user_from.country.toLowerCase() : 'united states'}/>
-                                        </div>
-                                        <div className="grade">
-                                            {this.state.user_from.country} {this.state.user_from.grade ? grade_list[parseInt(this.state.user_from.grade, 10) - 1].text : grade_list[0].text}
-                                        </div>
+                                    <div className="grade">
+                                        {this.state.user_from.country} {this.state.user_from.grade ? grade_list[parseInt(this.state.user_from.grade, 10) - 1].text : grade_list[0].text}
                                     </div>
                                 </div>
-                            }
-                            {
-                                this.state.user_from_feedback &&
-                                <div className="feedback-word" style={{marginBottom: '30px'}}>
-                                    {this.state.user_from_feedback}
-                                </div>
-                            }
-                            {
-                                this.state.user_to_feedback &&
-                                <div className="user-info" style={{justifyContent: 'flex-end'}}>
-                                    <div className="u-info">
-                                        <div className="country">
-                                            <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
-                                            <Flag name={this.state.user_to.country ? this.state.user_to.country.toLowerCase() : 'china'}/>
-                                        </div>
-                                        <div className="grade">
-                                            {this.state.user_to.country} {this.state.user_to.grade ? grade_list[parseInt(this.state.user_to.grade, 10) - 1].text : grade_list[0].text}
-                                        </div>
+                            </div>
+                            <div className="feedback-word" style={{marginBottom: '30px'}}>
+                                {this.state.user_from_feedback || `我很喜欢与“${this.state.user_from.name || 'Eathan'}”一起学习“${this.state.class_info.topic || 'Eating'}”。`}
+                            </div>
+                            <div className="user-info" style={{justifyContent: 'flex-end'}}>
+                                <div className="u-info">
+                                    <div className="country">
+                                        <span>{'BuzzBuzz'}</span>&nbsp;&nbsp;
+                                        <Flag name={this.state.user_to.country ? this.state.user_to.country.toLowerCase() : 'china'}/>
                                     </div>
-                                    <div className="u-avatar"  style={{marginLeft: '15px'}}>
-                                        <img src={this.state.user_to.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
+                                    <div className="grade">
+                                        {this.state.user_to.country} {this.state.user_to.grade ? grade_list[parseInt(this.state.user_to.grade, 10) - 1].text : grade_list[0].text}
                                     </div>
                                 </div>
-                            }
-                            {
-                                this.state.user_to_feedback &&
-                                <div className="feedback-word">
-                                    {this.state.user_to_feedback}
+                                <div className="u-avatar"  style={{marginLeft: '15px'}}>
+                                    <img src={this.state.user_to.avatar || '//cdn-corner.resource.buzzbuzzenglish.com/logo-image.svg'} alt=""/>
                                 </div>
-                            }
+                            </div>
+                            <div className="feedback-word">
+                                {this.state.user_to_feedback || '通过这次主题让我更加喜欢与你一起学习，希望我能帮助你提供英语，我们下次再见。'}
+                            </div>
                         </div>
                     </div>
                 </div>

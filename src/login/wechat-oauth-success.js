@@ -368,7 +368,7 @@ export default class WechatOAuthSuccess extends React.Component {
                             <PhoneNumber profile={{phone: this.state.phone}} handleChange={this.handleContactChange}
                                          code={this.state.code} handleCodeChange={this.handleCodeChange}
                                          waitSec={this.state.waitSec} mobileValid={this.state.mobileValid}
-                                         sms={this.sms} send={this.state.send}
+                                         sms={this.sms} send={this.state.send} style={{background: '#f4f5f9', borderColor: 'transparent'}}
                                          mobileCountry={this.state.mobileCountry}
                                          onCountryCodeChange={this.onCountryCodeChange}/>
                             <div className="profile-btn">
@@ -420,9 +420,9 @@ export default class WechatOAuthSuccess extends React.Component {
         }
     }
 
-    onCountryCodeChange = (event, data) => {
-        this.setState({mobileCountry: data.value})
-    };
+    onCountryCodeChange(event, data){
+        this.setState({mobileCountry: data.value});
+    }
 
     async wechatLoginUpdateMobile(data) {
         if (!data || !data.mobile || !data.token) {

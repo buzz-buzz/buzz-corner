@@ -281,12 +281,13 @@ div.help-modal > .help-content > img{
     width: 100%;
     bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 50;
 }
 
 .offset-bottom{
     flex: 0 0 auto;
     width: 100%;
+    background: rgb(244, 245, 249);
 }
 
 .placement{
@@ -327,4 +328,17 @@ div.help-modal > .help-content > img{
     -moz-transform:rotate(45deg); 	/* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
     -o-transform:rotate(45deg);
+}
+
+@media only screen and (device-width: 375px) and (device-height: 812px) and
+(-webkit-device-pixel-ratio: 3) {
+   .placement{
+       padding-bottom: 34px !important;
+   }
+   .profile-btn-placement{
+        bottom: 34px !important;
+   }
+   .offset-bottom{
+       height: 84px;
+   }
 }

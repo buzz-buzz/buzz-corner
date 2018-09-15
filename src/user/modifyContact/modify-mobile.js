@@ -1,25 +1,7 @@
 import React from 'react';
 import Resources from "../../resources";
 import Button50px from '../../common/commonComponent/submitButton50px';
-import {Dropdown} from "semantic-ui-react";
-import {iso3166_data} from 'phone';
-
-const countryList = iso3166_data.map(i => ({
-    mobileLength: i.phone_number_lengths,
-    mobileBeginWith: i.mobile_begin_with,
-    countryName: i.country_name,
-    countryLongName: i.alpha3,
-    countryShortName: i.alpha2,
-    countryCode: i.country_code
-}));
-
-const countryOptions = countryList.map(c => ({
-    key: c.countryLongName,
-    value: c.countryLongName,
-    flag: c.countryShortName.toLowerCase(),
-    text: `(+${c.countryCode}) ${c.countryName}`
-})).filter(item=>{return item.flag !== 'sx';});
-
+import Mobile from '../../common/commonComponent/mobileCountryCode';
 
 export default (props) => (<div className="form-content" onClick={(e) => {
     e.stopPropagation();
@@ -27,16 +9,8 @@ export default (props) => (<div className="form-content" onClick={(e) => {
     <div className="form-title">{props.title || Resources.getInstance().userUpdatephone}</div>
 
     <div className="two-items">
-        <Dropdown placeholder={Resources.getInstance().selectCountryCode}
-                  search selection options={countryOptions}
-                  style={{
-                      width: '100px', marginRight: '5px', minWidth: '120px', whiteSpace: 'nowrap',
-                      display: 'flex', alignItems: 'center', borderRadius: '5px', paddingLeft: '15px',
-                      background: 'rgb(244, 245, 249)'
-                  }}
-                  value={props.mobileCountry}
-                  onChange={props.onCountryCodeChange}/>
-
+        <Mobile value={props.mobileCountry} style={{background: '#f4f5f9', borderColor: 'transparent', color: '#666'}}
+                styleParent={{marginBottom: '10px'}} onCountryCodeChange={props.onCountryCodeChange} />
         <input className="full-input" type="text"
                placeholder={Resources.getInstance().profilePhoneHolder}
                value={props.new_phone || ''}

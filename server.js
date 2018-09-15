@@ -38,6 +38,9 @@ router
       const v = Buffer.from(ctx.params.url, 'base64').toString('ascii')
        ctx.redirect(_.includes(v, '?') ? v + '&' + ctx.querystring : v + '?' + ctx.querystring)
     })
+    .get('/file-text', ctx => {
+        ctx.body = 'c3d21b070a9a69097729494dc1065841';
+    })
     .get('/healthcheck', async ctx => {
         ctx.body = {
             'everything': ' is ok',
@@ -169,7 +172,7 @@ router
         }
     })
     .get('/sign-out', membership.signOut, async ctx => {
-        ctx.redirect(`/login`);
+        ctx.redirect(`/home`);
     })
     .get('/sign-out-no-redirect', membership.signOut, async ctx => {
         ctx.body = {message: 'signed out'};

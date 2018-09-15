@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
 import {Provider} from 'react-redux';
@@ -40,4 +40,4 @@ ReactDOM.render(<ErrorBoundary>
         </Provider>
     </ErrorBoundary>
     , document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();

@@ -5,6 +5,7 @@ import Resources from '../resources';
 import LoadingModal from '../common/commonComponent/loadingModal';
 import HeaderWithBack from '../common/commonComponent/headerWithBack';
 import './index.css';
+import {MemberType} from "../membership/member-type";
 import Button50px from '../common/commonComponent/submitButtonBottom';
 import EvaluationStatusHelper from '../common/evaluationStatusHelper';
 import ErrorHandler from '../common/error-handler';
@@ -57,7 +58,11 @@ class classEvaluationResult extends Component {
     }
 
     back() {
-        Back.back();
+        if(this.props.location.query && this.props.location.query.class_id){
+            browserHistory.push('/class/' + this.state.class_id);
+        }else{
+            Back.back();
+        }
     }
 
     getScore(arr) {
@@ -262,7 +267,8 @@ class classEvaluationResult extends Component {
                 types: types,
                 sortNum: (sortResult.filter(function (item) {
                     return item.score > argScore;
-                })).length + 1
+                })).length + 1,
+                role: profile.role
             });
 
             if (this.state.msg_id && this.state.msg_id !== 'undefined' && this.state.msg_id !== 'null') {
@@ -359,13 +365,13 @@ class classEvaluationResult extends Component {
                             </div>
                         }
                     </div>
-                    <div className="evaluation-submit" style={this.state.posterModal ? {display: 'none'} : {}}>
+                    <div className="evaluation-submit" style={this.state.posterModal && this.state.role === MemberType.Companion ? {display: 'none'} : {}}>
                         <Button50px text={Resources.getInstance().createPostersOfAchievement}
                                     submit={this.createPostersOfAchievement}/>
                     </div>
                     <LoadingModal loadingModal={this.state.loadingModal}/>
                 </div>
-                <div className="modal" style={this.state.posterModal ? {display: 'flex'} : {display: 'none'}}
+                <div className="modal" style={this.state.posterModal && this.state.role === MemberType.Companion ? {display: 'flex'} : {display: 'none'}}
                      onClick={this.closePosterModal}>
                     <div className="content">
                         <div>
