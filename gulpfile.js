@@ -55,13 +55,13 @@ var qiniuOptions = {
   bucket: 'buzz-corner-resource',//七牛对应空间
   upload: {
     dir: './build/buzzbuzzenglish-static',//上传本地目录
-    prefix: process.env.NODE_ENV === 'qa' ? 'corner-test/' : 'corner/', //'test/',//上传时添加的前缀，可省略
+    prefix: process.env.NODE_ENV === 'qa' ? 'corner-dev/' : 'corner-prod/', //'test/',//上传时添加的前缀，可省略
     except: /\.(map)$/ //   /\.(html|js)$/ 上传时不上传文件的正则匹配
   },
   remote: {
     url: 'https://cdn-corner.resource.buzzbuzzenglish.com',//七牛空间域名
     prefix: {
-      default: process.env.NODE_ENV === 'qa' ? 'corner-test/' : 'corner/',//七牛空间默认前缀，如果下面三个相同可省略
+      default: process.env.NODE_ENV === 'qa' ? 'corner-dev/' : 'corner-prod/',//七牛空间默认前缀，如果下面三个相同可省略
       // remove: 'test/',//七牛空间删除前缀
       // prefetch: 'test/',//七牛空间预取前缀
       // refresh: 'test/'//七牛空间刷新前缀
@@ -77,9 +77,9 @@ gulp.task('upload-cdn', function (cb) {
 })
 
 gulp.task('replace-cdn', function () {
-    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/buzzbuzzenglish-static/';
+    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-prod/build/buzzbuzzenglish-static/';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/buzzbuzzenglish-static/';
+        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-dev/build/buzzbuzzenglish-static/';
     }
     return gulp.src('build/**/*.*')
         .pipe(replace(/\/buzzbuzzenglish-static\//g,`${cdnifiedUrl}`))
