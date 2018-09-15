@@ -77,13 +77,13 @@ gulp.task('upload-cdn', function (cb) {
 })
 
 gulp.task('replace-cdn', function () {
-    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/buzzbuzzenglish-static';
+    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/buzzbuzzenglish-static/';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/buzzbuzzenglish-static';
+        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/buzzbuzzenglish-static/';
     }
     return gulp.src('build/**/*.*')
-        .pipe(replace('buzzbuzzenglish-static',`"${cdnifiedUrl}`))
-        .pipe(gulp.dest('build/'));
+        .pipe(replace('/buzzbuzzenglish-static/',`"${cdnifiedUrl}`))
+        .pipe(gulp.dest('fuck/'));
 });
 
 gulp.task('cdn', gulp.series('upload-cdn', 'replace-cdn'));
