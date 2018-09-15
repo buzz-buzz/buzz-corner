@@ -70,6 +70,7 @@ class UserUpdate extends Component {
         this.handleContactChange = this.handleContactChange.bind(this);
         this.gotoModifyMobile = this.gotoModifyMobile.bind(this);
         this.closeMobileChangeConfirmationModal = this.closeMobileChangeConfirmationModal.bind(this);
+        this.onCountryCodeChange = this.onCountryCodeChange.bind(this);
     }
 
     back() {
@@ -766,9 +767,9 @@ class UserUpdate extends Component {
         }
     };
 
-    onCountryCodeChange = (event, data) => {
-        this.setState({mobileCountry: data.value})
-    };
+    onCountryCodeChange(event, data){
+        this.setState({mobileCountry: data.value});
+    }
 }
 
 export default UserUpdate;

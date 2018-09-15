@@ -357,9 +357,9 @@ export default class WechatOAuthSuccess extends React.Component {
         }
     }
 
-    onCountryCodeChange = (event, data) => {
-        this.setState({mobileCountry: data.value})
-    };
+    onCountryCodeChange(event, data){
+        this.setState({mobileCountry: data.value});
+    }
 
     async facebookLoginUpdateMobile(data) {
         if (!data || !data.mobile || !data.token) {

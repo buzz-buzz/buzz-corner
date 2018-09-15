@@ -57,10 +57,12 @@ class Login extends Component {
         this.facebookLogin = this.facebookLogin.bind(this);
         this.wechatLogin = this.wechatLogin.bind(this);
         this.facebookLoginFail = this.facebookLoginFail.bind(this);
+        this.onCountryCodeChange = this.onCountryCodeChange.bind(this);
     }
 
-    onCountryCodeChange = (event, data) =>
+    onCountryCodeChange(event, data){
         this.setState({mobileCountry: data.value});
+    }
 
     handleChange(event) {
         let clonedProfile = Object.assign({}, this.state.profile);

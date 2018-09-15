@@ -15,7 +15,7 @@ export default (props) =>
             <PhoneNumber profile={props.profile} handleChange={props.handleChange}
                          code={props.code} handleCodeChange={props.handleCodeChange}
                          waitSec={props.waitSec} mobileValid={props.mobileValid}
-                         sms={props.sms} send={props.send}
+                         sms={props.sms} send={props.send} style={{background: '#f4f5f9', borderColor: 'transparent'}}
                          onCountryCodeChange={props.onCountryCodeChange}
                          mobileCountry={props.mobileCountry}/>
         }

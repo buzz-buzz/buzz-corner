@@ -77,6 +77,7 @@ class My extends Component {
         this.signOut = this.signOut.bind(this);
         this.closePopModal = this.closePopModal.bind(this);
         this.openPopModal = this.openPopModal.bind(this);
+        this.onCountryCodeChange = this.onCountryCodeChange.bind(this);
     }
 
     signOut() {
@@ -680,9 +681,9 @@ class My extends Component {
         return !this.state.withPhone ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code || !this.state.send : !this.state.profile.parent_name;
     }
 
-    onCountryCodeChange = (event, data) =>
-        this.setState({mobileCountry: data.value})
-
+    onCountryCodeChange(event, data){
+        this.setState({mobileCountry: data.value});
+    }
 }
 
 export default My;

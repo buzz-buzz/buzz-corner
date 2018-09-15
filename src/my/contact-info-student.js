@@ -16,7 +16,7 @@ export default (props) => (<div className="form-content">
                      code={props.code} handleCodeChange={props.handleCodeChange}
                      waitSec={props.waitSec} mobileValid={props.mobileValid}
                      sms={props.sms} send={props.send}
-                     mobileCountry={props.mobileCountry}
+                     mobileCountry={props.mobileCountry} style={{background: '#f4f5f9', borderColor: 'transparent'}}
                      onCountryCodeChange={props.onCountryCodeChange}/>
     }
 </div>)

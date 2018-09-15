@@ -1,0 +1,84 @@
+.mobile-country {
+  height: 50px !important;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px; }
+  .mobile-country .show-value {
+    min-width: 120px;
+    padding-left: 15px;
+    height: 50px;
+    text-align: left;
+    line-height: 50px;
+    background: white;
+    border: 1px solid #dfdfe4;
+    border-radius: 10px;
+    color: #000;
+    font-size: 14px; }
+  .mobile-country .pop-mobile-country {
+    position: fixed;
+    z-index: 500;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.3); }
+    .mobile-country .pop-mobile-country .grey {
+      height: 100px;
+      background: rgba(0, 0, 0, 0.3); }
+    .mobile-country .pop-mobile-country .select-model {
+      height: calc(100% - 100px);
+      background: white;
+      width: 100%;
+      padding: 20px 21px; }
+      .mobile-country .pop-mobile-country .select-model .mobile-info {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px; }
+        .mobile-country .pop-mobile-country .select-model .mobile-info .title {
+          font-size: 18px;
+          font-weight: 600;
+          color: #000;
+          position: relative;
+          z-index: 2; }
+          .mobile-country .pop-mobile-country .select-model .mobile-info .title .shadow {
+            position: absolute;
+            height: 100%;
+            width: calc(100% + 21px);
+            left: -21px;
+            top: 0;
+            background: #f4f5f9;
+            z-index: -1; }
+        .mobile-country .pop-mobile-country .select-model .mobile-info .btn button {
+          width: 70px;
+          height: 30px;
+          line-height: 30px;
+          border-radius: 5px;
+          background: #ffd200;
+          font-size: 14px;
+          color: white;
+          border: none;
+          outline: none; }
+      .mobile-country .pop-mobile-country .select-model .mobile-list {
+        height: calc(100% - 40px);
+        width: 100%;
+        overflow: auto; }
+        .mobile-country .pop-mobile-country .select-model .mobile-list .item {
+          height: 30px;
+          line-height: 30px;
+          padding: 0 14px;
+          font-size: 14px;
+          color: #666;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between; }
+          .mobile-country .pop-mobile-country .select-model .mobile-list .item div {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: inline-block;
+            max-width: 80%; }
+        .mobile-country .pop-mobile-country .select-model .mobile-list .active {
+          color: white;
+          background: #ffd200; }
