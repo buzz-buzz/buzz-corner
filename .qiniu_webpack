@@ -1,8 +1,0 @@
-module.exports = {
-  accessKey: process.env.buzz_qiniu_access_key, // required
-  secretKey: process.env.buzz_qiniu_secret_key, // required
-  bucket: 'buzz-corner-resource', // required
-  bucketDomain: 'https://cdn-corner.resource.buzzbuzzenglish.com', // required
-  uploadPath: process.env.NODE_ENV === 'qa' ? '/corner-test' : '/corner',
-  batch: 10
-}

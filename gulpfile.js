@@ -46,15 +46,47 @@ var pkg = require('./package.json');
 //   // });
 // });
 
-gulp.task('cdn', function () {
-    let cdnifiedUrl = '//cdn-corner.buzzbuzzenglish.com/static/';
+var Qiniu = require('gulp-qiniu-utils')
+
+var qiniuOptions = {
+  ak: process.env.buzz_qiniu_access_key,
+  sk: process.env.buzz_qiniu_secret_key,
+  zone: 'Zone_z0',//空间对应存储区域（华东：z0，华北：z1，华南：z2，北美：na0）
+  bucket: 'buzz-corner-resource',//七牛对应空间
+  upload: {
+    dir: './build/static',//上传本地目录
+    prefix: process.env.NODE_ENV === 'qa' ? 'corner-test/' : 'corner/', //'test/',//上传时添加的前缀，可省略
+    except: /\.(map)$/ //   /\.(html|js)$/ 上传时不上传文件的正则匹配
+  },
+  remote: {
+    url: 'https://cdn-corner.resource.buzzbuzzenglish.com',//七牛空间域名
+    prefix: {
+      default: process.env.NODE_ENV === 'qa' ? 'corner-test/' : 'corner/',//七牛空间默认前缀，如果下面三个相同可省略
+      // remove: 'test/',//七牛空间删除前缀
+      // prefetch: 'test/',//七牛空间预取前缀
+      // refresh: 'test/'//七牛空间刷新前缀
+    }
+  }
+}
+
+gulp.task('upload-cdn', function (cb) {
+  var qiniu = new Qiniu(qiniuOptions)
+  qiniu.upload()
+  .then(files=>console.log(files))
+    .then(r => cb())
+})
+
+gulp.task('replace-cdn', function () {
+    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/static/';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner-test.buzzbuzzenglish.com/corner-test/static/';
+        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/static/';
     }
     return gulp.src(['build/index.html'])
         .pipe(replace(/"\/static\//g, `"${cdnifiedUrl}`))
         .pipe(gulp.dest('build/'));
 });
+
+gulp.task('cdn', gulp.series('upload-cdn', 'replace-cdn'));
 
 gulp.task('track', function () {
     const url = `https://jic.talkingdata.com/app/h5/v1?appid=9E0813F899A5460D953190DF02F25381&vn=${pkg.name}_${process.env.NODE_ENV}&vc=${pkg.version}`;
