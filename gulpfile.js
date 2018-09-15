@@ -54,7 +54,7 @@ var qiniuOptions = {
   zone: 'Zone_z0',//空间对应存储区域（华东：z0，华北：z1，华南：z2，北美：na0）
   bucket: 'buzz-corner-resource',//七牛对应空间
   upload: {
-    dir: './build/static',//上传本地目录
+    dir: './build/buzzbuzzenglish-static',//上传本地目录
     prefix: process.env.NODE_ENV === 'qa' ? 'corner-test/' : 'corner/', //'test/',//上传时添加的前缀，可省略
     except: /\.(map)$/ //   /\.(html|js)$/ 上传时不上传文件的正则匹配
   },
@@ -77,12 +77,12 @@ gulp.task('upload-cdn', function (cb) {
 })
 
 gulp.task('replace-cdn', function () {
-    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/static/';
+    let cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner/build/buzzbuzzenglish-static';
     if (process.env.NODE_ENV === 'qa') {
-        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/static/';
+        cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/buzzbuzzenglish-static';
     }
-    return gulp.src(['build/index.html'])
-        .pipe(replace(/"\/static\//g, `"${cdnifiedUrl}`))
+    return gulp.src('build/**/*.*')
+        .pipe(replace('buzzbuzzenglish-static',`"${cdnifiedUrl}`))
         .pipe(gulp.dest('build/'));
 });
 
