@@ -82,7 +82,7 @@ gulp.task('replace-cdn', function () {
         cdnifiedUrl = '//cdn-corner.resource.buzzbuzzenglish.com/corner-test/build/buzzbuzzenglish-static/';
     }
     return gulp.src('build/**/*.*')
-        .pipe(replace(/\/buzzbuzzenglish-static\//g,`"${cdnifiedUrl}`))
+        .pipe(replace(/\/buzzbuzzenglish-static\//g,`${cdnifiedUrl}`))
         .pipe(gulp.dest('build/'));
 });
 
