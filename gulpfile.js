@@ -86,7 +86,7 @@ gulp.task('replace-cdn', function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('cdn', gulp.series('upload-cdn', 'replace-cdn'));
+gulp.task('cdn', gulp.series('replace-cdn', 'upload-cdn'));
 
 gulp.task('track', function () {
     const url = `https://jic.talkingdata.com/app/h5/v1?appid=9E0813F899A5460D953190DF02F25381&vn=${pkg.name}_${process.env.NODE_ENV}&vc=${pkg.version}`;
