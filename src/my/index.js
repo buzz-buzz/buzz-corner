@@ -357,7 +357,7 @@ class My extends Component {
             event.stopPropagation();
 
             if (this.state.step === 1) {
-                if (this.state.profile.role === MemberType.Student) {
+                if (this.state.profile.role === MemberType.Student && !this.state.withPhone) {
                     Track.event('注册_联系方式继续-中方');
 
                     try {
@@ -379,7 +379,7 @@ class My extends Component {
                     }
                 }
 
-                if (this.state.profile.role === MemberType.Companion) {
+                if (this.state.profile.role === MemberType.Companion  && !this.state.withPhone) {
                     Track.event('注册_联系方式继续-外籍');
 
                     try {
@@ -524,7 +524,6 @@ class My extends Component {
             this.setState({
                 profile: profile,
                 userId: profile.user_id,
-                step: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed ? 2 : 1,
                 withPhone: profile.phone && profile.phone.length && profile.phone.length >= 5 && profile.mobile_confirmed,
                 mobileValid: profile && profile.phone && profile.phone.length > 0,
                 emailValid: profile && profile.email && this.state.email_reg.test(profile.email) &&
@@ -606,6 +605,7 @@ class My extends Component {
                                           mobileCountry={this.state.mobileCountry}
                                           onCountryCodeChange={this.onCountryCodeChange}
                                           send={this.state.send}
+                                          withPhone={this.state.withPhone}
                         />
                     }
                     {
@@ -673,11 +673,11 @@ class My extends Component {
     }
 
     companionContactInformationFormIsInvalid() {
-        return !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone || !this.state.send;
+        return !this.state.withPhone ? !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) || !this.state.agreement || !this.state.code || !this.state.profile.phone || !this.state.send :  !this.state.profile.student_en_name || !this.state.email_reg.test(this.state.profile.email) ;
     }
 
     studentContactInformationFormIsInvalid() {
-        return !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code || !this.state.send;
+        return !this.state.withPhone ? !this.state.profile.phone || this.state.profile.phone.length !== 11 || !this.state.profile.parent_name || !this.state.agreement || !this.state.code || !this.state.send : !this.state.profile.parent_name;
     }
 
     onCountryCodeChange = (event, data) =>
