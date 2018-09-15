@@ -10,10 +10,13 @@ export default (props) => (<div className="form-content">
                onChange={props.handleChange}
                name='parent_name'
     />
-    <PhoneNumber profile={props.profile} handleChange={props.handleChange}
-                 code={props.code} handleCodeChange={props.handleCodeChange}
-                 waitSec={props.waitSec} mobileValid={props.mobileValid}
-                 sms={props.sms} send={props.send}
-                 mobileCountry={props.mobileCountry}
-                 onCountryCodeChange={props.onCountryCodeChange}/>
+    {
+        !props.withPhone &&
+        <PhoneNumber profile={props.profile} handleChange={props.handleChange}
+                     code={props.code} handleCodeChange={props.handleCodeChange}
+                     waitSec={props.waitSec} mobileValid={props.mobileValid}
+                     sms={props.sms} send={props.send}
+                     mobileCountry={props.mobileCountry}
+                     onCountryCodeChange={props.onCountryCodeChange}/>
+    }
 </div>)
